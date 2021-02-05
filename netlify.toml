@@ -25,7 +25,7 @@
     HUGO_ENABLEGITINFO = "true"
 
 [[plugins]]
-    package = "plugins/netlify-plugin-hugo-cache-resources"
+    package = "netlify-plugin-hugo-cache-resources"
 
     [plugin.inputs]
         debug = true
