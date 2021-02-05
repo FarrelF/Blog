@@ -1,0 +1,8 @@
+<details class="info">
+{{ if (.Get "text") }}
+<summary>
+{{ with .Get "text" }}{{ . | markdownify }}{{ else }}&nbsp;{{ end }}
+</summary>
+{{ end }}
+{{ .Inner | markdownify }}
+</details>

@@ -1,0 +1,43 @@
+{{- if and (or (.Site.Params.StaticallyCDN) (eq .Site.Params.CDN.Provider "statically")) (ne hugo.Environment "development") -}}
+<link rel="preconnect" href="//cdn.statically.io" crossorigin>
+<link rel="dns-prefetch" href="//cdn.statically.io">
+{{- end -}}
+
+<link rel="preconnect" href="//cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+<style>
+:root {
+    --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
+    --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    --body-text-color: #000;
+}
+
+details.info {
+    display: block;
+    padding: 0 var(--card-padding);
+    border: 1px solid;
+}
+</style>
+{{- $Permalink := "" -}}
+{{- if ne hugo.Environment "development" -}}
+    {{- if and (eq .Site.Params.CDN.Provider "statically") (.GitInfo) (.Site.Params.Repo) -}}
+        {{- $Permalink = printf "https://cdn.statically.io/gh/%s/%s/%s" $.Site.Params.Repo.Username $.Site.Params.Repo.Name $.GitInfo.AbbreviatedHash -}}
+    {{- else if and (eq .Site.Params.CDN.Provider "jsdelivr") (.GitInfo) (.Site.Params.Repo) -}}
+        {{- $Permalink = printf "https://cdn.jsdelivr.net/gh/%s/%s@%s" $.Site.Params.Repo.Username $.Site.Params.Repo.Name $.GitInfo.Hash -}}
+    {{- else -}}
+        {{- $Permalink = "" -}}
+    {{- end -}}
+{{- else -}}
+    {{- $Permalink = "" -}}
+{{- end -}}
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "{{ $Permalink }}/fonts/Lato/font.min.css";
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>

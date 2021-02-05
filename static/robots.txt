@@ -1,0 +1,7 @@
+User-Agent: *
+
+# Menentukan Direktori dan berkas yang di blokir akses nya
+Disallow: /drafts/
+
+# Menambahkan Lokasi Sitemap
+Sitemap: https://farrel.franqois.id/sitemap.xml

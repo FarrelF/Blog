@@ -1,0 +1,6 @@
+[submodule "themes/hugo-theme-stack"]
+	path = themes/hugo-theme-stack
+	url = https://github.com/CaiJimmy/hugo-theme-stack.git
+[submodule "plugins/netlify-plugin-hugo-cache-resources"]
+	path = plugins/netlify-plugin-hugo-cache-resources
+	url = https://github.com/cdeleeuwe/netlify-plugin-hugo-cache-resources.git

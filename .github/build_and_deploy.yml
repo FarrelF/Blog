@@ -1,0 +1,89 @@
+name: Build and Deploy
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    env:
+      TZ: Asia/Jakarta
+      HUGO_ENV: production
+
+    steps:
+    - name: Checkout the Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+        submodules: 'true'
+
+    - name: Install and Set up Locales
+      run: |
+        case "$(curl -s --max-time 3 -I http://azure.archive.ubuntu.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
+          [23]) echo "The Repository HTTP Server is up"
+                if nc -zw3 azure.archive.ubuntu.com 80; then
+                  echo "The Repository Server has been connected successfully"
+                else
+                  echo "The Repository server is down, changing the Repository Server. Please wait....."
+                  sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+                  sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+                  sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
+                  sudo apt update
+                fi;;
+          *) echo "The Repository HTTP Server is down, changing the Repository Server. Please wait....."
+             sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+             sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+             sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
+             sudo apt update;;
+        esac
+        sudo apt install locales locales-all
+        sudo sed -i 's/id_ID\s.*$/id_ID id_ID.utf8/g' /usr/share/locale/locale.alias
+        sudo sed -i 's/# id_ID\.UTF-8/id_ID\.UTF-8/' /etc/locale.gen
+        sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
+        DEBIAN_FRONTEND=noninteractive sudo -E dpkg-reconfigure locales
+        sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+    
+    - name: Install and Set up Hugo Extended
+      run: |
+        echo "::set-env name=HUGO_VERSION::$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
+        pushd /tmp/
+        wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+        tarball="$(find . -name "*Linux-64bit.tar.gz" 2>/dev/null)"
+        tar -xzf $tarball
+        chmod +x hugo
+        sudo mv hugo /usr/local/bin/
+        which hugo && hugo version
+
+    - name: Building the Blog HTML
+      run: |
+        hugo --gc --minify
+        env GZIP=-9 tar cvzf files.tar.gz ./public 
+
+    - name: Upload Output File to Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: site-outputs
+        path: files.tar.gz
+        retention-days: 1
+  
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: site-outputs
+
+    - name: Decompressing Files and Set Environments
+      run: |
+        tar -xvzf files.tar.gz
+        echo "::set-env name=GIT_COMMIT_HASH::$(git log --format="%h" -n 1 ${GITHUB_SHA})"
+        echo "::set-env name=GIT_COMMIT_MESSAGE::$(git log --format="%s" -n 1 ${GITHUB_SHA})"
+        echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+    
+    - name: Deploying with Netlify
+      uses: netlify/actions/cli@master
+      with:
+        args: --dir=./public -m "GitHub Actions (${GIT_COMMIT_HASH})":" ${BRANCH_NAME} - ${GIT_COMMIT_MESSAGE}"
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKER: ${{ secrets.NETLIFY_AUTH_TOKEN }}
