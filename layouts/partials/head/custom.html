@@ -22,9 +22,9 @@ details.info {
 {{- $Permalink := "" -}}
 {{- if ne hugo.Environment "development" -}}
     {{- if and (eq .Site.Params.CDN.Provider "statically") (.Site.Params.Repo) -}}
-        {{- $Permalink = printf "https://cdn.statically.io/gh/%s/%s/%s" .Site.Params.Repo.Username .Site.Params.Repo.Name .Site.Params.Repo.AbbreviatedCommit -}}
+        {{- $Permalink = printf "https://cdn.statically.io/gh/%s/%s/%s/static" .Site.Params.Repo.Username .Site.Params.Repo.Name .Site.Params.Repo.AbbreviatedCommit -}}
     {{- else if and (eq .Site.Params.CDN.Provider "jsdelivr") (.Site.Params.Repo) -}}
-        {{- $Permalink = printf "https://cdn.jsdelivr.net/gh/%s/%s@%s" .Site.Params.Repo.Username .Site.Params.Repo.Name .Site.Params.Repo.Commit -}}
+        {{- $Permalink = printf "https://cdn.jsdelivr.net/gh/%s/%s@%s/static" .Site.Params.Repo.Username .Site.Params.Repo.Name .Site.Params.Repo.Commit -}}
     {{- else -}}
         {{- $Permalink = "" -}}
     {{- end -}}
