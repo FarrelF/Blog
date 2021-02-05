@@ -1,6 +1,6 @@
 # Farrel Franqois Blog
 [![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
-[![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE.md)
+[![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 
 _Repository_ ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya. 
 
@@ -86,7 +86,7 @@ Namun, saat ini Anda bisa berkontribusi dengan memberikan sejumlah uang/donasi k
 Rencana nya saya akan membuat artikel yang hanya bisa kalian baca/lihat setelah membayar nya disana (Trakteer), jadi kalau Anda suka atau merasa Informasi nya berguna, maka Anda bisa berlangganan dengan saya disana.
 
 ## Lisensi
-Kode Sumber ini di rilis di bawah lisensi GNU Affero General Public License v3 (GNU AGPLv3) yang bisa Anda lihat/baca di dalam berkas [LICENSE.md](LICENSE.md). 
+Kode Sumber ini di rilis di bawah lisensi GNU Affero General Public License v3 (GNU AGPLv3) yang bisa Anda lihat/baca di dalam berkas [LICENSE](LICENSE). 
 
 Sedangkan untuk Artikel dan Laman (terutama di dalam folder [`content`](content)) saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike Internasional 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (Atau, disingkat: CC BY-SA 4.0), kecuali untuk materi-materi tertentu yang bisa saja di terbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll).
 
