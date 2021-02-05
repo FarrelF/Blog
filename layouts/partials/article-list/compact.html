@@ -39,7 +39,7 @@
                         {{- $thumbnail := $image.resource.Fill "120x120" -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
-                        {{- if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
+                        {{- if and (.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
                             {{- $Permalink = printf "%s%s" $StaticallyImgixURL $thumbnail.RelPermalink -}}
                             {{- if eq .Site.Params.StaticallyCDN.Imgix.autowebp true -}}
                                 {{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $thumbnail.RelPermalink -}}

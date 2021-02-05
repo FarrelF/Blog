@@ -6,9 +6,6 @@ paginate: 5
 enableEmoji: true
 enableInlineShortcodes: true
 content-dir: content
-Repo:
-  Name: Blog
-  Username: FarrelF
 
 DefaultContentLanguage: id
 disableLanguages: ["en"]
@@ -37,6 +34,12 @@ params:
 
   CDN:
     Provider: jsdelivr
+
+  Repo:
+    Name: Blog
+    Username: FarrelF
+    AbbreviatedCommit: fc2c0e3
+    Commit: fc2c0e3a057eaa785ed31acd936b1e449560dcfb
 
   StaticallyCDN:
     Imgix:
