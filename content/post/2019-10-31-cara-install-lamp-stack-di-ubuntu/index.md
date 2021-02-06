@@ -248,7 +248,7 @@ Untuk Pengguna DE XFCE (Mousepad)*:
 
 **\*Catatan**: Kedua DE tersebut belum pernah saya gunakan, jadi apabila perintah di atas salah, maka mohon beri saran dari Anda agar bisa saya ubah perintah di atas. Tapi, khusus DE XFCE memang saya sedang menggunakan nya, yang distronya adalah Mint (di dalam VirtualBox), itupun menggunakan 'X-Apps \[Text\] Editor' (xed) sebagai editor bawaan nya. Jika kamu mau menambahkan, yah, silahkan saja.
 
-Setelah itu, kamu carikan sebuah teks `<Directory /var/www/>` yang ada di dalam berkas tersebut dengan memanfaatkan fitur dari Editor Teks/Kode yang Anda gunakan sekarang. Untuk mencari nya, tekan {{{< kbd >}}CTRL{{< /kbd >}} + {{ kbd }}F{{< /kbd >}}, atau {{< kbd >}}CTRL{{< /kbd >}} + {{< kbd >}}W{{< /kbd >}} jika Anda menggunakan `nano` sebagai editor nya, lalu masukkan teks.
+Setelah itu, kamu carikan sebuah teks `<Directory /var/www/>` yang ada di dalam berkas tersebut dengan memanfaatkan fitur dari Editor Teks/Kode yang Anda gunakan sekarang. Untuk mencari nya, tekan {{{< kbd >}}CTRL{{< / kbd >}} + {{< kbd >}}F{{< / kbd >}}, atau {{< kbd >}}CTRL{{< / kbd >}} + {{< kbd >}}W{{< / kbd >}} jika Anda menggunakan `nano` sebagai editor nya, lalu masukkan teks.
 
 Kemudian, kalo ketemu, akan ada barisan kode seperti di bawah ini:
 
