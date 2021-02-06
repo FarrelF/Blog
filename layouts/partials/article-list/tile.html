@@ -1,7 +1,7 @@
-{{ $image := partialCached "helper/image" (dict "Context" .context "Type" .Type) .context.RelPermalink .Type }}
 {{- $baseURL := urls.Parse .Site.BaseURL -}}
-{{ $StaticallyImgixURL := print "//cdn.statically.io/img" $baseURL.Host }}
-{{ $StaticallyWebpImgixURL := print $StaticallyImgixURL "/f=auto" }}
+{{ $StaticallyImgixURL := printf "//cdn.statically.io/img/%s" $baseURL.Host }}
+{{ $StaticallyWebpImgixURL := printf "%s/f=auto" $StaticallyImgixURL }}
+{{ $image := partialCached "helper/image" (dict "Context" .context "Type" .Type) .context.RelPermalink .Type }}
 <article class="{{ if $image.exists }}has-image{{ end }}">
     <a href="{{ .context.RelPermalink }}">
         
@@ -13,25 +13,25 @@
                     {{- $Width := $imageRaw.Width -}}
                     {{- $Height := $imageRaw.Height -}}
 
-                    {{- if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
+                    {{ if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") }}
                         {{- $Permalink = printf "%s%s" $StaticallyImgixURL $imageRaw.RelPermalink -}}
-                        {{- if eq .Site.Params.StaticallyCDN.Imgix.autowebp true -}}
+                        {{ if eq .Site.Params.StaticallyCDN.Imgix.autowebp true }}
                             {{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $imageRaw.RelPermalink -}}
-                        {{- end -}}
-                    {{- else -}}
+                        {{ end }}
+                    {{ else }}
                         {{- $Permalink = $imageRaw.RelPermalink -}}
-                    {{- end -}}
+                    {{ end }}
 
                     {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
                         {{- $thumbnail := $imageRaw.Fill .size -}}
-                        {{- if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
+                        {{ if and (.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") }}
                             {{- $Permalink = printf "%s%s" $StaticallyImgixURL $thumbnail.RelPermalink -}}
-                            {{- if eq .Site.Params.StaticallyCDN.Imgix.autowebp true -}}
+                            {{ if eq .Site.Params.StaticallyCDN.Imgix.autowebp true }}
                                 {{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $thumbnail.RelPermalink -}}
-                            {{- end -}}
-                        {{- else -}}
-                            {{- $Permalink =  printf "%s%s" $StaticallyWebpImgixURL $thumbnail.RelPermalink -}}
-                        {{- end -}}
+                            {{ end }}
+                        {{ else }}
+                            {{- $Permalink = $thumbnail.RelPermalink -}}
+                        {{ end }}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
                     {{- end -}}

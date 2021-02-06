@@ -43,7 +43,7 @@ Hugo telah menyediakan _Web Server_ lokal yang akan sangat berguna untuk pengemb
 
 Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Diska (_Disk_), sehingga datanya tidak akan Anda temukan dimanapun ketika Anda mencarinya. Perubahan akan secara otomatis di terapkan secara langsung selama fitur tersebut aktif.
 
-Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ikuti langkah-langkah berikut dengan Terminal:
+Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ketik perintah berikut di dalam Terminal:
 
 **Catatan**: Di dalam Sistem Operasi GNU/Linux, macOS dan Sistem Operasi berbasis Unix/Unix-like lain nya kamu bisa gunakan Terminal Bawaan, sedangkan di Windows kamu bisa gunakan "Git Bash" atau "PowerShell Core" juga boleh.
 
@@ -54,7 +54,7 @@ $ hugo server -D --gc
 Jika Anda ingin agar web/blog nya tidak ter-_cache_ oleh Peramban Web dan memberikan pengalaman terbaik untuk membuat _Web Server_ nya, maka Anda perlu ikuti perintah berikut:
 
 ```bash
-$ hugo server -D --gc --noHTTPCache --disableFastRender --cacheDir \$PWD/cache
+$ hugo server -D --gc --noHTTPCache --disableFastRender --cacheDir $PWD/cache
 ```
 
 Parameter `-D` digunakan untuk membangun artikel/laman yang di draf, silahkan hapus parameter tersebut jika Anda tidak menginginkan nya.
@@ -68,7 +68,7 @@ Opsi di atas mungkin bukanlah opsi terbaik untuk mengembangkan sebuah Web/Blog S
 ### Cara Kedua: Membangun Blog/Web Statis tanpa _Web Server_
 Selain di atas, Hugo telah menyediakan cara untuk membangun Web/Blog Statis tanpa harus menggunakan fitur _Web Server_ nya, hasilnya tidak akan ter simpan ke dalam memori (RAM), melainkan ke Perangkat Diska (_Disk_), ini akan sangat berguna untuk produksi atau sekedar memeriksa Kode dari Berkas Skrip/HTML, sampai Berkas-berkas media (Seperti: Gambar) sebelum di unggah ke Lingkungan Produksi.
 
-Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ikuti langkah-langkah berikut dengan Terminal:
+Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu eksekusi perintah berikut di dalam Terminal:
 
 ```bash
 $ hugo

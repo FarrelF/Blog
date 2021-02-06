@@ -24,9 +24,9 @@
 				{{- $small := $image.Resize "480x" -}}
 				{{- $big := $image.Resize "1024x" -}}
 				{{- if and (.Page.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
-					{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyImgixURL $small.RelPermalink $StaticallyWebpImgixURL $big.RelPermalink -}}
+					{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyImgixURL $small.RelPermalink $StaticallyImgixURL $big.RelPermalink -}}
 					{{- if eq .Page.Site.Params.StaticallyCDN.Imgix.autowebp true -}}
-						{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyWebpImgixURL $small.RelPermalink $StaticallyImgixURL $big.RelPermalink -}}
+						{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyWebpImgixURL $small.RelPermalink $StaticallyWebpImgixURL $big.RelPermalink -}}
 					{{- end -}}
 				{{ else }}
 					{{- $Srcset = printf "%s 480w, %s 1024w" $small.RelPermalink $big.RelPermalink -}}
