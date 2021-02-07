@@ -35,14 +35,16 @@
 
     [headers.values]
         Cache-Control = "public, max-age=360, s-maxage=360, must-revalidate"
-        Content-Security-Policy = [
-            "img-src 'self' data: https://*.cloudfront.net https://cdn.statically.io https://cdn.jsdelivr.net https://*.gstatic.com https://*.disquscdn.com https://*.google.com https://*.disqus.com;",
-            "font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://fonts.gstatic.com;",
-            "connect-src 'self'; frame-src 'self' https://disqus.com https://*.disqus.com;",
-            "object-src 'self'; frame-ancestors 'self';",
-            "upgrade-insecure-requests; block-all-mixed-content;",
-            "report-uri https://farrelf.report-uri.com/r/d/csp/enforce"
-        ]
+        Content-Security-Policy = '''
+        img-src 'self' data: https://*.cloudfront.net https://cdn.statically.io https://cdn.jsdelivr.net https://*.gstatic.com https://*.disquscdn.com https://*.google.com https://*.disqus.com;
+        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://fonts.gstatic.com;
+        connect-src 'self'; 
+        frame-src 'self' https://disqus.com https://*.disqus.com;
+        object-src 'self'; 
+        frame-ancestors 'self';
+        upgrade-insecure-requests; block-all-mixed-content;
+        report-uri https://farrelf.report-uri.com/r/d/csp/enforce
+        report-to report-uri;'''
         Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
         Feature-Policy = "camera https://*.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; unsized-media 'none'"
         NEL = '''{
@@ -56,7 +58,7 @@
             "group": "default",
             "max_age": 31536000,
             "endpoints":[
-                { "url": "https://farrelf.report-uri.com/a/d/g"}
+                {"url": "https://farrelf.report-uri.com/a/d/g"}
             ],
             "include_subdomains": true
         }'''
