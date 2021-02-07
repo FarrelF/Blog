@@ -1,6 +1,5 @@
 ---
 title: Halo Dunia! (Lagi)
-category: Lainnya
 slug: halo-dunia
 author: Farrel Franqois
 date: 2019-08-27 03:17:45+07:00

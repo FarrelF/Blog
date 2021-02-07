@@ -1,6 +1,6 @@
 ---
 Title: Cara Install Git di Windows, GNU/Linux dan macOS (tanpa basa-basi!)
-Category: Tutorial
+Categories: Tutorial
 tags: 
     - Git
     - Windows
@@ -12,7 +12,7 @@ image: Cover.png
 date: 2019-09-17 16:13:03+07:00
 enableSummary: true
 description: Apakah Anda ingin meng-install Git di dalam Komputer Anda? Kalau iya, silahkan Anda baca artikel ini!
-summary: Artikel ini akan membahas tentang Cara Install Git, baik itu di dalam GNU/Linux dan Windows, tentu saja, tanpa basa-basi terlebih dahulu (alias, langsung saya bahas bagaimana cara meng-install nya). Kalau Anda ingin meng-install Git di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya tidak apa-apa 🙂
+summary: Artikel ini akan membahas tentang Cara Install Git, baik itu di dalam GNU/Linux dan Windows, tentu saja tanpa basa-basi terlebih dahulu (alias, langsung saya bahas bagaimana cara meng-install nya). Kalau Anda ingin meng-install Git di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya tidak apa-apa 🙂
 ---
 
 ## Daftar Isi
@@ -63,16 +63,12 @@ $ sudo zypper install git
 #### **Untuk pengguna Distribusi Gentoo**
 Untuk pengguna Distribusi Gentoo dan turunan nya, bisa Anda ikuti perintah berikut di bawah ini untuk meng-install Git:
 
-```bash
-$ sudo emerge --ask --verbose dev-vcs/git
-```
+    # emerge --ask --verbose dev-vcs/git
 
 #### **Untuk pengguna NixOS atau yang menggunakan Nix Package Manager**
 Untuk pengguna Distribusi NixOS atau yang menggunakan Nix Package Manager, bisa Anda ikuti perintah berikut di bawah ini untuk meng-install Git:
 
-```bash
-$ sudo nix-env -i git
-```
+    # nix-env -i git
 
 #### **Untuk pengguna Alpine Linux**
 Untuk pengguna Alpine Linux, bisa Anda ikuti perintah berikut di bawah ini untuk meng-install Git:
@@ -84,6 +80,11 @@ Untuk pengguna FreeBSD, bisa Anda ikuti perintah berikut di bawah ini untuk meng
 
     # pkg install git
 
+#### **Untuk pengguna OpenBSD**
+Untuk pengguna OpenBSD, bisa Anda ikuti perintah berikut di bawah ini untuk meng-install Git:
+
+    # pkg_add git
+
 #### **Untuk pengguna macOS**
 
 Untuk pengguna macOS, bisa Anda Unduh dan Install Git nya dari [sini](https://git-scm.com/download/mac). 
@@ -93,7 +94,7 @@ Sedangkan untuk Windows, Anda bisa ikuti petunjuk nya berikut.
 ### **Cara Install Git di Windows**
 Cara Install Git di Windows sangatlah berbeda daripada Install Git di Sistem Operasi berbasis Unix/Unix-like (\*nix). Installer nya menggunakan GUI, sehingga dapat mempermudah kamu selama meng-install Git.
 
-Hanya saja, jika kamu salah langkah, maka yang terjadi adalah Git akan mengalami "kesalahan" (_error_) saat di gunakan, entah itu tidak bisa meng-kloning _Repository_ sampai mengurus nya.
+Hanya saja jika kamu salah langkah, maka yang terjadi adalah Git akan mengalami "kesalahan" (_error_) saat di gunakan, entah itu tidak bisa meng-kloning _Repository_ sampai mengurus nya.
 
 Maka dari itu, jika Anda adalah pengguna Windows, maka Anda bisa ikuti cara instalasi nya berikut:
 

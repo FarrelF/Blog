@@ -13,6 +13,7 @@ disableLanguages: ["en"]
 permalinks:
   post: /:slug/
   page: /:slug/
+  categories: /kategori/:slug/
 
 params:
   dateFormat:

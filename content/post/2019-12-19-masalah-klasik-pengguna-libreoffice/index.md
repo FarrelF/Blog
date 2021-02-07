@@ -26,14 +26,14 @@ LibreOffice merupakan sebuah Perangkat Lunak Paket Perkantoran yang merupakan Pe
 
 Perangkat Lunak ini cukup populer, terutama di kalangan pengguna GNU/Linux. Salah satu alasannya adalah karena Distribusi GNU/Linux yang mereka gunakan itu biasanya sudah ter-install LibreOffice secara bawaan (_default_). Ubuntu, Varian (Seperti: Xubuntu, Lubuntu, Kubuntu, Ubuntu MATE, dll) dan Turunan nya (seperti Mint, Pop_OS!, dll) merupakan salah satu contoh nya.
 
-Namun sayangnya, banyak sekali dari mereka yang mengeluhkan sebuah masalah yang klasik, yang mana itu seharusnya tidak perlu di keluhkan/di permasalahkan, apa saja masalah nya? Mungkin, bisa Anda lanjut simak artikel ini.
+Namun sayangnya, banyak sekali dari mereka yang mengeluhkan sebuah masalah yang klasik, yang mana itu seharusnya tidak perlu di keluhkan/di permasalahkan, apa saja masalah nya? Mungkin bisa Anda lanjut simak artikel ini.
 
 ## Sanggahan
-Tapi sebelum itu, ada yang ingin saya sampaikan, bahwa Artikel ini akan membahas hal-hal yang sangatlah mendasar untuk menggunakan LibreOffice. Jadi, artikel ini tidak akan membahas penggunaan LibreOffice lebih lanjut.
+Tapi sebelum itu, ada yang ingin saya sampaikan bahwa Artikel ini akan membahas hal-hal yang sangatlah mendasar untuk menggunakan LibreOffice. Jadi, artikel ini tidak akan membahas penggunaan LibreOffice lebih lanjut.
 
 Perlu saya ingatkan juga, bahwa kemungkinan Artikel ini akan menyinggung salah satu Produk dari Microsoft dan format nya, saya tidak bermaksud dan tidak ada perasaan untuk membenci terhadap Microsoft dan segala produk-produk nya, serta saya juga bukanlah seorang yang meng-Anti kan nya. 
 
-Tapi, yang saya bahas ini merupakan penjelasan dan kenyataan nya saja, yang berdasarkan dari pengalaman seseorang/saya, dan referensi-referensi yang telah saya ambil dari beberapa situs web, baik dari luar Situs Web Microsoft, bahkan dari Situs Microsoft itu sendiri.
+Tapi yang saya bahas ini merupakan penjelasan dan kenyataan nya saja, yang berdasarkan dari pengalaman seseorang/saya, dan referensi-referensi yang telah saya ambil dari beberapa situs web, baik dari luar Situs Web Microsoft, bahkan dari Situs Microsoft itu sendiri.
 
 ## I. Masalah Kompatibilitas saat di buka dengan Microsoft Office (begitupun juga sebaliknya)
 Ini adalah masalah paling klasik yang paling sering di bicarakan oleh kebanyakan pengguna GNU/Linux di Indonesia, berdasarkan dari banyaknya komunitas GNU/Linux di dunia maya (terutama di Indonesia). 
@@ -90,17 +90,17 @@ Masalah-masalah nya seperti:
 
 Masalah-masalah di atas bukan hanya mempengaruhi pengembang Perangkat Lunak saja, tapi itu akan mempengaruhi pengguna nya secara keseluruhan, terutama jika pengguna tersebut membuka atau membuat dokumen ber-format OOXML dengan Perangkat Lunak Perkantoran selain Microsoft Office.
 
-Sehingga, Perangkat Lunak Perkantoran yang paling bisa meng-implementasikan nya dan yang paling mengikuti/memenuhi standar dalam Format OOXML adalah Microsoft Office itu sendiri.
+Sehingga Perangkat Lunak Perkantoran yang paling bisa meng-implementasikan nya dan yang paling mengikuti/memenuhi standar dalam Format OOXML adalah Microsoft Office itu sendiri.
 
 Selain alasan di atas, Alasan mereka hanya fokus (bahkan [mempromosikan](https://wiki.documentfoundation.org/LibreOffice_OOXML#Does_The_Document_Foundation_support_OOXML_.3F)) format ODF adalah karena mereka percaya bahwa tidak ada standar/format dokumen lain yang menawarkan tingkat netralitas terhadap vendor dengan tepat. Dan, mereka juga percaya bahwa format tersebut akan bermanfaat untuk semua orang kedepan nya.
 
 Ini artinya, mereka percaya bahwa ODF merupakan format yang paling 'netral' saat ini, bila di bandingkan dengan format OOXML.
 
-Lagian, di Indonesia, Format ODF ini sudah memasuki ketentuan Standar Nasional Indonesia (SNI) pada tahun 2010 dengan Nomor [**SNI ISO/IEC 26300:2011**](http://sispk.bsn.go.id/SNI/DetailSNI/8541)* melalui surat keputusan dengan Nomor [**41/KEP/BSN/4/2011**](http://akses-sispk.bsn.go.id/Upload/Dokumen/SK_SNI/7476_SK%20SNI%2041-04-2011.PDF)* dari Kepala BSN (Badan Standardisasi Nasional) pada waktu itu. Sampai sekarang, Standar ini masih berlaku di Indonesia.
+Lagian di Indonesia, Format ODF ini sudah memasuki ketentuan Standar Nasional Indonesia (SNI) pada tahun 2010 dengan Nomor [**SNI ISO/IEC 26300:2011**](http://sispk.bsn.go.id/SNI/DetailSNI/8541)* melalui surat keputusan dengan Nomor [**41/KEP/BSN/4/2011**](http://akses-sispk.bsn.go.id/Upload/Dokumen/SK_SNI/7476_SK%20SNI%2041-04-2011.PDF)* dari Kepala BSN (Badan Standardisasi Nasional) pada waktu itu. Sampai sekarang, Standar ini masih berlaku di Indonesia.
 
-**\*Catatan**: Akses tautan tersebut melalui protokol HTTP, bukan HTTPS. Dan, nonaktifkan terlebih dahulu Ekstensi "HTTPS Everywhere" pada Peramban Web kamu, kalo ada. Jika kamu mengakses nya dengan protokol HTTPS, maka yang kamu dapatkan hanyalah laman Login nya saja/User Portal. Aneh memang situs web pemerintah satu ini.
+**\*Catatan**: Akses tautan tersebut melalui protokol HTTP bukan HTTPS, dan nonaktifkan terlebih dahulu Ekstensi "HTTPS Everywhere" pada Peramban Web kamu, kalo ada. Jika kamu mengakses nya dengan protokol HTTPS, maka yang kamu dapatkan hanyalah laman Login nya saja/User Portal. Aneh memang situs web pemerintah satu ini.
 
-Bahkan, format ini telah di akui oleh Pemerintah kita melalui [Kemenkominfo (Kementerian Komunikasi dan Informatika)](https://jdih.kominfo.go.id/produk_hukum/unduh/id/75/t/peraturan+menteri+komunikasi+dan+informatika++nomor+7+tahun+2013+tanggal+5+maret+2013) (Atau, Anda bisa unduh [versi lain nya](https://web.kominfo.go.id/sites/default/files/RPM%20Pedoman%20Penerapan%20Interoperabilitas%20Dokumen%20Perkantoran%20Bagi%20Penyelenggara%20Sistem%20Elektronik%20Untuk%20Pelayanan%20Publik.docx)) dan [Kemenkumham (Kementerian Hukum dan Hak Asasi Manusia)](https://peraturan.go.id/common/dokumen/bn/2013/bn474-2013lamp.pdf) pada Tahun 2013 yang lalu.
+Bahkan format ini telah di akui oleh Pemerintah kita melalui [Kemenkominfo (Kementerian Komunikasi dan Informatika)](https://jdih.kominfo.go.id/produk_hukum/unduh/id/75/t/peraturan+menteri+komunikasi+dan+informatika++nomor+7+tahun+2013+tanggal+5+maret+2013) (Atau, Anda bisa unduh [versi lain nya](https://web.kominfo.go.id/sites/default/files/RPM%20Pedoman%20Penerapan%20Interoperabilitas%20Dokumen%20Perkantoran%20Bagi%20Penyelenggara%20Sistem%20Elektronik%20Untuk%20Pelayanan%20Publik.docx)) dan [Kemenkumham (Kementerian Hukum dan Hak Asasi Manusia)](https://peraturan.go.id/common/dokumen/bn/2013/bn474-2013lamp.pdf) pada Tahun 2013 yang lalu.
 
 Selain itu, menurut [artikelnya](https://kominfo.go.id/index.php/content/detail/3434/open+source+di+kominfo+/0/program_prioritas), pihak Kemenkominfo telah menggunakan Perangkat-Perangkat Lunak tersebut di dalam lingkungan nya untuk menunjang keperluan mereka, termasuk LibreOffice dan Format ODF nya. (Ngomong-ngomong, Artikel itu di terbitkan sejak tahun 2014 yang lalu. Entah apa yang terjadi sekarang, apakah mereka masih menggunakan nya? Semoga saja masih menggunakan nya)
 
@@ -132,9 +132,11 @@ Mau Referensi lain nya? Silahkan klik salah satu tautan berikut:
 
 Solusinya mudah, tinggalkan dan jangan pernah gunakan format OOXML untuk membuat dokumen Anda, apalagi jika Anda sedang menggunakan LibreOffice. 
 
-Lalu, bagaimana caranya? Caranya adalah, ketika Anda sudah selesai membuat Dokumen nya, simpanlah dokumen tersebut sebagai Ekstensi yang berformat ODF (OpenDocument Format), seperti .ODT (untuk LibreOffice Writer), .ODS untuk (LibreOffice Calc), dan .ODP (untuk LibreOffice Impress), daripada ekstensi yang berformat OOXML seperti .DOC, .DOCX, .XLS, .XLSX, .PPT, .PPTX dan ekstensi dengan format OOXML lain nya.
+Lalu bagaimana caranya? Caranya adalah, ketika Anda sudah selesai membuat Dokumen nya, simpanlah dokumen tersebut sebagai Ekstensi yang berformat ODF (OpenDocument Format), seperti .ODT (untuk LibreOffice Writer), .ODS untuk (LibreOffice Calc), dan .ODP (untuk LibreOffice Impress), daripada ekstensi yang berformat OOXML seperti .DOC, .DOCX, .XLS, .XLSX, .PPT, .PPTX dan ekstensi dengan format OOXML lain nya.
 
-Terakhir, jangan pernah mengharapkan kalau LibreOffice bisa membuka dokumen dengan format OOXML sebaik Microsoft Office.
+Terakhir, jangan pernah mengharapkan/meng-ekspektasikan kalau LibreOffice bisa membuka dokumen dengan format OOXML sebaik Microsoft Office.
+
+Karena pada dasarnya LibreOffice dan Microsoft Office adalah dua Perangkat Lunak yang berbeda, meski sama-sama Perangkat Lunak Perkantoran.
 
 > ### Bagaimana jika saya berada di Rental Komputer/Warung Internet, atau di komputer lain yang rata-rata menggunakan Windows suatu saat nanti?
 
@@ -146,13 +148,13 @@ Untuk meng-unduh nya, silahkan Anda kunjungi [Halaman Web Resmi nya](https://www
 
 > ### Bagaimana jika saya membuka berkas OOXML di LibreOffice?
 
-Seperti yang sudah saya bilang sebelumnya, bahwa lebih baik Anda tidak terlalu berharap untuk bisa membuka berkas yang berformat OOXML di LibreOffice sebaik Microsoft Office. Namun, Anda bisa saja membuka nya, hanya saja hasilnya nanti tidak sebaik Microsoft Office, karena fitur-fitur yang ada/digunakan pada dokumen tersebut belum tentu dapat di 'render' dengan baik oleh LibreOffice, karena masalah format OOXML itu sendiri.
+Seperti yang sudah saya bilang sebelumnya, bahwa lebih baik Anda tidak terlalu berharap untuk bisa membuka berkas yang berformat OOXML di LibreOffice sebaik Microsoft Office. Namun Anda bisa saja membuka nya, hanya saja hasilnya nanti tidak sebaik Microsoft Office, karena fitur-fitur yang ada/digunakan pada dokumen tersebut belum tentu dapat di 'render' dengan baik oleh LibreOffice, karena masalah format OOXML itu sendiri.
 
 Meskipun artikel ini menyinggung Microsoft Office dan Format OOXML nya, bukan berarti saya melarang Anda untuk menggunakan kedua nya. 
 
 Anda bisa menggunakan Microsoft Office untuk membuka berkas berformat OOXML, atau jika Anda tidak mempunyai Microsoft Office nya (Entah itu sengaja gak di install atau gak bisa di Install karena sebab lain), Anda bisa menggunakan Perangkat Lunak Perkantoran lain nya selain Microsoft Office yang di tujukan untuk memenuhi standar Microsoft Office, seperti WPS Office, Softmaker FreeOffice, dll.
 
-Atau, jika hal tersebut tidak memungkinkan, maka sebaiknya Anda minta saja kepada pengirimnya untuk mengirimkan ulang berkas sebagai Format PDF jika Anda hanya ingin membacanya saja, atau dengan Format Teks Polos/ODF (Sesuai kebutuhan) jika Anda ingin mengubah nya juga. Jadi, sesuaikan saja dengan kebutuhan.
+Atau jika hal tersebut tidak memungkinkan, maka sebaiknya Anda minta saja kepada pengirimnya untuk mengirimkan ulang berkas sebagai Format PDF jika Anda hanya ingin membacanya saja, atau dengan Format Teks Polos/ODF (Sesuai kebutuhan) jika Anda ingin mengubah nya juga. Jadi, sesuaikan saja dengan kebutuhan.
 
 > ### Bagaimana jika saya mengirimkan berkas kepada orang lain, entah itu teman, dosen, HRD, dll nya suatu saat nanti?
 
@@ -160,14 +162,14 @@ Tergantung, apakah mereka hanya ingin membaca dokumenmu saja atau ingin mengubah
 
 Kalau mereka hanya ingin membacanya saja, ekspor berkas tersebut ketika Anda sudah selesai mengetik/membuat dokumen nya sebagai Format PDF dan kirimkan saja hasil nya.
 
-Tapi, kalau mereka ingin mengubah dokumen mu, maka kalau bisa, kirimkan berkas tersebut kepada mereka dan sarankan kepada mereka dengan baik-baik untuk meng-install LibreOffice jika kamu merasa dekat dengan mereka.
+Tapi kalau mereka ingin mengubah dokumen mu, maka kalau bisa, kirimkan berkas tersebut kepada mereka dan sarankan kepada mereka dengan baik-baik untuk meng-install LibreOffice jika kamu merasa dekat dengan mereka.
 
-Atau, kalau mereka menginginkan format selain PDF hanya karena ia tidak bisa membuka nya dengan baik, jika kamu dekat dengan mereka, coba kamu bantu untuk memperbaiki nya atau sarankan kepada mereka untuk menggunakan Peramban Web (_Web Browser_) untuk membuka PDF.
+Atau kalau mereka menginginkan format selain PDF hanya karena ia tidak bisa membuka nya dengan baik, jika kamu dekat dengan mereka, coba kamu bantu untuk memperbaiki nya atau sarankan kepada mereka untuk menggunakan Peramban Web (_Web Browser_) untuk membuka PDF.
 
-Sedangkan, jika kebutuhan nya hanya mengulas/meninjau ulang dokumen nya saja (entah itu dengan menyoroti teks nya, memberikan komentar, dll), kamu hanya perlu mengirimkan berkas PDF saja, biasanya Aplikasi Peninjau PDF (Kecuali Peramban Web) bisa melakukan nya jika hanya menyoroti teks atau mengulas dokumen saja.
+Sedangkan jika kebutuhan nya hanya mengulas/meninjau ulang dokumen nya saja (entah itu dengan menyoroti teks nya, memberikan komentar, dll), kamu hanya perlu mengirimkan berkas PDF saja, biasanya Aplikasi Peninjau PDF (Kecuali Peramban Web) bisa melakukan nya jika hanya menyoroti teks atau mengulas dokumen saja.
 
 ## II. Tampilan nya membuat LibreOffice sulit untuk di gunakan
-Tidak bisa di pungkiri lagi, bahwa secara bawaan, LibreOffice memiliki penampilan yang agak kurang familiar dan penggunaan nya yang memang rumit. Sehingga, orang-orang merasa 'pusing' dan sulit untuk menggunakan Perangkat Lunak satu ini.
+Tidak bisa di pungkiri lagi, bahwa secara bawaan, LibreOffice memiliki penampilan yang agak kurang familiar dan penggunaan nya yang memang rumit. Sehingga orang-orang merasa 'pusing' dan sulit untuk menggunakan Perangkat Lunak satu ini.
 
 Salah satu penyebabnya adalah bahwa kebanyakan orang telah terbiasa dengan Penampilan "Ribbon" yang ada di Microsoft Office sejak versi 2007, begitupun juga versi di atasnya, sampai sekarang.
 
@@ -175,11 +177,11 @@ Tampilan LibreOffice standar kira-kira seperti ini (saya menggunakan Windows 10)
 
 ![Cuplikan Layar LibreOffice 6.3 di Windows 10](LibreOffice_Screenshot_in_Windows_10.png)
 
-Mungkin saja, tampilan seperti itu memang terasa familiar bagi Anda yang sudah pernah menggunakan Microsoft Office 2003 sebelumnya. Tapi, yang menjadi masalah nya adalah bahwa kebanyakan orang sudah duluan familiar dengan penampilan "Ribbon" dan mengingatnya, kalaupun sebelumnya ada yang sudah pernah menggunakan Microsoft Office 2003, bukan berarti mereka familiar akan tampilan nya, serta tidak semua orang menggunakan nya.
+Mungkin saja tampilan seperti itu memang terasa familiar bagi Anda yang sudah pernah menggunakan Microsoft Office 2003 sebelumnya. Tapi yang menjadi masalah nya adalah bahwa kebanyakan orang sudah duluan familiar dengan penampilan "Ribbon" dan mengingatnya, kalaupun sebelumnya ada yang sudah pernah menggunakan Microsoft Office 2003, bukan berarti mereka familiar akan tampilan nya, serta tidak semua orang menggunakan nya.
 
-Namun, sejak LibreOffice versi 6.2 dirilis, Anda dapat menikmati penampilan "Ribbon" di LibreOffice dengan mengubah Setelan tampilan nya. Dulu, sebelum versi 6.2, memang sempat ada fitur seperti ini, hanya saja itu masih beta/eksperimental dan masih memerlukan Berkas JAR Eksternal (dari luar).
+Namun sejak LibreOffice versi 6.2 dirilis, Anda dapat menikmati penampilan "Ribbon" di LibreOffice dengan mengubah Setelan tampilan nya. Dulu sebelum versi 6.2, memang sempat ada fitur seperti ini, hanya saja itu masih beta/eksperimental dan masih memerlukan Berkas JAR Eksternal (dari luar).
 
-Sekarang, Anda sudah bisa menikmati nya tanpa harus memuat Berkas JAR Eksternal lagi.
+Sekarang Anda sudah bisa menikmati nya tanpa harus memuat Berkas JAR Eksternal lagi.
 
 > ### Lalu, bagaimana caranya?
 
@@ -212,7 +214,7 @@ Salah satu cara yang bisa Anda lakukan untuk mempelajari nya adalah dengan berik
 #### Cara 1: Buatlah Dokumen yang sama dengan Dokumen yang di kerjakan dengan Microsoft Office
 
 {{< spoiler text="tl;dr" >}}
-Buatlah 'versi ODF' dari Dokumen yang pernah Anda buat sebelumnya dengan Microsoft Office itu denganPerangkat Lunak Perkantoran FLOSS seperti LibreOffice.
+Buatlah 'versi ODF' dari Dokumen yang pernah Anda buat sebelumnya dengan Microsoft Office itu dengan Perangkat Lunak Perkantoran FLOSS seperti LibreOffice.
 {{< /spoiler >}}
 
 Pernahkah Anda membuat dokumen dengan Microsoft Office? Pernahkah Anda membuatnya dengan format yang kompleks, minimal seperti dalam bentuk Proposal, Laporan, Dokumentasi, Makalah, Jurnal atau bahkan sampai Skripsi misal nya?
@@ -276,7 +278,7 @@ Untuk lebih lanjut, Anda juga dapat membaca tulisan yang bagus sekali, dan cocok
 
 Anda yang membaca artikel ini, terutama dari awal artikel juga pasti hafal bukan jawaban nya? Yap, menurut saya, itu masih tidak perlu di keluhkan.
 
-Tapi, mungkin saja Anda berpikir bahwa mempelajari LibreOffice itu seperti 2 kali kerja, karena Anda telah mempelajari Microsoft Office sebelumnya (yang mungkin) sejak lama, tapi sekarang malah di tambah dengan mempelajari LibreOffice yang akan membuang waktu dan tenaga mu. Apa benar begitu, bukan?
+Tapi mungkin saja Anda berpikir bahwa mempelajari LibreOffice itu seperti 2 kali kerja, karena Anda telah mempelajari Microsoft Office sebelumnya (yang mungkin) sejak lama, tapi sekarang malah di tambah dengan mempelajari LibreOffice yang akan membuang waktu dan tenaga mu. Apa benar begitu, bukan?
 
 Iya, memang seperti itu, dan itu merupakan suatu hal yang wajar, karena seperti yang saya bilang sebelumnya, bahwa LibreOffice itu di buat untuk membantu kalian membuat dokumen tanpa harus mengorbankan 4 kebebasan utama dalam perangkat lunak, bukan untuk memenuhi Standar dari Microsoft Office. 
 
