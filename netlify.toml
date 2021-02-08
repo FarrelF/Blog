@@ -6,12 +6,12 @@
     TZ = "Asia/Jakarta"
 
 [context.production]
-    command = "hugo --gc --minify --enableGitInfo"
+    command = "hugo --minify --enableGitInfo"
     [context.production.environment]
         HUGO_ENV = "production"
 
 [context.split1]
-    command = "hugo --gc --minify --enableGitInfo"
+    command = "hugo --minify --enableGitInfo"
     [context.split1.environment]
         HUGO_ENV = "production"
 
