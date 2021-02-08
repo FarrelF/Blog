@@ -8,7 +8,7 @@ enableInlineShortcodes: true
 content-dir: content
 
 DefaultContentLanguage: id
-disableLanguages: ["en"]
+disqusShortname: farrelf-blog
 
 permalinks:
   post: /:slug/

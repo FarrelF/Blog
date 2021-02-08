@@ -54,13 +54,21 @@
         report-uri https://farrelf.report-uri.com/r/d/csp/enforce;
         report-to default;'''
         Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        Feature-Policy = "camera https://*.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; unsized-media 'none'"
+        Feature-Policy = "camera https://*.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
         NEL = '''{
             "report_to": "default",
             "max_age": 31536000,
             "include_subdomains": true
         }'''
-        Permissions-Policy = "gyroscope=(), microphone=(https://farrelf-blog.disqus.com https://*.disquscdn.com), vibrate=(), magnetometer=(), camera=(https://farrelf-blog.disqus.com https://*.disquscdn.com), midi=()"
+        Permissions-Policy = '''
+        gyroscope=(), 
+        usb=(), 
+        autoplay=(), 
+        microphone=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), 
+        vibrate=(), 
+        magnetometer=(), 
+        camera=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), 
+        midi=()'''
         Referrer-Policy = "strict-origin-when-cross-origin"
         Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
         X-Content-Type-Options = "nosniff"
