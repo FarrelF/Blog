@@ -11,7 +11,7 @@
                     {{- $Height := $imageRaw.Height -}}
 
                     {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                        {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $imageRaw.RelPermalink -}}
+                        {{- $Permalink = printf "%s%s" $.Site.Params.CDN.Images.URL $imageRaw.RelPermalink -}}
                     {{- else -}}
                         {{- $Permalink = $imageRaw.RelPermalink -}}
                     {{- end -}}
@@ -20,7 +20,7 @@
                         {{- $thumbnail := $imageRaw.Fill .size -}}
                         {{- $Permalink = $thumbnail.RelPermalink -}}
                         {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
+                            {{- $Permalink = printf "%s%s" $.Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
                         {{- end -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
