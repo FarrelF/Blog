@@ -1,6 +1,3 @@
-{{- $baseURL := urls.Parse .Site.BaseURL -}}
-{{ $StaticallyImgixURL := print "//cdn.statically.io/img/" $baseURL.Host }}
-{{ $StaticallyWebpImgixURL := print $StaticallyImgixURL "/f=auto" }}
 <aside class="sidebar left-sidebar sticky">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
         <span class="hamburger-box">
@@ -19,11 +16,8 @@
                     {{ if $avatar }}
                         {{ $avatarResized := $avatar.Resize "300x" }}
                         {{- $avatarPermalink := "" -}}
-                        {{- if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
-                            {{- $avatarPermalink = printf "%s%s" $StaticallyImgixURL $avatarResized.RelPermalink -}}
-                            {{- if eq $.Site.Params.StaticallyCDN.Imgix.autowebp true -}}
-                                {{- $avatarPermalink = printf "%s%s" $StaticallyWebpImgixURL $avatarResized.RelPermalink -}}
-                            {{- end -}}
+                        {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
+                            {{- $avatarPermalink = printf "%s%s" .Site.Params.CDN.Images.URL $avatarResized.RelPermalink -}}
                         {{- else -}}
                             {{- $avatarPermalink = $avatarResized.RelPermalink -}}
                         {{- end -}}

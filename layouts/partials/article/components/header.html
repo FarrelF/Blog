@@ -1,6 +1,3 @@
-{{- $baseURL := urls.Parse .Site.BaseURL -}}
-{{ $StaticallyImgixURL := print "//cdn.statically.io/img/" $baseURL.Host }}
-{{ $StaticallyWebpImgixURL := print $StaticallyImgixURL "/f=auto" }}
 <header class="article-header">
     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
     {{ if $image.exists }}
@@ -12,25 +9,18 @@
                     {{- $Height := $image.resource.Height -}}
                     {{- $Srcset := "" -}}
 
-                    {{ if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") }}
-                        {{- $Permalink = printf "%s%s" $StaticallyImgixURL $image.resource.RelPermalink -}}
-                        {{ if eq .Site.Params.StaticallyCDN.Imgix.autowebp true }}
-                            {{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $image.resource.RelPermalink -}}
-                        {{ end }}
+                    {{ if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") }}
+                        {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $image.resource.RelPermalink -}}
                     {{ else }}
                         {{- $Permalink = $image.resource.RelPermalink -}}
                     {{ end }}
                     
-                    {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
+                    {{- if (default true .Site.Params.imageProcessing.cover.enabled) -}}
                         {{- $thumbnail := $image.resource.Resize "800x" -}}
                         {{- $thumbnailRetina := $image.resource.Resize "1600x" -}}
-                        {{- if and ($.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
-                            {{- $Srcset = printf "%s%s 800w, %s%s 1600w" $StaticallyImgixURL $thumbnail.RelPermalink $StaticallyImgixURL $thumbnailRetina.RelPermalink -}}
-                            {{- $Permalink = printf "%s%s" $StaticallyImgixURL $thumbnail.RelPermalink -}}
-                            {{- if eq .Site.Params.StaticallyCDN.Imgix.autowebp true -}}
-                                {{- $Srcset = printf "%s%s 800w, %s%s 1600w" $StaticallyWebpImgixURL $thumbnail.RelPermalink $StaticallyWebpImgixURL $thumbnailRetina.RelPermalink -}}
-                                {{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $thumbnail.RelPermalink -}}
-                            {{- end -}}
+                        {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
+                            {{- $Srcset = printf "%s%s 800w, %s%s 1600w" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink .Site.Params.CDN.Images.URL $thumbnailRetina.RelPermalink -}}
+                            {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
                         {{- else -}}
                             {{- $Srcset = printf "%s 800w, %s 1600w" $thumbnail.RelPermalink $thumbnailRetina.RelPermalink -}}
                             {{- $Permalink = $thumbnail.RelPermalink -}}

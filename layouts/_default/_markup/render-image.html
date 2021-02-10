@@ -1,6 +1,3 @@
-{{- $baseURL := urls.Parse .Page.Site.BaseURL -}}
-{{- $StaticallyImgixURL := print "//cdn.statically.io/img/" $baseURL.Host -}}
-{{- $StaticallyWebpImgixURL := print $StaticallyImgixURL "/f=auto" -}}
 {{- $image := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL)) -}}
 
 {{- if $image -}}
@@ -11,11 +8,8 @@
 			{{- $Height := $image.Height -}}
 			{{- $Srcset := "" -}}
 			{{- $Permalink := "" -}}
-			{{- if and (.Page.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
-				{{- $Permalink = printf "%s%s" $StaticallyImgixURL $image.RelPermalink -}}
-				{{- if eq .Page.Site.Params.StaticallyCDN.Imgix.autowebp true -}}
-					{{- $Permalink = printf "%s%s" $StaticallyWebpImgixURL $image.RelPermalink -}}
-				{{- end -}}
+			{{- if and (.Page.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
+				{{- $Permalink = printf "%s%s" .Page.Site.Params.CDN.Images.URL $image.RelPermalink -}}
 			{{- else -}}
 				{{- $Permalink = $image.RelPermalink -}}
 			{{- end -}}
@@ -23,12 +17,9 @@
 			{{- if (default true .Page.Site.Params.imageProcessing.content.enabled) -}}
 				{{- $small := $image.Resize "480x" -}}
 				{{- $big := $image.Resize "1024x" -}}
-				{{- if and (.Page.Site.Params.StaticallyCDN.Imgix) (ne hugo.Environment "development") -}}
-					{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyImgixURL $small.RelPermalink $StaticallyImgixURL $big.RelPermalink -}}
-					{{- if eq .Page.Site.Params.StaticallyCDN.Imgix.autowebp true -}}
-						{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $StaticallyWebpImgixURL $small.RelPermalink $StaticallyWebpImgixURL $big.RelPermalink -}}
-					{{- end -}}
-				{{ else }}
+				{{- if and (.Page.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
+					{{- $Srcset = printf "%s%s 480w, %s%s 1024w" .Page.Site.Params.CDN.Images.URL $small.RelPermalink .Page.Site.Params.CDN.Images.URL $big.RelPermalink -}}
+				{{- else -}}
 					{{- $Srcset = printf "%s 480w, %s 1024w" $small.RelPermalink $big.RelPermalink -}}
 				{{- end -}}
 			{{- end -}}

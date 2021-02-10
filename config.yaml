@@ -34,18 +34,12 @@ params:
       default: Di terbitkan di bawah lisensi CC BY-SA 4.0
 
   CDN:
-    Provider: jsdelivr
-
-  Repo:
-    Name: Blog
-    Username: FarrelF
-    AbbreviatedCommit: fc2c0e3
-    Commit: fc2c0e3a057eaa785ed31acd936b1e449560dcfb
-
-  StaticallyCDN:
-    Imgix:
-      autowebp: true
-      avatar: true
+    Images:
+      URL: //cdn.statically.io/img/farrel.franqois.id/f=auto
+    Fonts:
+      URL: //cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
+    Libraries:
+      Provider: jsdelivr
 
   mainSections:
     - post
