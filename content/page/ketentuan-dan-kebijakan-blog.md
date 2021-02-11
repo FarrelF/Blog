@@ -158,8 +158,8 @@ Serta semua Pernyataan yang ada di laman ini akan di rubah kapanpun dan dimanapu
 
 Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/di ubah pada Hari/Tanggal: **Selasa, 07 April 2020**
-- Di berlakukan pada Hari/Tanggal: **Selasa, 07 April 2020**
+- Di perbarui/di ubah pada Hari/Tanggal: **Kamis, 11 Februari 2021**
+- Di berlakukan pada Hari/Tanggal: **Kamis, 11 Februari 2021**
 
 
 ## Penutup
