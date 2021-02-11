@@ -8,7 +8,7 @@ author = "Farrel Franqois"
 ## Tentang Saya dan Blog ini
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
 
-Blog ini saya gunakan Netlify sebagai Hosting nya dan menggunakan Let's Encrypt sebagai Sertifikat SSL nya, serta saya gunakan Statically sebagai CDN untuk memuat gambar nya dan jsDelivr untuk memuat beberapa Skrip dan Fonta.
+Blog ini saya gunakan Netlify sebagai Hosting nya dan menggunakan Let's Encrypt sebagai Sertifikat SSL nya, serta saya gunakan Statically sebagai CDN untuk memuat gambar, beberapa Berkas JavaScript dan CSS Internal dan jsDelivr untuk memuat beberapa Pustaka JavaScript dan Fonta.
 
 Blog ini di bangun dengan Hugo dan saya menggunakan tema ["Stack"](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com).
 

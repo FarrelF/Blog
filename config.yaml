@@ -36,6 +36,10 @@ params:
   CDN:
     Images:
       URL: //cdn.statically.io/img/farrel.franqois.id/f=auto
+    JS:
+      URL: //cdn.statically.io/js/farrel.franqois.id
+    CSS:
+      URL: //cdn.statically.io/css/farrel.franqois.id
     Fonts:
       URL: //cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
     Libraries:
@@ -104,6 +108,12 @@ menu:
       url: tentang
       weight: -90
       pre: user
+    
+    - identifier: policy
+      name: Ketentuan dan Kebijakan Blog
+      url: ketentuan-dan-kebijakan-blog
+      weight: -80
+      pre: scale
 
     - identifier: archives
       name: Arsip

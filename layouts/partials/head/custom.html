@@ -16,7 +16,7 @@ details.info {
     border: 1px solid;
 }
 </style>
-{{- $Permalink := "" -}}
+{{- $Permalink := "/fonts" -}}
 {{- if and (.Site.Params.CDN.Fonts.URL) (ne hugo.Environment "development") -}}
     {{- $Permalink = .Site.Params.CDN.Fonts.URL -}}
 {{- end -}}
