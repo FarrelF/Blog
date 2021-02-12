@@ -42,8 +42,6 @@ params:
       URL: //cdn.statically.io/css/farrel.franqois.id
     Fonts:
       URL: //cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
-    Libraries:
-      Provider: jsdelivr
 
   mainSections:
     - post

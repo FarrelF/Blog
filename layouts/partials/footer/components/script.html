@@ -1,11 +1,4 @@
-{{- $VibrantURL := "" -}}
-{{- if eq .Site.Params.CDN.Libraries.Provider "unpkg" -}}
-    {{- $VibrantURL = "https://unpkg.com/node-vibrant@3.1.5/dist" -}}
-{{- else -}}
-    {{- $VibrantURL = "https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist" -}}
-{{- end -}}
-<script src="{{ $VibrantURL }}/vibrant.min.js"
-    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script>
+{{- partial "helper/external" (dict "Context" . "Namespace" "Vibrant") -}}
 
 {{- $Permalink := "" -}}
 {{- $script := "" -}}
