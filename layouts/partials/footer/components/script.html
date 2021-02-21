@@ -13,4 +13,4 @@
     {{- $Permalink = $script.RelPermalink -}}
 {{- end -}}
 
-<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous" defer></script>
