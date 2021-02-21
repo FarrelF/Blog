@@ -35,13 +35,13 @@ params:
 
   CDN:
     Images:
-      URL: //cdn.statically.io/img/farrel.franqois.id/f=auto
+      URL: https://cdn.statically.io/img/farrel.franqois.id/f=auto
     JS:
-      URL: //cdn.statically.io/js/farrel.franqois.id
+      URL: https://cdn.statically.io/js/farrel.franqois.id
     CSS:
-      URL: //cdn.statically.io/css/farrel.franqois.id
+      URL: https://cdn.statically.io/css/farrel.franqois.id
     Fonts:
-      URL: //cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
+      URL: https://cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
 
   mainSections:
     - post
@@ -93,6 +93,9 @@ params:
     content:
       enabled: true
 
+  Twemoji:
+    enabled: true
+
 menu:
   main:
     - identifier: home
@@ -139,4 +142,7 @@ related:
 markup:
   highlight:
     noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
   

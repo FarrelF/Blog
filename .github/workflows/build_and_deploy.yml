@@ -1,4 +1,9 @@
 name: Build and Deploy
+on: 
+  push:
+    branches:
+      - master
+
 jobs:
   build:
     name: Build
@@ -14,7 +19,7 @@ jobs:
         fetch-depth: '0'
         submodules: 'true'
 
-    - name: Install and Set up Locales
+    - name: Install and Set up Locales and Other Packages
       run: |
         case "$(curl -s --max-time 3 -I http://azure.archive.ubuntu.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
           [23]) echo "The Repository HTTP Server is up"
@@ -25,15 +30,14 @@ jobs:
                   sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
                   sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
                   sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
-                  sudo apt update
                 fi;;
           *) echo "The Repository HTTP Server is down, changing the Repository Server. Please wait....."
              sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
              sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
-             sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
-             sudo apt update;;
+             sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list;;
         esac
-        sudo apt install locales locales-all
+        sudo apt update
+        sudo apt install locales locales-all pigz
         sudo sed -i 's/id_ID\s.*$/id_ID id_ID.utf8/g' /usr/share/locale/locale.alias
         sudo sed -i 's/# id_ID\.UTF-8/id_ID\.UTF-8/' /etc/locale.gen
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
@@ -42,19 +46,29 @@ jobs:
     
     - name: Install and Set up Hugo Extended
       run: |
-        echo "::set-env name=HUGO_VERSION::$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
+        HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
         pushd /tmp/
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         tarball="$(find . -name "*Linux-64bit.tar.gz" 2>/dev/null)"
-        tar -xzf $tarball
+        tar -xzf ${tarball}
         chmod +x hugo
-        sudo mv hugo /usr/local/bin/
+        sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
         which hugo && hugo version
+    
+    - name: Set up Hugo Resources Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ./cache
+          ./resources
+        key: v1-hugo-${{ hashFiles('**/config.yaml') }}-${{ hashFiles('**/.gitmodules') }}
+        restore-keys: | 
+          v1-hugo-${{ hashFiles('**/config.yaml') }}
 
     - name: Building the Blog HTML
       run: |
-        hugo --gc --minify
-        env GZIP=-9 tar cvzf files.tar.gz ./public 
+        hugo --minify --enableGitinfo --cacheDir ${PWD}/cache
+        tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v2
@@ -73,17 +87,11 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files and Set Environments
+    - name: Decompressing Files and Installing Rclone
       run: |
         tar -xvzf files.tar.gz
-        echo "::set-env name=GIT_COMMIT_HASH::$(git log --format="%h" -n 1 ${GITHUB_SHA})"
-        echo "::set-env name=GIT_COMMIT_MESSAGE::$(git log --format="%s" -n 1 ${GITHUB_SHA})"
-        echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+        curl https://rclone.org/install.sh | sudo bash
     
-    - name: Deploying with Netlify
-      uses: netlify/actions/cli@master
-      with:
-        args: --dir=./public -m "GitHub Actions (${GIT_COMMIT_HASH})":" ${BRANCH_NAME} - ${GIT_COMMIT_MESSAGE}"
-      env:
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        NETLIFY_AUTH_TOKER: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    - name: Deploying with Rclone
+      run: |
+        echo "Run a Command Here"

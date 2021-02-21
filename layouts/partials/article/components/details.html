@@ -15,14 +15,18 @@
         </a>
     </h2>
 
-    {{ if eq .Params.enableSummary true }}
+    {{ if and (eq .Params.enableSummary true) (.Params.Summary) }}
+        <h3 class="article-subtitle">
+            {{ .Params.Summary | safeHTML }}
+        </h3>
+    {{ else if and (eq .Params.enableSummary true) (.Summary) }}
         <h3 class="article-subtitle">
             {{ .Summary }}
         </h3>
     {{ else }}
         {{ with .Params.description }}
         <h3 class="article-subtitle">
-            {{ . }}
+            {{ . | safeHTML }}
         </h3>
         {{ end }}
     {{ end }}

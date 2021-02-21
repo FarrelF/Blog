@@ -15,11 +15,15 @@ slug: "cara-install-lamp-stack-di-ubuntu"
 suthor: "Farrel Franqois"
 enableSummary: true
 description: Apakah Anda ingin meng-install Git di dalam Komputer Anda? Kalau iya, silahkan Anda baca artikel ini!
-summary: Artikel ini akan membahas tentang bagaimana caranya meng-install LAMP Stack di dalam Sistem Operasi GNU/Linux, khususnya untuk pengguna Distribusi Ubuntu dan Turunan nya (seperti [Mint](https://linuxmint.com), [KDE neon](https://neon.kde.org), [Pop!_OS](https://pop.system76.com), dll) dengan 'benar'. Penasaran? Silahkan baca artikel ini, kalau tidak, ya tidak apa-apa 🙂
+summary: >
+    <p>
+    Artikel ini akan membahas tentang bagaimana caranya meng-install LAMP Stack di dalam Sistem Operasi GNU/Linux, khususnya untuk pengguna Distribusi Ubuntu dan Turunan nya (seperti <a class="link" href="https://linuxmint.com" rel="">Mint</a>, <a class="link" href="https://neon.kde.org">KDE neon</a>, <a class="link" href="https://pop.system76.com">Pop!_OS</a>, dll) dengan 'benar'.
+    </p> 
+    <p>
+    Penasaran? Silahkan baca artikel ini, kalau tidak, ya tidak apa-apa 🙂
+    </p>
 ---
-
 ## Daftar Isi
-
 {{< toc >}}
 
 ## Pembuka
@@ -248,7 +252,7 @@ Untuk Pengguna DE XFCE (Mousepad)*:
 
 **\*Catatan**: Kedua DE tersebut belum pernah saya gunakan, jadi apabila perintah di atas salah, maka mohon beri saran dari Anda agar bisa saya ubah perintah di atas. Tapi, khusus DE XFCE memang saya sedang menggunakan nya, yang distronya adalah Mint (di dalam VirtualBox), itupun menggunakan 'X-Apps \[Text\] Editor' (xed) sebagai editor bawaan nya. Jika kamu mau menambahkan, yah, silahkan saja.
 
-Setelah itu, kamu carikan sebuah teks `<Directory /var/www/>` yang ada di dalam berkas tersebut dengan memanfaatkan fitur dari Editor Teks/Kode yang Anda gunakan sekarang. Untuk mencari nya, tekan {{{< kbd >}}CTRL{{< / kbd >}} + {{< kbd >}}F{{< / kbd >}}, atau {{< kbd >}}CTRL{{< / kbd >}} + {{< kbd >}}W{{< / kbd >}} jika Anda menggunakan `nano` sebagai editor nya, lalu masukkan teks.
+Setelah itu, kamu carikan sebuah teks `<Directory /var/www/>` yang ada di dalam berkas tersebut dengan memanfaatkan fitur dari Editor Teks/Kode yang Anda gunakan sekarang. Untuk mencari nya, tekan <kbd>CTRL</kbd> + <kbd>F</kbd>, atau <kbd>CTRL</kbd> + <kbd>W</kbd> jika Anda menggunakan `nano` sebagai editor nya, lalu masukkan teks.
 
 Kemudian, kalo ketemu, akan ada barisan kode seperti di bawah ini:
 
@@ -272,7 +276,7 @@ Jika sudah di rubah, maka akan menjadi seperti berikut:
 </Directory>
 ```
 
-Kalau kamu sudah selesai, simpan berkas nya. Jika Anda menggunakan Teks Editor berbasis GUI, Anda bisa simpan berkas tersebut dengan menekan ++ctrl+s++. Sedangkan, kalau Anda menggunakan `nano`, maka Anda perlu tekan ++ctrl+o++ terlebih dahulu, lalu tekan ++enter++.
+Kalau kamu sudah selesai, simpan berkas nya. Jika Anda menggunakan Teks Editor berbasis GUI, Anda bisa simpan berkas tersebut dengan menekan <kbd>CTRL</kbd> + <kbd>S</kbd>. Sedangkan, kalau Anda menggunakan `nano`, maka Anda perlu tekan <kbd>CTRL</kbd> + <kbd>O</kbd> terlebih dahulu, lalu tekan <kbd>Enter</kbd>.
 
 Setelah di simpan, restart Apache2 nya dengan perintah berikut:
 
@@ -369,13 +373,13 @@ $ sudo systemctl enable mariadb
 #### **2. Konfigurasi MariaDB dan akun `root` nya**
 Sekarang, kita konfigurasi kan MariaDB nya supaya aman.
 
-Ketik perintah `sudo mysql_secure_installation` untuk melakukan konfigurasi. Lalu, jika di tanya “Enter current password for root” kamu tekan ++enter++ saja, setelah itu, masukkan Kata Sandi untuk Akun Root MariaDB yang ingin di buat, seperti cuplikan layar berikut:
+Ketik perintah `sudo mysql_secure_installation` untuk melakukan konfigurasi. Lalu, jika di tanya “Enter current password for root” kamu tekan <kbd>Enter</kbd> saja, setelah itu, masukkan Kata Sandi untuk Akun Root MariaDB yang ingin di buat, seperti cuplikan layar berikut:
 
 ![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_1.png)
 
-**Catatan:** Jika Anda menginstall MariaDB 10.4 atau di atasnya, dan Anda di tanya “Switch to `unix_socket` authentication \[Y/n\]”, Anda tinggal ketik atau jawab saja “n” (tanpa kutip). Lalu, tekan ++enter++. Hal ini agar Anda tidak mengaktifkan `unix_socket` sebagai metode autentikasi pada akun `root` di MariaDB.
+**Catatan:** Jika Anda menginstall MariaDB 10.4 atau di atasnya, dan Anda di tanya “Switch to `unix_socket` authentication \[Y/n\]”, Anda tinggal ketik atau jawab saja “n” (tanpa kutip). Lalu, tekan <kbd>Enter</kbd>. Hal ini agar Anda tidak mengaktifkan `unix_socket` sebagai metode autentikasi pada akun `root` di MariaDB.
 
-Setelah Anda menentukan Kata Sandi baru untuk Akun root pada MariaDB, Anda tinggal tekan Tombol ++enter++ saja, sampai selesai dan muncul tulisan “Thanks for using MariaDB!”. Berikut Cuplikan nya:
+Setelah Anda menentukan Kata Sandi baru untuk Akun root pada MariaDB, Anda tinggal tekan Tombol <kbd>Enter</kbd> saja, sampai selesai dan muncul tulisan “Thanks for using MariaDB!”. Berikut Cuplikan nya:
 
 ![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_2.png)
 
@@ -416,11 +420,11 @@ Karena kita nanti meng-install phpMyAdmin secara manual, atau jika kita terlanju
 
 Adakah solusi lain nya? Ada, bisa kamu klik pada salah satu tautan (_link_) berikut:
 
-- [Connect to mysql server without sudo - Stackoverflow](stackoverflow_question>37239970/connect-to-mysql-server-without-sudo)
+- [Connect to mysql server without sudo - Stackoverflow](https://stackoverflow.com/questions/37239970/connect-to-mysql-server-without-sudo)
 
-- [can't login as mysql user root from normal user account in ubuntu 16.04 - Ask Ubuntu](askubuntu_question>766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04)
+- [can't login as mysql user root from normal user account in ubuntu 16.04 - Ask Ubuntu](https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04)
 
-Mau lebih banyak lagi? Silahkan kamu [Googling](google>Running+mysql+command+without+sudo) saja sendiri, banyak di sana juga.
+Mau lebih banyak lagi? Silahkan kamu [Googling](https://www.google.com/search?q=Running+mysql+command+without+sudo) saja sendiri, banyak di sana juga.
 
 Nah, instalasi MariaDB ini telah sepenuhnya selesai, sekarang kita meng-install PHP versi 7.3 di dalam Sistem Ubuntu (dan Turunan nya, seperti Mint) Anda.
 
@@ -487,9 +491,9 @@ Salin dan tempelkan (_Copy_ dan _Paste_ kan) barisan kode berikut ini ke dalam b
 <?php phpinfo(); ?>
 ```
 
-Lalu, simpan berkas tersebut, kalau Anda menggunakan nano, maka Anda perlu tekan ++ctrl+o++ terlebih dahulu, lalu tekan ++enter++.
+Lalu, simpan berkas tersebut, kalau Anda menggunakan nano, maka Anda perlu tekan <kbd>CTRL</kbd> + <kbd>O</kbd> terlebih dahulu, lalu tekan <kbd>Enter</kbd>.
 
-Setelah itu, coba buka web browser Anda, lalu masukkan URL nya. Karena berkas yang kita buat tadi lokasi nya di `/var/www/html`, maka artinya masukkan URL `localhost/info.php` atau `127.0.0.1/info.php` kedalam Peramban (_Browser_) mu, lalu tekan ++enter++. Hasilnya akan menjadi seperti ini:
+Setelah itu, coba buka web browser Anda, lalu masukkan URL nya. Karena berkas yang kita buat tadi lokasi nya di `/var/www/html`, maka artinya masukkan URL `localhost/info.php` atau `127.0.0.1/info.php` kedalam Peramban (_Browser_) mu, lalu tekan <kbd>Enter</kbd>. Hasilnya akan menjadi seperti ini:
 
 ![Ini yang di hasilkan dari berkas 'info.php' jika di buka lewat Peramban Web.](PHP7_with_Apache2_Handler.png)
 
@@ -564,15 +568,15 @@ Setelah Anda membuka editor teks nya, coba Anda cari baris yang memiliki opsi `d
 
 Kalo kamu menggunakan editor yang berbasis GUI, kamu bisa menggunakan fitur seperti “Jump to Line”, “Go to Line”, atau apalah, yang penting bisa melompat ke baris tujuan.
 
-Sedangkan, jika kamu menggunakan `nano`, editor teks berbasis CLI, kamu bisa menekan tombol ++ctrl+underscore++ (_Underscore_/Garis Bawah) di `nano`, bukan ++ctrl+minus++ (Strip). Bagaimana cara menekan nya? Mudah saja, sembari Anda sedang menekan ++ctrl++, Anda harus tahu bagaimana caranya kamu memasukkan tanda garis bawah ke dalam layar dari Keyboard. 
+Sedangkan, jika kamu menggunakan `nano`, editor teks berbasis CLI, kamu bisa menekan tombol <kbd>CTRL</kbd> + <kbd>_</kbd> (_Underscore_/Garis Bawah) di `nano`, bukan <kbd>ctrl+minus<kbd> (Strip). Bagaimana cara menekan nya? Mudah saja, sembari Anda sedang menekan <kbd>CTRL</kbd>, Anda harus tahu bagaimana caranya kamu memasukkan tanda garis bawah ke dalam layar dari Keyboard. 
 
-Kalo saya perlu menekan tombol ++shift+minus++ untuk menghasilkan Tanda Garis Bawah. Jadi, untuk mencari/melompat ke baris tujuan di `nano`, maka saya harus menekan ++ctrl+shift+minus++ untuk menghasilkan ++ctrl+underscore++, sampai sini paham?
+Kalo saya perlu menekan tombol <kbd>Shift</kbd> + <kbd>-</kbd> untuk menghasilkan Tanda Garis Bawah. Jadi, untuk mencari/melompat ke baris tujuan di `nano`, maka saya harus menekan <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>-</kbd> untuk menghasilkan <kbd>CTRL</kbd> + <kbd>_</kbd>, sampai sini paham?
 
 Setelah Anda lompat ke baris tujuan, dan benar bahwa kedua opsi tersebut berada di baris itu, maka ubahlah nilai nya yang semula nya `Off` menjadi `On`. Seperti pada Cuplikan Layar berikut:
 
 ![Setelah merubah opsi pada php.ini](Activating_PHP_Display_Error.png)
 
-Setelah itu, simpan berkas nya. Jika Anda menggunakan Teks Editor berbasis GUI, Anda bisa simpan berkas tersebut dengan menekan ++ctrl+s++. Sedangkan, kalau Anda menggunakan `nano`, maka Anda perlu tekan ++ctrl+o++ terlebih dahulu, lalu tekan ++enter++.
+Setelah itu, simpan berkas nya. Jika Anda menggunakan Teks Editor berbasis GUI, Anda bisa simpan berkas tersebut dengan menekan <kbd>CTRL</kbd> + <kbd>S</kbd>. Sedangkan, kalau Anda menggunakan `nano`, maka Anda perlu tekan <kbd>CTRL</kbd> + <kbd>O</kbd> terlebih dahulu, lalu tekan <kbd>Enter</kbd>.
 
 Setelah Anda menyimpan nya, coba mulai ulang terlebih dahulu Apache2 dan PHP 7.3 nya dengan perintah berikut:
 
@@ -582,7 +586,7 @@ $ sudo systemctl restart apache2 "php7.3*"
 
 Sekarang, coba Anda buka berkas (dengan kode yang bebas) yang telah Anda buat tadi, coba apa yang terjadi? Tampilkan galat nya? Yah, pesan galat nya kira-kira tampil seperti pada Cuplikan di bawah ini:
 
-[Error pada PHP yang tampil di Browser>](After_Activating_PHP_Display_Error.png){class="luminous-image-gallery" rel="dns-prefetch"}
+[Error pada PHP yang tampil di Browser>](After_Activating_PHP_Display_Error.png)
 
 Jika Anda telah selesai sepenuhnya berurusan dengan PHP Info, atau berkas `info.php` tidak terpakai lagi, maka untuk keamanan, sebaiknya berkas `info.php` itu di hapus. Untuk menghapus nya, bisa Anda gunakan perintah berikut:
 
@@ -622,7 +626,7 @@ $ mv config.sample.inc.php config.inc.php; mkdir tmp; sudo chown www-data:www-da
 #### **1. Menguji phpMyAdmin**
 Setelah instalasi phpMyAdmin, memang nanti kita akan meng-konfigurasikan phpMyAdmin nya. Tapi, sebelum itu, kita harus memastikan terlebih dahulu kalau phpMyAdmin bisa di buka dengan baik lewat Peramban Web (_Web Browser_).
 
-Untuk melakukan nya, buka Web Browser Anda, lalu masukkan URL: `http://localhost/phpmyadmin` pada Peramban Web Anda, lalu tekan ++enter++.
+Untuk melakukan nya, buka Web Browser Anda, lalu masukkan URL: `http://localhost/phpmyadmin` pada Peramban Web Anda, lalu tekan <kbd>Enter</kbd>.
 
 Jika Anda sudah berhasil membuka nya, maka harusnya tampilan nya menjadi seperti Cuplikan berikut:
 
@@ -638,7 +642,7 @@ Di dalam konfigurasi nya nanti, maka kita akan menyisipkan nilai dari Opsi [`blo
 
 Jadi artinya, opsi `blowfish_secret` ini hanya berperan sebagai Kunci (_Key_) nya saja dalam Enkripsi, yang tidak boleh di beritahukan ke siapapun, kecuali kamu sendiri. Sedangkan kalo kamu tidak mengisinya, maka sama saja dengan tidak mengamankan akun MariaDB kamu dengan meng-enkripsi Kuki (_Cookie_) nya.
 
-Bagaimana cara menyisipkan nya? Coba kamu cari barisan kode atau teks `$cfg['blowfish_secret']` dengan menggunakan fitur “Find” atau menekan tombol ++ctrl+f++. 
+Bagaimana cara menyisipkan nya? Coba kamu cari barisan kode atau teks `$cfg['blowfish_secret']` dengan menggunakan fitur “Find” atau menekan tombol <kbd>CTRL</kbd> + <kbd>F</kbd>. 
 
 Dan, Anda akan menemukan nya dengan seperti berikut:
 
@@ -648,7 +652,7 @@ $cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 Yah, terlihat kosong kan? Kalo gitu, maka Anda harus mengisinya terlebih dahulu. Anda bisa mengisinya dengan karakter apapun. Ya, **Apapun**, selama tidak lebih dari 32 karakter.
 
-Kalo kamu mau karakter yang acak, bisa Anda dapatkan dengan memanfaatkan Penghasil Kata Sandi (_Password Generator_) atau Penghasil Karakter Acak (_Random Character Generator_), baik yang beredar di Internet ataupun di dalam Aplikasi Pengelola Kata Sandi yang Anda install. Kalo mau, [Googling](google>password+generator) aja sendiri deh, banyak disana juga :)
+Kalo kamu mau karakter yang acak, bisa Anda dapatkan dengan memanfaatkan Penghasil Kata Sandi (_Password Generator_) atau Penghasil Karakter Acak (_Random Character Generator_), baik yang beredar di Internet ataupun di dalam Aplikasi Pengelola Kata Sandi yang Anda install. Kalo mau, [Googling](https://www.google.com/search?q=password+generator) aja sendiri deh, banyak disana juga :)
 
 Atau, kalo kamu mau nya langsung hasilnya, bisa kamu klik [disini](https://phpsolved.com/phpmyadmin-blowfish-secret-generator/).
 
@@ -676,7 +680,7 @@ Sedangkan, jika Anda menemukan nya, maka Pesan Galat nya kurang lebih seperti be
 ![Error Cache pada phpMyAdmin](Error_TempDir_phpMyAdmin.png)
 
 #### **4. (Opsional) Melakukan Konfigurasi pada phpMyAdmin tambahan (terutama untuk mengatasi masalah tersebut)**
-Maka dari itu, kita lakukan lagi konfigurasi nya, pastikan berkas config.inc.php tadi masih/sudah di buka menggunakan editor teks/kode favorit Anda. Setelah itu, cari teks `/* Server parameters */` di dalam Editor, bisa kamu tekan tombol ++ctrl+f++ untuk mencari teks nya.
+Maka dari itu, kita lakukan lagi konfigurasi nya, pastikan berkas config.inc.php tadi masih/sudah di buka menggunakan editor teks/kode favorit Anda. Setelah itu, cari teks `/* Server parameters */` di dalam Editor, bisa kamu tekan tombol <kbd>CTRL</kbd> + <kbd>F</kbd> untuk mencari teks nya.
 
 Nah, kode di bawah `/* Server parameters */` beberapanya ada yang harus di ubah dan di tambahkan, yang semula nya berikut di bawah ini:
 
@@ -762,7 +766,7 @@ Setelah Anda mengaktifkan nya, Anda bisa membuat dan meng-edit berkas .htaccess 
 $ nano /var/www/html/phpmyadmin/.htaccess
 ```
 
-Setelah Anda berhasil membuka nya, tambahkan dengan menyalinkan (_copy_) barisan kode, kemudian menempelkan nya (_paste_) (Alias, copas) dengan menekan tombol ++ctrl+shift+v++ pada Keyboard, berikut di bawah ini ke dalam editor `nano`:
+Setelah Anda berhasil membuka nya, tambahkan dengan menyalinkan (_copy_) barisan kode, kemudian menempelkan nya (_paste_) (Alias, copas) dengan menekan tombol <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> pada Keyboard, berikut di bawah ini ke dalam editor `nano`:
 
 ```plaintext
 order deny,allow
@@ -791,7 +795,7 @@ Tadi saya telah membahas tentang cara mengamankan phpMyAdmin dengan memblokir se
 
 Autentikasi yang saya maksud disini tentu saja Autentikasi HTTP (_HTTP Authentication_), yang mana sebelum di akses oleh Peramban Web, ia akan meminta pengakses nya itu memasukkan Nama Pengguna (_Username_) dan Kata Sandi (_Password_). Jika kita salah memasukkan nya beberapa kali, atau kita membatalkan nya, maka secara otomatis akan menimbulkan kesalahan/galat seperti “Authorization Required” atau “Unauthorized”.
 
-Contohnya? [Googling](google_images>HTTP+Auth) aja sendiri, ah, cape gue.
+Contohnya? [Googling](https://www.google.com/search?tbm=isch&q=HTTP+Auth) aja sendiri, ah, cape gue.
 
 Jika Anda ingin membuat Autentikasi HTTP pada Webserver Apache2, maka Anda perlu membuatkan berkas `.htpasswd` nya terlebih dahulu.
 
@@ -821,7 +825,7 @@ Nah, berkas .htpasswd sudah di buat. Setelah di buat, edit/buat berkas .htaccess
 $ nano /var/www/html/phpmyadmin/.htaccess
 ```
 
-Setelah Anda berhasil membuka nya, tambahkan dengan menyalinkan (_copy_) barisan kode, kemudian menempelkan nya (_paste_) (Alias, copas) dengan menekan tombol ++ctrl+shift+v++ pada Keyboard, berikut di bawah ini ke dalam editor `nano`:
+Setelah Anda berhasil membuka nya, tambahkan dengan menyalinkan (_copy_) barisan kode, kemudian menempelkan nya (_paste_) (Alias, copas) dengan menekan tombol <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> pada Keyboard, berikut di bawah ini ke dalam editor `nano`:
 
 ```plaintext
 AuthUserFile /path/to/.htpasswd

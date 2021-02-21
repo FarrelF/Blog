@@ -20,6 +20,8 @@ Blog ini dan konten nya saya rilis di bawah lisensi berikut:
 
 - Semua konten teks, Gambar, Illustrasi atau/dan Grafis yang telah saya buat, di lisensikan di bawah: ["Creative Commons Attribution Share-Alike 4.0 Internasional (CC BY-SA 4.0)"](https://creativecommons.org/licenses/by-sa/4.0/), sedangkan Kode Sumber nya di Lisensi kan dibawah ["GNU Affero General Public License v3 (GNU AGPLv3)"](https://github.com/FarrelF/Blog/blob/master/LICENSE). Ini artinya saya memegang hak cipta, tapi memberikan beberapa hak kepada Anda, seperti mempelajari, memodifikasi, menyalinkan, mendistribusikan kembali untuk keperluan apapun, termasuk keperluan Komersial sekalipun, selama Anda melakukan beberapa kewajiban sebelum melakukan nya.
 
+- Blog ini menggunakan [Twemoji (Twitter Emoji)](https://twemoji.twitter.com/) yang merupakan salah satu Emoji yang di buat oleh Twitter sebagai Emoji Bawaan nya. Di Lisensi kan di bawah ["Creative Commons Attribution 4.0 Internasional (CC BY 4.0)"](https://creativecommons.org/licenses/by/4.0/) untuk Grafik Emoji nya dan [Lisensi MIT](https://github.com/twitter/twemoji/blob/master/LICENSE) untuk [Kode Sumber nya](https://github.com/twitter/twemoji).
+
 - Mungkin untuk Gambar, Illustrasi, Grafis atau/dan referensi lain nya yang telah saya dapatkan dari Situs Web/Blog lain akan menggunakan Lisensi yang berbeda. Oleh karena itu, sebagai kredit (jika di izinkan), saya akan berikan atribusi berupa pencantuman Judul/Nama dari Gambar/Illustrasi/Grafis, Pembuat nya, Sumber Gambar dan juga Lisensi yang di gunakan nya di akhir artikel/laman.
 
 
@@ -158,7 +160,7 @@ Serta semua Pernyataan yang ada di laman ini akan di rubah kapanpun dan dimanapu
 
 Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/di ubah pada Hari/Tanggal: **Kamis, 11 Februari 2021**
+- Di perbarui/di ubah pada Hari/Tanggal: **Kamis, 21 Februari 2021**
 - Di berlakukan pada Hari/Tanggal: **Kamis, 11 Februari 2021**
 
 

@@ -1,7 +1,7 @@
 {{ $sass := resources.Get "scss/style.scss" }}
-{{ $style := $sass | resources.ToCSS | fingerprint | minify }}
+{{ $style := $sass | resources.ToCSS | minify | fingerprint "sha384" }}
 {{ $Permalink := $style.RelPermalink }}
 {{ if and (.Site.Params.CDN.CSS.URL) (eq hugo.IsProduction true) }}
     {{ $Permalink = printf "%s%s" $.Site.Params.CDN.CSS.URL $style.RelPermalink }}
 {{ end }}
-<link rel="stylesheet" href="{{ $Permalink }}">
+<link rel="stylesheet" href="{{ $Permalink }}" integrity="{{ $style.Data.Integrity }}">

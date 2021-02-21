@@ -15,7 +15,16 @@ enableSummary: true
 Slug: masalah-klasik-pengguna-libreoffice
 image: LibreOffice-External-Logo.png
 description: Apakah Anda merasa kesulitan saat menggunakan LibreOffice pertama kali dan ingin mengatasi nya? Silahkan baca Artikel ini!
-Summary: Banyak sekali pengguna LibreOffice yang merasa kesulitan dalam menggunakan nya, seperti dokumen nya yang berantakan saat di buka dengan Microsoft Office, masalah kompatibilitas dan masalah lain nya. Artikel ini akan membahas hal-hal dasar yang harus di lakukan ketika Anda menggunakan LibreOffice dengan "Benar", dan saya bahas pada bagian yang paling "dasar" nya saja, yang mana ini tidak banyak di ketahui oleh banyak orang. Penasaran? Silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
+summary: >
+    <p>
+    Banyak sekali pengguna LibreOffice yang merasa kesulitan dalam menggunakan nya, seperti dokumen nya yang berantakan saat di buka dengan Microsoft Office, masalah kompatibilitas dan masalah lain nya. 
+    </p>
+    <p>
+    Artikel ini akan membahas hal-hal dasar yang harus di lakukan ketika Anda menggunakan LibreOffice dengan "Benar", dan saya bahas pada bagian yang paling "dasar" nya saja, yang mana ini tidak banyak di ketahui oleh banyak orang. 
+    </p>
+    <p>
+    Penasaran? Silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
+    </p>
 ---
 
 ## Daftar Isi

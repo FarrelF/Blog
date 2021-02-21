@@ -12,7 +12,13 @@ image: Cover.png
 date: 2019-09-17 16:13:03+07:00
 enableSummary: true
 description: Apakah Anda ingin meng-install Git di dalam Komputer Anda? Kalau iya, silahkan Anda baca artikel ini!
-summary: Artikel ini akan membahas tentang Cara Install Git, baik itu di dalam GNU/Linux dan Windows, tentu saja tanpa basa-basi terlebih dahulu (alias, langsung saya bahas bagaimana cara meng-install nya). Kalau Anda ingin meng-install Git di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya tidak apa-apa 🙂
+summary: >
+    <p>
+    Artikel ini akan membahas tentang Cara Install Git, baik itu di dalam GNU/Linux dan Windows, tentu saja tanpa basa-basi terlebih dahulu (alias, langsung saya bahas bagaimana cara meng-install nya). 
+    </p>
+    <p>
+    Kalau Anda ingin meng-install Git di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya tidak apa-apa 🙂
+    </p>
 ---
 
 ## Daftar Isi
