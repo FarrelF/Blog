@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - "**/README.md"
+      - "**/LICENSE"
+      - "**/LICENSE*"
+      - "**/CONTRIBUTING.md"
+      - "**/.gitignore"
+      - "**/netlify.toml"
 
 jobs:
   build:

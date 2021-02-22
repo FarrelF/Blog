@@ -59,7 +59,7 @@ $ hugo server -D --gc --noHTTPCache --disableFastRender --cacheDir $PWD/cache
 
 Parameter `-D` digunakan untuk membangun artikel/laman yang di draf, silahkan hapus parameter tersebut jika Anda tidak menginginkan nya.
 
-**Catatan**: Perintah di atas dapat di eksekusi melalui "PowerShell Core" dan Perangkat Lunak tersebut dapat mengenali variabel `$PWD` dengan baik.
+**Catatan**: Perintah di atas dapat di eksekusi melalui "PowerShell Core" di Windows dan Perangkat Lunak tersebut dapat mengenali variabel `$PWD` dengan baik.
 
 Setelah berhasil, bisa kamu coba buka Alamat URL `http://localhost:1313` di dalam Peramban Web kamu, dan kamu akan melihat hasilnya :slightly_smiling_face: 
 

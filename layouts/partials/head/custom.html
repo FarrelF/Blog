@@ -2,16 +2,7 @@
 <link rel="dns-prefetch" href="https://cdn.statically.io">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-{{ if eq .Site.Params.Twemoji.enabled true }}
-    {{- partial "helper/external" (dict "Context" . "Namespace" "Twemoji") -}}
-<script>
-    window.onload = function() {
-        twemoji.parse(document.body, 
-            {folder: 'svg', ext: '.svg', base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/assets/'}
-        );
-    }
-</script>
-{{ end }}
+
 <style>
 :root {
     --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
@@ -27,14 +18,15 @@ details.info {
 
 {{ if eq .Site.Params.Twemoji.enabled true }}
 img.emoji {
-    width:16px;
+    width: 16px;
+    height: 16px;
     margin: 0 .05em 0 .1em;
     vertical-align: -0.1em;
     pointer-events: none; 
 }
 {{ else }}
-img.emoji {
-    font-family: Apple Color Emoji,Segoe UI Emoji,NotoColorEmoji,Segoe UI Symbol,Android Emoji,EmojiSymbols;
+.emoji {
+    font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
 }
 {{ end }}
 </style>

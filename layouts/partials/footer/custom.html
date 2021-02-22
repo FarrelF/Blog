@@ -1,0 +1,26 @@
+{{ if eq .Site.Params.Twemoji.enabled true }}
+    {{- partial "helper/external" (dict "Context" . "Namespace" "Twemoji") -}}
+    {{- $TwemojiBaseURL := "" -}}
+    {{- $TwemojiPath := "svg" -}}
+    {{- $TwemojiExt := "svg" -}}
+    {{- if .Site.Params.Twemoji.BaseURL -}}
+        {{- $TwemojiBaseURL = .Site.Params.Twemoji.BaseURL -}}
+    {{- end -}}
+    {{- if .Site.Params.Twemoji.Path -}}
+        {{- $TwemojiPath = .Site.Params.Twemoji.Path -}}
+    {{- end -}}
+    {{- if .Site.Params.Twemoji.Ext -}}
+        {{- $TwemojiExt = .Site.Params.Twemoji.Ext -}}
+    {{- end -}}
+<script>
+    window.onload = function() {
+        twemoji.parse(document.body, 
+            {
+                folder: '{{ $TwemojiPath }}', 
+                ext: '{{ $TwemojiExt }}', 
+                base: '{{ $TwemojiBaseURL }}'
+            }
+        );
+    }
+</script>
+{{ end }}
