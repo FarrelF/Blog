@@ -1,0 +1,139 @@
+languageCode: id-id
+title: Farrel Franqois Blog
+theme: hugo-theme-stack
+paginate: 5
+enableEmoji: true
+enableInlineShortcodes: true
+content-dir: content
+
+DefaultContentLanguage: id
+
+permalinks:
+  post: /:slug/
+  page: /:slug/
+  categories: /kategori/:slug/
+
+params:
+  dateFormat:
+    published: Monday, 02 January 2006
+    lastUpdated: Monday, 02 January 2006
+
+  sidebar:
+    emoji:
+    subtitle: (Bukan) Sekedar Blog Pribadi saya
+    avatar:
+      local: true
+      src: img/profile/avatar.jpg
+
+  article:
+    math: false
+    license:
+      enabled: true
+      default: Di terbitkan di bawah lisensi CC BY-SA 4.0
+
+  mainSections:
+    - post
+  featuredImageField: image
+  rssFullContent: true
+  favicon:
+
+  footer:
+    since: 2019
+
+  comments:
+    enabled: true
+    provider: disqus
+    utterances:
+      repo:
+      issueTerm: pathname
+      label:
+      theme: preferred-color-scheme
+
+  widgets:
+    enabled:
+      - search
+      - archives
+      - tag-cloud
+    archives:
+      limit: 5
+    tagCloud:
+      limit: 10
+
+  opengraph:
+    twitter:
+      site: FarrelFranqois
+      card: summary_large_image
+
+  defaultImage:
+    opengraph:
+      enabled: false
+      local: false
+      src:
+
+  colorScheme:
+    toggle: true
+    # Available values: auto, light, dark
+    default: auto
+
+  imageProcessing:
+    cover:
+      enabled: true
+    content:
+      enabled: true
+
+  Twemoji:
+    enabled: true
+    BaseURL: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/
+    Path: assets/svg
+    Ext: .svg
+
+menu:
+  main:
+    - identifier: home
+      name: Beranda
+      url: /
+      weight: -100
+      pre: home
+
+    - identifier: about
+      name: Tentang
+      url: tentang
+      weight: -90
+      pre: user
+    
+    - identifier: policy
+      name: Ketentuan dan Kebijakan Blog
+      url: ketentuan-dan-kebijakan-blog
+      weight: -80
+      pre: scale
+
+    - identifier: archives
+      name: Arsip
+      url: arsip
+      weight: -70
+      pre: archives
+
+    - identifier: search
+      name: Cari
+      url: cari
+      weight: -60
+      pre: search
+
+related:
+  includeNewer: true
+  threshold: 60
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+
+    - name: categories
+      weight: 200
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+  

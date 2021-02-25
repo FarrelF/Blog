@@ -1,7 +1,8 @@
-name: Build and Deploy
+name: Testing Site
 on: 
-  push:
+  pull_request:
     branches:
+      - drafts
       - master
     paths-ignore:
       - "**/README.md"
@@ -13,11 +14,11 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build (Preview)
     runs-on: ubuntu-20.04
     env:
       TZ: Asia/Jakarta
-      HUGO_ENV: production
+      HUGO_ENV: staging
 
     steps:
     - name: Checkout the Code
@@ -61,20 +62,14 @@ jobs:
         chmod +x hugo
         sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
         which hugo && hugo version
-    
-    - name: Set up Hugo Resources Cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          ./cache
-          ./resources
-        key: v1-hugo-${{ hashFiles('**/config.yaml') }}-${{ hashFiles('**/.gitmodules') }}
-        restore-keys: | 
-          v1-hugo-${{ hashFiles('**/config.yaml') }}-
 
-    - name: Building the Blog HTML
+    - name: Building the Blog HTML (Preview)
       run: |
-        hugo --minify --enableGitinfo --cacheDir ${PWD}/cache
+        rm -rf static/*.txt
+        rm -rf static/*.xml
+        rm -rf static/google*.html
+        rm -rf static/CNAME
+        hugo --gc --minify --enableGitInfo --buildFuture --config ${PWD}/config.preview.yaml -b https://deploy-preview.farrel.franqois.id
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
@@ -85,7 +80,7 @@ jobs:
         retention-days: 1
   
   deploy:
-    name: Deploy
+    name: Deploy (Preview)
     needs: build
     runs-on: ubuntu-20.04
     steps:
