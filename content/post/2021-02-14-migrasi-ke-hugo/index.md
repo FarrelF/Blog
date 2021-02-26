@@ -41,7 +41,7 @@ Saat Instalasi, Pelican memerlukan untuk meng-install beberapa modul Python terl
 
 Mau tidak mau, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saya yang di Install. 
 
-Tapi tentu saja ini akan sulit untuk mengatur modul-modul nya, begitupula dengan urusan _Caching_ nya, sehingga ini kurang bisa untuk mengatasi masalah "Ini bekerja di mesin saya, kok".
+Tapi tentu saja ini akan sulit untuk mengatur modul-modul nya, sehingga ini kurang bisa untuk mengatasi masalah "Ini bekerja di mesin saya, kok".
 
 Akhirnya saya manfaatkan ["Poetry"](https://python-poetry.org) sebagai Pengelola Modul agar bisa mengelola modul-modulnya dengan lebih mudah, dan bahkan bisa dengan mudah meng-install modul Python yang diperlukan di Komputer lain.
 
@@ -49,9 +49,13 @@ Semua hal di atas tentu saja sangat merepotkan buat saya, sudah banyak langkah (
 
 Sedangkan Hugo? Semua hal di atas tidak pernah terjadi dan saya gak ada kendala ataupun keluhan sama sekali. Artinya, saya gak perlu Install Modul/Ketergantungan apapun hanya untuk menggunakan nya, bahkan termasuk Bahasa Pemrograman Go sekalipun.
 
-Kenapa? Karena Hugo sendiri telah menyediakan Berkas Biner yang telah di bangun (atau di-_compile_) sebelumnya. 
+Kenapa? Karena Hugo sendiri telah menyediakan Berkas Biner yang telah di bangun (atau di-_compile_) sebelumnya. Sudah gitu, Hugo telah menyediakan berkas biner untuk beberapa Sistem Operasi dan beberapa _Platform_ yang berbeda pula (Lintas Platform/_Cross-platform_).
 
-Lalu apa artinya itu? Artinya yang Anda perlu lakukan cuma dua saja, yakni punya 1 Berkas Biner Hugo, lalu copas ke dalam folder yang termasuk _Environment_ `PATH` agar bisa di eksekusi dimanapun. Tanpa perlu Install Modul/Ketergantungan apapun terlebih dahulu.
+Lalu apa artinya itu? Ini Artinya Anda hanya perlu mempunyai 1 Berkas Biner Hugo (bisa dengan mengunduhnya) untuk Sistem Operasi yang Anda gunakan, lalu tinggal Anda eksekusikan saja. 
+
+Mau Hugo nya bisa di eksekusi di manapun? Anda tinggal copas/pindahkan saja berkas tersebut ke dalam folder yang termasuk _Environment_ `PATH`. Di Sistem Operasi GNU/Linux (apapun Distribusi nya), Anda bisa meletakan nya ke dalam folder `/usr/local/bin`. 
+
+Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terlebih dahulu, alias tinggal langsung pakai saja dan tentu saja tanpa harus Install melalui Pengelola Paket (_Package Manager_) meskipun itu bisa di lakukan.
 
 ### Kecepatan
 Komputer yang saya gunakan masih menggunakan _Harddisk_ sebagai Penyimpanan Utama (belum menggunakan SSD, kecuali Laptop, karena belum sanggup beli).
@@ -85,26 +89,29 @@ Contoh: Jika Anda ingin merubah isi berkas `article.html` yang ada di Tema dan t
 
 Dan berkat ini, saya hanya perlu manfaatkan _Git Submodules_ saja untuk meng-install tema nya.
 
-### Fitur
-Di Pelican, fitur nya kurang begitu lengkap untuk kebutuhan saya, untuk menambahkan suatu fitur saja saya harus menambahkan sejumlah _Plugin_ yang menurut saya itu cukup _tricky_.
+### Fitur Bawaan
+Di Pelican, fitur bawaan nya kurang begitu lengkap untuk kebutuhan saya, untuk menambahkan suatu fitur saja saya harus menambahkan sejumlah _Plugin_ yang menurut saya itu cukup rumit.
 
-Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja harus memasang sebuah _Plugin_ yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak di perbarui.
+Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja harus memasang sebuah _Plugin_, yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak di perbarui.
 
-Sedangkan di Hugo tidaklah perlu demikian, fitur-fitur yang ada di Hugo terbilang cukup lengkap bagi saya, bahkan Hugo sendiri telah menyediakan sejumlah Template Internal Google Analytics, Disqus, dll agar kemudian bisa di aplikasikan oleh pembuat Tema jika berkenan.
+Sedangkan di Hugo, fitur-fitur bawaan yang ada di Hugo terbilang cukup lengkap bagi saya, bahkan Hugo sendiri telah menyediakan sejumlah Template Internal Google Analytics, Disqus, dll agar kemudian bisa di aplikasikan oleh pembuat Tema jika berkenan.
 
 Dan dengan memanfaatkan fitur _Shortcodes_ saat membuat berkas Markdown, kita bisa menyisipkan _Tag_/Kode HTML yang kita butuhkan, bahkan ketika fitur tersebut tidak ada di Tema sekalipun. 
 
 Seperti fitur "Daftar Isi" yang tidak semua Tema punya, termasuk Tema yang [saya gunakan ini](https://github.com/CaiJimmy/hugo-theme-stack/) yang sampai sekarang [belum ada fiturnya](https://github.com/CaiJimmy/hugo-theme-stack/issues/129).
 
 ### Optimalisasi Blog/Web
-**Catatan**: Bagian ini masih berhubung dengan Bagian ["Fitur"](#Fitur).
+**Catatan**: Bagian ini masih berhubung dengan Bagian ["Fitur Bawaan"](#Fitur_Bawaan).
 
-Sudah menjadi umum memang bahwa Optimalisasi Blog/Web menjadi aspek yang sangatlah penting, karena tidak semua orang memiliki koneksi Internet yang cepat dan stabil, bahkan jika sudah menggunakan Layanan Jaringan Pengiriman Konten (CDN/_Content Delivery Network_) atau Jaringan Pengiriman Aplikasi (ADN/_Application Delivery Network_) sekalipun.
+Sudah menjadi umum memang bahwa Optimalisasi Blog/Web menjadi aspek yang sangatlah penting, karena tidak semua orang memiliki koneksi Internet yang cepat dan stabil, bahkan jika sudah menggunakan Layanan CDN (_Content Delivery Network_) atau ADN (_Application Delivery Network_) sekalipun.
 
 Sehingga memadatkan berkas Skrip, HTML (atau disebut: _minify_) dan mengoptimalkan Gambar yang di muat itu sudah menjadi kewajiban bagi pemilik/pemelihara Blog/Web.
 
-Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus menggunakan Plugin dan meng-Install beberapa modul yang diperlukan, sehingga hal ini mengorbankan kecepatan dalam menghasilkan Blog Statis.
-
-Belum lagi soal masalah _Web Browser Caching_ yang mengharuskan untuk menamai berdasarkan _Hash_ Berkas tersebut, agar jika berkas tersebut di modifikasi, maka pengunjung akan mendapatkan berkas terbaru nya ketika mengunjungi sebuah Blog/Web.
+Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus menggunakan Plugin dan meng-Install beberapa modul yang diperlukan, sehingga hal ini mengorbankan kecepatan dalam menghasilkan Blog Statis itu sendiri.
 
 Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur optimasi secara lengkap (Kecuali konversi gambar ke WebP, AVIF dan JXL) yang tentu nya itu merupakan fitur bawaan, tinggal pembuat/pemodifikasi Tema nya saja yang mau mengoptimalkan nya atau tidak.
+
+Untuk alasan nya, saya cukupkan disini saja, sebenarnya masih ada lagi alasan kenapa saya malah bermigrasi ke Hugo, cuma gak mau saya bahas aja, kepanjangan nanti nya.
+
+## Rencana Blog Kedepan
+
