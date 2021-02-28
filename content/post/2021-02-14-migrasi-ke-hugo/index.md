@@ -53,9 +53,9 @@ Kenapa? Karena Hugo sendiri telah menyediakan Berkas Biner yang telah di bangun 
 
 Lalu apa artinya itu? Ini Artinya Anda hanya perlu mempunyai 1 Berkas Biner Hugo (bisa dengan mengunduhnya) untuk Sistem Operasi yang Anda gunakan, lalu tinggal Anda eksekusikan saja. 
 
-Mau Hugo nya bisa di eksekusi di manapun? Anda tinggal copas/pindahkan saja berkas tersebut ke dalam folder yang termasuk _Environment_ `PATH`. Di Sistem Operasi GNU/Linux (apapun Distribusi nya), Anda bisa meletakan nya ke dalam folder `/usr/local/bin`. 
+Mau Hugo nya bisa di eksekusi di manapun? Anda tinggal copas/pindahkan saja berkas tersebut ke dalam direktori yang sudah termasuk _Environment_ `PATH`. Di Sistem Operasi GNU/Linux (apapun Distribusi nya), Anda bisa meletakan nya ke dalam direktori `/usr/local/bin`. 
 
-Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terlebih dahulu, alias tinggal langsung pakai saja dan tentu saja tanpa harus Install melalui Pengelola Paket (_Package Manager_) meskipun itu bisa di lakukan.
+Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terlebih dahulu, alias tinggal langsung pakai saja dan tentu saja tanpa harus Install melalui Pengelola Paket (_Package Manager_), meskipun itu bisa di lakukan.
 
 ### Kecepatan
 Komputer yang saya gunakan masih menggunakan _Harddisk_ sebagai Penyimpanan Utama (belum menggunakan SSD, kecuali Laptop, karena belum sanggup beli).
@@ -79,22 +79,22 @@ Dan menurut saya, 1 Repo terpisah hanya untuk Modifikasi Tema ini memang _gak ba
 
 Bisa saja Tema nya saya letakkan di dalam Kode Sumber Blog saya, namun ujung-ujungnya yah sama saja + Ukuran Repo Git nya malah jadi "buncit" nantinya gara-gara Tema.
 
-Sedangkan di Hugo, saya bisa memodifikasi tema cuma perlu merubah berkas-berkas seperlunya dengan memanfaatkan folder-folder yang ada di Kode Sumber Blog nya, seperti: `layouts` (Untuk Tata letak Tema), `data` (Untuk Data pada Tema/Blog) dan `i18n` (Untuk Terjemahan pada Tema) tanpa harus membuat _Repository_ baru lagi atau memodifikasi tema di dalam Kode Sumber Blog nya.
+Sedangkan di Hugo, saya cuma perlu merubah berkas-berkas seperlunya dengan memanfaatkan folder-folder yang ada di Kode Sumber Blog nya, seperti: `layouts` (Untuk Tata letak Tema), `data` (Untuk Data pada Tema/Blog) dan `i18n` (Untuk Terjemahan pada Tema) untuk memodifikasi tema tanpa harus membuat _Repository_ baru lagi atau gak perlu 'ngubek-ngubek' berkas dari tema asli nya secara keseluruhan, mirip seperti konsep ["WordPress Child Themes"](https://developer.wordpress.org/themes/advanced-topics/child-themes/).
 
 Caranya mudah, Anda tinggal copas berkas yang ingin Anda rubah ke dalam Kode Sumber Blog/Situs Web kamu, lalu tinggal modifikasi sesuka hati.
 
-Pastikan lokasi berkas di Kode Sumber Blog/Situs Web nya mengikuti lokasi berkas pada Tema nya. 
+Pastikan lokasi/direktori berkas di Kode Sumber Blog/Situs Web nya mengikuti direktori berkas pada Tema nya. 
 
-Contoh: Jika Anda ingin merubah isi berkas `article.html` yang ada di Tema dan terletak di dalam lokasi `layouts/partials/article`, maka Anda perlu meletakkan nya di dalam folder `layouts/partials/article` pada Kode Sumber Blog/Situs Web nya juga.
+Contoh: Jika Anda ingin merubah isi berkas `article.html` yang ada di Tema dan terletak di dalam direktori `layouts/partials/article`, maka Anda perlu meletakkan nya di dalam direktori `layouts/partials/article` pada Kode Sumber Blog/Situs Web nya juga.
 
 Dan berkat ini, saya hanya perlu manfaatkan _Git Submodules_ saja untuk meng-install tema nya.
 
 ### Fitur Bawaan
-Di Pelican, fitur bawaan nya kurang begitu lengkap untuk kebutuhan saya, untuk menambahkan suatu fitur saja saya harus menambahkan sejumlah _Plugin_ yang menurut saya itu cukup rumit.
+Di Pelican, fitur bawaan nya kurang begitu lengkap untuk kebutuhan saya, untuk menambahkan suatu fitur saja, saya harus menambahkan sejumlah _Plugin_ yang menurut saya itu cukup rumit.
 
-Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja harus memasang sebuah _Plugin_, yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak di perbarui.
+Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja saya harus memasang sebuah _Plugin_, yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak di perbarui/tidak terurus dengan baik.
 
-Sedangkan di Hugo, fitur-fitur bawaan yang ada di Hugo terbilang cukup lengkap bagi saya, bahkan Hugo sendiri telah menyediakan sejumlah Template Internal Google Analytics, Disqus, dll agar kemudian bisa di aplikasikan oleh pembuat Tema jika berkenan.
+Sedangkan di Hugo, fitur-fitur bawaan yang ada di Hugo terbilang cukup lengkap bagi saya, bahkan Hugo sendiri telah menyediakan sejumlah Template Internal "Google Analytics", "Disqus", dll agar kemudian bisa di aplikasikan oleh pembuat Tema jika berkenan.
 
 Dan dengan memanfaatkan fitur _Shortcodes_ saat membuat berkas Markdown, kita bisa menyisipkan _Tag_/Kode HTML yang kita butuhkan, bahkan ketika fitur tersebut tidak ada di Tema sekalipun. 
 
@@ -114,4 +114,25 @@ Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur op
 Untuk alasan nya, saya cukupkan disini saja, sebenarnya masih ada lagi alasan kenapa saya malah bermigrasi ke Hugo, cuma gak mau saya bahas aja, kepanjangan nanti nya.
 
 ## Rencana Blog Kedepan
+### Penggunaan SSG dan Arsip Blog lama
+Karena saya sudah puas menggunakan Hugo daripada SSG sebelumnya, maka mungkin saya tidak akan beralih lagi ke SSG sebelumnya.
 
+Dan mungkin juga saya akan membuat Arsip untuk Blog dengan SSG sebelum nya, biar kalian nanti nya tahu seperti apa blog saya sebelumnya, itupun jika situasi dan kondisi nya memungkinkan.
+
+### Hosting
+Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (Point of Presence).
+
+Jumlah seperti ini tentu saja sangatlah sedikit, tapi memang ini masih lebih baik daripada say ameng-hos-kan nya di Layanan _Web Hosting_ kebanyakan.
+
+Sekarang saya masih mempunyai beberapa saldo [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) dan karena mereka ingin memperkenalkan Layanan Penyimpanan berbasiskan S3 nya yang rencananya di rilis pada awal tahun ini berdasarkan cuitan di bawah ini:
+
+{{< twitter_simple 1333016696089526273 >}}
+
+Jika itu benar-benar terjadi, maka saya berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
+
+### CI/CD
+Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration_/_Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
+
+Sebelumnya saya gunakan ["GitHub Actions"](https://github.com/features/actions) untuk layanan CI/CD nya, namun karena proses pembuatan nya yang begitu ruwet (sampe harus melibatkan NodeJS segala untuk _Deploy_ ke Netlify), maka gak saya gunakan lagi untuk saat ini.
+
+Jika Layanan Penyimpanan S3 dari bunny.net benar-benar di perkenalkan pada awal tahun ini, maka saya akan kembali gunakan "GitHub Actions" untuk layanan CI/CD nya.

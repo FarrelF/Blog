@@ -62,15 +62,25 @@ jobs:
         chmod +x hugo
         sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
         which hugo && hugo version
+        git ls-tree -rtl HEAD:content/post --full-tree > /tmp/post-tree.hash
+    
+    - name: Set up Hugo Resources Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ./cache
+          ./resources
+        key: v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        restore-keys: | 
+          - v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+          - v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-
 
     - name: Building the Blog HTML (Preview)
       run: |
-        rm -rf static/*.txt
-        rm -rf static/*.xml
-        rm -rf static/google*.html
-        rm -rf static/CNAME
-        hugo --gc --minify --enableGitInfo --buildFuture --config ${PWD}/config.preview.yaml -b https://deploy-preview.farrel.franqois.id
-        tar cvf - ./public | pigz -9 > files.tar.gz
+        rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
+        mv static/robots_preview static/robots.txt
+        hugo --gc --minify --enableGitInfo --buildFuture --config ${PWD}/config.preview.yaml --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
+        tar cvf - public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v2
