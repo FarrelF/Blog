@@ -109,30 +109,52 @@ Sehingga memadatkan berkas Skrip, HTML (atau disebut: _minify_) dan mengoptimalk
 
 Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus menggunakan Plugin dan meng-Install beberapa modul yang diperlukan, sehingga hal ini mengorbankan kecepatan dalam menghasilkan Blog Statis itu sendiri.
 
-Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur optimasi secara lengkap (Kecuali konversi gambar ke WebP, AVIF dan JXL) yang tentu nya itu merupakan fitur bawaan, tinggal pembuat/pemodifikasi Tema nya saja yang mau mengoptimalkan nya atau tidak.
+Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur optimasi secara lengkap (Kecuali konversi gambar ke format WebP, AVIF dan JXL) yang tentu nya itu merupakan fitur bawaan, tinggal pembuat/pemodifikasi Tema nya saja yang mau mengoptimalkan nya atau tidak.
 
 Untuk alasan nya, saya cukupkan disini saja, sebenarnya masih ada lagi alasan kenapa saya malah bermigrasi ke Hugo, cuma gak mau saya bahas aja, kepanjangan nanti nya.
 
+## Bagaimana Migrasi nya?
+Untuk migrasi nya sendiri cukup mudah, saya hanya perlu migrasi artikel-artikel dan beberapa laman saja.
+
+Saya lakukan itu secara manual serta saya perlu untuk mengedit beberapa teks dan beberapa tautan agar mereka bisa tampil dengan layak.
+
+Untuk gambar nya sendiri, seperti yang Anda lihat, sekarang saya tidak menggunakan Repo dari luar lagi, tapi sebagai gantinya saya meletakkan berkas gambar nya ke dalam direktori masing-masing Artikel nya secara bersamaan dengan berkas Markdown nya.
+
+Untungnya saat ini artikel nya masih sedikit, sehingga saya gak terlalu capek melakukan nya.
+
+Konfigurasi dan Plugin tidak mungkin saya migrasikan kesini, begitupun dengan Tema nya, sehingga pada akhirnya saya ganti Tema juga.
+
 ## Rencana Blog Kedepan
 ### Penggunaan SSG dan Arsip Blog lama
-Karena saya sudah puas menggunakan Hugo daripada SSG sebelumnya, maka mungkin saya tidak akan beralih lagi ke SSG sebelumnya.
+Karena saya sudah lebih puas menggunakan Hugo daripada SSG sebelumnya, maka mungkin saya tidak akan beralih lagi ke SSG sebelumnya.
 
 Dan mungkin juga saya akan membuat Arsip untuk Blog dengan SSG sebelum nya, biar kalian nanti nya tahu seperti apa blog saya sebelumnya, itupun jika situasi dan kondisi nya memungkinkan.
 
 ### Hosting
 Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (Point of Presence).
 
-Jumlah seperti ini tentu saja sangatlah sedikit, tapi memang ini masih lebih baik daripada say ameng-hos-kan nya di Layanan _Web Hosting_ kebanyakan.
+Jumlah seperti ini tentu saja sangatlah sedikit, tapi memang ini masih jauh lebih baik ketimbang saya meng-hos-kan nya di Layanan _Web Hosting_ kebanyakan.
 
-Sekarang saya masih mempunyai beberapa saldo [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) dan karena mereka ingin memperkenalkan Layanan Penyimpanan berbasiskan S3 nya yang rencananya di rilis pada awal tahun ini berdasarkan cuitan di bawah ini:
+Pada awal tahun ini, [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) berencana ingin memperkenalkan sebuah Produk Penyimpanan berbasiskan S3 nya, berdasarkan cuitan di bawah ini:
 
 {{< twitter_simple 1333016696089526273 >}}
 
-Jika itu benar-benar terjadi, maka saya berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
+Jika itu benar-benar terjadi, maka saya akan berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
 
-### CI/CD
+### CI/CD (_Contnuous Integration_/_Continuous Delivery_)
 Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration_/_Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
 
 Sebelumnya saya gunakan ["GitHub Actions"](https://github.com/features/actions) untuk layanan CI/CD nya, namun karena proses pembuatan nya yang begitu ruwet (sampe harus melibatkan NodeJS segala untuk _Deploy_ ke Netlify), maka gak saya gunakan lagi untuk saat ini.
 
-Jika Layanan Penyimpanan S3 dari bunny.net benar-benar di perkenalkan pada awal tahun ini, maka saya akan kembali gunakan "GitHub Actions" untuk layanan CI/CD nya.
+Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal tahun ini, maka saya akan kembali gunakan "GitHub Actions" untuk layanan CI/CD nya.
+
+### Artikel Blog
+Seperti yang Anda lihat, bahwa sekarang Iklan dan Analitik di blog ini sudah tidak ada sama sekali.
+
+Kenapa? Sederhana, karena itu memperlambat akses blog serta mengurangi kenyamanan pengunjung karena Iklan dan Analitik yang terpasang. Belum lagi masalah Privasi yang ada pada Layanan tersebut (walaupun bisa saja di blokir menggunakan _Adblocker_ sih).
+
+Lalu, bagaimana nanti saya mendapatkan Uang? Karena Iklan tidak ada, maka sebagai ganti nya saya akan membuat "Artikel Berbayar".
+
+Ya, Anda gak salah lihat ataupun baca, "Artikel Berbayar". Dimana Anda perlu membayar atau berlangganan dengan biaya tertentu agar Anda bisa membaca nya. Tentu saja, tidak semua Artikel disini berbayar dan hanya Artikel tertentu saja yang saya buat berbayar.
+
+Saya akan gunakan _Platform_ Trakteer untuk melakukan hal itu, jika Anda ingin membaca Artikel Berbayar nya nanti, Anda hanya perlu mentraktir saya [disini](https://trakteer.id/farrelf).

@@ -45,11 +45,11 @@ Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Dis
 
 Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ketik perintah berikut di dalam Terminal:
 
-**Catatan**: Di dalam Sistem Operasi GNU/Linux, macOS dan Sistem Operasi berbasis Unix/Unix-like lain nya kamu bisa gunakan Terminal Bawaan, sedangkan di Windows kamu bisa gunakan "Git Bash" atau "PowerShell Core" juga boleh.
-
 ```bash
 $ hugo server -D --gc 
 ```
+
+**Catatan**: Di dalam Sistem Operasi GNU/Linux, macOS dan Sistem Operasi berbasis Unix/Unix-like lain nya kamu bisa gunakan Terminal Bawaan, sedangkan di Windows kamu bisa gunakan "Git Bash" atau "PowerShell Core" juga boleh.
 
 Jika Anda ingin agar web/blog nya tidak ter-_cache_ oleh Peramban Web dan memberikan pengalaman terbaik untuk membuat _Web Server_ nya, maka Anda perlu ikuti perintah berikut:
 

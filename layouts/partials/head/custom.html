@@ -1,7 +1,14 @@
+{{- $PermalinkFonts := "/fonts" -}}
+{{- if and (.Site.Params.CDN.Fonts.URL) (ne hugo.Environment "development") -}}
+    {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}
+{{- end -}}
 <link rel="preconnect" href="https://cdn.statically.io" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.statically.io">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preload" href="{{ $PermalinkFonts }}/Lato/lato-v17-latin-ext_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ $PermalinkFonts }}/Lato/lato-v17-latin-ext_latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ $PermalinkFonts }}/Lato/font.min.css" type="text/css" crossorigin>
 
 <style>
 :root {
@@ -30,18 +37,3 @@ img.emoji {
 }
 {{ end }}
 </style>
-
-{{- $Permalink := "/fonts" -}}
-{{- if and (.Site.Params.CDN.Fonts.URL) (ne hugo.Environment "development") -}}
-    {{- $Permalink = .Site.Params.CDN.Fonts.URL -}}
-{{- end -}}
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "{{ $Permalink }}/Lato/font.min.css";
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-    
-        document.head.appendChild(customFont);
-    }());
-</script>
