@@ -107,30 +107,6 @@ menu:
       weight: -100
       pre: home
 
-    - identifier: about
-      name: Tentang
-      url: tentang
-      weight: -90
-      pre: user
-    
-    - identifier: policy
-      name: Ketentuan dan Kebijakan Blog
-      url: ketentuan-dan-kebijakan-blog
-      weight: -80
-      pre: scale
-
-    - identifier: archives
-      name: Arsip
-      url: arsip
-      weight: -70
-      pre: archives
-
-    - identifier: search
-      name: Cari
-      url: cari
-      weight: -60
-      pre: search
-
 related:
   includeNewer: true
   threshold: 60
@@ -148,4 +124,3 @@ markup:
   goldmark:
     renderer:
       unsafe: true
-  
