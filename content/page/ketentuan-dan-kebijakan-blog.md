@@ -2,6 +2,11 @@
 Title: Ketentuan dan Kebijakan Blog
 Slug: ketentuan-dan-kebijakan-blog
 Authors: Farrel Franqois
+menu:
+  main:
+    identifier: policy
+    weight: -80
+    pre: scale
 ---
 
 ## Daftar Isi

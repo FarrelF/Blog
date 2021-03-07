@@ -6,20 +6,24 @@
     TZ = "Asia/Jakarta"
 
 [context.production]
-    command = "hugo --minify --enableGitInfo"
+    command = "rm static/robots_preview; hugo --minify --enableGitInfo"
     [context.production.environment]
         HUGO_ENV = "production"
 
 [context.split1]
-    command = "hugo --minify --enableGitInfo"
+    command = "rm static/robots_preview; hugo --minify --enableGitInfo"
     [context.split1.environment]
         HUGO_ENV = "production"
 
 [context.deploy-preview]
-    command = "hugo --gc --minify --enableGitInfo --buildFuture -b ${DEPLOY_PRIME_URL}"
+    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_redirects; mv static/robots_preview static/robots.txt; hugo --gc --minify --enableGitInfo --config config.preview.yaml --buildFuture -b ${DEPLOY_PRIME_URL}"
+    [context.deploy-preview.environment]
+        HUGO_ENV = "staging"
 
 [context.branch-deploy]
-    command = "hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
+    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_redirects; mv static/robots_preview static/robots.txt; hugo --gc --minify --config config.preview.yaml -b ${DEPLOY_PRIME_URL}"
+    [context.branch-deploy.environment]
+        HUGO_ENV = "staging"
 
 [context.next.environment]
     HUGO_ENABLEGITINFO = "true"
@@ -45,7 +49,7 @@
         }'''
         Content-Security-Policy = '''
         img-src 'self' data: https://*.cloudfront.net https://cdn.statically.io https://cdn.jsdelivr.net https://*.gstatic.com https://*.disquscdn.com https://*.google.com https://*.disqus.com;
-        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://fonts.gstatic.com;
+        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://*.cloudfront.net https://fonts.gstatic.com;
         connect-src 'self'; 
         frame-src 'self' https://disqus.com https://*.disqus.com;
         object-src 'self'; 

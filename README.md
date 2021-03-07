@@ -24,11 +24,17 @@ Untuk memperoleh nya, Anda bisa eksekusi perintah berikut untuk meng-kloning nya
 $ git clone --recurse-submodules https://github.com/FarrelF/Blog.git FarrelF-Blog
 ```
 
+Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk meng-kloning nya sebagai berikut:
+
+```bash
+$ gh repo clone FarrelF/Blog FarrelF-Blog -- --recurse-submodules
+```
+
 Setelah Anda meng-kloning nya, terutama dengan perintah di atas, kode sumber akan secara otomatis tersimpan di dalam Folder yang bernama `FarrelF-Blog`.
 
 Blog ini memerlukan beberapa modul yang berasal dari luar _Repository_ ini (Seperti: Tema), makanya saya gunakan _Submodules_ di dalam _Repository_ ini. 
 
-Jika Anda terlanjur tidak menggunakan opsi `--recurse-submodules` atau `--recursive` pas kloning, setelah Anda meng-kloningnya, maka Anda perlu mengikuti perintah berikut:
+Jika Anda terlanjur tidak menggunakan opsi `--recurse-submodules` atau `--recursive` saat kloning, setelah Anda meng-kloningnya, maka Anda perlu mengikuti perintah berikut:
 
 ```bash
 $ cd FarrelF-Blog
@@ -45,11 +51,11 @@ Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Dis
 
 Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ketik perintah berikut di dalam Terminal:
 
-**Catatan**: Di dalam Sistem Operasi GNU/Linux, macOS dan Sistem Operasi berbasis Unix/Unix-like lain nya kamu bisa gunakan Terminal Bawaan, sedangkan di Windows kamu bisa gunakan "Git Bash" atau "PowerShell Core" juga boleh.
-
 ```bash
 $ hugo server -D --gc 
 ```
+
+**Catatan**: Di dalam Sistem Operasi GNU/Linux, macOS dan Sistem Operasi berbasis Unix/Unix-like lain nya kamu bisa gunakan Terminal Bawaan, sedangkan di Windows kamu bisa gunakan "Git Bash" atau "PowerShell Core" juga boleh.
 
 Jika Anda ingin agar web/blog nya tidak ter-_cache_ oleh Peramban Web dan memberikan pengalaman terbaik untuk membuat _Web Server_ nya, maka Anda perlu ikuti perintah berikut:
 

@@ -1,9 +1,19 @@
-+++
-title = "Tentang"
-description = "Laman ini berisikan Informasi Tentang Saya, bagi yang ingin kenalan bisa kunjungi laman ini"
-aliases = ["tentang-saya", "hubungi-saya"]
-author = "Farrel Franqois"
-+++
+---
+title: Tentang
+description: Laman ini berisikan Informasi Tentang Saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
+slug: tentang
+aliases: 
+  - tentang-saya
+  - tentang-blog
+  - hubungi-saya
+author: Farrel Franqois
+menu:
+  main:
+    identifier: about
+    name: Tentang
+    weight: -90
+    pre: user
+---
 
 ## Tentang Saya dan Blog ini
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.

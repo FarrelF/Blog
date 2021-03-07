@@ -1,4 +1,3 @@
-baseURL: https://farrel.franqois.id/
 languageCode: id-id
 title: Farrel Franqois Blog
 theme: hugo-theme-stack
@@ -8,7 +7,6 @@ enableInlineShortcodes: true
 content-dir: content
 
 DefaultContentLanguage: id
-disqusShortname: farrelf-blog
 
 permalinks:
   post: /:slug/
@@ -32,16 +30,6 @@ params:
     license:
       enabled: true
       default: Di terbitkan di bawah lisensi CC BY-SA 4.0
-
-  CDN:
-    Images:
-      URL: https://cdn.statically.io/img/farrel.franqois.id/f=auto
-    JS:
-      URL: https://cdn.statically.io/js/farrel.franqois.id
-    CSS:
-      URL: https://cdn.statically.io/css/farrel.franqois.id
-    Fonts:
-      URL: https://cdn.jsdelivr.net/gh/FarrelF/Blog@fc2c0e3a057eaa785ed31acd936b1e449560dcfb/static/fonts
 
   mainSections:
     - post
