@@ -4,4 +4,4 @@
 {{ if and (.Site.Params.CDN.CSS.URL) (eq hugo.IsProduction true) }}
     {{ $Permalink = printf "%s%s" $.Site.Params.CDN.CSS.URL $style.RelPermalink }}
 {{ end }}
-<link rel="stylesheet" href="{{ $Permalink }}" integrity="{{ $style.Data.Integrity }}" {{ if and (.Site.Params.CDN.CSS.URL) (eq hugo.IsProduction true) }}crossorigin="anonymous"{{ end }}>
+<link rel="stylesheet" href="{{ $Permalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">

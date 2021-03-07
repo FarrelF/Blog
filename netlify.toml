@@ -49,7 +49,7 @@
         }'''
         Content-Security-Policy = '''
         img-src 'self' data: https://*.cloudfront.net https://cdn.statically.io https://cdn.jsdelivr.net https://*.gstatic.com https://*.disquscdn.com https://*.google.com https://*.disqus.com;
-        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://fonts.gstatic.com;
+        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://*.cloudfront.net https://fonts.gstatic.com;
         connect-src 'self'; 
         frame-src 'self' https://disqus.com https://*.disqus.com;
         object-src 'self'; 
