@@ -14,7 +14,7 @@
                     {{ $avatar := resources.Get (.src) }}
                     
                     {{ if $avatar }}
-                        {{ $avatarSmall := $avatar.Resize "120x" }}
+                        {{ $avatarSmall := $avatar.Resize "300x" }}
                         {{- $avatarPermalink := "" -}}
                         
                         {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
