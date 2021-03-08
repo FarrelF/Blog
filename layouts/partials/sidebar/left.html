@@ -14,16 +14,16 @@
                     {{ $avatar := resources.Get (.src) }}
                     
                     {{ if $avatar }}
-                        {{ $avatarResized := $avatar.Resize "300x" }}
+                        {{ $avatarSmall := $avatar.Resize "120x" }}
                         {{- $avatarPermalink := "" -}}
                         
                         {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $avatarPermalink = printf "%s%s" $.Site.Params.CDN.Images.URL $avatarResized.RelPermalink -}}
+                            {{- $avatarPermalink = printf "%s%s" $.Site.Params.CDN.Images.URL $avatarSmall.RelPermalink -}}
                         {{- else -}}
-                            {{- $avatarPermalink = $avatarResized.RelPermalink -}}
+                            {{- $avatarPermalink = $avatarSmall.RelPermalink -}}
                         {{- end -}}
-                        <img src="{{ $avatarPermalink }}" width="{{ $avatarResized.Width }}"
-                            height="{{ $avatarResized.Height }}" class="site-logo" loading="lazy" alt="Avatar">
+                        <img src="{{ $avatarPermalink }}" width="{{ $avatarSmall.Width }}"
+                            height="{{ $avatarSmall.Height }}" class="site-logo" loading="lazy" alt="Avatar">
                     {{ else }}
                         {{ errorf "Failed loading avatar from %q" . }}
                     {{ end }}

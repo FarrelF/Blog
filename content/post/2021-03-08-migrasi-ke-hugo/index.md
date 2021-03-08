@@ -2,7 +2,7 @@
 Title: Migrasi Blog ke Hugo, Alasan dan Rencana Kedepan nya
 Slug: migrasi-ke-hugo-dan-rencana-kedepannya
 Author: Farrel Franqois
-Category: 
+Categories: 
     - Info Blog
     - Opini
 Date: 2021-03-08 00:31:39+07:00
