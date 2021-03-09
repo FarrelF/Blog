@@ -7,6 +7,10 @@
 
     <header class="site-info">
         {{ with .Site.Params.sidebar.avatar }}
+            {{- $ImageURL := "" -}}
+            {{- if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+                {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
+            {{- end -}}
             <figure class="site-avatar">
                 {{ if not .local }}
                     <img src="{{ .src }}" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
@@ -15,13 +19,7 @@
                     
                     {{ if $avatar }}
                         {{ $avatarSmall := $avatar.Resize "300x" }}
-                        {{- $avatarPermalink := "" -}}
-                        
-                        {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $avatarPermalink = printf "%s%s" $.Site.Params.CDN.Images.URL $avatarSmall.RelPermalink -}}
-                        {{- else -}}
-                            {{- $avatarPermalink = $avatarSmall.RelPermalink -}}
-                        {{- end -}}
+                        {{- $avatarPermalink := printf "%s%s" $ImageURL $avatarSmall.RelPermalink -}}
                         <img src="{{ $avatarPermalink }}" width="{{ $avatarSmall.Width }}"
                             height="{{ $avatarSmall.Height }}" class="site-logo" loading="lazy" alt="Avatar">
                     {{ else }}

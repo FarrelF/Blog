@@ -17,26 +17,23 @@
 
         {{- $image := partialCached "helper/image" (dict "Context" . "Type" "articleList") .RelPermalink "articleList" -}}
         {{ if $image.exists }}
+            {{- $ImageURL := "" -}}
+            {{- if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+                {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
+            {{- end -}}
             <div class="article-image">
                 {{ if $image.resource }}
                     {{- $Permalink := "" -}}
                     {{- $Width := $image.resource.Width -}}
                     {{- $Height := $image.resource.Height -}}
 
-                    {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                        {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $image.resource.RelPermalink -}}
-                    {{- else -}}
-                        {{- $Permalink = $image.resource.RelPermalink -}}
-                    {{- end -}}
+                    {{- $Permalink = printf "%s%s" $ImageURL $image.resource.RelPermalink -}}
 
                     {{- if (default true .Site.Params.imageProcessing.cover.enabled) -}}
                         {{- $thumbnail := $image.resource.Fill "120x120" -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
-                        {{- $Permalink = $thumbnail.RelPermalink -}}
-                        {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
-                        {{- end -}}
+                        {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
                     {{- end -}}
                     
                     <img src="{{ $Permalink }}" 

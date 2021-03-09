@@ -1,27 +1,22 @@
 {{- $image := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL)) -}}
 
 {{- if $image -}}
+	{{- $ImageURL := "" -}}
+	{{- if and (.Page.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+		{{- $ImageURL = .Page.Site.Params.CDN.Images.URL -}}
+	{{- end -}}
 	{{- $alt := .PlainText | safeHTML -}}
 	<figure style="flex-grow: {{ div (mul $image.Width 100) $image.Height }}; flex-basis: {{ div (mul $image.Width 240) $image.Height }}px">
 		<a href="{{ $image.RelPermalink }}" data-size="{{ $image.Width }}x{{ $image.Height }}">
 			{{- $Width := $image.Width -}}
 			{{- $Height := $image.Height -}}
 			{{- $Srcset := "" -}}
-			{{- $Permalink := "" -}}
-			{{- if and (.Page.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-				{{- $Permalink = printf "%s%s" .Page.Site.Params.CDN.Images.URL $image.RelPermalink -}}
-			{{- else -}}
-				{{- $Permalink = $image.RelPermalink -}}
-			{{- end -}}
+			{{- $Permalink := printf "%s%s" $ImageURL $image.RelPermalink -}}
 
 			{{- if (default true .Page.Site.Params.imageProcessing.content.enabled) -}}
 				{{- $small := $image.Resize "480x" -}}
 				{{- $big := $image.Resize "1024x" -}}
-				{{- if and (.Page.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-					{{- $Srcset = printf "%s%s 480w, %s%s 1024w" .Page.Site.Params.CDN.Images.URL $small.RelPermalink .Page.Site.Params.CDN.Images.URL $big.RelPermalink -}}
-				{{- else -}}
-					{{- $Srcset = printf "%s 480w, %s 1024w" $small.RelPermalink $big.RelPermalink -}}
-				{{- end -}}
+				{{- $Srcset = printf "%s%s 480w, %s%s 1024w" $ImageURL $small.RelPermalink $ImageURL $big.RelPermalink -}}
 			{{- end -}}
 			
 			<img src="{{ $Permalink }}"

@@ -4,27 +4,21 @@
         <div class="article-image">
             <a href="{{ .RelPermalink }}">
                 {{ if $image.resource }}
-                    {{- $Permalink := "" -}}
+                    {{- $ImageURL := "" -}}
+                    {{- if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+                        {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
+                    {{- end -}}
                     {{- $Width := $image.resource.Width -}}
                     {{- $Height := $image.resource.Height -}}
                     {{- $Srcset := "" -}}
 
-                    {{ if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") }}
-                        {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $image.resource.RelPermalink -}}
-                    {{ else }}
-                        {{- $Permalink = $image.resource.RelPermalink -}}
-                    {{ end }}
+                    {{- $Permalink := printf "%s%s" $ImageURL $image.resource.RelPermalink -}}
                     
                     {{- if (default true .Site.Params.imageProcessing.cover.enabled) -}}
                         {{- $thumbnail := $image.resource.Resize "800x" -}}
                         {{- $thumbnailRetina := $image.resource.Resize "1600x" -}}
-                        {{- if and ($.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $Srcset = printf "%s%s 800w, %s%s 1600w" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink .Site.Params.CDN.Images.URL $thumbnailRetina.RelPermalink -}}
-                            {{- $Permalink = printf "%s%s" .Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
-                        {{- else -}}
-                            {{- $Srcset = printf "%s 800w, %s 1600w" $thumbnail.RelPermalink $thumbnailRetina.RelPermalink -}}
-                            {{- $Permalink = $thumbnail.RelPermalink -}}
-                        {{- end -}}
+                        {{- $Srcset = printf "%s%s 800w, %s%s 1600w" $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailRetina.RelPermalink -}}
+                        {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
                     {{- end -}}
