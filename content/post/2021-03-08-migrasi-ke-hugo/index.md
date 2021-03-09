@@ -29,7 +29,7 @@ Summary:
 {{< toc >}}
 
 ## Alasan Migrasi dari Pelican ke Hugo
-Pelican (bukan [Burung 'Pelican'](https://www.google.com/search?q=burung+pelikan&tbm=isch)) adalah salah satu _Static-site Generator_ (atau saya singkat "SSG") berbasis Python yang saya gunakan sebelum nya.
+[Pelican](https://blog.getpelican.com) (bukan [Burung 'Pelican'](https://www.google.com/search?q=burung+pelikan&tbm=isch)) merupakan salah satu _Static-site Generator_ (atau saya singkat "SSG") berbasis Python yang cukup populer di kalangan pengguna Python, saya adalah salah satu pengguna sebelumnya.
 
 Awalnya saya sendiri juga menggunakan nya daripada SSG lain seperti Hugo karena saat itu saya sedang belajar Bahasa Pemrograman Python.
 
@@ -40,7 +40,7 @@ Kenapa saya lakukan itu? Alasan nya bisa Anda lihat di bawah ini.
 ### Saat Instalasi
 Saat Instalasi, Pelican memerlukan untuk meng-install Python dan beberapa modul nya terlebih dahulu agar bisa di eksekusi.
 
-Mau tidak mau, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saya yang di Install. 
+Jadi mau tidak mau dan suka tidak suka, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saya yang di Install. 
 
 Tapi tentu saja ini akan sulit untuk mengatur modul-modul nya, sehingga ini kurang bisa untuk mengatasi masalah "Ini bekerja di mesin saya, kok".
 
@@ -61,16 +61,16 @@ Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terl
 ### Kecepatan
 Komputer yang saya gunakan masih menggunakan _Harddisk_ sebagai Penyimpanan Utama (belum menggunakan SSD, kecuali Laptop, karena belum sanggup beli).
 
-Maka kecepatan dalam membuat Blog Statis adalah hal yang paling terasa perbedaan nya. Di Pelican, dalam membuat Blog Statis, maka di perlukan beberapa detik untuk menyelesaikan nya, kadang 2-8 detik atau 1-5 detik jika adanya perubahan pada suatu berkas, bahkan sampai puluhan detik paling lambat nya.
+Maka kecepatan dalam membuat Blog Statis adalah hal yang paling terasa perbedaan nya. Di Pelican, dalam membuat Blog Statis, maka di perlukan beberapa detik untuk menyelesaikan nya, kadang 2-8 detik atau 1-5 detik jika adanya perubahan pada suatu berkas, bahkan sampai puluhan detik paling lambat nya, terutama jika itu di lakukan di Sistem Operasi Windows.
 
-Sedangkan di Hugo? Paling Lambat sekitar 1-6 detik an saja atau sekitar beberapa milidetik jika adanya perubahan, dan itupun dalam posisi di nonaktifkan "Fast Render" nya.
+Sedangkan di Hugo? Paling Lambat sekitar 1-6 detik an saja atau sekitar beberapa milidetik jika adanya perubahan, dan itupun dalam posisi di nonaktifkan "Fast Render" nya, baik di GNU/Linux ataupun di Windows juga sama saja kecepatan nya.
 
 Itu bisa saja banyak faktor dan relatif juga, mungkin banyaknya modul atau/dan konfigurasi itu yang membuat nya lama, tapi modul-modul tersebut saya perlukan juga agar blog nya berjalan sesuai kebutuhan saya.
 
 Pada akhirnya ini masalah ke selera aja, sih, hehe 😀
 
 ### Modifikasi Tema
-Di Pelican, jika saya ingin memodifikasi tema nya, maka saya sampai harus membuat Repo Git khusus yang berisikan Tema yang saya gunakan sekarang, lalu saya modifikasi sesuka saya.
+Di Pelican, jika saya ingin memodifikasi tema nya, maka saya sampai harus membuat Repo Git khusus yang berisikan Tema yang saya gunakan sekarang, lalu tinggal saya modifikasi sesuka saya.
 
 Memang ini merupakan hal yang mudah, tapi hal ini sangat merepotkan saya, terlebih kalo tema tersebut ada pembaruan penting buat blog saya dari Hulu (_Upstream_), sehingga mau tidak mau saya harus memperbarui nya secara manual, itu malesin banget.
 
@@ -102,7 +102,7 @@ Dan dengan memanfaatkan fitur _Shortcodes_ saat membuat berkas Markdown, kita bi
 Seperti fitur "Daftar Isi" yang tidak semua Tema punya, termasuk Tema yang [saya gunakan ini](https://github.com/CaiJimmy/hugo-theme-stack/) yang sampai sekarang [belum ada fiturnya](https://github.com/CaiJimmy/hugo-theme-stack/issues/129).
 
 ### Optimalisasi Blog/Web
-**Catatan**: Bagian ini masih berhubung dengan Bagian ["Fitur Bawaan"](#Fitur_Bawaan).
+**Catatan**: Bagian ini masih berhubung dengan Bagian ["Fitur Bawaan"](#fitur-bawaan).
 
 Sudah menjadi umum memang bahwa Optimalisasi Blog/Web menjadi aspek yang sangatlah penting, karena tidak semua orang memiliki koneksi Internet yang cepat dan stabil, bahkan jika sudah menggunakan Layanan CDN (_Content Delivery Network_) atau ADN (_Application Delivery Network_) sekalipun.
 
@@ -112,7 +112,7 @@ Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus mengguna
 
 Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur optimasi yang cukup lengkap (Kecuali konversi gambar ke format WebP, AVIF dan JXL) yang tentu nya itu merupakan fitur bawaan, tinggal pembuat/pemodifikasi Tema nya saja yang mau mengoptimalkan nya atau tidak.
 
-Untuk alasan nya, saya cukupkan disini saja, sebenarnya masih ada lagi alasan kenapa saya malah bermigrasi ke Hugo, cuma gak mau saya bahas aja, kepanjangan nanti nya.
+Untuk alasan nya, saya cukupkan disini saja, sebenarnya masih ada lagi alasan kenapa saya malah bermigrasi ke Hugo, cuma gak mau saya bahas aja, kepanjangan nanti nya, artikel segini aja udah panjang :face_with_tongue:
 
 Setelah saya membahas Alasan nya, saya ingin menekankan bahwa membahas alasan Migrasi ke Hugo bukan berarti saya menjelekkan SSG sebelumnya, yakni Pelican. Saya cuma murni ingin membagikan pengalaman saya saja selama menggunakan nya, semua juga memiliki kelebihan dan kekurangan nya masing-masing tergantung kebutuhan pengguna nya saja, kalo untuk kasus saya yah Pelican ini kurang bisa memenuhi kebutuhan saya akan hal itu.
 
@@ -136,7 +136,7 @@ Dan mungkin juga saya akan membuat Arsip untuk Blog dengan SSG sebelum nya, biar
 Untuk saat ini, Arsip nya bisa Anda lihat [disini](https://web.archive.org/web/20200922225546/https://farrel.franqois.id/).
 
 ### Hosting
-Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (Point of Presence).
+Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (_Point of Presence_).
 
 Jumlah seperti ini tentu saja sangatlah sedikit, tapi memang ini masih jauh lebih baik ketimbang saya meng-hos-kan nya di Layanan _Web Hosting_ kebanyakan.
 
@@ -146,10 +146,10 @@ Pada awal tahun ini, [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) berenc
 
 Jika itu benar-benar terjadi, maka saya akan berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
 
-### CI/CD (_Contnuous Integration_/_Continuous Delivery_)
-Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration_/_Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
+### CI/CD (_Contnuous Integration/Continuous Delivery_)
+Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration/Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
 
-Sebelumnya saya gunakan ["GitHub Actions"](https://github.com/features/actions) untuk layanan CI/CD nya, namun karena proses pembuatan nya yang begitu ruwet (sampe harus melibatkan NodeJS segala untuk _Deploy_ ke Netlify), maka gak saya gunakan lagi untuk saat ini.
+Sebelumnya saya gunakan ["GitHub Actions"](https://github.com/features/actions) untuk layanan CI/CD nya, namun karena proses pembuatan nya yang begitu ruwet (sampai harus melibatkan NodeJS segala untuk _Deploy_ ke Netlify), maka gak saya gunakan lagi untuk saat ini.
 
 Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal tahun ini, maka saya akan kembali gunakan "GitHub Actions" untuk layanan CI/CD nya.
 
@@ -173,9 +173,9 @@ Rencana nya saya ingin menggunakan [Remark42](https://remark42.com) atau [Static
 
 Remark42 memang memiliki fitur yang lumayan lengkap sebagai Sistem Komentar yang minimalis, bahkan Anda bisa menggunakan Akun dari Layanan lain untuk berkomentar atau bahkan berkomentar sebagai Anonim. Tapi sayangnya saya harus punya VPS minimalnya, sedangkan saya sendiri belum sanggup menyewanya karena belum punya duit.
 
-Sedangkan Staticman meskipun Gratis, Komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42 (karena keseluruhan nya bersifat statis, bukan dinamis) seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar, serta kurangnya dukungan dari tema nya juga, karena implementasi nya sangatlah kompleks dan sulit.
+Sedangkan Staticman meskipun Gratis, komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42, seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar dari segi pengomentar, serta kurangnya dukungan dari tema nya juga karena implementasi nya sangatlah kompleks dan sulit, hal ini terjadi karena komentar yang di tampilkan nya bersifat statis semua.
 
-Atau, mungkin saya migrasi ke [Comments dari Telegram](https://comments.app) aja kali yah? Kalau Anda punya saran mengenai Sistem Komentar lain nya, bisa Anda sarankan itu di dalam kolom komentar atau bisa [Hubungi Saya](/tentang).
+Atau, mungkin saya migrasi ke [Comments dari Telegram](https://comments.app) atau [Utterances](https://utteranc.es) yang berbasis GitHub _Issues_ aja kali yah? Kalau Anda punya saran mengenai Sistem Komentar lain nya, bisa Anda sarankan itu di dalam kolom komentar atau bisa [Hubungi Saya](/tentang).
 
 ### Perbaikan, Peningkatan dan Penambahan Fitur
 Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu saja merasa kurang atau terjadi Bug/Kesalahan dalam Koding.
