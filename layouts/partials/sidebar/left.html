@@ -1,3 +1,7 @@
+{{- $ImageURL := "" -}}
+{{- if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+    {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
+{{- end -}}
 <aside class="sidebar left-sidebar sticky">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
         <span class="hamburger-box">
@@ -7,10 +11,6 @@
 
     <header class="site-info">
         {{ with .Site.Params.sidebar.avatar }}
-            {{- $ImageURL := "" -}}
-            {{- if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
-                {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
-            {{- end -}}
             <figure class="site-avatar">
                 {{ if not .local }}
                     <img src="{{ .src }}" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
