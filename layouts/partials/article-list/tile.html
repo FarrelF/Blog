@@ -1,4 +1,10 @@
 {{ $image := partialCached "helper/image" (dict "Context" .context "Type" .Type) .context.RelPermalink .Type }}
+{{- $ImageURL := "" -}}
+{{- if and (.context.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+    {{- $ImageURL = .context.Site.Params.CDN.Images.URL -}}
+{{- else if and (.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
+    {{- $ImageURL = .Site.Params.CDN.Images.URL -}}
+{{- end -}}
 <article class="{{ if $image.exists }}has-image{{ end }}">
     <a href="{{ .context.RelPermalink }}">
         
@@ -10,18 +16,11 @@
                     {{- $Width := $imageRaw.Width -}}
                     {{- $Height := $imageRaw.Height -}}
 
-                    {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                        {{- $Permalink = printf "%s%s" $.Site.Params.CDN.Images.URL $imageRaw.RelPermalink -}}
-                    {{- else -}}
-                        {{- $Permalink = $imageRaw.RelPermalink -}}
-                    {{- end -}}
+                    {{- $Permalink = printf "%s%s" $ImageURL $imageRaw.RelPermalink -}}
 
                     {{- if (default true .Site.Params.imageProcessing.cover.enabled) -}}
                         {{- $thumbnail := $imageRaw.Fill .size -}}
-                        {{- $Permalink = $thumbnail.RelPermalink -}}
-                        {{- if and (.Site.Params.CDN.Images.URL) (ne hugo.Environment "development") -}}
-                            {{- $Permalink = printf "%s%s" $.Site.Params.CDN.Images.URL $thumbnail.RelPermalink -}}
-                        {{- end -}}
+                        {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
                     {{- end -}}

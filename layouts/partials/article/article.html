@@ -8,4 +8,7 @@
     {{ if or .Params.math .Site.Params.article.math }}
         {{ partialCached "article/components/math.html" . }}
     {{ end }}
+    {{ if and (eq .Site.Params.comments.enabled true) (eq .Site.Params.comments.provider "disqus") }}
+        {{ partialCached "article/components/polyfill.html" . }}
+    {{ end }}
 </article>

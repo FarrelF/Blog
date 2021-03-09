@@ -2,6 +2,7 @@
 /resources
 /cache
 /assets/jsconfig.json
+config.dev.yaml
 .DS_Store
 node_modules
 dist
