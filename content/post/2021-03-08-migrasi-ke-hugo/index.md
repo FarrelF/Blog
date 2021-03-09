@@ -12,7 +12,7 @@ Tags:
     - Static-site Generator
     - SSG
 enableSummary: true
-Description: 
+Description: Artikel ini membahas tentang Alasan saya Migrasi ke Hugo dari Pelican, serta rencana untuk blog ini kedepan nya. Jika Anda penasaran, silahkan baca artikel ini.
 Summary:
     <p>
     Sudah lama sekali saya tidak membuat postingan di blog ini, sudah hampir 2 tahun rasanya.
