@@ -10,7 +10,7 @@ summary: >
     Ini adalah Artikel bukan uji-coba yang paling pertama di dalam blog ini. 
     </p>
     <p>
-    Jadi, kalo mau baca `silahkan`, kalo gak yah silahkan. Tapi, di dalam artikel ini saya menjelaskan fokus saya kedepan nya untuk blog ini dan juga blog lama saya, jadi saya sarankan untuk di baca, kalo gak ya gak apa-apa, hehe 😀
+    Jadi, kalo mau baca silahkan, kalo gak yah silahkan. Tapi, di dalam artikel ini saya menjelaskan fokus saya kedepan nya untuk blog ini dan juga blog lama saya, jadi saya sarankan untuk di baca, kalo gak ya gak apa-apa, hehe 😀
     </p>
 ---
 

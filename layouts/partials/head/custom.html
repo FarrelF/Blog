@@ -18,9 +18,14 @@
 }
 
 details.info {
-    display: block;
-    padding: 0 var(--card-padding);
+    padding: 0.75em;
     border: 1px solid;
+}
+
+details summary {
+    display: block;
+    outline: none;
+    cursor: pointer;
 }
 
 {{ if eq .Site.Params.Twemoji.enabled true }}

@@ -40,7 +40,7 @@ Kenapa saya lakukan itu? Alasan nya bisa Anda lihat di bawah ini.
 ### Saat Instalasi
 Saat Instalasi, Pelican memerlukan untuk meng-install Python dan beberapa modul nya terlebih dahulu agar bisa di eksekusi.
 
-Jadi mau tidak mau dan suka tidak suka, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saya yang di Install. 
+Jadi mau tidak mau dan suka tidak suka, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saja yang di Install. 
 
 Tapi tentu saja ini akan sulit untuk mengatur modul-modul nya, sehingga ini kurang bisa untuk mengatasi masalah "Ini bekerja di mesin saya, kok".
 
@@ -135,6 +135,8 @@ Dan mungkin juga saya akan membuat Arsip untuk Blog dengan SSG sebelum nya, biar
 
 Untuk saat ini, Arsip nya bisa Anda lihat [disini](https://web.archive.org/web/20200922225546/https://farrel.franqois.id/).
 
+![Ini adalah penampilan dari Blog Statis lama saya](ksnip_20210310-220030.png)
+
 ### Hosting
 Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (_Point of Presence_).
 
@@ -167,22 +169,28 @@ Saya akan gunakan _Platform_ Trakteer untuk melakukan hal itu, jika Anda ingin m
 ### Sistem Komentar
 Untuk saat ini saya masih menggunakan [Disqus](https://disqus.com) sebagai Sistem Komentar nya, namun Disqus disini juga memiliki sebuah masalah.
 
-Selain masalah tentang banyaknya aset Web yang dimuat atau dengan kata lain "terlalu buncit", Disqus juga memiliki [masalah pada Privasi Pengguna nya](https://www.google.com/search?q=Disqus+Privacy+Concerns), sehingga saya berencana ingin memigrasikan Sistem Komentar di Blog ini.
+Selain masalah tentang banyaknya aset Web yang dimuat atau dengan kata lain "terlalu buncit" bagi kebanyakan orang (meskipun sudah menggunakan fitur "IntersectionObserver" sebagai _Lazy-load_ nya sih), Disqus juga memiliki [masalah pada Privasi Pengguna nya](https://www.google.com/search?q=Disqus+Privacy+Concerns), sehingga saya berencana ingin memigrasikan Sistem Komentar di Blog ini.
 
 Rencana nya saya ingin menggunakan [Remark42](https://remark42.com) atau [Staticman](https://staticman.net) sebagai Sistem Komentar nya, tapi saya sendiri bingung untuk mempertimbangkan nya. 
 
-Remark42 memang memiliki fitur yang lumayan lengkap sebagai Sistem Komentar yang minimalis, bahkan Anda bisa menggunakan Akun dari Layanan lain untuk berkomentar atau bahkan berkomentar sebagai Anonim. Tapi sayangnya saya harus punya VPS minimalnya, sedangkan saya sendiri belum sanggup menyewanya karena belum punya duit.
+"Remark42" memang memiliki fitur yang lumayan lengkap sebagai Sistem Komentar yang minimalis, bahkan Anda bisa menggunakan Akun dari Layanan lain untuk berkomentar atau bahkan berkomentar sebagai Anonim. Tapi sayangnya saya harus punya VPS minimalnya, sedangkan saya sendiri belum sanggup menyewanya karena belum punya duit.
 
-Sedangkan Staticman meskipun Gratis, komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42, seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar dari segi pengomentar, serta kurangnya dukungan dari tema nya juga karena implementasi nya sangatlah kompleks dan sulit, hal ini terjadi karena komentar yang di tampilkan nya bersifat statis semua.
+Sedangkan "Staticman" meskipun Gratis, komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42, seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar dari segi pengomentar, serta kurangnya dukungan dari tema nya juga karena implementasi nya sangatlah kompleks dan sulit, hal ini terjadi karena komentar yang di tampilkan nya bersifat statis semua.
 
 Atau, mungkin saya migrasi ke [Comments dari Telegram](https://comments.app) atau [Utterances](https://utteranc.es) yang berbasis GitHub _Issues_ aja kali yah? Kalau Anda punya saran mengenai Sistem Komentar lain nya, bisa Anda sarankan itu di dalam kolom komentar atau bisa [Hubungi Saya](/tentang).
 
 ### Perbaikan, Peningkatan dan Penambahan Fitur
-Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu saja merasa kurang atau terjadi Bug/Kesalahan dalam Koding.
+Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu saja merasa kurang atau terjadi Kutu (_Bug_)/Kesalahan dalam Koding.
 
-Untuk saat ini, terjadi kesalahan pada bagian "Artikel Terkait" yang terletak di setelah Akhir Artikel/Laman, yang gambar nya tidak menggunakan CDN dari Statically yang saya setel di Konfigurasi, padahal di Tema nya sudah saya setel juga.
+~~Untuk saat ini, terjadi kesalahan pada bagian "Konten Terkait" yang terletak di setelah Akhir Artikel/Laman, yang gambar nya tidak menggunakan CDN dari Statically yang saya setel di Konfigurasi, padahal di Tema nya sudah saya setel juga.~~
 
-Penampilan _Spoiler_ di dalam Artikel juga yang lebar nya tidak mengikuti huruf-huruf nya, alias kelebaran.
+**PEMBARUAN Rabu, 10 Maret 2021:** Saat ini, kutu tersebut sudah 'di musnahkan' (alias sudah di perbaiki) berdasarkan _Commit_ [`5ee86d2`](https://github.com/FarrelF/Blog/commit/5ee86d24e2ce6875a70aab716f4bc9fa38f7dacf) di GitHub, sehingga gambar-gambar tersebut telah menggunakan CDN dari Statically.
+
+~~Penampilan _Spoiler_ di dalam Artikel juga yang lebar nya tidak mengikuti huruf-huruf nya, alias kelebaran.~~
+
+**EDIT dari Rabu, 10 Maret 2021:** Ehh salah deh, bukan 'kelebaran', melainkan saat di klik _Spoiler_ nya, malah ada garis seperti _Border_ yang kerap mengganggu kenyamanan. Seperti pada gambar berikut:
+
+![Perhatikan persegi panjang yang di tunjuk anak panah itu. Nah, itu garis _border_ yang saya maksud!](ksnip_20210310-214151.png)
 
 Ini rencana nya akan saya perbaiki, tapi gak tau kapan waktu nya 🙁
 
@@ -191,7 +199,9 @@ Ya sudah, sepertinya pembahasan di artikel ini di cukupkan sampai sini saja dulu
 
 Di artikel ini saya cuma membahas kenapa saya Migrasi ke Hugo, Bagaimana Migrasi nya, lalu apa rencana kedepan nya, gak ada yang lebih juga.
 
-Walaupun begitu, terima kasih bagi Anda yang telah membaca artikel ini yang saat ini belum ada gambar nya sama sekali. 
+~~Walaupun begitu, terima kasih bagi Anda yang telah membaca artikel ini yang saat ini belum ada gambar nya sama sekali.~~
+
+**PEMBARUAN Rabu, 10 Maret 2021:** Sekarang artikel ini sudah ada gambar nya, walaupun sedikit, tapi saya usahakan untuk menambahkan gambar di artikel ini agar lebih menarik lagi.
 
 Mohon maaf, jika artikel ini memiliki kekeliruan dan kesalahan, baik dari ada yang salah ngetik, terlalu panjang, bertele-tele, dll. Dan, saya juga tidak bermaksud untuk menyinggung siapapun disini, saya cuma mau mengungkapkan pengalaman saya saja, serta rencana kedepan nya.
 

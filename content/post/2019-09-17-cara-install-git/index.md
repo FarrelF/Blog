@@ -25,7 +25,7 @@ summary: >
 {{< toc >}}
 
 ## I. Cara Install Git
-Untuk meng-install nya, Anda hanya perlu meng-unduh Git nya terlebih dahulu, bisa Anda kunjungi situs web resmi nya untuk meng-unduh Git, yakni: [https://git-scm.com](https://git-scm.com). Lalu, klik pada *Button* "Download Git" bla bla bla. Atau, Anda juga bisa mengunjungi [Halaman Unduhan](https://git-scm.com/downloads) Resmi nya untuk meng-unduh Git.
+Untuk meng-install nya, Anda hanya perlu meng-unduh Git nya terlebih dahulu, bisa Anda kunjungi situs web resmi nya untuk meng-unduh Git, yakni: [https://git-scm.com](https://git-scm.com). Lalu, klik pada _Button_ "Download Git" bla bla bla. Atau, Anda juga bisa mengunjungi [Halaman Unduhan](https://git-scm.com/downloads) Resmi nya untuk meng-unduh Git.
 
 ### **Cara Install Git di GNU/Linux, macOS dan Sistem Operasi berbasis \*nix lain nya**
 Pada GNU/Linux atau Sistem Operasi berbasis Unix/Unix-like lain nya, biasanya mereka akan memberikan petunjuk cara instalasi Git nya untuk masing-masing Distribusi atau Sistem Operasi nya (kecuali untuk macOS, yang tidak di beritahukan cara Install nya disana). Kalau begitu, Anda tinggal ikuti saja [petunjuk nya](https://git-scm.com/download/linux).
@@ -106,7 +106,7 @@ Maka dari itu, jika Anda adalah pengguna Windows, maka Anda bisa ikuti cara inst
 
 1. Unduh [Git untuk Windows](https://git-scm.com/download/win/).
 
-2. Setelah di Unduh, buka berkas tersebut. Jika muncul UAC (*User Account Control*), klik pada *Button* 'OK'.
+2. Setelah di Unduh, buka berkas tersebut. Jika muncul UAC (_User Account Control_), klik pada _Button_ 'OK'.
 
 3. Setelah itu, Install Git dengan Langkah-langkah berikut:
 
@@ -122,7 +122,7 @@ Jika Anda ingin menggunakan TrueType di dalam semua Konsol Windows, centang "Use
    
 ![Langkah ke-2 Instalasi Git&#58; Pilih Komponen mana yang ingin di Install (Select Components)](Install_Git_1.png)
 
-Setelah Anda selesai memilah-milih nya, klik pada *Button* 'Next >' untuk melanjutkan ke Langkah ke-3.
+Setelah Anda selesai memilah-milih nya, klik pada _Button_ 'Next >' untuk melanjutkan ke Langkah ke-3.
 
 #### **3. Pilih Editor mana yang akan di gunakan (_Choosing the default editor used by Git_)**
 Pada langkah ini, Anda bisa pilih editor yang akan di gunakan oleh Git nanti nya
@@ -133,21 +133,21 @@ Pada tutorial ini, saya akan gunakan 'GNU nano' sebagai editor bawaan untuk Git,
 
 Kalo Anda ingin menggunakan Editor Favorit, sedangkan editor nya tidak tersedia disitu, nanti Anda bisa konfigurasi lagi
 
-Karena secara bawaan Git memilih 'nano' sebagai editor nya, maka untuk langkah ini, bisa langsung Anda klik *Button* 'Next >' untuk melanjutkan ke Langkah ke-4.
+Karena secara bawaan Git memilih 'nano' sebagai editor nya, maka untuk langkah ini, bisa langsung Anda klik _Button_ 'Next >' untuk melanjutkan ke Langkah ke-4.
 
 #### **4. Pilih Cara untuk Eksekusi Git (_Adjusting your PATH environment_)**
 Setelah itu, pilih opsi untuk cara eksekusi Git, saya sarankan untuk pilih opsi **Git from the command line and also from 3rd-party software** (atau, membiarkan nya karena sudah terpilih) agar Git bisa di akses atau di eksekusi dari manapun, termasuk dari CMD (Command Prompt). 
    
 ![Langkah ke-4 Instalasi Git&#58; Pilih Cara untuk Eksekusi Git (Adjusting your PATH environment)](Install_Git_3.png)
 
-Setelah Anda memilih opsinya, klik pada *Button* 'Next >' untuk melanjutkan.
+Setelah Anda memilih opsinya, klik pada _Button_ 'Next >' untuk melanjutkan.
 
 #### **5. Pilih Perangkat Lunak untuk Eksekusi SSH untuk Git (_Choosing the SSH executable_)**
 Setelah itu, pilih eksekusi SSH untuk Git, ini akan berguna nanti ketika Anda mengelola *Repository* Git dengan SSH. Agar lebih mudah, pilih "OpenSSH" dengan memilih opsi **Use OpenSSH**, seperti pada cuplikan berikut: 
 
-![Langkah ke-5 Instalasi Git&#58; Pilih Perangkat Lunak untuk Eksekusi SSH untuk Git (Choosing the SSH executable)>](Install_Git_4.png)
+![Langkah ke-5 Instalasi Git&#58; Pilih Perangkat Lunak untuk Eksekusi SSH untuk Git (Choosing the SSH executable)](Install_Git_4.png)
 
-Setelah Anda memilih nya, klik pada *Button* 'Next >' untuk melanjutkan ke Langkah ke-6.
+Setelah Anda memilih nya, klik pada _Button_ 'Next >' untuk melanjutkan ke Langkah ke-6.
 
 #### **6. Menentukan Pustaka untuk HTTPS pada Git (_Choose HTTPS transport backend_)**
 Pada langkah **Choose HTTPS transport backend**, Anda akan menentukan *Library*/Pustaka mana yang akan di gunakan untuk 'transportasi' HTTPS pada Git nanti nya. 
@@ -158,7 +158,7 @@ Maka dari itu, pilihlah opsi **Use the native Windows Secure Channel library**, 
 
 ![Langkah ke-6 Instalasi Git&#58; Menentukan Pustaka untuk HTTPS pada Git (Choose HTTPS transport backend)](Install_Git_5.png)
 
-Setelah Anda memilih nya, klik pada *Button* 'Next >' untuk melanjutkan ke Langkah ke-7.
+Setelah Anda memilih nya, klik pada _Button_ 'Next >' untuk melanjutkan ke Langkah ke-7.
 
 #### **7. Menentukan "Baris Baru" untuk Git (_Configuring the line ending conversions_)**
 Selanjutnya, pada langkah **Configuring line endings conversions**, Anda akan menentukan bagaimana Git akan memperlakukan "Line Ending" (Baris Baru) nantinya.
@@ -175,7 +175,7 @@ Seperti cuplikan layar berikut:
 
 ![Langkah ke-7 Instalasi Git&#58; Menentukan "Baris Baru" untuk Git (Configuring the line ending conversions)](Install_Git_6.png)
 
-Setelah Anda memilih nya, klik pada *Button* 'Next >'.
+Setelah Anda memilih nya, klik pada _Button_ 'Next >'.
 
 #### **8. Memilih Terminal Emulator untuk Git Bash (_Configuring the terminal emulator to use with Git Bash_)**
 Pada langkah ini, Anda akan memilih Terminal Emulator bawaan untuk Git Bash nya, apakah menggunakan Konsol Windows atau MinTTY. 
@@ -184,14 +184,14 @@ Mohon maaf, saat ini saya tidak mempunyai cuplikan layar sebagai contoh nya. Nam
    
 ![Langkah ke-8 Instalasi Git&#58; Memilih Terminal Emulator untuk Git Bash (Configuring the terminal emulator to use with Git Bash)](Install_Git_7.png)
 
-Lalu, klik *Button* 'Next >'.
+Lalu, klik _Button_ 'Next >'.
    
 #### **9. Konfigurasi Opsi Tambahan (_Configuring extra options_)**
 Pada langkah ini, nanti akan ada tiga opsi, Anda bisa aktifkan semua opsi tersebut dengan mencentang nya.
 
 ![Langkah ke-9 Instalasi Git&#58; Konfigurasi Opsi Tambahan (Configuring extra options)](Install_Git_8.png)
 
-Lalu, klik *Button* 'Next >'.
+Lalu, klik _Button_ 'Next >'.
 
 #### **10. Konfigurasi Opsi Eksperimental (_Configuring experimental options_)**
 Pada langkah ini, nanti akan ada satu opsi yang bisa Anda aktifkan, namun karena sifat nya Eksperimental, maka saya sarankan agar tidak mengaktifkan nya, kecuali jika Anda ingin mencoba nya. 
@@ -200,21 +200,21 @@ Pada langkah ini, nanti akan ada satu opsi yang bisa Anda aktifkan, namun karena
 
 Pada Git versi 2.23, akan ada opsi seperti cuplikan di atas, namun hal ini mungkin tidak berlaku untuk versi kedepan nya.
 
-Klik pada *Button* 'Next >' untuk melanjutkan. Atau, jika ada *Button* 'Install', klik pada *Button* tersebut untuk meng-install Git.
+Klik pada _Button_ 'Next >' untuk melanjutkan. Atau, jika ada _Button_ 'Install', klik pada _Button_ tersebut untuk meng-install Git.
 
 #### **11. Proses Instalasi sampai Selesai**
 Instalasi Git sedang dalam Proses, harap bersabar hingga selesai dalam beberapa menit kedepan.
 
-Jika Git telah berhasil ter-install, klik pada *Button* 'Finish'. Sebelum itu, Anda juga bisa hapus centang **Launch Git Bash** jika Anda tidak ingin menjalankan 'Git Bash' setelah selesai Install.
+Jika Git telah berhasil ter-install, klik pada _Button_ 'Finish'. Sebelum itu, Anda juga bisa hapus centang **Launch Git Bash** jika Anda tidak ingin menjalankan 'Git Bash' setelah selesai Install.
 
 ## II. Akhir kata
 Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Git', bukan 'Apa itu Git dan Cara Install nya', jadi saya tidak perlu basa-basi disini.
 
 Yang perlu kamu lakukan setelah Install Git adalah, sebaiknya kamu pelajari mengenai penggunaan Git, banyak di Internet caranya, atau mungkin kamu akan lihat kedepan nya nanti jika Anda membuat/mengembangkan sebuah Perangkat Lunak.
 
-Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lain nya, silahkan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya]({filename}/pages/hubungi-saya.md).
+Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lain nya, silahkan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang).
 
-Terima kasih atas perhatian nya :blush:
+Terima kasih atas perhatian nya 😊
 
 ## III. Penggunaan Gambar dan Atribusi
 Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
