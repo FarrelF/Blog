@@ -18,7 +18,7 @@
                     {{ $avatar := resources.Get (.src) }}
                     
                     {{ if $avatar }}
-                        {{ $avatarSmall := $avatar.Resize "300x" }}
+                        {{ $avatarSmall := $avatar.Resize "120x" }}
                         {{- $avatarPermalink := printf "%s%s" $ImageURL $avatarSmall.RelPermalink -}}
                         <img src="{{ $avatarPermalink }}" width="{{ $avatarSmall.Width }}"
                             height="{{ $avatarSmall.Height }}" class="site-logo" loading="lazy" alt="Avatar">
