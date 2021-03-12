@@ -41,6 +41,6 @@ Twemoji:
     type: script
     defer: true
 
-Polyfill:
+Polyfill-IntersectionObserver:
   - src: https://cdn.polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CIntersectionObserverEntry
     type: script

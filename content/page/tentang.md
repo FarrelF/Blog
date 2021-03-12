@@ -2,6 +2,7 @@
 title: Tentang
 description: Laman ini berisikan Informasi Tentang Saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
 slug: tentang
+comments: false
 aliases: 
   - tentang-saya
   - tentang-blog

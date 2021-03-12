@@ -135,7 +135,9 @@ Dan mungkin juga saya akan membuat Arsip untuk Blog dengan SSG sebelum nya, biar
 
 Untuk saat ini, Arsip nya bisa Anda lihat [disini](https://web.archive.org/web/20200922225546/https://farrel.franqois.id/).
 
-![Ini adalah penampilan dari Blog Statis lama saya](ksnip_20210310-220030.png)
+Di bawah ini adalah cuplikan layar mengenai penampilan dari Blog Statis lama saya:
+
+![Penampilan dalam Mode Terang](ksnip_20210310-220030.png) ![Penampilan dalam Mode Gelap](ksnip_20210312-153141.png)
 
 ### Hosting
 Untuk sekarang ini, saya menggunakan Netlify sebagai Hos nya dan tentu saja ini versi gratis nya yang (sepertinya) cuma terdiri dari 6 PoP (_Point of Presence_).
@@ -188,11 +190,15 @@ Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu s
 
 ~~Penampilan _Spoiler_ di dalam Artikel juga yang lebar nya tidak mengikuti huruf-huruf nya, alias kelebaran.~~
 
-**EDIT dari Rabu, 10 Maret 2021:** Ehh salah deh, bukan 'kelebaran', melainkan saat di klik _Spoiler_ nya, malah ada garis seperti _Border_ yang kerap mengganggu kenyamanan. Seperti pada gambar berikut:
+~~**EDIT dari Rabu, 10 Maret 2021:** Ehh salah deh, bukan 'kelebaran', melainkan saat di klik _Spoiler_ nya, malah ada garis seperti _Border_ yang kerap mengganggu kenyamanan. Seperti pada gambar berikut:~~
 
 ![Perhatikan persegi panjang yang di tunjuk anak panah itu. Nah, itu garis _border_ yang saya maksud!](ksnip_20210310-214151.png)
 
-Ini rencana nya akan saya perbaiki, tapi gak tau kapan waktu nya 🙁
+~~Ini rencana nya akan saya perbaiki, tapi gak tau kapan waktu nya 🙁~~
+
+**PEMBARUAN Jum'at, 12 Maret 2021:** Masalah di atas sepertinya sudah di selesaikan berdasarkan dari _Commit_ [`f596ffe`](https://github.com/FarrelF/Blog/commit/f596ffe4d389728bdd00ddac042a4aa10bf47b57) di GitHub.
+
+Dengan selesainya masalah-masalah di atas, bukan berarti saya tidak berniat untuk menambahkan fitur ataupun memperbarui tema, saya akan berusaha untuk menambahkan fitur di blog ini jika saya ingin, tapi itu tidak tahu kapan 🙁
 
 ## Penutup
 Ya sudah, sepertinya pembahasan di artikel ini di cukupkan sampai sini saja dulu, kalau misalnya saya berniat ingin merubah rencana nya, maka akan saya perbarui lagi artikel ini.

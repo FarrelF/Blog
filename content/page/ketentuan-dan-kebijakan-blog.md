@@ -2,6 +2,7 @@
 Title: Ketentuan dan Kebijakan Blog
 Slug: ketentuan-dan-kebijakan-blog
 Authors: Farrel Franqois
+comments: false
 menu:
   main:
     identifier: policy
@@ -104,6 +105,28 @@ Karena saya menghormati Hak Kekayaan Intelektual orang lain, maka segala bentuk 
 Jika Anda menemukan bentuk pelanggaran HAKI atau jika Anda ingin melapor adanya pelanggaran HAKI yang di lakukan oleh orang lain terhadap properti Anda, silahkan [Hubungi Saya](/tentang).
 
 
+### Penyebutan dan Penulisan Merek Dagang Perusahaan
+Jika Anda menyebutkan merek dagang perusahaan, maka di harapkan untuk mengikuti panduan dan aturan tata cara penyebutan ataupun penulisan merek dagang yang ada di Informasi Resmi nya.
+
+Anda dilarang untuk menggantikan nama merek dagang tersebut dengan nama lain tanpa seizin pemilik merek dagang, dengan alasan apapun, di dalam kolom komentar. Terutama jika _plesetan_ nama merek dagang tersebut mengandung ejekan, hinaan, perundungan, ajakan diskriminasi, pornografi/asusila, dll, kecuali jika nama merek dagang nya memang demikian.
+
+Ingatlah bahwa semua merek dagang yang Anda dan saya sebutkan di blog ini semua nya telah dimiliki oleh pemiliknya masing-masing, sehingga Anda harus mematuhi tata cara penulisan dan penyebutan merek dagang yang disediakan oleh pemilik merek dagang.
+
+Serta Anda juga tidak perlu menyensorkan setiap nama merek dagang yang ingin Anda sebut/tulis, karena ini bukanlah sebuah acara Televisi.
+
+Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus. Namun, jika adanya pelanggaran yang ringan, seperti dilakukan Penyensoran terhadap Merek Dagang, salah penyebutan, dll, maka akan di ingatkan atau saya Edit komentar Anda.
+
+Jika Anda melakukan itu berulang kali padahal sudah di ingatkan, maka akun Anda akan saya ban. Harap maklum.
+
+
+### Pornografi, Pelecehan Seksual dan Tindakan Asusila
+Segala bentuk penyebaran media Pornografi, baik itu dalam bentuk Foto (bahkan Foto Profil), Video, Audio, Tautan, dll, di dalam kolom komentar tidak diperbolehkan dengan alasan apapun.
+
+Serta pelecehan seksual dan tindakan asusila juga tidak di perbolehkan dengan alasan apapun di dalam kolom komentar yang tersedia di blog ini.
+
+Jika Anda melanggar aturan ini, maka akun Anda akan langsung saya ban permanen, hal ini sudah saya peringati.
+
+
 ### Tautan dalam Komentar dan Moderasi Komentar
 Jika Anda menyisipkan Tautan di dalam komentar, maka Komentar Anda akan langsung di moderasi.
 
@@ -135,7 +158,7 @@ Segala bentuk diskriminasi/penghinaan terhadap Suku, Agama, Ras dan Antargolonga
 
 Dan, segala bentuk penyerangan personal/pribadi serta melakukan penghinaan terhadap seseorang di dalam kolom komentar, dengan alasan apapun, itu dilarang di dalam kolom komentar.
 
-Penghinaan seseorang itu bisa dalam bentuk Ujaran Kebencian/Provokasi, Penyerangan Pribadi Seseorang/Kelompok, baik itu nama baik ataupun bentuk fisik nya, dll.
+Penghinaan seseorang itu bisa dalam bentuk Ujaran Kebencian/Provokasi, Penyerangan Pribadi atau/dan Perundungan terhadap Seseorang/Kelompok, baik itu nama baik ataupun bentuk fisik nya, dll. Baik itu di lakukan sendirian ataupun mengajak orang lain/berkelompok.
 
 Apabila kedua hal tersebut terjadi, maka saya harus menghapus komentar Anda, dan jika itu terjadi berulang kali oleh pengguna yang sama, maka Anda akan saya ban.
 
@@ -157,19 +180,19 @@ Pernyataan Tambahan ini bisa Anda lihat nanti di dalam Artikel/Laman tertentu, d
 ## Persetujuan dan Perubahan Pernyataan
 Pernyataan ini akan berlaku selama Anda mengunjungi, menjelajahi dan menggunakan Blog ini untuk keperluan apapun.
 
-Jadi, baca/tidak baca, suka/tidak suka atau setuju/tidak setuju, maka Anda harus menyetujui semua pernyataan-pernyataan ini selama Anda mengunjungi blog ini.
+Jadi, baca/tidak baca, mau/tidak mau, suka/tidak suka atau setuju/tidak setuju, maka Anda harus menyetujui semua pernyataan-pernyataan ini selama Anda mengunjungi blog ini dan mematuhi nya dengan alasan apapun.
 
-Jika Anda tidak menyetujui pernyataan tersebut, maka sebaiknya Anda tidak mengunjungi, menjelajahi dan menggunakan blog ini. Harap maklumi.
+Jika Anda tidak menyetujui dan tidak ingin mematuhi pernyataan tersebut, maka sebaiknya Anda tidak perlu mengunjungi, menjelajahi dan menggunakan blog ini. Harap maklumi.
 
 Serta semua Pernyataan yang ada di laman ini akan di rubah kapanpun dan dimanapun oleh saya sendiri, tanpa pemberitahuan terlebih dahulu, dengan alasan apapun.
 
 Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/di ubah pada Hari/Tanggal: **Kamis, 21 Februari 2021**
-- Di berlakukan pada Hari/Tanggal: **Kamis, 11 Februari 2021**
+- Di perbarui/di ubah pada Hari/Tanggal: **Jum'at, 12 Maret 2021**
+- Di berlakukan pada Hari/Tanggal: **Jum'at, 12 Maret 2021**
 
 
 ## Penutup
 Baiklah, sekian untuk laman Ketentuan dan Kebijakan Blog kali ini. Semoga Anda memahami dan memaklumi adanya Ketentuan dan Pernyataan seperti ini. Dan, semoga Anda bisa mentaati nya untuk kebaikan bersama dan Anda juga.
 
-Terima kasih atas perhatian nya dari Anda :blush:
+Terima kasih atas perhatian nya dari Anda 😊

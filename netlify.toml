@@ -38,7 +38,7 @@
     for = "/*"
 
     [headers.values]
-        Cache-Control = "public, max-age=360, s-maxage=360, must-revalidate"
+        Cache-Control = "public, max-age=180"
         Report-To = '''{
             "group": "default",
             "max_age": 31536000,
