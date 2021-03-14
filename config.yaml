@@ -31,7 +31,7 @@ params:
     math: false
     license:
       enabled: true
-      default: Di terbitkan di bawah lisensi CC BY-SA 4.0
+      default: Di terbitkan di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
 
   CDN:
     Images:
