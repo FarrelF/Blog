@@ -78,11 +78,21 @@ Saya berhak untuk mencari semua solusi yang tersedia menurut Hukum dan Keadilan 
 ### Penggunaan Pihak ke-3 dan Kebijakan Privasi nya
 Saya menggunakan [Disqus](https://disqus.com) sebagai Sistem Komentar di dalam Blog saya. Disqus merupakan Layanan Sistem Komentar pihak ke-3/pihak luar, yang mana mereka memiliki Kebijakan Privasi nya sendiri.
 
-Jadi karena mereka memiliki Kebijakan Privasi nya sendiri, maka saya tidak bisa 'benar-benar' mengendalikan data/aliran data Anda. Karena saya tidak bisa 'benar-benar' mengendalikan data Anda, dan jika Anda berkomentar di dalam blog ini, ini artinya Anda telah menyetujui dan mematuhi [Kebijakan Privasi dari Disqus](https://help.disqus.com/en/articles/1717103-disqus-privacy-policy).
+Jadi karena mereka memiliki Kebijakan Privasi nya sendiri, maka artinya Anda telah mengakui bahwa saya tidak bisa 'benar-benar' mengendalikan data/aliran data Anda. Karena saya tidak bisa 'benar-benar' mengendalikan data Anda, dan jika Anda berkomentar di dalam blog ini, ini artinya Anda telah menyetujui dan mematuhi [Kebijakan Privasi dari Disqus](https://help.disqus.com/en/articles/1717103-disqus-privacy-policy).
 
 Namun, Anda bisa mengatur bagaimana Disqus akan menggunakan/membagikan Data yang ada pada akun Disqus Anda. Anda bisa mengatur nya [disini](https://disqus.com/data-sharing-settings/).
 
 Jadi, harap maklum.
+
+
+### Topik Pembahasan
+Anda berhak untuk mengomentari atau bertanya disini, selama topik pembahasan nya sesuai dengan Artikel/Pos yang ada di blog ini, dan tidak di luar dari itu.
+
+Ini artinya Anda tidak diperbolehkan untuk mengomentari yang tidak berkaitan dengan topik pembahasan dari Artikel/Pos di Blog ini, dengan alasan apapun. Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus, jika berulang kali di lakukan (selama 3 kali) maka akun Anda akan saya Ban.
+
+Saya telah menyediakan sebuah 'wadah' agar Anda bisa berkomentar di luar topik pembahasan Artikel/Pos, bahkan di luar pembahasan yang ada di Blog ini, yaitu sebuah laman bernama ["Buku Tamu"](/buku-tamu).
+
+Di Laman tersebut Anda bisa berkomentar dengan topik apapun, baik itu yang berkaitan dengan pembahasan di Blog ini atau tidak sama sekali, selama Anda menyetujui dan mematuhi ketentuan dan kebijakan ini.
 
 
 ### Lisensi Komentar
@@ -112,9 +122,9 @@ Anda dilarang untuk menggantikan nama merek dagang tersebut dengan nama lain tan
 
 Ingatlah bahwa semua merek dagang yang Anda dan saya sebutkan di blog ini semua nya telah dimiliki oleh pemiliknya masing-masing, sehingga Anda harus mematuhi tata cara penulisan dan penyebutan merek dagang yang disediakan oleh pemilik merek dagang.
 
-Serta Anda juga tidak perlu menyensorkan setiap nama merek dagang yang ingin Anda sebut/tulis, karena ini bukanlah sebuah acara Televisi.
+Serta Anda juga tidak perlu menyensorkan setiap nama merek dagang yang ingin Anda sebut/tulis, karena ini bukan acara televisi, meskipun Anda berhak untuk menyensorkan namanya dengan alasan yang jelas dan tidak berniat untuk mengejek nya.
 
-Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus. Namun, jika adanya pelanggaran yang ringan, seperti dilakukan Penyensoran terhadap Merek Dagang, salah penyebutan, dll, maka akan di ingatkan atau saya Edit komentar Anda.
+Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus. Namun, jika adanya pelanggaran yang ringan, seperti dilakukan Penyensoran terhadap Merek Dagang tanpa alasan yang jelas, salah penyebutan, dll, maka akan di ingatkan atau saya Edit komentar Anda.
 
 Jika Anda melakukan itu berulang kali padahal sudah di ingatkan, maka akun Anda akan saya ban. Harap maklum.
 
@@ -128,11 +138,11 @@ Jika Anda melanggar aturan ini, maka akun Anda akan langsung saya ban permanen, 
 
 
 ### Tautan dalam Komentar dan Moderasi Komentar
-Jika Anda menyisipkan Tautan di dalam komentar, maka Komentar Anda akan langsung di moderasi.
-
 Moderasi komentar merupakan sebuah proses 'penahanan' komentar tertentu sebelum akhirnya di terbitkan atas izin dari Administrator/Moderator.
 
 Jadi, jika komentar Anda di moderasi, maka komentar Anda akan di tahan terlebih dahulu sampai Administrator/Moderator menerbitkan komentar Anda. Jika komentar nya di tahan, maka komentar Anda tidak akan di tampilkan untuk umum/publik, yang artinya, komentar tersebut di sembunyikan dari publik, atau bahkan tidak ada seorangpun yang melihat/membaca komentar Anda sampai Administrator/Moderator menerbitkan komentar Anda.
+
+Saya sebagai pemilik Blog ini berhak untuk melakukan moderasi/penahanan komentar dari Anda dengan alasan apapun, termasuk jika Anda menyisipkan sebuah Tautan di dalam komentar yang langsung di moderasi secara otomatis oleh Sistem.
 
 Hal ini saya lakukan agar saya dapat mengendalikan/memilih komentar mana yang layak untuk di masukkan ke dalam Sistem Komentar, termasuk pada Tautan yang Anda cantumkan. Jika tautan yang Anda masukkan itu layak untuk di jadikan rujukan, maka komentar Anda akan saya terbitkan.
 
@@ -156,13 +166,23 @@ Jadi, mohon untuk berkomentar dengan sewajar nya saja.
 ### Diskriminasi dan Penghinaan terhadap Seseorang/Kelompok
 Segala bentuk diskriminasi/penghinaan terhadap Suku, Agama, Ras dan Antargolongan serta Warna Kulit, Bentuk Fisik, Keyakinan, dll, di dalam kolom komentar, dengan alasan apapun, itu sangat tidak di perbolehkan.
 
-Dan, segala bentuk penyerangan personal/pribadi serta melakukan penghinaan terhadap seseorang di dalam kolom komentar, dengan alasan apapun, itu dilarang di dalam kolom komentar.
+Serta segala bentuk penyerangan personal/pribadi serta melakukan penghinaan terhadap seseorang di dalam kolom komentar, dengan alasan apapun, itu dilarang di dalam kolom komentar.
 
 Penghinaan seseorang itu bisa dalam bentuk Ujaran Kebencian/Provokasi, Penyerangan Pribadi atau/dan Perundungan terhadap Seseorang/Kelompok, baik itu nama baik ataupun bentuk fisik nya, dll. Baik itu di lakukan sendirian ataupun mengajak orang lain/berkelompok.
 
 Apabila kedua hal tersebut terjadi, maka saya harus menghapus komentar Anda, dan jika itu terjadi berulang kali oleh pengguna yang sama, maka Anda akan saya ban.
 
 Jadi, mohon bijaksanalah dan hati-hati dalam berkomentar.
+
+
+### Jaminan Balasan Komentar dan Pertanyaan
+Dengan berkomentar di Blog ini, maka artinya Anda telah mengakui bahwa segala komentar/pertanyaan yang Anda lontarkan tidak menjamin akan mendapatkan jawaban atau balasan nya secara langsung, baik itu dari orang lain, atau bahkan dari saya itu sendiri.
+
+Ini Artinya, setiap orang memiliki Hak untuk tidak menjawab atau membalas Pertanyaan atau Komentar Anda dengan alasan apapun, termasuk Karena Ketidaktahuan nya, Sedang Sibuk, Terjadinya Bencana/Berita Duka, dan segala situasi atau kondisi yang menyebabkan demikian. 
+
+Jadi, jika Anda berkomentar disini, maka sebaiknya Anda jangan pernah merasa berhak untuk di jawab atau di balas oleh orang lain dengan alasan apapun. Sadarilah bahwa Anda tidak mengeluarkan uang sepeserpun untuk berkomentar/bertanya disini, jadi jawaban/balasan komentar yang ada itu bersifat "sukarela".
+
+Jika Anda melanggar ketentuan ini, maka tuntutan hak Anda untuk di jawab akan saya hapus, jika ini di lakukan beberapa kali, maka akun Anda akan saya ban. Harap maklumi.
 
 
 ### Kepatuhan terhadap Aturan Hukum
@@ -178,9 +198,9 @@ Pernyataan Tambahan ini bisa Anda lihat nanti di dalam Artikel/Laman tertentu, d
 
 
 ## Persetujuan dan Perubahan Pernyataan
-Pernyataan ini akan berlaku selama Anda mengunjungi, menjelajahi dan menggunakan Blog ini untuk keperluan apapun.
+Pernyataan ini akan berlaku selama Anda mengunjungi, menjelajahi dan menggunakan Blog ini untuk keperluan apapun dan bersifat mengikat.
 
-Jadi, baca/tidak baca, mau/tidak mau, suka/tidak suka atau setuju/tidak setuju, maka Anda harus menyetujui semua pernyataan-pernyataan ini selama Anda mengunjungi blog ini dan mematuhi nya dengan alasan apapun.
+Jadi, baca/tidak baca, mau/tidak mau, suka/tidak suka atau setuju/tidak setuju, maka Anda harus menyetujui dan mematuhi semua pernyataan-pernyataan ini selama Anda mengunjungi blog ini dan mematuhi nya dengan alasan apapun.
 
 Jika Anda tidak menyetujui dan tidak ingin mematuhi pernyataan tersebut, maka sebaiknya Anda tidak perlu mengunjungi, menjelajahi dan menggunakan blog ini. Harap maklumi.
 
@@ -188,8 +208,8 @@ Serta semua Pernyataan yang ada di laman ini akan di rubah kapanpun dan dimanapu
 
 Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/di ubah pada Hari/Tanggal: **Jum'at, 12 Maret 2021**
-- Di berlakukan pada Hari/Tanggal: **Jum'at, 12 Maret 2021**
+- Di perbarui/di ubah pada Hari/Tanggal: **Rabu, 24 Maret 2021**
+- Di berlakukan pada Hari/Tanggal: **Rabu, 24 Maret 2021**
 
 
 ## Penutup
