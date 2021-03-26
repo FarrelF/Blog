@@ -1,5 +1,5 @@
 # Farrel Franqois Blog
-[![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
+[![GitHub Actions](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 
 _Repository_ ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya. 

@@ -116,3 +116,4 @@ jobs:
         else
           echo "Sending Purge Request is Successfully, the CDN Cache will be purged soon!"
         fi
+        echo "${RESPONSE_CODE}"
