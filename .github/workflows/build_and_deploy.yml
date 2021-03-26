@@ -62,7 +62,7 @@ jobs:
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
         git ls-tree -rtl HEAD:content/post --full-tree > /tmp/post-tree.hash
-    
+
     - name: Set up Hugo Resources Cache
       uses: actions/cache@v2
       with:
@@ -77,7 +77,7 @@ jobs:
     - name: Building the Blog HTML
       run: |
         rm static/robots_preview
-        hugo --minify --enableGitinfo --cacheDir ${PWD}/cache
+        hugo --minify --enableGitinfo --cacheDir "${PWD}/cache"
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
