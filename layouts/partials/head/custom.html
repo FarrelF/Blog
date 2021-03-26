@@ -1,5 +1,5 @@
 {{- $PermalinkFonts := "/fonts" -}}
-{{- if and (.Site.Params.CDN.Fonts.URL) (ne hugo.Environment "development") -}}
+{{- if and (.Site.Params.CDN.Fonts.URL) (eq hugo.IsProduction true) -}}
     {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}
 {{- end -}}
 <link rel="preconnect" href="https://cdn.statically.io" crossorigin>
@@ -9,36 +9,3 @@
 <link rel="stylesheet" href="{{ $PermalinkFonts }}/Lato/font.min.css" type="text/css" crossorigin="anonymous">
 <link rel="preload" href="{{ $PermalinkFonts }}/Lato/lato-v17-latin-ext_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ $PermalinkFonts }}/Lato/lato-v17-latin-ext_latin-700.woff2" as="font" type="font/woff2" crossorigin>
-
-<style>
-:root {
-    --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
-    --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    --body-text-color: #000;
-}
-
-details.info {
-    display: block;
-    padding: 0.75em;
-    border: 1px solid;
-}
-
-details summary {
-    outline: none;
-    cursor: pointer;
-}
-
-{{ if eq .Site.Params.Twemoji.enabled true }}
-img.emoji {
-    width: 1em;
-    height: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
-    pointer-events: none; 
-}
-{{ else }}
-.emoji {
-    font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
-}
-{{ end }}
-</style>
