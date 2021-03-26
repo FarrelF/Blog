@@ -1,0 +1,30 @@
+:root {
+    --body-text-color: #000;
+}
+
+details {
+    &.info {
+        display: block;
+        padding: 0.75em;
+        border: 1px solid;
+    }
+
+    summary {
+        outline: none;
+        cursor: pointer;
+    }
+}
+
+img {
+    &.emoji {
+        width: 1em;
+        height: 1em;
+        margin: 0 .05em 0 .1em;
+        vertical-align: -0.1em;
+        pointer-events: none; 
+    }
+}
+
+.emoji {
+    font-family: "Twemoji", "Twitter Emoji", "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
+}

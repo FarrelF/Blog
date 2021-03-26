@@ -95,7 +95,7 @@ params:
 
   Twemoji:
     enabled: true
-    BaseURL: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.1/
+    BaseURL: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.2/
     Path: assets/svg
     Ext: .svg
 

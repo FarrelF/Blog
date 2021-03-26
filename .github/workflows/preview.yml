@@ -3,7 +3,7 @@ on:
   pull_request:
     branches:
       - drafts
-      - master
+      - main
     paths-ignore:
       - "**/README.md"
       - "**/LICENSE"
@@ -55,12 +55,12 @@ jobs:
     - name: Install and Set up Hugo Extended
       run: |
         HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
-        pushd /tmp/
+        cd /tmp/
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
-        tarball="$(find . -name "*Linux-64bit.tar.gz" 2>/dev/null)"
-        tar -xzf ${tarball}
+        tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         chmod +x hugo
         sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
+        cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
         git ls-tree -rtl HEAD:content/post --full-tree > /tmp/post-tree.hash
     
@@ -99,11 +99,22 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files and Installing Rclone
+    - name: Decompressing Files and Installing lftp
       run: |
         tar -xvzf files.tar.gz
-        curl https://rclone.org/install.sh | sudo bash
+        sudo -- sh -c 'apt update; apt install -y lftp'
     
-    - name: Deploying with Rclone
+    - name: Deploying with lftp and Purging Bunny.net Pullzone Cache
+      env:
+        FTP_USER: ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
+        FTP_PASS: ${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}
+        BUNNY_PULLZONE_ID: ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
+        BUNNY_API_KEY: ${{ secrets.BUNNY_API_KEY }}
       run: |
-        echo "Run a Command Here"
+        lftp -e "open storage.bunnycdn.com; user ${FTP_USER} ${FTP_PASS}; mirror -R --parallel=10 --verbose --delete --delete-first ./public /${FTP_USER}; bye"
+        RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST -H "content-length: 0" -H "Content-Type: application/json" -H "Accept: application/json" -H "AccessKey: ${BUNNY_API_KEY}" 'https://api.bunny.net/pullzone/${BUNNY_PULLZONE_ID}/purgeCache' | head -n 1 | cut -d$' ' -f2)
+        if [ "${RESPONSE_CODE}" -gt 299 ]; then
+          echo "Failed to sending purge request, purge it by yourself!"
+        else
+          echo "Sending Purge Request is Successfully, the CDN Cache will be purged soon!"
+        fi
