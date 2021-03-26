@@ -56,8 +56,8 @@ jobs:
         HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
         pushd /tmp/
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
-        tarball="$(find . -name "*Linux-64bit.tar.gz" 2>/dev/null)"
-        tar -xzf ${tarball}
+        TARBALL_FILE="$(find . -name "*Linux-64bit.tar.gz" 2>/dev/null)"
+        tar -xzf ${TARBALL_FILE}
         chmod +x hugo
         sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
         which hugo && hugo version
