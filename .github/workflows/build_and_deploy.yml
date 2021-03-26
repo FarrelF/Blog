@@ -109,7 +109,7 @@ jobs:
         BUNNY_PULLZONE_ID: ${{ secrets.BUNNY_PULLZONE_ID }}
         BUNNY_API_KEY: ${{ secrets.BUNNY_API_KEY }}
       run: |
-        lftp -e "open storage.bunnycdn.com; user ${FTP_USER} ${FTP_PASS}; mirror -R --parallel=10 --verbose --delete-first ./public /${FTP_USER}; bye"
+        lftp -e "open storage.bunnycdn.com; user ${FTP_USER} ${FTP_PASS}; mirror -R --parallel=10 --verbose --delete --delete-first ./public /${FTP_USER}; bye"
         RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST -H "content-length: 0" -H "Content-Type: application/json" -H "Accept: application/json" -H "AccessKey: ${BUNNY_API_KEY}" 'https://api.bunny.net/pullzone/${BUNNY_PULLZONE_ID}/purgeCache' | head -n 1 | cut -d$' ' -f2)
         if [ "${RESPONSE_CODE}" -gt 299 ]; then
           echo "Failed to sending purge request, purge it by yourself!"
