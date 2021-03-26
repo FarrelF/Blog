@@ -67,7 +67,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          /tmp/hugo_cache
+          ./cache
           ./resources
         key: v1-hugo-${{ hashFiles('/tmp/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
         restore-keys: | 
@@ -77,7 +77,7 @@ jobs:
     - name: Building the Blog HTML
       run: |
         rm static/robots_preview
-        hugo --minify --enableGitinfo
+        hugo --minify --enableGitInfo --cacheDir ${PWD}/cache
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
