@@ -62,7 +62,7 @@ jobs:
         sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
-        git ls-tree -rtl HEAD:content/post --full-tree > /tmp/post-tree.hash
+        git ls-tree -rtl HEAD:content/post --full-tree > post-tree.hash
     
     - name: Set up Hugo Resources Cache
       uses: actions/cache@v2
@@ -70,10 +70,10 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        key: v1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
         restore-keys: | 
-          - v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
-          - v1-hugo-preview-${{ hashFiles('/tmp/post-tree.hash') }}-
+          - v1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+          - v1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-
 
     - name: Building the Blog HTML (Preview)
       run: |
@@ -99,23 +99,28 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files and Installing lftp
+    - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
-        sudo -- sh -c 'apt update; apt install -y lftp'
-    
-    - name: Deploying with lftp and Purging Bunny.net Pullzone Cache
-      env:
-        FTP_USER: ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
-        FTP_PASS: ${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}
-        BUNNY_PULLZONE_ID: ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
-        BUNNY_API_KEY: ${{ secrets.BUNNY_API_KEY }}
+
+    - name: Deploying to FTP(s) Storage
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: storage.bunnycdn.com
+        username: ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
+        password: ${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}
+        port: 21
+        protocol: ftps
+        local-dir: ./public/
+        server-dir: /${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}/
+        security: strict
+
+    - name: Purging Bunny.net CDN Cache
       run: |
-        lftp -e "open storage.bunnycdn.com; user ${FTP_USER} ${FTP_PASS}; mirror -R --parallel=10 --verbose --only-newer ./public /${FTP_USER}; bye"
-        RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST -H "content-length: 0" -H "Content-Type: application/json" -H "Accept: application/json" -H "AccessKey: ${BUNNY_API_KEY}" 'https://api.bunny.net/pullzone/${BUNNY_PULLZONE_ID}/purgeCache' | head -n 1 | cut -d$' ' -f2)
+        RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST --url https://api.bunny.net/pullzone/${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}/purgeCache -H "AccessKey: ${{ secrets.BUNNY_API_KEY }}" -H "content-length: 0" | head -n 1 | cut -d$' ' -f2)
         if [ "${RESPONSE_CODE}" -gt 299 ]; then
           echo "Failed to sending purge request, purge it by yourself!"
         else
           echo "Sending Purge Request is Successfully, the CDN Cache will be purged soon!"
         fi
-        echo "${RESPONSE_CODE}"
+        echo "Status Code: ${RESPONSE_CODE}"

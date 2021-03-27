@@ -2,7 +2,7 @@
 [![GitHub Actions](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 
-_Repository_ ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya. 
+_Repository_ ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya.
 
 Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya untuk nge-blog, untuk Kode Sumber nya bisa Anda lihat [_Repository_ saya sebelumnya](https://github.com/FarrelF/Blog-Old).
 
