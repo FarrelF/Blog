@@ -108,10 +108,9 @@ jobs:
         username: ${{ secrets.BUNNY_STORAGE_USERNAME }}
         password: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
         port: 21
-        protocol: ftps
+        log-level: verbose
         local-dir: ./public/
         server-dir: /${{ secrets.BUNNY_STORAGE_USERNAME }}/
-        security: strict
 
     - name: Purging Bunny.net CDN Cache
       run: |
