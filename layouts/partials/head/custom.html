@@ -2,6 +2,7 @@
 {{- if and (.Site.Params.CDN.Fonts.URL) (eq hugo.IsProduction true) -}}
     {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}
 {{- end -}}
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://cdn.statically.io" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.statically.io">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
