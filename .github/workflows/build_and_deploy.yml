@@ -97,23 +97,15 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files
+    - name: Decompressing Files and Installing lftp
       run: |
         tar -xvzf files.tar.gz
+        sudo apt update
+        sudo apt install lftp
 
-    - name: Deploying to FTP(s) Storage and Sync Files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      with:
-        server: storage.bunnycdn.com
-        username: ${{ secrets.BUNNY_STORAGE_USERNAME }}
-        password: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
-        port: 21
-        log-level: verbose
-        local-dir: ./public/
-        server-dir: /${{ secrets.BUNNY_STORAGE_USERNAME }}/
-
-    - name: Purging Bunny.net CDN Cache
+    - name: Deploying to FTP(s) and Purging Bunny.net CDN Cache
       run: |
+        lftp -e "open -u ${{ secrets.BUNNY_STORAGE_USERNAME }},${{ secrets.BUNNY_STORAGE_PASSWORD }} -p 21 storage.bunnycdn.com; mirror --reverse --parallel=10 --verbose --delete-first ./public /${{ secrets.BUNNY_STORAGE_USERNAME }}; exit 0"
         RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST --url https://api.bunny.net/pullzone/${{ secrets.BUNNY_PULLZONE_ID }}/purgeCache -H "AccessKey: ${{ secrets.BUNNY_API_KEY }}" -H "content-length: 0" | head -n 1 | cut -d$' ' -f2)
         if [ "${RESPONSE_CODE}" -gt 299 ]; then
           echo "Failed to sending purge request, purge it by yourself!"
