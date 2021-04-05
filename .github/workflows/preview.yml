@@ -80,6 +80,7 @@ jobs:
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
         mv static/robots_preview static/robots.txt
         hugo --gc --minify --enableGitInfo --buildFuture --config ${PWD}/config.preview.yaml --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
+        git ls-tree -rtl HEAD:assets/scss --full-tree > ./public/scss.hash
         tar cvf - public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
@@ -99,15 +100,26 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files and Installing lftp
+    - name: Decompressing Files, then Installing lftp and Rclone
       run: |
         tar -xvzf files.tar.gz
         sudo apt update
         sudo apt install lftp
+        curl https://rclone.org/install.sh | sudo bash
 
     - name: Deploying to FTP(s) and Purging Bunny.net CDN Cache
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
       run: |
-        lftp -e "open -u ${{ secrets.BUNNY_REVIEW_STORAGE_USERNAME }},${{ secrets.BUNNY_REVIEW_STORAGE_PASSWORD }} -p 21 storage.bunnycdn.com; mirror --reverse --parallel=10 --verbose --delete-first ./public /${{ secrets.BUNNY_REVIEW_STORAGE_USERNAME }}; exit 0"
+        wget https://deploy-preview.farrel.franqois.id/scss.hash -O scss.hash.old
+        SCSS_HASH_OLD=$(sha512sum scss.hash.old | awk '{ print $1 }')
+        SCSS_HASH_NEW=$(sha512sum ./public/scss.hash | awk '{ print $1 }')
+        mkdir -p ${HOME}/.config/rclone
+        echo ${{ secrets.RCLONE_CONFIG }} > ${HOME}/.config/rclone/rclone.conf
+        rclone sync -vvvv -P --stats-one-line ./public ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}:/${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
+        if [ ${SCSS_HASH_OLD} != ${SCSS_HASH_NEW} ]; then
+          lftp -e "open -u ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }},${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }} -p 21 storage.bunnycdn.com; mirror --reverse --parallel=10 -X *.* -I *.html -I */*.html --verbose --transfer-all --delete-first ./public /${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}; exit 0"
+        fi
         RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST --url https://api.bunny.net/pullzone/${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}/purgeCache -H "AccessKey: ${{ secrets.BUNNY_API_KEY }}" -H "content-length: 0" | head -n 1 | cut -d$' ' -f2)
         if [ "${RESPONSE_CODE}" -gt 299 ]; then
           echo "Failed to sending purge request, purge it by yourself!"
