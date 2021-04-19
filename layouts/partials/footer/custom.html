@@ -1,26 +1,19 @@
 {{ if eq .Site.Params.Twemoji.enabled true }}
     {{- partial "helper/external" (dict "Context" . "Namespace" "Twemoji") -}}
-    {{- $TwemojiBaseURL := "" -}}
-    {{- $TwemojiPath := "svg" -}}
-    {{- $TwemojiExt := "svg" -}}
-    {{- if .Site.Params.Twemoji.BaseURL -}}
-        {{- $TwemojiBaseURL = .Site.Params.Twemoji.BaseURL -}}
-    {{- end -}}
-    {{- if .Site.Params.Twemoji.Path -}}
-        {{- $TwemojiPath = .Site.Params.Twemoji.Path -}}
-    {{- end -}}
-    {{- if .Site.Params.Twemoji.Ext -}}
-        {{- $TwemojiExt = .Site.Params.Twemoji.Ext -}}
-    {{- end -}}
+    {{- $Twemoji := .Site.Params.Twemoji -}}
+{{ if $Twemoji.Options }}
 <script>
     window.onload = function() {
         twemoji.parse(document.body, 
             {
-                folder: '{{ $TwemojiPath }}', 
-                ext: '{{ $TwemojiExt }}', 
-                base: '{{ $TwemojiBaseURL }}'
+                folder: '{{ with $Twemoji.Options.Path }}{{ . }}{{ else }}svg{{ end }}', 
+                ext: '{{ with $Twemoji.Options.Ext }}{{ . }}{{ else }}.svg{{ end }}',
+                base: '{{ with $Twemoji.Options.baseURL }}{{ . }}{{ end }}'{{ with $Twemoji.Options.Size }},
+                size: '{{ . }}'{{ end }}{{ with $Twemoji.Options.className }},
+                className: '{{ . }}'{{ end }}
             }
         );
     }
 </script>
+{{ end }}
 {{ end }}

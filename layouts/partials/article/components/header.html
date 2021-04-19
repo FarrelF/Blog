@@ -15,9 +15,38 @@
                     {{- $Permalink := printf "%s%s" $ImageURL $image.resource.RelPermalink -}}
                     
                     {{- if (default true .Site.Params.imageProcessing.cover.enabled) -}}
-                        {{- $thumbnail := $image.resource.Resize "800x" -}}
-                        {{- $thumbnailRetina := $image.resource.Resize "1600x" -}}
-                        {{- $Srcset = printf "%s%s 800w, %s%s 1600w" $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailRetina.RelPermalink -}}
+                        {{- $thumbnail := "" -}}
+                        {{- $thumbnailSmall := "" -}}
+                        {{- $thumbnailMedium := "" -}}
+                        {{- $thumbnailLarge := "" -}}
+                        {{- if ge $Width "1600" -}}
+                            {{- $thumbnail = $image.resource.Resize "800x" -}}
+                            {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
+                            {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
+                            {{- $thumbnailLarge = $image.resource.Resize "1600x" -}}
+                            {{- $Srcset = printf "%s%s 400w, %s%s 800w, %s%s 1024w, %s%s 1600w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink $ImageURL $thumbnailLarge.RelPermalink -}}
+                        {{- else if and (ge $Width "1366") (lt $Width "1600") -}}
+                            {{- $thumbnail = $image.resource.Resize "768x" -}}
+                            {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
+                            {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
+                            {{- $thumbnailLarge = $image.resource.Resize "1366x" -}}
+                            {{- $Srcset = printf "%s%s 400w, %s%s 768w, %s%s 1024w, %s%s 1366w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink $ImageURL $thumbnailLarge.RelPermalink -}}
+                        {{- else if and (ge $Width "1024") (lt $Width "1366") -}}
+                            {{- $thumbnail = $image.resource.Resize "768x" -}}
+                            {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
+                            {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
+                            {{- $Srcset = printf "%s%s 400w, %s%s 768w, %s%s 1024w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                        {{- else if and (ge $Width "768") (lt $Width "1024") -}}
+                            {{- $thumbnail = $image.resource.Resize "600x" -}}
+                            {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
+                            {{- $thumbnailMedium = $image.resource.Resize "768x" -}}
+                            {{- $Srcset = printf "%s%s 400w, %s%s 600w, %s%s 768w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                        {{- else if lt $Width "768" -}}
+                            {{- $thumbnail = $image.resource.Resize "500x" -}}
+                            {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
+                            {{- $thumbnailMedium = $image.resource.Resize "600x" -}}
+                            {{- $Srcset = printf "%s%s 400w, %s%s 500w, %s%s 600w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                        {{- end -}}
                         {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}

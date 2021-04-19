@@ -11,7 +11,7 @@
         {{ if $image.exists }}
             <div class="article-image">
                 {{ if $image.resource }}
-                    {{- $imageRaw := $image.resource | resources.Fingerprint "md5" -}}
+                    {{- $imageRaw := $image.resource | resources.Fingerprint "sha384" -}}
                     {{- $Permalink := "" -}}
                     {{- $Width := $imageRaw.Width -}}
                     {{- $Height := $imageRaw.Height -}}

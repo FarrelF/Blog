@@ -62,6 +62,7 @@ jobs:
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
         git ls-tree -rtl HEAD:content/post --full-tree > post-tree.hash
+        git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
     - name: Set up Hugo Resources Cache
       uses: actions/cache@v2
@@ -69,10 +70,10 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v1-hugo-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        key: v1-1-hugo-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
         restore-keys: | 
-          - v1-hugo-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
-          - v1-hugo-${{ hashFiles('**/post-tree.hash') }}-
+          - v1-1-hugo-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+          - v1-1-hugo-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-
 
     - name: Building the Blog HTML
       run: |
