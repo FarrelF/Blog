@@ -4,14 +4,14 @@
 
 details {
     &.info {
-        display: block;
         padding: 0.75em;
-        border: 1px solid;
+        border: var(--heading-border-size) solid;
     }
 
     summary {
-        outline: none;
         cursor: pointer;
+        outline: none;
+        text-indent: 0.75em;
     }
 }
 

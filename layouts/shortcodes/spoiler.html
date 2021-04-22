@@ -1,8 +1,6 @@
-<details class="info">
-{{ if (.Get "text") }}
-<summary>
-{{ with .Get "text" }}{{ . | markdownify }}{{ else }}&nbsp;{{ end }}
-</summary>
-{{ end }}
-{{ .Inner | markdownify }}
+{{- $id := printf "info-%d" .Ordinal -}}
+
+<details class="info{{ with .Get "class" }} {{ . }}{{ end }}" {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }} id="{{ $id }}">
+    <summary>{{ .Get "text" | markdownify | emojify }}</summary>
+    <p>{{ .Inner | $.Page.RenderString | emojify }}</p>
 </details>

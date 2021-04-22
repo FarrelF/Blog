@@ -15,12 +15,13 @@
         </a>
     </h2>
 
-    {{ if or (.Description) (.Params.description) }}
+    {{ if and (eq .Params.enableSummary true) (.Params.Summary) }}
         <h3 class="article-subtitle">
-            {{ .Params.description | $.Page.RenderString | markdownify | emojify }}
-            {{ if eq .Params.readMore true }}
-                <p><a class="link" href="{{ .RelPermalink }}">{{ T "article.readMore" }}</a></p>
-            {{ end }}
+            {{ .Params.Summary | $.Page.RenderString | emojify }}
+        </h3>
+    {{ else if and (eq .Params.enableSummary true) (.Summary) }}
+        <h3 class="article-subtitle">
+            {{ .Summary | $.Page.RenderString | emojify }}
         </h3>
     {{ end }}
     

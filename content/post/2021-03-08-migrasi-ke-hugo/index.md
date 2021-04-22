@@ -11,18 +11,16 @@ Tags:
     - Hugo
     - Static-site Generator
     - SSG
-enableSummary: true
-Description: Artikel ini membahas tentang Alasan saya Migrasi ke Hugo dari Pelican, serta rencana untuk blog ini kedepan nya. Jika Anda penasaran, silahkan baca artikel ini.
-Summary:
-    <p>
+readMore: true
+DescriptionSEO: Artikel ini membahas tentang Alasan saya Migrasi ke Hugo dari Pelican, serta rencana untuk blog ini kedepan nya. Jika Anda penasaran, silahkan baca artikel ini.
+Description: >
     Sudah lama sekali saya tidak membuat postingan di blog ini, sudah hampir 2 tahun rasanya.
-    </p>
-    <p>
+
+    
     Sebelumnya saya lagi tidak membuat artikel karena saya habiskan waktu nya untuk memahami SSG yang saya gunakan sebelumnya, yakni Pelican. Oleh karena itu, daripada saya gabut seperti itu, saya memutuskan untuk mencari SSG yang jauh lebih baik daripada SSG yang saya pakai sebelumnya, dan pada akhirnya, saya memutuskan untuk menggunakan Hugo + Mengganti Tema.
-    </p>
-    <p>
+    
+    
     Kenapa saya gunakan Hugo daripada Pelican? Dan, apa rencana kedepan nya? Kalo penasaran silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
-    </p>
 ---
 
 ## Daftar Isi
@@ -150,12 +148,16 @@ Pada awal tahun ini, [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) berenc
 
 Jika itu benar-benar terjadi, maka saya akan berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
 
+**PEMBARUAN Kamis, 22 Maret 2021:** Sekarang saya telah menggunakan Bunny CDN untuk Hosting nya, meskipun mereka masih menggunakan protokol FTP, terlalu lama rasanya jika saya menunggu dan pindah Hosting ini dari awal bulan ini. Tapi, pada akhirnya saya bisa menemukan cara untuk men-_deploy_ Blog nya tanpa harus menggunakan JavaScript/NodeJS.
+
 ### CI/CD (_Contnuous Integration/Continuous Delivery_)
 Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration/Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
 
 Sebelumnya saya gunakan ["GitHub Actions"](https://github.com/features/actions) untuk layanan CI/CD nya, namun karena proses pembuatan nya yang begitu ruwet (sampai harus melibatkan NodeJS segala untuk _Deploy_ ke Netlify), maka gak saya gunakan lagi untuk saat ini.
 
 Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal tahun ini, maka saya akan kembali gunakan "GitHub Actions" untuk layanan CI/CD nya.
+
+**PEMBARUAN Kamis, 22 Maret 2021:** Karena saya telah menggunakan Bunny CDN untuk Hosting nya, maka saya menggunakan GitHub Actions untuk layanan CI/CD nya.
 
 ### Artikel Blog
 Seperti yang Anda lihat, bahwa sekarang Iklan dan Analitik di blog ini sudah tidak ada sama sekali.
@@ -201,7 +203,7 @@ Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu s
 Dengan selesainya masalah-masalah di atas, bukan berarti saya tidak berniat untuk menambahkan fitur ataupun memperbarui tema, saya akan berusaha untuk menambahkan fitur di blog ini jika saya ingin, tapi itu tidak tahu kapan 🙁
 
 ## Penutup
-Ya sudah, sepertinya pembahasan di artikel ini di cukupkan sampai sini saja dulu, kalau misalnya saya berniat ingin merubah rencana nya, maka akan saya perbarui lagi artikel ini.
+Ya sudah, sepertinya pembahasan di artikel ini saya cukupkan sampai sini saja dulu, kalau misalnya saya berniat ingin merubah rencana nya, maka akan saya perbarui lagi artikel ini.
 
 Di artikel ini saya cuma membahas kenapa saya Migrasi ke Hugo, Bagaimana Migrasi nya, lalu apa rencana kedepan nya, gak ada yang lebih juga.
 
