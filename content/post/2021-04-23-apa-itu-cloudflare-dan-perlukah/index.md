@@ -5,9 +5,8 @@ Author: Farrel Franqois
 Categories: 
     - Layanan Internet
     - Opini
-Date: 2021-04-06 02:22:39+07:00
+Date: 2021-04-23 00:31:39+07:00
 image: cf-logo-v-rgb.jpg
-draft: true
 Tags: 
     - Cloudflare
     - CDN
