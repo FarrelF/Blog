@@ -3,9 +3,9 @@ title: Halo Dunia! (Lagi)
 slug: halo-dunia
 author: Farrel Franqois
 date: 2019-08-27 03:17:45+07:00
-enableSummary: true
-description: Ini cuma artikel perkenalan blog saja, tidak usah di bacapun juga tidak masalah.
-summary: >
+readMore: true
+descriptionSEO: Ini cuma artikel perkenalan blog saja, tidak usah di bacapun juga tidak masalah.
+description: >
     <p>
     Ini adalah Artikel bukan uji-coba yang paling pertama di dalam blog ini. 
     </p>

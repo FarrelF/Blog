@@ -35,13 +35,13 @@ params:
 
   CDN:
     Images:
-      URL: https://cdn.statically.io/img/farrel.franqois.id/f=auto
+      URL: https://cdn.statically.io/img/static.farrel.franqois.id/f=auto
     JS:
-      URL: https://cdn.statically.io/js/farrel.franqois.id
+      URL: https://cdn.statically.io/js/static.farrel.franqois.id
     CSS:
-      URL: https://cdn.statically.io/css/farrel.franqois.id
+      URL: https://cdn.statically.io/css/static.farrel.franqois.id
     Fonts:
-      URL: https://cdn.statically.io/gh/FarrelF/Blog@84de92d/static/fonts
+      URL: https://cdn.statically.io/gh/FarrelF/Blog/8586e96/static/fonts
 
   mainSections:
     - post
@@ -66,10 +66,13 @@ params:
       - search
       - archives
       - tag-cloud
+      - categories
     archives:
       limit: 5
     tagCloud:
       limit: 10
+    categoriesCloud:
+      limit: 20
 
   opengraph:
     twitter:
@@ -95,9 +98,10 @@ params:
 
   Twemoji:
     enabled: true
-    BaseURL: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.2/
-    Path: assets/svg
-    Ext: .svg
+    Options:
+      baseURL: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0.2/
+      Path: assets/svg
+      Ext: .svg
 
 menu:
   main:

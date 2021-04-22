@@ -22,7 +22,7 @@ article:
     lastUpdatedOn:
         other: Terakhir diperbarui pada
     readMore:
-        other: Baca lebih lanjut
+        other: Baca lebih lanjut >
 
 notFound:
     title:
@@ -39,6 +39,9 @@ widget:
     tagCloud:
         title:
             other: Tag-tag
+    categoriesCloud:
+        title:
+            other: Kategori
 
 search:
     title:

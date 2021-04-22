@@ -1,0 +1,16 @@
+<!-- Use site subtitle by default -->
+{{ $description := .Site.Params.sidebar.subtitle }}
+
+{{ if .Description }}
+    <!-- Page description exists -->
+    {{ $description = .Description }}
+{{ else if .IsPage }}
+    <!-- Use page summary -->
+    {{ $description = .Summary }}
+{{ end }}
+
+{{ if .Params.descriptionSEO }}
+    {{ $description = .Params.descriptionSEO }}
+{{ end }}
+
+{{ return ($description | plainify)}}

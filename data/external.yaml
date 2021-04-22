@@ -1,6 +1,6 @@
 Vibrant:
-  - src: https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js
-    integrity: sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g= sha384-lYOyYcofBl4Wae5LEVlxNBUGNNgJ+MfXO6iAj2KdeGLJgYnll2hhVCbglC93530T sha512-Y93BWSLwCWyagKvjDEmgOLgSdW7cTaajJaoKFHMKFw4AjGvJwM39ZqZmwmTBz2LHfOIcumdnm5bUHfcC4EPg4A==
+  - src: https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js
+    integrity: sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM= sha384-xglTO/8Oa3fXW5xzsGkQbc0ofkFDkEwusRGEKsNk+DHlAeoH6cbU8Pu/1KhMAVqz sha512-SzKezyOOe19oOvjHkyAkQXCjZ3qmGtpl78ZkLEemazIvoh+kgDVDWYELe3giYBr+40LPqJDAolvCv3TVRSMIaA==
     type: script
 
 PhotoSwipe:
@@ -21,17 +21,17 @@ PhotoSwipe:
     type: style
 
 KaTeX:
-  - src: https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css
-    integrity: sha256-tn6hZ2YGDv0w1/DaFL4MiUoXuAVclrtFZs13ch3TB9M= sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==
+  - src: https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.css
+    integrity: sha256-pJEAs/zQ2ihefvJlQEQkjHX+H1br8xxfQ2RXWjJtZmE= sha384-Cqd8ihRLum0CCg8rz0hYKPoLZ3uw+gES2rXQXycqnL5pgVQIflxAUDS7ZSjITLb5 sha512-el2z+rjIj40JeIlKyqcoRjGNjvwHVlyahNQ1PhSs4PCztr6jJ4GgpjgN+1a++L9HZxhLXpa4eLG3ry976z0O2Q==
     type: style
 
-  - src: https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js
-    integrity: sha256-1qhJwAgsSPVSSjlQVTewHS49eaoAbOz651dveUANVBI= sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==
+  - src: https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.js
+    integrity: sha256-gxHS2rdZSIMGT/HFiXyH4lCkH4WXpRYtAQh1n8ZdyGs= sha384-1Or6BdeNQb0ezrmtGeqQHFpppNd7a/gw29xeiSikBbsb44xu3uAo8c7FwbF5jhbd sha512-O7WTu9pghLBfbQSGAf2xOFoRxDrHKS3kjRuuiCWttAf76q6h8Qj+KYPBF5EdZsE24LvXiFUshVNWaAxBOij8VA==
     type: script
     defer: true
 
-  - src: https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js
-    integrity: sha256-oEuQVLwO5Ii6subChtLbrY5gx7NDRU+UJJ9jvvau+FI= sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==
+  - src: https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/contrib/auto-render.min.js
+    integrity: sha256-G53bYZLObbTLTA3j70xRGPKxKYlBbzvDZ789B6sSFkE= sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl sha512-CzIEOUs11SQ7tekLhEe5gil9kDip4RTJZVf7pSjlxOdVaYYHEcQflhunPz2Q/onNC4slL9jpKjvNgzPAAxEpew==
     type: script
     defer: true
 
