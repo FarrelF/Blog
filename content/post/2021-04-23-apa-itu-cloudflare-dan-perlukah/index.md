@@ -248,7 +248,7 @@ Alamat IP yang "kotor" bukan berarti perbuatan pengunjung nya "kotor" juga, kare
 
 Kembali lagi ketopik yang sebenarnya, menggunakan CDN dari Cloudflare maka artinya kamu telah Menggunakan _Firewall_ nya, ini yang membuat peran _Firewall_ dari Server Asli/Asal (bisa kamu sebut "Server Hosting" jika Anda menggunakan layanan Hosting) terhadap Web/Blog kamu menjadi sedikit tidak berguna.
 
-Serta, jika pengunjung terus-terusan mengalami hal diatas, bukan nya tidak mungkin kalau pengunjung akan jadi malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari CLoudflare diblokir oleh Server Asli/Asal. 
+Serta, jika pengunjung terus-terusan mengalami hal diatas, bukan nya tidak mungkin kalau pengunjung akan jadi malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari Cloudflare diblokir oleh Server Asli/Asal. 
 
 Jadi, jika Anda tidak ingin kehilangan pengunjung hanya karena pengalaman diatas, maka aturlah _Firewall_ dari Cloudflare nya dengan benar.
 
