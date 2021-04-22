@@ -116,7 +116,7 @@ jobs:
         SCSS_HASH_OLD=$(sha512sum scss.hash.old | awk '{ print $1 }')
         SCSS_HASH_NEW=$(sha512sum ./public/scss.hash | awk '{ print $1 }')
         mkdir -p ${HOME}/.config/rclone
-        echo ${{ secrets.RCLONE_CONFIG }} > ${HOME}/.config/rclone/rclone.conf
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
         rclone sync -vvvv -P --stats-one-line ./public ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}:/${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
         if [ ${SCSS_HASH_OLD} != ${SCSS_HASH_NEW} ]; then
           lftp -e "open -u ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }},${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }} -p 21 storage.bunnycdn.com; mirror --reverse --parallel=10 -X *.* -I *.html -I */*.html --verbose --transfer-all --delete-first ./public /${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}; exit 0"
