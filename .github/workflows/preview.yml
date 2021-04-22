@@ -24,8 +24,8 @@ jobs:
     - name: Checkout the Code
       uses: actions/checkout@v2
       with:
-        fetch-depth: '0'
-        submodules: 'true'
+        fetch-depth: 0
+        submodules: true
 
     - name: Install and Set up Locales and Other Packages
       run: |

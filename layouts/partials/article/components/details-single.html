@@ -31,7 +31,7 @@
         {{ partial "helper/icon" "clock" }}
         <time class="article-time--published">
             {{ if and (eq .Site.Params.dateFormat.published "Monday, 02 January 2006") (eq .Site.Language.Lang "id") }}
-                {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Date.Weekday) }}, {{ .Date.Day }} {{ index $.Site.Data.time_id.months (printf "%d" .Date.Month) }} {{ .Date.Year }}
+                {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Date.Weekday) }}, {{ .Date.Format "02" }} {{ index $.Site.Data.time_id.months (printf "%d" .Date.Month) }} {{ .Date.Year }}
             {{ else }}
                 {{- .Date.Format (or .Site.Params.dateFormat.published "Jan 02, 2006") -}}
             {{ end }}

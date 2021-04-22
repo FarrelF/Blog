@@ -13,7 +13,7 @@
         {{ partial "helper/icon" "clock" }}
         <span class="article-time--modified">
             {{ if and (eq .Site.Params.dateFormat.lastUpdated "Monday, 02 January 2006") (eq .Site.Language.Lang "id") }}
-                {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Lastmod.Weekday) }}, {{ .Lastmod.Day }} {{ index $.Site.Data.time_id.months (printf "%d" .Lastmod.Month) }} {{ .Lastmod.Year }}
+                {{ T "article.lastUpdatedOn" }} {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Lastmod.Weekday) }}, {{ .Lastmod.Format "02" }} {{ index $.Site.Data.time_id.months (printf "%d" .Lastmod.Month) }} {{ .Lastmod.Year }}
             {{ else }}
                 {{ T "article.lastUpdatedOn" }} {{ .Lastmod.Format ( or .Site.Params.dateFormat.lastUpdated "Jan 02, 2006 15:04 MST" ) }}
             {{ end }}
