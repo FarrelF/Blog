@@ -37,7 +37,7 @@
 {{- if and (.Site.Params.CDN.JS.URL) (eq hugo.IsProduction true) -}}
     {{- $Permalink = printf "%s%s" $.Site.Params.CDN.JS.URL $searchScript.RelPermalink -}}
 {{- end -}}
-<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $searchScript.Data.Integrity }}" defer></script>
+<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $searchScript.Data.Integrity }}" {{ if eq hugo.IsProduction true }}crossorigin="anonymous"{{ end }} defer></script>
 
 {{ partialCached "footer/footer" . }}
 {{ end }}
