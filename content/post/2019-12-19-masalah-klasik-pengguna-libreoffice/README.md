@@ -15,4 +15,4 @@ Artikel ini saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareA
 
 Logo tersebut juga merupakan Merek Dagang/Pakaian Dagang terdaftar dari 'The Document Foundation'. Jadi, logo-logo tersebut tetap milik mereka yang memiliki merek/pakaian dagang. Jika Anda ingin menggunakan logo-logo tersebut, silahkan kunjungi [Panduan mengenai Penggunaan Logo/Branding LibreOffice](https://wiki.documentfoundation.org/Marketing/Branding).
 
-Selain logo, semua Gambar yang berada di dalam Folder ini, itu di buat oleh saya sendiri (Farrel Franqois) dan di lisensi kan dengan [Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+Selain logo, semua Gambar yang berada di dalam Folder ini, itu di buat oleh saya sendiri (Farrel Franqois) dan saya lisensikan dibawah [Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).

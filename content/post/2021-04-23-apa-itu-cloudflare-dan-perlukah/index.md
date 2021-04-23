@@ -172,9 +172,9 @@ Jika ini di uji menggunakan ISP Telkom seperti IndiHome, berdasarkan pengalaman 
 
 {{< spoiler text="Catatan dan Sanggahan mengenai Cuplikan diatas" >}}
 
-Cuplikan diatas itu merupakan hasil krop gambar, silahkan <a class="link" href="2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365.jpg" rel="noopener" target="_blank">klik disini</a> jika Anda ingin melihat cuplikan asli nya.
+Cuplikan diatas itu merupakan hasil krop gambar, silahkan {{< a-file path="2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365.jpg" >}}klik disini{{< / a-file >}} jika Anda ingin melihat cuplikan asli nya.
 
-Tapi, saya tidak menjamin keakuratan cuplikan diatas tentang hasil pengujian jangkauan pusat data Cloudflare, karena saya uji ini menggunakan Koneksi dari Telkomsel (Operator: by.u) di Kota Cirebon dan pemiripan/persamaan hasil pengujian saat menggunakan ISP dari Telkom (seperti IndiHome) itu hanya berdasarkan pengalaman pribadi saat menggunakan IndiHome di Kota Cirebon, mungkin di Kota/Kabupaten atau/dan menggunakan Operator/ISP lain hasilnya akan beda.
+Tapi, saya tidak menjamin keakuratan cuplikan diatas tentang hasil pengujian jangkauan pusat data Cloudflare, karena saya uji ini menggunakan Koneksi dari Telkomsel (Operator: by.U) di Kota Cirebon dan pemiripan/persamaan hasil pengujian saat menggunakan ISP dari Telkom (seperti IndiHome) itu hanya berdasarkan pengalaman pribadi saat menggunakan IndiHome di Kota Cirebon, mungkin di Kota/Kabupaten atau/dan menggunakan Operator/ISP lain hasilnya akan beda.
 
 Tapi, setidaknya ini bisa dijadikan pertimbangan bagi Anda untuk memutuskan apakah CDN Cloudflare layak atau tidak bagi Anda sebagai pemilik/pengembang Web/Blog atau/dan pertimbangan untuk mencari ISP lain untuk pengguna biasa/pengunjung yang bukan pemilik/pengembang Web/Blog, walaupun tidak 100% akurat.
 
