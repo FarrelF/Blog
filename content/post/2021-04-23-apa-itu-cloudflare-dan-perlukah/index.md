@@ -44,12 +44,12 @@ Jadi, sekarang udah jelas kan Cloudflare itu apaan? Banyak sekali Web/Blog yang 
 
 Jawaban nya ya "entar dulu", abis ini nanti akan saya bahas dulu apa kelebihan dan kekurangan nya, karena jawaban nya akan sangat berhubungan dengan ini.
 
-## Kelebihan menggunakan Cloudflare
+## Kelebihan menggunakan Cloudflare {#kelebihan-cloudflare}
 Untuk pembahasan kali ini, saya cuma membahas kelebihan menggunakan Cloudflare sebagai CDN, Pengelola DNS dan _Firewall_ saja mengingat banyak sekali jasa/layanan dari Cloudflare itu, namun ketiga ini yang paling sering di gunakan oleh para Blogger atau Pengembang/Pengelola Web di bandingkan lain nya, apalagi Layanan tersebut tersedia versi Gratisan nya.
 
 Kelebihan menggunakan Cloudflare saya jabarkan berikut di bawah ini.
 
-### Membuat Web/Blog menjadi lebih hemat Kuota _Bandwidth_
+### Membuat Web/Blog menjadi lebih hemat Kuota _Bandwidth_ {#hemat-konsumsi-bandwidth-server}
 Kalau kamu menggunakan Hosting yang mana Kuota _Bandwidth_ (Pita lebar) nya terbatas atau cuma dapat sedikit saja, siapa sih yang gak mau menghemat konsumsi Kuota nya? Apalagi jika Web/Blog nya ramai di kunjungi orang dan robot tiap hari?
 
 Dengan menggunakan Layanan CDN nya, maka Anda dapat menghemat konsumsi/penggunaan _Bandwidth_ Server. 
@@ -67,7 +67,7 @@ Sehingga, ini akan sangat cocok bagi Anda yang memiliki Web/Blog yang kunjungan 
 
 [^1]: Cloudflare, "Our Plans | Pricing", https://www.cloudflare.com/plans/ (diakses pada tanggal 19 April 2021, pukul 01:46 WIB)
 
-### DNS Otoritatif nya yang sangat cepat, reliabel dan cukup kaya fitur
+### DNS Otoritatif nya yang sangat cepat, reliabel dan cukup kaya fitur {#pengelola-dns}
 Tahukah Anda, bahwa Layanan [DNS Otoritatif dari Cloudflare](https://www.cloudflare.com/dns/) itu sangatlah cepat dan lumayan reliabel? Menurut data yang ada di Situs Web DNSPerf yang saya ambil pada saat saya menulis artikel ini (Pada Tanggal 15 April 2021), DNS Cloudflare menempati posisi kedua untuk kinerja mentah dengan _Uptime_ sebesar 99,93% selama 30 hari terakhir.
 
 ![Data Kinerja Mentah DNS Otoritatif dari DNSPerf. Cuplikan ini diambil pada Tanggal/Hari Kamis, 15 April 2021, Pukul 13:43 WIB](2021-04-15_13.43.50_www.dnsperf.com_061d0657221d.jpg) ![Data _Uptime_ DNS Otoritatif dari DNSPerf. Cuplikan ini diambil pada Tanggal/Hari Kamis, 15 April 2021, Pukul 13:44 WIB](2021-04-15_13.44.11_www.dnsperf.com_aaa75743338c.jpg)
@@ -96,23 +96,23 @@ Selain itu, Pengelola DNS ini memiliki cukup kaya akan fitur. DNSSEC untuk keama
 
 [^5]: Cloudflare Help Center, "Importing and exporting DNS records", https://support.cloudflare.com/hc/en-us/articles/200168856-Importing-and-exporting-DNS-records (diakses pada tanggal 19 April 2021, pukul 02:01 WIB)
 
-### Bisa menyembunyikan Alamat IP Server
+### Bisa menyembunyikan Alamat IP Server {#menyembunyikan-alamat-ip-server}
 Dengan Anda menggunakan CDN dan melakukan _reverse-proxy_ pada Web/Blog utama Anda, maka Anda telah 'menyembunyikan' Alamat IP Server Asli nya, ini sebenarnya berlaku bagi semua CDN termasuk jika Anda menggunakan CDN dari Cloudflare.
 
 Dengan menggunakan CDN dari Cloudflare, maka Anda telah menyembunyikan Alamat IP dari Server Asli Anda dengan _reverse-proxy_, kecuali jika Anda menggunakan Subdomain yang terpisah untuk CDN nya, dan tentunya ini bisa dilakukan secara gratis.
 
 Ini akan sangat cocok bagi Anda yang tidak ingin 'memamerkan' Alamat IP Server nya di depan umum.
 
-### Kompresi terhadap berkas JavaScript, CSS dan HTML
-Cloudflare memiliki fitur kompresi (_minify_) terhadap berkas JavaScript, CSS dan HTML jika Anda menggunakan CDN dari Cloudflare. Fitur tersebut bernama ["Auto Minify"](https://blog.cloudflare.com/an-all-new-and-improved-autominify).
+### Kompresi terhadap berkas JavaScript, CSS dan HTML {#kompresi-js-css-html}
+Cloudflare memiliki fitur kompresi (_minify_) terhadap berkas JavaScript, CSS dan HTML jika Anda menggunakan CDN dari Cloudflare untuk mengoptimalkan Web/Blog Anda. Fitur tersebut bernama ["Auto Minify"](https://blog.cloudflare.com/an-all-new-and-improved-autominify).
 
-Biasanya ini dinonaktifkan secara bawaan, jadi Anda perlu mengaktifkan nya sendiri di Dasbor Cloudflare. Fitur "Auto Minify" dapat ditemukan di bagian "Speed" (yang gambarnya petir) pada Laman Dasbor Cloudflare. Berikut cuplikan nya:
+Biasanya fitur ini dinonaktifkan secara bawaan, jadi Anda perlu mengaktifkan nya sendiri di Dasbor Cloudflare. Fitur "Auto Minify" dapat ditemukan di bagian "Speed" (yang gambarnya petir) pada Laman Dasbor Cloudflare. Berikut cuplikan nya:
 
-![](Mengaktifkan_Auto_Minify_1.png) ![](Mengaktifkan_Auto_Minify_2.png)
+![Cuplikan Pertama](Mengaktifkan_Auto_Minify_1.png) ![Cuplikan Kedua](Mengaktifkan_Auto_Minify_2.png)
 
 Setelah mengaktifkan ataupun mematikan nya, maka Anda perlu _Purge Cache_ CDN Cloudflare nya terlebih dahulu, barulah opsinya bisa diterapkan sebagaimana mestinya.
 
-### SSL Gratis dan Sertifikat nya mendukung Peramban Web yang lebih tua
+### SSL Gratis dan Sertifikat nya mendukung Peramban Web yang lebih tua {#ssl-gratis}
 Jika Hosting yang Anda gunakan tidak menyediakan SSL sama sekali, maka Anda bisa gunakan CDN dari Cloudflare agar Web/Blog Anda bisa di akses dengan Protokol HTTPS secara gratis, masa berlaku akan di perbarui secara otomatis oleh mereka.
 
 Akar (atau _Root_) dari Sertifikat SSL yang di gunakan nya pun telah di dukung oleh Peramban Web (_Web Browser_) dari Perangkat yang lebih tua, selama Peramban Web tersebut mendukung SNI (singkatan dari "Server Name Indication") yang merupakan fitur dari protokol TLS.
@@ -121,14 +121,14 @@ Fitur tersebut di namakan ["Universal SSL"](https://support.cloudflare.com/hc/en
 
 Jika Anda merasa tidak perlu menggunakan SSL dari Cloudflare, maka caranya ada dua, yakni: Nonaktifkan fitur "Universal SSL" atau jangan gunakan CDN dari Cloudflare.
 
-### *Firewall* dan Perlindungan dari Serangan DDoS
+### *Firewall* dan Perlindungan dari Serangan DDoS {#firewall-dan-proteksi-dari-ddos}
 Jika Anda menggunakan CDN dari Cloudflare, maka Anda telah meminimalisir serangan DDoS di Web/Blog Anda. Proteksi ini bekerja pada lapisan ke-3, 4 dan 7 dalam model OSI, serta Proteksi ini tidak dikenakan biaya sama sekali alias gratis[^1].
 
 Selain itu, Cloudflare memiliki _Firewall_ yang siap melindungi Web/Blog Anda dari serangan dari luar, termasuk DDoS dan tentu saja Anda memiliki _Firewall_ bawaan yang bisa Anda atur kapan saja[^6].
 
 [^6]: Cloudflare, "Cloudflare WAF | Web Application Firewall", https://www.cloudflare.com/waf/ (diakses pada tanggal 19 April 2021, pukul 02:11 WIB)
 
-## Kekurangan menggunakan Cloudflare (terutama untuk pengguna Gratisan)
+## Kekurangan menggunakan Cloudflare (terutama untuk pengguna Gratisan) {#kekurangan-cloudflare}
 Tadi saya sudah menyebutkan kelebihan untuk menggunakan Cloudflare, terutama untuk layanan yang sering di gunakan oleh para Blogger atau Pengembang/Pengelola Situs Web, yakni CDN, Pengelola DNS dan _Firewall_ nya.
 
 Sekarang saya bahas kekurangan nya, saya utamakan untuk pengguna Gratisan karena saya yakin bahwa mayoritas pengguna Cloudflare lebih memilih Paket "Gratis" daripada milih yang berbayar, kalaupun mampu bayar palingan cuma mentok di Paket "Pro" saja yang biaya nya cuma $20/bulan. (Jangan tersinggung yah, saya juga pake yang Gratisan juga kok, hehe 😀)
@@ -191,7 +191,7 @@ Cloudflare sendiri membedakan Prioritas Lalu Lintas Jaringan nya berdasarkan pak
 
 Sehingga, pada akhirnya mereka mengarahkan lalu lintas pengunjung yang ingin mengunjungi Web/Blog yang menggunakan Cloudflare dengan paket selain "Business"/"Enterprise" ke Server yang paling murah, yakni yang paling jauh dari Pengunjung.
 
-Untuk mengatasi hal ini, dari segi ISP harus melakukan [_Direct-peering_ dengan Cloudflare](https://www.cloudflare.com/partners/peering-portal/)[^14], tapi beberapa ISP Rumahan (berdasarkan dengan yang saya alami) seperti nya belum melakukan nya secara maksimal atau bahkan ada yang enggan untuk melakukan nya, sehingga koneksi dari ISP tertentu ke jaringan Cloudflare kurang begitu bagus, entah karena alasan apa.
+Untuk mengatasi hal ini, dari segi ISP harus melakukan [_Direct-peering_](https://www.cloudflare.com/partners/peering-portal/) dengan Cloudflare[^14], tapi beberapa ISP Rumahan (berdasarkan dengan yang saya alami) seperti nya belum melakukan nya secara maksimal atau bahkan ada yang enggan untuk melakukan nya, sehingga koneksi dari ISP tertentu ke jaringan Cloudflare kurang begitu bagus, entah karena alasan apa.
 
 Jika Anda mengetahui sesuatu atau bahkan jika Anda merupakan perwakilan dari suatu ISP (terutama terget pasaran nya adalah Pengguna Rumahan), mungkin bisa memberikan klarifikasi di kolom komentar 🙂
 
@@ -215,7 +215,7 @@ Jadi, jika saya ingin menggunakan CDN dari Cloudflare, sedangkan kebanyakan peng
 
 [^14]: Dom J. H. \(Cloudflare Community\), "Peering - Why don’t I reach the closest datacenter to me?", https://community.cloudflare.com/t/peering-why-dont-i-reach-the-closest-datacenter-to-me/76479 (diakses pada tanggal 19 April 2021, pukul 03:38 WIB)
 
-### Proteksi DDoS Lapisan ke-7 dan CDN hanya bekerja untuk Protokol HTTP(S) saja
+### Proteksi DDoS Lapisan ke-7 dan CDN hanya bekerja untuk Protokol HTTP(S) saja {#proteksi-ddos-http-https}
 Jika Anda ingin memproteksi Server Gim, FTP, SSH, RDP, RTMP, dan Server dengan Protokol selain HTTP(S) dari serangan DDoS, atau Anda ingin mengurangi latensi saat mengakses server Anda dengan Protokol selain HTTP(S), atau ingin mengakselerasi pengalaman memainkan gim secara daring dengan memanfaatkan CDN nya, maka Anda tidak bisa melakukan itu dengan layanan 'yang ada'.
 
 Karena Proteksi DDoS dan CDN yang ada hanya bekerja untuk Protokol HTTP(S) saja, tidak untuk Protokol lain nya, alias hanya untuk _Webserver_ saja. Jika Anda ingin menggunakan CDN untuk Server selain _Webserver_, maka Anda perlu menggunakan [**Cloudflare Spectrum**](https://www.cloudflare.com/id-id/products/cloudflare-spectrum/) untuk itu.
@@ -226,14 +226,14 @@ Atau, jadilah pelanggan paket "Business" jika Anda ingin menggunakan CDN dan mem
 
 Lalu, bagaimana jika saya ingin menggunakan CDN dan memproteksi Server selain itu, seperti Server Gim Kustom (contoh: Server SA:MP, MTA-SA, FiveM, atau Server Gim Kustom lainnya), Server Basis Data, FTP(S), RTMP, Server Perbankan, dll? Yah, Anda perlu berlangganan paket "Enterprise" nya kalau begitu.
 
-### Tidak bisa menggunakan _Nameserver_ Kustom
+### Tidak bisa menggunakan _Nameserver_ Kustom {#tidak-bisa-menggunakan-nameserver-kustom}
 Jika Anda ingin menggunakan _Nameserver_ Kustom di Pengelola DNS Cloudflare, contoh: `ns1.domainkamu.com`, `ns2.domainkamu.com`, dst, alih-alih cuma menggunakan `xxxx1.ns.cloudflare.com` dan `xxxx2.ns.cloudflare.com` sebagai _Nameserver_.
 
 Hal itu bisa Anda lakukan, tapi tidak secara Gratis, minimal Anda perlu berlangganan paket "Business" untuk menggunakan fitur itu. Yap, Anda gak salah baca, minimal "Business" bukan paket "Pro".
 
 Mahal? Bagi yang butuh cuma _Nameserver_ Kustom, mungkin iya. Tapi untuk kebanyakan kasus, seperti nya Anda belum tentu butuh fitur tersebut, kalaupun kamu butuh yah jangan gunakan Cloudflare sebagai pengelola DNS kamu 🙂
 
-### Pengunjung bisa jadi 'kabur' jika *Firewall* nya tidak di atur
+### Pengunjung bisa jadi 'kabur' jika *Firewall* nya tidak di atur {#pengunjung-bisa-kabur}
 Apakah Anda pernah mengalami hal dibawah ini saat mengakses Web/Blog yang menggunakan Cloudflare:
 ![Menyelesaikan CAPTCHA sebelum mengakses sebuah Web. Informasi sengaja saya hitamkan](Cloudflare_Captcha_Screenshot.png)
 
@@ -259,7 +259,7 @@ Lagian, Web/Blog kamu belum tentu selalu menjadi target dari serangan DDoS juga,
 ## Kesimpulan
 Setelah semua ini, apakah saya masih perlu menggunakan nya? Maka jawaban nya adalah Anda tidak disarankan menggunakan Layanan CDN Gratisan dari Cloudflare untuk Web/Blog Anda dengan dalih untuk mempercepat dan mengamankan suatu Web/Blog, karena rute CDN nya yang seringkali _ngaco_, maka bukan nya mempercepat malah memperlambat bahkan menghalangi orang lain mengaksesnya.
 
-Menggunakan Layanan Pengelola DNS nya saja sudah sangat cukup, tidak perlu sampai menggunakan CDN nya (mengubah awan nya menjadi awan oranye). Tapi, jika Anda ingin menggunakan CDN dari Cloudflare, maka lebih baik Anda perlu berlangganan Paket "Enterprise" untuk prioritas jaringan yang terbaik atau seminimal-minimalnya paket "Business" untuk mendapatkan prioritas jaringan yang lebih baik, apalagi jika mayoritas pengunjung nya menggunakan koneksi dari Telkom/Telkomsel.
+Menggunakan Layanan Pengelola DNS nya saja sudah sangat cukup, tidak perlu sampai menggunakan CDN nya (mengubah awan nya menjadi awan oranye). Tapi, jika Anda ingin menggunakan CDN dari Cloudflare, maka lebih baik Anda perlu berlangganan Paket "Enterprise" nya saja sekalian atau seminimal-minimalnya paket "Business" untuk mendapatkan prioritas jaringan yang lebih baik, apalagi jika mayoritas pengunjung nya menggunakan koneksi dari Telkom/Telkomsel.
 
 Kecuali jika Anda menggunakan nya untuk menyembunyikan Alamat IP Server Asli nya, yah bisa pake itu, hanya saja jangan terlalu berekspektasi terhadap kecepatan akses dari pengunjung.
 
