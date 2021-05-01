@@ -1,16 +1,16 @@
 {{ if eq .Site.Params.Twemoji.enabled true }}
     {{- partial "helper/external" (dict "Context" . "Namespace" "Twemoji") -}}
     {{- $Twemoji := .Site.Params.Twemoji -}}
-{{ if $Twemoji.Options }}
+{{ with $Twemoji.Options }}
 <script>
     window.onload = function() {
         twemoji.parse(document.body, 
             {
-                folder: '{{ with $Twemoji.Options.Path }}{{ . }}{{ else }}svg{{ end }}', 
-                ext: '{{ with $Twemoji.Options.Ext }}{{ . }}{{ else }}.svg{{ end }}',
-                base: '{{ with $Twemoji.Options.baseURL }}{{ . }}{{ end }}'{{ with $Twemoji.Options.Size }},
-                size: '{{ . }}'{{ end }}{{ with $Twemoji.Options.className }},
-                className: '{{ . }}'{{ end }}
+                folder: '{{ .Path }}', 
+                ext: '{{ .Ext }}',
+                base: '{{ .baseURL }}',
+                size: '{{ .Size }}',
+                className: '{{ .className }}'
             }
         );
     }

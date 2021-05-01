@@ -4,6 +4,7 @@ Slug: apa-itu-cloudflare-dan-perlukah
 Author: Farrel Franqois
 Categories: 
     - Layanan Internet
+    - Web/Blog
     - Opini
 Date: 2021-04-23 00:31:39+07:00
 image: cf-logo-v-rgb.jpg
@@ -13,6 +14,7 @@ Tags:
     - DNS
     - Firewall
     - Pengelola DNS
+    - Optimalisasi
 readMore: true
 DescriptionSEO: Banyak Situs Web/Blog yang menyarankan untuk menggunakan Cloudflare demi mengoptimalkan dan mengamankan suatu Web/Blog. Apa iya?
 Description: >
@@ -65,7 +67,7 @@ Terlebih jika sistem pembiayaan untuk paket-paket pada layanan/jasa dari Cloudfl
 
 Sehingga, ini akan sangat cocok bagi Anda yang memiliki Web/Blog yang kunjungan nya sangat ramai, tapi tidak mau terbebani oleh tagihan yang membludak akibat konsumsi _Bandwidth_ yang sangat besar.
 
-[^1]: Cloudflare, "Our Plans | Pricing", https://www.cloudflare.com/plans/ (diakses pada tanggal 19 April 2021, pukul 01:46 WIB)
+[^1]: Cloudflare, "Our Plans | Pricing", [https://www.cloudflare.com/plans/](https://www.cloudflare.com/plans/) (diakses pada tanggal 19 April 2021, pukul 01:46 WIB)
 
 ### DNS Otoritatif nya yang sangat cepat, reliabel dan cukup kaya fitur {#pengelola-dns}
 Tahukah Anda, bahwa Layanan [DNS Otoritatif dari Cloudflare](https://www.cloudflare.com/dns/) itu sangatlah cepat dan lumayan reliabel? Menurut data yang ada di Situs Web DNSPerf yang saya ambil pada saat saya menulis artikel ini (Pada Tanggal 15 April 2021), DNS Cloudflare menempati posisi kedua untuk kinerja mentah dengan _Uptime_ sebesar 99,93% selama 30 hari terakhir.
@@ -88,13 +90,13 @@ Selain itu, Pengelola DNS ini memiliki cukup kaya akan fitur. DNSSEC untuk keama
 
 ![Opsi Fitur "DNSSEC" dan "CNAME Flattening" di Cloudflare](Cloudflare_DNS_DNSSEC_CNAME-Flattening.png)
 
-[^2]: Cloudflare, "Data Center Map | CDN PoP Locations Map", https://www.cloudflare.com/network/ (diakses pada tanggal 19 April 2021, pukul 01:53 WIB)
+[^2]: Cloudflare, "Data Center Map | CDN PoP Locations Map", [https://www.cloudflare.com/network/](https://www.cloudflare.com/network/) (diakses pada tanggal 19 April 2021, pukul 01:53 WIB)
 
-[^3]: Cloudflare, "DNSSEC Protection | Provision and manage DNSSEC with Cloudflare", https://www.cloudflare.com/dns/dnssec/ (diakses pada tanggal 19 April 2021, pukul 01:56 WIB)
+[^3]: Cloudflare, "DNSSEC Protection | Provision and manage DNSSEC with Cloudflare", [https://www.cloudflare.com/dns/dnssec/](https://www.cloudflare.com/dns/dnssec/) (diakses pada tanggal 19 April 2021, pukul 01:56 WIB)
 
-[^4]: Matthew Prince \(The Cloudflare Blog\), "Introducing CNAME Flattening: RFC-Compliant CNAMEs at a Domain's Root", https://blog.cloudflare.com/introducing-cname-flattening-rfc-compliant-cnames-at-a-domains-root/ (diakses pada tanggal 19 April 2021, pukul 01:58 WIB)
+[^4]: Matthew Prince \(The Cloudflare Blog\), "Introducing CNAME Flattening: RFC-Compliant CNAMEs at a Domain's Root", [https://blog.cloudflare.com/introducing-cname-flattening-rfc-compliant-cnames-at-a-domains-root/](https://blog.cloudflare.com/introducing-cname-flattening-rfc-compliant-cnames-at-a-domains-root/) (diakses pada tanggal 19 April 2021, pukul 01:58 WIB)
 
-[^5]: Cloudflare Help Center, "Importing and exporting DNS records", https://support.cloudflare.com/hc/en-us/articles/200168856-Importing-and-exporting-DNS-records (diakses pada tanggal 19 April 2021, pukul 02:01 WIB)
+[^5]: Cloudflare Help Center, "Importing and exporting DNS records", [https://support.cloudflare.com/hc/en-us/articles/200168856-Importing-and-exporting-DNS-records](https://support.cloudflare.com/hc/en-us/articles/200168856-Importing-and-exporting-DNS-records) (diakses pada tanggal 19 April 2021, pukul 02:01 WIB)
 
 ### Bisa menyembunyikan Alamat IP Server {#menyembunyikan-alamat-ip-server}
 Dengan Anda menggunakan CDN dan melakukan _reverse-proxy_ pada Web/Blog utama Anda, maka Anda telah 'menyembunyikan' Alamat IP Server Asli nya, ini sebenarnya berlaku bagi semua CDN termasuk jika Anda menggunakan CDN dari Cloudflare.
@@ -126,7 +128,7 @@ Jika Anda menggunakan CDN dari Cloudflare, maka Anda telah meminimalisir seranga
 
 Selain itu, Cloudflare memiliki _Firewall_ yang siap melindungi Web/Blog Anda dari serangan dari luar, termasuk DDoS dan tentu saja Anda memiliki _Firewall_ bawaan yang bisa Anda atur kapan saja[^6].
 
-[^6]: Cloudflare, "Cloudflare WAF | Web Application Firewall", https://www.cloudflare.com/waf/ (diakses pada tanggal 19 April 2021, pukul 02:11 WIB)
+[^6]: Cloudflare, "Cloudflare WAF | Web Application Firewall", [https://www.cloudflare.com/waf/](https://www.cloudflare.com/waf/) (diakses pada tanggal 19 April 2021, pukul 02:11 WIB)
 
 ## Kekurangan menggunakan Cloudflare (terutama untuk pengguna Gratisan) {#kekurangan-cloudflare}
 Tadi saya sudah menyebutkan kelebihan untuk menggunakan Cloudflare, terutama untuk layanan yang sering di gunakan oleh para Blogger atau Pengembang/Pengelola Situs Web, yakni CDN, Pengelola DNS dan _Firewall_ nya.
@@ -145,6 +147,8 @@ Seringkali pengunjung akan mendapatkan rute yang bahkan sangat jauh dari mereka,
 Sebagai imbas nya, tidak sedikit pula pengunjung yang merasa lambat ketika mengakses nya, bahkan sampai tidak bisa diakses sama sekali.
 
 Contoh kasus nya adalah ketika mengakses Web/Blog yang menggunakan Cloudflare Gratisan dan Paket "Pro" dari ISP Telkom misalnya, karena rute yang mereka dapatkan itu sangat jauh dari koneksi nya, sehingga banyak orang yang mengeluhkan akses ke sebuah Web/Blog[^7] [^8] [^9] [^10], bahkan sampai-sampai membuat sebuah utas di [Forum Komunitas nya](https://community.cloudflare.com/t/cant-access-website-with-isp-indonesia-telkom/169648) juga.
+
+Sudah rute CDN nya kacau gara-gara ISP nya, terus Koneksi Internasional nya malah buruk, sehingga pantas saja jika orang-orang protes seperti itu sejak menggunakan Cloudflare sebagai CDN, terutama dari ISP Telkom/Telkomsel.
 
 Untuk memastikan Rute CDN/Pusat Data Cloudflare mana yang didapat atau dijangkau oleh koneksi Internet yang digunakan sekarang, Anda tinggal tambahkan `cdn-cgi/trace` setelah mengetikkan Alamat Domain/Nama Hos (_Hostname_) yang menggunakan CDN dari Cloudflare, contoh formatnya menjadi seperti ini: `https://contoh.domain.com/cdn-cgi/trace` (Anda tinggal ganti saja `contoh.domain.com` nya menjadi Alamat Domain/Nama Hos untuk Web Anda)
 
@@ -197,23 +201,23 @@ Jika Anda mengetahui sesuatu atau bahkan jika Anda merupakan perwakilan dari sua
 
 Kembali lagi ke hasil pengujian, kenapa saya selalu menyebutkan Telkomsel dan Telkom? Karena kedua itu yang paling menguasai jangkauan di seluruh Indonesia, bisa jadi hal ini yang membuat kedua ISP tersebut menjadi paling banyak pengguna nya.
 
-Jadi, jika saya ingin menggunakan CDN dari Cloudflare, sedangkan kebanyakan pengunjung nya menggunakan Telkomsel, IndiHome dan Koneksi dari Jaringan Telkom lain nya, apa yang harus saya lakukan? Yah, Anda perlu berlangganan paket "Enterprise" jika ingin mendapatkan Prioritas Jaringan yang terbaik, atau seminimal-minimal nya Anda perlu berlangganan paket "Business" kalau begitu.
+Jadi, jika saya ingin menggunakan CDN dari Cloudflare, sedangkan kebanyakan pengunjung nya menggunakan Telkomsel, IndiHome dan Koneksi dari Jaringan Telkom lain nya, apa yang harus saya lakukan? Yah, seminimal-minimal nya Anda perlu berlangganan paket "Business", atau berlangganan Paket "Enterprise" sekalian agar mendapatkan prioritas jaringan yang terbaik.
 
-[^7]: Syeilendra Pramuditya, "Koneksi Internet Telkom (IndiHome/Telkomsel) Tidak Bisa Akses CloudFlare?", https://syeilendrapramuditya.wordpress.com/2020/04/29/koneksi-internet-telkom-indihome-telkomsel-tidak-bisa-akses-cloudflare/ (diakses pada tanggal 11 April 2021, pukul 23:42 WIB)
+[^7]: Syeilendra Pramuditya, "Koneksi Internet Telkom (IndiHome/Telkomsel) Tidak Bisa Akses CloudFlare?", [https://syeilendrapramuditya.wordpress.com/2020/04/29/koneksi-internet-telkom-indihome-telkomsel-tidak-bisa-akses-cloudflare/](https://syeilendrapramuditya.wordpress.com/2020/04/29/koneksi-internet-telkom-indihome-telkomsel-tidak-bisa-akses-cloudflare/) (diakses pada tanggal 11 April 2021, pukul 23:42 WIB)
 
-[^8]: Harsh Kansagara \(Twitter: @theharshin\), https://twitter.com/theharshin/status/1278606869691424768 (diakses pada tanggal 11 April 2021, pukul 23:50 WIB)
+[^8]: Harsh Kansagara \(Twitter: @theharshin\), [https://twitter.com/theharshin/status/1278606869691424768](https://twitter.com/theharshin/status/1278606869691424768) (diakses pada tanggal 11 April 2021, pukul 23:50 WIB)
 
-[^9]: Diskusi Web Hosting, "Masalah Telkomsel/Telkom ?", https://www.diskusiwebhosting.com/threads/masalah-telkomsel-telkom.34190/ (diakses pada tanggal 11 April 2021, pukul 23:44 WIB)
+[^9]: Diskusi Web Hosting, "Masalah Telkomsel/Telkom ?", [https://www.diskusiwebhosting.com/threads/masalah-telkomsel-telkom.34190/](https://www.diskusiwebhosting.com/threads/masalah-telkomsel-telkom.34190/) (diakses pada tanggal 11 April 2021, pukul 23:44 WIB)
 
-[^10]: BiruDaun Web Developer, "Cloudflare? It’s time we moved on.", https://www.indonesiadigitalmarketing.id/id/cloudflare-its-time-we-moved-on/ (diakses pada tanggal 19 April 2021, pukul 06:02 WIB)
+[^10]: BiruDaun Web Developer, "Cloudflare? It’s time we moved on.", [https://www.indonesiadigitalmarketing.id/id/cloudflare-its-time-we-moved-on/](https://www.indonesiadigitalmarketing.id/id/cloudflare-its-time-we-moved-on/) (diakses pada tanggal 19 April 2021, pukul 06:02 WIB)
 
-[^11]: Chris Chua \(The Cloudflare Blog\), "Good Morning, Jakarta!", https://blog.cloudflare.com/selamat-pagi-jakarta-customers/ (diakses pada tanggal 19 April 2021, pukul 17:26 WIB)
+[^11]: Chris Chua \(The Cloudflare Blog\), "Good Morning, Jakarta!", [https://blog.cloudflare.com/selamat-pagi-jakarta-customers/](https://blog.cloudflare.com/selamat-pagi-jakarta-customers/) (diakses pada tanggal 19 April 2021, pukul 17:26 WIB)
 
-[^12]: "United States Securities and Exchange Commission" dan "Cloudflare, Inc.", Halaman 79 dari Dokumen "FORM S-1 REGISTRATION STATEMENT", https://www.sec.gov/Archives/edgar/data/1477333/000119312519222176/d735023ds1.htm (diakses pada tanggal 14 April 2021, pukul 22:27 WIB)
+[^12]: "United States Securities and Exchange Commission" dan "Cloudflare, Inc.", Halaman 79 dari Dokumen "FORM S-1 REGISTRATION STATEMENT", [https://www.sec.gov/Archives/edgar/data/1477333/000119312519222176/d735023ds1.htm](https://www.sec.gov/Archives/edgar/data/1477333/000119312519222176/d735023ds1.htm) (diakses pada tanggal 14 April 2021, pukul 22:27 WIB)
 
-[^13]: Hunter Ray \(GitHub: judge2020\), "Explanation", https://github.com/judge2020/cloudflare-connectivity-test/wiki/Explanation (diakses pada tanggal 14 April 2021, pukul 23:45 WIB)
+[^13]: Hunter Ray \(GitHub: judge2020\), "Explanation", [https://github.com/judge2020/cloudflare-connectivity-test/wiki/Explanation](https://github.com/judge2020/cloudflare-connectivity-test/wiki/Explanation) (diakses pada tanggal 14 April 2021, pukul 23:45 WIB)
 
-[^14]: Dom J. H. \(Cloudflare Community\), "Peering - Why don’t I reach the closest datacenter to me?", https://community.cloudflare.com/t/peering-why-dont-i-reach-the-closest-datacenter-to-me/76479 (diakses pada tanggal 19 April 2021, pukul 03:38 WIB)
+[^14]: Dom J. H. \(Cloudflare Community\), "Peering - Why don’t I reach the closest datacenter to me?", [https://community.cloudflare.com/t/peering-why-dont-i-reach-the-closest-datacenter-to-me/76479](https://community.cloudflare.com/t/peering-why-dont-i-reach-the-closest-datacenter-to-me/76479) (diakses pada tanggal 19 April 2021, pukul 03:38 WIB)
 
 ### Proteksi DDoS Lapisan ke-7 dan CDN hanya bekerja untuk Protokol HTTP(S) saja {#proteksi-ddos-http-https}
 Jika Anda ingin memproteksi Server Gim, FTP, SSH, RDP, RTMP, dan Server dengan Protokol selain HTTP(S) dari serangan DDoS, atau Anda ingin mengurangi latensi saat mengakses server Anda dengan Protokol selain HTTP(S), atau ingin mengakselerasi pengalaman memainkan gim secara daring dengan memanfaatkan CDN nya, maka Anda tidak bisa melakukan itu dengan layanan 'yang ada'.
@@ -248,26 +252,30 @@ Alamat IP yang "kotor" bukan berarti perbuatan pengunjung nya "kotor" juga, kare
 
 Kembali lagi ketopik yang sebenarnya, menggunakan CDN dari Cloudflare maka artinya kamu telah Menggunakan _Firewall_ nya, ini yang membuat peran _Firewall_ dari Server Asli/Asal (bisa kamu sebut "Server Hosting" jika Anda menggunakan layanan Hosting) terhadap Web/Blog kamu menjadi sedikit tidak berguna.
 
-Serta, jika pengunjung terus-terusan mengalami hal diatas, bukan nya tidak mungkin kalau pengunjung akan jadi malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari Cloudflare diblokir oleh Server Asli/Asal. 
+Serta, jika pengunjung terus-terusan mengalami hal diatas, bukan nya menjadi tidak mungkin kalau pengunjung akan malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari Cloudflare diblokir oleh _Firewall_ dari Server Asli/Asal. 
 
-Jadi, jika Anda tidak ingin kehilangan pengunjung hanya karena pengalaman diatas, maka aturlah _Firewall_ dari Cloudflare nya dengan benar.
+Jadi, jika Anda tidak ingin kehilangan pengunjung hanya karena pengalaman diatas, maka aturlah _Firewall_ dari Cloudflare nya dengan benar dan pastikan kalau Server Asli/Asal tidak memblokir [Alamat IP dari Cloudflare](https://www.cloudflare.com/ips/).
 
-Atau, jika Hosting yang Anda gunakan itu menyediakan Proteksi terhadap DDoS secara gratis, maka sudah seharusnya Anda tidak perlu lagi menggunakan Proteksi DDoS atau Layanan _Firewall_ dari Cloudflare untuk itu, cukup percayakan saja kepada pihak Hosting dan lakukan pencadangan (_backup_) secara berkala ke luar Server Asal (entah data nya disimpan ke PC, ke Penyimpanan Awan, dll).
+Atau, jika Hosting yang Anda gunakan itu menyediakan Proteksi terhadap DDoS secara gratis, maka sudah seharusnya Anda tidak perlu lagi menggunakan Proteksi DDoS atau Layanan _Firewall_ dan CDN dari Cloudflare untuk itu, cukup percayakan saja kepada pihak Hosting dan lakukan pencadangan (_backup_) secara berkala ke luar Server Asal (entah data nya disimpan ke PC, ke Penyimpanan Awan, dll).
 
 Lagian, Web/Blog kamu belum tentu selalu menjadi target dari serangan DDoS juga, kan? Masalah melindungi Web/Blog dari serangan lain, seperti _Deface_ maka Anda bisa melakukan nya sendiri, tidak perlu sampai menggunakan CDN dari Cloudflare untuk itu.
 
 ## Kesimpulan
-Setelah semua ini, apakah saya masih perlu menggunakan nya? Maka jawaban nya adalah Anda tidak disarankan menggunakan Layanan CDN Gratisan dari Cloudflare untuk Web/Blog Anda dengan dalih untuk mempercepat dan mengamankan suatu Web/Blog, karena rute CDN nya yang seringkali _ngaco_, maka bukan nya mempercepat malah memperlambat bahkan menghalangi orang lain mengaksesnya.
+Setelah semua ini, apakah saya masih perlu menggunakan nya? Maka jawaban nya adalah Anda tidak disarankan menggunakan Layanan CDN Gratisan dari Cloudflare untuk Web/Blog Anda dengan dalih untuk mempercepat dan mengamankan suatu Web/Blog, karena rute CDN nya yang seringkali _ngaco_, maka bukan nya mempercepat malah memperlambat bahkan menghalangi orang lain mengaksesnya. 
 
-Menggunakan Layanan Pengelola DNS nya saja sudah sangat cukup, tidak perlu sampai menggunakan CDN nya (mengubah awan nya menjadi awan oranye). Tapi, jika Anda ingin menggunakan CDN dari Cloudflare, maka lebih baik Anda perlu berlangganan Paket "Enterprise" nya saja sekalian atau seminimal-minimalnya paket "Business" untuk mendapatkan prioritas jaringan yang lebih baik, apalagi jika mayoritas pengunjung nya menggunakan koneksi dari Telkom/Telkomsel.
+Sudah rute CDN nya _ngaco_, terus Koneksi Internasional dari Telkom/Telkomsel juga buruk, jadinya pantas saja jika orang-orang pada protes setelah menggunakan CDN dari Cloudflare (terutama untuk pengguna Gratisan dan pengguna paket "Pro"). Belum sama koneksi dari Server Hosting ke Cloudflare nya, kalo koneksi nya buruk atau bahkan Alamat IP Cloudflare nya sampai diblokir oleh _Firewall_ Server nya, bisa-bisa Web/Blog nya malah dianggap nge-_down_, padahal tidak sama sekali.
 
-Kecuali jika Anda menggunakan nya untuk menyembunyikan Alamat IP Server Asli nya, yah bisa pake itu, hanya saja jangan terlalu berekspektasi terhadap kecepatan akses dari pengunjung.
+Menggunakan Layanan Pengelola DNS/DNS Otoritatif nya saja sudah sangat cukup dan sangat layak untuk digunakan secara gratis, tidak perlu sampai menggunakan CDN nya (mengubah awan nya menjadi awan oranye). Waktu _Resolve_ nya tergolong sangat cepat, _Uptime_ nya sangat memuaskan untuk versi gratisan nya dan fitur-fitur nya sangat cukup untuk Pengguna pada Umum nya (kecuali _Nameserver_ Kustom yang gak bisa diperoleh secara gratis).
 
-Tapi jika Anda sangat ingin menggunakan CDN dari Cloudflare demi menghemat konsumsi _Bandwidth_ Server, maka pastikan Opsi "Cache Level" kamu atur ke "Cache Everything" melalui "Page Rules" (Gunakan opsi tersebut secara bijak) atau/dan pastikan juga bahwa berkas-berkas statik lain nya (Seperti Berkas Gambar, JavaScript, CSS, Berkas-berkas Fonta, dll) di _Cache_ lebih lama dengan menyetel _Header_ `Cache-Control` nya dengan benar.
+Jika Anda ingin menggunakan CDN dari Cloudflare, maka lebih baik Anda perlu berlangganan Paket "Enterprise" nya saja sekalian untuk mendapatkan prioritas jaringan yang terbaik atau seminimal-minimalnya Anda perlu berlangganan paket "Business" untuk mendapatkan prioritas jaringan yang lebih baik, apalagi jika mayoritas pengunjung nya menggunakan koneksi dari Telkom/Telkomsel.
+
+Kecuali jika Anda menggunakan nya untuk menyembunyikan Alamat IP Server Asli nya, yah bisa pake itu, hanya saja jangan terlalu berekspektasi terhadap kecepatan dan kenyamanan akses dari pengunjung.
+
+Tapi jika Anda sangat ingin menggunakan CDN dari Cloudflare demi menghemat konsumsi _Bandwidth_ Server, maka pastikan Opsi "Cache Level" kamu atur ke "Cache Everything" melalui "Page Rules" (Gunakan opsi tersebut secara bijak) atau/dan pastikan juga bahwa berkas-berkas statik lain nya (Seperti Berkas Gambar, JavaScript, CSS, Berkas-berkas Fonta, dll) di _Cache_ lebih lama dengan menyetel _Header_ `Cache-Control` nya menjadi `public, max-age=31536000, immutable` dan tentunya kamu lakukan itu dengan benar.
 
 Jika berkas statik di _Cache_ dalam waktu lama, maka Pengunjung tidak perlu lagi sampai mengunduh berkas-berkas tersebut saat mengunjungi Web/Blog Anda dari Server manapun, melainkan hanya perlu memuatnya dari Media Penyimpanan nya saja.
 
-Serta, aturlah _Firewall_ di Cloudflare dengan benar jika Anda tidak ingin kehilangan pengunjung Web/Blog Anda karena diblokir/disuruh menyelesaikan CAPTCHA.
+Serta, aturlah _Firewall_ di Cloudflare dengan benar jika Anda tidak ingin kehilangan pengunjung Web/Blog Anda karena diblokir/disuruh menyelesaikan CAPTCHA, karena yang seperti itu besar kemungkinan akan sering terjadi, terutama jika diakses dari Pengunjung yang menggunakan ISP dari Telkom/Telkomsel yang mempunyai banyak sekali Alamat IP nya.
 
 ## Penutup
 Ya sudah, sepertinya pembahas di artikel ini saya cukupkan sampai sini saja. Ngomong-ngomong, saya tulis artikel ini dimulai dari tanggal 06 April 2021 dan Artikel ini terbit saat di bulan Ramadhan tahun ini, tidak terasa juga yah 🙂
@@ -289,7 +297,7 @@ Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-04-23-apa-itu-cloudflare-dan-perlukah
 ```
 
-Gambar Illustrasi yang nama berkasnya adalah [`NCDN_-_CDN.png`](NCDN_-_CDN.png) itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
+Gambar Illustrasi yang nama berkasnya adalah {{< a-file path="NCDN_-_CDN.png" >}}`NCDN_-_CDN.png`{{< / a-file >}} itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
 
 Logo Cloudflare (yang saya gunakan sebagai sampul artikel ini) merupakan Merek Dagang/Pakaian Dagang terdaftar dari **Cloudflare, Inc.** 
 

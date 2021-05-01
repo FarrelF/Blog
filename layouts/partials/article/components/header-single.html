@@ -57,9 +57,9 @@
                         width="{{ $Width }}" 
                         height="{{ $Height }}" 
                         loading="lazy"
-                        alt="Featured image of post {{ .Title }}" />
+                        alt="{{ with T "article.featuredImageOf" }}{{ . }} {{ else }}Featured image of post {{ end }}{{ .Title }}" />
                 {{ else }}
-                    <img src="{{ $image.permalink }}" loading="lazy" alt="Featured image of post {{ .Title }}" />
+                    <img src="{{ $image.permalink }}" loading="lazy" alt="{{ with T "article.featuredImageOf" }}{{ . }} {{ else }}Featured image of post {{ end }}{{ .Title }}" />
                 {{ end }}
             </a>
         </div>
