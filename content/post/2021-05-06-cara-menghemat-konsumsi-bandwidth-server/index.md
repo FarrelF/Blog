@@ -6,7 +6,7 @@ Categories:
     - Tutorial
     - Web/Blog
     - Server
-Date: 2021-04-27 00:31:39+07:00
+Date: 2021-05-06 16:15:30+07:00
 image: micheile-henderson-SoT4-mZhyhE-unsplash.jpg
 Tags: 
     - Bandwidth
@@ -14,7 +14,6 @@ Tags:
     - Cache
     - Optimalisasi
 readMore: true
-draft: true
 DescriptionSEO: Apakah Anda ingin menghemat konsumsi Bandwidth Server, sehingga Web/Blog Anda bisa bertahan? Kalo iya, silahkan baca artikel ini!
 Description: >
     Apakah Anda menggunakan sebuah Hosting untuk Web/Blog Anda, tapi Hosting tersebut membatasi kuota _Bandwidth_ nya?
