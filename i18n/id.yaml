@@ -21,8 +21,12 @@ article:
         other: Konten terkait
     lastUpdatedOn:
         other: Terakhir diperbarui pada
+    lastUpdatedGit:
+        other: Artikel ini dirubah berdasarkan Commit <a class="link" href="https://github.com/FarrelF/Blog/commit/{{ .Hash }}" target="_blank" rel="noopener">{{ .AbvHash }}</a> di GitHub
     readMore:
         other: Baca lebih lanjut >
+    featuredImageOf:
+        other: Gambar Unggulan dari Pos
 
 notFound:
     title:
