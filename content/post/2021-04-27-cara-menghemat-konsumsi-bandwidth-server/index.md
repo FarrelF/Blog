@@ -15,7 +15,7 @@ Tags:
     - Optimalisasi
 readMore: true
 draft: true
-DescriptionSEO: Banyak Situs Web/Blog yang menyarankan untuk menggunakan Cloudflare demi mengoptimalkan dan mengamankan suatu Web/Blog. Apa iya?
+DescriptionSEO: Apakah Anda ingin menghemat konsumsi Bandwidth Server, sehingga Web/Blog Anda bisa bertahan? Kalo iya, silahkan baca artikel ini!
 Description: >
     Apakah Anda menggunakan sebuah Hosting untuk Web/Blog Anda, tapi Hosting tersebut membatasi kuota _Bandwidth_ nya?
     
@@ -29,13 +29,13 @@ Description: >
 ## Pembuka
 Kita semua tahu bahwa tidak semua Hosting menerapkan _Unmetered Bandwidth_ atau _Unlimited Bandwidth_ sehingga diberlakukan batasan kuota _Bandwidth_, jika melebihi batas tersebut maka Web/Blog menjadi tidak bisa diakses dan disuruh membayar biaya tambahan untuk menambahkan batasan tersebut agar Web/Blog bisa diakses.
 
-Bahkan Hosting untuk Web Statis seperti Netlify, GitHub Pages, Render, dan Surge.sh pun menerapkan batasan kuota ini. Maka mau-gak mau, suka-gak suka, para pemilik Web/Blog harus menghemat konsumsi _Bandwidth_ Server daripada Web/Blog nya gak bisa diakses hanya karena kehabisan kuota. Belum lagi sama kuota Internet Pengunjung yang juga terbatas, kalau habis ya harus beli lagi, kan boros jadinya :-)
+Bahkan Hosting untuk Web Statis seperti Netlify, GitHub Pages, Render, dan Surge.sh pun menerapkan batasan kuota ini. Maka mau-gak mau, suka-gak suka, para pemilik Web/Blog harus menghemat konsumsi _Bandwidth_ Server daripada Web/Blog nya gak bisa diakses hanya karena kehabisan kuota. Belum lagi sama kuota Internet Pengunjung yang juga terbatas, kalau habis ya harus beli lagi, kan boros jadinya 🙂
 
 Nah, saya berikan solusi bagi yang ingin menghemat Konsumsi _Bandwidth_ ketika Web/Blog Anda 'dihantam' oleh pengunjung dan bot selama beberapa kali yang mungkin bisa Anda implementasikan. Tentu saja solusi nya tidak cukup dilakukan salah satu saja, melainkan 2 atau 3 solusi harus kamu lakukan demi menghemat konsumsi _Bandwidth_ Server/Hosting.
 
 Berikut dibawah ini adalah solusi-solusi yang bisa Anda terapkan:
 
-### Solusi ke-1: Lakukan kompresi terhadap berkas-berkas statik {#kompresi-berkas-statik}
+### Solusi ke-1: Lakukan kompresi terhadap berkas-berkas statik {#solusi-ke1}
 Melakukan Kompresi terhadap berkas-berkas statik (seperti berkas JS, CSS, Gambar, dll) sebelum digunakan oleh Web/Blog Anda itu **Wajib Hukumnya!**
 
 Ya kali kamu ingin mengunggah dan menyebarkan, serta 'menyajikan' Berkas Gambar yang besar nya beberapa puluhan bahkan ratusan Megabita kedalam Web/Blog kamu kepada pengunjung, kalo saya jadi pengunjungnya, saya malah langsung kabur.
@@ -48,24 +48,156 @@ Atau, jika Anda menggunakan SSG (_Static-site Generator_), terutama Hugo, maka s
 
 Jadi, itu bergantung pada tema yang Anda gunakan, jika temanya mengimplementasikan kedua fitur tersebut dengan benar dan optimal, maka beruntunglah Anda! Tapi, bagaimana jika tidak? Implementasikan lalu optimalkan saja sendiri dan jangan malas!
 
-### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#header-cache-control}
+### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#solusi-ke2}
 ![Contoh Header Cache-Control untuk sebuah Berkas Gambar (ada di anak panah)](Contoh_Header_Cache-Control.png)
 
-Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _Response HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ Peramban Web. 
+Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web. 
 
 Singkatnya, Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lain nya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna. Tentu saja _Cache_ dari Peramban Web ini tersimpan di dalam perangkat penyimpanan yang digunakan sekarang, seperti Harddisk/SSD atau bahkan Memori RAM bisa digunakan.
 
 Saat pengguna mengunjungi Situs Web nya kembali, disinilah _HTTP Header_ `Cache-Control` itu berperan, _Header_ tersebut menetapkan sebuah aturan untuk menentukan apakah Peramban Web yang digunakan oleh Pengguna tersebut akan memuat sumber daya yang diperlukan nya melalui _Cache_ atau justru malah sebaliknya, serta dapat mengatur/menentukan durasi penyimpanan _Cache_ nya.
 
-Jika Peramban Web memuatnya melalui _Cache_ yang tersimpan, maka Peramban Web tidak akan menggunakan koneksi Internet untuk memuatnya, melainkan cukup gunakan media penyimpanan saja, hal ini tentu nya akan menghemat konsumsi _Bandwidth_ baik dari segi Klien dan Server.
+Jika Peramban Web memuatnya melalui _Cache_ yang tersimpan, maka Peramban Web tidak akan menggunakan koneksi Internet untuk memuatnya, melainkan cukup gunakan media penyimpanan yang ada saja, hal ini tentu nya akan menghemat konsumsi _Bandwidth_ baik dari segi Klien dan Server, terutama jika disimpan dalam waktu yang lama.
 
-Sedangkan jika sebaliknya, maka Peramban Web akan menggunakan Koneksi Internet untuk mendapatkan sumber daya yang dibutuhkan dan Server akan menggunakan koneksi nya untuk memberikan/mengirimkan sumber daya yang dibutuhkan kepada Klien, tentunya hal ini akan mengonsumsi _Bandwidth_ baik dari segi Klien dan Server, serta bisa saja malah menjadi boros jika ini terjadi terus-terusan.
+Sedangkan jika sebaliknya, maka Peramban Web akan selalu menggunakan Koneksi Internet untuk mendapatkan sumber daya yang dibutuhkan dan Server akan menggunakan koneksi nya untuk memberikan/mengirimkan sumber daya yang dibutuhkan kepada Klien, tentunya hal ini akan mengonsumsi _Bandwidth_ baik dari segi Klien dan Server, serta bisa saja malah menjadi boros jika ini terjadi terus-terusan.
 
-Dalam konteks menghemat Konsumsi _Bandwidth_, mungkin Anda berpikir bahwa membuat Peramban Web dapat menyimpan sumber dayanya dengan waktu yang sangat lama kedalam _Cache_ (seperti mengatur _Header_ `Cache-Control` menjadi `public, max-age=31536000, immutable`) merupakan solusi yang saling menguntungkan, bukan?
+Untuk mengetahui perbedaan jika sumber daya di simpan ke dalam _Cache_ Peramban Web, serta digunakan atau tidak nya, bisa Anda lihat cuplikan berikut:
 
-Kalau seperti itu, memang benar, tapi akibatnya Situs Web 
+![Tanda Berkas belum di _Cache_ oleh Peramban Web saat kunjungan pertama](Sebelum_Di_Cache_Web_Browser.png) ![Tanda Berkas sudah di _Cache_ oleh Peramban Web dan digunakan setelah mengunjunginya kembali](Setelah_Di_Cache_Web_Browser.png)
 
-### Solusi ke-3: Layani berkas-berkas statik dari Server lain {#layani-berkas-statik-dari-server-lain}
+Dalam konteks menghemat Konsumsi _Bandwidth_ baik dari segi Server atau Klien, mungkin Anda berpikir bahwa membuat Peramban Web dapat menyimpan sumber dayanya dengan waktu yang sangat lama kedalam _Cache_ (seperti mengatur _Header_ `Cache-Control` nya menjadi `public, max-age=31536000, immutable`) itu merupakan solusi yang saling menguntungkan, bukan?
 
+Kalau seperti itu, memang benar, tapi akibatnya tampilan Situs Web menjadi tidak berubah sama sekali bahkan dapat merusak penampilan sebuah Situs Web, atau lebih parahnya konten-konten pada Situs Web menjadi tidak terlihat diperbarui (alias _"outdated\"_ atau "gak _update_") bahkan setelah menerbitkan nya beberapa kali.
 
-### Solusi ke-4: Gak mau ribet? Bayar! Gak mau bayar? Cari tempat lain! {#bayar-atau-pindah-tempat}
+Hal ini terjadi karena Peramban Web akan tetap memuat nya melalui _Cache_ dan yang dimuat itu bukanlah Berkas yang baru, melainkan yang telah disimpan sebelumnya atau yang lama, sehingga sumber daya nya tertahan oleh _Cache_.
+
+Tapi, ini adalah hal yang sangat krusial untuk diatur agar bisa menghemat konsumsi _Bandwidth_ secara signifikan, jadi aturlah _Header_ tersebut dengan benar dan lakukan teknik _Cache Busting_ pada berkas-berkas statik sebelum mengatur `Cache-Control` nya, serta bedakan mana sumber daya yang harus di _Cache_ dalam waktu yang lama atau yang tidaknya.
+
+Untuk cara menyetel _HTTP Header_ (untuk _Response Header_) nya, bisa Anda kunjungi referensi berikut:
+
+- [How to modify HTTP headers using .htaccess files](https://www.a2hosting.com/kb/developer-corner/apache-web-server/modifying-http-headers) (Untuk Pengguna Apache/LiteSpeed)
+- [How to Set Up Custom Headers - OpenLiteSpeed](https://openlitespeed.org/kb/how-to-set-up-custom-headers/) (Untuk Pengguna OpenLiteSpeed)
+- [Adding and using header (HTTP) in nginx - Stack Overflow](https://stackoverflow.com/questions/11973047/adding-and-using-header-http-in-nginx) (Untuk Pengguna NGINX)
+- [Custom headers - Netlify Docs](https://docs.netlify.com/routing/headers/) (Untuk Pengguna Netlify)
+- [HTTP Headers for Static Sites - Render](https://render.com/docs/static-site-headers) (Untuk Pengguna Render sebagai Hosting Web/Blog Statis)
+- [Configuration - Vercel](https://vercel.com/docs/configuration#project/headers) (Untuk Pengguna Vercel)
+
+Sedangkan untuk mengatur _Header_ `Cache-Control` dengan benar, beserta dengan teknik _Cache Busting_ nya, ada referensi yang cukup bagus untuk Anda pelajari, bisa Anda kunjungi melalui tautan berikut:
+
+- [Cache-Control for Civilians - CSS Wizardy](https://csswizardry.com/2019/03/cache-control-for-civilians/)
+
+### Solusi ke-3: Memuat berkas-berkas statik (atau bahkan Web/Blog) dari Server lain {#solusi-ke3}
+Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hos kan Berkas-berkas statik lain nya di Server yang berbeda atau pikirkan cara agar Pengunjung tidak memuat dari Server yang Anda gunakan. Contohnya?
+
+Anda mempunyai Blog yang disimpan di Server A yang mempunyai kuota _Bandwidth_ sebesar 100 GB/Bulan, untuk menyiasati/mengakali nya, Anda bisa menyimpan berkas-berkas statik lain nya di Server B yang batasan _Bandwidth_ nya sangat besar (sampai dikira tidak terbatas). 
+
+Sehingga peramban web milik pengunjung akan memuat berkas-berkas statik nya melalui Server B jika mengunjungi Situs Web/Blog Anda daripada Server A dan akan menghemat konsumsi _Bandwidth_ pada Server A, karena pada dasarnya Server A tidak digunakan untuk memuat berkas-berkas statik.
+
+Contoh lain? Anda bisa menggunakan "Google Fonts" sebagai penyedia Fonta untuk Situs Web/Blog Anda dibandingkan dengan melakukan Hos Mandiri di Server Utama Anda. 
+
+Bahkan Anda bisa menggunakan Layanan CDN (_Content Delivery Network_) pihak ketiga untuk mengakali nya. 
+
+Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk Web/Blog Anda, maka Anda akan melayani pengunjung dengan server yang berbeda, atau jika Anda menggunakan CDN untuk berkas-berkas statik, maka pengunjung akan memuatnya dari Server yang berbeda, meskipun perlu proses 'penarikan' berkas dari Server Asli nya.
+
+Kira-kira, Illustrasi nya seperti berikut:
+![Illustrasi tentang Distribusi dari Satu Server (Kiri) dan Distribusi menggunakan CDN (Kanan)](NCDN_-_CDN.png)
+
+Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN seperti [jsDelivr](https://www.jsdelivr.com) atau [Statically](https://statically.io/) untuk menghantarkan berkas-berkas JS, CSS dan berkas statik lain nya, bahkan Anda juga bisa menghantarkan berkas-berkas gambar melalui Statically, lho!
+
+Intinya, buatlah agar pengunjung memuat berkas statik nya dari server lain selain server utama untuk menghemat _Bandwidth_ dari Server Utama, itu aja.
+
+### Solusi ke-4: Buatlah agar berkas-berkas statik tidak bisa diakses dari luar {#solusi-ke4}
+Jika Anda ingin lebih menghemat konsumsi _Bandwidth_ Server, maka sudah saat nya Anda memikirkan agar supaya berkas-berkas statik tidak bisa diakes dari luar Web/Blog Anda.
+
+Kenapa? Karena jika Anda membiarkan gambar-gambarnya diakses dari Web/Blog lain, maka hal ini akan mengonsumsi _Bandwidth_ dari Server Anda secara terus-menerus dan ini bisa saja merupakan praktik pencurian aset Web/Blog tanpa izin dari Anda. Praktik tersebut dinamakan _Hotlinking_.
+
+Jika Anda bertanya bagaimana cara untuk mencegah hal seperti ini, maka jawaban nya adalah Blokir Akses nya jika Berkas tersebut tidak merujuk dari Web/Blog Anda ketika mengakses nya. Contoh: Buatlah berkas-berkas yang ada di `website-a.com` hanya bisa diakses dari domain `website-a.com` saja, bukan dari domain `website-b.com`, dsb.
+
+Jika Anda menggunakan CDN dari Cloudflare, maka Anda bisa mengaktifkan fitur **Hotlink Protection** yang terletak pada bagian **Scrap Shield** di dalam [Dasbor Cloudflare Anda](https://dash.cloudflare.com).
+
+Jika Anda menggunakan Layanan _Shared Hosting_, maka di dalam kontrol panel yang digunakan oleh pihak Hosting (seperti: cPanel, DirectAdmin, dll) harusnya sudah ada fitur Proteksi dari Praktik _Hotlinking_ secara bawaan, Anda bisa gunakan itu jika ada.
+
+Atau, Anda bisa kunjungi referensi berikut jika Anda ingin menyetel nya secara manual:
+
+- [What Is Hotlinking? - KeyCDN Support](https://www.keycdn.com/support/what-is-hotlinking)
+- [How to Prevent Image Hotlinking in Apache with .htaccess - TecAdmin](https://tecadmin.net/disable-image-hotlinking-apache/) (Hanya untuk Pengguna Apache/LiteSpeed)
+
+### Solusi ke-5: Gak mau ribet? Tambah kuota nya! {#solusi-ke5}
+Iya, saya tahu bahwa ini bukanlah cara menghemat, tapi saya kasih solusi bagi Anda yang tidak ingin kuota _Bandwidth_ nya habis, tapi gak mau ribet dengan melakukan solusi-solusi diatas. 
+
+Yap, Anda tinggal memikirkan bagaimana caranya menambah Kuota _Bandwidth_ yang tersedia jika tidak mau ribet. Untuk saat ini pilihan nya cuma dua, yakni bayar biayanya atau pindah ke penyedia lain yang kuota nya lebih banyak.
+
+Tidak ada pilihan selain itu dan ini merupakan solusi yang cukup realistis. Jika Anda ingin gratis, lakukan kedua atau sampai keempat solusi diatas, sedangkan jika Anda tidak mau ribet, tinggal tambahkan saja kuota nya, sesederhana itu bukan?
+
+## Pertanyaan dan Jawaban yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
+Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, beserta Jawaban nya.
+
+Mungkin Anda perlu membaca pertanyaan dan jawaban nya terlebih dahulu sebelum bertanya di kolom komentar sebagai referensi Anda.
+
+### Pertanyaan ke-1: Apa itu _Cache Busting_? {#pertanyaan-ke1}
+**Jawab:** _Cache Busting_ adalah sebuah teknik agar Peramban Web dapat memuat berkas yang lebih baru saat mengunjung sebuah Situs Web/Blog setelah adanya perubahan pada berkas tersebut, tanpa harus menunggu selama itu, namun berkas-berkas tersebut akan tetap di _Cache_ dalam waktu yang sangat lama.
+
+Hal ini akan menjawab pertanyaan seperti: 
+> Saya baru saja mengatur agar berkas-berkas statik bisa tersimpan di _Cache_ dalam 1 Tahun oleh Peramban Web, tapi masalahnya saya telah melakukan perubahan pada berkas tersebut barusan. 
+> 
+> Jadi, bagaimana agar pengunjung tidak perlu menunggu selama 1 Tahun untuk dapat menikmati perubahan nya? Masa saya harus nyuruh pengunjung untuk membersihkan _Cache_ _(Clear Cache)_ pada Peramban Web nya?
+
+Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah di atas.
+
+### Pertanyaan ke-2: Situs Web/Blog saya terpasang Iklan (salah satunya: Google AdSense), apakah itu membuat boros _Bandwidth_ Server? {#pertanyaan-ke2}
+**Jawab:** Tidak, karena pada dasarnya Anda tidak menyimpan berkas apapun ke dalam server Anda, kecuali Anda menyisipkan skrip kedalam HTML dan itupun ukuran nya sangat kecil.
+
+Sehingga jika Skrip tersebut termuat, maka yang dimuat adalah aset/sumber daya yang berasal dari Server lain, bukan dari Server Anda dan sangat sedikit pengaruhnya bagi server Anda.
+
+Tapi kalo ditanya "Apakah ini akan membuat boros Kuota _Bandwidth_/Kuota Internet Pengunjung?", maka jawaban nya adalah **Iya**.
+
+Karena pada dasarnya koneksi Internet pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis saat berkunjung ke Situs Web/Blog Anda, kecuali jika diblokir dari sisi klien/pengunjung.
+
+### Pertanyaan ke-3: Apakah tidak ada solusi lain? {#pertanyaan-ke3}
+**Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang realistis supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
+
+Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi realistis lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
+
+### Pertanyaan ke-4: Saya menggunakan CDN dari Cloudflare untuk Web/Blog saya demi menghemat konsumsi _Bandwidth_, maka solusi mana yang saya implementasikan? {#pertanyaan-ke4}
+**Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3). 
+
+Lho, kenapa? Karena pada dasarnya kamu telah mengatur bahwa pengunjung Situs Web/Blog kamu akan dilayani oleh Cloudflare, bukan lagi oleh Server Anda, meskipun Cloudflare membutuhkan penarikan berkas-berkas/sumber daya yang diperlukan dari Server Anda.
+
+Jadi maksudnya adalah jika Anda menggunakan CDN dan melakukan _reverse-proxy_ (sepert menggunakan CDN dari Cloudflare), maka pengunjung tidak lagi mengakses Server Asli nya, melainkan Server CDN nya, sehingga ini akan menghemat konsumsi _Bandwidth_ Server.
+
+Ini mirip seperti menyimpan sebuah berkas di Server lain, tapi yang disimpan ini bukanlah cuma berkas, melainkan 1 Situs Web/Blog secara keseluruhan.
+
+### Pertanyaan ke-5: Apakah menghemat konsumsi _Bandwidth_ Server sama dengan menghemat Kuota Internet Pengunjung?
+**Jawab:** Tidak selalu, bisa iya dan bisa juga tidak, terutama jika Anda memiliki sumber daya eksternal (dari luar server Anda) dan itu tetap dimuat oleh pengunjung saat mengunjungi Web/Blog Anda. 
+
+Kenapa bisa begitu? Karena setiap Server memiliki kebijakan yang berbeda-beda, terutama perlakuan _Cache_ pada Peramban Web, ada server yang mengizinkan agar Peramban Web dapat menyimpan berkas-berkas/sumber daya kedalam _Cache_ dalam waktu yang sangat lama, bahkan ada pula yang tidak mengizinkan sama sekali.
+
+Terlebih, saat mengunjungi Web/Blog Anda, Peramban Web akan memuat segala sumber daya yang diperlukan nya, baik yang asalnya dari dalam Server itu sendiri dan dari luar Server yang tentu nya memiliki kebijakan yang berbeda-beda.
+
+Jika Server Luar nya tidak mengizinkan Peramban Web untuk menyimpan Berkas-berkas kedalam _Cache_, sedangkan Server Asli nya mengizinkan nya, maka hal ini akan membuat konsumsi _Bandwidth_ Internet Pengunjung akan meningkat dan akan membuat boros kuota Internet jika itu terjadi terus-terusan, kecuali jika diblokir dari sisi klien/pengunjung.
+
+Namun, jika kedua-dua nya mengizinkan nya, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
+
+## Penutup
+Ya sudah, artikel nya saya cukupkan dulu saja disini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
+
+Terima kasih bagi Anda yang telah membaca artikel ini. Gimana? Pusing kan? Yah, saya hanya memberitahukan konsep nya saja, terlebih satu bagian di artikel ini memang "Panjang x Lebar", jadi maaf kalau saya tidak bisa memberikan cara implementasi nya secara detail.
+
+Serta, mohon maaf jika artikel ini memiliki kekeliruan dan kesalahan, baik dari ada yang salah ngetik, terlalu panjang, bertele-tele, dll. 
+
+Jika adanya kesalahan dan kekeliruan dari saya, atau jika Anda memiliki pertanyaan lain nya/klarifikasi, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepan nya nanti.
+
+Terima kasih atas perhatian nya 😊
+
+## Penggunaan Gambar dan Atribusi
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
+
+Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
+
+```plaintext
+https://github.com/FarrelF/Blog/tree/main/content/post/2021-05-06-cara-menghemat-konsumsi-bandwidth-server
+```
+
+Gambar Illustrasi yang nama berkasnya adalah {{< a-file path="NCDN_-_CDN.png" >}}`NCDN_-_CDN.png`{{< / a-file >}} itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
+
+Serta, sebuah foto yang nama berkasnya adalah {{< a-file path="micheile-henderson-SoT4-mZhyhE-unsplash.jpg" >}}`micheile-henderson-SoT4-mZhyhE-unsplash.jpg`{{< / a-file >}} yang saya gunakan sebagai sampul artikel itu merupakan sebuah foto yang di potret oleh ["Michelle Henderson"](https://unsplash.com/@micheile) bersumber dari [Unsplash](https://unsplash.com/photos/SoT4-mZhyhE) dan dilisensikan di bawah ["Unsplash License"](https://unsplash.com/license) oleh sang pembuat.

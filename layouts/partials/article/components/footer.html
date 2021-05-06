@@ -19,5 +19,13 @@
             {{ end }}
         </span>
     </section>
+    {{ if .GitInfo }}
+    <section class="article-git">
+        {{ partial "helper/icon" "edit" }}
+        <span>
+            {{ T "article.lastUpdatedGit" (dict "Hash" $.GitInfo.Hash "Subject" $.GitInfo.Subject "AbvHash" $.GitInfo.AbbreviatedHash "Author" $.GitInfo.AuthorName "Email" $.GitInfo.AuthorEmail) | safeHTML | emojify }}
+        </span>
+    </section>
+    {{ end }}
     {{- end -}}
 </footer>
