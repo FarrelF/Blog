@@ -16,6 +16,9 @@ list:
         one: Subbagian
         other: Subbagian
 
+taxonomy:
+    categories: Kategori
+
 article:
     relatedContents:
         other: Konten terkait

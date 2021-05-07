@@ -37,7 +37,7 @@ Berikut dibawah ini adalah solusi-solusi yang bisa Anda terapkan:
 ### Solusi ke-1: Lakukan kompresi terhadap berkas-berkas statik {#solusi-ke1}
 Melakukan Kompresi terhadap berkas-berkas statik (seperti berkas JS, CSS, Gambar, dll) sebelum digunakan oleh Web/Blog Anda itu **Wajib Hukumnya!**
 
-Ya kali kamu ingin mengunggah dan menyebarkan, serta 'menyajikan' Berkas Gambar yang besar nya beberapa puluhan bahkan ratusan Megabita kedalam Web/Blog kamu kepada pengunjung, kalo saya jadi pengunjungnya, saya malah langsung kabur.
+Ya kali, kamu ingin mengunggah dan menyebarkan serta 'menyajikan' Berkas Gambar yang besar nya beberapa puluhan bahkan ratusan Megabita kedalam Web/Blog kamu kepada pengunjung, kalo saya jadi pengunjungnya, saya malah langsung kabur alih-alih mengunjunginya.
 
 Sudah banyak sekali Perangkat Lunak atau Situs Web yang memiliki fitur untuk meng-kompresi berkas gambar tanpa harus menurunkan kualitas gambar secara kasat mata manusia, sebut saja Situs Web seperti [TinyJPG](https://tinyjpg.com/) atau [TinyPNG](https://tinypng.com/) yang dapat meng-kompresi berkas gambar PNG atau JPG, ini bisa Anda lakukan sebelum mengunggah suatu berkas gambar kedalam Web/Blog Anda. 
 
@@ -116,7 +116,7 @@ Jika Anda menggunakan CDN dari Cloudflare, maka Anda bisa mengaktifkan fitur **H
 
 Jika Anda menggunakan Layanan _Shared Hosting_, maka di dalam kontrol panel yang digunakan oleh pihak Hosting (seperti: cPanel, DirectAdmin, dll) harusnya sudah ada fitur Proteksi dari Praktik _Hotlinking_ secara bawaan, Anda bisa gunakan itu jika ada.
 
-Atau, Anda bisa kunjungi referensi berikut jika Anda ingin menyetel nya secara manual:
+Atau, Anda bisa kunjungi referensi berikut jika Anda ingin menyetelnya secara manual:
 
 - [What Is Hotlinking? - KeyCDN Support](https://www.keycdn.com/support/what-is-hotlinking)
 - [How to Prevent Image Hotlinking in Apache with .htaccess - TecAdmin](https://tecadmin.net/disable-image-hotlinking-apache/) (Hanya untuk Pengguna Apache/LiteSpeed)
@@ -150,7 +150,7 @@ Sehingga jika Skrip tersebut termuat, maka yang dimuat adalah aset/sumber daya y
 
 Tapi kalo ditanya "Apakah ini akan membuat boros Kuota _Bandwidth_/Kuota Internet Pengunjung?", maka jawaban nya adalah **Iya**.
 
-Karena pada dasarnya koneksi Internet pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis saat berkunjung ke Situs Web/Blog Anda, kecuali jika diblokir dari sisi klien/pengunjung.
+Karena pada dasarnya koneksi Internet pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis dengan format yang berbeda saat berkunjung ke Situs Web/Blog Anda, kecuali jika diblokir dari sisi klien/pengunjung.
 
 ### Pertanyaan ke-3: Apakah tidak ada solusi lain? {#pertanyaan-ke3}
 **Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang realistis supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
@@ -199,4 +199,4 @@ https://github.com/FarrelF/Blog/tree/main/content/post/2021-05-06-cara-menghemat
 
 Gambar Illustrasi yang nama berkasnya adalah {{< a-file path="NCDN_-_CDN.png" >}}`NCDN_-_CDN.png`{{< / a-file >}} itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
 
-Serta, sebuah foto yang nama berkasnya adalah {{< a-file path="micheile-henderson-SoT4-mZhyhE-unsplash.jpg" >}}`micheile-henderson-SoT4-mZhyhE-unsplash.jpg`{{< / a-file >}} yang saya gunakan sebagai sampul artikel itu merupakan sebuah foto yang di potret oleh ["Michelle Henderson"](https://unsplash.com/@micheile) bersumber dari [Unsplash](https://unsplash.com/photos/SoT4-mZhyhE) dan dilisensikan di bawah ["Unsplash License"](https://unsplash.com/license) oleh sang pembuat.
+Serta, sebuah foto yang nama berkasnya adalah {{< a-file path="micheile-henderson-SoT4-mZhyhE-unsplash.jpg" >}}`micheile-henderson-SoT4-mZhyhE-unsplash.jpg`{{< / a-file >}} yang saya gunakan sebagai sampul artikel itu merupakan sebuah foto yang di potret oleh ["Micheile Henderson"](https://unsplash.com/@micheile) bersumber dari [Unsplash](https://unsplash.com/photos/SoT4-mZhyhE) dan dilisensikan di bawah ["Unsplash License"](https://unsplash.com/license) oleh sang pembuat.

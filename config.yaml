@@ -13,6 +13,7 @@ disqusShortname: farrelf-blog
 permalinks:
   post: /:slug/
   page: /:slug/
+  tags: /tag/:slug/
   categories: /kategori/:slug/
 
 params:
