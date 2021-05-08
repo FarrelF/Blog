@@ -8,9 +8,13 @@ content-dir: content
 
 DefaultContentLanguage: id
 
+ignoreFiles:
+  - README.md
+
 permalinks:
   post: /:slug/
   page: /:slug/
+  tags: /tag/:slug/
   categories: /kategori/:slug/
 
 params:
