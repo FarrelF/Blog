@@ -10,6 +10,9 @@ content-dir: content
 DefaultContentLanguage: id
 disqusShortname: farrelf-blog
 
+ignoreFiles:
+  - README.md
+
 permalinks:
   post: /:slug/
   page: /:slug/
@@ -37,6 +40,8 @@ params:
   CDN:
     Images:
       URL: https://cdn.statically.io/img/static.farrel.franqois.id/f=auto
+    SVG:
+      URL: https://cdn.statically.io/img/static.farrel.franqois.id
     JS:
       URL: https://cdn.statically.io/js/static.farrel.franqois.id
     CSS:

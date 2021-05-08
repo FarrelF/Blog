@@ -4,7 +4,7 @@ Slug: apa-itu-cloudflare-dan-perlukah
 Author: Farrel Franqois
 Categories: 
     - Layanan Internet
-    - Web/Blog
+    - Web dan Blog
     - Opini
 Date: 2021-04-23 00:31:39+07:00
 image: cf-logo-v-rgb.jpg
