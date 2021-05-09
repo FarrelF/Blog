@@ -30,7 +30,7 @@ Kita semua tahu bahwa tidak semua Hosting menerapkan _Unmetered Bandwidth_ atau 
 
 Bahkan Hosting untuk Web Statis seperti Netlify, GitHub Pages, Render, dan Surge.sh pun menerapkan batasan kuota ini. Maka mau-gak mau, suka-gak suka, para pemilik Web/Blog harus menghemat konsumsi _Bandwidth_ Server daripada Web/Blog nya gak bisa diakses hanya karena kehabisan kuota. Belum lagi sama kuota Internet Pengunjung yang juga terbatas, kalau habis ya harus beli lagi, kan boros jadinya 🙂
 
-Nah, saya berikan solusi bagi yang ingin menghemat Konsumsi _Bandwidth_ ketika Web/Blog Anda 'dihantam' oleh pengunjung dan bot selama beberapa kali yang mungkin bisa Anda implementasikan. Tentu saja solusi nya tidak cukup dilakukan salah satu saja, melainkan 2 atau 3 solusi harus kamu lakukan demi menghemat konsumsi _Bandwidth_ Server/Hosting.
+Nah, saya berikan solusi bagi yang ingin menghemat Konsumsi _Bandwidth_ ketika Web/Blog Anda 'dihantam' oleh pengunjung dan bot selama beberapa kali yang mungkin bisa Anda implementasikan. Tentu saja solusi nya tidak cukup dilakukan salah satu saja, melainkan 2 atau sampai 4 solusi harus kamu lakukan demi menghemat konsumsi _Bandwidth_ Server/Hosting.
 
 Berikut dibawah ini adalah solusi-solusi yang bisa Anda terapkan:
 
@@ -106,7 +106,7 @@ Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN seperti [jsDelivr](
 Intinya, buatlah agar pengunjung memuat berkas statik nya dari server lain selain server utama untuk menghemat _Bandwidth_ dari Server Utama, itu aja.
 
 ### Solusi ke-4: Buatlah agar berkas-berkas statik tidak bisa diakses dari luar {#solusi-ke4}
-Jika Anda ingin lebih menghemat konsumsi _Bandwidth_ Server, maka sudah saat nya Anda memikirkan agar supaya berkas-berkas statik tidak bisa diakes dari luar Web/Blog Anda.
+Jika Anda ingin lebih menghemat konsumsi _Bandwidth_ Server, maka sudah saat nya Anda memikirkan agar supaya berkas-berkas statik tidak bisa diakses dari luar Web/Blog Anda.
 
 Kenapa? Karena jika Anda membiarkan gambar-gambarnya diakses dari Web/Blog lain, maka hal ini akan mengonsumsi _Bandwidth_ dari Server Anda secara terus-menerus dan ini bisa saja merupakan praktik pencurian aset Web/Blog tanpa izin dari Anda. Praktik tersebut dinamakan _Hotlinking_.
 
@@ -143,14 +143,14 @@ Hal ini akan menjawab pertanyaan seperti:
 
 Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah di atas.
 
-### Pertanyaan ke-2: Situs Web/Blog saya terpasang Iklan (salah satunya: Google AdSense), apakah itu membuat boros _Bandwidth_ Server? {#pertanyaan-ke2}
+### Pertanyaan ke-2: Situs Web/Blog saya terpasang Iklan (salah satunya: Google AdSense), apakah hal itu akan membuat boros Konsumsi _Bandwidth_ Server? {#pertanyaan-ke2}
 **Jawab:** Tidak, karena pada dasarnya Anda tidak menyimpan berkas apapun ke dalam server Anda, kecuali Anda menyisipkan skrip kedalam HTML dan itupun ukuran nya sangat kecil.
 
 Sehingga jika Skrip tersebut termuat, maka yang dimuat adalah aset/sumber daya yang berasal dari Server lain, bukan dari Server Anda dan sangat sedikit pengaruhnya bagi server Anda.
 
 Tapi kalo ditanya "Apakah ini akan membuat boros Kuota _Bandwidth_/Kuota Internet Pengunjung?", maka jawaban nya adalah **Iya**.
 
-Karena pada dasarnya koneksi Internet pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis dengan format yang berbeda saat berkunjung ke Situs Web/Blog Anda, kecuali jika diblokir dari sisi klien/pengunjung.
+Karena pada dasarnya koneksi Internet pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis dalam berbagai format (entah itu dalam bentuk teks, gambar, video, dan lain-lain) saat berkunjung ke Situs Web/Blog Anda, kecuali jika diblokir dari sisi klien/pengunjung.
 
 ### Pertanyaan ke-3: Apakah tidak ada solusi lain? {#pertanyaan-ke3}
 **Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang realistis supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
@@ -175,7 +175,11 @@ Terlebih, saat mengunjungi Web/Blog Anda, Peramban Web akan memuat segala sumber
 
 Jika Server Luar nya tidak mengizinkan Peramban Web untuk menyimpan Berkas-berkas kedalam _Cache_, sedangkan Server Asli nya mengizinkan nya, maka hal ini akan membuat konsumsi _Bandwidth_ Internet Pengunjung akan meningkat dan akan membuat boros kuota Internet jika itu terjadi terus-terusan, kecuali jika diblokir dari sisi klien/pengunjung.
 
-Namun, jika kedua-dua nya mengizinkan nya, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
+Contohnya adalah _Platform_ Iklan seperti Google AdSense yang terpasang di Situs Web/Blog (mengacu pada [pertanyaan kedua](#pertanyaan-ke2)), itu kan sifat nya sangat dinamis dan bisa tampil dalam berbagai format, sehingga tidak mungkin untuk bisa tersimpan kedalam _Cache_ supaya Iklan nya bisa ganti.
+
+Iklan tersebut dimuat dari server lain, sehingga konsumsi _Bandwidth_ server tidak terpengaruh, tapi hal tersebut membuat Kuota Internet Pengunjung jadi boros karena memuat iklan nya, kecuali jika iklan nya diblokir.
+
+Namun, jika server (baik luar ataupun dalam) mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
 
 ## Penutup
 Ya sudah, artikel nya saya cukupkan dulu saja disini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
