@@ -2,15 +2,16 @@
 
 {{- $Permalink := "" -}}
 {{- $script := "" -}}
+{{- $opts := dict "targetPath" "main.js" -}}
 {{- if ne hugo.IsProduction false -}}
-    {{- $script = resources.Get "ts/main.ts" | js.Build | minify | fingerprint "sha384" -}}
+    {{- $script = resources.Get "ts/main.ts" | js.Build $opts | minify | fingerprint "sha384" -}}
     {{- $Permalink = $script.RelPermalink -}}
     {{- if .Site.Params.CDN.JS.URL -}}
         {{- $Permalink = printf "%s%s" $.Site.Params.CDN.JS.URL $script.RelPermalink -}}
     {{- end -}}
 {{- else -}}
-    {{- $script = resources.Get "ts/main.ts" | js.Build | minify | fingerprint "sha384" -}}
+    {{- $script = resources.Get "ts/main.ts" | js.Build $opts | fingerprint "sha384" -}}
     {{- $Permalink = $script.RelPermalink -}}
 {{- end -}}
 
-<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous" defer></script>
+<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $script.Data.Integrity }}"{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} defer></script>

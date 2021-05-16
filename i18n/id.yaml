@@ -23,9 +23,9 @@ article:
     relatedContents:
         other: Konten terkait
     lastUpdatedOn:
-        other: Terakhir diperbarui pada
+        other: Terakhir diperbarui pada {{ .Weekday }}, {{ .Day }} {{ .Month }} {{ .Year }}, pukul {{ .Time }} WIB
     lastUpdatedGit:
-        other: Artikel ini dirubah berdasarkan Commit <a class="link" href="https://github.com/FarrelF/Blog/commit/{{ .Hash }}" target="_blank" rel="noopener">{{ .AbvHash }}</a> di GitHub
+        other: Pembaruan pada Artikel/Laman ini mengikuti Commit <a class="link" href="https://github.com/FarrelF/Blog/commit/{{ .Hash }}" target="_blank" rel="noopener">{{ .AbvHash }}</a> di GitHub
     readMore:
         other: Baca lebih lanjut >
     featuredImageOf:

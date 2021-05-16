@@ -12,8 +12,9 @@
     <section class="article-time">
         {{ partial "helper/icon" "clock" }}
         <span class="article-time--modified">
-            {{ if and (eq .Site.Params.dateFormat.lastUpdated "Monday, 02 January 2006") (eq .Site.Language.Lang "id") }}
-                {{ T "article.lastUpdatedOn" }} {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Lastmod.Weekday) }}, {{ .Lastmod.Format "02" }} {{ index $.Site.Data.time_id.months (printf "%d" .Lastmod.Month) }} {{ .Lastmod.Year }}
+            {{ if eq .Site.Language.Lang "id" }}
+                {{ $formats := dict "Weekday" (index $.Site.Data.time_id.weekdayname (printf "%d" .Lastmod.Weekday)) "Day" ($.Lastmod.Format "02") "Month" (index $.Site.Data.time_id.months (printf "%d" .Lastmod.Month)) "Year" $.Lastmod.Year "Time" ($.Lastmod.Format "15:04:05") "Timezone" ($.Lastmod.Format "MST") }}
+                {{ T "article.lastUpdatedOn" $formats }}
             {{ else }}
                 {{ T "article.lastUpdatedOn" }} {{ .Lastmod.Format ( or .Site.Params.dateFormat.lastUpdated "Jan 02, 2006 15:04 MST" ) }}
             {{ end }}
@@ -23,7 +24,8 @@
     <section class="article-git">
         {{ partial "helper/icon" "edit" }}
         <span>
-            {{ T "article.lastUpdatedGit" (dict "Hash" $.GitInfo.Hash "Subject" $.GitInfo.Subject "AbvHash" $.GitInfo.AbbreviatedHash "Author" $.GitInfo.AuthorName "Email" $.GitInfo.AuthorEmail) | safeHTML | emojify }}
+            {{ $GitInfo := dict "Hash" $.GitInfo.Hash "Subject" $.GitInfo.Subject "AbvHash" $.GitInfo.AbbreviatedHash "Author" $.GitInfo.AuthorName "Email" $.GitInfo.AuthorEmail }}
+            {{ T "article.lastUpdatedGit" $GitInfo | safeHTML | emojify }}
         </span>
     </section>
     {{ end }}

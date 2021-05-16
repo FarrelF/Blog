@@ -24,20 +24,18 @@
 </script>
 {{- $Permalink := "" -}}
 {{- $searchScript := "" -}}
-{{- $opts := dict "JSXFactory" "createElement" -}}
+{{- $opts := dict "JSXFactory" "createElement" "targetPath" "search.js" -}}
 {{- if eq hugo.IsProduction true -}}
     {{- $searchScript = resources.Get "ts/search.tsx" | js.Build $opts | minify | fingerprint "sha384" -}}
+    {{- $Permalink = $searchScript.RelPermalink -}}
     {{- if .Site.Params.CDN.JS.URL -}}
         {{- $Permalink = printf "%s%s" $.Site.Params.CDN.JS.URL $searchScript.RelPermalink -}}
     {{- end -}}
 {{- else -}}
     {{- $searchScript = resources.Get "ts/search.tsx" | js.Build $opts | fingerprint "sha384" -}}
+    {{- $Permalink = $searchScript.RelPermalink -}}
 {{- end -}}
-{{- $Permalink := $searchScript.RelPermalink -}}
-{{- if and (.Site.Params.CDN.JS.URL) (eq hugo.IsProduction true) -}}
-    {{- $Permalink = printf "%s%s" $.Site.Params.CDN.JS.URL $searchScript.RelPermalink -}}
-{{- end -}}
-<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $searchScript.Data.Integrity }}" {{ if eq hugo.IsProduction true }}crossorigin="anonymous"{{ end }} defer></script>
+<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $searchScript.Data.Integrity }}"{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} defer></script>
 
 {{ partialCached "footer/footer" . }}
 {{ end }}

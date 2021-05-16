@@ -50,7 +50,7 @@ Jadi, itu bergantung pada tema yang Anda gunakan, jika temanya mengimplementasik
 ### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#solusi-ke2}
 ![Contoh Header Cache-Control untuk sebuah Berkas Gambar (ada di anak panah)](Contoh_Header_Cache-Control.png)
 
-Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web. 
+Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web.
 
 Singkatnya, Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lain nya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna. Tentu saja _Cache_ dari Peramban Web ini tersimpan di dalam perangkat penyimpanan yang digunakan sekarang, seperti Harddisk/SSD atau bahkan Memori RAM bisa digunakan.
 
@@ -86,17 +86,17 @@ Sedangkan untuk mengatur _Header_ `Cache-Control` dengan benar, beserta dengan t
 - [Cache-Control for Civilians - CSS Wizardy](https://csswizardry.com/2019/03/cache-control-for-civilians/)
 
 ### Solusi ke-3: Memuat berkas-berkas statik (atau bahkan Web/Blog) dari Server lain {#solusi-ke3}
-Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hos kan Berkas-berkas statik lain nya di Server yang berbeda atau pikirkan cara agar Pengunjung tidak memuat dari Server yang Anda gunakan. Contohnya?
+Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hos kan Berkas-berkas statik lain nya di Server yang berbeda. Contohnya?
 
 Anda mempunyai Blog yang disimpan di Server A yang mempunyai kuota _Bandwidth_ sebesar 100 GB/Bulan, untuk menyiasati/mengakali nya, Anda bisa menyimpan berkas-berkas statik lain nya di Server B yang batasan _Bandwidth_ nya sangat besar (sampai dikira tidak terbatas). 
 
 Sehingga peramban web milik pengunjung akan memuat berkas-berkas statik nya melalui Server B jika mengunjungi Situs Web/Blog Anda daripada Server A dan akan menghemat konsumsi _Bandwidth_ pada Server A, karena pada dasarnya Server A tidak digunakan untuk memuat berkas-berkas statik.
 
-Contoh lain? Anda bisa menggunakan "Google Fonts" sebagai penyedia Fonta untuk Situs Web/Blog Anda dibandingkan dengan melakukan Hos Mandiri di Server Utama Anda. 
+Contoh lain? Sesuai contoh di atas, Anda juga bisa menggunakan "Google Fonts" sebagai penyedia Fonta untuk Situs Web/Blog Anda dibandingkan dengan melakukan Hos Mandiri di Server Utama Anda. 
 
 Bahkan Anda bisa menggunakan Layanan CDN (_Content Delivery Network_) pihak ketiga untuk mengakali nya. 
 
-Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk Web/Blog Anda, maka Anda akan melayani pengunjung dengan server yang berbeda, atau jika Anda menggunakan CDN untuk berkas-berkas statik, maka pengunjung akan memuatnya dari Server yang berbeda, meskipun perlu proses 'penarikan' berkas dari Server Asli nya.
+Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk Web/Blog Anda, maka pengunjung akan memuat Situs Web/Blog atau Berkas-berkas statik nya dari Server CDN, meskipun perlu proses 'penarikan' berkas dari Server Asli nya.
 
 Kira-kira, Illustrasi nya seperti berikut:
 ![Illustrasi tentang Distribusi dari Satu Server (Kiri) dan Distribusi menggunakan CDN (Kanan)](NCDN_-_CDN.png)
@@ -160,7 +160,7 @@ Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika And
 ### Pertanyaan ke-4: Saya menggunakan CDN dari Cloudflare untuk Web/Blog saya demi menghemat konsumsi _Bandwidth_, maka solusi mana yang saya implementasikan? {#pertanyaan-ke4}
 **Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3). 
 
-Lho, kenapa? Karena pada dasarnya kamu telah mengatur bahwa pengunjung Situs Web/Blog kamu akan dilayani oleh Cloudflare, bukan lagi oleh Server Anda, meskipun Cloudflare membutuhkan penarikan berkas-berkas/sumber daya yang diperlukan dari Server Anda.
+Lho, kenapa? Karena pada dasarnya kamu telah mengatur bahwa pengunjung Situs Web/Blog kamu akan dilayani oleh Cloudflare, sehingga Web/Blog kamu akan dimuat menggunakan Server dari Cloudflare ketika dikunjungi, bukan lagi oleh Server Anda, meskipun Cloudflare membutuhkan penarikan berkas-berkas/sumber daya yang diperlukan dari Server Anda.
 
 Jadi maksudnya adalah jika Anda menggunakan CDN dan melakukan _reverse-proxy_ (sepert menggunakan CDN dari Cloudflare), maka pengunjung tidak lagi mengakses Server Asli nya, melainkan Server CDN nya, sehingga ini akan menghemat konsumsi _Bandwidth_ Server.
 
