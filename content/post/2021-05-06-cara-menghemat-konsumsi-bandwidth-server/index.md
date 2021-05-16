@@ -109,7 +109,7 @@ Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk
 Kira-kira, Illustrasi nya seperti berikut:
 ![Illustrasi tentang Distribusi dari Satu Server (Kiri) dan Distribusi menggunakan CDN (Kanan)](NCDN_-_CDN.png)
 
-Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN seperti [Cloudflare](https://www.cloudflare.com) versi Gratisan nya (tapi [gak saya rekomendasikan](/apa-itu-cloudflare-dan-perlukah)), atau Anda juga bisa gunakan CDN umum yang saya sebut diatas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan simpan di dalam Web/Blog Anda melalui Statically, lho!
+Untuk Layanan CDN yang gratis, Anda bisa gunakan CDN umum yang saya sebut diatas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan di dalam Web/Blog Anda melalui Statically, lho!
 
 Intinya, buatlah agar pengunjung memuat berkas statik nya dari server lain selain server utama untuk menghemat _Bandwidth_ dari Server Utama, itu aja.
 
@@ -145,7 +145,7 @@ Mungkin Anda perlu membaca pertanyaan dan jawaban nya terlebih dahulu sebelum be
 **Jawab:** _Cache Busting_ adalah sebuah teknik agar Peramban Web dapat memuat berkas yang lebih baru saat mengunjung sebuah Situs Web/Blog setelah adanya perubahan pada berkas tersebut, tanpa harus menunggu selama itu, namun berkas-berkas tersebut akan tetap di _Cache_ dalam waktu yang sangat lama.
 
 Hal ini akan menjawab pertanyaan seperti: 
-> Sebelumnya, saya telah mengatur agar berkas-berkas statik bisa tersimpan di _Cache_ dalam 1 Tahun oleh Peramban Web, tapi masalahnya saya baru saja telah melakukan perubahan pada berkas tersebut.
+> Sebelumnya, saya telah mengatur agar berkas-berkas statik bisa tersimpan di _Cache_ dalam waktu 1 Tahun oleh Peramban Web, tapi masalahnya saya baru saja telah melakukan perubahan pada berkas tersebut.
 > 
 > Jadi, bagaimana agar pengunjung tidak perlu menunggu selama 1 Tahun untuk dapat menikmati perubahan nya? Masa saya harus nyuruh pengunjung untuk membersihkan _Cache_ _(Clear Cache)_ pada Peramban Web nya?
 
@@ -166,7 +166,7 @@ Karena pada dasarnya Peramban Web Pengunjung secara otomatis akan memuat iklan-i
 Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi realistis/wajar lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
 
 ### Pertanyaan ke-4: Saya menggunakan CDN dari Cloudflare untuk Web/Blog saya demi menghemat konsumsi _Bandwidth_, maka solusi mana yang saya implementasikan? {#pertanyaan-ke4}
-**Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3). 
+**Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3).
 
 Lho, kenapa? Karena pada dasarnya kamu telah mengatur bahwa pengunjung Situs Web/Blog kamu akan dilayani oleh Cloudflare, sehingga Web/Blog kamu akan dimuat menggunakan Server dari Cloudflare ketika dikunjungi, bukan lagi oleh Server Anda, meskipun Cloudflare membutuhkan penarikan berkas-berkas/sumber daya yang diperlukan dari Server Anda.
 
