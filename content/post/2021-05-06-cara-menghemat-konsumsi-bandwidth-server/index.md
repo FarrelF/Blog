@@ -100,7 +100,7 @@ Sehingga peramban web milik pengunjung akan memuat berkas-berkas statik nya mela
 
 Contoh lain? Sesuai contoh di atas, Anda juga bisa menggunakan [Google Fonts](https://fonts.google.com) sebagai penyedia Fonta untuk Situs Web/Blog Anda dibandingkan dengan melakukan Hos Mandiri di Server Utama Anda.
 
-Atau, Anda juga bisa gunakan layanan CDN umum seperti [cdnjs](https://cdnjs.com), [unpkg](https://unpkg.com), [jsDelivr](https://www.jsdelivr.com), atau [Statically](https://statically.io) untuk memuat pustaka-pustaka yang ada, seperti jQuery, Bootstrap, Twemoji dan Pustaka lain nya dibandingkan dengan melakukan Hos Mandiri.
+Atau, Anda juga bisa gunakan layanan CDN untuk umum seperti [cdnjs](https://cdnjs.com), [unpkg](https://unpkg.com), [jsDelivr](https://www.jsdelivr.com), atau [Statically](https://statically.io) untuk memuat pustaka-pustaka web yang ada, seperti jQuery, Bootstrap, Twemoji dan Pustaka lain nya dibandingkan dengan melakukan Hos Mandiri.
 
 Bahkan Anda juga bisa menggunakan Layanan CDN (_Content Delivery Network_) pihak ketiga yang dipasang pada Web/Blog Anda untuk mengakali nya.
 
@@ -109,7 +109,7 @@ Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk
 Kira-kira, Illustrasi nya seperti berikut:
 ![Illustrasi tentang Distribusi dari Satu Server (Kiri) dan Distribusi menggunakan CDN (Kanan)](NCDN_-_CDN.png)
 
-Untuk Layanan CDN yang gratis, Anda bisa gunakan CDN umum yang saya sebut diatas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan di dalam Web/Blog Anda melalui Statically, lho!
+Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN untuk Umum yang saya sebut diatas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan di dalam Web/Blog Anda melalui Statically, lho!
 
 Intinya, buatlah agar pengunjung memuat berkas statik nya dari server lain selain server utama untuk menghemat _Bandwidth_ dari Server Utama, itu aja.
 
@@ -144,12 +144,12 @@ Mungkin Anda perlu membaca pertanyaan dan jawaban nya terlebih dahulu sebelum be
 ### Pertanyaan ke-1: Apa itu _Cache Busting_? {#pertanyaan-ke1}
 **Jawab:** _Cache Busting_ adalah sebuah teknik agar Peramban Web dapat memuat berkas yang lebih baru saat mengunjung sebuah Situs Web/Blog setelah adanya perubahan pada berkas tersebut, tanpa harus menunggu selama itu, namun berkas-berkas tersebut akan tetap di _Cache_ dalam waktu yang sangat lama.
 
-Hal ini akan menjawab pertanyaan seperti: 
+Teknik ini akan menjawab pertanyaan seperti berikut: 
 > Sebelumnya, saya telah mengatur agar berkas-berkas statik bisa tersimpan di _Cache_ dalam waktu 1 Tahun oleh Peramban Web, tapi masalahnya saya baru saja telah melakukan perubahan pada berkas tersebut.
 > 
 > Jadi, bagaimana agar pengunjung tidak perlu menunggu selama 1 Tahun untuk dapat menikmati perubahan nya? Masa saya harus nyuruh pengunjung untuk membersihkan _Cache_ _(Clear Cache)_ pada Peramban Web nya?
 
-Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah di atas.
+Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah diatas.
 
 ### Pertanyaan ke-2: Situs Web/Blog saya terpasang Iklan (salah satunya: Google AdSense), apakah hal itu akan membuat boros Konsumsi _Bandwidth_ Server? {#pertanyaan-ke2}
 **Jawab:** Tidak, karena pada dasarnya Anda tidak menyimpan berkas apapun ke dalam server Anda, kecuali Anda menyisipkan skrip kedalam HTML dan itupun ukuran nya sangat kecil.
@@ -161,16 +161,16 @@ Tapi kalo ditanya "Apakah ini akan membuat boros Kuota _Bandwidth_/Kuota Interne
 Karena pada dasarnya Peramban Web Pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis dalam berbagai format (entah itu dalam bentuk teks, gambar, video, dan lain-lain) saat berkunjung ke Situs Web/Blog Anda dan itu menggunakan koneksi Internet dari pengunjung agar bisa termuat, kecuali jika diblokir dari sisi klien/pengunjung.
 
 ### Pertanyaan ke-3: Apakah tidak ada solusi lain? {#pertanyaan-ke3}
-**Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang realistis supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
+**Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang cukup realistis/wajar supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
 
-Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi realistis/wajar lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
+Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi wajar lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
 
 ### Pertanyaan ke-4: Saya menggunakan CDN dari Cloudflare untuk Web/Blog saya demi menghemat konsumsi _Bandwidth_, maka solusi mana yang saya implementasikan? {#pertanyaan-ke4}
 **Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3).
 
 Lho, kenapa? Karena pada dasarnya kamu telah mengatur bahwa pengunjung Situs Web/Blog kamu akan dilayani oleh Cloudflare, sehingga Web/Blog kamu akan dimuat menggunakan Server dari Cloudflare ketika dikunjungi, bukan lagi oleh Server Anda, meskipun Cloudflare membutuhkan penarikan berkas-berkas/sumber daya yang diperlukan dari Server Anda.
 
-Jadi maksudnya adalah jika Anda menggunakan CDN dan melakukan _reverse-proxy_ (sepert menggunakan CDN dari Cloudflare), maka pengunjung tidak lagi mengakses Server Asli nya, melainkan Server CDN nya, sehingga ini akan menghemat konsumsi _Bandwidth_ Server.
+Jadi maksudnya adalah jika Anda menggunakan CDN dan melakukan _reverse-proxy_ (seperti menggunakan CDN dari Cloudflare), maka pengunjung tidak lagi mengakses Server Asli nya, melainkan Server CDN nya, sehingga ini akan menghemat konsumsi _Bandwidth_ Server.
 
 Ini mirip seperti menyimpan sebuah berkas di Server lain, tapi yang disimpan ini bukanlah cuma berkas, melainkan 1 Situs Web/Blog secara keseluruhan.
 
@@ -183,11 +183,11 @@ Terlebih, saat mengunjungi Web/Blog Anda, Peramban Web akan memuat segala sumber
 
 Jika Server Luar nya tidak mengizinkan Peramban Web untuk menyimpan Berkas-berkas kedalam _Cache_, sedangkan Server Asli nya mengizinkan nya, maka hal ini akan membuat konsumsi _Bandwidth_ Internet Pengunjung akan meningkat dan akan membuat boros kuota Internet jika itu terjadi terus-terusan, kecuali jika diblokir dari sisi klien/pengunjung.
 
-Contohnya adalah _Platform_ Iklan seperti Google AdSense yang terpasang di Situs Web/Blog (mengacu pada [pertanyaan kedua](#pertanyaan-ke2)), itu kan sifat nya sangat dinamis dan bisa tampil dalam berbagai format, sehingga tidak mungkin untuk bisa tersimpan kedalam _Cache_ supaya Iklan nya bisa ganti.
+Contohnya adalah _Platform_ Iklan seperti Google AdSense yang terpasang di Situs Web/Blog (mengacu pada [pertanyaan kedua](#pertanyaan-ke2)), karena sifat nya yang sangat dinamis dan bisa tampil dalam berbagai format, supaya bisa tampil seperti itu dan bisa ganti Iklan, maka tidak mungkin Server akan mengizinkan Peramban Web menyimpan Iklan tersebut kedalam _Cache_.
 
-Iklan tersebut dimuat dari server lain, sehingga konsumsi _Bandwidth_ server tidak terpengaruh, tapi hal tersebut membuat Kuota Internet Pengunjung jadi boros karena membiarkan peramban web memuat iklan nya, kecuali jika iklan nya diblokir.
+Iklan tersebut dimuat dari server lain, sehingga konsumsi _Bandwidth_ Server Utama tidak terpengaruh, tapi hal tersebut membuat Kuota Internet Pengunjung jadi boros karena membiarkan peramban web memuat iklan nya, kecuali jika iklan nya diblokir.
 
-Namun, jika server (baik luar ataupun dalam) mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
+Namun, hal ini akan beda lagi jika kedua server (baik luar ataupun dalam) sama-sama mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_ dalam waktu yang lama, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
 
 ### Pertanyaan ke-6: Apakah ada perangkat lunak, situs web atau solusi lain untuk mengoptimalkan berkas-berkas statik selain yang disebutkan di dalam artikel ini? {#pertanyaan-ke6}
 **Jawab:** Banyak, tapi cari sendiri di Mesin Pencari aja, banyak jawaban nya disana. 
