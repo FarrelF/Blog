@@ -19,7 +19,7 @@ menu:
 ## Tentang Saya dan Blog ini
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
 
-Blog ini telah menggunakan [Bunny CDN](https://bunny.net) sebagai Hosting nya (dengan memanfaatkan [Layanan Penyimpanan nya](https://bunny.net/edge-storage/)) dan menggunakan [Let's Encrypt](https://letsencrypt.org) sebagai Sertifikat SSL nya. 
+Blog ini telah menggunakan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn/) sebagai Hosting nya (dengan memanfaatkan Layanan Penyimpanan nya) dan menggunakan [Let's Encrypt](https://letsencrypt.org) sebagai Sertifikat SSL nya. 
 
 Selain itu, saya juga menggunakan [Statically](https://statically.io) sebagai CDN untuk memuat gambar, beberapa Berkas JavaScript, CSS Internal, Fonta dan [jsDelivr](https://www.jsdelivr.com) untuk memuat beberapa Pustaka JavaScript, CSS, Twemoji beserta keperluan nya.
 
@@ -41,6 +41,7 @@ Bukan apa-apa, namun kedepan nya mungkin blog ini agak nge-_random_ dari yang bi
 ## Kunci PGP/GPG
 - [`0xA47AE59DC94ABF69`](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69) atau [`A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69) (Masa Berlaku: 21 Januari 2026)
 
-## Donasi
+## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF)
 - [Trakteer](https://trakteer.id/farrelf) (Khusus untuk Indonesia)
+- Meng-klik tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di laman ini juga ada tautan afiliasi, hehe 😁

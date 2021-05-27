@@ -26,9 +26,11 @@ Description: >
 
 {{< spoiler text="tl;dr (Awas, Spoiler!)" >}}
 
-Intinya, saya tidak menyarankan Anda menggunakan Cloudflare sebagai CDN untuk Web/Blog Anda secara gratis, karena rute CDN nya sudah pasti _ngaco_ jika dikunjungi menggunakan koneksi dari Telkom (terutama IndiHome)/Telkomsel (Tapi bukan cuma 2 ISP itu doang, kok), belum lagi resiko kehilangan pengunjung karena harus menyelesaikan CAPTCHA atau bahkan diblokir karena dikunjungi menggunakan Alamat IP yang "kotor" jika tidak diatur _Firewall_ nya.
+Intinya, saya tidak menyarankan Anda menggunakan Cloudflare sebagai CDN untuk Web/Blog Anda secara gratis, karena rute CDN nya sudah pasti _ngaco_ terutama jika dikunjungi menggunakan koneksi dari Telkom (salah satunya: IndiHome)/Telkomsel karena Koneksi Internasional nya buruk.
 
-Namun, saya lebih menyarankan Anda untuk menggunakan nya sebagai Pengelola DNS untuk Domain Anda, dan itu masih sangat layak digunakan tanpa perlu berlangganan apapun alias secara Gratis.
+Saya yakin bahwa masalah tersebut bukan cuma untuk 2 ISP itu saja, itupun belum sama resiko kehilangan pengunjung karena harus menyelesaikan CAPTCHA atau bahkan diblokir karena dikunjungi menggunakan Alamat IP yang "kotor" jika tidak diatur _Firewall_ nya.
+
+Saya sendiri lebih menyarankan Anda untuk menggunakan nya sebagai Pengelola DNS untuk Domain Anda, dan itu masih sangat layak digunakan tanpa perlu berlangganan apapun alias secara Gratis.
 
 Artikel yang Anda lihat/baca sekarang ini adalah versi fafifu wasweswos nya, alias versi "Panjang x Lebar" nya, membahas kelebihan dan kekurangan beserta alasan nya yang bisa menjadi pertimbangan Anda untuk menggunakan Cloudflare.
 
@@ -150,23 +152,7 @@ Contoh kasus nya adalah ketika mengakses Web/Blog yang menggunakan Cloudflare Gr
 
 Sudah rute CDN nya kacau gara-gara ISP nya, terus Koneksi Internasional nya malah buruk, sehingga pantas saja jika orang-orang protes seperti itu sejak menggunakan Cloudflare sebagai CDN, terutama dari ISP Telkom/Telkomsel.
 
-Untuk memastikan Rute CDN/Pusat Data Cloudflare mana yang didapat atau dijangkau oleh koneksi Internet yang digunakan sekarang, Anda tinggal tambahkan `cdn-cgi/trace` setelah mengetikkan Alamat Domain/Nama Hos (_Hostname_) yang menggunakan CDN dari Cloudflare, contoh formatnya menjadi seperti ini: `https://contoh.domain.com/cdn-cgi/trace` (Anda tinggal ganti saja `contoh.domain.com` nya menjadi Alamat Domain/Nama Hos untuk Web Anda)
-
-Itu merupakan sebuah alat yang disediakan oleh Cloudflare untuk membantu pemecahan masalah saat Web/Blog menggunakan CDN dari Cloudflare, salah satu contohnya adalah masalah lambatnya web/blog ketika diakses, informasi-informasi yang ditampilkan nya cukup membantu untuk usaha penyelesaian masalah.
-
-Cuplikan dibawah ini merupakan hasil dari penggunaan `cdn-cgi/trace` untuk nama hos `cloudflare-test.franqois.id` yang menggunakan Cloudflare Gratisan:
-
-![Hasil Penggunaan "`cdn-cgi/trace`" pada hos "`cloudflare-test.franqois.id`". Cuplikan ini diambil pada Tanggal/Hari Senin, 19 April 2021, Pukul 16:51 WIB](2021-04-19_16.51.39_cloudflare-test.franqois.id_75c6aca87445.jpg)
-
-Seperti yang Anda lihat bahwa saya diarahkan ke Server Singapura (SIN), dilihat dari `COLO` nya yang bernilai `SIN`, padahal lokasi nya ada di Indonesia (`loc=ID`) dan Cloudflare mempunyai pusat data nya di Jakarta[^11].
-
-`SIN` disini merupakan kode IATA (_International Air Transport Association_ atau bahasa Indonesia nya: Asosiasi Pengangkutan Udara Internasional) untuk [Bandar Udara Internasional Changi Singapura](https://id.wikipedia.org/wiki/Bandar_Udara_Internasional_Changi_Singapura), jadi Cloudflare menggunakan kode IATA sebagai nama letak pusat data nya.
-
-Nah, darisini lah saya biasanya menebak Paket Cloudflare apa yang Anda gunakan untuk Web/Blog Anda, kalau rutenya tidak sesuai dengan ekspektasi, maka saya tebak kalau kemungkinan terbesarnya Anda menggunakan CDN Cloudflare Gratisan atau bisa jadi pengguna Paket "Pro", jika sebaliknya maka bisa dipastikan kemungkinan terbesarnya menggunakan paket "Enterprise", meskipun ada kemungkinan yang menggunakan Paket "Business" juga.
-
-Oh iya, untuk melakukan pengujian diatas, saya tidak menggunakan IndiHome atau Telkomsel untuk mengakses nya, melainkan saya menggunakan Transvision Hi-Speed (nanti akan saya ceritakan pengalaman nya di artikel terpisah) dan ini hanya berlaku untuk 1 domain/hos saja, sedangkan setiap domain/nama hos lain nya yang menggunakan Cloudflare belum tentu mendapatkan hasil yang sama dengan diatas.
-
-Jadi, jika Anda ingin menguji koneksi ke jaringan Cloudflare dari ISP Anda dengan mengakses banyak Alamat Domain/Nama Hos, Anda bisa kunjungi Situs Web ["Cloudflare Test"](https://cloudflare-test.judge.sh).
+Untuk menguji koneksi Internet ke jaringan Cloudflare dari ISP Anda, salah satunya Anda bisa kunjungi Situs Web ["Cloudflare Test"](https://cloudflare-test.judge.sh).
 
 Ketika Anda mengunjungi nya, tunggu saja sampai semua teks nya tampil dengan baik. Saya uji ini menggunakan Telkomsel, jadi jika Anda menggunakan Koneksi dari Telkomsel (saya uji ini di Kota Cirebon), maka kira-kira hasilnya sebagai berikut:
 
@@ -248,7 +234,7 @@ Jika Anda pernah mengalami nya, maka bukan hanya Anda saja yang pernah mengalami
 
 Penyebabnya macam-macam, salah satu yang paling sering adalah Alamat IP yang digunakan saat mengunjungi Web/Blog itu memiliki reputasi yang buruk alias "kotor". Alamat IP "kotor" ini di sebabkan oleh banyak hal, seperti aktivitas _Phishing_, _Spamming_, Menyebarkan _Malware_, _Fraud_, dsb, dengan menggunakan Alamat IP tersebut.
 
-Alamat IP yang "kotor" bukan berarti perbuatan pengunjung nya "kotor" juga, karena Alamat IP tersebut bisa digunakan oleh banyak orang, terutama saat orang berselancar dengan Internet dan Alamat IP yang digunakan tersebut akan diganti secara otomatis dalam beberapa menit hingga beberapa jam. Jika Anda tahu Alamat IP Dinamis (_Dynamic IP Address_) itu apa, maka itulah sistem pembagian Alamat IP dari kebanyakan ISP Rumahan yang berlaku saat ini.
+Alamat IP yang "kotor" bukan berarti perbuatan pengunjung nya "kotor" juga, karena Alamat IP tersebut bisa digunakan oleh banyak orang, terutama saat orang berselancar dengan Internet dan Alamat IP yang digunakan tersebut akan diganti secara otomatis dalam beberapa menit hingga beberapa jam. Jika Anda tahu Alamat IP Dinamis (_Dynamic IP Address_) itu apa, maka itulah sistem pembagian Alamat IP dari kebanyakan ISP Rumahan yang berlaku saat ini (apalagi untuk Seluler).
 
 Kembali lagi ketopik yang sebenarnya, menggunakan CDN dari Cloudflare maka artinya kamu telah Menggunakan _Firewall_ nya, ini yang membuat peran _Firewall_ dari Server Asli/Asal (bisa kamu sebut "Server Hosting" jika Anda menggunakan layanan Hosting) terhadap Web/Blog kamu menjadi sedikit tidak berguna.
 
@@ -276,6 +262,66 @@ Tapi jika Anda sangat ingin menggunakan CDN dari Cloudflare demi menghemat konsu
 Jika berkas statik di _Cache_ dalam waktu lama, maka Pengunjung tidak perlu lagi sampai mengunduh berkas-berkas tersebut saat mengunjungi Web/Blog Anda dari Server manapun, melainkan hanya perlu memuatnya dari Media Penyimpanan nya saja.
 
 Serta, aturlah _Firewall_ di Cloudflare dengan benar jika Anda tidak ingin kehilangan pengunjung Web/Blog Anda karena diblokir/disuruh menyelesaikan CAPTCHA, karena yang seperti itu besar kemungkinan akan sering terjadi, terutama jika diakses dari Pengunjung yang menggunakan ISP dari Telkom/Telkomsel yang mempunyai banyak sekali Alamat IP nya.
+
+## Pertanyaan dan Jawaban yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
+Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, beserta Jawaban nya.
+
+Mungkin Anda perlu membaca pertanyaan dan jawaban nya terlebih dahulu sebelum bertanya di kolom komentar sebagai referensi Anda.
+
+### Pertanyaan ke-1: Pengunjung saya kebanyakan tidak menggunakan ISP dari BUMN itu, apakah disarankan menggunakan CDN dari Cloudflare yang gratisan? {#pertanyaan-ke1}
+Jawab: Tetap saja tidak terlalu disarankan, saya masih menyarankan Anda untuk menggunakan pengelola DNS nya daripada CDN nya jika Anda ingin Gratisan.
+
+Paling utama nya tetap saja Rute CDN nya, walaupun kata kamu bagus koneksi nya, tapi itu tidak menjamin bahwa koneksi ke Jaringan Cloudflare akan baik juga kedepan dan lagipula tidak ada jaminan bahwa rute CDN yang didapat akan selalu konsisten dan akan selalu mendapatkan pusat data yang terbaik untuk pengunjung Anda, apalagi jika Anda adalah pengguna Gratisan.
+
+### Pertanyaan ke-2: Apakah ada cara lain untuk menentukan rute CDN Cloudflare selain mengunjungi Situs Web `cloudflare-test.judge.sh`? Lalu, bagaimana Anda menebak paket Cloudflare yang digunakan oleh pemilik Web/Blog tanpa mengunjungi Situs Web tersebut? {#pertanyaan-ke2}
+Jawab: Ada, caranya Anda tinggal tambahkan `/cdn-cgi/trace` setelah mengetikkan Alamat Domain/Nama Hos (_Hostname_) saat Anda ingin mengunjungi sebuah Web/Blog di Peramban Web Anda, contoh formatnya menjadi seperti ini: `https://contoh.domain.com` -> `https://contoh.domain.com/cdn-cgi/trace` 
+
+NB: Anda tinggal ganti saja `contoh.domain.com` nya menjadi Alamat Domain/Nama Hos untuk Web Anda.
+
+Itu merupakan sebuah alat yang disediakan oleh Cloudflare untuk membantu pemecahan masalah saat Web/Blog menggunakan CDN dari Cloudflare, salah satu contohnya adalah masalah lambatnya web/blog ketika diakses, informasi-informasi yang ditampilkan nya cukup membantu untuk usaha penyelesaian masalah.
+
+Cuplikan dibawah ini merupakan hasil dari penggunaan `/cdn-cgi/trace` untuk nama hos `cloudflare-test.franqois.id` yang menggunakan Cloudflare Gratisan:
+
+![Hasil Penggunaan "`/cdn-cgi/trace`" pada hos "`cloudflare-test.franqois.id`". Cuplikan ini diambil pada Tanggal/Hari Senin, 19 April 2021, Pukul 16:51 WIB](2021-04-19_16.51.39_cloudflare-test.franqois.id_75c6aca87445.jpg)
+
+Seperti yang Anda lihat bahwa saya diarahkan ke Server Singapura (SIN), dilihat dari `COLO` nya yang bernilai `SIN`, padahal lokasi nya ada di Indonesia (`loc=ID`) dan Cloudflare mempunyai pusat data nya di Jakarta[^11].
+
+Nah, darisini lah saya biasanya menebak Paket Cloudflare apa yang Anda gunakan untuk Web/Blog Anda, kalau rutenya tidak sesuai dengan ekspektasi, maka saya tebak kalau kemungkinan terbesarnya Anda menggunakan CDN Cloudflare Gratisan atau bisa jadi pengguna Paket "Pro", jika sebaliknya maka bisa dipastikan kemungkinan terbesarnya menggunakan paket "Enterprise", meskipun ada kemungkinan yang menggunakan Paket "Business" juga.
+
+### Pertanyaan ke-3: Apa maksud dari 3 Huruf yang tampil di Situs Web `cloudflare-test.judge.sh` atau di `/cdn-cgi/trace`? Seperti `SIN` atau `colo=SIN`? {#pertanyaan-ke3}
+Jawab: 3 Huruf itu adalah Kode IATA (singkatan dari: _International Air Transport Association_ atau bahasa Indonesia nya: Asosiasi Pengangkutan Udara Internasional), masing-masing bandar udara (baik domestik ataupun internasional) memiliki kode ini sebagai Identifikasi.
+
+Misalnya: `SIN` yang tampil pada hasil pengujian di [pertanyaan ke-2](#pertanyaan-ke2) merupakan kode IATA untuk [Bandar Udara Internasional Changi Singapura](https://id.wikipedia.org/wiki/Bandar_Udara_Internasional_Changi_Singapura).
+
+Jadi, Cloudflare menggunakan kode IATA sebagai nama letak pusat data nya.
+
+### Pertanyaan ke-4: Saya ingin menghemat konsumsi _Bandwidth_, tapi saya tidak ingin menggunakan CDN dari Cloudflare. Bagaimana caranya? {#pertanyaan-ke4}
+Jawab: Jawaban nya ada di artikel saya yang berjudul ["Cara menghemat Konsumsi _Bandwidth_ Server"](/menghemat-konsumsi-bandwidth-server).
+
+Silahkan Anda terapkan solusi-solusi yang bisa Anda terapkan, seperti: Mengatur _Header_ `Cache-Control`, Mengecilkan Ukuran berkas-berkas statik, Memuat berkas-berkas statik dari Server lain, dll.
+
+### Pertanyaan ke-5: Apakah ada referensi Layanan CDN lain selain Cloudflare? {#pertanyaan-ke5}
+Jawab: Ada, banyak malah.
+
+Jika Anda ingin Layanan CDN yang gratis, Anda bisa pertimbangkan [jsDelivr](https://www.jsdelivr.com) atau [Statically](https://statically.io), namun Anda tidak bisa mengontrol penggunaan CDN nya, karena pada dasarnya itu merupakan Layanan CDN untuk Umum.
+
+Meskipun begitu, Layanan CDN seperti Statically mampu menghantarkan berkas-berkas gambar, JS, dan CSS yang tersimpan di dalam Web/Blog kamu, bukan hanya di dalam sebuah _Repository_ saja. Bahkan Statically memiliki [_Plugin_ WordPress](https://wordpress.org/plugins/statically/) nya secara resmi yang berguna untuk meng-integrasikan Statically dengan Web/Blog yang menggunakan WordPress (Hos-mandiri).
+
+Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
+
+{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}} 
+Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
+
+Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun atau biaya yang dikeluarkan bertambah karena afiliasi ini, saya jamin 100%.
+{{< / spoiler >}}
+
+Atau, jika Anda ingin Layanan CDN yang kelas dunia, namun Anda tidak ingin menggunakan [Cloudflare Enterprise](https://www.cloudflare.com/enterprise/), bisa gunakan Layanan CDN dari [Akamai](https://www.akamai.com) atau [5centscdn](https://www.5centscdn.net/) untuk lebih 'murah' nya.
+
+Mayoritas ISP di Indonesia (termasuk Telkomsel/Telkom) memiliki hubungan/relasi yang baik dengan Akamai dan bahkan ada beberapa diantaranya memiliki Server _Cache_ nya sendiri sehingga akses nya akan jauh lebih cepat oleh Pengguna ISP nya.
+
+Layanan CDN dari _Hyperscaler_ Raksasa seperti [Google Cloud CDN](https://cloud.google.com/cdn), AWS [CloudFront](https://aws.amazon.com/id/cloudfront/)/[Global Accelerator](https://aws.amazon.com/global-accelerator/), [Alibaba Cloud CDN](https://www.alibabacloud.com/id/product/cdn) atau [Microsoft Azure CDN](https://azure.microsoft.com/services/cdn/) mungkin bisa Anda pertimbangkan juga, mengingat mayoritas dari mereka memiliki pusat data di Indonesia (khususnya di Jakarta) dengan biaya yang bisa Anda hitung sendiri.
+
+Saya tidak bisa menyebutkan selain itu, jadi saya kira cukupkan sampai sini saja untuk layanan CDN nya.
 
 ## Penutup
 Ya sudah, sepertinya pembahas di artikel ini saya cukupkan sampai sini saja. Ngomong-ngomong, saya tulis artikel ini dimulai dari tanggal 06 April 2021 dan Artikel ini terbit saat di bulan Ramadhan tahun ini, tidak terasa juga yah 🙂
