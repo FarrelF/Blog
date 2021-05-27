@@ -309,7 +309,7 @@ Meskipun begitu, Layanan CDN seperti Statically mampu menghantarkan berkas-berka
 
 Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
 
-{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}} 
+{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
 Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
 
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun atau biaya yang dikeluarkan bertambah karena afiliasi ini, saya jamin 100%.
@@ -317,7 +317,7 @@ Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun atau biaya yang 
 
 Atau, jika Anda ingin Layanan CDN yang kelas dunia, namun Anda tidak ingin menggunakan [Cloudflare Enterprise](https://www.cloudflare.com/enterprise/), bisa gunakan Layanan CDN dari [Akamai](https://www.akamai.com) atau [5centscdn](https://www.5centscdn.net/) untuk lebih 'murah' nya.
 
-Mayoritas ISP di Indonesia (termasuk Telkomsel/Telkom) memiliki hubungan/relasi yang baik dengan Akamai dan bahkan ada beberapa diantaranya memiliki Server _Cache_ nya sendiri sehingga akses nya akan jauh lebih cepat oleh Pengguna ISP nya.
+Sekedar Informasi saja bahwa mayoritas ISP di Indonesia (termasuk Telkomsel/Telkom) memiliki hubungan/relasi yang baik dengan Akamai dan bahkan ada beberapa diantaranya memiliki Server _Cache_ nya sendiri sehingga akses nya akan jauh lebih cepat oleh Pengguna ISP nya.
 
 Layanan CDN dari _Hyperscaler_ Raksasa seperti [Google Cloud CDN](https://cloud.google.com/cdn), AWS [CloudFront](https://aws.amazon.com/id/cloudfront/)/[Global Accelerator](https://aws.amazon.com/global-accelerator/), [Alibaba Cloud CDN](https://www.alibabacloud.com/id/product/cdn) atau [Microsoft Azure CDN](https://azure.microsoft.com/services/cdn/) mungkin bisa Anda pertimbangkan juga, mengingat mayoritas dari mereka memiliki pusat data di Indonesia (khususnya di Jakarta) dengan biaya yang bisa Anda hitung sendiri.
 
