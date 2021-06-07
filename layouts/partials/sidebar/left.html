@@ -42,7 +42,7 @@
         {{ $active := or (eq $currentPage.Title .Name) (or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .)) }}
 
         <li {{ if $active }} class='current' {{ end }}>
-            <a href='{{ .URL }}'>
+            <a href='{{ .URL }}' {{ if eq .Params.NewTab true }}target="_blank"{{ end }} {{ if strings.HasPrefix .URL "http" }}rel="noopener"{{ end }}>
                 {{ if .Pre }}
                     {{ partial "helper/icon" .Pre }}
                 {{ end }}

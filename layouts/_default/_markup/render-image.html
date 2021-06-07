@@ -1,6 +1,7 @@
-{{- $image := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL)) | resources.Fingerprint "sha256" -}}
+{{- $image := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL)) -}}
 
 {{- if $image -}}
+	{{- $image = $image | resources.Fingerprint "sha256" -}}
 	{{- $ImageURL := "" -}}
 	{{- if and (.Page.Site.Params.CDN.Images.URL) (eq hugo.IsProduction true) -}}
 		{{- $ImageURL = .Page.Site.Params.CDN.Images.URL -}}
