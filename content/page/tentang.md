@@ -32,7 +32,7 @@ Bukan apa-apa, namun kedepan nya mungkin blog ini agak nge-_random_ dari yang bi
 - farrel(at)franqois(dot)id (Surel Pribadi)
 - farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Protonmail, lebih aman dan lebih ramah privasi)
 
-### Sosial Media/Perpesanan
+### Media sosial/Perpesanan
 - Telegram: [@FarrelF](https://t.me/FarrelF)
 - Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
