@@ -37,6 +37,10 @@ params:
       enabled: true
       default: Telah saya terbitkan dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
 
+  SRIHash:
+    CSS: false
+    JS: true
+
   CDN:
     Images:
       URL: https://cdn.statically.io/img/farrel.franqois.id/f=auto

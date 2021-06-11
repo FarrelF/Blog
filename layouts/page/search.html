@@ -35,7 +35,7 @@
     {{- $searchScript = resources.Get "ts/search.tsx" | js.Build $opts | fingerprint "sha384" -}}
     {{- $Permalink = $searchScript.RelPermalink -}}
 {{- end -}}
-<script type="text/javascript" src="{{ $Permalink }}" integrity="{{ $searchScript.Data.Integrity }}"{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} defer></script>
+<script type="text/javascript" src="{{ $Permalink }}"{{ if eq .Site.Params.SRIHash.JS true }} integrity="{{ $searchScript.Data.Integrity }}"{{ end }}{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} defer></script>
 
 {{ partialCached "footer/footer" . }}
 {{ end }}
