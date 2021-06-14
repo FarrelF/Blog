@@ -17,7 +17,8 @@
 
     {{ if or (.Description) (.Params.description) }}
         <h3 class="article-subtitle">
-            {{ .Params.description | $.Page.RenderString | markdownify | emojify }}
+            {{ $opts := dict "display" "block" "markup" "markdown" }}
+            {{ .Params.description | $.Page.RenderString $opts | emojify }}
             {{ if eq .Params.readMore true }}
                 <p><a class="link" href="{{ .RelPermalink }}">{{ T "article.readMore" }}</a></p>
             {{ end }}

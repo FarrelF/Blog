@@ -134,7 +134,7 @@ Iya, saya tahu bahwa ini bukanlah cara menghemat, tapi saya kasih solusi bagi An
 
 Yap, Anda tinggal memikirkan bagaimana caranya menambah Kuota _Bandwidth_ yang tersedia jika tidak mau ribet. Untuk saat ini pilihan nya cuma dua, yakni bayar biayanya atau pindah ke penyedia lain yang kuota nya lebih banyak. Padahal, pake kartu kredit emak atau bapak kamu buat bayar biaya nambah kuota _Bandwidth_ doang juga bisa, kan?
 
-Tidak ada pilihan selain itu dan ini merupakan solusi yang cukup realistis atau wajar. Jika Anda ingin gratis, lakukan kedua atau sampai keempat solusi diatas, sedangkan jika Anda tidak mau ribet, tinggal tambahkan saja kuota nya, sesederhana itu bukan?
+Tidak ada pilihan selain itu dan ini merupakan solusi yang cukup realistis atau masuk akal. Jika Anda ingin gratis, lakukan kedua atau sampai keempat solusi diatas, sedangkan jika Anda tidak mau ribet, tinggal tambahkan saja kuota nya, sesederhana itu bukan?
 
 ## Pertanyaan dan Jawaban yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
 Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, beserta Jawaban nya.
@@ -161,9 +161,9 @@ Tapi kalo ditanya "Apakah ini akan membuat boros Kuota _Bandwidth_/Kuota Interne
 Karena pada dasarnya Peramban Web Pengunjung secara otomatis akan memuat iklan-iklan yang sangat dinamis dalam berbagai format (entah itu dalam bentuk teks, gambar, video, dan lain-lain) saat berkunjung ke Situs Web/Blog Anda dan itu menggunakan koneksi Internet dari pengunjung agar bisa termuat, kecuali jika diblokir dari sisi klien/pengunjung.
 
 ### Pertanyaan ke-3: Apakah tidak ada solusi lain? {#pertanyaan-ke3}
-**Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang cukup realistis/wajar supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
+**Jawab:** Untuk saat ini tidak ada, solusi-solusi yang saya tulis itu merupakan solusi yang cukup realistis/masuk akal supaya Anda dapat mengimplementasi nya dengan baik, sehingga hanya solusi itu yang saya tahu.
 
-Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi wajar lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
+Jika Anda memiliki solusi lain, maka Anda bisa memanfaatkan nya. Namun, jika Anda memiliki solusi masuk akal lain nya, silahkan berikan masukkan dari Anda melalui kolom komentar 🙂
 
 ### Pertanyaan ke-4: Saya menggunakan CDN dari Cloudflare untuk Web/Blog saya demi menghemat konsumsi _Bandwidth_, maka solusi mana yang saya implementasikan? {#pertanyaan-ke4}
 **Jawab:** Kamu mengimplementasikan [Solusi ke-3](#solusi-ke3).
@@ -187,14 +187,23 @@ Contohnya adalah _Platform_ Iklan seperti Google AdSense yang terpasang di Situs
 
 Iklan tersebut dimuat dari server lain, sehingga konsumsi _Bandwidth_ Server Utama tidak terpengaruh, tapi hal tersebut membuat Kuota Internet Pengunjung jadi boros karena membiarkan peramban web memuat iklan nya, kecuali jika iklan nya diblokir.
 
-Namun, hal ini akan beda lagi jika kedua server (baik luar ataupun dalam) sama-sama mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_ dalam waktu yang lama, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa diperhemat.
+Namun, hal ini akan beda lagi jika kedua server (baik luar ataupun dalam) sama-sama mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_ dalam waktu yang lama, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa sedikit diperhemat.
 
 ### Pertanyaan ke-6: Apakah ada perangkat lunak, situs web atau solusi lain untuk mengoptimalkan berkas-berkas statik selain yang disebutkan di dalam artikel ini? {#pertanyaan-ke6}
-**Jawab:** Banyak, tapi cari sendiri di Mesin Pencari aja, banyak jawaban nya disana. 
+**Jawab:** Banyak, tapi cari sendiri di Mesin Pencari aja, banyak jawaban nya disana.
 
 Kata kunci yang bisa Anda gunakan untuk mesin pencari adalah, seperti: "Image Compression", "Image Compressor", "Image Optimizer", "CSS Minify", "JS Minify", "CSS Minifier", "JS Minifier" atau kata kunci lain nya yang bisa Anda kembangkan sendiri. 
 
 Jika Anda ingin mencari perangkat lunak nya, Anda bisa tambahkan "Software" di akhir kata kuncinya, seperti "Image Compression Software" misalnya atau kembangkan saja sendiri biar hasilnya lebih akurat.
+
+### Pertanyaan ke-7: Apakah semua solusi yang ada disini itu mempercepat atau mengoptimalkan sebuah Situs Web?
+**Jawab:** Bisa iya, bisa juga tidak, atau bahkan bisa terjadi sebaliknya. Kecepatan Akses dan Kecepatan Penyelesaian Pemuatan pada Web/Blog itu terjadi karena banyak faktor.
+
+Sedangkan untuk mengoptimalkan sebuah Web/Blog agar cepat diakses dan dimuat oleh Peramban Web itu banyak yang harus Anda lakukan selain melakukan solusi-solusi di atas.
+
+Bahkan bisa terjadi sebaliknya, yakni Blog/Web menjadi lambat ketika diakses, atau malah sampai menjadi tidak tersedia (nge-_down_) setelah melakukan solusi-solusi di atas.
+
+Jadi, jika Anda ingin menerapkan salah satu atau lebih dari solusi di atas, maka segala resiko harus Anda tanggung sendiri.
 
 ## Penutup
 Ya sudah, artikel nya saya cukupkan dulu saja disini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
