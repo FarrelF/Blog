@@ -58,7 +58,8 @@ jobs:
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         chmod +x hugo
-        sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
+        sudo -- sh -c 'mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo'
+        rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
         git ls-tree -rtl HEAD:content/post --full-tree > post-tree.hash
@@ -78,7 +79,7 @@ jobs:
     - name: Building the Blog HTML
       run: |
         rm static/robots_preview
-        hugo --minify --enableGitInfo --cacheDir ${PWD}/cache
+        hugo --gc --minify --enableGitInfo --cacheDir ${PWD}/cache
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
