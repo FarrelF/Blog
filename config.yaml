@@ -32,6 +32,7 @@ params:
       src: img/profile/avatar.jpg
 
   article:
+    toc: true
     math: false
     license:
       enabled: true
@@ -133,6 +134,10 @@ related:
       weight: 200
 
 markup:
+  tableOfContents:
+    start: 1
+    end: 4
+    ordered: true
   highlight:
     noClasses: false
   goldmark:
