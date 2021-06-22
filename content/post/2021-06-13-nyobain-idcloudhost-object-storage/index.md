@@ -49,17 +49,17 @@ Ya, ini bukan seperti biasanya yang menggunakan laman [My IDCloudHost](https://m
 
 ![Penampilan Halaman Login Konsol IDCloudHost. Abaikan Ikon Kunci yang tampil di kotak "Email", karena itu dari Pengelola Kata Sandi yang saya gunakan, yakni "KeePassXC"](Penampilan_Login_IDCloudHost_Console.png) ![Penampilan Konsol IDCloudHost setelah Login](Penampilan_IDCloudHost_Console.png)
 
-Saya daftar akun nya pada akhir Mei yang lalu dan saya melakukan pengisian ulang _(top-up)_ pada tanggal 9 Juni yang lalu, itu semua terjadi saat IDCloudHost memberikan Kredit sebesar Rp. 100.000,00 secara gratis jika saya melakukan _top-up_ yang minimalnya Rp. 50.000,00 dan saya isi ulang sebesar minimalnya saja.
+Saya daftar akun nya pada akhir Mei yang lalu dan saya melakukan pengisian ulang (top-up) pada tanggal 9 Juni yang lalu, itu semua terjadi saat IDCloudHost memberikan Kredit sebesar Rp. 100.000,00 secara gratis jika saya melakukan _top-up_ yang minimalnya Rp. 50.000,00 dan saya isi ulang sebesar minimalnya saja.
 
 Harga itu tentu saja belum termasuk PPn 10%, jadi saya bayar sebesar Rp. 55.000,00 saja untuk mengisi ulang nya. 
 
-Metode pembayaran nya pun beragam, selain Kartu Kredit (Visa/Mastercard), ada ATM Bersama, Akun Virtual _(Virtual Account)_ dari beberapa Bank, seperti Bank Permata, Mandiri, Maybank, BNI, dan CIMB Niaga (tidak ada _Virtual Account_ BCA), serta mendukung pembayaran lewat Ritel (seperti: Alfamart & Dan-dan), Pegadaian, Kantor Pos, OVO dan QRIS dari Shopee Pay saat artikel ini saya tulis.
+Metode pembayaran nya pun beragam, selain Kartu Kredit (Visa/Mastercard), ada ATM Bersama, Akun Virtual (Virtual Account) dari beberapa Bank, seperti Bank Permata, Mandiri, Maybank, BNI, dan CIMB Niaga (tidak ada _Virtual Account_ BCA), serta mendukung pembayaran lewat Ritel (seperti: Alfamart & Dan-dan), Pegadaian, Kantor Pos, OVO dan QRIS dari Shopee Pay saat artikel ini saya tulis.
 
 Karena saya menggunakan LinkAja, maka saya pilih menggunakan Kode QRIS dari Shopee Pay, pembayarannya pun mudah, saya tinggal memindai Kode QR yang muncul di layar saja, nanti akan muncul semua biaya yang tertera di LinkAja. 
 
 Setelah itu saya klik bayar dan masukkan nomor PIN nya, lalu pembayaran akan diproses dan diselesaikan secara otomatis tanpa harus verifikasi lagi setelah saya memasukkan kode PIN nya tadi. Sungguh mudah, bukan?
 
-![Bukti Pembayaran Isi Ulang di IDCloudHost](Bukti_Pembayaran.png)
+![Bukti Pembayaran Isi Ulang di IDCloudHost](Bukti_Pembayaran.png) ![Bukti Pembayaran di LinkAja](Bukti_Pembayaran_LinkAja.jpg)
 
 Tentu saja tidak ada biaya tambahan lain nya saat pengisian selain PPn 10%, yang artinya saya cuma membayar sebesar Rp. 55.000,00 saja kemarin. Setelah mengisi ulang saldo, barulah secara otomatis saya mendapatkan kredit gratis sebesar Rp. 100.000,00 dan saya langsung berlangganan _Object Storage_ nya pada saat itu juga.
 
@@ -85,7 +85,7 @@ Awalnya saya mengira kalau "Access Key ID" dan "Secret Key Access" itu cuma berl
 Sehingga, ketika saya mengklik Bucket yang berbeda, maka "Access Key ID" dan "Secret Key Access" akan tampil dengan nilai yang sama. Mungkin maksudnya agar dapat memudahkan pengguna nya, sehingga menampilkan Informasi dengan cara seperti itu? Siapa tahu juga alasan nya begitu, karena saya merasa dimudahkan daripada dipisah gitu 🤷‍♂️
 
 ### Saat pertama kali menggunakan Penyimpanan S3
-Karena di IDCloudHost belum ada fitur yang berguna untuk mengelola sekaligus menjelajah Berkas dan Folder di dalam Bucket, maka saya harus meng-install Aplikasi tambahan agar dapat mengelola nya. 
+Karena di IDCloudHost belum ada fitur yang berguna untuk mengelola sekaligus menjelajah Berkas dan Folder di dalam Bucket, maka saya harus meng-install Aplikasi tambahan agar dapat mengelola nya.
 
 Kalau di Windows itu ada sebuah Perangkat Lunak yang bernama ["Cyberduck"](https://cyberduck.io/), berfungsi sebagai pengelola berkas dari jarak jauh dan mendukung protokol S3 juga, serta merupakan FLOSS (Free/Libre Open Source Software).
 
@@ -99,7 +99,32 @@ Jadi, untuk sekarang saya belum bisa mengelola Berkas dan Folder yang di dalam B
 
 Karena rencananya saya gunakan Bucket S3 itu sebagai tempat untuk menyimpan Berkas-berkas Blog Statis, maka saya membutuhkan fitur sinkronisasi dan itu bisa dilakukan dengan [Rclone](https://rclone.org/). 
 
-Saat menggunakan Rclone, disitu saya langsung menyadari pengaturan perizinan pada Bucket S3 _(Permissions)_ dan ada fitur ACL _(Access control list)_ disitu, karena saya ingin menggunakan nya sebagai Hosting Web Statis, maka saya atur ACL nya menjadi `Public-Read` di Rclone.
+Saat menggunakan Rclone, disitu saya langsung menyadari pengaturan perizinan pada Bucket S3 (Permissions) dan ada fitur ACL (Access control list) disitu, karena saya ingin menggunakan nya sebagai Hosting Web Statis, maka saya atur ACL nya menjadi `Public-Read` di Rclone.
 
-### Saat dijadikan Hosting Web Statis
-Tentu saja saya tidak jadikan sebagai Hosting Utama, melainkan sebagai tempat penyimpanan untuk Blog ini dan akan disebar melalui CDN yang saya gunakan (Bunny\.net).
+### Saat mencoba fitur Hosting Web Statis di S3
+Tentu saja saya tidak jadikan ini sebagai Hosting Utama, melainkan sebagai tempat penyimpanan untuk Blog ini dan akan disebar melalui CDN yang saya gunakan (Bunny\.net).
+
+Saya cuma mencoba fitur Hosting Web Statis di IDCloudHost S3 saja, karena di [AWS S3](https://aws.amazon.com/id/s3/) dan [Scaleway Object Storage](https://www.scaleway.com/en/object-storage/) ada fitur seperti ini. 
+
+Pada dasarnya, fungsinya cuma agar supaya Penyimpanan S3 ini bisa membaca berkas Indeks seperti `index.html` saja ketika diakses dan tentunya ini sangat berguna untuk Hosting Web Statis.
+
+Nah, saya butuh fitur ini agar supaya mempermudah saya untuk meng-hostingkan Blog ini dengan CDN tanpa perlu melakukan penyetelan/pengaturan yang tidak perlu, seperti mengatur "Edge Rules" agar berkas Indeks bisa terbaca.
+
+Karena secara bawaan _(default)_ fitur tersebut tidak diaktifkan, maka saya berinisiatif untuk mengaktifkan nya. Akhirnya saya gunakanlah [referensi dari Scaleway](https://www.scaleway.com/en/docs/s3-bucket-website/) dan disana saya diperkenalkan serta disarankan untuk menggunakan AWS CLI, ya saya pakelah Perangkat Lunak tersebut.
+
+Setelah saya membuat `bucket-website.json` (sesuai Referensi) dan mengeksekusi perintah berikut 
+
+```
+$ aws s3api put-bucket-website --bucket <NAMA_BUCKET> --website-configuration file://bucket-website.json
+```
+
+Malah muncul kesalahan (error) dengan pesan berikut:
+```
+An error occurred (MethodNotAllowed) when calling the PutBucketWebsite operation: Unknown
+```
+
+Ya langsung bingung dong, masa gak boleh sih cuma Hosting Web Statis doang biar bisa disebar melalui CDN dengan mudah. Akhirnya saya coba cara lain, seperti merubah nama berkas, menggunakan `s3cmd`. bahkan sampai menggunakan Cyberduck pun juga sama aja.
+
+Akhirnya, ketika ingin meng-hosting Blog ini dan disebar melalui CDN seperti sekarang, saya malah perlu menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca sampai sekarang.
+
+Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Iya, saat ini, blog ini saya hosting di Penyimpanan S3 nya, kemudian disebar dengan CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
