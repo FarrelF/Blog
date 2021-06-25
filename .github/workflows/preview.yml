@@ -116,4 +116,4 @@ jobs:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         S3_SERVICE: idcloudhost-s3
       run: |
-        rclone sync -vvvv -P --stats-one-line ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
+        rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
