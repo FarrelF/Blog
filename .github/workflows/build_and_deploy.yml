@@ -58,7 +58,8 @@ jobs:
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         chmod +x hugo
-        sudo mv hugo /usr/local/bin/ && sudo chown root:root /usr/local/bin/hugo
+        sudo -- sh -c 'mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo'
+        rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
         git ls-tree -rtl HEAD:content/post --full-tree > post-tree.hash
@@ -78,8 +79,7 @@ jobs:
     - name: Building the Blog HTML
       run: |
         rm static/robots_preview
-        hugo --minify --enableGitInfo --cacheDir ${PWD}/cache
-        git ls-tree -rtl HEAD:assets/scss --full-tree > ./public/scss.hash
+        hugo --gc --minify --enableGitInfo --cacheDir ${PWD}/cache
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
@@ -99,30 +99,19 @@ jobs:
       with:
         name: site-outputs
 
-    - name: Decompressing Files, then Installing lftp and Rclone
+    - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
-        sudo apt update
-        sudo apt install lftp
-        curl https://rclone.org/install.sh | sudo bash
 
-    - name: Deploying to FTP(s) and Purging Bunny.net CDN Cache
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+    - name: Installing and Configuring RClone
       run: |
-        wget https://farrel.franqois.id/scss.hash -O scss.hash.old
-        SCSS_HASH_OLD=$(sha512sum scss.hash.old | awk '{ print $1 }')
-        SCSS_HASH_NEW=$(sha512sum ./public/scss.hash | awk '{ print $1 }')
+        curl https://rclone.org/install.sh | sudo bash
         mkdir -p ${HOME}/.config/rclone
         echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-        rclone sync -vvvv -P --stats-one-line ./public ${{ secrets.BUNNY_STORAGE_USERNAME }}:/${{ secrets.BUNNY_STORAGE_USERNAME }}
-        if [ ${SCSS_HASH_OLD} != ${SCSS_HASH_NEW} ]; then
-          lftp -e "open -u ${{ secrets.BUNNY_STORAGE_USERNAME }},${{ secrets.BUNNY_STORAGE_PASSWORD }} -p 21 storage.bunnycdn.com; mirror --reverse --parallel=10 -X *.* -I *.html -I */*.html --verbose --transfer-all --delete-first ./public /${{ secrets.BUNNY_STORAGE_USERNAME }}; exit 0"
-        fi
-        RESPONSE_CODE=$(curl -so /dev/null -I -w "%{http_code}" -X POST --url https://api.bunny.net/pullzone/${{ secrets.BUNNY_PULLZONE_ID }}/purgeCache -H "AccessKey: ${{ secrets.BUNNY_API_KEY }}" -H "content-length: 0" | head -n 1 | cut -d$' ' -f2)
-        if [ "${RESPONSE_CODE}" -gt 299 ]; then
-          echo "Failed to sending purge request, purge it by yourself!"
-        else
-          echo "Sending Purge Request is Successfully, the CDN Cache will be purged soon!"
-        fi
-        echo "Status Code: ${RESPONSE_CODE}"
+
+    - name: Deploying to S3 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: idcloudhost-s3
+      run: |
+        rclone sync -vvvv -P --stats-one-line ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
