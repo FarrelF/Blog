@@ -7,8 +7,7 @@ Categories:
     - Layanan Internet
     - Opini
     - Info Blog
-Date: 2021-06-13 08:10:30+07:00
-draft: true
+Date: 2021-06-26 20:16:00+07:00
 Tags: 
     - Preview
     - IDCloudHost
