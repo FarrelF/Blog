@@ -72,10 +72,10 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v1-1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        key: v1-2-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
         restore-keys: | 
-          - v1-1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
-          - v1-1-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-
+          - v1-2-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+          - v1-2-hugo-preview-${{ hashFiles('**/post-tree.hash') }}-${{ hashFiles('**/layouts-tree.hash') }}-
 
     - name: Building the Blog HTML (Preview)
       run: |

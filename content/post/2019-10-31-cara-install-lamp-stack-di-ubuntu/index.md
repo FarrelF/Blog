@@ -10,7 +10,7 @@ tags:
 - Ubuntu
 - GNU/Linux
 date: 2019-10-31 17:04:17+07:00
-image: Cover.png
+image: Cover.jpg
 slug: "cara-install-lamp-stack-di-ubuntu"
 suthor: "Farrel Franqois"
 readMore: true
@@ -96,7 +96,7 @@ Jika Apache2 berjalan dengan baik, harus nya ada `Active: active (running)` dan 
 
 Atau, seperti pada cuplikan layar berikut ini:
 
-![Setelah Instalasi Apache2](After_Install_Apache2_1.png)
+![Setelah Instalasi Apache2](After_Install_Apache2_1.jpg)
 
 Jika status Apache2 tidak seperti di atas, maka bisa di pastikan bahwa Apache2 tidak berjalan dengan baik. Untuk menjalankan nya, eksekusi perintah berikut:
 
@@ -182,7 +182,7 @@ Ganti `/path/to/uploaded/file` menjadi lokasi tempat menyimpan berkas yang telah
 #### **5. Menguji _Web Server_ dengan membukanya lewat Web Browser**
 Setelah itu, buka Peramban Web (_Web Browser_) Anda, lalu masukkan Alamat URL nya dengan `localhost` atau `127.0.0.1`. Lalu, harusnya tampilan akan seperti di bawah ini jika bekerja dengan baik:
 
-![Contoh halaman Index Default yang menandakan Apache2 berjalan dengan baik](After_Install_Apache2_2.png)
+![Contoh halaman Index Default yang menandakan Apache2 berjalan dengan baik](After_Install_Apache2_2.jpg)
 
 Jika tampilan nya muncul “It works!” seperti di atas, maka seharusnya Apache2 sudah siap di gunakan!
 
@@ -354,7 +354,7 @@ Jika MariaDB berjalan dengan baik, maka hasil output nya nanti harusnya ada `Act
 
 Atau, seperti pada cuplikan layar berikut:
 
-![Status MariaDB di dalam Terminal](After_Install_MariaDB.png)
+![Status MariaDB di dalam Terminal](After_Install_MariaDB.jpg)
 
 Jika status MariaDB tidak seperti di atas, maka bisa di pastikan bahwa MariaDB tidak berjalan dengan baik. Untuk menjalankan nya, eksekusi perintah berikut:
 
@@ -373,13 +373,13 @@ Sekarang, kita konfigurasi kan MariaDB nya supaya aman.
 
 Ketik perintah `sudo mysql_secure_installation` untuk melakukan konfigurasi. Lalu, jika di tanya “Enter current password for root” kamu tekan <kbd>Enter</kbd> saja, setelah itu, masukkan Kata Sandi untuk Akun Root MariaDB yang ingin di buat, seperti cuplikan layar berikut:
 
-![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_1.png)
+![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_1.jpg)
 
 **Catatan:** Jika Anda menginstall MariaDB 10.4 atau di atasnya, dan Anda di tanya “Switch to `unix_socket` authentication \[Y/n\]”, Anda tinggal ketik atau jawab saja “n” (tanpa kutip). Lalu, tekan <kbd>Enter</kbd>. Hal ini agar Anda tidak mengaktifkan `unix_socket` sebagai metode autentikasi pada akun `root` di MariaDB.
 
 Setelah Anda menentukan Kata Sandi baru untuk Akun root pada MariaDB, Anda tinggal tekan Tombol <kbd>Enter</kbd> saja, sampai selesai dan muncul tulisan “Thanks for using MariaDB!”. Berikut Cuplikan nya:
 
-![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_2.png)
+![Konfigurasi MariaDB di dalam Terminal](Configuring_MariaDB_2.jpg)
 
 #### **3. Metode Autentikasi di MariaDB**
 
@@ -493,7 +493,7 @@ Lalu, simpan berkas tersebut, kalau Anda menggunakan nano, maka Anda perlu tekan
 
 Setelah itu, coba buka web browser Anda, lalu masukkan URL nya. Karena berkas yang kita buat tadi lokasi nya di `/var/www/html`, maka artinya masukkan URL `localhost/info.php` atau `127.0.0.1/info.php` kedalam Peramban (_Browser_) mu, lalu tekan <kbd>Enter</kbd>. Hasilnya akan menjadi seperti ini:
 
-![Ini yang di hasilkan dari berkas 'info.php' jika di buka lewat Peramban Web.](PHP7_with_Apache2_Handler.png)
+![Ini yang di hasilkan dari berkas 'info.php' jika di buka lewat Peramban Web.](PHP7_with_Apache2_Handler.jpg)
 
 Lihatlah pada Server API nya, yang masih menggunakan `Apache2 Handler`. Tidak masalah sebenarnya, cuma kita tadi sudah meng-install `php7.3-fpm` nya, yang seharusnya itu bukan Apache2 Handler lagi. Selain itu, mungkin ada beberapa alasan (seperti Kinerja dari PHP nya, dll) agar kita harus mengaktifkan PHP-FPM ini.
 
@@ -506,7 +506,7 @@ $ sudo -- sh -c 'a2dismod php7.3; a2enmod proxy_fcgi setenvif; a2enconf php7.3-f
 
 Setelah itu, coba kamu segarkan (_refresh_) berkas `info.php` yang telah kamu akses lewat Peramban Web tadi, dan harusnya akan menjadi seperti ini:
 
-![Hasil berkas 'info.php' setelah PHP-FPM di aktifkan.](PHP7_with_FPM.png)
+![Hasil berkas 'info.php' setelah PHP-FPM di aktifkan.](PHP7_with_FPM.jpg)
 
 #### **4. (Opsional) Menguji Galat Sintaks PHP (_PHP Syntax Error_)**
 Sekarang, coba kamu buat sebuah berkas PHP, apapun itu, yang menimbulkan galat/kesalahan (_error_) (bebas kode nya apa saja, asal menimbulkan kesalahan sintaks), lalu bukalah berkas PHP tersebut melalui peramban web, harusnya muncul galat/peringatan di layar.
@@ -572,7 +572,7 @@ Kalo saya perlu menekan tombol <kbd>Shift</kbd> + <kbd>-</kbd> untuk menghasilka
 
 Setelah Anda lompat ke baris tujuan, dan benar bahwa kedua opsi tersebut berada di baris itu, maka ubahlah nilai nya yang semula nya `Off` menjadi `On`. Seperti pada Cuplikan Layar berikut:
 
-![Setelah merubah opsi pada php.ini](Activating_PHP_Display_Error.png)
+![Setelah merubah opsi pada php.ini](Activating_PHP_Display_Error.jpg)
 
 Setelah itu, simpan berkas nya. Jika Anda menggunakan Teks Editor berbasis GUI, Anda bisa simpan berkas tersebut dengan menekan <kbd>CTRL</kbd> + <kbd>S</kbd>. Sedangkan, kalau Anda menggunakan `nano`, maka Anda perlu tekan <kbd>CTRL</kbd> + <kbd>O</kbd> terlebih dahulu, lalu tekan <kbd>Enter</kbd>.
 
@@ -628,7 +628,7 @@ Untuk melakukan nya, buka Web Browser Anda, lalu masukkan URL: `http://localhost
 
 Jika Anda sudah berhasil membuka nya, maka harusnya tampilan nya menjadi seperti Cuplikan berikut:
 
-![Ketika phpMyAdmin berhasil di buka dengan Web Browser](After_Install_phpMyAdmin.png)
+![Ketika phpMyAdmin berhasil di buka dengan Web Browser](After_Install_phpMyAdmin.jpg)
 
 
 #### **2. Menyisipkan nilai dari opsi `blowfish_secret` di dalam berkas Konfigurasi phpMyAdmin**
@@ -665,7 +665,7 @@ Setelah itu, simpan berkasnya terlebih dahulu, dan jangan di tutup (di _close_).
 #### **3. Login phpMyAdmin**
 Lalu, buka phpMyAdmin nya lewat Browser, dan lakukan login dengan menggunakan akun MariaDB Anda, kali ini, saya gunakan akun `root`. 
 
-![Login phpMyAdmin dengan menggunakan akun 'root'.](Logging_in_phpMyAdmin.png)
+![Login phpMyAdmin dengan menggunakan akun 'root'.](Logging_in_phpMyAdmin.jpg)
 
 Kalau sudah selesai mengisi Username dan Password nya, maka Anda perlu klik pada _Button_ “Go”.
 
@@ -675,7 +675,7 @@ Di halaman utamanya, coba Anda gulirkan (_scroll_) Mouse Anda ke bawah. Harusnya
 
 Sedangkan, jika Anda menemukan nya, maka Pesan Galat nya kurang lebih seperti berikut di bawah ini:
 
-![Error Cache pada phpMyAdmin](Error_TempDir_phpMyAdmin.png)
+![Error Cache pada phpMyAdmin](Error_TempDir_phpMyAdmin.jpg)
 
 #### **4. (Opsional) Melakukan Konfigurasi pada phpMyAdmin tambahan (terutama untuk mengatasi masalah tersebut)**
 Maka dari itu, kita lakukan lagi konfigurasi nya, pastikan berkas config.inc.php tadi masih/sudah di buka menggunakan editor teks/kode favorit Anda. Setelah itu, cari teks `/* Server parameters */` di dalam Editor, bisa kamu tekan tombol <kbd>CTRL</kbd> + <kbd>F</kbd> untuk mencari teks nya.
@@ -726,15 +726,15 @@ Dan, kamu klik pada tautan (_link_) yang berteks “Find out why”.
 
 Seperti pada cuplikan berikut:
 
-![Langkah 1: Klik pada Tautan &ldquo;Find out why&ldquo;>](Configuring_phpMyAdmin_Storage_1.png)
+![Langkah 1: Klik pada Tautan &ldquo;Find out why&ldquo;>](Configuring_phpMyAdmin_Storage_1.jpg)
 
 Lalu, klik pada tautan “Create”, untuk membuat Database ‘phpmyadmin’ seperti pada Cuplikan Layar berikut:
 
-![Langkah 2: Klik pada Tautan &ldquo;Create&ldquo;](Configuring_phpMyAdmin_Storage_2.png)
+![Langkah 2: Klik pada Tautan &ldquo;Create&ldquo;](Configuring_phpMyAdmin_Storage_2.jpg)
 
 Jika Anda sudah berhasil membuat basis data nya, maka harusnya status nya dalam “OK” semua, seperti Cuplikan Layar berikut:
 
-![Langkah 3: Pastikan Status nya &ldquo;OK&ldquo; semua>](Configuring_phpMyAdmin_Storage_3.png)
+![Langkah 3: Pastikan Status nya &ldquo;OK&ldquo; semua>](Configuring_phpMyAdmin_Storage_3.jpg)
 
 Selain itu, di sebelah kiri nanti, akan ada basis data yang bernama `phpmyadmin` yang barusan di buat tadi. Ketika Anda ke halaman utamanya, dan Anda _scroll_ ke bawah lagi, harusnya sudah tidak muncul Pesan Peringatan ataupun Pesan Galat lagi, karena sudah kita konfigurasikan sebelumnya.
 

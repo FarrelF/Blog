@@ -15,7 +15,7 @@ Tags:
     - Penyimpanan S3
     - Penyimpanan berbasis Objek
 readMore: true
-Image: IDCloudHost_Logo.png
+Image: IDCloudHost_Logo.jpg
 DescriptionSEO: Apakah Anda ingin menghemat konsumsi Bandwidth Server, sehingga Web/Blog Anda bisa bertahan? Kalo iya, silahkan baca artikel ini!
 Description: >
     Beberapa bulan kemarin, saya sudah berencana kalau saya akan menggunakan Penyimpanan yang menggunakan Protokol S3 ini sebagai tempat penyimpanan untuk Blog ini.
@@ -66,7 +66,7 @@ Berbeda daripada Layanan IDCloudHost pada umumnya (seperti Domain, Hosting, VPS,
 
 Ya, ini bukan seperti biasanya yang menggunakan laman [My IDCloudHost](https://my.idcloudhost.com) untuk segala urusan layanan yang ada dan layanan fleksibel tadi tidak menggunakan laman ini. Dengan kata lain, Anda harus buat akun nya di Konsol IDCloudHost itu tadi agar dapat menikmati nya.
 
-![Penampilan Halaman Login Konsol IDCloudHost. Abaikan Ikon Kunci yang tampil di kotak "Email", karena itu dari Pengelola Kata Sandi yang saya gunakan, yakni "KeePassXC"](Penampilan_Login_IDCloudHost_Console.png) ![Penampilan Konsol IDCloudHost setelah Login](Penampilan_IDCloudHost_Console.png)
+![Penampilan Halaman Login Konsol IDCloudHost. Abaikan Ikon Kunci yang tampil di kotak "Email", karena itu dari Pengelola Kata Sandi yang saya gunakan, yakni "KeePassXC"](Penampilan_Login_IDCloudHost_Console.jpg) ![Penampilan Konsol IDCloudHost setelah Login](Penampilan_IDCloudHost_Console.jpg)
 
 Saya daftar akun nya pada akhir Mei yang lalu dan saya melakukan pengisian ulang (top-up) pada tanggal 9 Juni yang lalu, itu semua terjadi saat IDCloudHost memberikan Kredit sebesar Rp. 100.000,00 secara gratis jika saya melakukan _top-up_ yang minimalnya Rp. 50.000,00 dan saya isi ulang sebesar minimalnya saja.
 
@@ -78,7 +78,7 @@ Karena saya menggunakan LinkAja, maka saya pilih menggunakan Kode QRIS dari Shop
 
 Setelah itu saya klik bayar dan masukkan nomor PIN nya, lalu pembayaran akan diproses dan diselesaikan secara otomatis tanpa harus verifikasi lagi setelah saya memasukkan kode PIN nya tadi. Sungguh mudah, bukan?
 
-![Bukti Pembayaran Isi Ulang di IDCloudHost](Bukti_Pembayaran.png) ![Bukti Pembayaran di LinkAja](Bukti_Pembayaran_LinkAja.jpg)
+![Bukti Pembayaran Isi Ulang di IDCloudHost](Bukti_Pembayaran.jpg) ![Bukti Pembayaran di LinkAja](Bukti_Pembayaran_LinkAja.jpg)
 
 Tentu saja tidak ada biaya tambahan lain nya saat pengisian selain PPn 10%, yang artinya saya cuma membayar sebesar Rp. 55.000,00 saja kemarin. Setelah mengisi ulang saldo, barulah secara otomatis saya mendapatkan kredit gratis sebesar Rp. 100.000,00 dan saya langsung berlangganan _Object Storage_ nya pada saat itu juga.
 
@@ -89,11 +89,11 @@ Untuk membuat bucket nya sendiri cukup mudah, Anda tinggal klik pada "Storage" l
 
 Pembuatan yang mudah dan tanpa halangan, itulah yang saya alami saat membuat Bucket S3 di IDCloudHost, bucket S3 pertama yang saya buat bernama `farrelf` pada saat itu. Cuplikan di bawah ini hanyalah gambaran penampilan nya saja, karena pada saat itu tampilan nya benar-benar kosong dan belum ada satupun Bucket S3 nya saat itu.
 
-![Penampilan saat Bucket S3 dibuat dan disebelah kiri adalah Daftar Bucket S3 yang sudah dibuat](Penampilan_saat_Bucket_S3_ingin_dibuat.png)
+![Penampilan saat Bucket S3 dibuat dan disebelah kiri adalah Daftar Bucket S3 yang sudah dibuat](Penampilan_saat_Bucket_S3_ingin_dibuat.jpg)
 
 Setelah dibuat dan bucket tersebut dipilih, maka akan tampil sebuah informasi untuk Bucket S3 yang cukup minim, seperti pada cuplikan berikut:
 
-![Informasi mengenai Bucket S3 yang dipilih](Penampilan_Bucket_S3_yang_dipilih.png)
+![Informasi mengenai Bucket S3 yang dipilih](Penampilan_Bucket_S3_yang_dipilih.jpg)
 
 Kenapa minim? Karena disitu tidak ada Informasi tentang _Endpoint_, Alamat URL Alternatif, Informasi mengenai _Region_, dan Informasi yang diperlukan lainnya, saya baru menyadari semua itu saat menggunakan nya yang saya bahas lebih lanjut lagi.
 
@@ -108,7 +108,7 @@ Karena di IDCloudHost belum ada fitur yang berguna untuk mengelola sekaligus men
 
 Kalau di Windows itu ada sebuah Perangkat Lunak yang bernama ["Cyberduck"](https://cyberduck.io/), berfungsi sebagai pengelola berkas dari jarak jauh dan mendukung protokol S3 juga, serta merupakan FLOSS (Free/Libre Open Source Software). Saya tahu ini dari [Laman Dokumentasi nya](https://idcloudhost.com/panduan/cara-akses-object-storage-idcloudhost-menggunakan-cyberduck/).
 
-![Penampilan Cyberduck di Windows 10](Penampilan_Cyberduck.png)
+![Penampilan Cyberduck di Windows 10](Penampilan_Cyberduck.jpg)
 
 Pada saat menggunakan Cyberduck dan saya klik kanan pada salah satu objek/berkas, lalu saya arahkan kursor nya ke "Copy URL", di situlah saya langsung menyadari kalau Bucket S3 itu bisa diakses melalui URL Alternatif, yaitu `https://nama-bucket.is3.cloudhost.id` dan sayangnya di Panel/Konsol nya belum ada Informasi seperti itu, padahal menurut saya lebih enak cara mengakses seperti ini, lebih bersih aja daripada `https://is3.cloudhost.id/nama-bucket`.
 
@@ -162,7 +162,7 @@ Karena suatu alasan, maka saya berinisiatif mencoba untuk menghapus sebuah Bucke
 
 Ada konfirmasi yang muncul sebelum menghapusnya, setelah menghapus nya, Bucket S3 tersebut hilang dari panel. Tapi, saat saya buat lagi dengan nama yang sama, malah muncul kalau Bucket tersebut sudah ada, padahal sudah saya hapus dan di Panel sudah tidak ada Bucket tersebut.
 
-![Kira-kira, pesan kesalahan nya seperti ini](Penampilan_Error_saat_membuat_Bucket_S3_farrelf.png)
+![Kira-kira, pesan kesalahan nya seperti ini](Penampilan_Error_saat_membuat_Bucket_S3_farrelf.jpg)
 
 Setelah saya akses Bucket nya melalui Peramban Web, masih bisa diakses dong, dengan menampilkan pesan `AccessDenied`, lalu saya tambahkan salah satu nama file yang ingin diakses pada URL nya, seperti `index.html` dan benar saja bahwa file tersebut masih bisa diakses, itu tandanya kalau Bucket tersebut benar-benar masih ada.
 
@@ -207,9 +207,9 @@ Jika Anda ingin melihat percakapan nya seperti apa di tiket dukungan, silahkan A
 
 **Catatan:** Saya sarankan untuk perbesar cuplikan nya dengan mengklik gambarnya dan gambar yang saya sisipkan bersifat urut berdasarkan angka yang tampil di keterangan gambar/_caption_.
 
-![1](Ticket_1.png) ![2](Ticket_2.png) ![3](Ticket_3.png) ![4](Ticket_4.png) ![5](Ticket_5.png) ![6](Ticket_6.png)
+![1](Ticket_1.jpg) ![2](Ticket_2.jpg) ![3](Ticket_3.jpg) ![4](Ticket_4.jpg) ![5](Ticket_5.jpg) ![6](Ticket_6.jpg)
 
-Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.png" >}}klik disini{{< / a-file >}} (Ukuran Berkas nya sebesar 1,60 MB dan Resolusinya sebesar 842x5254).
+Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.jpg" >}}klik disini{{< / a-file >}} (Ukuran Berkas nya sebesar 1,60 MB dan Resolusinya sebesar 842x5254).
 
 Bagaimana menurutmu mengenai tiket dukungan ini? Kalau menurut saya, respon mereka terlalu lambat dan mereka terlalu sering "melempar" pesan ke "tim terkait", mungkin saja mereka ini adalah beda tim divisi atau apalah saya juga gak tahu.
 
