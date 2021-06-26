@@ -32,18 +32,30 @@ Bahkan Hosting untuk Web Statis seperti Netlify, GitHub Pages, Render, dan Surge
 
 Nah, saya berikan solusi bagi yang ingin menghemat Konsumsi _Bandwidth_ ketika Web/Blog Anda 'dihantam' oleh pengunjung dan bot selama beberapa kali yang mungkin bisa Anda implementasikan. Tentu saja solusi nya tidak cukup dilakukan salah satu saja, melainkan 2 atau sampai 4 solusi harus kamu lakukan demi menghemat konsumsi _Bandwidth_ Server/Hosting.
 
-Berikut dibawah ini adalah solusi-solusi yang bisa Anda terapkan:
+## Sanggahan
+Perlu Anda pahami bahwa Artikel ini hanyalah membahas bagaimana caranya untuk menghemat Kuota _Bandwidth_ Server, bukan cara mengoptimalkan sebuah Web/Blog ataupun cara menghemat Kuota Internet Pengunjung, karena itu merupakan hal-hal yang sangat berbeda.
+
+Namun dengan ini, Anda juga bisa mengoptimalkan Web/Blog Anda dan bahkan menghemat kuota Internet Pengunjung Anda (terutama jika pengunjung tersebut setia terhadap Web/Blog Anda), atau malah justru sebaliknya.
+
+Segala resiko yang ada setelah menerapkan salah satu atau lebih dari satu solusi pada Web/Blog Anda, silahkan Anda tanggung sendiri. Serta dengan menerapkan solusi-solusi di bawah ini, maka saya anggap bahwa Anda telah memahami solusi yang saya bahas serta resiko yang Anda terima nantinya.
+
+Jadi, mohon perhatian dan pengertian nya dari pembaca sekalian 🙂
+
+Terima kasih atas perhatian dan pengertian nya 😊
+
+## Solusi-solusi untuk menghemat _Bandwidth_ Server
+Berikut di bawah ini adalah solusi-solusi yang bisa Anda terapkan:
 
 ### Solusi ke-1: Lakukan kompresi terhadap berkas-berkas statik {#solusi-ke1}
 Melakukan Kompresi terhadap berkas-berkas statik (seperti berkas JS, CSS, Gambar, dll) sebelum digunakan oleh Web/Blog Anda itu **Wajib Hukumnya!**
 
-Ya kali, kamu ingin mengunggah dan menyebarkan serta 'menyajikan' Berkas Gambar yang besar nya beberapa puluhan bahkan ratusan Megabita kedalam Web/Blog kamu kepada pengunjung, kalo saya jadi pengunjungnya, saya malah langsung kabur alih-alih mengunjunginya. 
+Ya kali, kamu ingin mengunggah dan menyebarkan serta 'menyajikan' Berkas Gambar yang besar nya beberapa puluhan bahkan ratusan Megabita kedalam Web/Blog kamu kepada pengunjung, kalo saya jadi pengunjungnya, saya malah langsung kabur alih-alih mengunjunginya.
 
 Selain membuang-buang kuota, hal tersebut akan membuat Konsumsi Sumber Daya di Perangkat meningkat drastis karena Peramban Web akan memproses berkas-berkas statik nya.
 
-Sudah banyak sekali Perangkat Lunak atau Situs Web yang memiliki fitur untuk mengoptimalkan berkas-berkas statik, salah satunya meng-kompresi berkas gambar tanpa harus menurunkan kualitas gambar secara kasat mata manusia, sebut saja Situs Web seperti [TinyJPG](https://tinyjpg.com/) atau [TinyPNG](https://tinypng.com/) yang dapat meng-kompresi berkas gambar PNG aau JPG, ini bisa Anda lakukan sebelum mengunggah suatu berkas gambar kedalam Web/Blog Anda.
+Sudah banyak sekali Perangkat Lunak atau Situs Web yang memiliki fitur untuk mengoptimalkan berkas-berkas statik, salah satunya meng-kompresi berkas gambar tanpa harus menurunkan kualitas gambar secara kasat mata manusia, sebut saja Situs Web seperti [TinyJPG](https://tinyjpg.com/) atau [TinyPNG](https://tinypng.com/) yang dapat meng-kompresi berkas gambar PNG aau JPG, ini bisa Anda lakukan sebelum mengunggah suatu berkas gambar ke dalam Web/Blog Anda.
 
-Atau, untuk mengoptimalkan berkas-berkas gambar di komputer/laptop tanpa harus Upload ke Web/Blog dulu, Anda bisa gunakan perangkat lunak seperti [Caesium](https://saerasoft.com/caesium)\*, [Imagine](https://github.com/meowtec/Imagine), [FileOptimizer](https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer)\* atau [ImageOptim](https://imageoptim.com/mac) untuk pengguna Apple macOS 10.9+.
+Atau, untuk mengoptimalkan berkas-berkas gambar di Komputer/Laptop Anda tanpa harus Unggah ke Web/Blog dulu, Anda bisa gunakan perangkat lunak seperti [Caesium](https://saerasoft.com/caesium)\*, [Imagine](https://github.com/meowtec/Imagine), [FileOptimizer](https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer)\* atau [ImageOptim](https://imageoptim.com/mac) untuk pengguna Apple macOS 10.9+.
 
 **\*Catatan:** Dua perangkat lunak yang ditandai bintang itu hanya mendukung Sistem Operasi Windows saja.
 
@@ -52,6 +64,8 @@ Jika Anda menggunakan WordPress\.org (Hos Mandiri/_Self-hosted_), harusnya sudah
 Atau, jika Anda menggunakan SSG (_Static-site Generator_), terutama Hugo, maka seharusnya ada fitur ["Image Processing"](https://gohugo.io/content-management/image-processing/) untuk memproses berkas Gambar dan ["Hugo Pipes"](https://gohugo.io/hugo-pipes/) untuk memproses berkas-berkas JS, CSS dan SASS yang bisa diimplementasikan kedalam Tema.
 
 Jadi, itu bergantung pada tema yang Anda gunakan, jika temanya mengimplementasikan kedua fitur tersebut dengan benar dan optimal, maka beruntunglah Anda! Tapi, bagaimana jika tidak? Implementasikan lalu optimalkan saja sendiri dan jangan malas!
+
+Selebihnya masih banyak cara lain yang bisa Anda lakukan untuk mengecilkan ukuran berkas-berkas statik, sebelum akhirnya digunakan untuk Produksi.
 
 ### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#solusi-ke2}
 ![Contoh Header Cache-Control untuk sebuah Berkas Gambar (ada di anak panah)](Contoh_Header_Cache-Control.png)
@@ -94,7 +108,7 @@ Sedangkan untuk mengatur _Header_ `Cache-Control` dengan benar, beserta dengan t
 ### Solusi ke-3: Memuat berkas-berkas statik (atau bahkan Web/Blog) dari Server lain {#solusi-ke3}
 Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hos kan Berkas-berkas statik lain nya di Server yang berbeda. Contohnya?
 
-Anda mempunyai Blog yang disimpan di Server A yang mempunyai kuota _Bandwidth_ sebesar 100 GB/Bulan, untuk menyiasati/mengakali nya, Anda bisa menyimpan berkas-berkas statik lain nya di Server B yang batasan _Bandwidth_ nya sangat besar (sampai dikira tidak terbatas). 
+Anda mempunyai Blog yang disimpan di Server A yang mempunyai kuota _Bandwidth_ sebesar 100 GB/Bulan, untuk menyiasati/mengakali nya, Anda bisa menyimpan berkas-berkas statik lain nya di Server B yang batasan _Bandwidth_ nya sangat besar (sampai dikira tidak terbatas).
 
 Sehingga peramban web milik pengunjung akan memuat berkas-berkas statik nya melalui Server B jika mengunjungi Situs Web/Blog Anda daripada Server A dan akan menghemat konsumsi _Bandwidth_ pada Server A, karena pada dasarnya Server A tidak digunakan untuk memuat berkas-berkas statik.
 
@@ -120,9 +134,9 @@ Kenapa? Karena jika Anda membiarkan gambar-gambarnya diakses dari Web/Blog lain,
 
 Jika Anda bertanya bagaimana cara untuk mencegah hal seperti ini, maka jawaban nya adalah Blokir Akses nya jika Berkas tersebut tidak merujuk dari Web/Blog Anda ketika mengakses nya. Contoh: Buatlah berkas-berkas yang ada di `website-a.com` hanya bisa diakses dari domain `website-a.com` saja, bukan dari domain `website-b.com`, dsb.
 
-Jika Anda menggunakan CDN dari Cloudflare, maka Anda bisa mengaktifkan fitur **Hotlink Protection** yang terletak pada bagian **Scrap Shield** di dalam [Dasbor Cloudflare Anda](https://dash.cloudflare.com).
+Jika Anda menggunakan CDN dari Cloudflare, maka Anda bisa mengaktifkan fitur **Hotlink Protection** yang terletak pada bagian **Scrap Shield** di dalam [Dasbor Cloudflare Anda](https://dash.cloudflare.com). Atau, jika Anda menggunakan Layanan CDN, maka Anda perlu melakukan nya melalui Panel yang tersedia dari Penyedia CDN nya.
 
-Jika Anda menggunakan Layanan _Shared Hosting_, maka di dalam kontrol panel yang digunakan oleh pihak Hosting (seperti: cPanel, DirectAdmin, dll) harusnya sudah ada fitur Proteksi dari Praktik _Hotlinking_ secara bawaan, Anda bisa gunakan itu jika ada.
+Jika Anda menggunakan Layanan _Shared Hosting_ dan tidak menggunakan CDN sama sekali, maka di dalam kontrol panel yang digunakan oleh pihak Hosting (seperti: cPanel, DirectAdmin, dll) harusnya sudah ada fitur Proteksi dari Praktik _Hotlinking_ secara bawaan, Anda bisa gunakan itu jika ada.
 
 Atau, Anda bisa kunjungi referensi berikut jika Anda ingin menyetelnya secara manual:
 
@@ -205,6 +219,17 @@ Bahkan bisa terjadi sebaliknya, yakni Blog/Web menjadi lambat ketika diakses, at
 
 Jadi, jika Anda ingin menerapkan salah satu atau lebih dari solusi di atas, maka segala resiko harus Anda tanggung sendiri.
 
+### Pertanyaan ke-8: Saya gak mau ribet kayak solusi-solusi diatas dan gak mau bayar juga, terus gimana solusi gratis yang paling mudah dan paling instan nya, tentunya bebas ribet? {#pertanyaan-ke8}
+**Jawab:** Menggunakan CDN dari Cloudflare yang Gratisan bisa cukup membantu untuk kasus seperti itu. 
+
+Atau jika bisa, maka Anda bisa terapkan [solusi ke-3](#solusi-ke3) untuk Web/Blog Anda, contoh paling mudah gunakan [Google Fonts](https://fonts.google.com) sebagai penyedia Fonta atau simpan berkas gambar di Penyedia Hosting untuk Gambar, seperti [Imgur](https://imgur.com), [Postimages](https://postimages.org/id/) atau [ImgBB](https://imgbb.com/).
+
+Tapi kalo kamu masih menganggap nya ribet, maka solusinya adalah dengan menutup akses pangunjung ke Web/Blog Anda, entah itu dengan mengosongkan Web/Blog Anda atau Memblokir akses dari Pengunjung melalui _Firewall_ atau menghapus/menutup Web/Blog Anda atau lain nya. 
+
+Dengan ini, Kuota _Bandwidth_ akan bisa diperhemat, bahkan Kuotanya malah jadi tidak terpakai sama sekali.
+
+Solusinya gak ribet, instan dan sangat mudah untuk dilakukan bagi semua orang, tanpa perlu mengeluarkan biaya sedikitpun.
+
 ## Penutup
 Ya sudah, artikel nya saya cukupkan dulu saja disini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
 
@@ -217,7 +242,7 @@ Jika adanya kesalahan dan kekeliruan dari saya, atau jika Anda memiliki pertanya
 Terima kasih atas perhatian nya 😊
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 

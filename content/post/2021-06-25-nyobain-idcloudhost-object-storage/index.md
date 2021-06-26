@@ -209,7 +209,7 @@ Jika Anda ingin melihat percakapan nya seperti apa di tiket dukungan, silahkan A
 
 ![1](Ticket_1.jpg) ![2](Ticket_2.jpg) ![3](Ticket_3.jpg) ![4](Ticket_4.jpg) ![5](Ticket_5.jpg) ![6](Ticket_6.jpg)
 
-Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.jpg" >}}klik disini{{< / a-file >}} (Ukuran Berkas nya sebesar 1,60 MB dan Resolusinya sebesar 842x5254).
+Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.jpg" >}}klik disini{{< / a-file >}} (Ukuran Berkas nya sebesar 380 KB dan Resolusinya sebesar 842x5254).
 
 Bagaimana menurutmu mengenai tiket dukungan ini? Kalau menurut saya, respon mereka terlalu lambat dan mereka terlalu sering "melempar" pesan ke "tim terkait", mungkin saja mereka ini adalah beda tim divisi atau apalah saya juga gak tahu.
 
@@ -228,12 +228,18 @@ Belum lagi masalah penghapusan Bucket S3 melalui Panel yang tidak dilakukan seca
 
 Saya lebih menyarankan Anda untuk belajar menggunakan S3 dari AWS nya secara langsung untuk saat ini, di sana dokumentasinya sangatlah lengkap dan komprehensif, sehingga apa yang Anda eksekusikan di sana maka akan sesuai dengan apa yang Anda pelajari di sana.
 
-Tapi jika Anda ingin belajar dengan menggunakan S3 dari IDCloudHost, ya silahkan dicoba saja.
+Tapi jika Anda ingin belajar dengan menggunakan S3 dari IDCloudHost, ya silahkan Anda coba sendiri.
 
 ### Untuk Hosting Web Statis
 Untuk Hosting Web Statis, saya belum terlalu sarankan juga karena fiturnya memang belum ada hingga saat ini, sehingga berkas `index.html` tidak terbaca dengan baik, kecuali jika kamu sanggup mengakali nya saat menggunakan CDN (seperti yang saya lakukan) atau kamu rela kalau ada `index.html` di URL setiap mengakses Blog/Web kamu, ya bolehlah dicoba.
 
 Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting Web Statis Anda kedalam Bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrel.franqois.id/bunnycdn). (Pada praktiknya, Anda tetap harus menggunakan CDN sih, karena pada dasarnya S3 memang tidak didesain untuk digunakan sebagai Hosting)
+
+{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
+Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
+
+Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.
+{{< / spoiler >}}
 
 Menggunakan Cloudflare Gratisan? Mungkin bisa Anda coba, tapi yang jelas itu perlu mengkaitkan terlebih dahulu domain nya dengan CNAME ke Bucket S3 nya.
 
@@ -250,17 +256,17 @@ Jadi, jika Anda ingin menggunakan _Object Storage_ dari IDCloudHost ini, saya sa
 
 ## Pertanyaan yang (mungkin) sering ditanyakan
 ### Pertanyaan ke-1: Dimanakah Server _Object Storage_ IDCloudHost? {#pertanyaan-ke1}
-Jawab: Ada di Jakarta, Indonesia. Saya tidak tahu di mana persisnya, jika Anda sangat ingin tahu letak servernya, mungkin bisa Anda tanyakan sendiri ke pihak IDCloudHost nya.
+**Jawab:** Ada di Jakarta, Indonesia. Saya tidak tahu di mana persisnya, jika Anda sangat ingin tahu letak servernya, mungkin bisa Anda tanyakan sendiri ke pihak IDCloudHost nya.
 
 ### Pertanyaan ke-2: Jika saya cuma mengunggah berkas/file kurang dari 1 GB, apakah saya akan dikenakan Rp. 507/Bulan juga? {#pertanyaan-ke2}
-Jawab: Tidak, Anda hanya dikenakan sesuai dengan besaran ukuran berkas yang Anda unggah dan biayanya tidak langsung dibulatkan ke Rp. 507/Bulan saat Anda mengunggah berkas-berkas dengan ukuran kurang dari 1 GB.
+**Jawab:** Tidak, Anda hanya dikenakan sesuai dengan besaran ukuran berkas yang Anda unggah dan biayanya tidak langsung dibulatkan ke Rp. 507/Bulan saat Anda mengunggah berkas-berkas dengan ukuran kurang dari 1 GB.
 
 Contohnya Blog Statis ini, saya Unggah semuanya ke dalam Bucket S3 `farrelfstaticblog` yang tidak mencapai 1 GB, tapi saya cuma perlu membayar sekitar Rp. 13,00/bulan saja.
 
 Saldo saya berkurang cukup banyak karena saya seringkali melakukan mengunggah banyak berkas dan menghapusnya lagi dengan tujuan mempelajari Protokol S3 ini.
 
 ### Pertanyaan ke-3: Apa alasan kamu untuk menggunakan Layanan ini? {#pertanyaan-ke3}
-Jawab: Alasan nya yakni cuma karena kemudahan Sinkronisasi dan biayanya fleksibel untuk kebutuhan saya.
+**Jawab:** Alasan nya yakni cuma karena kemudahan Sinkronisasi dan biayanya fleksibel untuk kebutuhan saya.
 
 Kebutuhan nya apa? Kebutuhan nya cuma menyimpan Blog Statis ini. Kenapa "kemudahan Sinkronisasi"? Karena Blog ini Statis, agar bisa terus diperbarui, maka diperlukan untuk melakukan Sinkronisasi.
 
@@ -291,27 +297,27 @@ Nah, karena menggunakan Protokol S3, jadi perubahan pada berkas itu dikenali ber
 Sehingga ini akan mempermudah saya untuk melakukan Sinkronisasi Blog Statis ini tanpa perlu membuat langkah yang banyak seperti sebelumnya pada GitHub Actions. Jadi, berkat ini, saya hanya perlu Rclone saja untuk Sinkronisasi.
 
 ### Pertanyaan ke-4: Kenapa Anda malah memilih IDCloudHost daripada Layanan serupa dari Scaleway dan Wasabi misalnya? {#pertanyaan-ke4}
-Jawab: Untuk Scaleway itu karena saya belum punya kartu kredit, meskipun gratis Penyimpanan sebesar 75 GB dan Kuota _Bandwidth_ keluar ke Internet sebesar 75 GB/Bulan, tapi untuk mendaftar nya saya harus menggunakan Kartu Kredit yang gunanya untuk Validasi.
+**Jawab:** Untuk Scaleway itu karena saya belum punya kartu kredit, meskipun gratis Penyimpanan sebesar 75 GB dan Kuota _Bandwidth_ keluar ke Internet sebesar 75 GB/Bulan, tapi untuk mendaftar nya saya harus menggunakan Kartu Kredit yang gunanya untuk Validasi.
 
 Sedangkan untuk Wasabi, disana tidak ada tingkat Gratis nya, melainkan cuma masa percobaan selama 30 Hari saja dan pembayaran nya pun cuma bisa dilakukan dengan menggunakan [Kartu Kredit saja](https://wasabi-support.zendesk.com/hc/en-us/articles/115001407112-Does-Wasabi-accept-payment-via-methods-other-than-a-credit-card-).
 
 Selain itu, saya lihat kalau Wasabi sendiri tidak memiliki fitur Hosting Web Statis, sehingga buat saya yang menyimpan Blog Statis ini akan merasa sama saja.
 
-Saya pilih IDCloudHost hanya karena pembayaran yang mudah dan beragam dan layanan dukungan nya yang berbahasa Indonesia, itu saja sih. 
+Saya pilih IDCloudHost hanya karena pembayaran yang mudah dan beragam dan layanan dukungan nya yang berbahasa Indonesia, itu saja sih.
 
-Saya juga berencana ingin migrasi ke Penyedia lain nya, bahkan mungkin saja saya akan migrasi ke AWS S3 untuk mempelajari Protokol S3 ini dengan mencoba tingkat Gratis (Free Tier) nya.
+Saya juga berencana ingin migrasi ke Penyedia lain nya, bahkan mungkin saja saya akan migrasi ke AWS S3 untuk mempelajari Protokol S3 ini dengan mencoba [Tingkat Gratis (Free Tier) nya](https://aws.amazon.com/id/free/).
 
 Mungkin saya akan mempertimbangkan opsi Kartu Kredit Virtual untuk ini, namun jika Anda memiliki cara lain, Anda bisa komentar di kolom komentar atau Anda bisa [japri ke saya](/tentang).
 
 ### Pertanyaan ke-5: Server Penyimpanan nya ada di Indonesia, tapi PoP Bunny CDN belum ada di Indonesia, sedangkan targetnya Indonesia. Bukankah ini akan memperlambat Blog nya sendiri karena 'bolak-balik' seperti itu? {#pertanyaan-ke5}
-Jawab: Blog ini merupakan blog statis yang konten nya 'pasti', sehingga tidak perlu proses dinamis untuk menampilkan sebuah konten yang mempengaruhi sebuah kecepatan. 
+**Jawab:** Blog ini merupakan blog statis yang konten nya 'pasti', sehingga tidak perlu proses dinamis untuk menampilkan sebuah konten yang mempengaruhi sebuah kecepatan.
 
 Jadi, seharusnya secara kecepatan juga tidak ada perbedaan yang berarti. Untuk berkas-berkas statik nya sendiri, seperti Berkas-berkas CSS, JS dan Gambar, itu sudah dibantu oleh fitur ["Perma-Cache" dari Bunny CDN](https://bunny.net/cdn/perma-cache) agar berkas tersebut tidak lagi ditarik oleh Server CDN dari Penyimpanan S3 nya lagi setelah dikunjungi balik.
 
 Apalagi jika berkas tersebut disimpan ke dalam "Edge Storage" yang telah direplikasi, sehingga akses ke berkas-berkas statik akan menjadi jauh lebih cepat, tanpa menyentuh Server Aslinya sama sekali.
 
 ### Pertanyaan ke-6: Apakah semua API S3 yang saya pelajari dari Dokumentasi AWS bisa saya gunakan di IDCloudHost? {#pertanyaan-ke6}
-Jawab: Belum tentu, sejak ini merupakan "S3-compatible" belum tentu semua fitur dari AWS S3 bisa diaplikasikan ke dalam S3 nya IDCloudHost. 
+**Jawab:** Belum tentu, sejak ini merupakan "S3-compatible" belum tentu semua fitur dari AWS S3 bisa diaplikasikan ke dalam S3 nya IDCloudHost.
 
 Tapi jika Anda sudah berkecimpung cukup lama dengan protokol S3 ini dan ingin mempelajari API S3 pada IDCloudHost yang bisa digunakan, ya silahkan Anda coba saja sendiri.
 
@@ -320,11 +326,11 @@ Ya sudah, itu aja dulu pembahasan pada artikel kali ini. Saat ini saya belum bis
 
 Jadi, jika Artikel ini dirasa kurang lengkap bagi kebutuhan Anda. Mohon maaf juga jika Artikel ini kesan nya seperti menjelekkan layanan _Object Storage_ dari IDCloudHost, saya tidak bermaksud demikian, saya cuma membahas pengalaman saya selama menggunakan Penyimpanan S3 dari IDCloudHost ini.
 
-Selama menggunakan nya, saya menemukan cukup banyak kekurangan yang harusnya diperbarui. Mungkin semua kekurangan ini dikarenakan _Object Storage_ ini masih sangatlah baru, belum lama ada juga, tapi semoga saja layanan ini terus berkembang maju, salah satu nya dengan mampu menerima banyak masukkan dari pengguna nya dari waktu ke waktu.
+Selama menggunakan nya, saya menemukan cukup banyak kekurangan yang harusnya diperbarui. Mungkin semua kekurangan ini dikarenakan _Object Storage_ ini masih sangatlah baru, belum lama ada juga, tapi semoga saja layanan ini bisa terus berkembang maju, salah satu nya dengan mampu menerima banyak masukkan dari pengguna nya dari waktu ke waktu.
 
-Mengingat IDCloudHost mendapatkan [suntikkan dana sebesar US$ 5 juta](https://industri.kontan.co.id/news/raih-pendanaan-us-5-juta-idcloudhost-siap-sasar-pasar-asia) dari Init 6 juga (yang CEO nya adalah Bapak Achmad Zaky, salah satu Pendiri dan mantan CEO Bukalapak) belum lama ini, maka sudah seharusnya kalau Layanan ini merupakan layanan yang serius, termasuk tapi tidak terbatas pada Layanan Fleksibel (Layanan _Cloud_) lain nya, seperti _Cloud VPS_ dan _Network Resources_, setidaknya untuk pasar Asia.
+Mengingat IDCloudHost mendapatkan [suntikkan dana sebesar US$ 5 juta](https://industri.kontan.co.id/news/raih-pendanaan-us-5-juta-idcloudhost-siap-sasar-pasar-asia) dari Init 6 (yang CEO nya adalah Bapak Achmad Zaky, salah satu Pendiri dan mantan CEO Bukalapak) belum lama ini, maka sudah seharusnya kalau Layanan ini merupakan layanan yang serius, termasuk tapi tidak terbatas pada Layanan Fleksibel (Layanan _Cloud_) lain nya, seperti _Cloud VPS_ dan _Network Resources_, setidaknya untuk pasar Asia.
 
-Jikapun adanya kesalahan pada penulisan Artikel ini, silahkan Anda berkomentar melalui kolom komentar yang telah disediakan.
+Jikapun adanya kesalahan pada penulisan Artikel ini, silahkan berikan masukkan terbaik Anda dengan berkomentar melalui kolom komentar yang telah disediakan. Atau, Anda juga bisa [kirimi pesan kepada saya secara pribadi](/tentang) jika Anda lebih suka melalui 'jalur pribadi'.
 
 Semoga layanan ini bisa lebih berkembang lagi dengan baik kedepan nya dan Terima kasih bagi Anda yang telah membaca Artikel ini sampai habis 😊
 
@@ -337,6 +343,6 @@ Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-06-25-nyobain-idcloudhost-object-storage
 ```
 
-IDCloudHost dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari PT. Cloud Hosting Indonesia, sehingga nama merek dan logo tersebut bukanlah milik saya pribadi. 
+IDCloudHost dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "PT Cloud Hosting Indonesia", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi. 
 
 Saya hanya memberikan latar warna putih pada logo IDCloudHost agar logo tersebut bisa dilihat dalam Mode apapun (baik dalam Mode Gelap atau Terang).
