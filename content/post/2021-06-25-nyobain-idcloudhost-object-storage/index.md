@@ -1,6 +1,16 @@
 ---
-Title: Nyobain Penyimpanan S3 dari IDCloudHost (IS3)
-Slug: nyobain-penyimpanan-s3-dari-idcloudhost
+Title: Nyobain Object Storage dari IDCloudHost (IS3)
+Slug: nyobain-object-storage-dari-idcloudhost
+Aliases:
+    - /is3/
+    - /idcloudhost-s3/
+    - /idcloudhost-object-storage/
+    - /nyobain-idcloudhost-object-storage/
+    - /nyobain-idcloudhost-object-storage-is3/
+    - /nyobain-penyimpanan-s3-dari-idcloudhost/
+    - /nyobain-penyimpanan-s3-dari-idcloudhost-is3/
+    - /nyobain-s3-dari-idcloudhost/
+    - /nyobain-object-storage-s3-dari-idcloudhost/
 Author: Farrel Franqois
 Categories: 
     - Web dan Blog
@@ -32,9 +42,9 @@ Description: >
 ## Pembuka
 Setelah berbulan-bulan saya menggunakan FTP sebagai Protokol nya, kini saya menggunakan S3 sebagai Protokol Penyimpanan nya, yang tentunya untuk blog ini.
 
-Karena sampai artikel ini ditulis, Bunny CDN masih belum merilis layanan penyimpanan yang menggunakan Protokol S3, masih menggunakan FTP hingga sekarang, akhirnya saya pindah ke IDCloudHost. 
+Karena sampai artikel ini ditulis, Bunny CDN masih belum merilis layanan penyimpanan yang menggunakan Protokol S3, masih menggunakan FTP hingga sekarang, akhirnya saya pindah ke IDCloudHost.
 
-Tentu saja saya tidak berlangganan hosting nya di sana, melainkan saya hanya berlangganan "Object Storage" nya saja yang menggunakan Protokol S3.
+Tentu saja saya tidak berlangganan hosting nya di sana, melainkan saya hanya berlangganan _Object Storage_ nya saja yang menggunakan Protokol S3.
 
 Di Artikel ini, saya akan bahas pengalaman saya saat menggunakan menggunakan layanan ini sekaligus penggunaan nya sebagai seorang yang pertama kali menyicipi Penyimpanan yang berbasis Objek ini.
 
@@ -42,7 +52,7 @@ Ya Anda benar, saya sendiri baru pertama kali menggunakan layanan penyimpanan de
 
 Oh iya, semua Cuplikan Layar yang ditampilkan itu merupakan cuplikan layar yang terbaru, bukan pada saat saya melakukan semua nya, karena saya tidak sempat mengambil cuplikan layar pada saat itu, jadi harap maklum yah 😊
 
-## Pengalaman Penyimpanan S3 di IDCloudHost
+## Pengalaman _Object Storage_ di IDCloudHost
 
 ### Saat pertama kali mengetahui nya
 Saya mengetahui layanan ini dari Tweet Bapak Achmad Zaky berikut, yang merupakan Pendiri sekaligus mantan CEO Bukalapak (yang sekarang merupakan Pendiri dari Init 6)
@@ -53,7 +63,7 @@ Saya mengetahui layanan ini dari Tweet Bapak Achmad Zaky berikut, yang merupakan
 
 Entahlah Tweet yang mana, tapi yang jelas saya tahu ini dari Tweet nya beliau yang dikutip oleh Bapak Teguh Aprianto.
 
-Sontak hal itu membuat saya langsung mengunjungi situs web resminya IDCloudHost dan melihat-lihat apa saja produk-produk atau layanan nya dan ternyata di sana ada produk/layanan Penyimpanan Berbasis Objek yang menggunakan Protokol S3 yang bernama IS3 (IDCloudHost S3).
+Sontak hal itu membuat saya langsung mengunjungi situs web resminya IDCloudHost dan melihat-lihat apa saja produk-produk atau layanan nya dan ternyata di sana ada produk/layanan Penyimpanan Berbasis Objek yang bernama IS3 (IDCloudHost S3).
 
 Harga yang ditawarkan sangat murah, yakni cuma sebesar Rp. 507,00/GB/Bulan saja, bahkan lebih murah daripada Layanan _Object Storage_ dari Indonesia lain nya yang pernah saya temui, seperti: [Biznet NEO Object Storage](https://www.biznetgio.com/product/neo-object-storage) dan [Kilat Storage](https://www.cloudkilat.com/layanan/kilat-storage).
 
@@ -82,8 +92,8 @@ Setelah itu saya klik bayar dan masukkan nomor PIN nya, lalu pembayaran akan dip
 
 Tentu saja tidak ada biaya tambahan lain nya saat pengisian selain PPn 10%, yang artinya saya cuma membayar sebesar Rp. 55.000,00 saja kemarin. Setelah mengisi ulang saldo, barulah secara otomatis saya mendapatkan kredit gratis sebesar Rp. 100.000,00 dan saya langsung berlangganan _Object Storage_ nya pada saat itu juga.
 
-### Saat pertama kali membuat Penyimpanan S3
-Agar dapat menggunakan layanan penyimpanan dengan Protokol S3, maka Anda perlu membuat sebuah "wadah" yang disebut dengan "Bucket", wadah tersebut sudah jelas fungsinya, yakni untuk menyimpan Berkas dan Folder di dalam nya, namanya aja "Bucket", kalau kamu pernah ke KFC pastinya tahu apa itu "Bucket" dan perbedaan nya. 
+### Saat pertama kali membuat Bucket untuk _Object Storage_
+Agar dapat menggunakan layanan penyimpanan dengan Protokol S3 atau _Object Storage_, maka Anda perlu membuat sebuah "wadah" yang disebut dengan "Bucket", wadah tersebut sudah jelas fungsinya, yakni untuk menyimpan Berkas dan Folder di dalam nya, namanya aja "Bucket", kalau kamu pernah ke KFC pastinya tahu apa itu "Bucket" dan perbedaan nya. 
 
 Untuk membuat bucket nya sendiri cukup mudah, Anda tinggal klik pada "Storage" lalu klik "Create New Storage", isikan nama bucket nya, karakter nama bucket yang diizinkan yaitu: Mengandung angka, huruf kecil atau/dan tanda hubung (-). Kalau selesai, tinggal klik "Create" saja di bagian paling kanan.
 
@@ -103,7 +113,7 @@ Awalnya saya mengira kalau **Access Key ID** dan **Secret Key Access** itu cuma 
 
 Sehingga, ketika saya mengklik Bucket yang berbeda, maka **Access Key ID** dan **Secret Key Access** akan tampil dengan nilai yang sama. Mungkin maksudnya agar dapat memudahkan pengguna nya, sehingga menampilkan Informasi dengan cara seperti itu? Siapa tahu juga alasan nya begitu, karena saya merasa dimudahkan daripada dipisah gitu 🤷‍♂️
 
-### Saat pertama kali menggunakan Penyimpanan S3
+### Saat pertama kali menggunakan _Object Storage_
 Karena di IDCloudHost belum ada fitur yang berguna untuk mengelola sekaligus menjelajah Berkas dan Folder di dalam Bucket, maka saya harus meng-install Aplikasi tambahan agar dapat mengelola nya.
 
 Kalau di Windows itu ada sebuah Perangkat Lunak yang bernama ["Cyberduck"](https://cyberduck.io/), berfungsi sebagai pengelola berkas dari jarak jauh dan mendukung protokol S3 juga, serta merupakan FLOSS (Free/Libre Open Source Software). Saya tahu ini dari [Laman Dokumentasi nya](https://idcloudhost.com/panduan/cara-akses-object-storage-idcloudhost-menggunakan-cyberduck/).
@@ -125,13 +135,13 @@ Saat menggunakan Rclone, disitu saya langsung menyadari pengaturan perizinan pad
 Oh iya, seiring penggunaan, saya baru menyadari kalau ternyata IDCloudHost itu menggunakan _Platform_ dari [Warren.io](https://warren.io/id) untuk Layanan Fleksibel nya. Yah tidak masalah sih, yang penting kedepan nya bisa lebih berkembang lagi daripada lain nya yang menggunakan _Platform_ yang sama.
 
 ### Saat mencoba fitur Hosting Web Statis di S3
-Tentu saja saya tidak jadikan ini sebagai Hosting Utama, melainkan sebagai tempat penyimpanan untuk Blog ini dan akan disebar melalui CDN yang saya gunakan (Bunny\.net).
+Saya gunakan _Object Storage_ dari IDCloudHost sebagai Hosting untuk Blog Statis ini, sedangkan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ (atau bisa disebut dengan "SSL offloading" atau "SSL termination") dan juga CDN (kependekan dari _Content Delivery Network_).
 
-Saya cuma mencoba fitur Hosting Web Statis di IDCloudHost S3 saja, karena di [AWS S3](https://aws.amazon.com/id/s3/) dan [Scaleway Object Storage](https://www.scaleway.com/en/object-storage/) ada fitur seperti ini. 
+Dengan alasan itu, saya mencoba fitur Hosting Web Statis yang seharusnya itu merupakan fitur [AWS S3](https://aws.amazon.com/id/s3/) di IDCloudHost S3, karena di [Scaleway Object Storage](https://www.scaleway.com/en/object-storage/) ada fitur seperti ini juga.
 
-Pada dasarnya, fungsinya agar supaya Penyimpanan S3 ini dapat membaca berkas Indeks seperti `index.html` saja ketika diakses tanpa harus menuliskan `index.html` lagi di Alamat URL dan tentunya ini akan sangat berguna untuk Hosting Web Statis.
+Pada dasarnya, fungsinya agar supaya _Object Storage_ ini dapat membaca berkas Indeks seperti `index.html` saja ketika diakses tanpa harus menuliskan `index.html` lagi di Alamat URL pada Peramban Web dan tentunya ini akan sangat berguna untuk Hosting Web Statis.
 
-Nah, saya butuh fitur ini agar supaya mempermudah saya untuk meng-hostingkan Blog ini dengan CDN tanpa perlu melakukan penyetelan/pengaturan yang tidak perlu, seperti mengatur "Edge Rules" agar berkas Indeks bisa terbaca.
+Nah, saya butuh fitur ini agar supaya mempermudah saya untuk mengatur _Reverse-proxy_ CDN ini tanpa perlu melakukan penyetelan/pengaturan yang tidak perlu, seperti mengatur "Edge Rules" agar berkas Indeks bisa terbaca.
 
 Karena secara bawaan _(default)_ fitur tersebut tidak diaktifkan, maka saya berinisiatif untuk mengaktifkan nya. Akhirnya saya gunakanlah [referensi dari Scaleway](https://www.scaleway.com/en/docs/s3-bucket-website/) dan di sana saya diperkenalkan serta disarankan untuk menggunakan AWS CLI, ya saya pakelah Perangkat Lunak tersebut.
 
@@ -149,9 +159,9 @@ An error occurred (MethodNotAllowed) when calling the PutBucketWebsite operation
 
 Ya langsung bingung dong, masa gak boleh sih cuma Hosting Web Statis doang biar bisa disebar melalui CDN dengan mudah. Akhirnya saya coba cara lain, seperti merubah nama berkas, menggunakan `s3cmd`, bahkan sampai menggunakan Cyberduck pun juga sama aja hasilnya.
 
-Akhirnya, ketika ingin meng-hosting Blog ini dan disebar melalui CDN seperti sekarang, saya malah perlu menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca sampai sekarang.
+Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk BLog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik sampai sekarang.
 
-Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Iya, saat ini, blog ini saya hosting di Penyimpanan S3 nya, kemudian disebar dengan CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
+Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Seperti yang saya bilang diawal, bahwa blog ini saya hosting di _Object Storage_ nya dan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ dan juga CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
 
 Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bilang kalau saat ini belum ada fitur Hosting Web Statis di Bucket S3, sedang dalam pengembangan katanya. 
 

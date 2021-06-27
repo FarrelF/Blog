@@ -1,4 +1,4 @@
-{{ if .Site.Params.arcio.enabled }}
+{{ if and (eq .Site.Params.arcio.enabled true) (eq hugo.IsProduction true) }}
     {{ with .Site.Params.arcio.widgetId }}
         <script async src="https://arc.io/widget.min.js#{{ . }}"></script>
     {{ end }}

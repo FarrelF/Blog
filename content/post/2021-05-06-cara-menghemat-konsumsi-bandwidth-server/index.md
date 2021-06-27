@@ -123,7 +123,7 @@ Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk
 Kira-kira, Illustrasi nya seperti berikut:
 ![Illustrasi tentang Distribusi dari Satu Server (Kiri) dan Distribusi menggunakan CDN (Kanan)](NCDN_-_CDN.png)
 
-Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN untuk Umum yang saya sebut diatas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan di dalam Web/Blog Anda melalui Statically, lho!
+Untuk Layanan CDN yang gratis, Anda bisa gunakan Layanan CDN untuk Umum yang saya sebut di atas, seperti jsDelivr atau Statically. Bahkan Anda juga bisa menghantarkan berkas-berkas Gambar, JS dan CSS yang ada tersimpan di dalam Web/Blog Anda melalui Statically, lho!
 
 Intinya, buatlah agar pengunjung memuat berkas statik nya dari server lain selain server utama untuk menghemat _Bandwidth_ dari Server Utama, itu aja.
 
@@ -144,11 +144,11 @@ Atau, Anda bisa kunjungi referensi berikut jika Anda ingin menyetelnya secara ma
 - [How to Prevent Image Hotlinking in Apache with .htaccess - TecAdmin](https://tecadmin.net/disable-image-hotlinking-apache/) (Hanya untuk Pengguna Apache/LiteSpeed)
 
 ### Solusi ke-5: Gak mau ribet? Tambah kuota nya! {#solusi-ke5}
-Iya, saya tahu bahwa ini bukanlah cara menghemat, tapi saya kasih solusi bagi Anda yang tidak ingin kuota _Bandwidth_ nya habis, tapi gak mau ribet dengan melakukan solusi-solusi diatas. 
+Iya, saya tahu bahwa ini bukanlah cara menghemat, tapi saya kasih solusi bagi Anda yang tidak ingin kuota _Bandwidth_ nya habis, tapi gak mau ribet dengan melakukan solusi-solusi di atas. 
 
 Yap, Anda tinggal memikirkan bagaimana caranya menambah Kuota _Bandwidth_ yang tersedia jika tidak mau ribet. Untuk saat ini pilihan nya cuma dua, yakni bayar biayanya atau pindah ke penyedia lain yang kuota nya lebih banyak. Padahal, pake kartu kredit emak atau bapak kamu buat bayar biaya nambah kuota _Bandwidth_ doang juga bisa, kan?
 
-Tidak ada pilihan selain itu dan ini merupakan solusi yang cukup realistis atau masuk akal. Jika Anda ingin gratis, lakukan kedua atau sampai keempat solusi diatas, sedangkan jika Anda tidak mau ribet, tinggal tambahkan saja kuota nya, sesederhana itu bukan?
+Tidak ada pilihan selain itu dan ini merupakan solusi yang cukup realistis atau masuk akal. Jika Anda ingin gratis, lakukan kedua atau sampai keempat solusi di atas, sedangkan jika Anda tidak mau ribet, tinggal tambahkan saja kuota nya, sesederhana itu bukan?
 
 ## Pertanyaan dan Jawaban yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
 Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, beserta Jawaban nya.
@@ -163,7 +163,7 @@ Teknik ini akan menjawab pertanyaan seperti berikut:
 > 
 > Jadi, bagaimana agar pengunjung tidak perlu menunggu selama 1 Tahun untuk dapat menikmati perubahan nya? Masa saya harus nyuruh pengunjung untuk membersihkan _Cache_ _(Clear Cache)_ pada Peramban Web nya?
 
-Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah diatas.
+Intinya, melakukan teknik _Cache Busting_ akan menyelesaikan masalah di atas.
 
 ### Pertanyaan ke-2: Situs Web/Blog saya terpasang Iklan (salah satunya: Google AdSense), apakah hal itu akan membuat boros Konsumsi _Bandwidth_ Server? {#pertanyaan-ke2}
 **Jawab:** Tidak, karena pada dasarnya Anda tidak menyimpan berkas apapun ke dalam server Anda, kecuali Anda menyisipkan skrip kedalam HTML dan itupun ukuran nya sangat kecil.
@@ -189,7 +189,7 @@ Jadi maksudnya adalah jika Anda menggunakan CDN dan melakukan _reverse-proxy_ (s
 Ini mirip seperti menyimpan sebuah berkas di Server lain, tapi yang disimpan ini bukanlah cuma berkas, melainkan 1 Situs Web/Blog secara keseluruhan.
 
 ### Pertanyaan ke-5: Apakah menghemat konsumsi _Bandwidth_ Server sama dengan menghemat Kuota Internet Pengunjung?
-**Jawab:** Tidak selalu, bisa iya dan bisa juga tidak, terutama jika Anda memiliki sumber daya eksternal (dari luar server Anda) dan itu tetap dimuat oleh pengunjung saat mengunjungi Web/Blog Anda. 
+**Jawab:** Tidak selalu, bisa iya dan bisa juga tidak, terutama jika Anda memiliki sumber daya eksternal (dari luar server Anda) dan itu tetap dimuat oleh pengunjung saat mengunjungi Web/Blog Anda.
 
 Kenapa bisa begitu? Karena setiap Server memiliki kebijakan yang berbeda-beda, terutama perlakuan _Cache_ pada Peramban Web, ada server yang mengizinkan agar Peramban Web dapat menyimpan berkas-berkas/sumber daya kedalam _Cache_ dalam waktu yang sangat lama, bahkan ada pula yang tidak mengizinkan sama sekali.
 
@@ -219,12 +219,12 @@ Bahkan bisa terjadi sebaliknya, yakni Blog/Web menjadi lambat ketika diakses, at
 
 Jadi, jika Anda ingin menerapkan salah satu atau lebih dari solusi di atas, maka segala resiko harus Anda tanggung sendiri.
 
-### Pertanyaan ke-8: Saya gak mau ribet kayak solusi-solusi diatas dan gak mau bayar juga, terus gimana solusi gratis yang paling mudah dan paling instan nya, tentunya bebas ribet? {#pertanyaan-ke8}
+### Pertanyaan ke-8: Saya gak mau ribet kayak solusi-solusi di atas dan gak mau bayar juga, terus gimana solusi gratis yang paling mudah dan paling instan nya, tentunya bebas ribet? {#pertanyaan-ke8}
 **Jawab:** Menggunakan CDN dari Cloudflare yang Gratisan bisa cukup membantu untuk kasus seperti itu. 
 
 Atau jika bisa, maka Anda bisa terapkan [solusi ke-3](#solusi-ke3) untuk Web/Blog Anda, contoh paling mudah gunakan [Google Fonts](https://fonts.google.com) sebagai penyedia Fonta atau simpan berkas gambar di Penyedia Hosting untuk Gambar, seperti [Imgur](https://imgur.com), [Postimages](https://postimages.org/id/) atau [ImgBB](https://imgbb.com/).
 
-Tapi kalo kamu masih menganggap nya ribet, maka solusinya adalah dengan menutup akses pangunjung ke Web/Blog Anda, entah itu dengan mengosongkan Web/Blog Anda atau Memblokir akses dari Pengunjung melalui _Firewall_ atau menghapus/menutup Web/Blog Anda atau lain nya. 
+Tapi kalo kamu masih menganggap nya ribet atau sulit untuk dilakukan, maka solusinya adalah dengan menutup akses pangunjung ke Web/Blog Anda, entah itu dengan mengosongkan Web/Blog Anda atau Memblokir akses dari Pengunjung melalui _Firewall_ atau menghapus/menutup Web/Blog Anda atau lain nya. 
 
 Dengan ini, Kuota _Bandwidth_ akan bisa diperhemat, bahkan Kuotanya malah jadi tidak terpakai sama sekali.
 

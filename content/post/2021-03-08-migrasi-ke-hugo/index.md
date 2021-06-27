@@ -160,9 +160,11 @@ Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal t
 **PEMBARUAN Kamis, 22 Maret 2021:** Karena saya telah menggunakan Bunny CDN untuk Hosting nya, maka saya menggunakan GitHub Actions untuk layanan CI/CD nya.
 
 ### Artikel Blog
-Seperti yang Anda lihat, bahwa sekarang Iklan dan Analitik di blog ini sudah tidak ada sama sekali.
+Seperti yang Anda lihat, bahwa sekarang Iklan ~~dan Analitik~~ di blog ini sudah tidak ada sama sekali.
 
-Kenapa? Sederhana, karena itu memperlambat akses blog serta mengurangi kenyamanan pengunjung karena Iklan dan Analitik yang terpasang. Belum lagi masalah Privasi yang ada pada Layanan tersebut (walaupun bisa saja di blokir menggunakan _Adblocker_ sih).
+Kenapa? Sederhana, karena itu memperlambat akses blog serta mengurangi kenyamanan pengunjung karena Iklan ~~dan Analitik~~ yang terpasang. Belum lagi masalah Privasi yang ada pada Layanan tersebut (walaupun bisa saja di blokir menggunakan _Adblocker_ sih).
+
+**PEMBARUAN Minggu, 27 Juni 2021:** Saya saat ini memasang CDN dari [Arc.io](https://arc.io) dan saat ini masih dalam proses peninjauan, jadi mungkin ini akan mengandung Pelacak/Analitik, jika merasa terganggu atau ingin mencegahnya, Anda bisa gunakan ekstensi pemblokir atau gunakan Peladen DNS Rekursif yang mendukung pemblokiran terhadap pelacak atau/dan iklan, seperti [AdGuard DNS](https://adguard.com/en/adguard-dns/overview.html) atau [NextDNS](https://nextdns.io/) sebelum mengunjungi Blog ini.
 
 Lalu, bagaimana nanti saya mendapatkan Uang? Karena Iklan tidak ada, maka sebagai ganti nya saya akan membuat "Artikel Berbayar".
 
