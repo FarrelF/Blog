@@ -157,9 +157,9 @@ Malah muncul kesalahan (error) dengan pesan berikut:
 An error occurred (MethodNotAllowed) when calling the PutBucketWebsite operation: Unknown
 ```
 
-Ya langsung bingung dong, masa gak boleh sih cuma Hosting Web Statis doang biar bisa disebar melalui CDN dengan mudah. Akhirnya saya coba cara lain, seperti merubah nama berkas, menggunakan `s3cmd`, bahkan sampai menggunakan Cyberduck pun juga sama aja hasilnya.
+Ya langsung bingung dong, masa gak boleh sih cuma pake fitur ini doang biar bisa saya bisa menyetel CDN nya dengan mudah. Akhirnya saya coba cara lain, seperti merubah nama berkas, menggunakan `s3cmd`, bahkan sampai menggunakan Cyberduck pun juga sama aja hasilnya.
 
-Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk BLog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik sampai sekarang.
+Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk Blog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik sampai sekarang.
 
 Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Seperti yang saya bilang diawal, bahwa blog ini saya hosting di _Object Storage_ nya dan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ dan juga CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
 
