@@ -54,6 +54,11 @@ params:
     Fonts:
       URL: https://cdn.statically.io/gh/FarrelF/Blog/8586e96/static/fonts
 
+  arcio:
+    # Check https://arc.io
+    enabled: true
+    widgetId: D1Tc1z8H
+
   mainSections:
     - post
   featuredImageField: image

@@ -1,3 +1,8 @@
+{{ if .Site.Params.arcio.enabled }}
+    {{ with .Site.Params.arcio.widgetId }}
+        <script async src="https://arc.io/widget.min.js#{{ . }}"></script>
+    {{ end }}
+{{ end }}
 {{- $PermalinkFonts := "/fonts" -}}
 {{- if and (.Site.Params.CDN.Fonts.URL) (eq hugo.IsProduction true) -}}
     {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}
