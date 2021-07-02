@@ -40,11 +40,11 @@ Description: >
 {{< toc >}}
 
 ## Pembuka
-Setelah berbulan-bulan saya menggunakan FTP sebagai Protokol nya, kini saya menggunakan S3 sebagai Protokol Penyimpanan nya, yang tentunya untuk blog ini.
+Setelah berbulan-bulan saya menggunakan FTP sebagai Protokol nya untuk blog ini, kini saatnya saya beralih ke Protokol S3 sebagai Protokol Penyimpanan nya. Sehingga jika saya ingin menggunakannya, tentunya saya harus pindah penyedia penyimpanan.
 
-Karena sampai artikel ini ditulis, Bunny CDN masih belum merilis layanan penyimpanan yang menggunakan Protokol S3, masih menggunakan FTP hingga sekarang, akhirnya saya pindah ke IDCloudHost.
+Karena sampai artikel ini ditulis, Bunny CDN masih belum menyediakan layanan penyimpanan yang menggunakan Protokol S3, masih menggunakan FTP hingga sekarang, akhirnya saya pindah ke IDCloudHost.
 
-Tentu saja saya tidak berlangganan hosting nya di sana, melainkan saya hanya berlangganan _Object Storage_ nya saja yang menggunakan Protokol S3.
+Tentu saja saya tidak berlangganan hosting nya di sana, melainkan saya hanya berlangganan _Object Storage_ nya saja.
 
 Di Artikel ini, saya akan bahas pengalaman saya saat menggunakan menggunakan layanan ini sekaligus penggunaan nya sebagai seorang yang pertama kali menyicipi Penyimpanan yang berbasis Objek ini.
 
@@ -80,11 +80,11 @@ Ya, ini bukan seperti biasanya yang menggunakan laman [My IDCloudHost](https://m
 
 Saya daftar akun nya pada akhir Mei yang lalu dan saya melakukan pengisian ulang (top-up) pada tanggal 9 Juni yang lalu, itu semua terjadi saat IDCloudHost memberikan Kredit sebesar Rp. 100.000,00 secara gratis jika saya melakukan _top-up_ yang minimalnya Rp. 50.000,00 dan saya isi ulang sebesar minimalnya saja.
 
-Harga itu tentu saja belum termasuk PPn 10%, jadi saya bayar sebesar Rp. 55.000,00 saja untuk mengisi ulang nya. 
+Harga itu tentu saja belum termasuk PPn 10%, jadi saya bayar sebesar Rp. 55.000,00 saja untuk mengisi ulang nya.
 
 Metode pembayaran nya pun beragam, selain Kartu Kredit (Visa/Mastercard), ada ATM Bersama, Akun Virtual (Virtual Account) dari beberapa Bank, seperti Bank Permata, Mandiri, Maybank, BNI, dan CIMB Niaga (tidak ada _Virtual Account_ BCA), serta mendukung pembayaran lewat Ritel (seperti: Alfamart & Dan-dan), Pegadaian, Kantor Pos, OVO dan QRIS dari Shopee Pay saat artikel ini saya tulis.
 
-Karena saya menggunakan LinkAja, maka saya pilih menggunakan Kode QRIS dari Shopee Pay, pembayarannya pun mudah, saya tinggal memindai Kode QR yang muncul di layar saja, nanti akan muncul semua biaya yang tertera di LinkAja. 
+Karena saya menggunakan LinkAja, maka saya pilih menggunakan Kode QRIS dari "Shopee Pay", pembayarannya pun mudah, saya tinggal memindai Kode QR yang muncul di layar saja, nanti akan muncul semua biaya yang tertera di LinkAja.
 
 Setelah itu saya klik bayar dan masukkan nomor PIN nya, lalu pembayaran akan diproses dan diselesaikan secara otomatis tanpa harus verifikasi lagi setelah saya memasukkan kode PIN nya tadi. Sungguh mudah, bukan?
 
@@ -93,7 +93,9 @@ Setelah itu saya klik bayar dan masukkan nomor PIN nya, lalu pembayaran akan dip
 Tentu saja tidak ada biaya tambahan lain nya saat pengisian selain PPn 10%, yang artinya saya cuma membayar sebesar Rp. 55.000,00 saja kemarin. Setelah mengisi ulang saldo, barulah secara otomatis saya mendapatkan kredit gratis sebesar Rp. 100.000,00 dan saya langsung berlangganan _Object Storage_ nya pada saat itu juga.
 
 ### Saat pertama kali membuat Bucket untuk _Object Storage_
-Agar dapat menggunakan layanan penyimpanan dengan Protokol S3 atau _Object Storage_, maka Anda perlu membuat sebuah "wadah" yang disebut dengan "Bucket", wadah tersebut sudah jelas fungsinya, yakni untuk menyimpan Berkas dan Folder di dalam nya, namanya aja "Bucket", kalau kamu pernah ke KFC pastinya tahu apa itu "Bucket" dan perbedaan nya. 
+Agar dapat menggunakan layanan penyimpanan dengan Protokol S3 atau _Object Storage_, maka Anda perlu membuat sebuah "wadah" yang disebut dengan "Bucket".
+
+Wadah tersebut sudah jelas fungsinya, yakni untuk menyimpan Berkas dan Folder di dalam nya, namanya aja "Bucket", kalau kamu pernah ke KFC atau ke restoran ayam cepat saji lain nya, pastinya kamu tahu apa itu "Bucket" dan perbedaan nya.
 
 Untuk membuat bucket nya sendiri cukup mudah, Anda tinggal klik pada "Storage" lalu klik "Create New Storage", isikan nama bucket nya, karakter nama bucket yang diizinkan yaitu: Mengandung angka, huruf kecil atau/dan tanda hubung (-). Kalau selesai, tinggal klik "Create" saja di bagian paling kanan.
 
@@ -122,7 +124,7 @@ Kalau di Windows itu ada sebuah Perangkat Lunak yang bernama ["Cyberduck"](https
 
 Pada saat menggunakan Cyberduck dan saya klik kanan pada salah satu objek/berkas, lalu saya arahkan kursor nya ke "Copy URL", di situlah saya langsung menyadari kalau Bucket S3 itu bisa diakses melalui URL Alternatif, yaitu `https://nama-bucket.is3.cloudhost.id` dan sayangnya di Panel/Konsol nya belum ada Informasi seperti itu, padahal menurut saya lebih enak cara mengakses seperti ini, lebih bersih aja daripada `https://is3.cloudhost.id/nama-bucket`.
 
-Lalu, bagaimana dengan GNU/Linux atau Android? Hmmm, di GNU/Linux saya harus me-_mounting_ Bucket S3 nya secara manual menggunakan `s3fs` agar bisa mengelola Berkas-berkas didalam nya (itupun sampai sekarang belum bisa). 
+Lalu, bagaimana dengan GNU/Linux atau Android? Hmmm, di GNU/Linux saya harus me-_mounting_ Bucket S3 nya secara manual menggunakan `s3fs` agar bisa mengelola Berkas-berkas didalam nya (itupun sampai sekarang belum bisa).
 
 Kalau di Android saya kurang tahu, ada sebuah Aplikasi yang tersebar di Play Store untuk ini, tapi rasanya saya kurang percaya aja mengingat perangkat lunak tersebut tak terurus sejak lama dan itu bukanlah termasuk FLOSS.
 
@@ -159,11 +161,11 @@ An error occurred (MethodNotAllowed) when calling the PutBucketWebsite operation
 
 Ya langsung bingung dong, masa gak boleh sih cuma pake fitur ini doang biar bisa saya bisa menyetel CDN nya dengan mudah. Akhirnya saya coba cara lain, seperti merubah nama berkas, menggunakan `s3cmd`, bahkan sampai menggunakan Cyberduck pun juga sama aja hasilnya.
 
-Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk Blog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik sampai sekarang.
+Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk Blog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik.
 
 Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Seperti yang saya bilang diawal, bahwa blog ini saya hosting di _Object Storage_ nya dan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ dan juga CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
 
-Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bilang kalau saat ini belum ada fitur Hosting Web Statis di Bucket S3, sedang dalam pengembangan katanya. 
+Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bilang kalau saat ini belum ada fitur Hosting Web Statis di Bucket S3, sedang dalam pengembangan katanya.
 
 Jadi, harus sabar menunggu kalau kamu butuh banget sama fiturnya, tapi kalo kamu bisa menyiasati nya (kayak saya), ya gas ajalah kalo pengen, hehe 😀
 
@@ -178,7 +180,7 @@ Setelah saya akses Bucket nya melalui Peramban Web, masih bisa diakses dong, den
 
 Kalau sudah terhapus, seharusnya cuma nampil `NoSuchBucket` saat diakses lewat Peramban Web dan Bucket sudah tidak bisa diakses sama sekali dengan cara apapun, sehingga sudah seharusnya dapat dibuat lagi dengan nama yang sama, ini tidak.
 
-Tapi pas saya coba mengaksesnya lewat AWS CLI untuk mencoba menghapus Bucket S3 nya, saya malah tidak dapat mengakses nya. 
+Tapi pas saya coba mengaksesnya lewat AWS CLI untuk mencoba menghapus Bucket S3 nya, saya malah tidak dapat mengakses nya.
 
 Karena Bucket tersebut tidak benar-benar terhapus, maka saya buat Bucket S3 lagi yang bernama `farrelfstaticblog` untuk menyimpan Blog Statis dan saya gunakan sebelum artikel ini terbit.
 
@@ -201,7 +203,7 @@ Mungkin karena saat itu saya masih baru banget terhadap Penyimpanan yang menggun
 Jadi jika Anda kebetulan berlangganan S3 dari IDCloudHost dan Anda ingin menghapus salah satu Bucket dengan alasan apapun, saran saya jangan hapus Bucket S3 dari Laman Panel nya jika Anda ingin membuatnya lagi.
 
 ### Saat menghubungi Dukungan Layanan
-Alasan saya menghubungi dukungan layanan adalah karena masalah fitur Hosting Web Statis di S3, Penghapusan Bucket S3 dan fitur CNAME. Inti dari dukungan layanan (salah satunya melalui Tiket Dukungan/_Support Ticket_) selain fitur Hosting Web Statis adalah tentang penghapusan Bucket S3 yang gak _realtime_ itu. 
+Alasan saya menghubungi dukungan layanan adalah karena masalah fitur Hosting Web Statis di S3, Penghapusan Bucket S3 dan fitur CNAME. Inti dari dukungan layanan (salah satunya melalui Tiket Dukungan/_Support Ticket_) selain fitur Hosting Web Statis adalah tentang penghapusan Bucket S3 yang gak _realtime_ itu.
 
 Fitur CNAME belum saya butuhkan, karena pada dasarnya saya tidak mungkin Hosting langsung di sana.
 
@@ -213,7 +215,7 @@ Pada akhirnya, saya gunakanlah fasilitas "Live Chat" nya terlebih dahulu, karena
 
 Tapi, Live Chat tidak memberikan jawaban yang berarti selama seharian dan bahkan saya disuruh untuk membuat tiket dukungan, karena hal itu, maka dengan terpaksa saya membuat Tiket Dukungan di laman ["My IDCloudHost"](https://my.idcloudhost.com) nya.
 
-Jika Anda ingin melihat percakapan nya seperti apa di tiket dukungan, silahkan Anda lihat cuplikan layar mengenai transkrip percapakan berikut: 
+Jika Anda ingin melihat percakapan nya seperti apa di tiket dukungan, silahkan Anda lihat cuplikan layar mengenai transkrip percapakan berikut:
 
 **Catatan:** Saya sarankan untuk perbesar cuplikan nya dengan mengklik gambarnya dan gambar yang saya sisipkan bersifat urut berdasarkan angka yang tampil di keterangan gambar/_caption_.
 
@@ -223,7 +225,7 @@ Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file 
 
 Bagaimana menurutmu mengenai tiket dukungan ini? Kalau menurut saya, respon mereka terlalu lambat dan mereka terlalu sering "melempar" pesan ke "tim terkait", mungkin saja mereka ini adalah beda tim divisi atau apalah saya juga gak tahu.
 
-Atau, mungkin karena saya diawal tidak memberikan Cuplikan layar sebagai lampiran diawal, jadi mereka seperti gak paham detailnya seperti apa. 
+Atau, mungkin karena saya diawal tidak memberikan Cuplikan layar sebagai lampiran diawal, jadi mereka seperti gak paham detailnya seperti apa.
 
 Tapi yang jelas, respon mereka sangatlah lambat, kadang seringkali seharian baru bales Tiket/Pertanyaan saya, untungnya saat itu saya bersabar untuk menunggu dan terus mantengin tiketnya, serta saya saat itu tidak terlalu ada urgensi agar permasalahan nya cepat selesai.
 
@@ -246,7 +248,7 @@ Untuk Hosting Web Statis, saya belum terlalu sarankan juga karena fiturnya meman
 Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting Web Statis Anda kedalam Bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrel.franqois.id/bunnycdn). (Pada praktiknya, Anda tetap harus menggunakan CDN sih, karena pada dasarnya S3 memang tidak didesain untuk digunakan sebagai Hosting)
 
 {{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
-Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
+Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu.
 
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.
 {{< / spoiler >}}
@@ -290,7 +292,7 @@ Meskipun saya menggunakan teknik _Fingerprinting_, memang saya bisa menyinkronis
 
 Jadi, jika saya melakukan perubahan pada berkas-berkas statik, seperti CSS dan JS maka saya perlu meng-install Perangkat Lunak `lftp` agar menghapus berkas-berkas HTML, lalu saya upload lagi berkas-berkas nya.
 
-Kenapa gak pake `lftp` aja semuanya? Karena `lftp` yang saya dan CI "GitHub Actions" (di Ubuntu 20.04) gunakan itu belum bisa menghapus berkas-berkas dari Server yang memiliki nama yang berbeda dari berkas yang ingin diunggah, karena berkas nya dianggap tidak ada oleh `lftp`. 
+Kenapa gak pake `lftp` aja semuanya? Karena `lftp` yang saya dan CI "GitHub Actions" (di Ubuntu 20.04) gunakan itu belum bisa menghapus berkas-berkas dari Server yang memiliki nama yang berbeda dari berkas yang ingin diunggah, karena berkas nya dianggap tidak ada oleh `lftp`.
 
 Misalnya, berkas yang diunggah itu adalah `style.min.9rcxxxx.css` untuk menggantikan `style.min.8bcxxxx.css` di Server, tapi berkas di Server tidak bisa terhapus melalui `lftp` karena suatu kesalahan yang entah penyebabnya. Pesan kesalahan nya seperti berikut:
 
@@ -298,7 +300,7 @@ Misalnya, berkas yang diunggah itu adalah `style.min.9rcxxxx.css` untuk menggant
 rm: Access failed: 550 File Not Found (./style.min.8bcxxxx.css)
 ```
 
-Aneh banget, padahal berkas tersebut jelas-jelas ada di Server setelah saya melakukan pemeriksaan ulang. 
+Aneh banget, padahal berkas tersebut jelas-jelas ada di Server setelah saya melakukan pemeriksaan ulang.
 
 Karena kesalahan seperti itu, makanya di GitHub Actions saya jalankan dulu Rclone nya, barulah saya jalankan juga `lftp` nya untuk sinkronisasi berkas-berkas HTML jika berkas CSS atau/dan JS mengalami perubahan. Ribet banget, kan?
 
@@ -345,7 +347,7 @@ Jikapun adanya kesalahan pada penulisan Artikel ini, silahkan berikan masukkan t
 Semoga layanan ini bisa lebih berkembang lagi dengan baik kedepan nya dan Terima kasih bagi Anda yang telah membaca Artikel ini sampai habis 😊
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
@@ -353,6 +355,6 @@ Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-06-25-nyobain-idcloudhost-object-storage
 ```
 
-IDCloudHost dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "PT Cloud Hosting Indonesia", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi. 
+IDCloudHost dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "PT Cloud Hosting Indonesia", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi.
 
 Saya hanya memberikan latar warna putih pada logo IDCloudHost agar logo tersebut bisa dilihat dalam Mode apapun (baik dalam Mode Gelap atau Terang).

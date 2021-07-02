@@ -3,17 +3,49 @@
         <script async src="https://arc.io/widget.min.js#{{ . }}"></script>
     {{ end }}
 {{ end }}
-{{- $PermalinkFonts := "/fonts" -}}
+{{- $PermalinkFonts := "" -}}
 {{- if and (.Site.Params.CDN.Fonts.URL) (eq hugo.IsProduction true) -}}
     {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}
 {{- end -}}
 {{ if not .Site.Params.favicon }}
     <link rel="icon" href="data:,">
 {{ end }}
-<link rel="preconnect" href="https://cdn.statically.io/" crossorigin>
-<link rel="dns-prefetch" href="https://cdn.statically.io/">
-<link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin>
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net/">
-<link rel="stylesheet" href="{{ $PermalinkFonts }}/Lato/font{{ if eq hugo.IsProduction true }}.min{{ end }}.css" type="text/css" crossorigin="anonymous">
-<link rel="preload" href="{{ $PermalinkFonts }}/Lato/LatoLatin-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ $PermalinkFonts }}/Lato/LatoLatin-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="//cdn.statically.io" crossorigin>
+<link rel="dns-prefetch" href="//cdn.statically.io">
+<link rel="preconnect" href="//cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="preload" href="{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Regular.woff2" | fingerprint "sha256").RelPermalink }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Bold.woff2" | fingerprint "sha256").RelPermalink }}" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: local(''),
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Light.woff2" | fingerprint "sha256").RelPermalink }}') format('woff2'), /* Modern Browsers */
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Light.woff" | fingerprint "sha256").RelPermalink }}') format('woff'), /* Modern Browsers */
+}
+
+/* Webfont: LatoLatin-Regular */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local(''),
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Regular.woff2" | fingerprint "sha256").RelPermalink }}') format('woff2'), /* Modern Browsers */
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Regular.woff" | fingerprint "sha256").RelPermalink }}') format('woff'), /* Modern Browsers */
+}
+
+/* Webfont: LatoLatin-Bold */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local(''),
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Bold.woff2" | fingerprint "sha256").RelPermalink }}') format('woff2'), /* Modern Browsers */
+         url('{{ printf "%s%s" $PermalinkFonts (resources.Get "fonts/Lato/LatoLatin-Bold.woff" | fingerprint "sha256").RelPermalink }}') format('woff'), /* Modern Browsers */
+}
+</style>
