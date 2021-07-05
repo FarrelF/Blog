@@ -26,7 +26,7 @@ Tags:
     - Penyimpanan berbasis Objek
 readMore: true
 Image: IDCloudHost_Logo.jpg
-DescriptionSEO: Apakah Anda ingin menghemat konsumsi Bandwidth Server, sehingga Web/Blog Anda bisa bertahan? Kalo iya, silahkan baca artikel ini!
+DescriptionSEO: Blog ini menggunakan IDCloudHost Object Storage sebagai Hosting nya yang S3-compatible, bagaimana pengalaman nya? Silahkan baca artikel ini!
 Description: >
     Beberapa bulan kemarin, saya sudah berencana kalau saya akan menggunakan Penyimpanan yang menggunakan Protokol S3 ini sebagai tempat penyimpanan untuk Blog ini.
     
@@ -55,7 +55,7 @@ Oh iya, semua Cuplikan Layar yang ditampilkan itu merupakan cuplikan layar yang 
 ## Pengalaman _Object Storage_ di IDCloudHost
 
 ### Saat pertama kali mengetahui nya
-Saya mengetahui layanan ini dari Tweet Bapak Achmad Zaky berikut, yang merupakan Pendiri sekaligus mantan CEO Bukalapak (yang sekarang merupakan Pendiri dari Init 6)
+Saya mengetahui layanan ini dari Tweet Bapak Achmad Zaky berikut, yang merupakan Pendiri sekaligus mantan CEO Bukalapak (yang sekarang merupakan Pendiri dari "Init 6")
 
 {{< twitter_simple 1394999284722933762 >}}
 
@@ -245,7 +245,9 @@ Tapi jika Anda ingin belajar dengan menggunakan S3 dari IDCloudHost, ya silahkan
 ### Untuk Hosting Web Statis
 Untuk Hosting Web Statis, saya belum terlalu sarankan juga karena fiturnya memang belum ada hingga saat ini, sehingga berkas `index.html` tidak terbaca dengan baik, kecuali jika kamu sanggup mengakali nya saat menggunakan CDN (seperti yang saya lakukan) atau kamu rela kalau ada `index.html` di URL setiap mengakses Blog/Web kamu, ya bolehlah dicoba.
 
-Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting Web Statis Anda kedalam Bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrel.franqois.id/bunnycdn). (Pada praktiknya, Anda tetap harus menggunakan CDN sih, karena pada dasarnya S3 memang tidak didesain untuk digunakan sebagai Hosting)
+Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting Web Statis Anda kedalam Bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrel.franqois.id/bunnycdn). 
+
+**NB:** Pada praktik terbaiknya, Anda tetap harus menggunakan Layanan CDN sih, karena pada dasarnya Penyimpanan berbasis Objek memang tidak didesain untuk digunakan sebagai Hosting sekaligus Pengantaran Konten. Tapi jika Anda hanya ingin mengantarkan konten ke sesama orang Indonesia, mungkin ini bisa dicoba.
 
 {{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
 Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu.
@@ -271,7 +273,7 @@ Jadi, jika Anda ingin menggunakan _Object Storage_ dari IDCloudHost ini, saya sa
 **Jawab:** Ada di Jakarta, Indonesia. Saya tidak tahu di mana persisnya, jika Anda sangat ingin tahu letak servernya, mungkin bisa Anda tanyakan sendiri ke pihak IDCloudHost nya.
 
 ### Pertanyaan ke-2: Jika saya cuma mengunggah berkas/file kurang dari 1 GB, apakah saya akan dikenakan Rp. 507/Bulan juga? {#pertanyaan-ke2}
-**Jawab:** Tidak, Anda hanya dikenakan sesuai dengan besaran ukuran berkas yang Anda unggah dan biayanya tidak langsung dibulatkan ke Rp. 507/Bulan saat Anda mengunggah berkas-berkas dengan ukuran kurang dari 1 GB.
+**Jawab:** Mungkin tidak, Anda hanya dikenakan sesuai dengan besaran ukuran berkas yang Anda unggah dan biayanya tidak langsung dibulatkan ke Rp. 507/Bulan saat Anda mengunggah berkas-berkas dengan ukuran kurang dari 1 GB.
 
 Contohnya Blog Statis ini, saya Unggah semuanya ke dalam Bucket S3 `farrelfstaticblog` yang tidak mencapai 1 GB, tapi saya cuma perlu membayar sekitar Rp. 13,00/bulan saja.
 

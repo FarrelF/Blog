@@ -36,9 +36,9 @@ Setelah beberapa waktu saya menggunakan nya, saya malah jadi gak posting-posting
 Kenapa saya lakukan itu? Alasan nya bisa Anda lihat di bawah ini.
 
 ### Saat Instalasi
-Saat Instalasi, Pelican memerlukan untuk meng-install Python dan beberapa modul nya terlebih dahulu agar bisa di eksekusi.
+Saat Instalasi, Pelican memerlukan untuk meng-instal Python dan beberapa modul nya terlebih dahulu agar bisa dieksekusi.
 
-Jadi mau tidak mau dan suka tidak suka, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saja yang di Install. 
+Jadi mau tidak mau dan suka tidak suka, saya harus menggunakan fitur "Virtual Environment" (Lingkungan Virtual) yang ada pada Python agar tidak terjadi konflik antar modul yang terinstall, serta supaya hanya modul yang diperlukan saja yang diinstal. 
 
 Tapi tentu saja ini akan sulit untuk mengatur modul-modul nya, sehingga ini kurang bisa untuk mengatasi masalah "Ini bekerja di mesin saya, kok".
 
@@ -48,20 +48,20 @@ Semua hal di atas tentu saja sangat merepotkan buat saya, sudah banyak langkah (
 
 Sedangkan Hugo? Semua hal di atas tidak pernah terjadi dan saya gak ada kendala ataupun keluhan sama sekali. Artinya, saya gak perlu Install Modul/Ketergantungan apapun hanya untuk menggunakan nya, bahkan termasuk Bahasa Pemrograman Go sekalipun.
 
-Kenapa? Karena Hugo sendiri telah menyediakan Berkas Biner yang telah di bangun (atau di-_compile_) sebelumnya. Sudah gitu, Hugo telah menyediakan berkas biner untuk beberapa Sistem Operasi dan beberapa _Platform_ yang berbeda pula (Lintas Platform/_Cross-platform_).
+Kenapa? Karena Hugo sendiri telah menyediakan Berkas Biner yang telah dibangun (atau di-_compile_) sebelumnya. Sudah gitu, Hugo telah menyediakan berkas biner untuk beberapa Sistem Operasi dan beberapa _Platform_ yang berbeda pula (Lintas Platform/_Cross-platform_).
 
 Lalu apa artinya itu? Ini Artinya Anda hanya perlu mempunyai 1 Berkas Biner Hugo (bisa dengan mengunduhnya) untuk Sistem Operasi yang Anda gunakan, lalu tinggal Anda eksekusikan saja. 
 
-Mau Hugo nya bisa di eksekusi di manapun? Anda tinggal copas/pindahkan saja berkas tersebut ke dalam direktori yang sudah termasuk ke dalam Variabel [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)). Di Sistem Operasi GNU/Linux (apapun Distribusi nya), Anda bisa meletakan nya ke dalam direktori `/usr/local/bin`. 
+Mau Hugo nya bisa dieksekusi di manapun? Anda tinggal copas/pindahkan saja berkas tersebut ke dalam direktori yang sudah termasuk ke dalam Variabel [`PATH`](https://en.wikipedia.org/wiki/PATH_(variable)). Di Sistem Operasi GNU/Linux (apapun Distribusi nya), Anda bisa meletakan nya ke dalam direktori `/usr/local/bin`. 
 
-Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terlebih dahulu, alias tinggal langsung pakai saja dan tentu saja tanpa harus Install melalui Pengelola Paket (_Package Manager_), meskipun itu bisa di lakukan.
+Semua ini bisa Anda lakukan tanpa harus Install Modul/Ketergantungan apapun terlebih dahulu, alias tinggal langsung pakai saja dan tentu saja tanpa harus Install melalui Pengelola Paket (_Package Manager_), meskipun itu bisa dilakukan.
 
 ### Kecepatan
 Komputer yang saya gunakan masih menggunakan _Harddisk_ sebagai Penyimpanan Utama (belum menggunakan SSD, kecuali Laptop, karena belum sanggup beli).
 
-Maka kecepatan dalam membuat Blog Statis adalah hal yang paling terasa perbedaan nya. Di Pelican, dalam membuat Blog Statis, maka di perlukan beberapa detik untuk menyelesaikan nya, kadang 2-8 detik atau 1-5 detik jika adanya perubahan pada suatu berkas, bahkan sampai puluhan detik paling lambat nya, terutama jika itu di lakukan di Sistem Operasi Windows.
+Maka kecepatan dalam membuat Blog Statis adalah hal yang paling terasa perbedaan nya. Di Pelican, dalam membuat Blog Statis, maka diperlukan beberapa detik untuk menyelesaikan nya, kadang 2-8 detik atau 1-5 detik jika adanya perubahan pada suatu berkas, bahkan sampai puluhan detik paling lambat nya, terutama jika itu dilakukan di Sistem Operasi Windows.
 
-Sedangkan di Hugo? Paling Lambat sekitar 1-6 detik an saja atau sekitar beberapa milidetik jika adanya perubahan, dan itupun dalam posisi di nonaktifkan "Fast Render" nya, baik di GNU/Linux ataupun di Windows juga sama saja kecepatan nya.
+Sedangkan di Hugo? Paling Lambat sekitar 1-6 detik an saja atau sekitar beberapa milidetik jika adanya perubahan, dan itupun dalam posisi dinonaktifkan "Fast Render" nya, baik di GNU/Linux ataupun di Windows juga sama saja kecepatan nya.
 
 Itu bisa saja banyak faktor dan relatif juga, mungkin banyaknya modul atau/dan konfigurasi itu yang membuat nya lama, tapi modul-modul tersebut saya perlukan juga agar blog nya berjalan sesuai kebutuhan saya.
 
@@ -91,7 +91,7 @@ Dan berkat ini, saya hanya perlu manfaatkan _Git Submodules_ saja untuk meng-ins
 ### Fitur Bawaan
 Di Pelican, fitur bawaan nya kurang begitu lengkap untuk kebutuhan saya, untuk menambahkan suatu fitur saja, saya harus menambahkan sejumlah _Plugin_ yang menurut saya itu cukup rumit.
 
-Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja saya harus memasang sebuah _Plugin_, yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak di perbarui/tidak terurus dengan baik.
+Bahkan agar bisa membuat artikel dengan lebih dari satu kategori saja saya harus memasang sebuah _Plugin_, yang mana ini akan membuat kecepatan untuk menghasilkan Blog Statis menjadi berkurang. Belum lagi rata-rata _Plugin_ yang ada kebanyakan malah tidak diperbarui/tak terurus.
 
 Sedangkan di Hugo, fitur-fitur bawaan yang ada di Hugo terbilang cukup lengkap bagi saya, bahkan Hugo sendiri telah menyediakan sejumlah Template Internal "Google Analytics", "Disqus", dll agar kemudian bisa di aplikasikan oleh pembuat Tema jika berkenan.
 
@@ -106,7 +106,7 @@ Sudah menjadi umum memang bahwa Optimalisasi Blog/Web menjadi aspek yang sangatl
 
 Sehingga memadatkan berkas Skrip, HTML (atau disebut: _minify_) dan mengoptimalkan Gambar yang di muat itu sudah menjadi kewajiban bagi pemilik/pemelihara Blog/Web.
 
-Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus menggunakan Plugin dan meng-Install beberapa modul yang diperlukan, sehingga hal ini mengorbankan kecepatan dalam menghasilkan Blog Statis itu sendiri.
+Di Pelican, untuk bisa mengoptimalkan Skrip, HTML dan Gambar saja harus menggunakan Plugin dan meng-Install beberapa modul yang diperlukan, sehingga hal ini mengorbankan kecepatan dalam menghasilkan/merender Blog Statis itu sendiri.
 
 Sedangkan di Hugo, masalah di atas tidak terjadi, di Hugo juga tersedia fitur optimasi yang cukup lengkap (Kecuali konversi gambar ke format WebP, AVIF dan JXL) yang tentu nya itu merupakan fitur bawaan, tinggal pembuat/pemodifikasi Tema nya saja yang mau mengoptimalkan nya atau tidak.
 
@@ -160,11 +160,9 @@ Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal t
 **PEMBARUAN Kamis, 22 Maret 2021:** Karena saya telah menggunakan Bunny CDN untuk Hosting nya, maka saya menggunakan GitHub Actions untuk layanan CI/CD nya.
 
 ### Artikel Blog
-Seperti yang Anda lihat, bahwa sekarang Iklan ~~dan Analitik~~ di blog ini sudah tidak ada sama sekali.
+Seperti yang Anda lihat, bahwa sekarang Iklan dan Analitik di blog ini sudah tidak ada sama sekali.
 
-Kenapa? Sederhana, karena itu memperlambat akses blog serta mengurangi kenyamanan pengunjung karena Iklan ~~dan Analitik~~ yang terpasang. Belum lagi masalah Privasi yang ada pada Layanan tersebut (walaupun bisa saja di blokir menggunakan _Adblocker_ sih).
-
-**PEMBARUAN Minggu, 27 Juni 2021:** Saya saat ini memasang CDN dari [Arc.io](https://arc.io) dan saat ini masih dalam proses peninjauan, jadi mungkin ini akan mengandung Pelacak/Analitik, jika merasa terganggu atau ingin mencegahnya, Anda bisa gunakan ekstensi pemblokir atau gunakan Peladen DNS Rekursif yang mendukung pemblokiran terhadap pelacak atau/dan iklan, seperti [AdGuard DNS](https://adguard.com/en/adguard-dns/overview.html) atau [NextDNS](https://nextdns.io/) sebelum mengunjungi Blog ini.
+Kenapa? Sederhana, karena itu memperlambat akses blog serta mengurangi kenyamanan pengunjung karena Iklan dan Analitik yang terpasang. Belum lagi masalah Privasi yang ada pada Layanan tersebut (walaupun bisa saja diblokir menggunakan _Adblocker_ sih).
 
 Lalu, bagaimana nanti saya mendapatkan Uang? Karena Iklan tidak ada, maka sebagai ganti nya saya akan membuat "Artikel Berbayar".
 
@@ -181,26 +179,26 @@ Rencana nya saya ingin menggunakan [Remark42](https://remark42.com) atau [Static
 
 "Remark42" memang memiliki fitur yang lumayan lengkap sebagai Sistem Komentar yang minimalis, bahkan Anda bisa menggunakan Akun dari Layanan lain untuk berkomentar atau bahkan berkomentar sebagai Anonim. Tapi sayangnya saya harus punya VPS minimalnya, sedangkan saya sendiri belum sanggup menyewanya karena belum punya duit.
 
-Sedangkan "Staticman" meskipun Gratis, komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42, seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar dari segi pengomentar, serta kurangnya dukungan dari tema nya juga karena implementasi nya sangatlah kompleks dan sulit, hal ini terjadi karena komentar yang di tampilkan nya bersifat statis semua.
+Sedangkan "Staticman" meskipun Gratis, komentar yang ditampilkan nya bersifat statis, mendukung Markdown, serta ada fitur Anti-spam nya juga. Tapi sayang nya fiturnya tidak selengkap Remark42, seperti tidak adanya Login menggunakan Akun lain, Edit dan Hapus Komentar dari segi pengomentar, serta kurangnya dukungan dari tema nya juga karena implementasi nya sangatlah kompleks dan sulit, hal ini terjadi karena komentar yang ditampilkan nya bersifat statis semua.
 
 Atau, mungkin saya migrasi ke [Comments dari Telegram](https://comments.app) atau [Utterances](https://utteranc.es) yang berbasis GitHub _Issues_ aja kali yah? Kalau Anda punya saran mengenai Sistem Komentar lain nya, bisa Anda sarankan itu di dalam kolom komentar atau bisa [Hubungi Saya](/tentang).
 
 ### Perbaikan, Peningkatan dan Penambahan Fitur
 Hingga saat ini, fitur di Blog ini masih jauh dari kata 'sempurna' yang selalu saja merasa kurang atau terjadi Kutu (_Bug_)/Kesalahan dalam Koding.
 
-~~Untuk saat ini, terjadi kesalahan pada bagian "Konten Terkait" yang terletak di setelah Akhir Artikel/Laman, yang gambar nya tidak menggunakan CDN dari Statically yang saya setel di Konfigurasi, padahal di Tema nya sudah saya setel juga.~~
+~~Untuk saat ini, terjadi kesalahan pada bagian "Konten Terkait" yang terletak di setelah Akhir Artikel/Laman, yang gambar nya tidak menggunakan CDN dari Statically yang saya setel di dalam berkas Konfigurasi, padahal di Tema nya sudah saya setel juga.~~
 
-**PEMBARUAN Rabu, 10 Maret 2021:** Saat ini, kutu tersebut sudah 'di musnahkan' (alias sudah di perbaiki) berdasarkan _Commit_ [`5ee86d2`](https://github.com/FarrelF/Blog/commit/5ee86d24e2ce6875a70aab716f4bc9fa38f7dacf) di GitHub, sehingga gambar-gambar tersebut telah menggunakan CDN dari Statically.
+**PEMBARUAN Rabu, 10 Maret 2021:** Saat ini, kutu tersebut sudah 'dimusnahkan' (alias sudah diperbaiki) berdasarkan _Commit_ [`5ee86d2`](https://github.com/FarrelF/Blog/commit/5ee86d24e2ce6875a70aab716f4bc9fa38f7dacf) di GitHub, sehingga gambar-gambar tersebut telah menggunakan CDN dari Statically.
 
 ~~Penampilan _Spoiler_ di dalam Artikel juga yang lebar nya tidak mengikuti huruf-huruf nya, alias kelebaran.~~
 
-~~**EDIT dari Rabu, 10 Maret 2021:** Ehh salah deh, bukan 'kelebaran', melainkan saat di klik _Spoiler_ nya, malah ada garis seperti _Border_ yang kerap mengganggu kenyamanan. Seperti pada gambar berikut:~~
+~~**EDIT dari Rabu, 10 Maret 2021:** Ehh salah deh, bukan 'kelebaran', melainkan saat diklik _Spoiler_ nya, malah ada garis seperti _Border_ yang kerap mengganggu kenyamanan. Seperti pada gambar berikut:~~
 
-![Perhatikan persegi panjang yang di tunjuk anak panah itu. Nah, itu garis _border_ yang saya maksud!](ksnip_20210310-214151.png)
+![Perhatikan persegi panjang yang ditunjuk anak panah itu. Nah, itu garis _border_ yang saya maksud!](ksnip_20210310-214151.png)
 
 ~~Ini rencana nya akan saya perbaiki, tapi gak tau kapan waktu nya 🙁~~
 
-**PEMBARUAN Jum'at, 12 Maret 2021:** Masalah di atas sepertinya sudah di selesaikan berdasarkan dari _Commit_ [`f596ffe`](https://github.com/FarrelF/Blog/commit/f596ffe4d389728bdd00ddac042a4aa10bf47b57) di GitHub.
+**PEMBARUAN Jum'at, 12 Maret 2021:** Masalah di atas sepertinya sudah diselesaikan berdasarkan dari _Commit_ [`f596ffe`](https://github.com/FarrelF/Blog/commit/f596ffe4d389728bdd00ddac042a4aa10bf47b57) di GitHub.
 
 Dengan selesainya masalah-masalah di atas, bukan berarti saya tidak berniat untuk menambahkan fitur ataupun memperbarui tema, saya akan berusaha untuk menambahkan fitur di blog ini jika saya ingin, tapi itu tidak tahu kapan 🙁
 
