@@ -91,8 +91,8 @@ jobs:
         path: files.tar.gz
         retention-days: 1
   
-  deploy:
-    name: Deploy (Preview)
+  deploy_to_storj-ap1-s3:
+    name: Deploy to Storj.io AP1 S3 Storage (Preview)
     needs: build
     runs-on: ubuntu-20.04
     steps:
@@ -114,6 +114,60 @@ jobs:
     - name: Deploying to S3 Storage
       env:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: idcloudhost-s3
+        S3_SERVICE: storj-ap1-s3
+      run: |
+        rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
+
+  deploy_to_storj-us1-s3:
+    name: Deploy to Storj.io US1 S3 Storage (Preview)
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: site-outputs
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring RClone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to S3 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: storj-us1-s3
+      run: |
+        rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
+
+  deploy_to_storj-eu1-s3:
+    name: Deploy to Storj.io EU1 S3 Storage (Preview)
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: site-outputs
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring RClone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to S3 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: storj-eu1-s3
       run: |
         rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
