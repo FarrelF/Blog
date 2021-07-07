@@ -19,9 +19,9 @@ menu:
 ## Tentang Saya dan Blog ini
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
 
-Blog ini telah menggunakan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn/) sebagai Hosting nya (dengan memanfaatkan Layanan Penyimpanan nya) dan menggunakan [Let's Encrypt](https://letsencrypt.org) sebagai Sertifikat SSL nya. 
+Blog ini telah menggunakan [Storj.io](https://www.storj.io) sebagai Hosting dan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn) sebagai _Reverse-proxy_, _TLS termination_ dan CDN, serta menggunakan [ZeroSSL](https://letsencrypt.org) sebagai Sertifikat SSL nya. 
 
-Selain itu, saya juga menggunakan [Statically](https://statically.io) sebagai CDN untuk memuat gambar, beberapa Berkas JavaScript, CSS Internal, Fonta dan [jsDelivr](https://www.jsdelivr.com) untuk memuat beberapa Pustaka JavaScript, CSS, Twemoji beserta keperluan nya.
+Selain itu, saya juga menggunakan [Statically](https://statically.io) sebagai CDN untuk memuat semua berkas-berkas statik di blog ini, termasuk Berkas Gambar, CSS, JS yang tersimpan di dalam blog ini dan memuat pustaka-pustaka yang ada.
 
 Blog ini di bangun dengan [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})) dan saya menggunakan tema ["Stack"](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com).
 

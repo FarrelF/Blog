@@ -169,6 +169,8 @@ Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bi
 
 Jadi, harus sabar menunggu kalau kamu butuh banget sama fiturnya, tapi kalo kamu bisa menyiasati nya (kayak saya), ya gas ajalah kalo pengen, hehe 😀
 
+**PEMBARUAN Rabu, 07 Juli 2021:** Sekarang saya tidak lagi menggunakan IDCloudHost sebagai Hosting, melainkan [Storj.io](https://www.storj.io), jadi saya tidak mengalami hal di atas lagi sejak saat itu.
+
 ### Saat menghapus Bucket S3
 Karena suatu alasan, maka saya berinisiatif mencoba untuk menghapus sebuah Bucket S3 dari laman Panel nya. Bucket S3 tersebut bernama `farrelf`.
 

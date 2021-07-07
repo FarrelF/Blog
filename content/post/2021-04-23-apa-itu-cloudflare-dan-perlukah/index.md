@@ -345,9 +345,9 @@ Nah, setelah dikunjungi untuk kedua kali atau seterusnya, maka sumberdaya yang d
 
 Seperti yang saya bahas sebelumnya, bahwa Cloudflare juga membedakan Prioritas Jaringan berdasarkan paket-paket yang digunakan nya, artinya secara "otomatis" mereka juga 'sengaja' mengarahkan pengunjung Situs Web/Blog yang menggunakan Cloudflare Gratisan ke Server/Pusat data "termurah".
 
-Sedangkan, pengguna CDN Cloudflare Gratisan kemungkinan akan terus bertambah sampai waktu yang belum ditentukan dengan alasan yang berbeda-beda, belum lagi ramainya pengunjung pada satu atau banyak Situs Web/Blog yang menggunakan CDN Cloudflare Gratisan yang menghabiskan puluhan sampai ribuan GB setiap waktu yang bisa menjadi penyebab semua ini.
+Sedangkan, pengguna CDN Cloudflare Gratisan kemungkinan akan terus bertambah sampai waktu yang belum ditentukan dengan alasan yang berbeda-beda, belum lagi ramainya pengunjung pada satu atau banyak Situs Web/Blog yang menggunakan CDN Cloudflare Gratisan yang masing-masing menghabiskan puluhan sampai ribuan GB setiap hari/setiap waktu yang bisa menjadi penyebab semua ini.
 
-Jadi, siapa yang pantas disalahkan? Apakah pihak ISP, Cloudflare, Pengguna CDN Cloudflare yang Gratisan lain nya atau malah Anda sendiri atau malah semuanya? Silahkan pikirkan saja sendiri.
+Jadi, siapa yang pantas disalahkan? Apakah pihak ISP, Cloudflare, Pengguna CDN Cloudflare yang Gratisan lain nya atau malah Anda sendiri atau malah semuanya? Silahkan Anda nilai saja sendiri.
 
 ## Penutup
 Ya sudah, sepertinya pembahas di artikel ini saya cukupkan sampai sini saja. Ngomong-ngomong, saya tulis artikel ini dimulai dari tanggal 06 April 2021 dan Artikel ini terbit saat di bulan Ramadhan tahun ini, tidak terasa juga yah 🙂
