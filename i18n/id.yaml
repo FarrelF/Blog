@@ -35,12 +35,6 @@ article:
     featuredImageOf:
         other: Gambar Unggulan dari Pos
 
-notFound:
-    title:
-        other: Tidak ditemukan
-    subtitle:
-        other: Halaman ini tidak ada.
-
 widget:
     archives:
         title:
