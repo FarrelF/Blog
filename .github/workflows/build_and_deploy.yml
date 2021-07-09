@@ -90,7 +90,7 @@ jobs:
         retention-days: 1
   
   deploy_to_storj-ap1-s3:
-    name: Deploy to Storj.io AP1 S3 Storage
+    name: Deploy to Storj DCS AP1 S3 Storage
     needs: build
     runs-on: ubuntu-20.04
     steps:
@@ -117,7 +117,7 @@ jobs:
         rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   deploy_to_storj-us1-s3:
-    name: Deploy to Storj.io US1 S3 Storage
+    name: Deploy to Storj DCS US1 S3 Storage
     needs: build
     runs-on: ubuntu-20.04
     steps:
@@ -144,7 +144,7 @@ jobs:
         rclone sync -vvvv -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   deploy_to_storj-eu1-s3:
-    name: Deploy to Storj.io EU1 S3 Storage
+    name: Deploy to Storj DCS EU1 S3 Storage
     needs: build
     runs-on: ubuntu-20.04
     steps:

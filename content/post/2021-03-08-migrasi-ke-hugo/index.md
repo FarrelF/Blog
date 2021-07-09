@@ -150,7 +150,7 @@ Jika itu benar-benar terjadi, maka saya akan berencana untuk pindah Hosting ke b
 
 **PEMBARUAN Kamis, 22 Maret 2021:** Sekarang saya telah menggunakan Bunny CDN untuk Hosting nya, meskipun mereka masih menggunakan protokol FTP, terlalu lama rasanya jika saya menunggu dan pindah Hosting ini dari awal bulan ini. Tapi, pada akhirnya saya bisa menemukan cara untuk men-_deploy_ Blog nya tanpa harus menggunakan JavaScript/NodeJS.
 
-**PEMBARUAN Rabu, 07 Juli 2021:** Sekarang ini saya sudah menggunakan [Storj.io](https://www.storj.io) sebagai Hosting, jadi saya gak terlalu perlu menunggu fitur dari Bunny\.net tentang _Object Storage_ nya.
+**PEMBARUAN Rabu, 07 Juli 2021:** Sekarang ini saya sudah menggunakan [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting, jadi saya gak terlalu perlu menunggu fitur dari Bunny\.net tentang _Object Storage_ nya.
 
 ### CI/CD (_Contnuous Integration/Continuous Delivery_)
 Hingga saat ini, saya masih menggunakan layanan CI/CD (_Contnuous Integration/Continuous Delivery_) bawaan dari Netlify nya. Ini peran nya untuk menghasilkan Blog Statis dari Kode Sumber yang ada saat saya melakukan `git push`.
@@ -161,7 +161,7 @@ Jika Produk Penyimpanan S3 dari Bunny.net benar-benar di perkenalkan pada awal t
 
 **PEMBARUAN Kamis, 22 Maret 2021:** Karena saya telah menggunakan Bunny CDN untuk Hosting nya, maka saya menggunakan GitHub Actions untuk layanan CI/CD nya.
 
-**PEMBARUAN Rabu, 07 Juli 2021:** Saya sudah menggunakan Storj.io sebagai hosting, dan masih tetap menggunakan GitHub Actions sebagai CI/CD, hanya saja sekarang menjadi lebih mudah saja.
+**PEMBARUAN Rabu, 07 Juli 2021:** Saya sudah menggunakan Storj DCS sebagai hosting, dan masih tetap menggunakan GitHub Actions sebagai CI/CD, hanya saja sekarang menjadi lebih mudah saja.
 
 ### Artikel Blog
 Seperti yang Anda lihat, bahwa sekarang Iklan dan Analitik di blog ini sudah tidak ada sama sekali.

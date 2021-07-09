@@ -169,7 +169,7 @@ Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bi
 
 Jadi, harus sabar menunggu kalau kamu butuh banget sama fiturnya, tapi kalo kamu bisa menyiasati nya (kayak saya), ya gas ajalah kalo pengen, hehe 😀
 
-**PEMBARUAN Rabu, 07 Juli 2021:** Sekarang saya tidak lagi menggunakan IDCloudHost sebagai Hosting, melainkan [Storj.io](https://www.storj.io), jadi saya tidak mengalami hal di atas lagi sejak saat itu.
+**PEMBARUAN Rabu, 07 Juli 2021:** Sekarang saya tidak lagi menggunakan IDCloudHost sebagai Hosting, melainkan [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), jadi saya tidak mengalami hal di atas lagi sejak saat itu.
 
 ### Saat menghapus Bucket S3
 Karena suatu alasan, maka saya berinisiatif mencoba untuk menghapus sebuah Bucket S3 dari laman Panel nya. Bucket S3 tersebut bernama `farrelf`.
@@ -332,7 +332,7 @@ Jadi, seharusnya secara kecepatan juga tidak ada perbedaan yang berarti. Untuk b
 
 Apalagi jika berkas tersebut disimpan ke dalam "Edge Storage" yang telah direplikasi, sehingga akses ke berkas-berkas statik akan menjadi jauh lebih cepat, tanpa menyentuh Server Aslinya sama sekali.
 
-**PEMBARUAN Rabu, 07 Juli 2021:** Karena saya Hosting di [Storj.io](https://www.storj.io) dan bukan di IDCloudHost lagi, jadi 'masalah' di pertanyaan ini sudah terselesaikan.
+**PEMBARUAN Rabu, 07 Juli 2021:** Karena saya Hosting di [Storj DCS](https://www.storj.io) dan bukan di IDCloudHost lagi, jadi 'masalah' di pertanyaan ini sudah terselesaikan.
 
 ### Pertanyaan ke-6: Apakah semua API S3 yang saya pelajari dari Dokumentasi AWS bisa saya gunakan di IDCloudHost? {#pertanyaan-ke6}
 **Jawab:** Belum tentu, sejak ini merupakan "S3-compatible" belum tentu semua fitur dari AWS S3 bisa diaplikasikan ke dalam S3 nya IDCloudHost.
