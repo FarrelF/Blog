@@ -50,3 +50,37 @@ img {
         display: none;
     }
 }
+
+.article--toc {
+    #TableOfContents {
+        ol {
+            counter-reset: item;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        & > li {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 5px;
+
+            &::before {
+                counter-increment: item;
+                content: counters(item, ".") ". ";
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            & > ol {
+                padding-left: 10px;
+
+                & > li:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
