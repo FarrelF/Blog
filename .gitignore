@@ -7,4 +7,5 @@ config.dev.yaml
 node_modules
 dist
 tmp
-*Zone.identifier
+*:Zone.identifier
+*:Zone.Identifier

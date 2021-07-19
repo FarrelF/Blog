@@ -31,50 +31,75 @@ Description: >
 ## Pembuka
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di Netlify dan BunnyCDN.
 
-Di sini, Anda akan mempelajari untuk membuat Sertifikat SSL yang bisa Anda dapatkan dari ZeroSSL, baik jangkauan nya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh
+Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL yang bisa Anda dapatkan dari ZeroSSL, baik jangkauan nya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh
 
 ### Tunggu, ZeroSSL Gratis? Bukan nya bayar? {#zerossl-gratis}
-Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga bisa membuat Sertifikat SSL _Wildcard_ nya secara gratis dengan jumlah yang tidak terbatas, dengan kunci RSA maupun ECC.
+Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga bisa menerbitkan Sertifikat SSL _Wildcard_ nya secara gratis dengan jumlah yang tidak terbatas, dengan kunci RSA maupun ECC.
 
-Tapi, itu hanya berlaku jika Anda membuat sertifikat SSL melalui Server ACME nya, bukan melalui Situs Web ataupun REST API nya. Semua sertifikat yang dibuat dengan Protokol ACME akan memiliki masa berlaku selama 90 hari kedepan.
+Tapi, itu hanya berlaku jika Anda membuat sertifikat SSL melalui Server ACME nya, bukan melalui Situs Web ataupun REST API nya. Semua sertifikat yang diterbitkan dengan Protokol ACME akan memiliki masa berlaku selama 90 hari kedepan.
 
-Serta, jika Anda membuat SSL menggunakan Protokol ACME dan Server ACME nya, maka kuota SSL yang ada di Situs Web tidak akan bertambah sama sekali.
+Serta, jika Anda membuat/menerbitkan sebuah Sertifikat SSL menggunakan Protokol ACME dan Server ACME nya, maka kuota SSL yang ada di Situs Web tidak akan bertambah sama sekali.
 
 Info nya dari mana? Salah satu info nya berasal dari [dokumentasinya](https://zerossl.com/documentation/acme/).
 
-Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman ["Pricing"](https://zerossl.com/pricing/) nya pun kamu akan menemukan tulisan "90-Day ACME Certs" yang bersebelahan dengan Simbol "tidak terbatas", yang artinya kamu dapat membuat Sertifikat SSL dari Server ACME nya apapun secara gratis tanpa batasan jumlah.
+Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman ["Pricing"](https://zerossl.com/pricing/) nya pun kamu akan menemukan tulisan "90-Day ACME Certs" yang bersebelahan dengan Simbol "tidak terbatas", yang artinya kamu dapat menerbitkan Sertifikat SSL dari Server ACME nya apapun secara gratis tanpa batasan jumlah.
 
 ![Halaman "Pricing" di ZeroSSL, per tanggal: 12 Juli 2021](ZeroSSL_Pricing.png)
 
-Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa membuat Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
+Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
 
-### Persyaratan
-Di artikel ini, Anda akan mempelajari membuat Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang hanya kompatibel dengan Sistem Operasi berbasis *nix/UNIX-like, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
+### Persyaratan {#persyaratan}
+Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang hanya kompatibel dengan Sistem Operasi berbasis *nix/UNIX-like, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
 
-Jika Anda menggunakan Windows, terutama Windows 10, maka Anda bisa gunakan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar Anda bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows.
+Maka, persyaratan perangkat lunak yang harus Anda penuhi bagi pengguna Sistem Operasi agar bisa menggunakan acme.sh serta agar dapat mengikuti artikel ini secara keseluruhan. Berikut di bawah ini adalah persyaratan nya:
 
-Sedangkan jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, gunakan versi terbaru untuk pengalaman yang lebih nyaman.
+#### Untuk Pengguna GNU/Linux, macOS, BSD dan Sistem Operasi berbasis \*nix lain nya {#pengguna-unix-like}
+Sistem Operasi berbasis Unix-like/\*nix (seperti GNU/Linux, macOS, dan BSD) sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena aplikasi tersebut memang dirancang untuk \*nix. 
+
+Asal punya OpenSSL/LibreSSL, cURL dan Cron, maka acme.sh dapat dijalankan sebagai mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, di artikel ini saya bahas hanya untuk mengunduh dan menginstal acme.sh saja.
+
+Selain itu, Anda juga dapat meng-instal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas di dalam artikel ini.
+
+#### Untuk Pengguna Windows 10 {#pengguna-windows-10}
+Jika Anda menggunakan Windows, terutama Windows 10 (atau di atasnya), maka Anda bisa gunakan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar Anda bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows.
+
+Ketika Anda sedang menggunakan WSL, maka Anda bisa mengikuti persyaratan perangkat lunak untuk GNU/Linux. Jadi pastikan jika cURL, OpenSSL/LibreSSL dan Cron sudah ada di dalam Sistem WSL Anda (Biasanya ada).
+
+#### Untuk Pengguna Android (tidak perlu akses _root_) {#pengguna-android}
+Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman.
 
 Pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid nya](https://f-droid.org/repository/browse/?fdid=com.termux).
 
-Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasan nya silahkan Anda baca [dari sini](https://wiki.termux.com/wiki/Termux_Google_Play).
+Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasan nya silahkan Anda baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Setelah Instal Termux, hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal paket-paket yang diperlukan dengan perintah berikut:
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persyaratan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL/LibreSSL, dan Cron sudah ada di dalam Termux Anda.
+
+Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal paket-paket yang diperlukan dengan perintah berikut:
 
 ```bash
 $ pkg update; pkg upgrade
 $ pkg install curl wget openssl-tools cronie termux-services
 ```
 
-Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo` dan gunakan _Repository_ Resmi dari Termux agar mendapatkan versi terbaru, barulah Anda eksekusikan perintah di atas. Setelah itu, mulai ulang Termux Anda agar perubahan nya bisa diterapkan.
+Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo` dan gunakan _Repository_ Resmi dari Termux terlebih dahulu agar mendapatkan versi terbaru, barulah Anda eksekusikan perintah di atas. 
 
-## Sebelum membuat Sertifikat SSL
+Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka lagi Termux nya agar perubahan nya bisa diterapkan. Setelah Termux dibuka lagi, aktifkan Cron dari latar belakang dengan meng-eksekusi perintah `sv-enable crond`.
+
+Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun, jadi tidak usah khawatir akan kehilangan garansi pada perangkat Anda.
+
+## Sebelum menerbitkan Sertifikat SSL
+Sebelum menerbitkan nya, Anda perlu mengikuti beberapa poin pembahasan terlebih dahulu. Poin-poin akan saya bahas dalam langkah-demi-langkah.
+
+Jadi, harap Anda jangan melewati satu langkahpun, kecuali jika ada catatan yang mengizinkan nya.
+
+Atau, Anda juga bisa lewati bagian ini jika Anda sudah pernah mendaftarkan akun ZeroSSL, meng-install dan konfigurasi acme.sh, serta melakukan pengaitan akun ZeroSSL dengan acme.sh sebelumnya.
+
 ### Membuat Akun ZeroSSL dan mendapatkan Kredensial EAB nya {#membuat-akun-zerossl}
-**Catatan:** Jika Anda belum mempunyai Akun nya dan ingin membuatnya tanpa melalui Web, lewati ini jika Anda tidak ingin mendaftar melalui Web nya, [lanjut saja](#install-acme-sh).
+**Catatan:** Jika Anda belum mempunyai Akun nya dan ingin membuatnya tanpa melalui Web, lewati ini jika Anda tidak ingin mendaftar melalui Web nya dan langsung [lanjut saja](#install-acme-sh).
 
-Sebelum Anda membuat Sertifikat SSL nya, maka Anda disarankan untuk mendaftar akun ZeroSSL nya terlebih dahulu melalui [Situs Webnya](https://zerossl.com).
+Sebelum Anda menerbitkan Sertifikat SSL nya, maka Anda disarankan untuk mendaftar akun ZeroSSL nya terlebih dahulu melalui [Situs Webnya](https://zerossl.com).
 
-Setelah mendaftar, Anda tidak perlu membuat Sertifikatnya di sana, melainkan Anda hanya perlu Kredensial EAB yakni "EAB KID" dan "EAB HMAC Key" nya saja. Langkah-langkahnya sebagai berikut:
+Setelah mendaftar, Anda tidak perlu membuat/menerbitkan Sertifikatnya di sana, melainkan Anda hanya perlu Kredensial EAB yakni "EAB KID" dan "EAB HMAC Key" nya saja. Langkah-langkahnya sebagai berikut:
 
 0. Daftar Akun ZeroSSL nya [di sana](https://app.zerossl.com/signup) dan Login setelah itu (Atau, Anda hanya perlu [Login](https://app.zerossl.com/login) saja jika Anda sudah pernah mendaftar akun sebelumnya)
 1. Pada Dasbor ZeroSSL, klik "Developer"
@@ -86,7 +111,7 @@ Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplik
 
 ![1](ZeroSSL_EAB_Credential_1.png) ![2](ZeroSSL_EAB_Credential_2.png)
 
-Setelah Kredensial EAB dibuat, ya sudah lanjut saja ke langkah berikutnya, yakni Instal acme.sh, Anda sama sekali tidak perlu membuat Sertifikat SSL nya di sana.
+Setelah Kredensial EAB dibuat, ya sudah lanjut saja ke langkah berikutnya, yakni Instal acme.sh, Anda sama sekali tidak perlu menerbitkan Sertifikat SSL nya di sana.
 
 ### Instal acme.sh {#install-acme-sh}
 Setelah mendaftar akun ZeroSSL, salah satu yang perlu Anda lakukan adalah meng-instal acme.sh terlebih dahulu di dalam Sistem Operasi Anda.
@@ -107,7 +132,7 @@ Atau, dengan GNU Wget:
 $ wget -O -  https://get.acme.sh | sh -s email=my@example.com
 ```
 
-Ganti `my@example.com` dengan Alamat Surel Anda. 
+Ganti `my@example.com` dengan Alamat Surel Anda.
 
 Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
 
@@ -130,16 +155,16 @@ $ source ${HOME}/.zshrc
 ```
 
 ### Verifikasi DNS di acme.sh
-Agar Sertifikat SSL dapat dibuat melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
+Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
-Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukan nya, Anda juga dapat membuat Sertifikat SSL untuk semua Subdomain Anda (Wildcard SSL) dengan mudah.
+Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukan nya, Anda juga dapat menerbitkan Sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat membuat dan memperbarui Sertifikat SSL, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ pada akun Penyedia DNS Otoritatif Anda.
+Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ pada akun Penyedia DNS Otoritatif Anda.
 
-Untuk itu, Anda perlu memberikan acme.sh izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
+Untuk itu, Anda perlu memberikan acme.sh sebuah izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare
-Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "API Token" (`CF_Token`) dan dapatkan "Account ID" (`CF_Account_ID`) nya, jika berkenan, Anda bisa mendapatkan "Zone ID" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain saja.
+Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "API Token" (`CF_Token`) dan dapatkan "Account ID" (`CF_Account_ID`) nya, jika berkenan, Anda juga bisa mendapatkan "Zone ID" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain saja.
 
 Untuk membuat "API Token" nya, silahkan Anda baca [dokumentasi nya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat "API Token" nya.
 
@@ -199,7 +224,7 @@ Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk men
 Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
 
 ### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
-Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (Certificate Authority) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL Anda terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
+Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL Anda terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
 
 ```bash
 $ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
@@ -207,7 +232,7 @@ $ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_H
 
 Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
 
-Atau, jika Anda belum pernah daftar sama sekali dan ingin mendaftarkan akun ZeroSSL, maka Anda dapat eksekusi perintah berikut:
+Atau, jika Anda belum pernah daftar sama sekali dan ingin mendaftarkan akun ZeroSSL tanpa menggunakan Peramban Web, maka Anda dapat eksekusi perintah berikut:
 
 ```bash
 $ acme.sh --register-account -m myemail@example.com
@@ -215,49 +240,49 @@ $ acme.sh --register-account -m myemail@example.com
 
 Ganti `myemail@example.com` dengan Alamat Surel Anda yang valid.
 
-Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk membuat dan memperbarui Sertifikat SSL kamu.
+Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk menerbitkan/membuat dan memperbarui Sertifikat SSL kamu.
 
-## Membuat Sertifikat SSL dengan acme.sh {#membuat-sertifikat-ssl}
-Nah, setelah mengikuti beberapa langkah, akhirnya Anda bisa sampai di sini, yakni membuat Sertifikat SSL.
+## Menerbitkan Sertifikat SSL dengan acme.sh {#menerbitkan-sertifikat-ssl}
+Nah, setelah mengikuti beberapa langkah, akhirnya Anda bisa sampai di sini, yakni menerbitkan Sertifikat SSL.
 
-Ada beberapa cara untuk membuat sertifikat SSL Anda menggunakan acme.sh, tidak perlu Anda ikuti semua dan sesuaikan dengan selera Anda. Berikut adalah cara-cara nya:
+Ada beberapa cara untuk menerbitkan nya menggunakan acme.sh, tidak perlu Anda ikuti semua dan sesuaikan dengan selera Anda. Berikut adalah cara-cara nya:
 
-### Membuat Sertifikat SSL untuk 1 Domain dan 1 Subdomain
-Jika Anda ingin membuat Sertifikat SSL hanya untuk 1 Domain, Anda dapat eksekusikan perintah berikut:
+### Menerbitkan Sertifikat SSL untuk 1 Domain dan 1 Subdomain {#single-domain}
+Jika Anda ingin menerbitkan Sertifikat SSL hanya untuk 1 Domain, Anda dapat eksekusikan perintah berikut:
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com
 ```
 
-Jika Anda mengeksekusi perintah di atas, maka Anda membuat Sertifikat SSL hanya untuk 1 Domain dan 1 Subdomain saja, yakni `domain.com` dan `www.domain.com`.
+Jika Anda mengeksekusi perintah di atas, maka Anda menerbitkan Sertifikat SSL hanya untuk 1 Domain dan 1 Subdomain saja, yakni `domain.com` dan `www.domain.com`.
 
-Parameter `-d` berfungsi untuk target domain nya dan untuk domain apa Sertifikat SSL itu dibuat, isikan itu dengan Domain Anda.
+Parameter `-d` berfungsi untuk target domain nya dan untuk domain apa Sertifikat SSL itu diterbitkan, isikan itu dengan Domain Anda.
 
-Parameter `--issue` berfungsi agar acme.sh membuat Sertifikat SSL Anda, itu cuma sebagai opsi awal. Opsi lain nya adalah `--renew` untuk memperbarui Sertifikat SSL yang ada, `--revoke` untuk mencabut Sertifikat SSL, dll.
+Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Opsi selain `--issue` adalah `--renew` untuk memperbarui Sertifikat SSL yang ada, `--revoke` untuk mencabut Sertifikat SSL, dll.
 
-### Membuat Sertifikat SSL dengan Menggunakan DNS sebagai Verifikasi
-Jika Anda ingin membuat Sertifikat SSL yang menggunakan DNS sebagai Verifikasi nya, maka Anda tinggal tambahkan saja parameter `--dns nama_dns`. Contohnya seperti berikut:
+### Menerbitkan Sertifikat SSL dengan Menggunakan DNS sebagai Verifikasi {#verifikasi-dns}
+Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Verifikasi nya, maka Anda tinggal tambahkan saja parameter `--dns nama_dns`. Contohnya seperti berikut:
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com --dns dns_cf
 ```
 
-Perintah di atas jika dieksekusi maka acme.sh akan membuat Sertifikat SSL untuk `domain.com` dan `www.domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
+Perintah di atas jika dieksekusi, maka acme.sh akan menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan `www.domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasinya.
 
 Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns_cf` nya menjadi nama-nama berkas yang tampil [di sana](https://github.com/acmesh-official/acme.sh/tree/master/dnsapi).
 
-Misalnya: Anda ingin membuat sebuah sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Verifikasi nya, karena nama berkas di sana nya adalah `dns_constellix`, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
+Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Verifikasinya, karena nama berkas di sana nya adalah `dns_constellix`, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com --dns dns_constellix
 ```
 
-Atau, Anda bisa baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi), sebenarnya di sana juga telah disediakan cara membuat Sertifikat SSL dengan menggunakan DNS sebagai Verifikasi nya pada masing-masing Penyedia.
+Atau, Anda bisa baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi), sebenarnya di sana juga telah disediakan cara menerbitkan Sertifikat SSL dengan menggunakan DNS sebagai Verifikasi nya pada masing-masing Penyedia.
 
-Nah, sekarang paham, kan? Ini juga sangat penting untuk membuat Sertifikat SSL yang _Wildcard_, karena Verifikasi melalui DNS merupakan salah satu syarat yang wajib.
+Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan Sertifikat SSL [dalam bentuk _Wildcard_](#wildcard-ssl), karena Verifikasi melalui DNS merupakan salah satu syarat yang wajib.
 
-### Membuat Sertifikat SSL untuk Banyak Domain dan Subdomain
-Untuk membuat Sertifikat SSL yang menargetkan Banyak Domain dan Subdomain, sebenarnya Anda tinggal parameter `-d` dengan banyak juga untuk masing-masing domain atau subdomain nya. Contohnya seperti berikut:
+### Menerbitkan Sertifikat SSL untuk Banyak Domain dan Subdomain {#multi-domain}
+Untuk menerbitkan Sertifikat SSL yang menargetkan Banyak Domain dan Subdomain, sebenarnya Anda tinggal parameter `-d` dengan banyak juga untuk masing-masing domain atau subdomain nya. Contohnya seperti berikut:
 
 Untuk 2 Domain dan 4 Subdomain:
 
@@ -273,8 +298,10 @@ $ acme.sh --issue -d domain1.com -d domain2.com -d domain3.com -d domain4.com
 
 Dan seterusnya akan seperti itu caranya.
 
-### Membuat Sertifikat SSL yang menjangkau Seluruh Subdomain nya
-Jika Anda ingin membuat Sertifikat SSL yang menjangkau seluruh Subdomain (Wildcard), maka Anda tinggal tambahkan parameter `-d "*.domain.com"` saja. Tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan verifikasi melalui DNS.
+### Menerbitkan Sertifikat SSL yang menjangkau Seluruh Subdomain nya {#wildcard-ssl}
+Jika Anda ingin menerbitkan Sertifikat SSL yang menjangkau seluruh Subdomain  atau dalam bentuk _Wildcard_, maka Anda tinggal tambahkan parameter `-d "*.domain.com"` saja.
+
+Tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui DNS](#verifikasi-dns) sebagai Syarat Wajib agar bisa menerbitkan nya dalam bentuk _Wildcard_.
 
 Contohnya seperti berikut:
 
@@ -282,15 +309,15 @@ Contohnya seperti berikut:
 $ acme.sh --issue -d domain.com -d "*.domain.com" --dns dns_cf
 ```
 
-Jika Anda mengeksekusi perintah di atas, maka Anda membuat Sertifikat SSL hanya untuk 1 Domain dan seluruh Subdomain nya, yakni `domain.com` dan `*.domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
+Jika Anda mengeksekusi perintah di atas, maka Anda menerbitkan sebuah Sertifikat SSL hanya untuk 1 Domain dan seluruh Subdomain nya, yakni `domain.com` dan `*.domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
 
-Jika Anda bukan pengguna Cloudflare, maka Anda perlu baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda bukan pengguna Cloudflare, maka Anda perlu baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) terlebih dahulu, di situ sudah dijelaskan cara-caranya.
 
-Kenapa dikutip _Wildcard_ nya? Karena terkadang _Shell_ lain tidak dapat meng-intepretasi tanda bintang dengan baik jika tidak dikutip, seperti Zsh misalnya.
+Kenapa _Wildcard_ nya dikutip dua? Karena terkadang _Shell_ lain tidak dapat meng-intepretasi tanda bintang dengan baik jika tidak dikutip, seperti Zsh (Zshell) misalnya.
 
-Apakah itu menjangkau Sub-subdomain seperti `sub.sub.domain.com`? Tentu saja tidak, karena sertifikat SSL tersebut cuma dibuat untuk `domain.com` dan `*.domain.com`, yang mana cuma menjangkau `sub1.domain.com`, `sub2.domain.com`, dst, bukan `sub.sub.domain.com`.
+Apakah itu menjangkau Sub-subdomain seperti `sub.sub.domain.com`? Tentu saja tidak, karena sertifikat SSL tersebut cuma diterbitkan untuk `domain.com` dan `*.domain.com`, yang mana cuma menjangkau `sub1.domain.com`, `sub2.domain.com`, dst, bukan `sub.sub.domain.com`.
 
-Jika Anda mau seperti itu, tambahkan Subdomain Anda beserta _Wildcard_ nya, jadi parameter yang Anda tambahkan adalah `-d sub.domain.com -d "*.sub.domain.com"`. 
+Jika Anda mau seperti itu, tambahkan saja Subdomain Anda beserta _Wildcard_ nya, jadi parameter yang Anda tambahkan adalah `-d sub.domain.com -d "*.sub.domain.com"`. 
 
 Contohnya menjadi seperti berikut:
 
@@ -300,22 +327,22 @@ $ acme.sh --issue -d domain.com -d "*.domain.com" -d sub.domain.com -d "*.sub.do
 
 Nah, sekarang paham, kan?
 
-### Membuat Sertifikat SSL dengan ukuran kunci yang berbeda
-Secara Bawaan, acme.sh akan membuat Sertifikat SSL dengan kunci RSA-2048 sebagai bawaan. Jika Anda ingin membuat Sertifikat SSL dengan ukuran kunci yang berbeda, seperti RSA-3072, tambahkan saja parameter `--keylength ukuran_kunci_rsa`. 
+### Menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda {#ssl-beda-ukuran-kunci}
+Secara Bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA yang berukuran 2048 bit (RSA-2048). Jika Anda ingin menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda, tambahkan saja parameter `--keylength ukuran_kunci_rsa`. 
 
-Contoh berikut adalah ketika Anda ingin membuat Sertifikat SSL dengan kunci RSA-3072:
+Contoh berikut adalah ketika Anda ingin menerbitkan nya dengan kunci RSA yang berukuran 3072 bit (RSA-3072):
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 ```
 
-Atau, berikut di bawah ini jika Anda ingin Sertifikat SSL _Wildcard_:
+Atau, berikut di bawah ini jika Anda ingin menerbitnya dalam bentuk _Wildcard_:
 
 ```bash
 $ acme.sh --issue -d domain.com -d "*.domain.com" --keylength 3072 --dns dns_cf
 ```
 
-Jika Anda ingin membuatnya dengan kunci RSA-4096, tinggal ganti saja menjadi `--keylength 4096`. Perhatikan saja terhadap nilai parameternya.
+Jika Anda ingin menerbitkan nya dengan ukuran kunci sebesar 4096 bit, Anda tinggal ganti saja menjadi `--keylength 4096`. Intinya, Anda perhatikan saja terhadap nilai parameternya.
 
 Ukuran Kunci RSA yang didukung oleh acme.sh beserta nilai parameter `keylength` nya adalah:
 - RSA-2048 (Bawaan)
@@ -324,22 +351,22 @@ Ukuran Kunci RSA yang didukung oleh acme.sh beserta nilai parameter `keylength` 
 
 **Catatan:** Didukung oleh acme.sh, bukan berarti didukung oleh CA yang digunakan, tapi ZeroSSL sepertinya mendukung semua itu.
 
-### Membuat Sertifikat SSL dengan kunci ECC
-Secara bawaan, acme.sh akan membuat Sertifikat SSL dengan kunci RSA. Jika Anda ingin membuat Sertifikat SSL ECC (Eliptic Curve Cryptography)/ECDSA (Eliptic Curve Digital Signature Algorithm), maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`.
+### Menerbitkan Sertifikat SSL dengan kunci ECC/ECDSA {#ecdsa-ssl}
+Secara bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA. Jika Anda ingin menerbitkan nya menggunakan kunci ECC (_Eliptic Curve Cryptography_)/ECDSA (_Eliptic Curve Digital Signature Algorithm_), maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`.
 
-Contoh berikut adalah ketika Anda ingin membuat Sertifikat SSL ECDSA dengan ukuran P-384:
+Contoh berikut adalah ketika Anda ingin menerbitkan Sertifikat SSL ECDSA dengan ukuran P-384:
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 ```
 
-Atau, berikut di bawah ini jika Anda ingin Sertifikat SSL _Wildcard_:
+Atau, berikut di bawah ini jika Anda ingin menerbitkan nya dalam bentuk _Wildcard_:
 
 ```bash
 $ acme.sh --issue -d domain.com -d "*.domain.com" --keylength ec-384 --dns dns_cf
 ```
 
-Jika Anda ingin membuatnya dengan kunci ECDSA P-256, tinggal ganti saja menjadi `--keylength ec-256`. Perhatikan saja nilai parameter dari `keylength` nya.
+Jika Anda ingin menerbitkan nya dengan kunci ECDSA P-256, tinggal ganti saja menjadi `--keylength ec-256`. Perhatikan saja nilai parameter dari `keylength` nya.
 
 Ukuran Kunci ECC/ECDSA yang didukung oleh acme.sh beserta nilai dari parameter `keylength` adalah:
 - ECDSA P-256 (`ec-256`)
@@ -348,29 +375,42 @@ Ukuran Kunci ECC/ECDSA yang didukung oleh acme.sh beserta nilai dari parameter `
 
 **Catatan:** Didukung oleh acme.sh, bukan berarti didukung oleh CA yang digunakan, termasuk Let's Encrypt yang belum mendukung kunci ECDSA dengan ukuran kunci P-512.
 
-## Berkas-berkas Sertifikat SSL
-Sertifikat yang dihasilkan oleh acme.sh itu bukan dalam bentuk kertas, melainkan dalam bentuk berkas digital. Sehingga, setelah acme.sh berhasil membuat Sertifikat SSL nya, berkas-berkas nya akan disimpan ke dalam direktori tertentu.
+## Berkas-berkas acme.sh {#berkas-berkas-acme-sh}
+Bagian ini akan membahas tentang berkas-berkas yang berada di dalam direktori acme.sh itu terinstal. 
 
-Biasanya acme.sh akan memberitahu berkas-berkas apa saja yang perlu diunggah untuk memasang Sertifikat SSL untuk Web/Blog Anda, cuma saya akan jelaskan dengan lebih lengkap.
+Ini bukanlah hal yang wajib, tapi ini sangat disarankan untuk dipelajari, selain supaya Anda bisa memasang sertifikat SSL nya dengan baik, ini juga dapat membantu Anda untuk menyelesaikan masalah Anda saat menggunakan nya.
 
-### Letak Sertifikat SSL
-Berkas-berkas Sertifikat SSL yang dihasilkan oleh acme.sh akan tersimpan di dalam direktori berikut:
+### Letak acme.sh dan konfigurasi akun nya
+Biasanya, acme.sh akan terinstal di dalam direktori `${HOME}/.acme.sh`, jika Anda ingin menghapus acme.sh, Anda tinggal hapus saja direktori nya. 
+
+Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `${HOME}/.acme.sh/account.conf`.
+
+Berkas tersebut menyimpan sejumlah Informasi yang berkaitan dengan Akun yang Anda masukkan melalui variabel dari sebuah Shell (Seperti _Token_, Kunci API, atau bahkan Nama Pengguna dan Kata Sandi), acme.sh akan menyimpan Informasi tersebut secara otomatis ke dalam berkas `account.conf` jika dijalankan dan akan digunakan kembali jika tersimpan.
+
+Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena Akun nya tidak valid, entah itu salah memasukkan atau Informasi nya tidak ada, Anda bisa mengganti nya di dalam berkas `${HOME}/.bashrc` atau `${HOME}/.zshrc` (bagi pengguna Zsh), lalu hapus berkas `account.conf` nya.
+
+### Letak Sertifikat SSL {#letak-sertifikat-ssl}
+Sertifikat yang dihasilkan oleh acme.sh itu bukan dalam bentuk kertas, melainkan dalam bentuk berkas digital. Sehingga, setelah acme.sh berhasil menerbitkan Sertifikat SSL nya, maka berkas-berkas nya akan disimpan ke dalam direktori tertentu.
+
+Biasanya acme.sh akan memberitahukan di mana berkas-berkas tersebut berada setelah Anda menerbitkan nya. Berkas-berkas tersebut sangat diperlukan untuk memasang Sertifikat SSL pada Web/Blog Anda.
+
+Tapi jika Anda belum mengetahui letaknya, berkas-berkas yang dihasilkan oleh acme.sh setelah menerbitkan sebuah Sertifikat SSL akan tersimpan di dalam direktori berikut:
 
 ```text
 ${HOME}/.acme.sh/domain.com
 ```
 
-Atau, jika Anda membuat Sertifikat SSL yang menggunakan kunci ECC/ECDSA, maka Sertifikat SSL akan tersimpan di dalam direktori berikut:
+Atau, jika Anda menerbitkan nya dengan menggunakan kunci ECC/ECDSA, maka Sertifikat SSL akan tersimpan di dalam direktori berikut:
 
 ```text
 ${HOME}/.acme.sh/domain.com_ecc
 ```
 
-Ganti `domain.com` dengan Alamat Domain/Subdomain kamu. 
+Ganti `domain.com` dengan Alamat Domain/Subdomain kamu.
 
-Penamaan Direktori tersebut ditentukan berdasarkan domain pertama yang kamu masukkan saat membuat Sertifikat SSL dengan acme.sh. Contoh:
+Penamaan Direktori tersebut ditentukan berdasarkan domain pertama yang kamu masukkan saat menerbitkan nya dengan acme.sh. Contoh:
 
-Jika kamu membuat Sertifikat SSL dengan perintah berikut:
+Jika kamu menerbitkan nya dengan perintah berikut:
 
 ```bash
 $ acme.sh --issue -d domain.com -d www.domain.com
@@ -384,9 +424,9 @@ $ acme.sh --issue -d sub.domain.com -d "*.sub.domain.com" -d domain.com -d "*.do
 
 Maka semua berkas-berkas Sertifikat SSL akan tersimpan di dalam direktori `${HOME}/.acme.sh/sub.domain.com`, karena domain pertamanya adalah `sub.domain.com` bukan `domain.com` jika Anda lihat baris perintah di atas. Begitupula dengan seterusnya.
 
-Selain Direktori, "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL juga akan ditentukan berdasarkan domain pertama yang kamu masukkan saat membuat Sertifikat SSL tadi, domain setelahnya hanya dimasukkan ke dalam "Subject Alternative Name" (atau disingkat "SAN") saja.
+Selain Direktori, "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL juga akan ditentukan berdasarkan domain pertama yang kamu masukkan saat menerbitkan Sertifikat SSL tadi, domain setelahnya hanya dimasukkan ke dalam "Subject Alternative Name" (atau disingkat "SAN") saja.
 
-### Isi direktori dan berkas yang diperlukan
+### Isi direktori dan berkas yang diperlukan {#isi-direktori}
 Setelah mengetahui direktori, sekarang isi direktori nya. Isi nya akan seperti ini:
 
 ```bash
@@ -403,19 +443,25 @@ drwx------ 10 user user 4096 Jul  8 08:50 ..
 -rw-r--r--  1 user user 6871 Jul  8 08:46 fullchain.cer
 ```
 
-Jika Penyedia Hosting/CDN nanti meminta 3 berkas yang diunggah untuk mengaktifkan Sertifikat SSL nya, maka berkas yang perlu Anda unggah adalah: 
+Jika Penyedia Hosting/CDN nanti meminta kita untuk memasukkan 3 Informasi untuk mengaktifkan Sertifikat SSL nya, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah: 
 - `domain.com.cer` (Sebagai Sertifikat nya)
 - `domain.com.key` (Sebagai Kunci nya)
 - `ca.cer` (Sebagai Sertifikat CA/"Intermediate Certificate" nya)
 
-Atau, jika mereka cuma meminta 2 berkas saja, maka berkas yang perlu Anda diunggah adalah:
+Atau, jika mereka cuma meminta 2 Informasi saja, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah:
 - `fullchain.cer` (Sebagai Sertifikat nya)
 - `domain.com.key` (Sebagai Kunci nya)
 
 Udah itu saja? Udah, hanya itu yang perlu kamu unggah nantinya. Berkas `csr` dan `conf` tidak perlu kamu unggah sama sekali, karena itu berguna nantinya untuk memperbarui Sertifikat SSL Anda.
 
+Kenapa bukan `domain.com.cer`? Karena `fullchain.cer` sudah merupakan gabungan dari `domain.com.cer` dan `ca.cer`. 
+
+Praktik terbaik dalam memasang Sertifikat SSL, selain sertifikat untuk domain, adalah wajib memasang/memberikan Informasi mengenai Kunci dan Sertifikat Penengah (_Intermediate Certificate_) dari CA kepada penyedia nya. 
+
+Jika Anda hanya menggunakan berkas `domain.com.cer` daripada `fullchain.cer` sebagai Informasi Sertifikat saat Penyedia hanya meminta 2 Informasi saja, maka rantai pada Sertifikat SSL yang terpasang malah tidak sempurna, karena tidak ada Sertifikat Penengah dari CA nya.
+
 ## Memasang Sertifikat SSL {#memasang-ssl}
-Setelah membuat Sertifikat SSL, Anda perlu memasangkan nya. Setiap penyedia Web mempunyai cara memasang Sertifikat SSL yang berbeda-beda, kali ini saya bahas cara memasang Sertifikat SSL untuk Netlify dan Bunny CDN.
+Setelah menerbitkan Sertifikat SSL, Anda perlu memasangkan nya. Setiap penyedia Web mempunyai cara memasang Sertifikat SSL yang berbeda-beda, kali ini saya bahas cara memasang Sertifikat SSL untuk Netlify dan Bunny CDN.
 
 Memasang Sertifikat SSL yang saya bahas di sini tidaklah menggunakan metode unggah manual melalui Web, melainkan kita 'Nembak' ke API nya. 
 
@@ -425,13 +471,13 @@ Berikut adalah cara-caranya:
 
 ### Di Netlify
 #### Membuat "Personal Access Token" dan Mendapatkan "Site ID"
-Sebelum Anda bisa memasang Sertifikat SSL menggunakan API, maka Anda perlu membaut "Personal Access Token" nya terlebih dahulu, berikut adalah caranya:
+Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Netlify, maka Anda perlu membaut "Personal Access Token" nya terlebih dahulu, berikut adalah caranya:
 
 0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
 1. Klik pada _Button_ "New access token" di Bagian "Personal access tokens"
 2. Masukkan Nama/Deskripsi mengenai Token nya
 3. Setelah itu, klik pada _Button_ "Generate" untuk menghasilkan "Access Token" nya.
-4. Setelah "Access Token" tampil, simpan itu baik-baik, karena "Access Token" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali
+4. Setelah "Access Token" tampil, simpan itu baik-baik, karena "Access Token" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
 5. Klik pada _Button_ "Done" jika merasa sudah selesai
 
 Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
@@ -447,36 +493,39 @@ Jika Anda melihat cuplikan di atas, "API ID" yang saya tunjuk itu merupakan "Sit
 Langkah selanjutnya adalah memasang Sertifikat SSL melalui API nya.
 
 #### Memasang Sertifikat SSL melalui API dari Netlify
-Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Netlify. Sebelum itu, Netlify meminta agar kita mengunggah 3 berkas untuk memasang Sertifikat SSL nya.
+Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Netlify. Sebelum itu, Netlify meminta agar kita mengirimkan 3 Informasi/Berkas untuk memasang Sertifikat SSL nya.
 
-Agar kita dapat mengunggah berkas-berkas itu melalui API nya, maka sebelum mengakses API nya, Anda perlu menyimpan isi dari 3 berkas tersebut ke dalam sebuah Variabel.
+Agar kita dapat mengirimkan berkas-berkas itu melalui API nya, maka sebelum mengakses API nya, Anda perlu menyimpan isi dari 3 berkas tersebut ke dalam sebuah Variabel. 
 
-Contohnya seperti berikut:
+Seperti yang sudah saya bahas sebelumnya, bahwa berkas-berkas yang diperlukan jika Anda diminta untuk mengirimkan 3 Informasi adalah `domain.com.cer`, `domain.com.key` dan `ca.cer`.
+
+Anda dapat menyimpan nya dengan perintah berikut:
 
 ```bash
 $ PLAIN_CERT="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.cer)"
 $ PLAIN_KEY="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.key)"
 $ PLAIN_CA="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/ca.cer)"
+$ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
-Semua isi dari `domain.com.cer`, `domain.com.key` dan `ca.cer` akan dimasukkan ke dalam masing-masing varibel. Biar apa? Biar mempermudah Anda untuk mengeksekusi API nya.
+Silahkan ubah direktori dan nama berkas nya sesuai dengan Sertifikat SSL yang tersimpan di dalam Perangkat Anda.
 
-Jika Anda tahu di mana Sertifikat SSL yang dihasilkan oleh acme.sh itu tersimpan, maka sudah seharusnya Anda menggantikan direktori beserta nama berkasnya di atas.
+Selain direktori dan nama berkas nya, Anda juga bisa bebas menggantikan nama variabel nya sesuka Anda, misalnya: `PLAIN_CERT` jadi `PLAIN_CERT_1`, atau `CERT`, atau lain nya, asal bisa Anda gunakan variabel tersebut kembali.
 
-Setelah memasukkan nya ke dalam Variabel, Anda tinggal eksekusikan saja API nya dengan perintah berikut:
+Setelah memasukkan nya ke dalam Variabel, Anda tinggal panggil saja API nya dengan perintah berikut:
 
 ```bash
-curl -H 'Authorization: Bearer ACCESS_TOKEN_KAMU_DI_SINI' 
-    \ -H 'content-type: application/json' 
-    \ -X POST
-    \ --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' 
-    \ --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
+$ curl -X POST \
+       -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+       -H 'content-type: application/json' \
+       --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+       --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
-Atau, gunakan perintah berikut ini jika Anda ingin mengeksekusinya dengan satu baris perintah saja:
+Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```bash
-curl -H 'Authorization: Bearer ACCESS_TOKEN_KAMU_DI_SINI' -H 'content-type: application/json' -X POST --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
+$ curl -X POST -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' -H 'content-type: application/json' --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
@@ -510,8 +559,77 @@ Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pes
 
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di Netlify dengan API nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip Shell agar SSL bisa [diperbarui secara otomatis](#renew-ssl).
 
-### Di BunnyCDN
+### Di Bunny\.net (Sebelumnya: BunnyCDN)
+#### Mendapatkan "Access Key" dan "Pull Zone ID" nya
+Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan "Access Key" dan "Pull Zone ID" nya terlebih dahulu, berikut di bawah ini adalah caranya:
+
+0. Silahkan akses ke [Dasbor Bunny.net](https://panel.bunny.net/) nya, login jika diminta.
+1. Klik pada "Account" yang letaknya di atas dan berikon seorang raja
+2. Di bagian "API", kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon mata jika Anda ingin melihatnya isi sebenarnya
+3. Nah, "Access Key" sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui "Access Key" nya
+
+Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
+
+!["Access Key" Bunny.net](Bunny.net_Access_Key.png)
+
+Untuk "Pull Zone ID" nya, Anda bisa dapatkan itu di pengaturan nya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik "Pull Zones" -> Lalu kamu pilih _Pull Zone_ yang ingin kamu pasangkan Sertifikat SSL nya -> Setelah dipilih dan diklik, maka alamat URL akan menjadi seperti format di bawah ini:
+
+```text
+https://panel.bunny.net/pullzones/edit/ANGKA_YANG_MUNCUL
+```
+
+Angka yang muncul di akhir alamat URL (`ANGKA_YANG_MUNCUL`) itu adalah "Pull Zone ID" kamu, jadi simpan itu baik-baik jika Anda ingin memasangkan Sertifikat SSL nya dan pastikan kamu telah membuat "Custom Hostname" sebelumnya di sana.
+
+Karena selain "Access Key" dan "Pull Zone ID", mempunyai "Custom Hostname" merupakan hal yang wajib hukumnya, karena Anda tidak bisa menggunakan Subdomain dari Bunny\.net (`b-cdn.net`) untuk dipasangkan Sertifikat SSL nya.
+
+Setelah mendapatkan semuanya, selanjutnya adalah memasang Sertifikat SSL melalui API nya.
+
+#### Memasang Sertifikat SSL melalui API dari Bunny\.net
+Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Bunny\.net. Sebelum itu, Bunny\.net meminta agar kita hanya mengirimkan 2 Informasi/Berkas saja untuk memasang Sertifikat SSL nya.
+
+Agar kita dapat mengirimkan 2 Informasi/Berkas itu melalui API nya, maka sebelum mengakses API nya, Anda perlu menyimpan isi dari 2 berkas tersebut ke dalam sebuah Variabel.
+
+Seperti yang sudah saya bahas sebelumnya, bahwa berkas-berkas yang diperlukan jika diminta 2 informasi saja adalah `domain.com.key` dan `fullchain.cer`.
+
+Tapi dalam pengiriman berkas untuk SSL, Bunny\.net sedikit berbeda daripada Netlify yang hanya menerima dalam bentuk teks biasa (_Plain text_), di sana Anda hanya bisa mengirimkan berkas-berkas dalam format Base64 saja.
+
+Sehingga untuk menyimpan nya ke dalam variabel, maka Anda harus meng-_encode_ isi berkas-berkas tersebut ke dalam Base64.
+
+Tanpa basa-basi lagi, Anda dapat menyimpan nya ke dalam variabel dengan perintah berikut:
+
+```bash
+$ BASE64_FULLCHAIN_CER=$(cat ${HOME}/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)
+$ BASE64_KEY=$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | openssl base64 -A)
+$ BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
+```
+
+Silahkan ubah direktori dan nama berkas nya sesuai dengan Sertifikat SSL yang tersimpan di dalam Perangkat Anda.
+
+Selain direktori dan nama berkas nya, Anda juga bisa bebas menggantikan nama variabel nya sesuka Anda, misalnya: `BASE64_FULLCHAIN_CER` jadi `FULLCHAIN_CER`, atau `FULLCHAIN`, atau lain nya, asal bisa Anda gunakan variabel tersebut kembali.
+
+Setelah memasukkan nya ke dalam Variabel, Anda tinggal panggil saja API nya dengan perintah berikut:
+
+```bash
+$ curl -X POST \
+       -H 'Accept: application/json' \
+       -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' \
+       -H 'Content-Type: application/json' \
+       --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' \
+       --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
+```
+
+Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
+
+```bash
+$ curl -X POST -H 'Accept: application/json' -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
+```
+
+Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Content**](https://http.cat/204)), berbeda daripada Netlify yang menampilkan pesan dalam format JSON. Sebaliknya, jika tidak berhasil, maka pesan galat akan muncul dengan pesan yang berbeda-beda, tergantung kondisi yang ada.
+
+Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di BunnyCDN dengan API nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip Shell agar SSL bisa [diperbarui secara otomatis](#renew-ssl).
+
 ### Lain nya
+
 
 ## _Renew_ SSL secara Otomatis {#renew-ssl}
 ## ZeroSSL daripada Let's Encrypt, kenapa? {#zerossl-vs-lets-encrypt}
