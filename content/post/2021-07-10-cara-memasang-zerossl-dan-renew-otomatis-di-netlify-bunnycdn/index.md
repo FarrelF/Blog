@@ -56,33 +56,40 @@ Maka, persyaratan perangkat lunak yang harus Anda penuhi bagi pengguna Sistem Op
 #### Untuk Pengguna GNU/Linux, macOS, BSD dan Sistem Operasi berbasis \*nix lainnya {#pengguna-unix-like}
 {{< spoiler text="tl;dr" >}}
 Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
-- OpenSSL/LibreSSL
+- OpenSSL (atau LibreSSL?)
 - cURL
 - Cron
+- Socat (Opsional, karena tidak saya bahas)
 {{< / spoiler >}}
 
-Sistem Operasi berbasis Unix-like/\*nix (seperti GNU/Linux, macOS, dan BSD) sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena aplikasi tersebut memang dirancang untuk \*nix. 
+Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena aplikasi tersebut memang dirancang untuk \*nix. 
 
-Asal punya OpenSSL/LibreSSL, cURL dan Cron, maka acme.sh dapat dijalankan sebagai mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, di artikel ini saya bahas hanya untuk mengunduh dan menginstal acme.sh saja.
+Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, di artikel ini saya bahas hanya untuk mengunduh dan menginstal acme.sh saja.
 
 Selain itu, Anda juga dapat meng-instal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas di dalam artikel ini.
 
 #### Untuk Pengguna Windows 10 {#pengguna-windows-10}
 {{< spoiler text="tl;dr" >}}
 Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
-- Mempunyai dan mengaktifkan fitur WSL (Windows Subsystem for Linux)
-- Persyaratan Perangkat Lunak pada WSL bisa mengikuti [persyaratan untuk GNU/Linux](#pengguna-unix-like)
+- Mempunyai dan mengaktifkan fitur WSL (Windows Subsystem for Linux) atau Meng-instal Cygwin di Windows
+- Persyaratan Perangkat Lunak pada WSL atau Cygwin bisa mengikuti [persyaratan untuk Sistem Operasi \*nix](#pengguna-unix-like)
+
+**Catatan:** Saya belum coba menggunakan Cygwin, saya hanya menggunakan WSL untuk melakukan semua nya, jadi saya sarankan agar Anda pakai WSL saja jika Anda mampu untuk menjalankannya.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Windows, terutama Windows 10 (atau di atasnya), maka Anda bisa gunakan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar Anda bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows.
 
-Ketika Anda sedang menggunakan WSL, maka Anda bisa mengikuti persyaratan perangkat lunak untuk GNU/Linux. Jadi pastikan jika cURL, OpenSSL/LibreSSL dan Cron sudah ada di dalam Sistem WSL Anda (Biasanya ada).
+Atau, Anda bisa meng-instal [Cygwin](https://www.cygwin.com/) jika Anda tidak bisa/tidak ingin memakai WSL dengan alasan apapun.
+
+**Catatan:** Saya belum coba menggunakan Cygwin, saya hanya menggunakan WSL untuk melakukan semua nya, jadi saya sarankan agar Anda pakai WSL saja jika Anda mampu untuk menjalankannya.
+
+Ketika Anda sedang memakai WSL atau Cygwin, maka Anda bisa mengikuti persyaratan perangkat lunak untuk Sistem Operasi \*nix. Jadi pastikan jika cURL, OpenSSL/LibreSSL dan Cron sudah ada di dalam Sistem WSL (Biasanya ada) atau di dalam Cygwin Anda.
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#pengguna-android}
 {{< spoiler text="tl;dr" >}}
 Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
 - Tidak perlu Akses _root_ atau perangkat tidak perlu dalam keadaan ter-_root_. Jika demikian, ya tidak masalah
-- Terinstalnya Termux di Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
+- Terinstalnya Termux di Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persyaratan di Termux setelah di-instal sebagai berikut:
     1. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update; pkg upgrade`
     2. Persyaratan Perangkat Lunak pada Termux bisa mengikuti [persyaratan untuk GNU/Linux](#pengguna-unix-like). Tapi, Anda juga dapat meng-instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tools cronie termux-services`, lalu mulai ulang Termux jika berhasil
@@ -100,7 +107,7 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persyaratan pera
 
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal paket-paket yang diperlukan dengan perintah berikut:
 
-```shell
+```bash
 $ pkg update; pkg upgrade
 $ pkg install curl wget openssl-tools cronie termux-services
 ```
@@ -111,7 +118,7 @@ Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka 
 
 Selain itu, pastikan Termux bisa mengakses Penyimpanan Internal dan Eksternal pada perangkat Anda. agar Anda bisa berbagi penyimpanan pada Termux. Silahkan Anda baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dan pahami mulai dari bagian "Access shared and external storage".
 
-Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan ter-_root_, jadi tidak usah khawatir akan kehilangan garansi pada perangkat Anda.
+Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan ter-_root_, jadi Anda tidak perlu khawatir akan kehilangan garansi pada perangkat Anda.
 
 ## Sebelum menerbitkan Sertifikat SSL
 Sebelum menerbitkannya, Anda perlu mengikuti beberapa poin pembahasan terlebih dahulu. Poin-poin akan saya bahas dalam langkah-demi-langkah.
@@ -142,7 +149,7 @@ Setelah Kredensial EAB dibuat, ya sudah lanjut saja ke langkah berikutnya, yakni
 ### Instal acme.sh {#install-acme-sh}
 Setelah mendaftar akun ZeroSSL, salah satu yang perlu Anda lakukan adalah meng-instal acme.sh terlebih dahulu di dalam Sistem Operasi Anda.
 
-Tidak perlu menggunakan Akun Administrator atau `root` untuk meng-instalnya, atau tidak perlu dieksekusikan dengan perintah `sudo`, cukup gunakan saja akun Anda. (Bahkan, lebih baik gini)
+Tidak perlu menggunakan Akun Administrator atau `root` untuk meng-instalnya, atau tidak perlu dieksekusikan melalui perintah `sudo`, cukup gunakan saja akun Anda, seperti biasanya. (Bahkan, lebih baik gini)
 
 Cara meng-instalnya adalah dengan meng-eksekusikan salah satu perintah berikut:
 
@@ -162,7 +169,9 @@ Ganti `my@example.com` dengan Alamat Surel Anda.
 
 Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
 
-Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah meng-instalnya dengan benar. Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_, kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH`, dengan salah satu cara berikut:
+Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah meng-instalnya dengan benar.
+
+Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ~/.bashrc` atau `. ~/.bashrc`), kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH`, dengan salah satu cara berikut:
 
 Untuk pengguna GNU Bash:
 
@@ -219,7 +228,7 @@ $ CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
 {{< spoiler text="Perhatian !" >}} 
 Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
 
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `${HOME}/.bashrc` atau `${HOME}/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
+Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
 
 Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
 {{< / spoiler >}}
@@ -234,7 +243,7 @@ Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk men
 Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
 
 ### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
-Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL Anda terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
+Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
 
 ```shell
 $ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
@@ -242,7 +251,7 @@ $ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_H
 
 Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
 
-Atau, jika Anda belum pernah daftar sama sekali dan ingin mendaftarkan akun ZeroSSL tanpa menggunakan Peramban Web, maka Anda dapat eksekusi perintah berikut:
+Atau, jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin mendaftarkan akun ZeroSSL tanpa menggunakan Peramban Web, maka Anda dapat eksekusi perintah berikut:
 
 ```shell
 $ acme.sh --register-account -m myemail@example.com
@@ -255,7 +264,9 @@ Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk menerbi
 ## Menerbitkan Sertifikat SSL dengan acme.sh {#menerbitkan-sertifikat-ssl}
 Nah, setelah mengikuti beberapa langkah, akhirnya Anda bisa sampai di sini, yakni menerbitkan Sertifikat SSL.
 
-Ada beberapa cara untuk menerbitkannya menggunakan acme.sh, tidak perlu Anda ikuti semua dan sesuaikan dengan selera Anda. Berikut adalah cara-caranya:
+Ada beberapa cara untuk menerbitkannya menggunakan acme.sh, tidak perlu Anda ikuti semua dan sesuaikan dengan selera Anda, kecuali jika ada teks "Wajib dipelajari" nya, bagian itu yang wajib Anda pelajari.
+
+Berikut adalah cara-caranya:
 
 ### Menerbitkan Sertifikat SSL (Wajib dipelajari) {#issue-cert}
 Jika Anda ingin menerbitkan Sertifikat SSL dengan acme.sh (cth. hanya untuk 1 Domain dan 1 Subdomain), maka format perintah nya akan menjadi seperti berikut:
@@ -268,9 +279,15 @@ Jika Anda mengeksekusi perintah di atas, maka Anda menerbitkan Sertifikat SSL ha
 
 Parameter `-d` berfungsi untuk menentukan domain yang dijangkau oleh Sertifikat SSL tersebut saat diterbitkan, isikan itu dengan Domain Anda. Sebenarnya, Anda juga dapat menambahkan perameter `-d` agar Sertifikat SSL menjangkau setiap domain yang Anda masukkan, sebanyak yang Anda mau.
 
-Domain Pertama yang Anda masukkan akan menjadi "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya hanya dimasukkan kedalam SAN saja. Selain itu, nama direktori untuk Sertifikat SSL nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
+Domain Pertama yang Anda masukkan akan menjadi "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya hanya dimasukkan kedalam SAN saja. 
 
-Contohnya seperti Cuplikan berikut:
+Selain itu, nama direktori untuk Sertifikat SSL nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
+
+Contohnya seperti Cuplikan berikut di Windows:
+
+![“Issued to” pada Sertifikat SSL saya](Windows_Certificate_Viewer_1.png) ![SAN pada Sertifikat SSL saya](Windows_Certificate_Viewer_2.png)
+
+Atau, di bawah ini untuk GNU/Linux:
 
 !["Common Name" pada Sertifikat SSL saya](Certificate_Viewer_1.png) ![SAN pada Sertifikat SSL saya](Certificate_Viewer_2.png)
 
@@ -288,7 +305,7 @@ Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen men
 - `--nginx (lokasi_conf)` jika Anda ingin mengintegrasikan dengan _Web Server_ NGINX. Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan, barangkali acme.sh tidak bisa mendeteksi berkas konfigurasi NGINX secara otomatis, jika tidak maka cukup tulis `--nginx` saja.
 - `--standalone` jika Anda tidak mempunyai Aplikasi _Web Server_ atau sedang tidak berada di dalam Server Web (cth. Sedang berada di dalam Server FTP atau SMTP).
 
-Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berhasil atau Gagal akan menambahkan _Rate Limit_ pada beberapa CA seperti Let's Encrypt dan Buypass CA. Jadi, berhati-hatilah ketika ingin menerbitkan Sertifikat SSL.
+Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berhasil atau Gagal akan menambahkan _Rate Limit_ pada beberapa CA seperti Let's Encrypt dan Buypass CA. Jadi, berhati-hatilah ketika ingin menerbitkan Sertifikat SSL dengan menggunakan Protokol ACME.
 
 #### Parameter Tambahan (`PARAMETER_TAMBAHAN`)
 Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin Anda tambahkan saat menerbitkan Sertifikat SSL, parameter lain nya sebagai berikut:
@@ -865,18 +882,124 @@ Ya, Anda dapat memasang Sertifikat SSL dari ZeroSSL dan menikmati semua kelebiha
 Masa berlaku yang Anda dapatkan adalah 90 Hari untuk setiap sertifikatnya. Sebenarnya, ini sudah saya bahas [dari awal](#zerossl-gratis), silahkan Anda baca untuk lebih lanjut.
 
 ## Pertanyaan yang (akan) sering ditanya, beserta jawaban nya {#pertanyaan-dan-jawaban}
-### Pertanyaan ke-1: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot? {#pertanyaan-ke1}
+### Pertanyaan ke-1: Apa itu Protokol ACME? {#pertanyaan-ke1}
+**Jawab:** Protokol ACME (singkatan dari "Automatic Certificate Management Environment") adalah protokol komunikasi untuk mengotomatisasi interaksi antara Penyelenggara Sertifikat (bahasa Inggris: **_Certificate Authority_** atau disingkat dengan **CA**) dan Pengguna Server Web nya. 
+
+Hal ini memungkinkan untuk penyebaran/penginangan Infrastruktur Kunci Publik/Umum (bahasa Inggris: **_Public Key Infrastructure_** atau disingkat dengan **PKI**) dengan biaya yang rendah/murah.
+
+Protokol tersebut dirancang oleh pihak [Internet Security Research Group](https://www.abetterinternet.org/) (ISRG), yang pada awalnya untuk layanan [Let's Encrypt](https://letsencrypt.org/) mereka.
+
+Protokol yang berbasis pada penyampaian pesan berformat JSON melalui Protokol HTTPS, telah ditetapkan sebagai Standar Internet di dalam [RFC 8555](https://datatracker.ietf.org/doc/html/rfc8555) oleh kelompok kerja IETF yang disewanya sendiri.
+
+### Pertanyaan ke-2: Apa itu CA? {#pertanyaan-ke2}
+**_Certificate Authority_** (disebut juga sebagai: **_Certification Authority_**) atau disingkat **CA** (bahasa Indonesia: **Penyelenggara Sertifikat/Penyelenggara Sertifikat Elektronik** atau disingkat dengan **PSrE**) adalah sebuah entitas yang mengeluarkan/menerbitkan sertifikat digital dengan memverifikasi identitas pihak subjek (seperti Situs Web, Alamat Surel, Perusahaan, Organisasi/Lembaga/Yayasan atau Perseorangan).
+
+Dalam Sertifikat SSL, CA juga bertindak sebagai pihak ketiga yang tepercaya/dipercaya baik oleh subjek (pemilik) sertifikat dan oleh pihak yang mengandalkan sertifikat (Perangkat Lunak).
+
+### Pertanyaan ke-3: Apa saja CA selain ZeroSSL dan Let's Encrypt yang bisa menggunakan Protokol ACME? {#pertanyaan-ke3}
+**Jawab:** Untuk yang gratisan, ada [BuyPass Go SSL](https://www.buypass.com/ssl/resources/acme-free-ssl) dan [SSL.com](https://www.ssl.com/certificates/free/).
+
+Sedangkan yang berbayar ada Digicert dan Entrust.
+
+### Pertanyaan ke-4: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot? {#pertanyaan-ke4}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
 
-Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena cuma berbasis _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA selain Let's Encrypt dan ZeroSSL.
+Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena cuma berbasis _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA bawaan selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti.
 
 Tapi jika Anda ingin menggunakan Certbot, ya silahkan saja.
 
-### Pertanyaan ke-2: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke2}
-**Jawab:** Ada, namanya [win-acme](https://www.win-acme.com/). 
+### Pertanyaan ke-5: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke5}
+**Jawab:** Ada, namanya [win-acme](https://www.win-acme.com/) yang mendukung Windows secara _native_. Sebenarnya, Anda juga bisa menggunakan Certbot, dia juga mendukung Windows.
 
-Tapi, saya belum coba dan keliatan nya saya lebih suka acme.sh daripada win-acme, meskipun saya harus menggunakan WSL agar mengoperasikan acme.sh nya. Kalo mau pake ya silahkan.
+Tapi, saya belum coba dan keliatan nya saya lebih suka acme.sh daripada lain nya, meskipun saya harus menggunakan WSL agar mengoperasikan acme.sh nya. Kalo mau pake ya silahkan.
 
-### Pertanyaan ke-3:  {#pertanyaan-ke3}
-### Pertanyaan ke-4:  {#pertanyaan-ke4}
+### Pertanyaan ke-6: Bagaimana caranya saya hapus acme.sh sepenuhnya?
+**Jawab:** Anda tinggal ketik perintah berikut:
+
+```shell
+$ acme.sh --uninstall
+```
+
+Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `~/.bashrc` atau `~/.zshrc`.
+
+Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ${HOME}/.acme.sh` jika direktori tersebut masih ada.
+
+### Pertanyaan ke-7: Jika Netlify hanya menerima sertifikat SSL dalam bentuk Teks Biasa, kenapa kita pake perintah `awk`? Kenapa gak pake perintah `cat` aja? {#pertanyaan-ke7}
+**Jawab:** Karena isi berkas sertifikat itu mengandung multi-baris, sedangkan Netlify tidak menerima itu.
+
+Jika saya menggunakan perintah `cat`, maka akan tampil isi dari berkas sertifikat yang sebenarnya sebagai keluaran.
+
+Jadi, saya ganti setiap baris pemutus (_line break_) dengan `\n` menggunakan perintah `awk`.
+
+Dari mana saya mendapatkan perintah `awk` tersebut? Saya dapatkan itu dari [salah satu pertanyaan](https://stackoverflow.com/q/38672680) yang dijawab oleh Pak [Ed Morton](https://stackoverflow.com/users/1745001/ed-morton) di [Stack Overflow](https://stackoverflow.com/a/38674872), tapi jika Anda ingin menggunakan `sed`, maka Anda bisa cari jawaban lain yang ada di sana.
+
+### Pertanyaan ke-8: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke8}
+**Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak.
+
+Sedangkan `base64` itu belum tentu kompatibel di semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda.
+
+Serta, macOS tidak menggunakan GNU coreutils, sehingga keluaran nya pun belum tentu sama dengan keluaran yang ada di Sistem Operasi lain. 
+
+Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu memenuhi ekspektasi saya untuk setiap Sistem Operasi.
+
+Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lain nya.
+
+Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tools` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya syaratkan dari awal agar menggunakan Cygwin atau WSL (Windows Subsystem for Linux) sekalian yang sudah terinstal OpenSSL.
+
+Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pake perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
+
+Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silahkan Anda komentar di dalam kolom komentar yang telah disediakan.
+
+### Pertanyaan ke-9: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang SSL dengan mengikuti artikel ini, tapi bagaimana cara memperbarui SSL secara Otomatis? {#pertanyaan-ke9}
+**Jawab**: Jika Anda mempunyai Ponsel Pintar dengan menggunakan Sistem Operasi Android, saya lebih menyarankan Anda untuk memperbarui SSL secara otomatis melalui Ponsel saja, dan Komputer PC/Laptop Anda gunakan untuk menerbitkan Sertifikat atau saat memakai acme.sh.
+
+Saya sarankan ini karena ponsel bisa dinyalakan selama 24/7 jam secara nonstop (kecuali jika Baterai habis atau Sesi Termux diakhiri), sudah saya bahas tutorialnya secara lengkap di artikel ini.
+
+Jika Anda terpaksa tidak menggunakan Ponsel Pintar Android dengan alasan apapun, Anda bisa melakukan nya di Windows 10. Untuk saat ini ada dua cara, yakni dengan menggunakan Cron yang ada di salah satu distribusi WSL atau menggunakan "Task Scheduler".
+
+Di Ubuntu 20.04 WSL, Anda dapat menggunakan Cron dengan mengaktifkan layanannya terlebih dahulu dengan perintah `sudo service cron start`, lalu atur Crontab nya seperti biasa.
+
+Tapi, jika sesi distribusi WSL tersebut diterminasi (cth. Diterminasi dengan perintah `wsl -t Nama-Distribusi`, Komputer PC/Laptop dimatikan/di-_shutdown_ atau dimulai ulang/di-_restart_, dll), maka semua proses WSL termasuk proses layanan Cron akan dinonaktifkan, sehingga Anda perlu pakai WSL, lalu aktifkan layanan nya dan membiarkan WSL tetap berjalan.
+
+Anda bisa eksekusi `C:\Windows\System32\wsl.exe -d Nama-Distribusi -u root /usr/bin/env sh -c service cron start` saat _Start-up_ agar layanan Cron bisa diaktifkan tanpa harus mengakses Terminal WSL. Ganti `Nama-Distribusi` dengan Nama Distribusi WSL yang Anda gunakan sekarang.
+
+Atau, Anda juga dapat menggunakan "Task Scheduler" untuk memperbarui SSL secara otomatis.
+
+Caranya: 
+1. Buka "Task Scheduler"
+2. Di dalam folder "Task Scheduler Library", klik "Create Basic Task" untuk membuat sebuah "Tugas" baru
+3. Nanti akan muncul dialog Wisaya atau _Wizard_ yang menuntun kamu dalam membuat sebuah Tugas. Pertama-tama, tulis Nama dan Deskripsi tugas nya, lalu klik "Next >"
+4. Pada langkah "Trigger", nanti kamu menentukan kapan Tugas tersebut dieksekusi/SSL akan diperbarui, di situ ada salah satu opsi berikut yang bisa Anda pilih: (Klik "Next >" jika sudah selesai)
+    - "Daily" yang artinya setiap hari
+    - "Weekly" yang artinya setiap minggu
+    - "Monthly" yang artinya setiap bulan
+    - "One time" yang artinya satu kali saja
+    - "When the computer starts" yang artinya setiap kali komputer dinyalakan dan sistem sudah siap, tidak peduli apakah sudah login atau belum
+    - "When I log on" yang artinya setiap kamu login
+
+5. Jika ada sub-langkah setelah "Trigger", maka tentukan kapan Tugas tersebut dieksekusi dengan memilih opsi-opsi yang ada. Klik "Next >" jika sudah selesai.
+6. Pada langkah "Action", nanti akan ada 3 pilihan, maka Anda pilih "Start a program"
+7. Pada sub-langkah "Start a program", nanti akan ada kotak teks yang harus Anda isi, berikut adalah Informasinya: (Klik "Next >" jika sudah selesai)
+   - Isikan **Program/script** dengan `C:\Windows\System32\wsl.exe`
+   - Isikan **Add arguments (optional)** dengan `-d Nama-Distribusi -u nama-pengguna /usr/bin/env sh ${HOME}/lokasi/ke/berkas/renew-ssl.sh &`
+
+        Ganti `Nama-Distribusi` dengan Nama Distribusi WSL yang kamu gunakan, ganti `nama-pengguna` dengan Nama Pengguna/_Username_ di WSL kamu dan ganti `${HOME}/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya.
+
+8. Pada langkah "Finish", kamu akan diperlihatkan tugas yang ingin kamu buat. Periksa terlebih dahulu tugas yang ingin kamu buat sebelum diinangkan. Jika merasa yakin, silahkan klik "Finish".
+
+Cuma kekurangan dari cara "Task Scheduler" adalah jika tugas dieksekusi, maka akan muncul Jendela/_Window_ yang akibatnya cukup menganggu aktivitas yang sedang Anda lakukan saat menggunakan Aplikasi di Windows (cth. Saat bermain sebuah Gim/Gim Daring, dll)
+
+Mungkin ini bisa diakali jika tugas tersebut dieksekusi setelah kamu masuk/_login_ saja, siapa tahu bisa.
+
+### Pertanyaan ke-10: Apa yang terjadi jika rantai pada Sertifikat SSL yang terpasang malah tidak sempurna? {#pertanyaan-ke10}
+**Jawab:** Tergantung pada ketidaksempurnaannya seperti apa, jika Anda hanya memasang Sertifikat dan Kunci Pribadi (bahasa Inggris: _Private Key_) nya saja, tanpa Sertifikat CA nya, maka perangkat lunak biasanya masih bisa menerima nya, tapi ada yang tidak karena berbagai alasan, salah satunya adalah masalah 'kepercayaan' atau keamanan.
+
+Sedangkan jika Anda tidak memasang Kunci Pribadi, maka Sertifikat SSL tersebut biasanya tidak bisa digunakan/tidak diterima oleh Perangkat Lunak, karena Server memerlukan Kunci Pribadi untuk melakukan Dekripsi Data.
+
+Atau, jika Anda tidak memasang Sertifikat untuk Domain nya, sepertinya Anda sudah bisa menebak apa yang akan terjadi.
+
+Kalau jawabanmu adalah "Sertifikat SSL menjadi gagal terpasang dan tidak diterima oleh Perangkat Lunak" maka jawabanmu benar, karena sama saja seperti kamu membuat sebuah Sertifikat, tapi tidak tahu untuk siapa.
+
+Jadi, pasanglah sertifikat SSL dengan benar!
+
 ## Kesimpulan dan Penutup
