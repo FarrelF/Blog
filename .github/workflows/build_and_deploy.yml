@@ -90,7 +90,31 @@ jobs:
         name: site-outputs
         path: files.tar.gz
         retention-days: 1
-  
+
+  deploy_to_bunny_net:
+    name: Deploy to Bunny.net Storage 
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: site-outputs
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+    
+    - name: Deploying to Bunny.net Storage
+      uses: own3d/bunny-action@main
+      env:
+        BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_KEY }}
+        BUNNY_STORAGE_USERNAME: ${{ secrets.BUNNY_STORAGE_USERNAME }}
+        BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+        BUNNY_PULL_ZONE_ID: ${{ secrets.BUNNY_PULLZONE_ID }}
+      with:
+        args: deploy --dir=./public
+
   deploy_to_storj-ap1-s3:
     name: Deploy to Storj DCS AP1 S3 Storage
     needs: build

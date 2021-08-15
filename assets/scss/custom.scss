@@ -15,6 +15,13 @@ details {
     }
 }
 
+th, td {
+    &.table-info {
+        padding: 0.75em;
+        border: var(--heading-border-size) solid;
+    }
+}
+
 img {
     &.emoji {
         width: 1em;
