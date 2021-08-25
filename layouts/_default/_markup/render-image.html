@@ -30,7 +30,7 @@
 		{{- if (default true .Page.Site.Params.imageProcessing.content.enabled) -}}
 			{{- $small := $image.Resize `480x` -}}
 			{{- $big := $image.Resize `1024x` -}}
-			{{- $Srcset = printf `%s 480w, %s 1024w` $small.RelPermalink $big.RelPermalink -}}
+			{{- $Srcset = printf `%s%s 480w, %s%s 1024w` $ImageURL $small.RelPermalink $ImageURL $big.RelPermalink -}}
 		{{- end -}}
 	{{- else -}}
 		{{- $Permalink = printf "%s%s" $svgURL $image.RelPermalink -}}
