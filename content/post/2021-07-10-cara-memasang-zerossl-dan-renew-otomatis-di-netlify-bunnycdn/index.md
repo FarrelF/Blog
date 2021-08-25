@@ -49,7 +49,7 @@ Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman ["Pricing"](https://zer
 
 ![Halaman "Pricing" di ZeroSSL, per tanggal: 12 Juli 2021](ZeroSSL_Pricing.png)
 
-Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
+Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan nya, Akses REST API nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
 
 ### Persyaratan Perangkat Lunak
 Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang hanya kompatibel dengan Sistem Operasi berbasis *nix/UNIX-like, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
@@ -185,9 +185,9 @@ $ wget -O -  https://get.acme.sh | sh -s email=my@example.com
 Ganti `my@example.com` dengan Alamat Surel Anda, jangan lupa dimasukkan. Tapi jika Anda lupa memasukkan/tidak atau salah memasukkan alamat surel saat meng-instalnya, maka Anda dapat eksekusi perintah di bawah ini setelah terinstal:
 
 ```shell
-$ cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
-$ sed -i '/ACCOUNT\_EMAIL\=/d' ${HOME}/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
-$ printf "ACCOUNT_EMAIL='my@example.com'\n" >> ${HOME}/.acme.sh/account.conf
+$ cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
+$ sed -i '/ACCOUNT\_EMAIL\=/d' ~/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
+$ printf "ACCOUNT_EMAIL='my@example.com'\n" >> ~/.acme.sh/account.conf
 ```
 
 Ganti `my@example.com` dengan Alamat Surel Anda.
@@ -201,27 +201,29 @@ Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ~/
 Untuk pengguna GNU Bash:
 
 ```shell
-$ cp ${HOME}/.bashrc ${HOME}/.bashrc.1  ## Backup dulu
-$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ${HOME}/.bashrc
-$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ${HOME}/.bashrc
-$ chmod +x ${HOME}/.acme.sh/acme.sh
-$ source ${HOME}/.bashrc
+$ cp ~/.bashrc ~/.bashrc.1  ## Backup dulu
+$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.bashrc
+$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.bashrc
+$ chmod +x ~/.acme.sh/acme.sh
+$ source ~/.bashrc
 ```
 
 Untuk pengguna Zsh:
 
 ```zsh
-$ cp ${HOME}/.zshrc ${HOME}/.zshrc.1  ## Backup dulu
-$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ${HOME}/.zshrc
-$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ${HOME}/.zshrc
-$ chmod +x ${HOME}/.acme.sh/acme.sh
-$ source ${HOME}/.zshrc
+$ cp ~/.zshrc ~/.zshrc.1  ## Backup dulu
+$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.zshrc
+$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.zshrc
+$ chmod +x ~/.acme.sh/acme.sh
+$ source ~/.zshrc
 ```
 
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
 Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukannya, Anda juga dapat menerbitkan Sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
+
+Selain itu, jika Anda ingin sertifikat SSL nya hanya dipasang ke penyedia web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, yang mana Anda tidak perlu mengaitkan domain Anda dengan _Web Server_ milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
 
 Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ pada akun Penyedia DNS Otoritatif Anda.
 
@@ -336,17 +338,24 @@ Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.fra
 
 Kenapa bisa begitu? Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah Sertifikat SSL adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
 
-Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Parameter selain `--issue` adalah `--renew` untuk memperbarui Sertifikat SSL yang ada, `--revoke` untuk mencabut Sertifikat SSL, `--remove` untuk menghapus Sertifikat SSL dari acme.sh, dll. Anda juga dapat menambahkan parameter `--force` di sampingnya agar dapat melakukannya secara paksa.
+Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Parameter selain `--issue` adalah sebagai berikut:
+- `--renew` untuk memperbarui Sertifikat SSL yang ada 
+- `--revoke` untuk mencabut Sertifikat SSL yang ada
+- `--remove` untuk menghapus Sertifikat SSL yang ada
+- `--renew-all` untuk memperbarui semua Sertifikat SSL yang ada
+- Dan lain-lain nya
+
+Anda juga dapat menambahkan parameter `--force` di sampingnya agar dapat melakukannya secara paksa.
 
 #### Metode Verifikasi (`METODE_VERIFIKASI`)
 Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen mengenai metode verifikasi yang ada, menjadi parameter berikut: (Setidaknya gunakan salah satu parameter)
 - `--webroot lokasi_webroot` atau `-w lokasi_webroot` jika Anda ingin menggunakan metode _Webroot_. Ganti `lokasi_webroot` dengan lokasi Web Anda, seperti `/var/www/html`, `/home/username/public_html`, atau apa aja yang penting itu menandakan lokasi Web Anda.
-- `--dns nama_dns` jika Anda ingin menggunakan metode DNS. Ganti `nama_dns` dengan nama berkas yang ada [di sana](https://github.com/acmesh-official/acme.sh/tree/master/dnsapi) (tanpa disebutkan ekstensinya) dan sesuaikan dengan Penyedia DNS Otoritatif yang Anda gunakan. (Saya bahas ini di bagian terpisah)
+- `--dns nama_dns` jika Anda ingin menggunakan metode DNS. Ganti `nama_dns` dengan yang ada di [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) dan sesuaikan dengan Penyedia DNS Otoritatif yang Anda gunakan. (Saya bahas ini di bagian terpisah)
 - `--apache` jika Anda ingin mengintegrasikan dengan _Web Server_ Apache2.
 - `--nginx (lokasi_conf)` jika Anda ingin mengintegrasikan dengan _Web Server_ NGINX. Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan, barangkali acme.sh tidak bisa mendeteksi berkas konfigurasi NGINX secara otomatis, jika tidak maka cukup tulis `--nginx` saja.
 - `--standalone` jika Anda tidak mempunyai Aplikasi _Web Server_ atau sedang tidak berada di dalam Server Web (cth. Sedang berada di dalam Server FTP atau SMTP).
 
-Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berhasil atau Gagal akan menambahkan _Rate Limit_ pada beberapa CA seperti Let's Encrypt dan Buypass CA. Jadi, berhati-hatilah ketika ingin menerbitkan Sertifikat SSL dengan menggunakan Protokol ACME.
+Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berhasil atau Gagal akan menambahkan _Rate Limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass CA. Jadi, berhati-hatilah ketika ingin menerbitkan Sertifikat SSL dengan menggunakan Protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
 
 #### Parameter Tambahan (`PARAMETER_TAMBAHAN`)
 Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin Anda tambahkan saat menerbitkan Sertifikat SSL, parameter lain nya sebagai berikut:
@@ -402,7 +411,7 @@ Karena domain pertama yang dimasukkan adalah `www.domain.com`, bukan `domain.com
 Nah, sekarang Anda sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi menggunakan DNS dan tentukan cara menerbitkan sertifikat SSL nya dengan sesuka kamu.
 
 ### Menerbitkan Sertifikat SSL dengan Menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
-Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Metode Verifikasi nya, maka Anda tinggal tambahkan saja parameter `--dns nama_dns`.
+Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Metode Verifikasi nya, maka Anda tinggal tambahkan saja parameter `--dns nama_dns`. 
 
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai Metode Verifikasi:
 
@@ -410,23 +419,23 @@ Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Dom
 $ acme.sh --issue -d domain.com -d www.domain.com --dns dns_cf
 ```
 
-{{< info text="**Catatan:**" >}}
-Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+{{< info text="**Perhatian !**" >}}
+Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
 Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
-Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns_cf` nya menjadi nama-nama berkas yang tampil [di sana](https://github.com/acmesh-official/acme.sh/tree/master/dnsapi) (tanpa disebutkan ekstensinya).
+Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns_cf` nya menjadi yang ada di dalam [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
-Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Metode Verifikasinya, karena nama berkas di sananya adalah `dns_constellix`, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
+Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Metode Verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
 
 ```shell
 $ acme.sh --issue -d domain.com -d www.domain.com --dns dns_constellix
 ```
 
-Atau, Anda bisa baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi), sebenarnya di sana juga telah disediakan cara menerbitkan Sertifikat SSL dengan menggunakan DNS sebagai Verifikasi nya untuk masing-masing Penyedia.
-
 Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan Sertifikat SSL [dalam bentuk _Wildcard_](#wildcard-ssl), karena Verifikasi melalui DNS merupakan salah satu syarat yang wajib.
+
+Selain itu, jika Anda ingin sertifikat SSL nya hanya dipasang ke penyedia web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, yang mana Anda tidak perlu mengaitkan domain Anda dengan _Web Server_ milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
 
 ### Menerbitkan Sertifikat SSL untuk Banyak Domain dan Subdomain {#multi-domain}
 Untuk menerbitkan Sertifikat SSL yang menargetkan Banyak Domain dan Subdomain, sebenarnya Anda tinggal masukkan parameter `-d` untuk setiap domainnya. Contohnya seperti berikut:
@@ -437,8 +446,8 @@ Untuk 2 Domain dan 4 Subdomain:
 $ acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.com -d www.domain2.com -d sub.domain2.com
 ```
 
-{{< info text="**Catatan:**" >}}
-Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+{{< info text="**Perhatian !**" >}}
+Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
 Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
@@ -473,8 +482,8 @@ Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Dom
 $ acme.sh --issue -d "*.domain.com" -d domain.com --dns dns_cf
 ```
 
-{{< info text="**Catatan:**" >}}
-Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+{{< info text="**Perhatian !**" >}}
+Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
 Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
@@ -508,8 +517,8 @@ Contoh Perintah di bawah ini jika Anda ingin menerbitkannya dengan kunci RSA yan
 $ acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 ```
 
-{{< info text="**Catatan:**" >}}
-Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+{{< info text="**Perhatian !**" >}}
+Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
 Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
@@ -549,8 +558,8 @@ Contoh Perintah di bawah ini jika Anda ingin menerbitkan Sertifikat SSL ECDSA de
 $ acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 ```
 
-{{< info text="**Catatan:**" >}}
-Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+{{< info text="**Perhatian !**" >}}
+Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
 Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
@@ -590,7 +599,7 @@ Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya t
 Setelah mengetahui direktori, sekarang isi direktori nya. Isi nya akan seperti ini:
 
 ```shell
-$ ls -la ${HOME}/.acme.sh/domain.com
+$ ls -la ~/.acme.sh/domain.com
 total 44
 drwxr-xr-x  2 user user 4096 Jul  8 08:46 .
 drwx------ 10 user user 4096 Jul  8 08:50 ..
@@ -638,6 +647,7 @@ Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Netlify, maka And
 {{< info text="**Catatan:**" >}}
 Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "Personal Access Token" nya di dalam Perangkat Anda.
 {{< / info >}}
+
 0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
 1. Klik pada _Button_ "New access token" di Bagian "Personal access tokens"
 2. Masukkan Nama/Deskripsi mengenai Token nya
@@ -662,7 +672,7 @@ Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Netlify. Seb
 
 Agar kita dapat mengirimkan berkas-berkas itu melalui API nya, maka sebelum mengakses API nya, Anda perlu menyimpan isi dari 3 berkas tersebut ke dalam sebuah Variabel. 
 
-Seperti yang sudah saya bahas sebelumnya, bahwa berkas-berkas yang diperlukan jika Anda diminta untuk mengirimkan 3 Informasi adalah `domain.com.cer`, `domain.com.key` dan `ca.cer`.
+Karena Anda cuma diminta 3 berkas, maka berkas-berkas yang diperlukan untuk diunggah/Anda kirimkan ke Netlify adalah `domain.com.cer` sebagai Sertifikatnya, `domain.com.key` sebagai Kunci Pribadi nya dan `ca.cer` Sertifikat Penengahnya, berkas lain nya (seperti: `fullchain.cer`) tidak perlu Anda kirimkan.
 
 Anda dapat menyimpan nya dengan perintah berikut:
 
@@ -767,7 +777,7 @@ Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Bunny\.net. 
 
 Agar kita dapat mengirimkan 2 Informasi/Berkas itu melalui API nya, maka sebelum mengakses API nya, Anda perlu menyimpan isi dari 2 berkas tersebut ke dalam sebuah Variabel.
 
-Seperti yang sudah saya bahas sebelumnya, bahwa berkas-berkas yang diperlukan jika diminta 2 informasi saja adalah `domain.com.key` dan `fullchain.cer`.
+Karena Anda cuma diminta 2 berkas saja, maka berkas-berkas yang diperlukan untuk diunggah/Anda kirimkan ke BunnyCDN adalah `domain.com.key` untuk Kunci Pribadi nya dan `fullchain.cer` untuk Sertifikatnya, berkas lain nya (seperti: `ca.cer` dan `domain.com.cer`) tidak perlu Anda kirimkan.
 
 Tapi dalam pengiriman berkas untuk SSL, Bunny\.net sedikit berbeda daripada Netlify yang hanya menerima dalam bentuk teks biasa (_Plain text_), di sana Anda hanya bisa mengirimkan berkas-berkas dalam format Base64 saja.
 
@@ -804,7 +814,7 @@ $ curl -X POST -H 'Accept: application/json' -H 'AccessKey: '${BUNNY_ACCESS_KEY}
 
 Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Content**](https://http.cat/204)), berbeda daripada Netlify yang menampilkan pesan dalam format JSON. Sebaliknya, jika tidak berhasil, maka pesan galat akan muncul dengan pesan yang berbeda-beda, tergantung kondisi yang ada.
 
-Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di BunnyCDN dengan memanggil API nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl).
+Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di BunnyCDN dengan memanggil API nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh) terlebih dahulu sebelum itu.
 
 ### Disebutkan secara khusus: Di cPanel (butuh Akses SSH) {#di-cpanel}
 Jika Anda merupakan pengguna Layanan _Shared Hosting_ dan menggunakan cPanel sebagai Kontrol Panel nya, mungkin Anda bisa kunjungi [Halaman Wiki nya](https://github.com/acmesh-official/acme.sh/wiki/Simple-guide-to-add-TLS-cert-to-cpanel) untuk panduan nya.
@@ -834,7 +844,7 @@ Pertama-tama, lihat isi dari berkas `domain.com.conf` terlebih dahulu, seperti b
 Contoh isi dari berkas `domain.com.conf` adalah sebagai berikut:
 
 ```shell
-$ cat ${HOME}/.acme.sh/domain.com/domain.com.conf
+$ cat ~/.acme.sh/domain.com/domain.com.conf
 Le_Domain='domain.com'
 Le_Alt='*.domain.com'
 Le_Webroot='dns_cf'
@@ -928,7 +938,7 @@ Anda perlu membuat sebuah skrip terlebih dahulu agar SSL dapat diperbarui, ada d
 ### Metode ke-1: Memanfaatkan Konfigurasi dari acme.sh (Disarankan) {#memanfaatkan-konfigurasi-acme-sh}
 Anda bisa gunakan konfigurasi dari perkakas acme.sh agar dia mengeksekusi baris perintah setelah acme.sh berhasil memperbarui sertifikat SSL nya untuk Domain tertentu. Untuk selengkapnya, bisa Anda pelajari itu di [bagian sebelumnya](#konfigurasi-acme-sh).
 
-Kenapa saya rekomendasikan? Karena dengan ini Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL nya).
+Kenapa saya rekomendasikan? Karena dengan ini Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL nya).
 
 Selain itu, jika Anda menyalinkan acme.sh ke perangkat lain, maka acme.sh tetap akan mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya daripada Anda membuat skrip sendiri secara terpisah.
 
@@ -1015,7 +1025,7 @@ Tapi saya sarankan agar Anda menyimpan nya di dalam folder `${HOME}`, dan saya a
 
 Jika sudah tersimpan, Anda bisa tes skrip tersebut dengan perintah `sh /lokasi/ke/berkas/renew-ssl.sh` atau `./lokasi/ke/berkas/renew-ssl.sh` di dalam Terminal Anda. Jika sudah berhasil, maka Anda tinggal jadwalkan saja agar skrip otomatis dijalankan sesuai jadwal yang telah Anda atur.
 
-## Otomatisasi Skrip dengan "Cron Jobs"
+## Otomatisasi Skrip dengan "Cron Jobs" {#otomatisasi-skrip-dengan-cron-jobs}
 Anda bisa membuat Skrip tersebut (Melalui Konfigurasi atau berkas `renew-ssl.sh`) berjalan secara Otomatis/terjadwal dengan "Cron Jobs". Bagaimana caranya? Caranya sebagai berikut:
 
 Edit Crontab dengan perintah berikut: (tanpa perlu akses _root_ ataupun menggunakan `sudo`)
@@ -1070,17 +1080,20 @@ Serta, perangkat ponsel pintar dengan Sistem Operasi Android juga sangat bervari
 Tanpa basa-basi lagi, caranya sebagai berikut:
 
 0. Pastikan Perangkat Lunak pada Ponsel Android Anda sudah memenuhi [Persyaratan nya](#syarat-pengguna-android) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
-1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat lain. Maka Anda perlu meng-kompres direktori dan berkas tersebut dengan perintah berikut:
+1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat lain dari Komputer PC/Laptop Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari Komputer PC/Laptop Anda:
 
 ```bash
 $ cd
-$ tar --exclude ='.acme.sh/acme.sh' --exclude='.acme.sh/acme.sh.env' --exclude='.acme.sh/deploy' --exclude='.acme.sh/dnsapi' --exclude='.acme.sh/notify' -cvzf acme.sh.tar.gz .acme.sh
+$ tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*.md' --format pax -cvzf acme.sh.tar.gz .acme.sh
 ```
 
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh` nya juga.
 
 2. Setelah meng-kompresinya, silahkan Anda langsung menyalinkan nya ke dalam penyimpanan perangkat Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkan nya
-3. Setelah disalin ke dalam perangkat Anda, silahkan Anda pindahkan berkas tersebut ke dalam direktori "Home" yang berada di Penyimpanan Termux
+3. Setelah disalin ke dalam perangkat Anda, silahkan Anda pindahkan berkas tersebut ke dalam direktori "Home" yang berada di dalam Penyimpanan Termux. 
+
+   Pastikan Aplikasi Manajemen Berkas di Android Anda dapat mengakses Penyimpanan Termux, sesuai dengan persyaratan
+
 4. Setelah itu, buka Termux, lalu instal terlebih dahulu acme.sh nya di dalam Termux dengan perintah berikut:
 ```bash
 $ curl https://get.acme.sh | sh -s
@@ -1089,37 +1102,50 @@ $ curl https://get.acme.sh | sh -s
 ```bash
 $ tar -xvzf acme.sh.tar.gz
 ```
-6. Aturlah Crontab di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh "Cron Jobs". Bila masih belum paham/lupa, silahkan Anda baca bagian Otomatisasi dengan "Cron Jobs" di atas.
-7. Jika sudah selesai, maka jangan akhiri sesi Termux nya, biarkan saja dia berjalan di latar belakang. 
+6. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah Crontab di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh "Cron Jobs". Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan "Cron Jobs"](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
-    Jika kamu mengakhirinya, silahkan buka Termux nya lagi, lalu eksekusikan perintah: `sv-enable crond` untuk mengaktikan layanan Cron
+   Jika Anda mengikuti [Metode ke-1](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya Crontab secara otomatis di atur setelah Anda meng-instal perkakas acme.sh nya. 
+
+   Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam Termux Anda untuk memasang Cron Job nya.
+
+7. Jika sudah selesai, maka jangan tutupi Aplikasi Termux nya (cth. Dengan menutup/mengakhiri semua sesi Termux dengan perintah `exit`, Berhenti Paksa Termux, Mulai Ulang Perangkat, Mematikan Perangkat, dll), biarkan saja dia berjalan di latar belakang.
+
+    Jika kamu menutupinya, silahkan buka Termux nya lagi, lalu eksekusikan perintah: `sv-enable crond` untuk mengaktikan kembali layanan Cron nya
 
 Ya udah, gitu aja. Setelah Anda mengikuti langkah-langkah di atas, silahkan gunakan ponsel Anda dengan sebagaimana mestinya tanpa perlu menutup Termux nya.
 
 Akhirnya, selesai juga setelah mengikuti langkah-langkah di atas. Gimana, pusing kan? Atau, malah bosen? Iyalah, gimana tidak, artikel ini saja panjang lebarnya nya kebangetan. Tapi, setelah memasang Sertifikat SSL, kenapa harus memilih ZeroSSL daripada Let's Encrypt? Pertanyaan ini akan dijawab pada pembahasan berikutnya.
 
 ## Kenapa memilih ZeroSSL daripada Let's Encrypt? {#zerossl-vs-lets-encrypt}
-### Menggunakan Akar Sertifikat dari Sectigo/Comodo CA
-ZeroSSL menggunakan Akar Sertifikat dari Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja), yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama.
+### Mengakar pada Sectigo/Comodo CA
+Sertifikat SSL dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja) sebagai Sertifikat Akar, yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama. 
+
+Informasi mengenai sertifikat akarnya sebagai berikut:
+
+- Akar Pertama: "[AAA Certificate Service](https://censys.io/certificates/d7a7a0fb5d7e2731d771e9484ebcdef71d5f0c3e0a2948782bc83ee0ea699ef4)" yang masa berlakunya sampai 31 Desember 2028 pukul 23:59:59 atau 01 Januari 2029
+
+- Akar Kedua: "[USERTrust RSA Certification Authority](https://censys.io/certificates/e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2)" atau "[USERTrust ECC Certification Authority](https://censys.io/certificates/4ff460d54b9c86dabfbcfc5712e0400d2bed3fbc4d4fbdaa86e06adcd2a9ad7a)" yang masing-masing masa berlakunya sampai 18 Januari 2038 pukul 23:59:59 atau 19 Januari 2038
 
 Ini artinya, hampir semua perangkat lunak bisa menggunakan Sertifikat ini, bahkan oleh perangkat lunak versi lama sekalipun (cth. Internet Explorer 6.0+, Mozilla Firefox 1.0+, Opera 6.1+, AOL 5+, Peramban pada Blackberry 4.3.0+, Android 1.5+, dll)
 
 Untuk lebih lanjut, Anda bisa kunjungi halaman [daftar kompatibilitas nya](https://help.zerossl.com/hc/en-us/articles/360058294074-ZeroSSL-Compatibility-List).
 
-Akar dari Sertifikat Let's Encrypt (DST Root X1) memang mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP. Namun sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
+Akar dari Sertifikat Let's Encrypt (DST Root X1) memang mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP. 
 
-Tapi, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_ antara akar "DST X1 Root" (dari "IdenTrust") dan akar yang baru, yakni "ISRG X1 Root" (dari "Internet Security Research Group").
+Namun, sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
 
-Namun, hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa ada perangkat lain yang tidak kompatibel dengan Akar "ISRG X1 Root" ini setelah Akar pertama habis masa berlaku nya, selain Windows XP SP3 dan Android 2.3.6 (atau di atasnya). Jika Anda ingin melihat kompatibilitasnya, silahkan kunjungi [halaman ini](https://letsencrypt.org/docs/certificate-compatibility/).
+Tapi, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_ antara akar "[DST X1 Root](https://censys.io/certificates/0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739)" (dari "IdenTrust") dan akar yang baru, yakni "[ISRG X1 Root](https://censys.io/certificates/96bcec06264976f37460779acf28c5a7cfe8a3c0aae11a8ffcee05c0bddf08c6)" (dari "Internet Security Research Group").
+
+Hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa ada perangkat lain yang tidak kompatibel dengan Akar "ISRG X1 Root" ini setelah Akar pertama habis masa berlaku nya, selain Windows XP SP3 dan Android 2.3.6 (atau di atasnya). Jika Anda ingin melihat kompatibilitasnya, silahkan kunjungi [halaman ini](https://letsencrypt.org/docs/certificate-compatibility/).
 
 Jadi, jika Anda ingin sebuah Sertifikat SSL Gratis untuk Web/Blog atau Aplikasi Anda serta dapat diakses oleh hampir semua orang, mungkin ZeroSSL bisa menjadi pilihan yang terbaik untuk Anda.
 
 ### Tidak (atau Belum?) menerapkan _Rate Limit_ {#tidak-menerapkan-rate-limit}
-Sampai artikel ini diterbitkan, ZeroSSL tidak (atau Belum?) menerapkan _Rate Limit_ atau batasan penerbitan Sertifikat SSL, tidak seperti Let's Encrypt yang telah menerapkan nya. Gak percaya? Silahkan Anda kunjungi [halaman komparasinya](https://zerossl.com/letsencrypt-alternative/#acme) (Baca bagian "ACME" nya).
+Sampai artikel ini diterbitkan, ZeroSSL tidak (atau Belum?) menerapkan _Rate Limit_ atau batasan penerbitan Sertifikat SSL, tidak seperti Let's Encrypt yang telah menerapkan nya. Gak percaya? Silahkan Anda kunjungi [halaman komparasinya](https://zerossl.com/letsencrypt-alternative/#acme) (Baca bagian "ACME" nya) atau [halaman dokumentasinya](https://zerossl.com/documentation/acme/).
 
-Jadi, Anda tidak perlu takut jika Anda gagal menerbitkan sertifikat SSL dengan alasan apapun, karena _Rate Limit_ tidak ditentukan di sana. 
+Jadi, Anda tidak perlu takut jika Anda gagal menerbitkan sertifikat SSL dengan alasan apapun, karena _Rate Limit_ tidak ditentukan di sana.
 
-Meskipun begitu, saya tetap menyarankan Anda untuk menerbitkan nya dalam mode _Staging_ jika Anda ingin melakukan uji coba dalam penerbitan Sertifikat SSL nya, sehingga fitur tersebut tidak disalahgunakan.
+Meskipun begitu, saya tetap menyarankan Anda untuk menerbitkan nya dalam mode _Staging_ jika Anda ingin melakukan uji coba dalam penerbitan Sertifikat SSL nya, sehingga fitur tersebut tidak disalahgunakan. Tapi, kalau Anda lebih suka dalam mode biasa, ya silahkan saja.
 
 ### Gratis
 Ya, Anda dapat memasang Sertifikat SSL dari ZeroSSL dan menikmati semua kelebihan di atas secara gratis, bahkan Anda bisa menerbitkan Sertifikat SSL dalam jumlah yang banyak, baik dalam bentuk Satu Domain, Multi-domain, atau bahkan _Wildcard_, selama Anda menggunakan Protokol ACME nya.
@@ -1144,7 +1170,7 @@ Dalam Sertifikat SSL, CA juga bertindak sebagai pihak ketiga yang tepercaya/dipe
 ### Pertanyaan ke-3: Apa saja CA selain ZeroSSL dan Let's Encrypt yang bisa menggunakan Protokol ACME? {#pertanyaan-ke3}
 **Jawab:** Untuk yang gratisan, ada [BuyPass Go SSL](https://www.buypass.com/ssl/resources/acme-free-ssl) dan [SSL.com](https://www.ssl.com/certificates/free/).
 
-Sedangkan yang berbayar ada Digicert dan Entrust.
+Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Entrust](https://www.entrust.com/knowledgebase/ssl/how-to-use-acme-to-install-ssl-tls-certificates-in-entrust-certificate-services-apache) dan mungkin SSL.com ada versi berbayarnya juga.
 
 ### Pertanyaan ke-4: Bagaimana caranya agar acme.sh menggunakan CA Let's Encrypt atau lain nya sebagai CA Asali/Baku (Default CA), bukan ZeroSSL? {#pertanyaan-ke4}
 **Jawab:** Jika Anda ingin menggantikan CA Asali/Baku pada acme.sh, maka Anda tinggal jalankan perkakas acme.sh dengan parameter `--set-default-ca opsi_ca`.
@@ -1166,7 +1192,7 @@ $ acme.sh --set-default-ca letsencrypt
 Penggantian ini harusnya dilakukan sebelum Anda menerbitkan sertifikat SSL apapun, karena ini hanya berefek jika Anda menerbitkan sertifikat SSL terbaru. Tapi jika Anda melakukan itu setelah menerbitkan sertifikat SSL nya, maka Anda perlu menggantikan sertifikat SSL tersebut.
 
 ### Pertanyaan ke-5: Bagaimana caranya agar saya bisa menggantikan sertifikat SSL menjadi dari Let's Encrypt atau CA lain nya, saya tidak ingin sertifikat SSL dari ZeroSSL? {#pertanyaan-ke5}
-**Jawab:** Caranya adalah Anda tinggal menerbitkan ulang sertifikat SSL dengan CA yang berbeda secara paksa. 
+**Jawab:** Caranya adalah Anda tinggal menerbitkan ulang sertifikat SSL dengan CA yang berbeda secara paksa.
 
 Saat menerbitkan sertifikat SSL, Anda tinggal perlu tambahkan parameter `--server opsi_ca`, setelah itu Anda bisa barengi itu dengan opsi `--force` agar acme.sh dapat melakukan nya dengan paksa.
 
@@ -1184,7 +1210,7 @@ Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh 
 Pertama-tama, Anda perlu tahu Domain Pertama yang Anda masukkan dengan mengetahui isi dari direktori acme.sh nya, memakai perintah berikut: (beserta keluarannya)
 
 ```shell
-$ ls -la ${HOME}/.acme.sh
+$ ls -la ~/.acme.sh
 total 276
 drwx------  10 user user   4096 Agu 16 01:13 .
 drwxr-xr-x 137 user user  20480 Agu 16 01:43 ..
@@ -1195,7 +1221,7 @@ drwx------   4 user user   4096 Agu 12 14:14 ca
 drwxr-xr-x   2 user user   4096 Agu 11 16:56 deploy
 drwxr-xr-x   2 user user   4096 Agu 11 16:56 dnsapi
 drwx------   2 user user   4096 Jul 22 12:06 '*.domain.com'
-drwx------   2 user user   4096 Jul 22 12:06 '*.domain.com'_ecc
+drwx------   2 user user   4096 Jul 22 12:06 '*.domain.com_ecc'
 drwx------   2 user user   4096 Jul 22 12:06 domain.com
 drwx------   2 user user   4096 Jul 22 12:06 domain.com_ecc
 -rw-------   1 user user    335 Agu 16 01:12 http.header
@@ -1206,13 +1232,13 @@ Nah, sekarang lihat pada hasil keluaran di atas, itu ada nama domain `domain.com
 
 Anda bisa pilih salah satu domain yang ingin Anda hapus, di pembahasan kali ini saya menghapus sertifikat SSL untuk `domain.com`.
 
-Jika Anda sudah mengetahuinya dan sudah benar-benar tidak menggunakan nya lagi atau bahkan Anda tidak memasangkan sertifikat SSL tersebut di Aplikasi, Web atau Blog Anda, Anda bisa mencabutnya terlebih dahulu dengan perintah berikut:
+Jika Anda sudah mengetahuinya dan sudah benar-benar tidak menggunakan nya lagi atau bahkan Anda tidak memasangkan sertifikat SSL tersebut di Aplikasi, Web atau Blog Anda, Anda bisa mencabutnya terlebih dahulu dengan parameter `--revoke`, berikut adalah contohnya:
 
 ```shell
 $ acme.sh --revoke -d domain.com
 ```
 
-Tapi jika Anda masih memasangnya, saran saya jangan dicabut, dikhawatirkan Aplikasi, Web atau Blog menjadi tidak dapat diakses karena sertifikatnya dicabut, langsung hapus saja. 
+Tapi jika Anda masih memasangnya, maka saran saya jangan dicabut, dikhawatirkan Aplikasi, Web atau Blog menjadi tidak dapat diakses karena sertifikatnya dicabut, lebih baik Anda pasang terlebih dahulu Sertifikat SSL barunya, baru cabut sertifikat lamanya atau langsung hapus saja. 
 
 Untuk memasukkan alamat Domain nya, Anda tidak perlu mengingat deretan domain saat menerbitkan SSL, Anda cukup tahu Domain Pertama yang Anda masukkan saat menerbitkan sertifikat SSL nya dan itu bisa Anda lihat melalui nama direktorinya saja.
 
@@ -1243,10 +1269,12 @@ Atau, jika Anda ingin mencabut sertifikat SSL untuk versi ECC nya, maka Anda tin
 $ acme.sh --revoke -d domain.com --ecc
 ```
 
+Nah, seperti itulah jawaban untuk pertanyaan ini.
+
 ### Pertanyaan ke-7: Sertifikat SSL sudah saya hapus, tapi pas saya jalankan acme.sh dalam Cron atau untuk memperbarui semua SSL (`--renew-all`), kok domain yang terhapus masih ada saat saya cek di Terminal? {#pertanyaan-ke7}
 **Jawab:** Itu karena Anda belum menghapus direktori nya setelah menghapus sertifikat SSL dari perkakas acme.sh nya. Jadi, Anda perlu menghapus direktori tersebut secara manual.
 
-Solusi nya adalah Hapus Direktori tersebut (cth. `/home/username/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
+Solusi nya adalah Hapus Direktori tersebut (cth. `~/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
 
 ### Pertanyaan ke-8: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot? {#pertanyaan-ke8}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
@@ -1269,7 +1297,7 @@ $ acme.sh --uninstall
 
 Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `~/.bashrc` atau `~/.zshrc`.
 
-Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ${HOME}/.acme.sh` jika direktori tersebut masih ada.
+Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ~/.acme.sh` jika direktori tersebut masih ada.
 
 ### Pertanyaan ke-11: Jika Netlify hanya menerima sertifikat SSL dalam bentuk Teks Biasa, kenapa kita pake perintah `awk`? Kenapa gak pake perintah `cat` aja? {#pertanyaan-ke11}
 **Jawab:** Karena isi berkas sertifikat itu mengandung multi-baris, sedangkan Netlify tidak menerima itu.
@@ -1283,11 +1311,11 @@ Dari mana saya mendapatkan perintah `awk` tersebut? Saya dapatkan itu dari [sala
 ### Pertanyaan ke-12: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke12}
 **Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak.
 
-Sedangkan `base64` itu belum tentu kompatibel di semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda.
+Sedangkan `base64` itu belum tentu kompatibel di semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun keluaran nya.
 
-Serta, macOS tidak menggunakan GNU coreutils, sehingga keluaran nya pun belum tentu sama dengan keluaran yang ada di Sistem Operasi lain. 
+Serta, macOS tidak menggunakan GNU coreutils, sehingga perintah dan keluaran nya pun belum tentu sama dengan perintah dan keluaran yang ada di Sistem Operasi lain.
 
-Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu atau bahkan tidak memenuhi ekspektasi saya, tapi saya tidak yakin di Sistem Operasi lain akan seperti apa keluaran nya, sejak perintah=perintahnya saja berbeda.
+Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu atau bahkan tidak memenuhi ekspektasi saya, tapi saya tidak yakin di Sistem Operasi lain akan seperti apa keluaran nya, sejak perintah-perintahnya saja berbeda.
 
 Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lain nya.
 
@@ -1349,5 +1377,66 @@ Kalau jawabanmu adalah "Sertifikat SSL menjadi gagal terpasang dan tidak diterim
 
 Jadi, pasanglah sertifikat SSL dengan benar!
 
+### Pertanyaan ke-15: Kok Sertifikat USERTrust yang saya lihat masa berlakunya cuma sampai tahun 2029 saja, bukan nya sampai tahun 2038 seperti yang dibahas tadi? {#pertanyaan-ke15}
+**Jawab:** Sertifikat USERTrust yang Anda lihat itu bukanlah Sertifikat Akar nya. Kenapa? Karena ia masih mengakar pada Sertifikat "AAA Certificate Services".
+
+Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada Sertifikat apapun, melainkan mengakari Sertifikat lain dan dalam hierarki sertifikat SSL, posisi Sertifikat Akar itu merupakan yang paling tinggi dibandingkan dengan bawahan nya.
+
+Jika Anda bingung, silahkan lihat cuplikan berikut:
+
+![Hierarki Sertifikat SSL dari ZeroSSL di Windows 10](Hierarki_Sertifikat_SSL.png)
+
+Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
+
+Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
+
+Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan. Soal kenapa Sertifikat Akar nya bisa dapat yang berbeda-beda itu saya kurang tahu, mungkin akan tergantung Perangkat Lunak yang Anda gunakan, bisa jadi karena Perangkat Lunak tersebut mendukung _Cross-signing_ atau lain nya.
+
+Tapi, alasan kenapa Sertifikat Akar yang lama masih digunakan oleh beberapa Perangkat Lunak (terutama di Windows) padahal ada Sertifikat Akar lain yang bisa digunakan adalah bisa jadi karena selama Sertifikat Akar tersebut masih bisa digunakan, maka ia tetap akan menggunakan nya, ketika sudah habis, barulah menggunakan Akar yang baru.
+
+Alasan lain kenapa masih menggunakan Sertifikat Akar yang lama oleh Perangkat Lunak adalah karena Perangkat Lunak tersebut sudah 'berumur', tidak diperbarui ataupun tidak bisa memperbarui Sertifikat yang ada, sehingga sertifikat akar alternatif belum/tidak ada.
+
+Agar Sertifikat SSL dapat bekerja, maka Perangkat Lunak perlu 'mempercayai'/mengenali Sertifikat Akar tersebut, salah satunya adalah perlu memiliki Sertifikat Akarnya dan memasangkan nya ke dalam perangkat Anda. 
+
+Memperbarui Sertifikat-sertifikat adalah salah satu cara agar perangkat lunak dapat mengenali Sertifikat Akar baru yang sudah bermunculan seiring berjalan nya waktu.
+
+Tapi, jika tidak bisa diperbarui, maka Perangkat Lunak akan menggunakan Sertifikat Akar lama yang tersimpan di dalam tempat penyimpanan sertifikat nya. Jika sertifikat akar tersebut habis masa berlaku nya, maka skenario terburuknya adalah Sertifikat SSL kamu tidak bisa digunakan.
+
+Alasan-alasan tersebut hanyalah kemungkinan saja, saya tidak mempunyai referensi yang pasti, jadi bisa saja ini salah.
+
+### Pertanyaan ke-16: Saya mengalami galat/_error_ selama menggunakan acme.sh, bagaimana cara mengatasinya? {#pertanyaan-ke16}
+**Jawab:** Cara mengatasinya itu bergantung dengan galat nya. Berbeda pesan galat, maka akan beda penyebabnya, beda penyebab maka solusi pun akan berbeda. Sehingga, saya tidak bisa memberikan solusi yang pasti.
+
+Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untu caranya, silahkan Anda kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
+
+Anda perlu melihat-lihat/membaca barisan keluaran nya saat acme.sh sedang bekerja, jika ada yang menurut Anda mencurigakan, mungkin saja itu adalah penyebabnya.
+
+Jika Anda merasa kesulitan untuk mengatasi masalahnya, mungkin Anda bisa salinkan semua keluaran nya terlebih dahulu, lalu tempelkan itu ke dalam Layanan Pastebin seperti [Pastebin dari Teknik.io](https://paste.teknik.io/), [GitHub Gist](https://gist.github.com), [IX](http://ix.io/), dll.
+
+Setelah menempelkannya, maka Anda perlu mengirimkan teks nya, setelah dikirimkan maka akan muncul Alamat URL untuk mengakses teks nya, salinkan Alamat URL tersebut dan tempelkan itu ke dalam kolom komentar nantinya.
+
+Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll selengkap mungkin di dalam kolom komentar nya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan tersedia.
+
 ## Penutup
-Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? 
+Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan baca nya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
+
+Saya tulis artikel ini sejak 10 Juni 2021 dan perlu waktu 1 bulan lebih agar saya bisa menerbitkan nya, karena artikel ini membahas banyak hal dan juga sedikit 'riset' agar artikel ini bisa diikuti oleh banyak perangkat, belum lagi sama kalimat-kalimat nya.
+
+Terima kasih bagi Anda yang telah membaca serta mempelajari yang ada di artikel ini, mohon maaf jika artikel ini memiliki beberapa kekeliruan dan kesalahan, seperti salah ketik, kurang jelas, salah informasi, dll, karena artikel ini jauh dari sempurna.
+
+Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkembangnya Informasi yang ada, karena yang saya pos ini adalah tutorial, sehingga perlu adanya penyesuaian.
+
+Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lain nya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepan nya nanti.
+
+Terima kasih atas perhatian nya 😊
+
+## Penggunaan Gambar dan Atribusi
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
+
+Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
+
+```plaintext
+https://github.com/FarrelF/Blog/tree/main/content/post/2021-08-26-cara-memasang-zerossl-dan-renew-otomatis-di-netlify-bunnycdn
+```
+
+ZeroSSL dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "Stack Holdings GmbH", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi, saya hanya dapatkan itu dari Situs Web Resmi nya dan di sana belum ada petunjuk penggunaan logo nya.
