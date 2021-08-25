@@ -1,6 +1,6 @@
 ---
 Title: Cara memasang ZeroSSL + Renew Otomatis di Netlify dan BunnyCDN
-Slug: memasang-zerossl-di-netlify-bunnycdn
+Slug: cara-memasang-zerossl-di-netlify-bunnycdn
 Author: Farrel Franqois
 Categories: 
     - Web dan Blog

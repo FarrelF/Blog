@@ -28,7 +28,7 @@
 
     {{- if not .Date.IsZero -}}
     <footer class="article-time">
-        {{ partial "helper/icon" "clock" }}
+        {{ partial "helper/icon" "date" }}
         <time class="article-time--published">
             {{ if and (eq .Site.Params.dateFormat.published "Monday, 02 January 2006") (eq .Site.Language.Lang "id") }}
                 {{ index $.Site.Data.time_id.weekdayname (printf "%d" .Date.Weekday) }}, {{ .Date.Format "02" }} {{ index $.Site.Data.time_id.months (printf "%d" .Date.Month) }} {{ .Date.Year }}

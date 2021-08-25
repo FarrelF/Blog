@@ -4,14 +4,14 @@
     {{ if and (.Site.Params.article.license.enabled) (not (eq .Params.license false)) }}
     <section class="article-copyright">
         {{ partial "helper/icon" "copyright" }}
-        <span>{{ default .Site.Params.article.license.default .Params.license | safeHTML }}</span>
+        <span>{{ default .Site.Params.article.license.default .Params.license | markdownify }}</span>
     </section>
     {{ end }}
 
     {{- if ne .Lastmod .Date -}}
-    <section class="article-time">
+    <section class="article-lastmod">
         {{ partial "helper/icon" "clock" }}
-        <span class="article-time--modified">
+        <span>
             {{ if eq .Site.Language.Lang "id" }}
                 {{ $formats := dict "Weekday" (index $.Site.Data.time_id.weekdayname (printf "%d" .Lastmod.Weekday)) "Day" ($.Lastmod.Format "02") "Month" (index $.Site.Data.time_id.months (printf "%d" .Lastmod.Month)) "Year" $.Lastmod.Year "Time" ($.Lastmod.Format "15:04:05") "Timezone" ($.Lastmod.Format "MST") }}
                 {{ T "article.lastUpdatedOn" $formats }}
