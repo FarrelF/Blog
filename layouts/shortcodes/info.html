@@ -1,0 +1,16 @@
+{{- $id := printf "table-info-%d" .Ordinal -}}
+{{- $opts := dict "display" "block" "markup" "markdown" -}}
+<table {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }} id="{{ $id }}">
+    <thead>
+        <tr>
+            <th class="table-info{{ with .Get "class" }} {{ . }}{{ end }}">{{ .Get "text" | markdownify | emojify }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="table-info{{ with .Get "class" }} {{ . }}{{ end }}">
+                {{ .Inner | $.Page.RenderString $opts | emojify }}
+            </td>
+        </tr>
+    </tbody>
+</table>

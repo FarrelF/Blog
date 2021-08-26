@@ -15,6 +15,13 @@ details {
     }
 }
 
+th, td {
+    &.table-info {
+        padding: 0.75em;
+        border: var(--heading-border-size) solid;
+    }
+}
+
 img {
     &.emoji {
         width: 1em;
@@ -29,24 +36,36 @@ img {
     font-family: "Twemoji", "Twitter Emoji", "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji";
 }
 
-.right-sidebar {
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+.article--toc {
+    #TableOfContents {
+        ol {
+            counter-reset: item;
+            list-style-type: none;
+            padding: 0;
+        }
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
+        & > li {
+            padding: 0;
+            margin: 0;
+        }
 
-.widget {
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+        li {
+            padding: 5px;
 
-    &::-webkit-scrollbar {
-        display: none;
+            &::before {
+                counter-increment: item;
+                content: counters(item, ".") ". ";
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            & > ol {
+                padding-left: 10px;
+
+                & > li:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 }

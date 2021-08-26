@@ -32,6 +32,7 @@ params:
       src: img/profile/avatar.jpg
 
   article:
+    readingTime: true
     toc: true
     math: false
     license:

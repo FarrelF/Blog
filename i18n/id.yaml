@@ -22,16 +22,26 @@ taxonomy:
 article:
     back:
         other: Kembali
+
     tableOfContents:
         other: Daftar Isi
+
     relatedContents:
         other: Konten terkait
+
     lastUpdatedOn:
         other: Terakhir diperbarui pada {{ .Weekday }}, {{ .Day }} {{ .Month }} {{ .Year }}, pukul {{ .Time }} WIB
+
     lastUpdatedGit:
         other: Pembaruan pada Artikel/Laman ini mengikuti Commit <a class="link" href="https://github.com/FarrelF/Blog/commit/{{ .Hash }}" target="_blank" rel="noopener">{{ .AbvHash }}</a> di GitHub
+
     readMore:
         other: Baca lebih lanjut >
+
+    readingTime:
+        one: "Waktu Membaca: {{ .Count }} menit"
+        other: "Waktu Membaca: {{ .Count }} menit"
+
     featuredImageOf:
         other: Gambar Unggulan dari Pos
 
@@ -39,11 +49,14 @@ widget:
     archives:
         title:
             other: Arsip
+
         more:
             other: Lebih
+
     tagCloud:
         title:
             other: Kumpulan Tag
+
     categoriesCloud:
         title:
             other: Kategori
@@ -51,13 +64,16 @@ widget:
 search:
     title:
         other: Cari
+
     placeholder:
         other: Ketik sesuatu...
+
     resultTitle:
         other: "#PAGES_COUNT halaman (#TIME_SECONDS detik)"
 
 footer:
     builtWith:
         other: Dibangun dengan {{ .Generator }}
+
     designedBy:
         other: Tema {{ .Theme }} dirancang oleh {{ .DesignedBy }}
