@@ -8,7 +8,7 @@ Categories:
     - Info Blog
     - Tutorial
 Image: zerossl_logo.png
-Date: 2021-08-26 20:27:20+07:00
+Date: 2021-08-26 20:30:20+07:00
 Tags:
     - Sertifikat SSL
     - ZeroSSL
