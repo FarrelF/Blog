@@ -173,21 +173,21 @@ Cara meng-instalnya adalah dengan meng-eksekusikan salah satu perintah berikut:
 Dengan cURL:
 
 ```shell
-$ curl https://get.acme.sh | sh -s email=my@example.com
+curl https://get.acme.sh | sh -s email=my@example.com
 ```
 
 Atau, dengan GNU Wget:
 
 ```shell
-$ wget -O -  https://get.acme.sh | sh -s email=my@example.com
+wget -O -  https://get.acme.sh | sh -s email=my@example.com
 ```
 
 Ganti `my@example.com` dengan Alamat Surel Anda, jangan lupa dimasukkan. Tapi jika Anda lupa memasukkan/tidak atau salah memasukkan alamat surel saat meng-instalnya, maka Anda dapat eksekusi perintah di bawah ini setelah terinstal:
 
 ```shell
-$ cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
-$ sed -i '/ACCOUNT\_EMAIL\=/d' ~/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
-$ printf "ACCOUNT_EMAIL='my@example.com'\n" >> ~/.acme.sh/account.conf
+cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/ACCOUNT\_EMAIL\=/d' ~/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
+printf "ACCOUNT_EMAIL='my@example.com'\n" >> ~/.acme.sh/account.conf
 ```
 
 Ganti `my@example.com` dengan Alamat Surel Anda.
@@ -201,21 +201,21 @@ Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ~/
 Untuk pengguna GNU Bash:
 
 ```shell
-$ cp ~/.bashrc ~/.bashrc.1  ## Backup dulu
-$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.bashrc
-$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.bashrc
-$ chmod +x ~/.acme.sh/acme.sh
-$ source ~/.bashrc
+cp ~/.bashrc ~/.bashrc.1  ## Backup dulu
+echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.bashrc
+echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.bashrc
+chmod +x ~/.acme.sh/acme.sh
+source ~/.bashrc
 ```
 
 Untuk pengguna Zsh:
 
 ```zsh
-$ cp ~/.zshrc ~/.zshrc.1  ## Backup dulu
-$ echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.zshrc
-$ echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.zshrc
-$ chmod +x ~/.acme.sh/acme.sh
-$ source ~/.zshrc
+cp ~/.zshrc ~/.zshrc.1  ## Backup dulu
+echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.zshrc
+echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.zshrc
+chmod +x ~/.acme.sh/acme.sh
+source ~/.zshrc
 ```
 
 ### Verifikasi DNS di acme.sh
@@ -229,7 +229,7 @@ Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan
 
 Untuk itu, Anda perlu memberikan acme.sh sebuah izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
 
-#### Untuk Pengguna DNS Otoritatif Cloudflare
+#### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-dns-cloudflare}
 Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "API Token" (`CF_Token`) dan dapatkan "Account ID" (`CF_Account_ID`) nya, jika berkenan, Anda juga bisa mendapatkan "Zone ID" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik.
 
 Untuk membuat "API Token" nya, silahkan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat "API Token" nya.
@@ -244,12 +244,12 @@ Nah, setelah semuanya berhasil didapat, maka Anda tinggal masukkan saja semua In
 
 ```shell
 ### Di bawah ini adalah Informasi yang wajib dimasukki
-$ CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
-$ CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
+CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
+CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
 
 ### Anda juga dapat memasukkan "Zone ID" jika Anda ingin acme.sh menargetkan hanya
 ### untuk 1 Domain Utama saja secara spesifik, tapi ini bukanlah hal yang wajib, jadi sebaiknya tidak usah saja
-$ CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
+CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
 ```
 
 {{< info text="**Perhatian !**" >}} 
@@ -262,7 +262,7 @@ Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur R
 
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
-#### Untuk Pengguna DNS Otoritatif lain
+#### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
 Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
@@ -273,7 +273,7 @@ Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
 Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
 
 ```shell
-$ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
+acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
 ```
 
 Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
@@ -281,7 +281,7 @@ Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" da
 Atau, jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
 
 ```shell
-$ acme.sh --register-account
+acme.sh --register-account
 ```
 
 Keluaran nya akan seperti di bawah ini:
@@ -315,7 +315,7 @@ Berikut adalah cara-caranya:
 Jika Anda ingin menerbitkan Sertifikat SSL dengan acme.sh (cth. hanya untuk 1 Domain dan 1 Subdomain), maka format perintah nya akan menjadi seperti berikut:
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com METODE_VERIFIKASI PARAMETER_TAMBAHAN
+acme.sh --issue -d domain.com -d www.domain.com METODE_VERIFIKASI PARAMETER_TAMBAHAN
 ```
 
 Jika Anda mengeksekusi perintah di atas, maka Anda menerbitkan Sertifikat SSL hanya untuk 1 Domain dan 1 Subdomain saja, yakni `domain.com` dan `www.domain.com`.
@@ -342,17 +342,26 @@ Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Para
 - `--renew` untuk memperbarui Sertifikat SSL yang ada 
 - `--revoke` untuk mencabut Sertifikat SSL yang ada
 - `--remove` untuk menghapus Sertifikat SSL yang ada
-- `--renew-all` untuk memperbarui semua Sertifikat SSL yang ada
+- `--renew-all` untuk memperbarui semua Sertifikat SSL yang ada (**Catatan:** Anda tidak perlu menambahkan parameter `-d` jika menggunakan parameter ini)
 - Dan lain-lain nya
 
 Anda juga dapat menambahkan parameter `--force` di sampingnya agar dapat melakukannya secara paksa.
 
 #### Metode Verifikasi (`METODE_VERIFIKASI`)
 Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen mengenai metode verifikasi yang ada, menjadi parameter berikut: (Setidaknya gunakan salah satu parameter)
-- `--webroot lokasi_webroot` atau `-w lokasi_webroot` jika Anda ingin menggunakan metode _Webroot_. Ganti `lokasi_webroot` dengan lokasi Web Anda, seperti `/var/www/html`, `/home/username/public_html`, atau apa aja yang penting itu menandakan lokasi Web Anda.
-- `--dns nama_dns` jika Anda ingin menggunakan metode DNS. Ganti `nama_dns` dengan yang ada di [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) dan sesuaikan dengan Penyedia DNS Otoritatif yang Anda gunakan. (Saya bahas ini di bagian terpisah)
-- `--apache` jika Anda ingin mengintegrasikan dengan _Web Server_ Apache2.
-- `--nginx (lokasi_conf)` jika Anda ingin mengintegrasikan dengan _Web Server_ NGINX. Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan, barangkali acme.sh tidak bisa mendeteksi berkas konfigurasi NGINX secara otomatis, jika tidak maka cukup tulis `--nginx` saja.
+- `--webroot lokasi_webroot` atau `-w lokasi_webroot` jika Anda ingin menggunakan metode _Webroot_. 
+
+    Ganti `lokasi_webroot` dengan lokasi Web Anda, seperti `/var/www/html`, `/home/username/public_html`, atau apa aja yang penting itu menandakan lokasi Web Anda.
+
+- `--dns nama_dns` jika Anda ingin menggunakan metode DNS. 
+
+    Ganti `nama_dns` dengan yang ada di [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) dan sesuaikan dengan Penyedia DNS Otoritatif yang Anda gunakan. (Saya bahas ini di bagian terpisah)
+
+- `--apache` jika Anda ingin menggunakan _Web Server_ Apache2 sebagai verifikasi nya.
+- `--nginx (lokasi_conf)` jika Anda ingin meggunakan _Web Server_ NGINX sebagai verifikasi nya. 
+
+    Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan, barangkali acme.sh tidak bisa mendeteksi berkas konfigurasi NGINX secara otomatis, jika tidak maka cukup tulis `--nginx` saja.
+
 - `--standalone` jika Anda tidak mempunyai Aplikasi _Web Server_ atau sedang tidak berada di dalam Server Web (cth. Sedang berada di dalam Server FTP atau SMTP).
 
 Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berhasil atau Gagal akan menambahkan _Rate Limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass CA. Jadi, berhati-hatilah ketika ingin menerbitkan Sertifikat SSL dengan menggunakan Protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
@@ -403,7 +412,7 @@ Tapi, nama direktori untuk menyimpan dan bahkan nama dari berkas-berkas tersebut
 Contohnya Anda ingin menerbitkan sertifikat SSL dengan perintah berikut:
 
 ```shell
-$ acme.sh --issue -d www.domain.com -d domain.com --nginx
+acme.sh --issue -d www.domain.com -d domain.com --nginx
 ```
 
 Karena domain pertama yang dimasukkan adalah `www.domain.com`, bukan `domain.com` sesuai perintah di atas, maka berkas-berkas yang diperlukan akan disimpan di dalam direktori `/home/username/.acme.sh/www.domain.com`, bukan di dalam direktori `/home/username/.acme.sh/domain.com` jika berhasil.
@@ -416,7 +425,7 @@ Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Metode V
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai Metode Verifikasi:
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com --dns dns_cf
+acme.sh --issue -d domain.com -d www.domain.com --dns dns_cf
 ```
 
 {{< info text="**Perhatian !**" >}}
@@ -430,7 +439,7 @@ Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns
 Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Metode Verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com --dns dns_constellix
+acme.sh --issue -d domain.com -d www.domain.com --dns dns_constellix
 ```
 
 Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan Sertifikat SSL [dalam bentuk _Wildcard_](#wildcard-ssl), karena Verifikasi melalui DNS merupakan salah satu syarat yang wajib.
@@ -443,7 +452,7 @@ Untuk menerbitkan Sertifikat SSL yang menargetkan Banyak Domain dan Subdomain, s
 Untuk 2 Domain dan 4 Subdomain:
 
 ```shell
-$ acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.com -d www.domain2.com -d sub.domain2.com
+acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.com -d www.domain2.com -d sub.domain2.com
 ```
 
 {{< info text="**Perhatian !**" >}}
@@ -455,31 +464,31 @@ Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya 
 Untuk 4 Domain saja:
 
 ```shell
-$ acme.sh --issue -d domain1.com -d domain2.com -d domain3.com -d domain4.com
+acme.sh --issue -d domain1.com -d domain2.com -d domain3.com -d domain4.com
 ```
 
 Atau, jika Anda ingin menggunakan metode verifikasi yang berbeda-beda untuk setiap domain, maka Anda bisa meraciknya dengan contoh seperti berikut:
 
 ```shell
-$ acme.sh --issue \
-          -d domain1.com -d www.domain1.com --dns dns_cf \
-          -d domain2.com -d www.domain2.com --dns dns_constellix \
-          -d domain3.com -d www.domain3.com -w /home/username/public_html \
-          -d domain4.com -d www.domain4.com --apache \
-          -d domain5.com -d www.domain5.com --nginx
+acme.sh --issue \
+        -d domain1.com -d www.domain1.com --dns dns_cf \
+        -d domain2.com -d www.domain2.com --dns dns_constellix \
+        -d domain3.com -d www.domain3.com -w /home/username/public_html \
+        -d domain4.com -d www.domain4.com --apache \
+        -d domain5.com -d www.domain5.com --nginx
 ```
 
 Dan seterusnya akan seperti itu caranya.
 
 ### Menerbitkan Sertifikat SSL yang menjangkau Seluruh Subdomainnya {#wildcard-ssl}
-Jika Anda ingin menerbitkan Sertifikat SSL yang menjangkau seluruh Subdomain atau dalam bentuk _Wildcard_, maka Anda tinggal tambahkan parameter `-d "*.domain.com"` saja.
+Jika Anda ingin menerbitkan Sertifikat SSL yang menjangkau seluruh Subdomain atau dalam bentuk _Wildcard_, maka Anda tinggal tambahkan parameter `-d '*.domain.com'` saja.
 
 Tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai Syarat Wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
 
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan Semua Subdomainnya dengan menggunakan DNS dari Cloudflare sebagai Verifikasi:
 
 ```shell
-$ acme.sh --issue -d "*.domain.com" -d domain.com --dns dns_cf
+acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf
 ```
 
 {{< info text="**Perhatian !**" >}}
@@ -492,18 +501,18 @@ Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` 
 
 Jika Anda bukan pengguna Cloudflare, maka Anda perlu baca halaman [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) terlebih dahulu, di situ sudah dijelaskan cara-caranya.
 
-Kenapa _Wildcard_ nya dikutip dua? Karena terkadang _Shell_ lain tidak dapat meng-intepretasi tanda bintang dengan baik jika tidak dikutip, seperti Zsh (Z shell) misalnya.
+Kenapa _Wildcard_ nya dikutip? Karena terkadang _Shell_ lain tidak dapat meng-intepretasi tanda bintang dengan baik jika tidak dikutip, seperti Zsh (Z shell) misalnya.
 
 Kenapa _Wildcard_ nya diletakkan di awal? Agar Domain _Wildcard_ nya tampil sebagai "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL. Kenapa? Karena Sertifikat SSL _Wildcard_ yang saya lihat menampilkan Domain _Wildcard_ sebagai "Issued to"/"Common Name" nya. Apa itu "Issued to"/"Common Name"? Itu sudah saya jelaskan [di bagian awal](#issue-cert).
 
 Apakah itu menjangkau Sub-subdomain seperti `sub.sub.domain.com`? Tentu saja tidak, karena sertifikat SSL tersebut cuma diterbitkan untuk `*.domain.com` dan `domain.com`, yang mana cuma menjangkau `sub1.domain.com`, `sub2.domain.com`, dst, bukan `sub.sub.domain.com`.
 
-Jika Anda mau seperti itu, tambahkan saja Subdomain Anda beserta _Wildcard_ nya, jadi parameter yang Anda tambahkan adalah `-d "*.sub.domain.com" -d sub.domain.com`.
+Jika Anda mau seperti itu, tambahkan saja Subdomain Anda beserta _Wildcard_ nya, jadi parameter yang Anda tambahkan adalah `-d '*.sub.domain.com' -d sub.domain.com`.
 
 Contohnya menjadi seperti berikut:
 
 ```shell
-$ acme.sh --issue -d "*.domain.com" -d domain.com -d "*.sub.domain.com" -d sub.domain.com --dns dns_cf
+acme.sh --issue -d '*.domain.com' -d domain.com -d '*.sub.domain.com' -d sub.domain.com --dns dns_cf
 ```
 
 Nah, sekarang paham, kan?
@@ -514,7 +523,7 @@ Secara Bawaan/Asali, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA ya
 Contoh Perintah di bawah ini jika Anda ingin menerbitkannya dengan kunci RSA yang berukuran 3072 bit (RSA-3072):
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
+acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 ```
 
 {{< info text="**Perhatian !**" >}}
@@ -526,7 +535,7 @@ Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya 
 Atau, berikut di bawah ini jika Anda ingin menerbitnya dalam bentuk _Wildcard_:
 
 ```shell
-$ acme.sh --issue -d "*.domain.com" -d domain.com --keylength 3072 --dns dns_cf
+acme.sh --issue -d '*.domain.com' -d domain.com --keylength 3072 --dns dns_cf
 ```
 
 Jika Anda ingin menerbitkannya dengan ukuran kunci sebesar 4096 bit, Anda tinggal ganti saja menjadi `--keylength 4096`. Intinya, Anda perhatikan saja terhadap nilai parameternya.
@@ -555,7 +564,7 @@ Secara bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA. Jika An
 Contoh Perintah di bawah ini jika Anda ingin menerbitkan Sertifikat SSL ECDSA dengan ukuran P-384:
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
+acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 ```
 
 {{< info text="**Perhatian !**" >}}
@@ -567,7 +576,7 @@ Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya 
 Atau, berikut di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
 
 ```shell
-$ acme.sh --issue -d "*.domain.com" -d domain.com --keylength ec-384 --dns dns_cf
+acme.sh --issue -d '*.domain.com' -d domain.com --keylength ec-384 --dns dns_cf
 ```
 
 Jika Anda ingin menerbitkannya dengan kunci ECDSA P-256, tinggal ganti saja menjadi `--keylength ec-256`. Perhatikan saja nilai parameter dari `keylength` nya.
@@ -592,6 +601,26 @@ Biasanya, acme.sh akan terinstal di dalam direktori `${HOME}/.acme.sh`.
 Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `${HOME}/.acme.sh/account.conf`.
 
 Berkas tersebut menyimpan sejumlah Informasi yang berkaitan dengan Akun yang Anda masukkan melalui variabel dari sebuah _Shell_ (Seperti _Token_, Kunci API, atau bahkan Nama Pengguna dan Kata Sandi), acme.sh akan menyimpan Informasi tersebut secara otomatis ke dalam berkas `account.conf` jika dijalankan dan akan digunakan kembali jika tersimpan.
+
+Contoh isi berkas `account.conf`:
+
+```shell
+$ cat ${HOME}/.acme.sh/account.conf
+
+#LOG_FILE="/home/username/.acme.sh/acme.sh.log"
+#LOG_LEVEL=1
+
+#AUTO_UPGRADE="1"
+
+#NO_TIMESTAMP=1
+
+
+UPGRADE_HASH='d96cca382274c7595785a94816ef586e452b7f27'
+SAVED_CF_Token='clxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+SAVED_CF_Account_ID='8exxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+ACCOUNT_EMAIL='my@example.com'
+USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin'
+```
 
 Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya tidak valid, entah itu salah memasukkan atau Informasinya tidak ada, Anda bisa menggantinya dengan mengganti variabel di dalam _Shell_ nya, lalu hapus variabel tersebut di dalam berkas `account.conf` nya.
 
@@ -677,19 +706,19 @@ Karena Anda cuma diminta 3 berkas, maka berkas-berkas yang diperlukan untuk diun
 Anda dapat menyimpan nya dengan perintah berikut:
 
 ```shell
-$ PLAIN_CERT="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.cer)"
-$ PLAIN_KEY="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.key)"
-$ PLAIN_CA="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/ca.cer)"
-$ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
+PLAIN_CERT="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.cer)"
+PLAIN_KEY="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.key)"
+PLAIN_CA="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/ca.cer)"
+NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan perintah `cat`:
 
 ```shell
-$ PLAIN_CERT="$(cat ${HOME}/.acme.sh/domain.com/domain.com.cer | awk '{printf "%s\\n", $0}')"
-$ PLAIN_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | awk '{printf "%s\\n", $0}')"
-$ PLAIN_CA="$(cat ${HOME}/.acme.sh/domain.com/ca.cer | awk '{printf "%s\\n", $0}')"
-$ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
+PLAIN_CERT="$(cat ${HOME}/.acme.sh/domain.com/domain.com.cer | awk '{printf "%s\\n", $0}')"
+PLAIN_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | awk '{printf "%s\\n", $0}')"
+PLAIN_CA="$(cat ${HOME}/.acme.sh/domain.com/ca.cer | awk '{printf "%s\\n", $0}')"
+NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
 Silahkan ubah direktori dan nama berkasnya sesuai dengan Sertifikat SSL yang tersimpan di dalam Perangkat Anda.
@@ -699,17 +728,17 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API nya dengan perintah berikut:
 
 ```shell
-$ curl -X POST \
-       -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
-       -H 'content-type: application/json' \
-       --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
-       --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
+curl -X POST \
+     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'content-type: application/json' \
+     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+     --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-$ curl -X POST -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' -H 'content-type: application/json' --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
+curl -X POST -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' -H 'content-type: application/json' --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
@@ -786,9 +815,9 @@ Sehingga untuk menyimpan nya ke dalam variabel, maka Anda harus meng-_encode_ is
 Tanpa basa-basi lagi, Anda dapat menyimpan nya ke dalam variabel dengan perintah berikut:
 
 ```shell
-$ BASE64_FULLCHAIN_CER="$(cat ${HOME}/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
-$ BASE64_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
-$ BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
+BASE64_FULLCHAIN_CER="$(cat ${HOME}/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
+BASE64_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
+BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
 ```
 
 Silahkan ubah direktori dan nama berkasnya sesuai dengan Sertifikat SSL yang tersimpan di dalam Perangkat Anda.
@@ -798,18 +827,18 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API nya dengan perintah berikut:
 
 ```shell
-$ curl -X POST \
-       -H 'Accept: application/json' \
-       -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' \
-       -H 'Content-Type: application/json' \
-       --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' \
-       --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
+curl -X POST \
+     -H 'Accept: application/json' \
+     -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' \
+     -H 'Content-Type: application/json' \
+     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' \
+     --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-$ curl -X POST -H 'Accept: application/json' -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
+curl -X POST -H 'Accept: application/json' -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
 ```
 
 Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Content**](https://http.cat/204)), berbeda daripada Netlify yang menampilkan pesan dalam format JSON. Sebaliknya, jika tidak berhasil, maka pesan galat akan muncul dengan pesan yang berbeda-beda, tergantung kondisi yang ada.
@@ -885,16 +914,15 @@ Tentu saja, hasil konversi ke Base64 tidak dianjurkan untuk dipasang baris pemut
 Berikut di bawah ini adalah contoh format Base64 yang salah: (Untuk kasus ini)
 
 ```plain
-cHJpbnRmICJTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBzZXJ0
-aWZpa2F0IFNTTCBueWFcbkFuZGEgdGlkYWsgcGVybHUgbWVsYWt1a2FuIGFwYS1hcGEgc2V0ZWxh
-aCBpbmlcblNheWEgc2VyaXVzLCBiZW5lcmFuLCBrYW11IGdhayBwZXJsdSBsYWt1aW4gYXBhLWFw
-YVxuYmxhXG5ibGFibGFcbmJsYWJsYWJsYVxuIg==
+cHJpbnRmICJBOiBTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBz
+ZXJ0aWZpa2F0IFNTTCBueWFcbkI6IEhhYmlzIGluaSBuZ2FwYWluP1xuQTogWW8gbmRhayB0YWh1
+ISBLb2sgdGFueWEgc2F5YT9cbkI6IExoYT9cbiI=
 ```
 
 Berikut di bawah ini adalah contoh format Base64 yang benar: (Untuk kasus ini)
 
 ```plain
-cHJpbnRmICJTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBzZXJ0aWZpa2F0IFNTTCBueWFcbkFuZGEgdGlkYWsgcGVybHUgbWVsYWt1a2FuIGFwYS1hcGEgc2V0ZWxhaCBpbmlcblNheWEgc2VyaXVzLCBiZW5lcmFuLCBrYW11IGdhayBwZXJsdSBsYWt1aW4gYXBhLWFwYVxuYmxhXG5ibGFibGFcbmJsYWJsYWJsYVxuIg==
+cHJpbnRmICJBOiBTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBzZXJ0aWZpa2F0IFNTTCBueWFcbkI6IEhhYmlzIGluaSBuZ2FwYWluP1xuQTogWW8gbmRhayB0YWh1ISBLb2sgdGFueWEgc2F5YT9cbkI6IExoYT9cbiI=
 ```
 
 Setelah selesai melakukan konversi, Anda bisa isi variabel-variabel tersebut dengan `__ACME_BASE64__START_(BARIS_PERINTAH_DALAM_BENTUK_BASE64)__ACME_BASE64__END_`.
@@ -905,23 +933,20 @@ Contohnya, jika Anda ingin mengeksekusi perintah berikut setelah perkakas acme.s
 
 ```shell
 echo "Selamat! Kamu telah sukses untuk memperbarui sertifikat SSL nya"
-echo "Anda tidak perlu melakukan apa-apa setelah ini"
-echo "Saya serius, beneran, kamu gak perlu lakuin apa-apa"
-echo "..."
-echo "...."
-echo "....."
+echo "Habis ini ngapain?"
+echo "Yo ndak tahu! Kok tanya saya?"
 ```
 
 Maka pertama-tama, Anda perlu konversikan baris perintah di atas. Jika perintah di atas telah dikonversi ke Base64, maka akan menjadi teks seperti berikut:
 
 ```plain
-ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJBbmRhIHRpZGFrIHBlcmx1IG1lbGFrdWthbiBhcGEtYXBhIHNldGVsYWggaW5pIgplY2hvICJTYXlhIHNlcml1cywgYmVuZXJhbiwga2FtdSBnYWsgcGVybHUgbGFrdWluIGFwYS1hcGEiCmVjaG8gIi4uLiIKZWNobyAiLi4uLiIKZWNobyAiLi4uLi4i
+ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJIYWJpcyBpbmkgbmdhcGFpbj8iCmVjaG8gIllvIG5kYWsgdGFodSEgS29rIHRhbnlhIHNheWE/Igo=
 ```
 
 Setelah dikonversi, variabel yang perlu Anda isi adalah variabel `Le_RenewHook` dan nilai variabel nya menjadi seperti berikut: 
 
 ```shell
-Le_RenewHook='__ACME_BASE64__START_ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJBbmRhIHRpZGFrIHBlcmx1IG1lbGFrdWthbiBhcGEtYXBhIHNldGVsYWggaW5pIgplY2hvICJTYXlhIHNlcml1cywgYmVuZXJhbiwga2FtdSBnYWsgcGVybHUgbGFrdWluIGFwYS1hcGEiCmVjaG8gIi4uLiIKZWNobyAiLi4uLiIKZWNobyAiLi4uLi4i__ACME_BASE64__END_'
+Le_RenewHook='__ACME_BASE64__START_ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJIYWJpcyBpbmkgbmdhcGFpbj8iCmVjaG8gIllvIG5kYWsgdGFodSEgS29rIHRhbnlhIHNheWE/Igo=__ACME_BASE64__END_'
 ```
 
 Tapi perlu diingat, bahwa perintah yang dieksekusi melalui acme.sh akan menggunakan direktori dari berkas `domain.com.conf` sebagai direktori kerjanya (cth. lokasi `domain.com.conf` yang berada di dalam direktori `~/.acme.sh/domain.com/` akan digunakan sebagai direktori kerja).
@@ -954,22 +979,22 @@ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 NETLIFY_SITE_ID="SITE_ID_KAMU_DI_SINI"
 
 curl -X POST \
-       -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
-       -H 'content-type: application/json' \
-       --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
-       --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
+     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'content-type: application/json' \
+     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+     --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
 ```
 
 Jika Anda ingin mengeksekusi skrip seperti di atas, maka Anda perlu konversi ke Base64. Berikut adalah Base64 dari contoh skrip di atas:
 
 ```plain
-UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAgIC1IICdBdXRob3JpemF0aW9uOiBCZWFyZXIgJyR7TkVUTElGWV9BQ0NFU1NfVE9LRU59JycgXAogICAgICAgLUggJ2NvbnRlbnQtdHlwZTogYXBwbGljYXRpb24vanNvbicgXAogICAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgICAgLS11cmwgaHR0cHM6Ly9hcGkubmV0bGlmeS5jb20vYXBpL3YxL3NpdGVzLyR7TkVUTElGWV9TSVRFX0lEfS9zc2w=
+UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAtSCAnQXV0aG9yaXphdGlvbjogQmVhcmVyICcke05FVExJRllfQUNDRVNTX1RPS0VOfScnIFwKICAgICAtSCAnY29udGVudC10eXBlOiBhcHBsaWNhdGlvbi9qc29uJyBcCiAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgIC0tdXJsIGh0dHBzOi8vYXBpLm5ldGxpZnkuY29tL2FwaS92MS9zaXRlcy8ke05FVExJRllfU0lURV9JRH0vc3NsCg==
 ```
 
 Setelah dikonversi, variabel yang perlu Anda isi adalah variabel `Le_RenewHook` dan nilai variabel nya menjadi seperti berikut:
 
 ```shell
-Le_RenewHook='__ACME_BASE64__START_UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAgIC1IICdBdXRob3JpemF0aW9uOiBCZWFyZXIgJyR7TkVUTElGWV9BQ0NFU1NfVE9LRU59JycgXAogICAgICAgLUggJ2NvbnRlbnQtdHlwZTogYXBwbGljYXRpb24vanNvbicgXAogICAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgICAgLS11cmwgaHR0cHM6Ly9hcGkubmV0bGlmeS5jb20vYXBpL3YxL3NpdGVzLyR7TkVUTElGWV9TSVRFX0lEfS9zc2w=__ACME_BASE64__END_'
+Le_RenewHook='__ACME_BASE64__START_UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAtSCAnQXV0aG9yaXphdGlvbjogQmVhcmVyICcke05FVExJRllfQUNDRVNTX1RPS0VOfScnIFwKICAgICAtSCAnY29udGVudC10eXBlOiBhcHBsaWNhdGlvbi9qc29uJyBcCiAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgIC0tdXJsIGh0dHBzOi8vYXBpLm5ldGxpZnkuY29tL2FwaS92MS9zaXRlcy8ke05FVExJRllfU0lURV9JRH0vc3NsCg==__ACME_BASE64__END_'
 ```
 
 Setelah melakukan konfigurasi, Anda tinggal perlu menunggu sampai acme.sh berhasil memperbarui sertifikat SSL nya untuk Anda, pastikan "Cron Jobs" dalam keadaan aktif.
@@ -1083,8 +1108,8 @@ Tanpa basa-basi lagi, caranya sebagai berikut:
 1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat lain dari Komputer PC/Laptop Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari Komputer PC/Laptop Anda:
 
 ```bash
-$ cd
-$ tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*.md' --format pax -cvzf acme.sh.tar.gz .acme.sh
+cd
+tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*.md' --format pax -cvzf acme.sh.tar.gz .acme.sh
 ```
 
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh` nya juga.
@@ -1096,19 +1121,25 @@ $ tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*
 
 4. Setelah itu, buka Termux, lalu instal terlebih dahulu acme.sh nya di dalam Termux dengan perintah berikut:
 ```bash
-$ curl https://get.acme.sh | sh -s
+curl https://get.acme.sh | sh -s
 ```
 5. Setelah Anda meng-instal nya, dekripsi berkas `acme.sh.tar.gz` jika Anda melakukan enkripsi, lalu ekstrak berkas tersebut dengan perintah berikut:
 ```bash
-$ tar -xvzf acme.sh.tar.gz
+tar -xvzf acme.sh.tar.gz
 ```
-6. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah Crontab di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh "Cron Jobs". Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan "Cron Jobs"](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
+6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `~/.acme.sh/account.conf` dengan perintah berikut:
+```bash
+cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/USER\_PATH\=/d' ~/.acme.sh/account.conf
+printf "USER_PATH='%s'\n" ${PATH} >> ~/.acme.sh/account.conf
+```
+7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah Crontab di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh "Cron Jobs". Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan "Cron Jobs"](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
    Jika Anda mengikuti [Metode ke-1](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya Crontab secara otomatis di atur setelah Anda meng-instal perkakas acme.sh nya. 
 
    Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam Termux Anda untuk memasang Cron Job nya.
 
-7. Jika sudah selesai, maka jangan tutupi Aplikasi Termux nya (cth. Dengan menutup/mengakhiri semua sesi Termux dengan perintah `exit`, Berhenti Paksa Termux, Mulai Ulang Perangkat, Mematikan Perangkat, dll), biarkan saja dia berjalan di latar belakang.
+8. Jika sudah selesai, maka jangan tutupi Aplikasi Termux nya (cth. Dengan menutup/mengakhiri semua sesi Termux dengan perintah `exit`, Berhenti Paksa Termux, Mulai Ulang Perangkat, Mematikan Perangkat, dll), biarkan saja dia berjalan di latar belakang.
 
     Jika kamu menutupinya, silahkan buka Termux nya lagi, lalu eksekusikan perintah: `sv-enable crond` untuk mengaktikan kembali layanan Cron nya
 
@@ -1178,7 +1209,7 @@ Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcent
 Maka format perintah nya akan seperti berikut:
 
 ```shell
-$ acme.sh --set-default-ca opsi_ca
+acme.sh --set-default-ca opsi_ca
 ```
 
 Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Server ACME yang dimiliki oleh CA. Untuk mengetahui nama pendek atau Alamat URL nya, Anda bisa mengunjungi [Halaman Wikinya](https://github.com/acmesh-official/acme.sh/wiki/Server).
@@ -1186,7 +1217,7 @@ Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh 
 Contoh perintah di bawah ini adalah menggantikan CA Asali/Baku menjadi Let's Encrypt:
 
 ```shell
-$ acme.sh --set-default-ca letsencrypt
+acme.sh --set-default-ca letsencrypt
 ```
 
 Penggantian ini harusnya dilakukan sebelum Anda menerbitkan sertifikat SSL apapun, karena ini hanya berefek jika Anda menerbitkan sertifikat SSL terbaru. Tapi jika Anda melakukan itu setelah menerbitkan sertifikat SSL nya, maka Anda perlu menggantikan sertifikat SSL tersebut.
@@ -1199,7 +1230,7 @@ Saat menerbitkan sertifikat SSL, Anda tinggal perlu tambahkan parameter `--serve
 Format perintah nya akan seperti berikut:
 
 ```shell
-$ acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
+acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
 ```
 
 Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Server ACME yang dimiliki oleh CA, seperti yang telah saya bahas di pertanyaan sebelumnya.
@@ -1235,7 +1266,7 @@ Anda bisa pilih salah satu domain yang ingin Anda hapus, di pembahasan kali ini 
 Jika Anda sudah mengetahuinya dan sudah benar-benar tidak menggunakan nya lagi atau bahkan Anda tidak memasangkan sertifikat SSL tersebut di Aplikasi, Web atau Blog Anda, Anda bisa mencabutnya terlebih dahulu dengan parameter `--revoke`, berikut adalah contohnya:
 
 ```shell
-$ acme.sh --revoke -d domain.com
+acme.sh --revoke -d domain.com
 ```
 
 Tapi jika Anda masih memasangnya, maka saran saya jangan dicabut, dikhawatirkan Aplikasi, Web atau Blog menjadi tidak dapat diakses karena sertifikatnya dicabut, lebih baik Anda pasang terlebih dahulu Sertifikat SSL barunya, baru cabut sertifikat lamanya atau langsung hapus saja. 
@@ -1245,7 +1276,7 @@ Untuk memasukkan alamat Domain nya, Anda tidak perlu mengingat deretan domain sa
 Setelah itu, Anda bisa menghapusnya dengan perintah berikut:
 
 ```shell
-$ acme.sh --remove -d domain.com
+acme.sh --remove -d domain.com
 ```
 
 Nanti keluaran nya akan seperti berikut:
@@ -1260,13 +1291,13 @@ Jika perlu, Anda juga bisa menghapus secara manual berkas-berkas tersebut sesuai
 Tapi jika Anda ingin menghapus sertifikat SSL versi ECC nya, maka Anda tinggal perlu tambahkan paramter `--ecc` nya saja. Format perintah nya seperti berikut:
 
 ```shell
-$ acme.sh --remove -d domain.com --ecc
+acme.sh --remove -d domain.com --ecc
 ```
 
 Atau, jika Anda ingin mencabut sertifikat SSL untuk versi ECC nya, maka Anda tinggal tambahkan parameter `--ecc` nya saat Anda ingin mencabutnya. Format perintah nya seperti berikut:
 
 ```shell
-$ acme.sh --revoke -d domain.com --ecc
+acme.sh --revoke -d domain.com --ecc
 ```
 
 Nah, seperti itulah jawaban untuk pertanyaan ini.
@@ -1292,7 +1323,7 @@ Tapi, saya belum coba dan keliatan nya saya lebih suka acme.sh daripada lain nya
 **Jawab:** Anda tinggal ketik perintah berikut:
 
 ```shell
-$ acme.sh --uninstall
+acme.sh --uninstall
 ```
 
 Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `~/.bashrc` atau `~/.zshrc`.
@@ -1384,7 +1415,7 @@ Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada Sertif
 
 Jika Anda bingung, silahkan lihat cuplikan berikut:
 
-![Hierarki Sertifikat SSL dari ZeroSSL di Windows 10](Hierarki_Sertifikat_SSL.png)
+![Hierarki Sertifikat SSL dari ZeroSSL di Windows 10](Hierarki_Sertifikat_SSL.png) ![Hierarki Sertifikat SSL dari ZeroSSL di Peramban berbasis Chromium untuk GNU/Linux](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.png)
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
@@ -1417,10 +1448,34 @@ Setelah menempelkannya, maka Anda perlu mengirimkan teks nya, setelah dikirimkan
 
 Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll selengkap mungkin di dalam kolom komentar nya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan tersedia.
 
+### Pertanyaan ke-17: Bagaimana cara menggantikan Informasi Akun yang telah saya masukkan sebelumnya? Soalnya tadi saya salah memasukkan nya {#pertanyaan-ke17}
+**Jawab:** Jika Anda ingin mengganti Informasi Akun yang telah Anda masukkan sebelumnya dengan alasan apapun, seperti salah ketik, informasi nya telah diganti, dll, maka Anda bisa lakukan itu dengan merubah variabel di dalam _Shell_ nya, lalu rubah isi berkas `account.conf` yang berada di dalam direktori acme.sh
+
+Saat menerbitkan/memperbarui sertifikat, acme.sh secara otomatis akan menyimpan Informasi Akun yang Anda masukkan ke dalam berkas `account.conf` dalam bentuk variabel `SAVED_{VARIABEL}`. 
+
+Misalnya, jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk domain Anda, maka Anda perlu menyimpan "API Token" ke dalam variabel `CF_Token` dan "Account ID" ke dalam variabel `CF_Account_ID` di dalam Terminal terlebih dahulu.
+
+Setelah menyimpan nya dan menjalankan perkakas acme.sh untuk menerbitkan sertifikat nya, maka secara otomatis acme.sh akan menyimpan kedua informasi tersebut ke dalam berkas `account.conf`, tapi dalam bentuk variabel `SAVED_CF_Token` untuk `CF_Token` dan `SAVED_CF_Account_ID` untuk `CF_Account_ID` nya.
+
+Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare, maka ganti nilai dari variabel `CF_Token` dan `CF_Account_ID`, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` di dalam berkas `~/.acme.sh/account.conf`.
+
+Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda:
+```shell
+cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
+CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
+CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
+sed -i '/SAVED\_CF\_Token\=/d' ~/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Account\_ID\=/d' ~/.acme.sh/account.conf
+```
+
+Tapi jika Anda menggunakan DNS Otoritatif lain, variabel yang digunakan akan berbeda-beda untuk setiap penyedia, maka Anda perlu mengetahui variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silahkan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+
+Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, acme.sh akan menyimpan informasi akun lagi secara otomatis setelah dieksekusi.
+
 ## Penutup
 Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan baca nya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
 
-Saya tulis artikel ini sejak 10 Juni 2021 dan perlu waktu 1 bulan lebih agar saya bisa menerbitkan nya, karena artikel ini membahas banyak hal dan juga sedikit 'riset' agar artikel ini bisa diikuti oleh banyak perangkat, belum lagi sama kalimat-kalimat nya.
+Saya tulis artikel ini sejak 10 Juli 2021 dan perlu waktu 1 bulan lebih agar saya bisa menerbitkan nya, karena artikel ini membahas banyak hal dan juga sedikit 'riset' agar artikel ini bisa diikuti oleh banyak perangkat, belum lagi sama kalimat-kalimat nya, itupun belum sama pengujian nya.
 
 Terima kasih bagi Anda yang telah membaca serta mempelajari yang ada di artikel ini, mohon maaf jika artikel ini memiliki beberapa kekeliruan dan kesalahan, seperti salah ketik, kurang jelas, salah informasi, dll, karena artikel ini jauh dari sempurna.
 
