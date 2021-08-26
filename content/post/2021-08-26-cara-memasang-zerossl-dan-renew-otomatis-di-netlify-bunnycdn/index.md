@@ -7,9 +7,8 @@ Categories:
     - Layanan Internet
     - Info Blog
     - Tutorial
-Draft: true
 Image: zerossl_logo.png
-Date: 2021-07-10 22:33:00+07:00
+Date: 2021-08-26 20:09:00+07:00
 Tags:
     - Sertifikat SSL
     - ZeroSSL
