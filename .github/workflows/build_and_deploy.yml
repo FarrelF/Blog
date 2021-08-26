@@ -85,7 +85,7 @@ jobs:
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v24
+      uses: actions/upload-artifact@v2
       with:
         name: site-outputs
         path: files.tar.gz
