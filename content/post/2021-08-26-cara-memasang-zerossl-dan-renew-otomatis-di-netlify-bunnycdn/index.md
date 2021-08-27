@@ -7,7 +7,7 @@ Categories:
     - Layanan Internet
     - Info Blog
     - Tutorial
-Image: zerossl_logo.png
+Image: ZeroSSL-Logo.png
 Date: 2021-08-26 20:51:00+07:00
 Tags:
     - Sertifikat SSL
@@ -64,7 +64,7 @@ Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
 - Socat (Opsional, karena tidak saya bahas)
 {{< / spoiler >}}
 
-Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena aplikasi tersebut memang dirancang untuk \*nix. 
+Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena aplikasi tersebut memang dirancang untuk \*nix.
 
 Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, di artikel ini saya bahas hanya untuk mengunduh dan menginstal acme.sh saja.
 
@@ -892,7 +892,7 @@ Le_NextRenewTime='1630806543'
 
 Jika Anda ingin merubahnya, silahkan Anda rubah/edit isi dari berkas tersebut dengan Editor Teks favorit Anda.
 
-Dari semua variabel, yang boleh dirubah adalah nilai dari variabel `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja. Bagaimana dengan lainnya? Untuk lainnya saya sarankan agar Anda tidak merubahnya, apalagi `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
+Dari semua variabel, yang boleh dirubah adalah nilai dari variabel `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja. Bagaimana dengan lainnya? Untuk lainnya saya sarankan agar Anda tidak merubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
 
 Jadi, saya bahas yang boleh dirubah saja. Berikut adalah penjelasan mengenai nilai dari konfigurasi/variabel di atas:
 
@@ -906,51 +906,71 @@ Ketiga variabel tersebut bisa Anda isi dengan perintah itu langsung, contoh beri
 Le_PreHook='echo "Halo, Dunia!"'
 ```
 
-Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka Anda perlu konversikan/_encode_ terlebih dahulu baris perintah/skrip tersebut ke dalam Base64. 
+Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `~/.acme.sh/domain.com/`).
 
-Tentu saja, hasil konversi ke Base64 tidak dianjurkan untuk dipasang baris pemutus (_break line_)/memisahkan baris dengan alasan apapun, semuanya harus dalam satu baris saja.
+Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skrip nya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh`)
 
-Berikut di bawah ini adalah contoh format Base64 yang salah: (Untuk kasus ini)
-
-```plain
-cHJpbnRmICJBOiBTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBz
-ZXJ0aWZpa2F0IFNTTCBueWFcbkI6IEhhYmlzIGluaSBuZ2FwYWluP1xuQTogWW8gbmRhayB0YWh1
-ISBLb2sgdGFueWEgc2F5YT9cbkI6IExoYT9cbiI=
-```
-
-Berikut di bawah ini adalah contoh format Base64 yang benar: (Untuk kasus ini)
-
-```plain
-cHJpbnRmICJBOiBTZWxhbWF0ISBLYW11IHRlbGFoIHN1a3NlcyB1bnR1ayBtZW1wZXJiYXJ1aSBzZXJ0aWZpa2F0IFNTTCBueWFcbkI6IEhhYmlzIGluaSBuZ2FwYWluP1xuQTogWW8gbmRhayB0YWh1ISBLb2sgdGFueWEgc2F5YT9cbkI6IExoYT9cbiI=
-```
-
-Setelah selesai melakukan konversi, Anda bisa isi variabel-variabel tersebut dengan `__ACME_BASE64__START_(BARIS_PERINTAH_DALAM_BENTUK_BASE64)__ACME_BASE64__END_`.
-
-Ganti `(BARIS_PERINTAH_DALAM_BENTUK_BASE64)` dengan baris perintah yang telah Anda konversikan/_encode_ ke dalam Base64 sebelumnya. 
-
-Contohnya, jika Anda ingin mengeksekusi perintah berikut setelah perkakas acme.sh sukses memperbarui sertifikat SSL nya:
-
-```shell
-echo "Selamat! Kamu telah sukses untuk memperbarui sertifikat SSL nya"
-echo "Habis ini ngapain?"
-echo "Yo ndak tahu! Kok tanya saya?"
-```
-
-Maka pertama-tama, Anda perlu konversikan baris perintah di atas. Jika perintah di atas telah dikonversi ke Base64, maka akan menjadi teks seperti berikut:
-
-```plain
-ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJIYWJpcyBpbmkgbmdhcGFpbj8iCmVjaG8gIllvIG5kYWsgdGFodSEgS29rIHRhbnlhIHNheWE/Igo=
-```
-
-Setelah dikonversi, variabel yang perlu Anda isi adalah variabel `Le_RenewHook` dan nilai variabel nya menjadi seperti berikut: 
-
-```shell
-Le_RenewHook='__ACME_BASE64__START_ZWNobyAiU2VsYW1hdCEgS2FtdSB0ZWxhaCBzdWtzZXMgdW50dWsgbWVtcGVyYmFydWkgc2VydGlmaWthdCBTU0wgbnlhIgplY2hvICJIYWJpcyBpbmkgbmdhcGFpbj8iCmVjaG8gIllvIG5kYWsgdGFodSEgS29rIHRhbnlhIHNheWE/Igo=__ACME_BASE64__END_'
-```
-
-Tapi perlu diingat, bahwa perintah yang dieksekusi melalui acme.sh akan menggunakan direktori dari berkas `domain.com.conf` sebagai direktori kerjanya (cth. lokasi `domain.com.conf` yang berada di dalam direktori `~/.acme.sh/domain.com/` akan digunakan sebagai direktori kerja).
+Tapi perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
 Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukan nya di dalam direktori `~/.acme.sh/domain.com/`.
+
+Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda rubah sebelumnya akan menjadi seperti berikut:
+
+```shell
+__ACME_BASE64__START_(BARIS_PERINTAH_DALAM_BENTUK_BASE64)__ACME_BASE64__END_
+```
+
+`(BARIS_PERINTAH_DALAM_BENTUK_BASE64)` adalah Base64 dari perintah yang sebelumnya Anda terapkan di dalam variabel tersebut. Ya, acme.sh secara otomatis meng-konversikan perintah yang Anda tentukan menjadi Base64.
+
+### Contoh Kasus: Menjalankan sebuah Berkas Skrip setelah Memperbarui Sertifikat SSL
+Contohnya Si Udin membuat sebuah berkas skrip yang bernama `renew.sh` untuk memperbarui SSL untuk `www.si-udin.com` miliknya yang di Hosting menggunakan Netlofy dan skrip tersebut rencananya mau dieksekusi setelah sertifikat SSL sukses diperbarui.
+
+Isi berkas skrip nya sebagai berikut:
+
+```shell
+#!/usr/bin/env sh
+
+# Skrip ini saya lisensikan di bawah lisensi "The Unlicense" (https://unlicense.org/)
+# Silahkan Anda kembangkan sendiri kode skrip di bawah ini
+
+PLAIN_CERT="$(cat www.si-udin.com.cer | awk '{printf "%s\\n", $0}')"
+PLAIN_KEY="$(cat www.si-udin.com.key | awk '{printf "%s\\n", $0}')"
+PLAIN_CA="$(cat ca.cer | awk '{printf "%s\\n", $0}')"
+NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
+NETLIFY_SITE_ID="SITE_ID_KAMU_DI_SINI"
+
+curl -X POST \
+     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'content-type: application/json' \
+     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+     --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
+```
+
+Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `~/.acme.sh/www.si-udin.com` yang mana di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` yang mana itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
+
+Sehingga, dia tidak perlu menentukan direktori nya lagi secara absolut, dia cuma perlu menuliskan nama berkas nya saja.
+
+Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `~/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
+
+Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu merubah isi dari berkas `~/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
+
+Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain. 
+
+Nah, dia isi itu dengan `/usr/bin/env sh renew.sh`. Jadi, variabel nya akan menjadi seperti berikut:
+
+```shell
+Le_RenewHook='/usr/bin/env sh renew.sh'
+```
+
+Setelah itu, ia simpan berkas tersebut dan beberapa bulan kemudian, acme.sh memperbarui sertifikat SSL tersebut dan berhasil, lalu skrip tersebut akhirnya berhasil dijalankan dan `www.si-udin.com` telah menggunakan sertifikat yang lebih baru.
+
+Setelah skrip tersebut berhasil dijalankan dan melihat lagi konfigurasi nya, ia melihat kalau nilai dari variabel `Le_RenewHook` itu berubah menjadi seperti berikut:
+
+```shell
+Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo__ACME_BASE64__END_'
+```
+
+Itu artinya, perintah tersebut telah dikonversikan menjadi Base64 secara otomatis oleh acme.sh saat perintah tersebut dieksekusi. `L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo` adalah Base64 dari perintah `/usr/bin/env sh renew.sh`.
 
 Nah, sekarang Anda sudah paham, kan? Jika sudah paham, maka silahkan Anda lanjut ke [bagian selanjutnya](#renew-ssl).
 
@@ -965,36 +985,6 @@ Anda bisa gunakan konfigurasi dari perkakas acme.sh agar dia mengeksekusi baris 
 Kenapa saya rekomendasikan? Karena dengan ini Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL nya).
 
 Selain itu, jika Anda menyalinkan acme.sh ke perangkat lain, maka acme.sh tetap akan mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya daripada Anda membuat skrip sendiri secara terpisah.
-
-Lalu, bagaimana caranya? Caranya Anda bisa salin dan tempelkan baris perintah yang Anda gunakan untuk memanggil API tadi ke dalam konfigurasi nya.
-
-Contoh di bawah ini adalah skrip untuk memasang sertifikat SSL ke Netlify setelah sertifikat SSL berhasil diperbarui oleh acme.sh:
-
-```bash
-PLAIN_CERT="$(cat domain.com.cer | awk '{printf "%s\\n", $0}')"
-PLAIN_KEY="$(cat domain.com.key | awk '{printf "%s\\n", $0}')"
-PLAIN_CA="$(cat ca.cer | awk '{printf "%s\\n", $0}')"
-NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
-NETLIFY_SITE_ID="SITE_ID_KAMU_DI_SINI"
-
-curl -X POST \
-     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
-     -H 'content-type: application/json' \
-     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
-     --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
-```
-
-Jika Anda ingin mengeksekusi skrip seperti di atas, maka Anda perlu konversi ke Base64. Berikut adalah Base64 dari contoh skrip di atas:
-
-```plain
-UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAtSCAnQXV0aG9yaXphdGlvbjogQmVhcmVyICcke05FVExJRllfQUNDRVNTX1RPS0VOfScnIFwKICAgICAtSCAnY29udGVudC10eXBlOiBhcHBsaWNhdGlvbi9qc29uJyBcCiAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgIC0tdXJsIGh0dHBzOi8vYXBpLm5ldGxpZnkuY29tL2FwaS92MS9zaXRlcy8ke05FVExJRllfU0lURV9JRH0vc3NsCg==
-```
-
-Setelah dikonversi, variabel yang perlu Anda isi adalah variabel `Le_RenewHook` dan nilai variabel nya menjadi seperti berikut:
-
-```shell
-Le_RenewHook='__ACME_BASE64__START_UExBSU5fQ0VSVD0iJChjYXQgZG9tYWluLmNvbS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0tFWT0iJChjYXQgZG9tYWluLmNvbS5rZXkgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiClBMQUlOX0NBPSIkKGNhdCBjYS5jZXIgfCBhd2sgJ3twcmludGYgIiVzXFxuIiwgJDB9JykiCk5FVExJRllfQUNDRVNTX1RPS0VOPSJBQ0NFU1NfVE9LRU5fS0FNVV9ESV9TSU5JIgpORVRMSUZZX1NJVEVfSUQ9IlNJVEVfSURfS0FNVV9ESV9TSU5JIgoKY3VybCAtWCBQT1NUIFwKICAgICAtSCAnQXV0aG9yaXphdGlvbjogQmVhcmVyICcke05FVExJRllfQUNDRVNTX1RPS0VOfScnIFwKICAgICAtSCAnY29udGVudC10eXBlOiBhcHBsaWNhdGlvbi9qc29uJyBcCiAgICAgLS1kYXRhICd7ImNlcnRpZmljYXRlIjogIiciJHtQTEFJTl9DRVJUfSInIiwgImtleSI6ICInIiR7UExBSU5fS0VZfSInIiwgImNhX2NlcnRpZmljYXRlcyI6ICInIiR7UExBSU5fQ0F9IicifScgXAogICAgIC0tdXJsIGh0dHBzOi8vYXBpLm5ldGxpZnkuY29tL2FwaS92MS9zaXRlcy8ke05FVExJRllfU0lURV9JRH0vc3NsCg==__ACME_BASE64__END_'
-```
 
 Setelah melakukan konfigurasi, Anda tinggal perlu menunggu sampai acme.sh berhasil memperbarui sertifikat SSL nya untuk Anda, pastikan "Cron Jobs" dalam keadaan aktif.
 
@@ -1114,7 +1104,7 @@ tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*.m
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh` nya juga.
 
 2. Setelah meng-kompresinya, silahkan Anda langsung menyalinkan nya ke dalam penyimpanan perangkat Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkan nya
-3. Setelah disalin ke dalam perangkat Anda, silahkan Anda pindahkan berkas tersebut ke dalam direktori "Home" yang berada di dalam Penyimpanan Termux. 
+3. (**Catatan:** Mulai sekarang/di langkah ini, gunakan Ponsel Pintar Anda dan langkah seterusnya akan menggunakan Ponsel Pintar, tidak lagi menggunakan Komputer PC/Laptop) Setelah disalin ke dalam perangkat Anda, silahkan Anda pindahkan berkas tersebut ke dalam direktori "Home" yang berada di dalam Penyimpanan Termux.
 
    Pastikan Aplikasi Manajemen Berkas di Android Anda dapat mengakses Penyimpanan Termux, sesuai dengan persyaratan
 
@@ -1147,7 +1137,7 @@ Ya udah, gitu aja. Setelah Anda mengikuti langkah-langkah di atas, silahkan guna
 Akhirnya, selesai juga setelah mengikuti langkah-langkah di atas. Gimana, pusing kan? Atau, malah bosen? Iyalah, gimana tidak, artikel ini saja panjang lebarnya nya kebangetan. Tapi, setelah memasang Sertifikat SSL, kenapa harus memilih ZeroSSL daripada Let's Encrypt? Pertanyaan ini akan dijawab pada pembahasan berikutnya.
 
 ## Kenapa memilih ZeroSSL daripada Let's Encrypt? {#zerossl-vs-lets-encrypt}
-### Mengakar pada Sectigo/Comodo CA
+### Mengakar pada Sectigo/COMODO CA
 Sertifikat SSL dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja) sebagai Sertifikat Akar, yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama. 
 
 Informasi mengenai sertifikat akarnya sebagai berikut:
@@ -1418,7 +1408,7 @@ Jika Anda bingung, silahkan lihat cuplikan berikut:
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
-Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
+Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android, serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
 
 Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan. Soal kenapa Sertifikat Akar nya bisa dapat yang berbeda-beda itu saya kurang tahu, mungkin akan tergantung Perangkat Lunak yang Anda gunakan, bisa jadi karena Perangkat Lunak tersebut mendukung _Cross-signing_ atau lain nya.
 
@@ -1470,6 +1460,23 @@ sed -i '/SAVED\_CF\_Account\_ID\=/d' ~/.acme.sh/account.conf
 Tapi jika Anda menggunakan DNS Otoritatif lain, variabel yang digunakan akan berbeda-beda untuk setiap penyedia, maka Anda perlu mengetahui variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silahkan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, acme.sh akan menyimpan informasi akun lagi secara otomatis setelah dieksekusi.
+
+### Pertanyaan ke-18: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke18}
+**Jawab:** Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenis nya.
+
+Untuk Sistem Operasi nya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows. Di Android juga bisa, tapi gunakan aplikasi Termux.
+
+### Pertanyaan ke-19: Bagaimana caranya agar saya bisa menyalinkan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke19}
+**Jawab:** Untuk menyalinkan acme.sh ke dalam Perangkat lain, Anda bisa baca bagian "[_Renew_ SSL secara Otomatis di Android](#renew-ssl-di-android)" yang ada di artikel ini.
+
+Bagian tersebut juga membahas bagaimana caranya menyalinkan acme.sh ke dalam Perangkat Ponsel Pintar yang berbasis Android. 
+
+Caranya akan sama saja, hanya saja beda nya di Persyaratan untuk Perangkat lain, Perintah untuk mengaktifkan Layanan Cron dan Penyebutan Perangkatnya saja. Sesuaikan semua itu dengan perangkat milik Anda.
+
+### Pertanyaan ke-20: Saat saya menerbitkan/memperbarui Sertifikat SSL melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke20}
+**Jawab:** Kemungkinan terbesarnya berada di Server nya yang sedang mengalami gangguan/kendala/ketidaktersediaan (_downtime_).
+
+Jadi, sabarlah menunggu beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti Server nya berhasil diperbaiki dan kemudian tersedia kembali.
 
 ## Penutup
 Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan baca nya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
