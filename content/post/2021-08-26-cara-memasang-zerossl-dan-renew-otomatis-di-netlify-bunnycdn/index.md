@@ -33,6 +33,8 @@ Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otom
 
 Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL yang bisa Anda dapatkan dari ZeroSSL, baik jangkauan nya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasang sertifikat SSL dengan memanggil Server API milik Bunny.net dan Netlify memakai cURL.
 
+ZeroSSL adalah salah satu CA (_Certificate Authority_) atau PSrE (Penyelenggara Sertifikat/Penyelenggara Sertifikat Elektronik) yang menerbitkan/mengelola/mencabut Sertifikat SSL untuk Internet. Ia merupakan produk dari [apilayer](https://apilayer.com/).
+
 [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua Sistem Operasi yang berbasis \*nix.
 
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
@@ -1098,8 +1100,10 @@ Tanpa basa-basi lagi, caranya sebagai berikut:
 
 ```bash
 cd
-tar --exclude '.acme.sh/*.sh' --exclude '.acme.sh/*.env' --exclude '.acme.sh/*.md' --format pax -cvzf acme.sh.tar.gz .acme.sh
+tar --exclude '.acme.sh/deploy' --exclude '.acme.sh/ca' --exclude '.acme.sh/notify' --exclude '.acme.sh/dnsapi' --exclude '.acme.sh/*.env' --format pax -cvzf acme.sh.tar.gz .acme.sh
 ```
+
+Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asal terakhirnya ada `.tar.gz` nya.
 
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh` nya juga.
 
