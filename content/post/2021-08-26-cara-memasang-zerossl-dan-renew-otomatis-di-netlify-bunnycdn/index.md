@@ -966,7 +966,7 @@ Sehingga, dia tidak perlu menentukan direktori nya lagi secara absolut, dia cuma
 
 Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `~/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
 
-Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu merubah isi dari berkas `~/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
+Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `~/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
 
 Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain. 
 
@@ -986,7 +986,7 @@ Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo__ACME_BASE64
 
 Itu artinya, perintah tersebut telah dikonversikan menjadi Base64 secara otomatis oleh acme.sh saat perintah tersebut dieksekusi. `L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo` adalah Base64 dari perintah `/usr/bin/env sh renew.sh`.
 
-Nah, sekarang Anda sudah paham, kan? Jika sudah paham, maka silahkan Anda lanjut ke [bagian selanjutnya](#renew-ssl).
+Nah, sekarang Anda sudah paham, kan? Jika sudah paham, silahkan Anda lanjut ke [bagian selanjutnya](#renew-ssl).
 
 ## Membuat Skrip untuk me-_Renew_ SSL {#renew-ssl}
 Setelah Anda mempelajari di bagian-bagian sebelumnya, sekarang Anda tinggal membuat Sertifikat SSL ini bisa diperbarui/di-_renew_ secara otomatis. Lalu, bagaimana caranya?
@@ -1504,7 +1504,7 @@ Berikut adalah referensi nya:
 
 ![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan (Cara Baca: Baca dari bawah, lalu ke atas)](Bunny.net_API_Support_Ticket.png)
 
-- Untuk konversi ke dalam Base64, saya gunakan komentar-komentar di dalam [jawaban dari "Steve Folly"](https://superuser.com/a/120815) di Super User sangat membantu saya.
+- Untuk konversi ke dalam Base64, komentar-komentar di dalam [jawaban dari "Steve Folly"](https://superuser.com/a/120815) di Super User sangat membantu saya.
 
 ### Referensi Penggunaan API Netlify
 - Halaman [Dokumentasi API Netlify](https://open-api.netlify.com/#operation/provisionSiteTLSCertificate)
