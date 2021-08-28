@@ -31,11 +31,19 @@ Description: >
 ## Pembuka
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di Netlify dan BunnyCDN.
 
+Blog ini telah menggunakan ZeroSSL sebagai Sertifikat SSL nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri sertifikat SSL di Blog ini atau kunjungi domain saya, yakni [franqois.id](https://franqois.id), lalu lihat sertifikat nya.
+
+Kendala saat pemasangan nya adalah tidak banyak penyedia yang mendukung ZeroSSL ini, kebanyakan hanya mendukung Let's Encrypt saja.
+
+Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui Sertifikat SSL, lalu saya melakukan _Request_ ke Server API nya Netlify dan BunnyCDN untuk memasangkan Sertifikat SSL nya menggunakan cURL. Terlihat sederhana, bukan? Tapi, sebenarnya itu tidak sesederhana dan semudah yang Anda bayangkan.
+
+Berkat bantuan dari beberapa referensi, akhirnya saya dapat memasangkan Sertifikat SSL dan membuat nya dapat diperbarui secara otomatis. Nah, makanya saya buat artikel ini, siapa tahu Anda mungkin tertarik atau merasa tertantang untuk memasang Sertifikat SSL dari ZeroSSL ini ke Web/Blog Anda bila dibandingkan dengan Let's Encrypt. Semoga bermanfaat bagi Anda 🙂
+
 Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL yang bisa Anda dapatkan dari ZeroSSL, baik jangkauan nya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasang sertifikat SSL dengan memanggil Server API milik Bunny.net dan Netlify memakai cURL.
 
-ZeroSSL adalah salah satu CA (_Certificate Authority_) atau PSrE (Penyelenggara Sertifikat/Penyelenggara Sertifikat Elektronik) yang menerbitkan/mengelola/mencabut Sertifikat SSL untuk Internet. Ia merupakan produk dari [apilayer](https://apilayer.com/).
+Bagi yang belum tahu, [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua Sistem Operasi yang berbasis \*nix.
 
-[acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua Sistem Operasi yang berbasis \*nix.
+Sedangkan [ZeroSSL](https://zerossl.com) adalah salah satu CA (_Certificate Authority_) atau PSrE (Penyelenggara Sertifikat/Penyelenggara Sertifikat Elektronik) yang menerbitkan/mengelola/mencabut Sertifikat SSL untuk Internet. Ia merupakan salah satu produk dari [apilayer](https://apilayer.com/).
 
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
 Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga bisa menerbitkan Sertifikat SSL _Wildcard_ nya secara gratis dengan jumlah yang tidak terbatas, dengan kunci RSA maupun ECC.
@@ -50,10 +58,10 @@ Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman ["Pricing"](https://zer
 
 ![Halaman "Pricing" di ZeroSSL, per tanggal: 12 Juli 2021](ZeroSSL_Pricing.png)
 
-Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan nya, Akses REST API nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
+Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan Sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan, Akses REST API nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
 
 ### Persyaratan Perangkat Lunak
-Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang hanya kompatibel dengan Sistem Operasi berbasis *nix/UNIX-like, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
+Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang hanya kompatibel dengan Sistem Operasi berbasis \*nix/UNIX-like, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
 
 Maka, persyaratan perangkat lunak yang harus Anda penuhi bagi pengguna Sistem Operasi agar bisa menggunakan acme.sh serta agar dapat mengikuti artikel ini secara keseluruhan. Berikut di bawah ini adalah persyaratannya:
 
@@ -94,9 +102,9 @@ Ketika Anda sedang memakai WSL, Mesin Virtual/Kontainer atau Server, maka Anda b
 {{< spoiler text="tl;dr" >}}
 Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
 - Tidak perlu Akses _root_ atau perangkat tidak perlu dalam keadaan ter-_root_. Jika demikian, ya tidak masalah
-- Terinstalnya Termux di Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
+- Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persyaratan di Termux setelah di-instal sebagai berikut:
-    1. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update; pkg upgrade`
+    1. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
     2. Persyaratan Perangkat Lunak pada Termux bisa mengikuti [persyaratan untuk GNU/Linux](#syarat-pengguna-unix-like). Tapi, Anda juga dapat meng-instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tools cronie termux-services`, lalu mulai ulang Termux jika berhasil
     3. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond`
     4. Pastikan Termux bisa mengakses Penyimpanan Internal atau Eksternal pada perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Referensi: ["Internal and external storage"](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dari Wiki Termux (Baca dan pahami mulai dari bagian "Access shared and external storage")
@@ -113,8 +121,8 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persyaratan pera
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal paket-paket yang diperlukan dengan perintah berikut:
 
 ```bash
-$ pkg update; pkg upgrade
-$ pkg install curl wget openssl-tools cronie termux-services
+pkg update
+pkg install curl wget openssl-tools cronie termux-services
 ```
 
 Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo` dan gunakan _Repository_ Resmi dari Termux terlebih dahulu agar mendapatkan versi terbaru, barulah Anda eksekusikan perintah di atas. 
@@ -222,7 +230,7 @@ source ~/.zshrc
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
-Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukannya, Anda juga dapat menerbitkan Sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
+Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukannya, Anda juga dapat menerbitkan sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
 
 Selain itu, jika Anda ingin sertifikat SSL nya hanya dipasang ke penyedia web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, yang mana Anda tidak perlu mengaitkan domain Anda dengan _Web Server_ milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
 
@@ -256,7 +264,7 @@ CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
 {{< info text="**Perhatian !**" >}} 
 Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
 
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
+Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
 
 Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
 {{< / info >}}
@@ -287,7 +295,7 @@ acme.sh --register-account
 
 Keluaran nya akan seperti di bawah ini:
 
-```
+```plain
 [Sel 10 Agu 2021 05:31:16  WIB] Create account key ok.
 [Sel 10 Agu 2021 05:31:16  WIB] No EAB credentials found for ZeroSSL, let's get one
 [Sel 10 Agu 2021 05:31:17  WIB] Registering account: https://acme.zerossl.com/v2/DV90
@@ -296,12 +304,12 @@ Keluaran nya akan seperti di bawah ini:
 ```
 
 {{< info text="**Perhatian !**" >}}
-Dengan mengeksekusi perintah di atas, itu bukan berarti Anda mendaftarkan akun ZeroSSL yang kemudian bisa Anda gunakan untuk login ke dalam [Situs Web ZeroSSL nya](https://app.zerossl.com/login).
+Dengan mengeksekusi perintah di atas, itu bukan berarti Anda telah mendaftarkan akun ZeroSSL yang kemudian bisa Anda gunakan untuk login ke dalam [Situs Web ZeroSSL nya](https://app.zerossl.com/login).
 
 Jika Anda ingin mengelola sertifikat tersebut di Web nya, maka saya sarankan agar Anda membuat akunnya terlebih dahulu melalui Situs Web nya, caranya bisa Anda baca di [langkah pertama](#membuat-akun-zerossl), lalu kaitkan Kredensial EAB nya di acme.sh.
 {{< / info >}}
 
-Anda bisa Simpan `ACCOUNT_THUMBPRINT` nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam ["Stateless Mode"](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode). Tapi, Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
+Anda bisa Simpan `ACCOUNT_THUMBPRINT` nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)". Tapi, Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
 
 Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk menerbitkan/membuat dan memperbarui Sertifikat SSL kamu.
 
@@ -331,7 +339,7 @@ Contohnya seperti Cuplikan berikut di Windows:
 
 ![“Issued to” pada Sertifikat SSL saya](Windows_Certificate_Viewer_1.png) ![SAN pada Sertifikat SSL saya](Windows_Certificate_Viewer_2.png)
 
-Atau, di bawah ini untuk GNU/Linux:
+Atau, di bawah ini untuk GNU/Linux: (Lebih tepatnya di Peramban Web berbasis Chromium/Google Chrome untuk GNU/Linux)
 
 !["Common Name" pada Sertifikat SSL saya](Certificate_Viewer_1.png) ![SAN pada Sertifikat SSL saya](Certificate_Viewer_2.png)
 
@@ -519,7 +527,9 @@ acme.sh --issue -d '*.domain.com' -d domain.com -d '*.sub.domain.com' -d sub.dom
 Nah, sekarang paham, kan?
 
 ### Menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda {#ssl-beda-ukuran-kunci}
-Secara Bawaan/Asali, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA yang berukuran 2048 bit (RSA-2048). Jika Anda ingin menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda, tambahkan saja parameter `--keylength ukuran_kunci_rsa`. 
+Secara Bawaan/Asali, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA yang berukuran 2048 bit (RSA-2048). 
+
+Jika Anda ingin menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda, tambahkan saja parameter `--keylength ukuran_kunci_rsa`. Ganti `ukuran_kunci_rsa` dengan Ukuran kunci RSA yang didukung.
 
 Contoh Perintah di bawah ini jika Anda ingin menerbitkannya dengan kunci RSA yang berukuran 3072 bit (RSA-3072):
 
@@ -547,7 +557,7 @@ Ukuran Kunci RSA yang didukung oleh acme.sh beserta nilai parameter `keylength` 
 - RSA-4096 (`4096`)
 - RSA-8192 (`8192`)
 
-**Catatan:** Didukung oleh acme.sh, bukan berarti didukung oleh CA yang digunakan, tapi ZeroSSL sepertinya mendukung semua itu.
+**Catatan:** Didukung oleh perkakas acme.sh, bukan berarti didukung oleh CA yang digunakan, tapi ZeroSSL sepertinya mendukung semua itu.
 
 {{< info text="**PERINGATAN !**" >}}
 Saya tidak menyarankan Anda untuk menerbitkan serta menggunakan ukuran kunci yang terlalu besar. 
@@ -560,7 +570,9 @@ Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal
 {{< / info >}}
 
 ### Menerbitkan Sertifikat SSL dengan kunci ECC/ECDSA {#ecdsa-ssl}
-Secara bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA. Jika Anda ingin menerbitkannya menggunakan kunci ECC (_Eliptic Curve Cryptography_)/ECDSA (_Eliptic Curve Digital Signature Algorithm_), maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`.
+Secara bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA. 
+
+Jika Anda ingin menerbitkannya menggunakan kunci ECC (_Eliptic Curve Cryptography_)/ECDSA (_Eliptic Curve Digital Signature Algorithm_), maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`. Ganti `ukuran_kuncinya` dengan Ukuran kunci ECC yang didukung.
 
 Contoh Perintah di bawah ini jika Anda ingin menerbitkan Sertifikat SSL ECDSA dengan ukuran P-384:
 
@@ -599,14 +611,14 @@ Ini bukanlah hal yang wajib, sehingga bisa Anda [lewati](#memasang-ssl) jika ber
 ### Letak acme.sh dan konfigurasi akunnya {#letak-acme-sh}
 Biasanya, acme.sh akan terinstal di dalam direktori `${HOME}/.acme.sh`.
 
-Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `${HOME}/.acme.sh/account.conf`.
+Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `~/.acme.sh/account.conf`.
 
 Berkas tersebut menyimpan sejumlah Informasi yang berkaitan dengan Akun yang Anda masukkan melalui variabel dari sebuah _Shell_ (Seperti _Token_, Kunci API, atau bahkan Nama Pengguna dan Kata Sandi), acme.sh akan menyimpan Informasi tersebut secara otomatis ke dalam berkas `account.conf` jika dijalankan dan akan digunakan kembali jika tersimpan.
 
 Contoh isi berkas `account.conf`:
 
 ```shell
-$ cat ${HOME}/.acme.sh/account.conf
+$ cat ~/.acme.sh/account.conf
 
 #LOG_FILE="/home/username/.acme.sh/acme.sh.log"
 #LOG_LEVEL=1
@@ -925,7 +937,7 @@ __ACME_BASE64__START_(BARIS_PERINTAH_DALAM_BENTUK_BASE64)__ACME_BASE64__END_
 `(BARIS_PERINTAH_DALAM_BENTUK_BASE64)` adalah Base64 dari perintah yang sebelumnya Anda terapkan di dalam variabel tersebut. Ya, acme.sh secara otomatis meng-konversikan perintah yang Anda tentukan menjadi Base64.
 
 ### Contoh Kasus: Menjalankan sebuah Berkas Skrip setelah Memperbarui Sertifikat SSL
-Contohnya Si Udin membuat sebuah berkas skrip yang bernama `renew.sh` untuk memperbarui SSL untuk `www.si-udin.com` miliknya yang di Hosting menggunakan Netlofy dan skrip tersebut rencananya mau dieksekusi setelah sertifikat SSL sukses diperbarui.
+Contohnya Si Udin membuat sebuah berkas skrip yang bernama `renew.sh` untuk memperbarui SSL pada domain `www.si-udin.com` miliknya yang di Hosting menggunakan Netlify dan dia ingin agar skrip tersebut dijalankan/dieksekusi setelah sertifikat SSL sukses diperbarui.
 
 Isi berkas skrip nya sebagai berikut:
 
@@ -1100,7 +1112,7 @@ Tanpa basa-basi lagi, caranya sebagai berikut:
 
 ```bash
 cd
-tar --exclude '.acme.sh/deploy' --exclude '.acme.sh/ca' --exclude '.acme.sh/notify' --exclude '.acme.sh/dnsapi' --exclude '.acme.sh/*.env' --format pax -cvzf acme.sh.tar.gz .acme.sh
+tar --exclude '.acme.sh/deploy' --exclude '.acme.sh/ca' --exclude '.acme.sh/notify' --exclude '.acme.sh/dnsapi' --exclude '.acme.sh/acme.sh' --exclude '.acme.sh/*.env' --format pax -cvzf acme.sh.tar.gz .acme.sh
 ```
 
 Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asal terakhirnya ada `.tar.gz` nya.
@@ -1328,9 +1340,7 @@ Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. K
 
 Jika saya hanya menggunakan perintah `cat`, maka akan tampil isi dari berkas sertifikat yang sebenarnya sebagai keluaran.
 
-Jadi, saya ganti setiap baris pemutus (_line break_) dengan `\n` menggunakan perintah `awk`.
-
-Dari mana saya mendapatkan perintah `awk` tersebut? Saya dapatkan itu dari [salah satu pertanyaan](https://stackoverflow.com/q/38672680) yang dijawab oleh Pak [Ed Morton](https://stackoverflow.com/users/1745001/ed-morton) di [Stack Overflow](https://stackoverflow.com/a/38674872), tapi jika Anda ingin menggunakan `sed`, maka Anda bisa cari jawaban lain yang ada di sana.
+Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` menggunakan perintah `awk`, agar si Netlify bisa memproses permintaan dari kita.
 
 ### Pertanyaan ke-12: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke12}
 **Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak.
@@ -1453,6 +1463,7 @@ Setelah menyimpan nya dan menjalankan perkakas acme.sh untuk menerbitkan sertifi
 Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare, maka ganti nilai dari variabel `CF_Token` dan `CF_Account_ID`, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` di dalam berkas `~/.acme.sh/account.conf`.
 
 Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda:
+
 ```shell
 cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
 CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
@@ -1478,9 +1489,64 @@ Bagian tersebut juga membahas bagaimana caranya menyalinkan acme.sh ke dalam Per
 Caranya akan sama saja, hanya saja beda nya di Persyaratan untuk Perangkat lain, Perintah untuk mengaktifkan Layanan Cron dan Penyebutan Perangkatnya saja. Sesuaikan semua itu dengan perangkat milik Anda.
 
 ### Pertanyaan ke-20: Saat saya menerbitkan/memperbarui Sertifikat SSL melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke20}
-**Jawab:** Kemungkinan terbesarnya berada di Server nya yang sedang mengalami gangguan/kendala/ketidaktersediaan (_downtime_).
+**Jawab:** Penyebab dari masalah ini kemungkinan terbesarnya adalah Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, Koneksi dari Server/Proksi yang melambat, dll.
 
-Jadi, sabarlah menunggu beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti Server nya berhasil diperbaiki dan kemudian tersedia kembali.
+Jadi, sabarlah menunggu sampai beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti permasalahan pada Server nya bisa terselesaikan, sehingga bisa digunakan kembali.
+
+## Referensi lain di Artikel ini
+Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang sebelum nya tidak saya sebut/bahas.
+
+Berikut adalah referensi nya:
+
+### Referensi Penggunaan API Bunny.net
+- Halaman [Dokumentasi API Bunny.net](https://docs.bunny.net/reference/pull-zone#pullzonepublic_addcertificate)
+- Cuplikan berikut adalah Obrolan di Dukungan Tiket yang menyatakan jika ingin memasangkan sertifikat SSL menggunakan panggilan API nya, maka berkas-berkas tersebut harus dikirimkan dalam bentuk Base64:
+
+![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan (Cara Baca: Baca dari bawah, lalu ke atas)](Bunny.net_API_Support_Ticket.png)
+
+- Untuk konversi ke dalam Base64, saya gunakan komentar-komentar di dalam [jawaban dari "Steve Folly"](https://superuser.com/a/120815) di Super User sangat membantu saya.
+
+### Referensi Penggunaan API Netlify
+- Halaman [Dokumentasi API Netlify](https://open-api.netlify.com/#operation/provisionSiteTLSCertificate)
+- Halaman **"Get started with the Netlify API"** dari Netlify: [https://docs.netlify.com/api/get-started/](https://docs.netlify.com/api/get-started/)
+- Melakukan Inspeksi Jaringan di Peramban Web saat memasang sertifikat SSL secara manual di dalam Situs Web nya, dengan bertujuan untuk mengetahui bagaimana Netlify mengirimkan data nya ke dalam Server dan hasilnya itulah yang dijadikan referensi.
+
+  Anda bisa lakukan itu sendiri dengan cara berikut:
+  1. Tekan tombol <key>CTRL</key>+<key>SHIFT</key>+<key>I</key> sebelum memasang sertifikat SSL di Netlify
+  2. Klik pada tab "Network", nanti di situ akan tampil sebuah panel kosong dan hanya berpesan kalau kamu perlu menyegarkan (_refresh_) halaman nya atau menekan tombol CTRL+R terlebih, tapi jangan Anda lakukan itu.
+  3. Pasang sertifikat SSL kamu secara manual di Halaman Web nya
+  4. Jika kamu sudah selesai mengisi semua informasi yang diperlukan, klik pada _button_ **"Install certificate"**
+  5. Setelah kamu meng-klik _button_ tersebut, maka di dalam Panel Inspeksi Jaringan akan muncul sebuah permintaan (_request_) dari `api.netlify.com`, klik pada permintaan tersebut, nanti akan muncul sebuah Informasi mengenai permintaan tersebut di sebelah kanan Panel nya.
+  6. Setelah muncul, arahkan kursor kamu ke sebelah kanan Panel, lalu kamu gulirkan itu ke bawah menggunakan tetikus (_mouse_) kamu sampai kamu menemukan bagian **"Request Payload"** atau sejenisnya.
+  7. Jika ketemu, seperti itulah data yang akan kamu kirimkan ke Netlify saat memasang sertifikat SSL kamu secara manual
+
+- Untuk menghilangkan jeda baris (_line break_) dan menggantinya dengan karakter `\n`, saya menggunakan [jawaban dari "Ed Morton"](https://stackoverflow.com/a/38674872) di Stack Overflow untuk itu, jawaban nya dilisensikan di bawah lisensi [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+### Referensi untuk lain nya
+- Agar "Cron Job" bisa ada di Termux, saya dapatkan itu dari [Balasan sebuah Utas](https://www.reddit.com/r/termux/comments/i27szk/how_do_i_crontab_on_termux/g02pghj/) yang ada di Reddit.
+- Halaman **"RSA key lengths"** yang dibuat oleh Javamex: [https://www.javamex.com/tutorials/cryptography/rsa_key_length.shtml](https://www.javamex.com/tutorials/cryptography/rsa_key_length.shtml)
+- Hasil dari pengujian dengan perintah `openssl speed rsa2048 rsa3072 rsa4096` yang rata-rata menyatakan/menyimpulkan bahwa semakin besar ukuran kunci nya (terutama untuk kunci RSA), maka akan semakin besar pengaruhnya terhadap kecepatan.
+
+Di bawah ini adalah hasil pengujian di Laptop: (Menggunakan Laptop Lenovo Legion 5 15ARH05, Prosesor: AMD Ryzen 7 4800H, RAM: 8x2 GB DDR4, GPU: NVIDIA GTX 1650 Ti)
+
+```plain
+                  sign    verify    sign/s verify/s
+rsa 2048 bits 0.000516s 0.000015s   1937.1  66884.5
+rsa 3072 bits 0.001568s 0.000031s    637.9  32169.3
+rsa 4096 bits 0.003504s 0.000054s    285.4  18588.0
+```
+
+Dan, di bawah ini adalah hasil pengujian di PC saya: (PC nya menggunakan Prosesor: Intel Pentium G2030, RAM: 2x2 GB DDR3, GPU: Terintegrasi dari Intel)
+
+```
+                  sign    verify    sign/s verify/s
+rsa 2048 bits 0.001680s 0.000050s    595.1  19946.8
+rsa 3072 bits 0.005208s 0.000106s    192.0   9463.3
+rsa 4096 bits 0.012121s 0.000186s     82.5   5368.5
+```
+
+- Halaman **"Making tar Archives More Portable"** dari Proyek GNU: [https://www.gnu.org/software/tar/manual/html_section/Portability.html](https://www.gnu.org/software/tar/manual/html_section/Portability.html)
+- Halaman Manual Perintah `tar` untuk macOS (yang entah apakah benar sesuai atau tidaknya untuk versi sekarang): [https://ss64.com/osx/tar.html](https://ss64.com/osx/tar.html)
 
 ## Penutup
 Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan baca nya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
