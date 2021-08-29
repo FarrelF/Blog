@@ -57,7 +57,7 @@ params:
 
   arcio:
     # Check https://arc.io
-    enabled: false
+    enabled: true
     widgetId: D1Tc1z8H
 
   mainSections:
