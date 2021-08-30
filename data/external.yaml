@@ -40,7 +40,3 @@ Twemoji:
     integrity: sha256-Dg5SWeP/jqgF4MVmDGM29/RrFDMuPK+4KTnh2z2otvg= sha384-gPMUf7aEYa6qc3MgqTrigJqf4gzeO6v11iPCKv+AP2S4iWRWCoWyiR+Z7rWHM/hU sha512-bCQnYghGORM1nHpRLnCs2UJ4mBGgx1V9qstncNLQ4vejHwTHRh+b8C4T6uDjt37hxb4Lvbq678yZ/zJGJ/pDqQ==
     type: script
     defer: true
-
-Polyfill-IntersectionObserver:
-  - src: https://cdn.polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CIntersectionObserverEntry
-    type: script

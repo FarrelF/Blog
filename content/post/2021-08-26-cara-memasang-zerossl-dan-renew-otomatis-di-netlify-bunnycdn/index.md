@@ -272,7 +272,7 @@ Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur R
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
-Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Netlify DNS, Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
 
@@ -367,7 +367,7 @@ Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen men
     Ganti `nama_dns` dengan yang ada di [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) dan sesuaikan dengan Penyedia DNS Otoritatif yang Anda gunakan. (Saya bahas ini di bagian terpisah)
 
 - `--apache` jika Anda ingin menggunakan _Web Server_ Apache2 sebagai verifikasi nya.
-- `--nginx (lokasi_conf)` jika Anda ingin meggunakan _Web Server_ NGINX sebagai verifikasi nya. 
+- `--nginx (lokasi_conf)` jika Anda ingin meggunakan _Web Server_ NGINX sebagai verifikasi nya.
 
     Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan, barangkali acme.sh tidak bisa mendeteksi berkas konfigurasi NGINX secara otomatis, jika tidak maka cukup tulis `--nginx` saja.
 
@@ -445,10 +445,10 @@ Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya 
 
 Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns_cf` nya menjadi yang ada di dalam [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
-Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan DNS dari Constellix sebagai Metode Verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns dns_constellix`. Jadinya seperti berikut:
+Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `domain.com` dan ingin menggunakan Netlify DNS sebagai Metode Verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns dns_netlify`. Jadinya seperti berikut:
 
 ```shell
-acme.sh --issue -d domain.com -d www.domain.com --dns dns_constellix
+acme.sh --issue -d domain.com -d www.domain.com --dns dns_netlify
 ```
 
 Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan Sertifikat SSL [dalam bentuk _Wildcard_](#wildcard-ssl), karena Verifikasi melalui DNS merupakan salah satu syarat yang wajib.
@@ -481,7 +481,7 @@ Atau, jika Anda ingin menggunakan metode verifikasi yang berbeda-beda untuk seti
 ```shell
 acme.sh --issue \
         -d domain1.com -d www.domain1.com --dns dns_cf \
-        -d domain2.com -d www.domain2.com --dns dns_constellix \
+        -d domain2.com -d www.domain2.com --dns dns_netlify \
         -d domain3.com -d www.domain3.com -w /home/username/public_html \
         -d domain4.com -d www.domain4.com --apache \
         -d domain5.com -d www.domain5.com --nginx
@@ -1508,23 +1508,24 @@ Berikut adalah referensi nya:
 
 ### Referensi Penggunaan API Netlify
 - Halaman [Dokumentasi API Netlify](https://open-api.netlify.com/#operation/provisionSiteTLSCertificate)
-- Halaman **"Get started with the Netlify API"** dari Netlify: [https://docs.netlify.com/api/get-started/](https://docs.netlify.com/api/get-started/)
+- Halaman yang berjudul **"[Get started with the Netlify API](https://docs.netlify.com/api/get-started/)"** dari Netlify
 - Melakukan Inspeksi Jaringan di Peramban Web saat memasang sertifikat SSL secara manual di dalam Situs Web nya, dengan bertujuan untuk mengetahui bagaimana Netlify mengirimkan data nya ke dalam Server dan hasilnya itulah yang dijadikan referensi.
 
   Anda bisa lakukan itu sendiri dengan cara berikut:
   1. Tekan tombol <key>CTRL</key>+<key>SHIFT</key>+<key>I</key> sebelum memasang sertifikat SSL di Netlify
-  2. Klik pada tab "Network", nanti di situ akan tampil sebuah panel kosong dan hanya berpesan kalau kamu perlu menyegarkan (_refresh_) halaman nya atau menekan tombol CTRL+R terlebih, tapi jangan Anda lakukan itu.
+  2. Klik pada tab "Network", nanti di situ akan tampil sebuah panel kosong dan hanya berpesan kalau kamu perlu menyegarkan (_refresh_) halaman nya atau menekan tombol CTRL+R terlebih dahulu, tapi jangan Anda lakukan itu.
   3. Pasang sertifikat SSL kamu secara manual di Halaman Web nya
   4. Jika kamu sudah selesai mengisi semua informasi yang diperlukan, klik pada _button_ **"Install certificate"**
   5. Setelah kamu meng-klik _button_ tersebut, maka di dalam Panel Inspeksi Jaringan akan muncul sebuah permintaan (_request_) dari `api.netlify.com`, klik pada permintaan tersebut, nanti akan muncul sebuah Informasi mengenai permintaan tersebut di sebelah kanan Panel nya.
   6. Setelah muncul, arahkan kursor kamu ke sebelah kanan Panel, lalu kamu gulirkan itu ke bawah menggunakan tetikus (_mouse_) kamu sampai kamu menemukan bagian **"Request Payload"** atau sejenisnya.
   7. Jika ketemu, seperti itulah data yang akan kamu kirimkan ke Netlify saat memasang sertifikat SSL kamu secara manual
 
-- Untuk menghilangkan jeda baris (_line break_) dan menggantinya dengan karakter `\n`, saya menggunakan [jawaban dari "Ed Morton"](https://stackoverflow.com/a/38674872) di Stack Overflow untuk itu, jawaban nya dilisensikan di bawah lisensi [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- Untuk cara menghilangkan jeda baris nya (_line break_) dan menggantinya dengan karakter `\n`, saya menggunakan [jawaban dari "Ed Morton"](https://stackoverflow.com/a/38674872) di Stack Overflow sebagai referensi, jawaban nya dilisensikan di bawah lisensi [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ### Referensi untuk lain nya
-- Agar "Cron Job" bisa ada di Termux, saya dapatkan itu dari [Balasan sebuah Utas](https://www.reddit.com/r/termux/comments/i27szk/how_do_i_crontab_on_termux/g02pghj/) yang ada di Reddit.
-- Halaman **"RSA key lengths"** yang dibuat oleh Javamex: [https://www.javamex.com/tutorials/cryptography/rsa_key_length.shtml](https://www.javamex.com/tutorials/cryptography/rsa_key_length.shtml)
+- Utas yang berjudul **"[How do I Crontab on Termux..](https://www.reddit.com/r/termux/comments/i27szk/how_do_i_crontab_on_termux/)"** di Reddit sebagai referensi untuk meng-instal "Cron Jobs" di Termux
+- Utas yang berjudul **"[Do I need to set crontab again when I restart termux?](https://www.reddit.com/r/termux/comments/n6y82b/do_i_need_to_set_crontab_again_when_i_restart/)"** di Reddit sebagai referensi untuk mengaktifkan Layanan Cron jika Termux diterminasi
+- Halaman yang berjudul **"[RSA key lengths](https://www.javamex.com/tutorials/cryptography/rsa_key_length.shtml)"** dari Javamex sebagai referensi untuk pengaruh Ukuran kunci RSA bagi kecepatan
 - Hasil dari pengujian dengan perintah `openssl speed rsa2048 rsa3072 rsa4096` yang rata-rata menyatakan/menyimpulkan bahwa semakin besar ukuran kunci nya (terutama untuk kunci RSA), maka akan semakin besar pengaruhnya terhadap kecepatan.
 
 Di bawah ini adalah hasil pengujian di Laptop: (Menggunakan Laptop Lenovo Legion 5 15ARH05, Prosesor: AMD Ryzen 7 4800H, RAM: 8x2 GB DDR4, GPU: NVIDIA GTX 1650 Ti)
@@ -1545,8 +1546,8 @@ rsa 3072 bits 0.005208s 0.000106s    192.0   9463.3
 rsa 4096 bits 0.012121s 0.000186s     82.5   5368.5
 ```
 
-- Halaman **"Making tar Archives More Portable"** dari Proyek GNU: [https://www.gnu.org/software/tar/manual/html_section/Portability.html](https://www.gnu.org/software/tar/manual/html_section/Portability.html)
-- Halaman Manual Perintah `tar` untuk macOS (yang entah apakah benar sesuai atau tidaknya untuk versi sekarang): [https://ss64.com/osx/tar.html](https://ss64.com/osx/tar.html)
+- Halaman **"[Making tar Archives More Portable](https://www.gnu.org/software/tar/manual/html_section/Portability.html)"** dari Proyek GNU
+- Halaman [Manual Perintah `tar` untuk macOS](https://ss64.com/osx/tar.html) (yang entah apakah benar sesuai atau tidaknya untuk versi sekarang)
 
 ## Penutup
 Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan baca nya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
