@@ -6,6 +6,8 @@ paginate: 5
 enableEmoji: true
 enableInlineShortcodes: true
 content-dir: content
+timeout: 1200000
+timeZone: "Asia/Jakarta"
 
 DefaultContentLanguage: id
 disqusShortname: farrelf-blog
