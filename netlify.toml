@@ -2,16 +2,16 @@
     publish = "public"
 
 [build.environment]
-    HUGO_VERSION = "0.82.0"
+    HUGO_VERSION = "0.87.0"
     TZ = "Asia/Jakarta"
 
 [context.production]
-    command = "rm static/robots_preview; hugo --minify --enableGitInfo"
+    command = "rm static/robots_preview; hugo --minify --gc --enableGitInfo"
     [context.production.environment]
         HUGO_ENV = "production"
 
 [context.split1]
-    command = "rm static/robots_preview; hugo --minify --enableGitInfo"
+    command = "rm static/robots_preview; hugo --minify --gc --enableGitInfo"
     [context.split1.environment]
         HUGO_ENV = "production"
 
@@ -47,16 +47,6 @@
             ],
             "include_subdomains": true
         }'''
-        Content-Security-Policy = '''
-        img-src 'self' data: https://*.cloudfront.net https://cdn.statically.io https://cdn.jsdelivr.net https://*.gstatic.com https://*.disquscdn.com https://*.google.com https://*.disqus.com;
-        font-src data: 'self' https://cdn.jsdelivr.net https://cdn.statically.io https://*.cloudfront.net https://fonts.gstatic.com;
-        connect-src 'self'; 
-        frame-src 'self' https://disqus.com https://*.disqus.com;
-        object-src 'self'; 
-        frame-ancestors 'self';
-        upgrade-insecure-requests; block-all-mixed-content;
-        report-uri https://farrelf.report-uri.com/r/d/csp/enforce;
-        report-to default;'''
         Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
         Feature-Policy = "camera https://*.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
         NEL = '''{
