@@ -138,6 +138,8 @@ Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sang
 
 Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga mudah dipahami oleh Anda.
 
+Jika Anda mengalami kesulitan navigasi, silahkan Anda gunakan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari. 
+
 Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk tapi tidak terbatas pada Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang menggunakan Kernel Linux (cth. GNU/Linux, Android, Alpine Linux, Void Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
 
 Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua Sistem Operasi, karena saya belum mencoba di Sistem Operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjamin nya.
@@ -238,7 +240,7 @@ Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan
 
 Untuk itu, Anda perlu memberikan acme.sh sebuah izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
 
-#### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-dns-cloudflare}
+#### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
 Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "API Token" (`CF_Token`) dan dapatkan "Account ID" (`CF_Account_ID`) nya, jika berkenan, Anda juga bisa mendapatkan "Zone ID" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik.
 
 Untuk membuat "API Token" nya, silahkan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat "API Token" nya.
@@ -261,6 +263,18 @@ CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
 CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
 ```
 
+Atau, dengan cara berikut:
+
+```shell
+### Di bawah ini adalah Informasi yang wajib dimasukki
+export CF_Token="API_TOKEN_KAMU_DI_SINI"
+export CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI"
+
+### Anda juga dapat memasukkan "Zone ID" jika Anda ingin acme.sh menargetkan hanya
+### untuk 1 Domain Utama saja secara spesifik, tapi ini bukanlah hal yang wajib, jadi sebaiknya tidak usah saja
+export CF_Zone_ID="ZONE_ID_KAMU_DI_SINI"
+```
+
 {{< info text="**Perhatian !**" >}} 
 Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
 
@@ -271,8 +285,48 @@ Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur R
 
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
+#### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
+Jika Anda menggunakan Netlify sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "Personal Access Token" (`NETLIFY_ACCESS_TOKEN`) nya.
+
+Ngomong-ngomong, selain bisa untuk Verifikasi DNS, "Personal Access Token" ini bisa Anda gunakan untuk memasang [sertifikat SSL nya](#pasang-ssl-di-netlify) nanti. Jadi, setelah Anda membuat "Personal Access Token", simpanlah Token tersebut dengan baik agar bisa digunakan nanti.
+
+Cara membuatnya sebagai berikut:
+
+0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
+1. Klik pada _Button_ "New access token" di Bagian "Personal access tokens"
+2. Masukkan Nama/Deskripsi mengenai Token nya
+3. Setelah itu, klik pada _Button_ "Generate" untuk menghasilkan "Access Token" nya.
+4. Setelah "Access Token" tampil, simpan itu baik-baik, karena "Access Token" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
+5. Klik pada _Button_ "Done" jika merasa sudah selesai
+
+Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
+
+![1](Netlify_Access_Token_1.png) ![2](Netlify_Access_Token_2.png) ![3](Netlify_Access_Token_3.png)
+
+Nah, setelah berhasil didapat, maka Anda tinggal masukkan saja semua Informasinya ke dalam variabel. Dengan cara berikut:
+
+```shell
+NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI" && export NETLIFY_ACCESS_TOKEN
+```
+
+Atau, dengan cara berikut:
+
+```shell
+export NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
+```
+
+{{< info text="**Perhatian !**" >}} 
+Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
+
+Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
+
+Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
+{{< / info >}}
+
+Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
+
 #### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
-Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Netlify DNS, Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
 
@@ -682,26 +736,18 @@ Maksudnya adalah Anda akan melakukan _Request_ dengan metode POST kepada Server 
 
 Berikut adalah cara-caranya:
 
-### Di Netlify
+### Di Netlify {#pasang-ssl-di-netlify}
 #### Membuat "Personal Access Token" dan Mendapatkan "Site ID"
-Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Netlify, maka Anda perlu membuat "Personal Access Token" nya terlebih dahulu, berikut adalah caranya:
 
 {{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "Personal Access Token" nya di dalam Perangkat Anda.
+Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "Personal Access Token" dan "Site ID" nya di dalam Perangkat Anda.
 {{< / info >}}
 
-0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
-1. Klik pada _Button_ "New access token" di Bagian "Personal access tokens"
-2. Masukkan Nama/Deskripsi mengenai Token nya
-3. Setelah itu, klik pada _Button_ "Generate" untuk menghasilkan "Access Token" nya.
-4. Setelah "Access Token" tampil, simpan itu baik-baik, karena "Access Token" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
-5. Klik pada _Button_ "Done" jika merasa sudah selesai
+Agar Anda bisa mengakses Server API nya, maka Anda perlu untuk membuat kunci akses nya, salah satunya adalah dengan membuat "Personal Access Token" nya.
 
-Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
+Untuk membuat "Personal Access Token" nya sendiri sudah saya bahas di bagian "Verifikasi DNS di acme.sh". Jika Anda belum sempat membuat "Personal Access Token" sebelumnya, silahkan [klik di sini](#untuk-pengguna-netlify-dns) untuk caranya.
 
-![1](Netlify_Access_Token_1.png) ![2](Netlify_Access_Token_2.png) ![3](Netlify_Access_Token_3.png)
-
-Untuk mendapatkan "Site ID" nya, Anda bisa mendapatkan nya di "Site settings", lalu klik pada "General" -> Klik "Site details", di situ akan muncul informasi-informasi mengenai Web Anda. Seperti Cuplikan berikut:
+Setelah "Personal Access Token" dibuat, Anda perlu mendapatkan "Site ID" nya. Tapi untuk mendapatkan "Site ID" nya, Anda bisa mendapatkan nya di "Site settings", lalu klik pada "General" -> Klik "Site details", di situ akan muncul informasi-informasi mengenai Web Anda. Seperti Cuplikan berikut:
 
 !["Site ID" di Netlify](Netlify_Site_ID.png)
 
@@ -785,7 +831,7 @@ Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pes
 
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di Netlify dengan API nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl).
 
-### Di Bunny\.net (Sebelumnya: BunnyCDN)
+### Di Bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
 #### Mendapatkan "Access Key" dan "Pull Zone ID" nya
 {{< info text="**Catatan:**" >}}
 Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "Access Key" dan "Pull Zone ID" nya di dalam Perangkat Anda, serta jika Anda telah mengetahui Nama Hos tujuan nya.
