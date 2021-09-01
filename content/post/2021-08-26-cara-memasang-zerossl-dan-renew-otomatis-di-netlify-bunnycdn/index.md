@@ -54,7 +54,7 @@ Serta, jika Anda membuat/menerbitkan sebuah Sertifikat SSL menggunakan Protokol 
 
 Infonya dari mana? Salah satu infonya berasal dari [dokumentasinya](https://zerossl.com/documentation/acme/).
 
-Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman ["Pricing"](https://zerossl.com/pricing/) nya pun kamu akan menemukan tulisan "90-Day ACME Certs" yang bersebelahan dengan Simbol "tidak terbatas", yang artinya kamu dapat menerbitkan Sertifikat SSL dari Server ACME nya dalam bentuk apapun secara gratis tanpa batasan jumlah.
+Tapi, sebetulnya jika kamu lebih teliti lagi, di Halaman "[Pricing](https://zerossl.com/pricing/)" nya pun kamu akan menemukan tulisan "90-Day ACME Certs" yang bersebelahan dengan Simbol "tidak terbatas", yang artinya kamu dapat menerbitkan Sertifikat SSL dari Server ACME nya dalam bentuk apapun secara gratis tanpa batasan jumlah.
 
 ![Halaman "Pricing" di ZeroSSL, per tanggal: 12 Juli 2021](ZeroSSL_Pricing.png)
 
@@ -102,6 +102,7 @@ Ketika Anda sedang memakai WSL, Mesin Virtual/Kontainer atau Server, maka Anda b
 {{< spoiler text="tl;dr" >}}
 Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
 - Tidak perlu Akses _root_ atau perangkat tidak perlu dalam keadaan ter-_root_. Jika demikian, ya tidak masalah
+- Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lama nya](https://archive.org/details/termux-repositories-legacy), tapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan nya
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persyaratan di Termux setelah di-instal sebagai berikut:
     1. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
@@ -110,9 +111,11 @@ Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
     4. Pastikan Termux bisa mengakses Penyimpanan Internal atau Eksternal pada perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Referensi: ["Internal and external storage"](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dari Wiki Termux (Baca dan pahami mulai dari bagian "Access shared and external storage")
 {{< / spoiler >}}
 
-Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman.
+Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atas nya, sebagai syarat untuk menggunakan Termux.
 
-Pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid nya](https://f-droid.org/repository/browse/?fdid=com.termux).
+Tapi jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lama nya](https://archive.org/details/termux-repositories-legacy), namun saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan karena cara yang berbeda dan versi pustaka yang digunakan masih lama, serta saya belum mengujinya.
+
+Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid nya](https://f-droid.org/repository/browse/?fdid=com.termux).
 
 Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silahkan Anda baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
 
@@ -326,7 +329,7 @@ Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur R
 Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
-Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare dan Netlify DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
 
@@ -431,11 +434,12 @@ Jadi, Anda tidak bisa sembarangan membuat Sertifikat SSL untuk domain lain. Berh
 
 #### Parameter Tambahan (`PARAMETER_TAMBAHAN`)
 Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin Anda tambahkan saat menerbitkan Sertifikat SSL, parameter lain nya sebagai berikut:
+- `--force` jika Anda ingin melakukan nya dengan cara paksa.
 - `--test` atau `--staging` jika Anda ingin menjalankannya dalam mode pengujian. Ini cocok bagi Anda yang sedang belajar menggunakan acme.sh atau menguji penerbitan Sertifikat SSL dengan metode verifikasi yang berbeda tanpa mempengaruhi _Rate Limit_ aslinya. 
 
     Jadi, saya sarankan agar Anda selalu gunakan parameter ini jika Anda sedang mempelajari penggunaan acme.sh atau memastikan apakah sertifikat SSL bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
 
-    Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+    Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 
 - `--server opsi_ca` jika Anda ingin menerbitkan sertifikat SSL oleh CA lain, yang secara bawaan diterbitkan oleh ZeroSSL sebagai CA. 
 
@@ -494,7 +498,7 @@ acme.sh --issue -d domain.com -d www.domain.com --dns dns_cf
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns_cf` nya menjadi yang ada di dalam [dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
@@ -521,7 +525,7 @@ acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Untuk 4 Domain saja:
@@ -557,7 +561,7 @@ acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` dan `domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
@@ -594,7 +598,7 @@ acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Atau, berikut di bawah ini jika Anda ingin menerbitnya dalam bentuk _Wildcard_:
@@ -637,7 +641,7 @@ acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Jika Anda sudah merasa yakin, maka Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Atau, berikut di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
@@ -867,7 +871,7 @@ Agar kita dapat mengirimkan 2 Informasi/Berkas itu melalui API nya, maka sebelum
 
 Karena Anda cuma diminta 2 berkas saja, maka berkas-berkas yang diperlukan untuk diunggah/Anda kirimkan ke BunnyCDN adalah `domain.com.key` untuk Kunci Pribadi nya dan `fullchain.cer` untuk Sertifikatnya, berkas lain nya (seperti: `ca.cer` dan `domain.com.cer`) tidak perlu Anda kirimkan.
 
-Tapi dalam pengiriman berkas untuk SSL, Bunny\.net sedikit berbeda daripada Netlify yang hanya menerima dalam bentuk teks biasa (_Plain text_), di sana Anda hanya bisa mengirimkan berkas-berkas dalam format Base64 saja.
+Tapi dalam pengiriman berkas untuk SSL, Bunny\.net sedikit berbeda daripada Netlify yang hanya menerima dalam bentuk teks biasa (_Plain text_), di sana Anda hanya bisa mengirimkan nya dalam bentuk Base64 saja.
 
 Sehingga untuk menyimpan nya ke dalam variabel, maka Anda harus meng-_encode_ isi berkas-berkas tersebut ke dalam Base64.
 
@@ -914,7 +918,7 @@ Anda akan membutuhkan kemampuan untuk Akses SSH ke Akun cPanel Anda untuk melaku
 Tapi, ada beberapa layanan Hosting Web yang memisahkan paket tertentu untuk Akses SSH nya, sehingga mungkin Anda perlu _Upgrade_ paket terlebih dahulu agar bisa menggunakan fitur tersebut.
 
 ### Lain nya
-Jika Anda menggunakan Penyedia Hosting selain Netlify (seperti GitHub Pages, Vercel, Surge\.sh, Render\.com, atau Kontrol Panel untuk Layanan Hosting selain cPanel seperti DirectAdmin, Virtualmin/Webmin, CyberPanel, Kloxo-MR, InterWorx, dll) atau menggunakan Penyedia CDN selain Bunny CDN (seperti Cloudflare, Fastly, AWS CloudFront, Akamai, Verizon EdgeCast, SwiftServe, dll), mohon maaf di sini belum tersedia.
+Jika Anda menggunakan Penyedia Hosting selain Netlify (seperti GitHub Pages, Vercel, Surge\.sh, Render\.com), Kontrol Panel untuk Layanan Hosting selain cPanel (seperti DirectAdmin, Virtualmin/Webmin, CyberPanel, Kloxo-MR, InterWorx, dll) atau menggunakan Penyedia CDN selain Bunny CDN (seperti Cloudflare, Fastly, AWS CloudFront, Akamai, Verizon EdgeCast, SwiftServe, dll), mohon maaf di sini belum tersedia.
 
 Kenapa? Karena setiap penyedia dan perangkat lunak mempunyai cara yang berbeda untuk memanggil API nya, serta cara yang berbeda dalam mengirim datanya dan jika saya ingin mengetahui cara kerjanya, maka saya harus mencobanya terlebih dahulu, maka dari itu saya belum (atau mungkin tidak) bisa menyediakan semuanya di sini.
 
@@ -1006,7 +1010,7 @@ curl -X POST \
      --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
 ```
 
-Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `~/.acme.sh/www.si-udin.com` yang mana di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` yang mana itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
+Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `~/.acme.sh/www.si-udin.com` yang di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
 
 Sehingga, dia tidak perlu menentukan direktori nya lagi secara absolut, dia cuma perlu menuliskan nama berkas nya saja.
 
@@ -1105,7 +1109,7 @@ Anda bisa membuat Skrip tersebut (Melalui Konfigurasi atau berkas `renew-ssl.sh`
 Edit Crontab dengan perintah berikut: (tanpa perlu akses _root_ ataupun menggunakan `sudo`)
 
 ```shell
-$ crontab -e
+crontab -e
 ```
 
 Saat mengedit, Anda akan menemukan sebuah Cron dengan teks yang mirip seperti berikut:
@@ -1220,7 +1224,7 @@ Tapi, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android
 
 Hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa ada perangkat lain yang tidak kompatibel dengan Akar "ISRG X1 Root" ini setelah Akar pertama habis masa berlaku nya, selain Windows XP SP3 dan Android 2.3.6 (atau di atasnya). Jika Anda ingin melihat kompatibilitasnya, silahkan kunjungi [halaman ini](https://letsencrypt.org/docs/certificate-compatibility/).
 
-Jadi, jika Anda ingin sebuah Sertifikat SSL Gratis untuk Web/Blog atau Aplikasi Anda serta dapat diakses oleh hampir semua orang, mungkin ZeroSSL bisa menjadi pilihan yang terbaik untuk Anda.
+Jadi, jika Anda ingin sebuah Sertifikat SSL Gratis untuk Web/Blog atau Aplikasi Anda serta dapat diakses oleh hampir semua orang, mungkin ZeroSSL bisa menjadi pilihan yang terbaik buat Anda.
 
 ### Tidak (atau Belum?) menerapkan _Rate Limit_ {#tidak-menerapkan-rate-limit}
 Sampai artikel ini diterbitkan, ZeroSSL tidak (atau Belum?) menerapkan _Rate Limit_ atau batasan penerbitan Sertifikat SSL, tidak seperti Let's Encrypt yang telah menerapkan nya. Gak percaya? Silahkan Anda kunjungi [halaman komparasinya](https://zerossl.com/letsencrypt-alternative/#acme) (Baca bagian "ACME" nya) atau [halaman dokumentasinya](https://zerossl.com/documentation/acme/).
@@ -1361,9 +1365,9 @@ Solusi nya adalah Hapus Direktori tersebut (cth. `~/.acme.sh/domain.com` untuk `
 ### Pertanyaan ke-8: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot? {#pertanyaan-ke8}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
 
-Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena cuma berbasis _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA asali selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti.
+Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena cuma berbasis _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA asali selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti tanpa perlu memasukkan Alamat URL nya.
 
-Tapi jika Anda ingin menggunakan Certbot, ya silahkan saja.
+Tapi jika Anda lebih suka menggunakan Certbot, ya silahkan saja.
 
 ### Pertanyaan ke-9: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke9}
 **Jawab:** Ada, namanya [win-acme](https://www.win-acme.com/) yang mendukung Windows secara _native_. Sebenarnya, Anda juga bisa menggunakan Certbot, dia juga mendukung Windows.
@@ -1389,13 +1393,13 @@ Jika saya hanya menggunakan perintah `cat`, maka akan tampil isi dari berkas ser
 Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` menggunakan perintah `awk`, agar si Netlify bisa memproses permintaan dari kita.
 
 ### Pertanyaan ke-12: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke12}
-**Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak.
+**Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
 
-Sedangkan `base64` itu belum tentu kompatibel di semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun keluaran nya.
+Sedangkan `base64` itu belum tentu kompatibel dan akan sama hasilnya untuk semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran nya.
 
 Serta, macOS tidak menggunakan GNU coreutils, sehingga perintah dan keluaran nya pun belum tentu sama dengan perintah dan keluaran yang ada di Sistem Operasi lain.
 
-Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu atau bahkan tidak memenuhi ekspektasi saya, tapi saya tidak yakin di Sistem Operasi lain akan seperti apa keluaran nya, sejak perintah-perintahnya saja berbeda.
+Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu atau bahkan bisa jadi tidak memenuhi ekspektasi saya, tapi saya tidak yakin di Sistem Operasi lain akan seperti apa keluaran nya, sejak perintah-perintahnya saja berbeda.
 
 Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Unix-like (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lain nya.
 
@@ -1410,7 +1414,7 @@ Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silahkan A
 
 Saya sarankan ini karena ponsel bisa dinyalakan selama 24/7 jam secara nonstop (kecuali jika Baterai habis atau Sesi Termux diakhiri), sudah saya bahas tutorialnya secara lengkap di artikel ini.
 
-Jika Anda terpaksa tidak menggunakan Ponsel Pintar Android dengan alasan apapun, Anda bisa melakukan nya di Windows 10. Untuk saat ini ada dua cara, yakni dengan menggunakan Cron yang ada di salah satu distribusi WSL atau menggunakan "Task Scheduler".
+Tapi jika Anda terpaksa tidak menggunakan Ponsel Pintar Android dengan alasan apapun, Anda bisa melakukan nya di Windows 10. Untuk saat ini ada dua cara, yakni dengan menggunakan Cron yang ada di salah satu distribusi WSL atau menggunakan "Task Scheduler".
 
 Di Ubuntu 20.04 WSL, Anda dapat menggunakan Cron dengan mengaktifkan layanannya terlebih dahulu dengan perintah `sudo service cron start`, lalu atur Crontab nya seperti biasa.
 
@@ -1420,7 +1424,7 @@ Anda bisa eksekusi `C:\Windows\System32\wsl.exe -d Nama-Distribusi -u root /usr/
 
 Atau, Anda juga dapat menggunakan "Task Scheduler" untuk memperbarui SSL secara otomatis, ini lebih cocok jika Anda membuat Skrip nya dengan terpisah (menjadi Berkas Skrip tersendiri), tapi Anda juga bisa menjalankan Layanan Cron di WSL saat _Start-up_ dengan "Task Scheduler" juga, kok.
 
-Caranya: 
+Caranya sebagai berikut:
 1. Buka "Task Scheduler"
 2. Di dalam folder "Task Scheduler Library", klik "Create Basic Task" untuk membuat sebuah "Tugas" baru
 3. Nanti akan muncul dialog Wisaya atau _Wizard_ yang menuntun kamu dalam membuat sebuah Tugas. Pertama-tama, tulis Nama dan Deskripsi tugas nya, lalu klik "Next >"
