@@ -219,7 +219,7 @@ cp ~/.bashrc ~/.bashrc.1  ## Backup dulu
 echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.bashrc
 echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.bashrc
 chmod +x ~/.acme.sh/acme.sh
-source ~/.bashrc
+. ~/.bashrc
 ```
 
 Untuk pengguna Zsh:
@@ -229,8 +229,14 @@ cp ~/.zshrc ~/.zshrc.1  ## Backup dulu
 echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.zshrc
 echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.zshrc
 chmod +x ~/.acme.sh/acme.sh
-source ~/.zshrc
+. ~/.zshrc
 ```
+
+Bagaimana untuk pengguna _Shell_ selain yang disebutkan di atas seperti `fish`, `tcsh` (TENEX C Shell), dan _Shell_ lain nya?
+
+Solusinya adalah ganti `~/.bashrc` atau `~/.zshrc` di atas menjadi berkas yang memiliki fungsi yang sama dengan nya, seperti `fish` yang menggunakan berkas `~/.config/fish/config.fish` atau `tcsh` yang menggunakan berkas `${HOME}/.tshrc`, sesuaikan saja dengan _Shell_ yang Anda gunakan.
+
+Berkas `~/.profile` mungkin bisa dijadikan alternatif karena biasanya itu digunakan oleh banyak _Shell_ seperti `bash` (GNU Bash), `sh` (Bourne shell), `dash` (Debian Almquist shell), dan lain-lain nya, namun berkas tersebut mungkin tidak akan terbaca oleh beberapa _Shell_ seperti Zsh atau GNU Bash jika sudah ada berkas `~/.bash_profile`.
 
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
@@ -281,7 +287,7 @@ export CF_Zone_ID="ZONE_ID_KAMU_DI_SINI"
 {{< info text="**Perhatian !**" >}} 
 Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
 
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
+Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh) atau ke dalam berkas lain yang sama fungsinya dengan kedua berkas tadi, lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
 
 Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
 {{< / info >}}
@@ -321,7 +327,7 @@ export NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 {{< info text="**Perhatian !**" >}} 
 Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
 
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh), lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
+Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh) atau ke dalam berkas lain yang sama fungsinya dengan kedua berkas tadi, lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
 
 Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
 {{< / info >}}
@@ -410,8 +416,6 @@ Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Para
 - `--remove` untuk menghapus Sertifikat SSL yang ada
 - `--renew-all` untuk memperbarui semua Sertifikat SSL yang ada (**Catatan:** Anda tidak perlu menambahkan parameter `-d` jika menggunakan parameter ini)
 - Dan lain-lain nya
-
-Anda juga dapat menambahkan parameter `--force` di sampingnya agar dapat melakukannya secara paksa.
 
 #### Metode Verifikasi (`METODE_VERIFIKASI`)
 Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen mengenai metode verifikasi yang ada, menjadi parameter berikut: (Setidaknya gunakan salah satu parameter)
@@ -1160,9 +1164,9 @@ Tanpa basa-basi lagi, caranya sebagai berikut:
 0. Pastikan Perangkat Lunak pada Ponsel Android Anda sudah memenuhi [Persyaratan nya](#syarat-pengguna-android) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
 1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat lain dari Komputer PC/Laptop Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari Komputer PC/Laptop Anda:
 
-```bash
+```shell
 cd
-tar --exclude '.acme.sh/deploy' --exclude '.acme.sh/ca' --exclude '.acme.sh/notify' --exclude '.acme.sh/dnsapi' --exclude '.acme.sh/acme.sh' --exclude '.acme.sh/*.env' --format pax -cvzf acme.sh.tar.gz .acme.sh
+tar --exclude '.acme.sh/deploy' --exclude '.acme.sh/notify' --exclude '.acme.sh/dnsapi' --exclude '.acme.sh/acme.sh' --exclude '.acme.sh/*.env' --format pax -cvzf acme.sh.tar.gz .acme.sh
 ```
 
 Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asal terakhirnya ada `.tar.gz` nya.
