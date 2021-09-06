@@ -199,9 +199,9 @@ wget -O -  https://get.acme.sh | sh -s email=my@example.com
 Ganti `my@example.com` dengan Alamat Surel Anda, jangan lupa dimasukkan. Tapi jika Anda lupa memasukkan/tidak atau salah memasukkan alamat surel saat meng-instalnya, maka Anda dapat eksekusi perintah di bawah ini setelah terinstal:
 
 ```shell
-cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
-sed -i '/ACCOUNT\_EMAIL\=/d' ~/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
-printf "ACCOUNT_EMAIL='my@example.com'\n" >> ~/.acme.sh/account.conf
+cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/ACCOUNT\_EMAIL\=/d' ${HOME}/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
+printf "ACCOUNT_EMAIL='my@example.com'\n" >> ${HOME}/.acme.sh/account.conf
 ```
 
 Ganti `my@example.com` dengan Alamat Surel Anda.
@@ -210,51 +210,75 @@ Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik deng
 
 Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah meng-instalnya dengan benar.
 
-Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ~/.bashrc` atau `. ~/.bashrc`), kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH`, dengan salah satu cara berikut:
+Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ${HOME}/.bashrc` atau `. ${HOME}/.bashrc`), kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH`, dengan salah satu cara berikut:
 
 Untuk pengguna GNU Bash:
 
 ```shell
-cp ~/.bashrc ~/.bashrc.1  ## Backup dulu
-echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.bashrc
-echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.bashrc
-chmod +x ~/.acme.sh/acme.sh
-. ~/.bashrc
+cp ${HOME}/.bashrc ${HOME}/.bashrc.1  ## Backup dulu
+echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ${HOME}/.bashrc
+echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ${HOME}/.bashrc
+chmod +x ${HOME}/.acme.sh/acme.sh
+. ${HOME}/.bashrc
 ```
 
 Untuk pengguna Zsh:
 
 ```zsh
-cp ~/.zshrc ~/.zshrc.1  ## Backup dulu
-echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ~/.zshrc
-echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ~/.zshrc
-chmod +x ~/.acme.sh/acme.sh
-. ~/.zshrc
+cp ${HOME}/.zshrc ${HOME}/.zshrc.1  ## Backup dulu
+echo 'PATH="${HOME}/.acme.sh:${PATH}" && export PATH' >> ${HOME}/.zshrc
+echo 'LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR' >> ${HOME}/.zshrc
+chmod +x ${HOME}/.acme.sh/acme.sh
+. ${HOME}/.zshrc
 ```
 
 Bagaimana untuk pengguna _Shell_ selain yang disebutkan di atas seperti `fish`, `tcsh` (TENEX C Shell), dan _Shell_ lain nya?
 
-Solusinya adalah ganti `~/.bashrc` atau `~/.zshrc` di atas menjadi berkas yang memiliki fungsi yang sama dengan nya, seperti `fish` yang menggunakan berkas `~/.config/fish/config.fish` atau `tcsh` yang menggunakan berkas `${HOME}/.tshrc`, sesuaikan saja dengan _Shell_ yang Anda gunakan.
+Solusinya adalah ganti `${HOME}/.bashrc` atau `${HOME}/.zshrc` di atas menjadi berkas yang memiliki fungsi yang sama dengan nya, seperti `fish` yang menggunakan berkas `${HOME}/.config/fish/config.fish` atau `tcsh` yang menggunakan berkas `${HOME}/.tshrc`, sesuaikan saja dengan _Shell_ yang Anda gunakan.
 
-Berkas `~/.profile` mungkin bisa dijadikan alternatif karena biasanya itu digunakan oleh banyak _Shell_ seperti `bash` (GNU Bash), `sh` (Bourne shell), `dash` (Debian Almquist shell), dan lain-lain nya, namun berkas tersebut mungkin tidak akan terbaca oleh beberapa _Shell_ seperti Zsh atau GNU Bash jika sudah ada berkas `~/.bash_profile`.
+Berkas `${HOME}/.profile` mungkin bisa dijadikan alternatif karena biasanya itu digunakan oleh banyak _Shell_ seperti `bash` (GNU Bash), `sh` (Bourne shell), `dash` (Debian Almquist shell), dan lain-lain nya, namun berkas tersebut mungkin tidak akan terbaca oleh beberapa _Shell_ seperti Zsh atau GNU Bash jika sudah ada berkas `${HOME}/.bash_profile`.
 
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
-Verifikasi DNS merupakan metode verifikasi yang paling dianjurkan, selain mudah dan hanya pemilik domain yang bisa melakukannya, Anda juga dapat menerbitkan sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
+Verifikasi DNS merupakan sebuah metode yang menggunakan pengaturan DNS Otoritatif pada Domain untuk memverifikasi Kepemilikan Domain sebelum sertifikat SSL diterbitkan/diperbarui.
 
-Selain itu, jika Anda ingin sertifikat SSL nya hanya dipasang ke penyedia web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, yang mana Anda tidak perlu mengaitkan domain Anda dengan _Web Server_ milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
+Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ atau tidak perlu mengakses konten apapun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkan nya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer PC, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server terlebih dahulu.
 
-Agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ pada akun Penyedia DNS Otoritatif Anda.
+Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
+
+Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, serta Anda melakukan nya di dalam perangkat seperti Komputer PC, Laptop dan Ponsel Pintar Anda atau di dalam perangkat selain Server, maka metode verifikasi seperti ini wajib Anda pelajari.
+
+Namun, agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
 Untuk itu, Anda perlu memberikan acme.sh sebuah izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
-Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "API Token" (`CF_Token`) dan dapatkan "Account ID" (`CF_Account_ID`) nya, jika berkenan, Anda juga bisa mendapatkan "Zone ID" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik.
+Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah **"API Token**" (`CF_Token`) dan dapatkan "**Account ID**" (`CF_Account_ID`) nya, jika berkenan, Anda juga bisa mendapatkan "**Zone ID**" (`CF_Zone_ID`) nya juga agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik.
 
 Untuk membuat "API Token" nya, silahkan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat "API Token" nya.
 
-Buatlah "API Token" yang diizinkan untuk mengedit DNS nya dengan memilih "Edit zone DNS" sebagai Templat saat ingin membuatnya. Serta, pastikan juga bahwa Anda menjangkau semua Domain atau _Zone_ yang ada di Cloudflare, agar nanti Anda bisa menargetkan seluruh domain yang ada di Cloudflare.
+Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
+
+0. Pastikan Anda sudah login terlebih dahulu menggunakan akun Cloudflare Anda dengan mengunjungi [Halaman Dasbor nya](https://dash.cloudflare.com/login). Udah? Kalo gitu, Anda bisa lanjut
+1. Jika Anda sudah sampai di halaman dasbor nya: a. Klik pada Ikon Orang di pojok kanan atas -> b. Lalu, klik "**My Profile**" -> c. Setelah itu, klik pada tab "**API Tokens**". Atau sederhananya, silahkan [klik di sini](https://dash.cloudflare.com/profile/api-tokens)
+2. Setelah Anda memasukki bagian "**API Token**", klik pada _Button_ "**Create Token**"
+3. Saat proses membuat Token, Anda akan memilih templat yang digunakan untuk membuat Token nya. Maka dari itu, gunakan saja templat "**Edit zone DNS**" dengan meng-klik _Button_ "**Use this template**" di sebelahnya.
+4. Setelah menentukan templat nya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
+   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara asali, nama Token menggunakan nama templatnya, Anda bisa rubah itu sesuka Anda dengan meng-klik pada ikon Pensil di sebelah namanya
+   - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat "**Edit zone DNS**", maka seharusnya Informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan "**Zone**", "**DNS**" dan "**Edit**", kalau sudah, Anda bisa lewati ini.
+   - **Zone Resources**: Itu merupakan cakupan Zona (_Zone_) untuk Token ini. Jika Anda ingin Token yang Anda buat itu dapat mencakup semua Domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
+       - "**Include**" dan "**All zones**"
+       - "**Include**", "**All zones from an account**", lalu pilih Akun yang ingin Anda cakup
+   - **Client IP Address Filtering**: Jika Anda ingin mengatur/menyaring Alamat IP Klien/Pengguna API, maka Anda bisa atur itu. Jika tidak, maka sebaiknya dilewat saja.
+   - **TTL**: Atur itu jika Anda ingin Token yang Anda buat memiliki masa berlaku, jika tidak maka sebaiknya lewati saja
+5. Jika Anda sudah mengisi semua informasi nya, klik pada _Button_ "**Continue to summary**"
+6. Di sana Anda akan melihat kesimpulan dari Token yang ingin Anda buat, jika merasa yakin, silahkan klik pada _Button_ "**Create Token**"
+7. Setelah itu, Kode Token akan tampil di sana. Salinkan kode Token tersebut dengan mengklik pada _Button_ "**Copy**", lalu simpan kode Token tersebut baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satupun orang lain yang mengetahuinya kecuali dengan seizin Anda. Anda juga dapat menguji Token nya di sana dan sudah disediakan caranya.
+
+Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
+
+![1](Cloudflare_Create_API_Token_1.png) ![2](Cloudflare_Create_API_Token_2.png) ![3](Cloudflare_Create_API_Token_3.png) ![4](Cloudflare_Create_API_Token_4.png) ![5](Cloudflare_Create_API_Token_5.png)
 
 Untuk mendapatkan "Account ID" dan "Zone ID" nya, Anda tinggal ke [Halaman Dasbor Cloudflare](https://dash.cloudflare.com), pilih Domain nya, lalu gulirkan kebawah, nanti akan ketemu Informasi mengenai "Account ID" dan "Zone ID", seperti di bawah ini:
 
@@ -284,29 +308,21 @@ export CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI"
 export CF_Zone_ID="ZONE_ID_KAMU_DI_SINI"
 ```
 
-{{< info text="**Perhatian !**" >}} 
-Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
-
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh) atau ke dalam berkas lain yang sama fungsinya dengan kedua berkas tadi, lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
-
-Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
-{{< / info >}}
-
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
-Jika Anda menggunakan Netlify sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "Personal Access Token" (`NETLIFY_ACCESS_TOKEN`) nya.
+Jika Anda menggunakan Netlify sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah "**Personal Access Token**" (`NETLIFY_ACCESS_TOKEN`) nya.
 
-Ngomong-ngomong, selain bisa untuk Verifikasi DNS, "Personal Access Token" ini bisa Anda gunakan untuk memasang [sertifikat SSL nya](#pasang-ssl-di-netlify) nanti. Jadi, setelah Anda membuat "Personal Access Token", simpanlah Token tersebut dengan baik agar bisa digunakan nanti.
+Ngomong-ngomong, selain bisa untuk Verifikasi DNS, Token ini bisa Anda gunakan untuk memasang [sertifikat SSL nya](#pasang-ssl-di-netlify) nanti. Jadi, setelah Anda membuatnya, simpanlah Token tersebut dengan baik agar bisa digunakan nanti.
 
 Cara membuatnya sebagai berikut:
 
 0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
-1. Klik pada _Button_ "New access token" di Bagian "Personal access tokens"
+1. Klik pada _Button_ "**New access token**" di Bagian "**Personal access tokens**"
 2. Masukkan Nama/Deskripsi mengenai Token nya
-3. Setelah itu, klik pada _Button_ "Generate" untuk menghasilkan "Access Token" nya.
-4. Setelah "Access Token" tampil, simpan itu baik-baik, karena "Access Token" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
-5. Klik pada _Button_ "Done" jika merasa sudah selesai
+3. Setelah itu, klik pada _Button_ "Generate" untuk menghasilkan "**Access Token**" nya.
+4. Setelah "**Access Token**" tampil, simpan itu baik-baik, karena "**Access Token**" tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
+5. Klik pada _Button_ "**Done**" jika merasa sudah selesai
 
 Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengklik nya)
 
@@ -323,14 +339,6 @@ Atau, dengan cara berikut:
 ```shell
 export NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
-
-{{< info text="**Perhatian !**" >}} 
-Jika Anda langsung mengeksekusinya melalui Terminal, maka jangan sampai kamu mengakhiri sesi Terminal atau _Shell_ kamu sampai menerbitkan Sertifikat SSL di acme.sh dengan menggunakan DNS sebagai metode verifikasi, variabel tersebut akan terhapus secara otomatis jika sesi berakhir. 
-
-Jika kamu tidak mau itu terjadi, maka simpanlah variabel di atas ke dalam berkas `~/.bashrc` (untuk pengguna GNU Bash) atau `~/.zshrc` (untuk Pengguna Zsh) atau ke dalam berkas lain yang sama fungsinya dengan kedua berkas tadi, lalu gunakan perintah `source` agar dapat memperbarui _Shell_ nya.
-
-Peringatan di atas tidak berlaku jika _Shell_ yang Anda gunakan memiliki fitur Riwayat atau Penyelesaian Otomatis yang berbasiskan Riwayat _Shell_, dan yang pasti Anda tahu cara menggunakannya.
-{{< / info >}}
 
 Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
@@ -474,7 +482,7 @@ ISI SERTIFIKAT
 [Kam 12 Agu 2021 02:14:50  WIB] And the full chain certs is there: /home/username/.acme.sh/domain.com/fullchain.cer
 ```
 
-Ini artinya, bahwa Sertifikat SSL telah berhasil dibuat/diterbitkan oleh CA dan berkas-berkas yang diperlukan telah disimpan di dalam direktori `/home/username/.acme.sh/domain.com` atau di `~/.acme.sh/domain.com`.
+Ini artinya, bahwa Sertifikat SSL telah berhasil dibuat/diterbitkan oleh CA dan berkas-berkas yang diperlukan telah disimpan di dalam direktori `/home/username/.acme.sh/domain.com` atau di `${HOME}/.acme.sh/domain.com`.
 
 Berkas-berkas seperti `domain.com.cer`, `domain.com.key` dan `ca.cer` atau `fullchain.cer` dan `domain.com.key` akan diperlukan untuk pemasangan sertifikat SSL di Layanan Hosting/CDN, untuk lebih lanjut akan saya bahas di bagian terpisah.
 
@@ -673,14 +681,14 @@ Ini bukanlah hal yang wajib, sehingga bisa Anda [lewati](#memasang-ssl) jika ber
 ### Letak acme.sh dan konfigurasi akunnya {#letak-acme-sh}
 Biasanya, acme.sh akan terinstal di dalam direktori `${HOME}/.acme.sh`.
 
-Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `~/.acme.sh/account.conf`.
+Sedangkan letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `${HOME}/.acme.sh/account.conf`.
 
 Berkas tersebut menyimpan sejumlah Informasi yang berkaitan dengan Akun yang Anda masukkan melalui variabel dari sebuah _Shell_ (Seperti _Token_, Kunci API, atau bahkan Nama Pengguna dan Kata Sandi), acme.sh akan menyimpan Informasi tersebut secara otomatis ke dalam berkas `account.conf` jika dijalankan dan akan digunakan kembali jika tersimpan.
 
 Contoh isi berkas `account.conf`:
 
 ```shell
-$ cat ~/.acme.sh/account.conf
+$ cat ${HOME}/.acme.sh/account.conf
 
 #LOG_FILE="/home/username/.acme.sh/acme.sh.log"
 #LOG_LEVEL=1
@@ -703,7 +711,7 @@ Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya t
 Setelah mengetahui direktori, sekarang isi direktori nya. Isi nya akan seperti ini:
 
 ```shell
-$ ls -la ~/.acme.sh/domain.com
+$ ls -la ${HOME}/.acme.sh/domain.com
 total 44
 drwxr-xr-x  2 user user 4096 Jul  8 08:46 .
 drwx------ 10 user user 4096 Jul  8 08:50 ..
@@ -746,20 +754,19 @@ Berikut adalah cara-caranya:
 
 ### Di Netlify {#pasang-ssl-di-netlify}
 #### Membuat "Personal Access Token" dan Mendapatkan "Site ID"
-
 {{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "Personal Access Token" dan "Site ID" nya di dalam Perangkat Anda.
+Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan "**Personal Access Token**" dan "**Site ID**" nya di dalam Perangkat Anda.
 {{< / info >}}
 
-Agar Anda bisa mengakses Server API nya, maka Anda perlu untuk membuat kunci akses nya, salah satunya adalah dengan membuat "Personal Access Token" nya.
+Agar Anda bisa mengakses Server API nya, maka Anda perlu untuk membuat kunci akses nya, salah satunya adalah dengan membuat "**Personal Access Token**" nya.
 
 Untuk membuat "Personal Access Token" nya sendiri sudah saya bahas di bagian "Verifikasi DNS di acme.sh". Jika Anda belum sempat membuat "Personal Access Token" sebelumnya, silahkan [klik di sini](#untuk-pengguna-netlify-dns) untuk caranya.
 
-Setelah "Personal Access Token" dibuat, Anda perlu mendapatkan "Site ID" nya. Tapi untuk mendapatkan "Site ID" nya, Anda bisa mendapatkan nya di "Site settings", lalu klik pada "General" -> Klik "Site details", di situ akan muncul informasi-informasi mengenai Web Anda. Seperti Cuplikan berikut:
+Setelah "Personal Access Token" dibuat, maka Anda perlu mendapatkan "**Site ID**" nya. Tapi untuk mendapatkan "Site ID" nya, Anda bisa mendapatkan nya di "Site settings", lalu klik pada "General" -> Klik "Site details", di situ akan muncul informasi-informasi mengenai Web Anda. Seperti Cuplikan berikut:
 
 !["Site ID" di Netlify](Netlify_Site_ID.png)
 
-Jika Anda melihat cuplikan di atas, "API ID" yang saya tunjuk itu merupakan "Site ID" nya, simpan ID tersebut baik-baik. Selain "API ID", Anda juga bisa menggunakan domain Anda atau menggunakan subdomain dari Netlify sebagai "Site ID" nya.
+Jika Anda melihat cuplikan di atas, "**API ID**" yang saya tunjuk itu merupakan "**Site ID**" nya, simpan ID tersebut baik-baik. Selain "API ID", Anda juga bisa menggunakan domain Anda atau menggunakan subdomain dari Netlify sebagai "Site ID" nya.
 
 Langkah selanjutnya adalah memasang Sertifikat SSL melalui API nya.
 
@@ -940,7 +947,7 @@ Pertama-tama, lihat isi dari berkas `domain.com.conf` terlebih dahulu, seperti b
 Contoh isi dari berkas `domain.com.conf` adalah sebagai berikut:
 
 ```shell
-$ cat ~/.acme.sh/domain.com/domain.com.conf
+$ cat ${HOME}/.acme.sh/domain.com/domain.com.conf
 Le_Domain='domain.com'
 Le_Alt='*.domain.com'
 Le_Webroot='dns_cf'
@@ -974,13 +981,13 @@ Ketiga variabel tersebut bisa Anda isi dengan perintah itu langsung, contoh beri
 Le_PreHook='echo "Halo, Dunia!"'
 ```
 
-Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `~/.acme.sh/domain.com/`).
+Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `${HOME}/.acme.sh/domain.com/`).
 
 Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skrip nya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh`)
 
 Tapi perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
-Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukan nya di dalam direktori `~/.acme.sh/domain.com/`.
+Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukan nya di dalam direktori `${HOME}/.acme.sh/domain.com/`.
 
 Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda rubah sebelumnya akan menjadi seperti berikut:
 
@@ -1014,13 +1021,13 @@ curl -X POST \
      --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
 ```
 
-Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `~/.acme.sh/www.si-udin.com` yang di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
+Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `${HOME}/.acme.sh/www.si-udin.com` yang di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
 
 Sehingga, dia tidak perlu menentukan direktori nya lagi secara absolut, dia cuma perlu menuliskan nama berkas nya saja.
 
-Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `~/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
+Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `${HOME}/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
 
-Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `~/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
+Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `${HOME}/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
 
 Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain. 
 
@@ -1186,11 +1193,11 @@ curl https://get.acme.sh | sh -s
 ```bash
 tar -xvzf acme.sh.tar.gz
 ```
-6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `~/.acme.sh/account.conf` dengan perintah berikut:
+6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `${HOME}/.acme.sh/account.conf` dengan perintah berikut:
 ```bash
-cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
-sed -i '/USER\_PATH\=/d' ~/.acme.sh/account.conf
-printf "USER_PATH='%s'\n" ${PATH} >> ~/.acme.sh/account.conf
+cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/USER\_PATH\=/d' ${HOME}/.acme.sh/account.conf
+printf "USER_PATH='%s'\n" ${PATH} >> ${HOME}/.acme.sh/account.conf
 ```
 7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah Crontab di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh "Cron Jobs". Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan "Cron Jobs"](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
@@ -1300,7 +1307,7 @@ Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh 
 Pertama-tama, Anda perlu tahu Domain Pertama yang Anda masukkan dengan mengetahui isi dari direktori acme.sh nya, memakai perintah berikut: (beserta keluarannya)
 
 ```shell
-$ ls -la ~/.acme.sh
+$ ls -la ${HOME}/.acme.sh
 total 276
 drwx------  10 user user   4096 Agu 16 01:13 .
 drwxr-xr-x 137 user user  20480 Agu 16 01:43 ..
@@ -1364,7 +1371,7 @@ Nah, seperti itulah jawaban untuk pertanyaan ini.
 ### Pertanyaan ke-7: Sertifikat SSL sudah saya hapus, tapi pas saya jalankan acme.sh dalam Cron atau untuk memperbarui semua SSL (`--renew-all`), kok domain yang terhapus masih ada saat saya cek di Terminal? {#pertanyaan-ke7}
 **Jawab:** Itu karena Anda belum menghapus direktori nya setelah menghapus sertifikat SSL dari perkakas acme.sh nya. Jadi, Anda perlu menghapus direktori tersebut secara manual.
 
-Solusi nya adalah Hapus Direktori tersebut (cth. `~/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
+Solusi nya adalah Hapus Direktori tersebut (cth. `${HOME}/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
 
 ### Pertanyaan ke-8: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot? {#pertanyaan-ke8}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
@@ -1385,9 +1392,9 @@ Tapi, saya belum coba dan keliatan nya saya lebih suka acme.sh daripada lain nya
 acme.sh --uninstall
 ```
 
-Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `~/.bashrc` atau `~/.zshrc`.
+Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `${HOME}/.bashrc` atau `${HOME}/.zshrc`.
 
-Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ~/.acme.sh` jika direktori tersebut masih ada.
+Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ${HOME}/.acme.sh` jika direktori tersebut masih ada.
 
 ### Pertanyaan ke-11: Jika Netlify hanya menerima sertifikat SSL dalam bentuk Teks Biasa, kenapa kita pake perintah `awk`? Kenapa gak pake perintah `cat` aja? {#pertanyaan-ke11}
 **Jawab:** Karena isi berkas sertifikat itu mengandung multi-baris, sedangkan Netlify tidak menerima itu.
@@ -1478,24 +1485,25 @@ Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifik
 
 Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android, serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
 
-Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan. Soal kenapa Sertifikat Akar nya bisa dapat yang berbeda-beda itu saya kurang tahu, mungkin akan tergantung Perangkat Lunak yang Anda gunakan, bisa jadi karena Perangkat Lunak tersebut mendukung _Cross-signing_ atau lain nya.
+Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan.
 
-Tapi, alasan kenapa Sertifikat Akar yang lama masih digunakan oleh beberapa Perangkat Lunak (terutama di Windows) padahal ada Sertifikat Akar lain yang bisa digunakan adalah bisa jadi karena selama Sertifikat Akar tersebut masih bisa digunakan, maka ia tetap akan menggunakan nya, ketika sudah habis, barulah menggunakan Akar yang baru.
+### Pertanyaan ke-16: Kenapa Sertifikat Akar yang didapat bisa berbeda-beda di tiap perangkat? {#pertanyaan-ke16}
+**Jawab:** Saya kurang tahu, mungkin akan tergantung Perangkat Lunak yang Anda gunakan, bisa jadi karena Perangkat Lunak tersebut mendukung _Cross-signing_, karena alasan keamanan, 'kepercayaan' atau lain nya, yang ini hanya kemungkinan saja, karena saya tidak mempunyai referensi mengenai ini.
 
 Alasan lain kenapa masih menggunakan Sertifikat Akar yang lama oleh Perangkat Lunak adalah karena Perangkat Lunak tersebut sudah 'berumur', tidak diperbarui ataupun tidak bisa memperbarui Sertifikat yang ada, sehingga sertifikat akar alternatif belum/tidak ada.
 
 Agar Sertifikat SSL dapat bekerja, maka Perangkat Lunak perlu 'mempercayai'/mengenali Sertifikat Akar tersebut, salah satunya adalah perlu memiliki Sertifikat Akarnya dan memasangkan nya ke dalam perangkat Anda. 
 
-Memperbarui Sertifikat-sertifikat adalah salah satu cara agar perangkat lunak dapat mengenali Sertifikat Akar baru yang sudah bermunculan seiring berjalan nya waktu.
+Masalahnya, Sertifikat Akar memiliki masa berlaku, sehingga perlu diperbarui agar sertifikat SSL dapat digunakan secara terus-menerus di dalam perangkat itu. 
+
+Memperbarui Perangkat Lunak adalah salah satu cara untuk memperbarui masa berlaku dari sertifikat akar yang lama dan dapat mengenali Sertifikat Akar baru yang sudah bermunculan seiring berjalan nya waktu.
 
 Tapi, jika tidak bisa diperbarui, maka Perangkat Lunak akan menggunakan Sertifikat Akar lama yang tersimpan di dalam tempat penyimpanan sertifikat nya. Jika sertifikat akar tersebut habis masa berlaku nya, maka skenario terburuknya adalah Sertifikat SSL kamu tidak bisa digunakan.
 
-Alasan-alasan tersebut hanyalah kemungkinan saja, saya tidak mempunyai referensi yang pasti, jadi bisa saja ini salah.
-
-### Pertanyaan ke-16: Saya mengalami galat/_error_ selama menggunakan acme.sh, bagaimana cara mengatasinya? {#pertanyaan-ke16}
+### Pertanyaan ke-17: Saya mengalami galat/_error_ selama menggunakan acme.sh, bagaimana cara mengatasinya? {#pertanyaan-ke17}
 **Jawab:** Cara mengatasinya itu bergantung dengan galat nya. Berbeda pesan galat, maka akan beda penyebabnya, beda penyebab maka solusi pun akan berbeda. Sehingga, saya tidak bisa memberikan solusi yang pasti.
 
-Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untu caranya, silahkan Anda kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
+Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untuk caranya, silahkan Anda kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
 
 Anda perlu melihat-lihat/membaca barisan keluaran nya saat acme.sh sedang bekerja, jika ada yang menurut Anda mencurigakan, mungkin saja itu adalah penyebabnya.
 
@@ -1505,7 +1513,7 @@ Setelah menempelkannya, maka Anda perlu mengirimkan teks nya, setelah dikirimkan
 
 Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll selengkap mungkin di dalam kolom komentar nya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan tersedia.
 
-### Pertanyaan ke-17: Bagaimana cara menggantikan Informasi Akun yang telah saya masukkan sebelumnya? Soalnya tadi saya salah memasukkan nya {#pertanyaan-ke17}
+### Pertanyaan ke-18: Bagaimana cara menggantikan Informasi Akun yang telah saya masukkan sebelumnya? Soalnya tadi saya salah memasukkan nya {#pertanyaan-ke18}
 **Jawab:** Jika Anda ingin mengganti Informasi Akun yang telah Anda masukkan sebelumnya dengan alasan apapun, seperti salah ketik, informasi nya telah diganti, dll, maka Anda bisa lakukan itu dengan merubah variabel di dalam _Shell_ nya, lalu rubah isi berkas `account.conf` yang berada di dalam direktori acme.sh
 
 Saat menerbitkan/memperbarui sertifikat, acme.sh secara otomatis akan menyimpan Informasi Akun yang Anda masukkan ke dalam berkas `account.conf` dalam bentuk variabel `SAVED_{VARIABEL}`. 
@@ -1514,38 +1522,79 @@ Misalnya, jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk domain A
 
 Setelah menyimpan nya dan menjalankan perkakas acme.sh untuk menerbitkan sertifikat nya, maka secara otomatis acme.sh akan menyimpan kedua informasi tersebut ke dalam berkas `account.conf`, tapi dalam bentuk variabel `SAVED_CF_Token` untuk `CF_Token` dan `SAVED_CF_Account_ID` untuk `CF_Account_ID` nya.
 
-Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare, maka ganti nilai dari variabel `CF_Token` dan `CF_Account_ID`, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` di dalam berkas `~/.acme.sh/account.conf`.
+Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare, maka ganti nilai dari variabel `CF_Token` dan `CF_Account_ID`, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` di dalam berkas `${HOME}/.acme.sh/account.conf`.
 
 Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda:
 
 ```shell
-cp ~/.acme.sh/account.conf ~/.acme.sh/account.conf.1 ## Backup dulu
+cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
 CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
 CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
-sed -i '/SAVED\_CF\_Token\=/d' ~/.acme.sh/account.conf
-sed -i '/SAVED\_CF\_Account\_ID\=/d' ~/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Token\=/d' ${HOME}/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Account\_ID\=/d' ${HOME}/.acme.sh/account.conf
 ```
 
 Tapi jika Anda menggunakan DNS Otoritatif lain, variabel yang digunakan akan berbeda-beda untuk setiap penyedia, maka Anda perlu mengetahui variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silahkan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, acme.sh akan menyimpan informasi akun lagi secara otomatis setelah dieksekusi.
 
-### Pertanyaan ke-18: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke18}
+### Pertanyaan ke-19: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke19}
 **Jawab:** Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenis nya.
 
 Untuk Sistem Operasi nya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows. Di Android juga bisa, tapi gunakan aplikasi Termux.
 
-### Pertanyaan ke-19: Bagaimana caranya agar saya bisa menyalinkan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke19}
+### Pertanyaan ke-20: Bagaimana caranya agar saya bisa menyalinkan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke20}
 **Jawab:** Untuk menyalinkan acme.sh ke dalam Perangkat lain, Anda bisa baca bagian "[_Renew_ SSL secara Otomatis di Android](#renew-ssl-di-android)" yang ada di artikel ini.
 
 Bagian tersebut juga membahas bagaimana caranya menyalinkan acme.sh ke dalam Perangkat Ponsel Pintar yang berbasis Android. 
 
 Caranya akan sama saja, hanya saja beda nya di Persyaratan untuk Perangkat lain, Perintah untuk mengaktifkan Layanan Cron dan Penyebutan Perangkatnya saja. Sesuaikan semua itu dengan perangkat milik Anda.
 
-### Pertanyaan ke-20: Saat saya menerbitkan/memperbarui Sertifikat SSL melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke20}
-**Jawab:** Penyebab dari masalah ini kemungkinan terbesarnya adalah Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, Koneksi dari Server/Proksi yang melambat, dll.
+### Pertanyaan ke-21: Saat saya menerbitkan/memperbarui Sertifikat SSL melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke21}
+**Jawab:** Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, Koneksi dari Server/Proksi yang melambat, dll.
 
 Jadi, sabarlah menunggu sampai beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti permasalahan pada Server nya bisa terselesaikan, sehingga bisa digunakan kembali.
+
+### Pertanyaan ke-22: Apakah benar bahwa SSL Gratisan itu memiliki Enkripsi yang lemah? {#pertanyaan-ke22}
+**Jawab:** Itu tidak benar, jika ada artikel yang menyatakan demikian, itu bisa dipastikan sesat. Karena Enkripsi, baik itu Algoritma, _Cipher_ dan Entropi pada Enkripsi itu ditentukan sepenuhnya oleh Konfigurasi "**Cipher Suite**" yang ada pada _Web Server_, sehingga ini sepenuhnya dilakukan oleh _Web Server_ bukan oleh sertifikat SSL ataupun pihak CA.
+
+Sertifikat SSL nya sendiri tidak mempunyai andil besar untuk menentukan seberapa kuatnya Enkripsi, karena sebenarnya Sertifikat SSL itu sendiri tidak melakukan nya, itu cuma membuktikan kalau Blog/Web tersebut sudah 'ditandatangani' oleh pemilik yang bersangkutan melalui CA sebagai pihak ketiga/perantara, enkripsi nya sendiri dilakukan oleh Perangkat Lunak yang digunakan oleh Klien dan Server.
+
+Sertifikat SSL sendiri hanya membawakan Kunci Publik (_Public key_) yang tertera di dalamnya yang digunakan untuk membantu berjalan nya proses 'jabat tangan' TLS (_TLS handshake_) agar menciptakan proses transaksi yang aman saat mengunjungi sebuah Web/Blog atau mengirimkan data ke dalam sebuah Web.
+
+Selain itu, saat sertifikat SSL dibuat dengan acme.sh, Anda bisa menentukan ukuran dan jenis kunci nya dengan bebas, semakin besar ukuran kuncinya maka semakin kuat kunci nya.
+
+Namun, hal itu akan mengorbankan kinerja dari sebuah perangkat saat mengunjungi nya karena perangkat keras belum tentu dapat memprosesnya dengan cepat, apalagi jika tidak memiliki fitur akselerasi dari perangkat keras, sehingga ini juga akan mengorbankan kinerja dari sebuah Web/Blog.
+
+### Pertanyaan ke-23: Masa aktif sertifikat SSL gratisan (termasuk dari ZeroSSL) rata-rata hanya 90 hari, apakah itu tidak bermasalah? {#pertanyaan-ke23}
+**Jawab:** Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah, bahkan sertifikat SSL untuk hampir seluruh layanan Google memiliki masa aktif hanya 90 hari atau sekitar 3 bulan saja.
+
+Sekarang ini sudah sangat banyak atau bahkan mayoritas Perangkat Lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui SSL tersebut secara otomatis berkat dukungan protokol ACME nya.
+
+Untuk kasus pembaruan sertifikat SSL dari ZeroSSL (yang tekah saya bahas di artikel ini), itu juga diperbarui secara otomatis melalui perkakas acme.sh yang dijalankan di dalam latar belakang pada ponsel Anda.
+
+Jadi, Anda hanya perlu duduk diam dan menunggu bahwa sertifikat SSL berhasil diperbarui, tidak perlu melakukan apapun, Anda hanya perlu pastikan bahwa koneksi Internet selalu ada pada ponsel Anda.
+
+Untuk masalah keamanan, itu tidak berpengaruh, atau malah justru lebih baik karena ia akan menghasilkan kunci yang baru dalam memperbarui nya. Sehingga, kalaupun kunci nya dicuri atau/dan sertifikat tersebut diterbitkan dengan salah (_mis-issued certificates_), maka hal tersebut tidak akan bertahan lama karena masa aktifnya yang relatif singkat. 
+
+Untuk masalah ketersediaan (_uptime_), sebenarnya kurang berpengaruh, bahkan sama sekali tidak berpengaruh, karena sekarang Anda dapat memasang sertifikat tanpa rasa sakit sedikitpun atau tanpa harus mematikan Web/Blog Anda terlebih dahulu. 
+
+Kalaupun berpengaruh, Anda tidak melakukan itu untuk setiap hari/bulan nya, melainkan hanya 4 kali dalam setahun dan itupun cuma beberapa detik saja, gak sampai 3 detik, terutama jika Anda mengikuti Metode Pertama dalam membuat skrip nya untuk memperbarui sertifikat SSL nya.
+
+Namun, jika Anda ingin masa aktif yang lebih dari itu, mungkin Anda bisa coba sertifikat SSL dari Buypass, yakni "**Buypass Go SSL**" yang memiliki masa aktif maksimal 180 hari atau sekitar 6 bulan saja. Tapi sayangnya Anda tidak bisa menerbitkan nya dalam bentuk _Wildcard_, namun Anda bisa menerbitkan nya dalam bentuk multi-domain atau/dan multi-subdomain.
+
+### Pertanyaan ke-24: Apakah sertifikat SSL dari ZeroSSL (baik gratisan atau berbayar nya) itu boleh dipasang pada Situs Web untuk keperluan komersial (seperti Perdagangan Elektronik, dll)? {#pertanyaan-ke24}
+**Jawab:** Saya kurang tahu secara pastinya apakah sertifikat SSL tersebut boleh tidak digunakan oleh Situs Web yang punya keperluan komersial, seperti Perdagangan elektronik (bahasa Inggris: **_e-commerce_**).
+
+Namun, di dalam halaman [Syarat & Ketentuan Layanan nya](https://zerossl.com/terms/), tertulis kalimat berikut:
+
+> You may not use ZeroSSL for any commercial purpose including but not limited to selling, licensing, providing services, or distributing ZeroSSL to any third party unless you have received the express written consent of ZeroSSL beforehand.
+
+Saya kurang tahu/kurang paham apa maksud dari kalimat `for any commercial purpose` di sini, apakah tidak boleh dipasang di Situs Web Perdagangan Elektronik secara keseluruhan atau melarang tindakan komersil pada layanan ZeroSSL nya saja.
+
+Kalaupun tidak boleh dipasang di Situs Web tersebut, saya juga kurang tahu apakah itu berlaku untuk pengguna gratisan, yang berbayar atau malah semua. Karena TOS ini sepertinya melingkupi semua layanan yang ada pada ZeroSSL, gak peduli itu gratisan ataupun berbayar.
+
+Jadi, jawaban nya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa seizin dari mereka.
 
 ## Referensi lain di Artikel ini
 Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang sebelum nya tidak saya sebut/bahas.
@@ -1556,7 +1605,7 @@ Berikut adalah referensi nya:
 - Halaman [Dokumentasi API Bunny.net](https://docs.bunny.net/reference/pull-zone#pullzonepublic_addcertificate)
 - Cuplikan berikut adalah Obrolan di Dukungan Tiket yang menyatakan jika ingin memasangkan sertifikat SSL menggunakan panggilan API nya, maka berkas-berkas tersebut harus dikirimkan dalam bentuk Base64:
 
-![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan (Cara Baca: Baca dari bawah, lalu ke atas)](Bunny.net_API_Support_Ticket.png)
+![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan](Bunny.net_API_Support_Ticket.png)
 
 - Untuk konversi ke dalam Base64, komentar-komentar di dalam [jawaban dari "Steve Folly"](https://superuser.com/a/120815) di Super User sangat membantu saya.
 

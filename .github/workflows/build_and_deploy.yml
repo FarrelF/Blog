@@ -195,3 +195,20 @@ jobs:
         S3_SERVICE: storj-eu1-s3
       run: |
         rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+
+  submit_sitemap:
+    name: Submit Sitemap
+    needs: [deploy_to_bunny_net, deploy_to_storj-ap1-s3, deploy_to_storj-us1-s3, deploy_to_storj-eu1-s3]
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Submitting Sitemap to Search Engine
+      env:
+        SITEMAP_URL: https://farrel.franqois.id/sitemap.xml
+      run: |
+        set -o errexit
+        set -o pipefail
+        set -o nounset
+
+        curl -S -s -o /dev/null "https://www.google.com/webmasters/sitemaps/ping?sitemap=${SITEMAP_URL}"
+        curl -S -s -o /dev/null "https://www.bing.com/ping?sitemap=${SITEMAP_URL}"
+        echo "Sitemaps pinged"
