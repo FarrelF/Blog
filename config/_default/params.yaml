@@ -1,0 +1,82 @@
+dateFormat:
+  published: Monday, 02 January 2006
+  lastUpdated: Monday, 02 January 2006
+
+sidebar:
+  emoji:
+  subtitle: (Bukan) Sekadar Blog Pribadi saya
+  avatar:
+    local: true
+    src: img/profile/avatar.jpg
+
+article:
+  readingTime: true
+  toc: true
+  math: false
+  license:
+    enabled: true
+    default: Telah saya terbitkan dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+
+SRIHash:
+  CSS: false
+  JS: true
+
+mainSections:
+  - post
+featuredImageField: image
+rssFullContent: true
+favicon:
+
+footer:
+  since: 2019
+
+comments:
+  enabled: true
+  provider: disqus
+  utterances:
+    repo:
+    issueTerm: pathname
+    label:
+    theme: preferred-color-scheme
+
+widgets:
+  enabled:
+    - search
+    - archives
+    - tag-cloud
+    - categories
+  archives:
+    limit: 5
+  tagCloud:
+    limit: 10
+  categoriesCloud:
+    limit: 20
+
+opengraph:
+  twitter:
+    site: FarrelFranqois
+    card: summary_large_image
+
+defaultImage:
+  opengraph:
+    enabled: false
+    local: false
+    src:
+
+colorScheme:
+  toggle: true
+  # Available values: auto, light, dark
+  default: auto
+
+imageProcessing:
+  cover:
+    enabled: true
+  content:
+    enabled: true
+
+Twemoji:
+  enabled: true
+  Options:
+    baseURL: https://cdn.statically.io/gh/twitter/twemoji/v13.1.0/
+    Path: assets/svg
+    Ext: .svg

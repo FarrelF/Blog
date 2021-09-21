@@ -1,0 +1,11 @@
+headers:
+- for: /**
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate
+    Pragma: no-cache
+    X-XSS-Protection: 0
+    X-Content-Type-Options: nosniff
+    X-Frame-Options: DENY
+    Referrer-Policy: strict-origin-when-cross-origin
+    Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), vibrate=(), magnetometer=(), camera=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), midi=()
+    Feature-Policy: camera https://farrelf-blog.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'

@@ -80,9 +80,9 @@ Jika Peramban Web memuatnya melalui _Cache_ yang tersimpan, maka Peramban Web ti
 
 Sedangkan jika sebaliknya, maka Peramban Web akan selalu menggunakan Koneksi Internet untuk mendapatkan sumber daya yang dibutuhkan dan Server akan menggunakan koneksi nya untuk memberikan/mengirimkan sumber daya yang dibutuhkan kepada Klien, tentunya hal ini akan mengonsumsi _Bandwidth_ baik dari segi Klien dan Server, serta bisa saja malah menjadi boros jika ini terjadi terus-terusan.
 
-Untuk mengetahui perbedaan jika sumber daya di simpan ke dalam _Cache_ Peramban Web, serta digunakan atau tidak nya, bisa Anda lihat cuplikan berikut:
+Untuk mengetahui perbedaan jika sumber daya disimpan ke dalam _Cache_ Peramban Web, serta digunakan atau tidak nya, bisa Anda lihat cuplikan berikut:
 
-![Tanda Berkas belum di _Cache_ oleh Peramban Web saat kunjungan pertama](Sebelum_Di_Cache_Web_Browser.png) ![Tanda Berkas sudah di _Cache_ oleh Peramban Web dan digunakan setelah mengunjunginya kembali](Setelah_Di_Cache_Web_Browser.png)
+![Tanda Berkas belum _di-cache_ oleh Peramban Web saat kunjungan pertama](Sebelum_Di_Cache_Web_Browser.png) ![Tanda Berkas sudah _di-cache_ oleh Peramban Web dan digunakan setelah mengunjunginya kembali](Setelah_Di_Cache_Web_Browser.png)
 
 Dalam konteks menghemat Konsumsi _Bandwidth_ baik dari segi Server atau Klien, mungkin Anda berpikir bahwa membuat Peramban Web dapat menyimpan sumber dayanya dengan waktu yang sangat lama kedalam _Cache_ (seperti mengatur _Header_ `Cache-Control` nya menjadi `public, max-age=31536000, immutable`) itu merupakan solusi yang saling menguntungkan, bukan?
 
@@ -90,7 +90,7 @@ Kalau seperti itu, memang benar, tapi akibatnya tampilan Situs Web menjadi tidak
 
 Hal ini terjadi karena Peramban Web akan tetap memuat nya melalui _Cache_ dan yang dimuat itu bukanlah Berkas yang baru, melainkan yang telah disimpan sebelumnya atau yang lama, sehingga sumber daya nya tertahan oleh _Cache_.
 
-Tapi, ini adalah hal yang sangat krusial untuk diatur agar bisa menghemat konsumsi _Bandwidth_ secara signifikan, jadi aturlah _Header_ tersebut dengan benar dan lakukan teknik _Cache Busting_ pada berkas-berkas statik sebelum mengatur `Cache-Control` nya, serta bedakan mana sumber daya yang harus di _Cache_ dalam waktu yang lama atau yang tidaknya.
+Tapi, ini adalah hal yang sangat krusial untuk diatur agar bisa menghemat konsumsi _Bandwidth_ secara signifikan, jadi aturlah _Header_ tersebut dengan benar dan lakukan teknik _Cache Busting_ pada berkas-berkas statik sebelum mengatur `Cache-Control` nya, serta bedakan mana sumber daya yang harus _di-cache_ dalam waktu yang lama atau yang tidaknya.
 
 Untuk cara menyetel _HTTP Header_ (untuk _Response Header_) nya, bisa Anda kunjungi referensi berikut:
 
@@ -156,10 +156,10 @@ Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, 
 Mungkin Anda perlu membaca pertanyaan dan jawaban nya terlebih dahulu sebelum bertanya di kolom komentar sebagai referensi Anda.
 
 ### Pertanyaan ke-1: Apa itu _Cache Busting_? {#pertanyaan-ke1}
-**Jawab:** _Cache Busting_ adalah sebuah teknik agar Peramban Web dapat memuat berkas yang lebih baru saat mengunjung sebuah Situs Web/Blog setelah adanya perubahan pada berkas tersebut, tanpa harus menunggu selama itu, namun berkas-berkas tersebut akan tetap di _Cache_ dalam waktu yang sangat lama.
+**Jawab:** _Cache Busting_ adalah sebuah teknik agar Peramban Web dapat memuat berkas yang lebih baru saat mengunjung sebuah Situs Web/Blog setelah adanya perubahan pada berkas tersebut, tanpa harus menunggu selama itu, namun berkas-berkas tersebut akan tetap _di-cache_ dalam waktu yang sangat lama.
 
 Teknik ini akan menjawab pertanyaan seperti berikut: 
-> Sebelumnya, saya telah mengatur agar berkas-berkas statik bisa tersimpan di _Cache_ dalam waktu 1 Tahun oleh Peramban Web, tapi masalahnya saya baru saja telah melakukan perubahan pada berkas tersebut.
+> Sebelumnya, saya telah mengatur agar berkas-berkas statik bisa tersimpan _di-cache_ dalam waktu 1 Tahun oleh Peramban Web, tapi masalahnya saya baru saja telah melakukan perubahan pada berkas tersebut.
 > 
 > Jadi, bagaimana agar pengunjung tidak perlu menunggu selama 1 Tahun untuk dapat menikmati perubahan nya? Masa saya harus nyuruh pengunjung untuk membersihkan _Cache_ _(Clear Cache)_ pada Peramban Web nya?
 
@@ -204,13 +204,13 @@ Iklan tersebut dimuat dari server lain, sehingga konsumsi _Bandwidth_ Server Uta
 Namun, hal ini akan beda lagi jika kedua server (baik luar ataupun dalam) sama-sama mengizinkan Peramban Web untuk menyimpan berkas sumber daya nya kedalam _Cache_ dalam waktu yang lama, maka baik kuota Internet Pengunjung dan Konsumsi _Bandwidth_ Server akan bisa sedikit diperhemat.
 
 ### Pertanyaan ke-6: Apakah ada perangkat lunak, situs web atau solusi lain untuk mengoptimalkan berkas-berkas statik selain yang disebutkan di dalam artikel ini? {#pertanyaan-ke6}
-**Jawab:** Banyak, tapi cari sendiri di Mesin Pencari aja, banyak jawaban nya disana.
+**Jawab:** Banyak, tapi cari sendiri di Mesin Pencari aja, banyak jawaban nya di sana.
 
 Kata kunci yang bisa Anda gunakan untuk mesin pencari adalah, seperti: "Image Compression", "Image Compressor", "Image Optimizer", "CSS Minify", "JS Minify", "CSS Minifier", "JS Minifier" atau kata kunci lain nya yang bisa Anda kembangkan sendiri. 
 
 Jika Anda ingin mencari perangkat lunak nya, Anda bisa tambahkan "Software" di akhir kata kuncinya, seperti "Image Compression Software" misalnya atau kembangkan saja sendiri biar hasilnya lebih akurat.
 
-### Pertanyaan ke-7: Apakah semua solusi yang ada disini itu mempercepat atau mengoptimalkan sebuah Situs Web?
+### Pertanyaan ke-7: Apakah semua solusi yang ada di sini itu mempercepat atau mengoptimalkan sebuah Situs Web?
 **Jawab:** Bisa iya, bisa juga tidak, atau bahkan bisa terjadi sebaliknya. Kecepatan Akses dan Kecepatan Penyelesaian Pemuatan pada Web/Blog itu terjadi karena banyak faktor.
 
 Sedangkan untuk mengoptimalkan sebuah Web/Blog agar cepat diakses dan dimuat oleh Peramban Web itu banyak yang harus Anda lakukan selain melakukan solusi-solusi di atas.
@@ -231,7 +231,7 @@ Dengan ini, Kuota _Bandwidth_ akan bisa diperhemat, bahkan Kuotanya malah jadi t
 Solusinya gak ribet, instan dan sangat mudah untuk dilakukan bagi semua orang, tanpa perlu mengeluarkan biaya sedikitpun.
 
 ## Penutup
-Ya sudah, artikel nya saya cukupkan dulu saja disini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
+Ya sudah, artikel nya saya cukupkan dulu saja di sini. Dari Artikel ini, Anda belajar bahwa untuk menghemat kuota _Bandwidth_ Server memang harus ada usaha yang cukup dari yang punya Situs Web/Blog, kalau gak mau ribet ya solusi nya nambah kuota, entah itu bayar atau pindah ke penyedia lain.
 
 Terima kasih bagi Anda yang telah membaca artikel ini. Gimana? Pusing kan? Yah, saya hanya memberitahukan konsep nya saja, terlebih satu bagian di artikel ini memang "Panjang x Lebar", jadi maaf kalau saya tidak bisa memberikan cara implementasi nya secara detail.
 
@@ -242,7 +242,7 @@ Jika adanya kesalahan dan kekeliruan dari saya, atau jika Anda memiliki pertanya
 Terima kasih atas perhatian nya 😊
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang digunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
@@ -252,4 +252,4 @@ https://github.com/FarrelF/Blog/tree/main/content/post/2021-05-06-cara-menghemat
 
 Gambar Illustrasi yang nama berkasnya adalah {{< a-file path="NCDN_-_CDN.png" >}}`NCDN_-_CDN.png`{{< / a-file >}} itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
 
-Serta, sebuah foto yang nama berkasnya adalah {{< a-file path="micheile-henderson-SoT4-mZhyhE-unsplash.jpg" >}}`micheile-henderson-SoT4-mZhyhE-unsplash.jpg`{{< / a-file >}} yang saya gunakan sebagai sampul artikel itu merupakan sebuah foto yang di potret oleh ["Micheile Henderson"](https://unsplash.com/@micheile) bersumber dari [Unsplash](https://unsplash.com/photos/SoT4-mZhyhE) dan dilisensikan di bawah ["Unsplash License"](https://unsplash.com/license) oleh sang pembuat.
+Serta, sebuah foto yang nama berkasnya adalah {{< a-file path="micheile-henderson-SoT4-mZhyhE-unsplash.jpg" >}}`micheile-henderson-SoT4-mZhyhE-unsplash.jpg`{{< / a-file >}} yang saya gunakan sebagai sampul artikel itu merupakan sebuah foto yang dipotret oleh ["Micheile Henderson"](https://unsplash.com/@micheile) bersumber dari [Unsplash](https://unsplash.com/photos/SoT4-mZhyhE) dan dilisensikan di bawah ["Unsplash License"](https://unsplash.com/license) oleh sang pembuat.

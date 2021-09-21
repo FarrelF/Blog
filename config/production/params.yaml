@@ -1,0 +1,16 @@
+CDN:
+  Images:
+    URL: https://cdn.statically.io/img/farrel.franqois.id/f=auto
+  SVG:
+    URL: https://cdn.statically.io/img/farrel.franqois.id
+  JS:
+    URL: https://cdn.statically.io/js/farrel.franqois.id
+  CSS:
+    URL: https://cdn.statically.io/css/farrel.franqois.id
+  Fonts:
+    URL: https://cdn.statically.io/css/farrel.franqois.id
+
+arcio:
+  # Check https://arc.io
+  enabled: true
+  widgetId: D1Tc1z8H

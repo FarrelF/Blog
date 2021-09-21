@@ -73,17 +73,16 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v2-hugo-preview-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        key: v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
         restore-keys: | 
-          - v2-hugo-preview-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
-          - v2-hugo-preview-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-
-          - v2-hugo-preview-${{ hashFiles('**/Images.hash.list') }}-
+          - v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
+          - v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-
 
     - name: Building the Blog HTML (Preview)
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
         mv static/robots_preview static/robots.txt
-        hugo --gc --minify --enableGitInfo --buildFuture --config ${PWD}/config.preview.yaml --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
+        hugo --gc --minify --buildFuture --environment staging --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
         tar cvf - public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact

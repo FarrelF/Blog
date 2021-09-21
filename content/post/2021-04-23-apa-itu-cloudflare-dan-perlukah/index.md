@@ -26,11 +26,7 @@ Description: >
 
 {{< spoiler text="tl;dr (Awas, Spoiler!)" >}}
 
-Intinya, saya tidak menyarankan Anda menggunakan Cloudflare sebagai CDN untuk Web/Blog Anda secara gratis, karena rute CDN nya sudah pasti _ngaco_ terutama jika dikunjungi menggunakan koneksi dari Telkom (salah satunya: IndiHome)/Telkomsel karena Koneksi Internasional nya buruk.
-
-Saya yakin bahwa masalah tersebut bukan cuma untuk 2 ISP itu saja, itupun belum sama resiko kehilangan pengunjung karena harus menyelesaikan CAPTCHA atau bahkan diblokir karena dikunjungi menggunakan Alamat IP yang "kotor" jika tidak diatur _Firewall_ nya.
-
-Saya sendiri lebih menyarankan Anda untuk menggunakan nya sebagai Pengelola DNS untuk Domain Anda, dan itu masih sangat layak digunakan tanpa perlu berlangganan apapun alias secara Gratis.
+Intinya, lihat dan baca di bagian ["Kesimpulan"](#kesimpulan).
 
 Artikel yang Anda lihat/baca sekarang ini adalah versi fafifu wasweswos nya, alias versi "Panjang x Lebar" nya, membahas kelebihan dan kekurangan beserta alasan nya yang bisa menjadi pertimbangan Anda untuk menggunakan Cloudflare.
 
@@ -49,12 +45,12 @@ Jadi, sekarang udah jelas kan Cloudflare itu apaan? Banyak sekali Web/Blog yang 
 Jawaban nya ya "entar dulu", abis ini nanti akan saya bahas dulu apa kelebihan dan kekurangan nya, karena jawaban nya akan sangat berhubungan dengan ini.
 
 ## Kelebihan menggunakan Cloudflare {#kelebihan-cloudflare}
-Untuk pembahasan kali ini, saya cuma membahas kelebihan menggunakan Cloudflare sebagai CDN, Pengelola DNS dan _Firewall_ saja mengingat banyak sekali jasa/layanan dari Cloudflare itu, namun ketiga ini yang paling sering di gunakan oleh para Blogger atau Pengembang/Pengelola Web di bandingkan lain nya, apalagi Layanan tersebut tersedia versi Gratisan nya.
+Untuk pembahasan kali ini, saya cuma membahas kelebihan menggunakan Cloudflare sebagai CDN, Pengelola DNS dan _Firewall_ saja mengingat banyak sekali jasa/layanan dari Cloudflare itu, namun ketiga ini yang paling sering digunakan oleh para Blogger atau Pengembang/Pengelola Web dibandingkan lain nya, apalagi Layanan tersebut tersedia versi Gratisan nya.
 
 Kelebihan menggunakan Cloudflare saya jabarkan berikut di bawah ini.
 
 ### Membuat Web/Blog menjadi lebih hemat Kuota _Bandwidth_ {#hemat-konsumsi-bandwidth-server}
-Kalau kamu menggunakan Hosting yang mana Kuota _Bandwidth_ (Pita lebar) nya terbatas atau cuma dapat sedikit saja, siapa sih yang gak mau menghemat konsumsi Kuota nya? Apalagi jika Web/Blog nya ramai di kunjungi orang dan robot tiap hari?
+Kalau kamu menggunakan Hosting yang mana Kuota _Bandwidth_ (Pita lebar) nya terbatas atau cuma dapat sedikit saja, siapa sih yang gak mau menghemat konsumsi Kuota nya? Apalagi jika Web/Blog nya ramai dikunjungi orang dan robot tiap hari?
 
 Dengan menggunakan Layanan CDN nya, maka Anda dapat menghemat konsumsi/penggunaan _Bandwidth_ Server. 
 
@@ -76,19 +72,19 @@ Tahukah Anda, bahwa Layanan [DNS Otoritatif dari Cloudflare](https://www.cloudfl
 
 ![Data Kinerja Mentah DNS Otoritatif dari DNSPerf. Cuplikan ini diambil pada Tanggal/Hari Kamis, 15 April 2021, Pukul 13:43 WIB](2021-04-15_13.43.50_www.dnsperf.com_061d0657221d.jpg) ![Data _Uptime_ DNS Otoritatif dari DNSPerf. Cuplikan ini diambil pada Tanggal/Hari Kamis, 15 April 2021, Pukul 13:44 WIB](2021-04-15_13.44.11_www.dnsperf.com_aaa75743338c.jpg)
 
-**Catatan:** Saya tidak menjamin keakuratan data diatas dalam menilai DNS Otoritatif yang ada, tapi setidaknya ini bisa dijadikan referensi bagi Anda yang ingin mencari DNS Otoritatif yang cocok untuk Web/Blog Anda dan saya sarankan Anda untuk mencarikan data pembanding untuk itu.
+**Catatan:** Saya tidak menjamin keakuratan data di atas dalam menilai DNS Otoritatif yang ada, tapi setidaknya ini bisa dijadikan referensi bagi Anda yang ingin mencari DNS Otoritatif yang cocok untuk Web/Blog Anda dan saya sarankan Anda untuk mencarikan data pembanding untuk itu.
 
-Jika Domain Anda terhubung ke DNS Cloudflare dan menggunakan nya sebagai Pengelola DNS dibandingkan dengan Pengelola DNS bawaan, maka Anda bisa mengurangi potensi _Downtime_ atau ketidaktersediaan pada Domain Anda, serta membuat Domain Anda dapat di _resolve_ lebih cepat oleh pengunjung.
+Jika Domain Anda terhubung ke DNS Cloudflare dan menggunakan nya sebagai Pengelola DNS dibandingkan dengan Pengelola DNS bawaan, maka Anda bisa mengurangi potensi _Downtime_ atau ketidaktersediaan pada Domain Anda, serta membuat Domain Anda dapat _di-resolve_ lebih cepat oleh pengunjung.
 
 Kenapa bisa gitu? Karena Cloudflare telah di tenagai oleh Server-server di 200 Kota dari 100 Negara di seluruh dunia[^2] yang mana ini akan saling berkaitan, begitupun juga CDN nya. 
 
-Jadi, jika satu server DNS Cloudflare tidak tersedia, maka hanya perlu dirute ulang ke server lain nya dan hal ini memungkinkan untuk mempercepat _Resolve_ DNS dari segi Pengunjung, karena pengunjung mendapatkan server terdekat nya saat me-_resolve_ domain yang terhubung dengan DNS Cloudflare.
+Jadi, jika satu server DNS Cloudflare tidak tersedia, maka hanya perlu dirute ulang ke server lain nya dan hal ini memungkinkan untuk mempercepat _Resolve_ DNS dari segi Pengunjung, karena pengunjung mendapatkan server terdekat nya saat _me-resolve_ domain yang terhubung dengan DNS Cloudflare.
 
 Karena DNS Otoritatif dari Cloudflare merupakan Pengelola DNS Eksternal, sehingga jika Server Hosting Anda mengalami ketidaktersediaan atau _Downtime_ (alias nge-_down_), maka layanan lain seperti surel eksternal, subdomain yang terhubung ke server lain, dll, tidak akan mengalami hal demikian.
 
 Selain itu, Pengelola DNS ini memiliki cukup kaya akan fitur. DNSSEC untuk keamanan DNS? Ada! Cloudflare mendukung hal itu[^3], Anda tinggal tambahkan Pengaturan DNSSEC pada Domain Anda melalui Pengaturan Domain bawaan. Untuk nilai-nilai nya, ikuti dengan yang ada di Cloudflare. 
 
-"CNAME Flattening"? Ada! Fitur ini malah di aktifkan secara bawaan untuk 'root' nya saja[^4]. Anda juga bisa ekspor dan impor pengaturan DNS Anda dalam format BIND9 sewaktu-waktu jika ingin migrasi[^5]. Apakah saya bisa menikmati itu semua secara gratis? Tentu saja bisa! Anda hanya perlu menghubungkan Domain Anda ke DNS Cloudflare saja dengan mengubah _Nameserver_ nya sesuai dengan petunjuk yang ada.
+"CNAME Flattening"? Ada! Fitur ini malah diaktifkan secara bawaan untuk 'root' nya saja[^4]. Anda juga bisa ekspor dan impor pengaturan DNS Anda dalam format BIND9 sewaktu-waktu jika ingin migrasi[^5]. Apakah saya bisa menikmati itu semua secara gratis? Tentu saja bisa! Anda hanya perlu menghubungkan Domain Anda ke DNS Cloudflare saja dengan mengubah _Nameserver_ nya sesuai dengan petunjuk yang ada.
 
 ![Opsi Fitur "DNSSEC" dan "CNAME Flattening" di Cloudflare](Cloudflare_DNS_DNSSEC_CNAME-Flattening.png)
 
@@ -117,11 +113,11 @@ Biasanya fitur ini dinonaktifkan secara bawaan, jadi Anda perlu mengaktifkan nya
 Setelah mengaktifkan ataupun mematikan nya, maka Anda perlu _Purge Cache_ CDN Cloudflare nya terlebih dahulu, barulah opsinya bisa diterapkan sebagaimana mestinya.
 
 ### SSL Gratis dan Sertifikat nya mendukung Peramban Web yang lebih tua {#ssl-gratis}
-Jika Hosting yang Anda gunakan tidak menyediakan SSL sama sekali, maka Anda bisa gunakan CDN dari Cloudflare agar Web/Blog Anda bisa di akses dengan Protokol HTTPS secara gratis, masa berlaku akan di perbarui secara otomatis oleh mereka.
+Jika Hosting yang Anda gunakan tidak menyediakan SSL sama sekali, maka Anda bisa gunakan CDN dari Cloudflare agar Web/Blog Anda bisa diakses dengan Protokol HTTPS secara gratis, masa berlaku akan diperbarui secara otomatis oleh mereka.
 
-Akar (atau _Root_) dari Sertifikat SSL yang di gunakan nya pun telah di dukung oleh Peramban Web (_Web Browser_) dari Perangkat yang lebih tua, selama Peramban Web tersebut mendukung SNI (singkatan dari "Server Name Indication") yang merupakan fitur dari protokol TLS.
+Akar (atau _Root_) dari Sertifikat SSL yang digunakan nya pun telah didukung oleh Peramban Web (_Web Browser_) dari Perangkat yang lebih tua, selama Peramban Web tersebut mendukung SNI (singkatan dari "Server Name Indication") yang merupakan fitur dari protokol TLS.
 
-Fitur tersebut di namakan ["Universal SSL"](https://support.cloudflare.com/hc/en-us/articles/204151138-Understanding-Universal-SSL). Biasanya fitur "Universal SSL" telah diaktifkan secara bawaan jika Anda menggunakan CDN dari Cloudflare, tapi Anda bisa mengaturnya di bagian "SSL" (yang gambarnya gembok) pada Laman Dasbor Cloudflare.
+Fitur tersebut dinamakan ["Universal SSL"](https://support.cloudflare.com/hc/en-us/articles/204151138-Understanding-Universal-SSL). Biasanya fitur "Universal SSL" telah diaktifkan secara bawaan jika Anda menggunakan CDN dari Cloudflare, tapi Anda bisa mengaturnya di bagian "SSL" (yang gambarnya gembok) pada Laman Dasbor Cloudflare.
 
 Jika Anda merasa tidak perlu menggunakan SSL dari Cloudflare, maka caranya ada dua, yakni: Nonaktifkan fitur "Universal SSL" atau jangan gunakan CDN dari Cloudflare.
 
@@ -133,7 +129,7 @@ Selain itu, Cloudflare memiliki _Firewall_ yang siap melindungi Web/Blog Anda da
 [^6]: Cloudflare, "Cloudflare WAF | Web Application Firewall", [https://www.cloudflare.com/waf/](https://www.cloudflare.com/waf/) (diakses pada tanggal 19 April 2021, pukul 02:11 WIB)
 
 ## Kekurangan menggunakan Cloudflare (terutama untuk pengguna Gratisan) {#kekurangan-cloudflare}
-Tadi saya sudah menyebutkan kelebihan untuk menggunakan Cloudflare, terutama untuk layanan yang sering di gunakan oleh para Blogger atau Pengembang/Pengelola Situs Web, yakni CDN, Pengelola DNS dan _Firewall_ nya.
+Tadi saya sudah menyebutkan kelebihan untuk menggunakan Cloudflare, terutama untuk layanan yang sering digunakan oleh para Blogger atau Pengembang/Pengelola Situs Web, yakni CDN, Pengelola DNS dan _Firewall_ nya.
 
 Sekarang saya bahas kekurangan nya, saya utamakan untuk pengguna Gratisan karena saya yakin bahwa mayoritas pengguna Cloudflare lebih memilih Paket "Gratis" daripada milih yang berbayar, kalaupun mampu bayar palingan cuma mentok di Paket "Pro" saja yang biaya nya cuma $20/bulan. (Jangan tersinggung yah, saya juga pake yang Gratisan juga kok, hehe 😀)
 
@@ -144,7 +140,7 @@ Ok, tanpa basa-basi lagi, saya akan bahas kekurangan menggunakan Cloudflare (ter
 ### Rute CDN nya seringkali kacau
 Anda mungkin berekspektasi bahwa CDN harusnya melayani pengunjungnya dekat dari Koneksi Internet yang digunakan oleh pengunjung, siapa yang tidak setuju? Tapi, Anda harus menerima kenyataan bahwa Rute yang didapatkan oleh pengunjung saat mengunjungi Web/Blog Anda yang menggunakan Cloudflare dengan paket selain "Enterprise" (apalagi Gratisan) tidak sesuai dengan ekspektasi pengunjung atau tidak mendapatkan lokasi yang dekat dengan mereka.
 
-Seringkali pengunjung akan mendapatkan rute yang bahkan sangat jauh dari mereka, contoh: Koneksi Internet nya dari Indonesia (dengan asumsi tanpa menggunakan Proksi/VPN), ketika mengunjungi Web/Blog yang menggunakan Cloudflare Gratisan, maka Lalu Lintas akan di larikan ke Server Los Angeles, Jepang, atau Server Acak lain nya.
+Seringkali pengunjung akan mendapatkan rute yang bahkan sangat jauh dari mereka, contoh: Koneksi Internet nya dari Indonesia (dengan asumsi tanpa menggunakan Proksi/VPN), ketika mengunjungi Web/Blog yang menggunakan Cloudflare Gratisan, maka Lalu Lintas akan dilarikan ke Server Los Angeles, Jepang, atau Server Acak lain nya.
 
 Sebagai imbas nya, tidak sedikit pula pengunjung yang merasa lambat ketika mengakses nya, bahkan sampai tidak bisa diakses sama sekali.
 
@@ -158,19 +154,19 @@ Ketika Anda mengunjungi nya, tunggu saja sampai semua teks nya tampil dengan bai
 
 ![Hasil Pengujian Jangkauan Pusat Data Cloudflare menggunakan Telkomsel. Cuplikan ini diambil pada Tanggal/Hari Rabu, 14 April 2021, Pukul 22:02 WIB](2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365_cropped.jpg)
 
-Jika ini di uji menggunakan ISP Telkom seperti IndiHome, berdasarkan pengalaman pribadi saya saat menggunakan IndiHome di Kota Cirebon (tapi belum sempat saya ambil Cuplikan nya), maka hasilnya mungkin akan sangat mirip dengan diatas.
+Jika ini diuji menggunakan ISP Telkom seperti IndiHome, berdasarkan pengalaman pribadi saya saat menggunakan IndiHome di Kota Cirebon (tapi belum sempat saya ambil Cuplikan nya), maka hasilnya mungkin akan sangat mirip dengan di atas.
 
-{{< spoiler text="Catatan dan Sanggahan mengenai Cuplikan diatas" >}}
+{{< info text="Catatan dan Sanggahan mengenai Cuplikan di atas" >}}
 
-Cuplikan diatas itu merupakan hasil krop gambar, silahkan {{< a-file path="2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365.jpg" >}}klik disini{{< / a-file >}} jika Anda ingin melihat cuplikan asli nya.
+Cuplikan di atas itu merupakan hasil krop gambar, silahkan {{< a-file path="2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365.jpg" >}}klik di sini{{< / a-file >}} jika Anda ingin melihat cuplikan asli nya.
 
-Tapi, saya tidak menjamin keakuratan cuplikan diatas tentang hasil pengujian jangkauan pusat data Cloudflare, karena saya uji ini menggunakan Koneksi dari Telkomsel (Operator: by.U) di Kota Cirebon dan pemiripan/persamaan hasil pengujian saat menggunakan ISP dari Telkom (seperti IndiHome) itu hanya berdasarkan pengalaman pribadi saat menggunakan IndiHome di Kota Cirebon, mungkin di Kota/Kabupaten atau/dan menggunakan Operator/ISP lain hasilnya akan beda.
+Tapi, saya tidak menjamin keakuratan cuplikan di atas tentang hasil pengujian jangkauan pusat data Cloudflare, karena saya uji ini menggunakan Koneksi dari Telkomsel (Operator: by.U) di Kota Cirebon dan pemiripan/persamaan hasil pengujian saat menggunakan ISP dari Telkom (seperti IndiHome) itu hanya berdasarkan pengalaman pribadi saat menggunakan IndiHome di Kota Cirebon, mungkin di Kota/Kabupaten atau/dan menggunakan Operator/ISP lain hasilnya akan beda.
 
 Tapi, setidaknya ini bisa dijadikan pertimbangan bagi Anda untuk memutuskan apakah CDN Cloudflare layak atau tidak bagi Anda sebagai pemilik/pengembang Web/Blog atau/dan pertimbangan untuk mencari ISP lain untuk pengguna biasa/pengunjung yang bukan pemilik/pengembang Web/Blog, walaupun tidak 100% akurat.
 
-{{< / spoiler >}}
+{{< / info >}}
 
-Berdasarkan cuplikan diatas, maka hasil nya bisa disimpulkan sebagai berikut: 
+Berdasarkan cuplikan di atas, maka hasil nya bisa disimpulkan sebagai berikut: 
 
 - Rute CDN yang didapatkan saat mengunjungi kebanyakan Web/Blog yang menggunakan Cloudflare paket Gratis dari Koneksi Telkom atau Telkomsel itu sangatlah kacau dan acak, kadang ke Server Amerika Serikat, Jepang atau jarang-jarang mendapatkan rute ke Singapura.
 - Berlangganan paket "Pro" tidak cukup membantu, namun terkadang ada beberapa situs web yang mendapatkan rute ke Server Hong Kong (HKG) dan paket ini jelas lebih baik daripada yang Gratisan.
@@ -223,47 +219,41 @@ Hal itu bisa Anda lakukan, tapi tidak secara Gratis, minimal Anda perlu berlangg
 
 Mahal? Bagi yang butuh cuma _Nameserver_ Kustom, mungkin iya. Tapi untuk kebanyakan kasus, seperti nya Anda belum tentu butuh fitur tersebut, kalaupun kamu butuh yah jangan gunakan Cloudflare sebagai pengelola DNS kamu 🙂
 
-### Pengunjung bisa jadi 'kabur' jika *Firewall* nya tidak di atur {#pengunjung-bisa-kabur}
+### Pengunjung bisa jadi 'kabur' jika *Firewall* nya tidak diatur {#pengunjung-bisa-kabur}
 Apakah Anda pernah mengalami hal dibawah ini saat mengakses Web/Blog yang menggunakan Cloudflare:
 ![Menyelesaikan CAPTCHA sebelum mengakses sebuah Web. Informasi sengaja saya hitamkan](Cloudflare_Captcha_Screenshot.png)
 
 Atau, bahkan ini:
 ![Ketika pengunjung diblokir aksesnya oleh Cloudflare. Informasi sengaja saya hitamkan](Cloudflare_Error_1006_Screenshot.png)
 
-Jika Anda pernah mengalami nya, maka bukan hanya Anda saja yang pernah mengalami nya, tapi bisa saja pengunjung Web/Blog Anda mengalami hal yang serupa saat mengunjungi Web/Blog Anda yang menggunakan CDN dari Cloudflare. Tapi jika Anda jawab "tidak" pun juga belum tentu itu berlaku ke semua orang, termasuk pengunjung Web/Blog Anda, bisa jadi mereka mengalami hal-hal diatas juga.
+Jika Anda pernah mengalami nya, maka bukan hanya Anda saja yang pernah mengalami nya, tapi bisa saja pengunjung Web/Blog Anda mengalami hal yang serupa saat mengunjungi Web/Blog Anda yang menggunakan CDN dari Cloudflare. Tapi jika Anda jawab "tidak" pun juga belum tentu itu berlaku ke semua orang, termasuk pengunjung Web/Blog Anda, bisa jadi mereka mengalami hal-hal di atas juga.
 
-Penyebabnya macam-macam, salah satu yang paling sering adalah Alamat IP yang digunakan saat mengunjungi Web/Blog itu memiliki reputasi yang buruk alias "kotor". Alamat IP "kotor" ini di sebabkan oleh banyak hal, seperti aktivitas _Phishing_, _Spamming_, Menyebarkan _Malware_, _Fraud_, dsb, dengan menggunakan Alamat IP tersebut.
+Penyebabnya macam-macam, salah satu yang paling sering adalah Alamat IP yang digunakan saat mengunjungi Web/Blog itu memiliki reputasi yang buruk alias "kotor". Alamat IP "kotor" ini disebabkan oleh banyak hal, seperti aktivitas _Phishing_, _Spamming_, Menyebarkan _Malware_, _Fraud_, dsb, dengan menggunakan Alamat IP tersebut.
 
 Alamat IP yang "kotor" bukan berarti perbuatan pengunjung nya "kotor" juga, karena Alamat IP tersebut bisa digunakan oleh banyak orang, terutama saat orang berselancar dengan Internet dan Alamat IP yang digunakan tersebut akan diganti secara otomatis dalam beberapa menit hingga beberapa jam. 
 
-Jika Anda tahu Alamat IP Dinamis (_Dynamic IP Address_) itu apa, maka itulah sistem pembagian Alamat IP dari kebanyakan ISP Rumahan yang berlaku saat ini (apalagi untuk Seluler).
+Jika Anda tahu Alamat IP Dinamis (_Dynamic IP Address_) itu apa, maka itulah sistem pembagian Alamat IP dari kebanyakan ISP Rumahan yang berlaku saat ini (apalagi untuk Seluler). Masalah seperti ini akan sering terjadi jika Web/Blog Anda dikunjungi oleh ISP yang memiliki Alamat IP dengan jumlah yang tidak banyak.
 
 Kembali lagi ketopik yang sebenarnya, menggunakan CDN dari Cloudflare maka artinya kamu telah Menggunakan _Firewall_ nya, ini yang membuat peran _Firewall_ dari Server Asli/Asal (bisa kamu sebut "Server Hosting" jika Anda menggunakan layanan Hosting) terhadap Web/Blog kamu menjadi sedikit tidak berguna.
 
-Serta, jika pengunjung terus-terusan mengalami hal diatas, bukan nya menjadi tidak mungkin kalau pengunjung akan malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari Cloudflare diblokir oleh _Firewall_ dari Server Asli/Asal.
+Serta, jika pengunjung terus-terusan mengalami hal di atas, bukan nya menjadi tidak mungkin kalau pengunjung akan malas mengunjungi Web/Blog Anda, apalagi jika sampai tetap diblokir juga setelah beberapa kali mengaksesnya, atau jika Alamat IP dari Cloudflare diblokir oleh _Firewall_ dari Server Asli/Asal.
 
-Jadi, jika Anda tidak ingin kehilangan pengunjung hanya karena pengalaman diatas, maka aturlah _Firewall_ dari Cloudflare nya dengan benar dan pastikan kalau Server Asli/Asal tidak memblokir [Alamat IP dari Cloudflare](https://www.cloudflare.com/ips/).
+Jadi, jika Anda tidak ingin kehilangan pengunjung hanya karena pengalaman di atas, maka aturlah _Firewall_ dari Cloudflare nya dengan benar dan pastikan kalau Server Asli/Asal tidak memblokir [Alamat IP dari Cloudflare](https://www.cloudflare.com/ips/).
 
 Atau, jika Hosting yang Anda gunakan itu menyediakan Proteksi terhadap DDoS secara gratis, maka sudah seharusnya Anda tidak perlu lagi menggunakan Proteksi DDoS atau Layanan _Firewall_ dan CDN dari Cloudflare untuk itu, cukup percayakan saja kepada pihak Hosting dan lakukan pencadangan (_backup_) secara berkala ke luar Server Asal (entah data nya disimpan ke PC, ke Penyimpanan Awan, dll).
 
 Lagian, Web/Blog kamu belum tentu selalu menjadi target dari serangan DDoS juga, kan? Masalah melindungi Web/Blog dari serangan lain, seperti _Deface_ maka Anda bisa melakukan nya sendiri, tidak perlu sampai menggunakan CDN dari Cloudflare untuk itu.
 
 ## Kesimpulan
-Setelah semua ini, apakah saya masih perlu menggunakan nya? Maka jawaban nya adalah Anda tidak disarankan menggunakan Layanan CDN Gratisan dari Cloudflare untuk Web/Blog Anda dengan dalih untuk mempercepat dan mengamankan suatu Web/Blog, karena rute CDN nya yang seringkali _ngaco_, maka bukan nya mempercepat malah memperlambat bahkan menghalangi orang lain mengaksesnya. 
+Setelah semua ini, apakah saya masih perlu menggunakan nya? Maka jawaban nya adalah Anda tidak disarankan menggunakan Layanan CDN Gratisan dari Cloudflare untuk Web/Blog Anda dengan dalih untuk mempercepat dan mengamankan suatu Web/Blog. 
 
-Sudah rute CDN nya _ngaco_, terus Koneksi Internasional dari Telkom/Telkomsel juga buruk, jadinya pantas saja jika orang-orang pada protes setelah menggunakan CDN dari Cloudflare (terutama untuk pengguna Gratisan dan pengguna paket "Pro"). Belum sama koneksi dari Server Hosting ke Cloudflare nya, kalo koneksi nya buruk atau bahkan Alamat IP Cloudflare nya sampai diblokir oleh _Firewall_ Server nya, bisa-bisa Web/Blog nya malah dianggap nge-_down_, padahal tidak sama sekali.
+Karena rute CDN nya yang seringkali _ngaco_ terutama jika dikunjungi menggunakan koneksi dari Telkom (salah satunya: IndiHome)/Telkomsel karena Koneksi Internasional nya buruk, maka bukan nya mempercepat malah memperlambat bahkan menghalangi orang lain mengaksesnya. Hal tersebut tidak berlaku jika Anda berlangganan Paket "Enterprise" nya.
 
-Menggunakan Layanan Pengelola DNS/DNS Otoritatif nya saja sudah sangat cukup dan sangat layak untuk digunakan secara gratis, tidak perlu sampai menggunakan CDN nya (mengubah awan nya menjadi awan oranye). Waktu _Resolve_ nya tergolong sangat cepat, _Uptime_ nya sangat memuaskan untuk versi gratisan nya dan fitur-fitur nya sangat cukup untuk Pengguna pada Umum nya (kecuali _Nameserver_ Kustom yang gak bisa diperoleh secara gratis).
+Saya yakin bahwa masalah tersebut bukan cuma untuk 2 ISP itu saja, itupun belum sama resiko kehilangan pengunjung karena harus menyelesaikan CAPTCHA atau bahkan diblokir karena dikunjungi menggunakan Alamat IP yang "kotor" jika tidak diatur _Firewall_ nya dengan baik, ini akan sering terjadi di ISP yang memiliki jumlah Alamat IP yang sedikit.
 
-Jika Anda ingin menggunakan CDN dari Cloudflare, maka lebih baik Anda perlu berlangganan Paket "Enterprise" nya saja sekalian untuk mendapatkan prioritas jaringan yang terbaik atau seminimal-minimalnya Anda perlu berlangganan paket "Business" untuk mendapatkan prioritas jaringan yang lebih baik, apalagi jika mayoritas pengunjung nya menggunakan koneksi dari Telkom/Telkomsel.
+Belum juga sama koneksi dari Server Hosting ke Cloudflare nya, kalo koneksi nya buruk atau bahkan Alamat IP Cloudflare nya sampai diblokir oleh _Firewall_ Server nya, bisa-bisa Web/Blog nya malah dianggap nge-_down_, padahal tidak sama sekali.
 
-Kecuali jika Anda menggunakan nya untuk menyembunyikan Alamat IP Server Asli nya, yah bisa pake itu, hanya saja jangan terlalu berekspektasi terhadap kecepatan dan kenyamanan akses dari pengunjung.
-
-Tapi jika Anda sangat ingin menggunakan CDN dari Cloudflare demi menghemat konsumsi _Bandwidth_ Server, maka pastikan Opsi "Cache Level" kamu atur ke "Cache Everything" melalui "Page Rules" (Gunakan opsi tersebut secara bijak) atau/dan pastikan juga bahwa berkas-berkas statik lain nya (Seperti Berkas Gambar, JavaScript, CSS, Berkas-berkas Fonta, dll) di _Cache_ lebih lama dengan menyetel _Header_ `Cache-Control` nya menjadi `public, max-age=31536000, immutable` dan tentunya kamu lakukan itu dengan benar.
-
-Jika berkas statik di _Cache_ dalam waktu lama, maka Pengunjung tidak perlu lagi sampai mengunduh berkas-berkas tersebut saat mengunjungi Web/Blog Anda dari Server manapun, melainkan hanya perlu memuatnya dari Media Penyimpanan nya saja.
-
-Serta, aturlah _Firewall_ di Cloudflare dengan benar jika Anda tidak ingin kehilangan pengunjung Web/Blog Anda karena diblokir/disuruh menyelesaikan CAPTCHA, karena yang seperti itu besar kemungkinan akan sering terjadi, terutama jika diakses dari Pengunjung yang menggunakan ISP dari Telkom/Telkomsel yang mempunyai banyak sekali Alamat IP nya.
+Jika Anda ingin menggunakan Cloudflare sebagai CDN dengan alasan apapun, maka jangan terlalu berharap terutama pada kecepatan. Saya sendiri lebih menyarankan Anda untuk menggunakan nya sebagai Pengelola DNS untuk Domain Anda, dan itu masih sangat layak digunakan tanpa perlu berlangganan apapun alias secara Gratis, karena Server DNS nya sangat cepat dan reliabel untuk versi gratis nya.
 
 ## Pertanyaan dan Jawaban yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
 Ini adalah bagian yang berisi tentang Pertanyaan yang (akan) sering ditanyakan, beserta Jawaban nya.
@@ -288,9 +278,9 @@ Cuplikan dibawah ini merupakan hasil dari penggunaan `/cdn-cgi/trace` untuk nama
 
 Seperti yang Anda lihat bahwa saya diarahkan ke Server/Pusat data yang ada di Singapura (SIN), dilihat dari `colo` nya yang bernilai `SIN`, padahal lokasi nya ada di Indonesia (`loc=ID`) dan Cloudflare mempunyai pusat data nya di Jakarta[^11].
 
-Nah, darisini lah saya biasanya menebak Paket Cloudflare apa yang Anda gunakan untuk Web/Blog Anda, kalau rutenya tidak sesuai dengan ekspektasi, maka saya tebak kalau kemungkinan terbesarnya Anda menggunakan CDN Cloudflare Gratisan atau bisa jadi pengguna Paket "Pro", jika sebaliknya maka bisa dipastikan kemungkinan terbesarnya menggunakan paket "Enterprise", meskipun ada kemungkinan yang menggunakan Paket "Business" juga.
+Nah, dari sini lah saya biasanya menebak Paket Cloudflare apa yang Anda gunakan untuk Web/Blog Anda, kalau rutenya tidak sesuai dengan ekspektasi, maka saya tebak kalau kemungkinan terbesarnya Anda menggunakan CDN Cloudflare Gratisan atau bisa jadi pengguna Paket "Pro", jika sebaliknya maka bisa dipastikan kemungkinan terbesarnya menggunakan paket "Enterprise", meskipun ada kemungkinan yang menggunakan Paket "Business" juga.
 
-Oh iya, saya tidak menggunakan koneksi dari ISP Telkomsel/Telkom (seperti : IndiHome) untuk melakukan pengujian diatas, melainkan saya menggunakan Transvision Hi-Speed yang nanti akan saya ceritakan pengalaman nya.
+Oh iya, saya tidak menggunakan koneksi dari ISP Telkomsel/Telkom (seperti: IndiHome) untuk melakukan pengujian di atas, melainkan saya menggunakan Transvision Hi-Speed yang nanti akan saya ceritakan pengalaman nya.
 
 ### Pertanyaan ke-3: Apa maksud dari 3 Huruf yang tampil di Situs Web `cloudflare-test.judge.sh` atau di `/cdn-cgi/trace`? Seperti `SIN` atau `colo=SIN`? {#pertanyaan-ke3}
 Jawab: 3 Huruf itu adalah Kode IATA (singkatan dari: _International Air Transport Association_ atau bahasa Indonesia nya: Asosiasi Pengangkutan Udara Internasional), kebanyakan bandar udara (baik domestik ataupun internasional) memiliki kode ini sebagai Identifikasi.
@@ -315,15 +305,17 @@ Meskipun begitu, Layanan CDN seperti Statically mampu menghantarkan berkas-berka
 
 Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
 
-{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
-Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
+{{< info text="**\*Catatan mengenai tautan di atas**" >}}
+Tautan BunnyCDN di atas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
 
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.
-{{< / spoiler >}}
+{{< / info >}}
+
+Selain BunnyCDN, mungkin Anda bisa mencoba Layanan CDN dari Arc.io, selain mendapatkan layanan CDN yang berbasis _Peer-to-Peer_ (P2P) nya, Anda bisa mendapatkan uang juga.
 
 Atau, jika Anda ingin Layanan CDN yang kelas dunia, namun Anda tidak ingin menggunakan [Cloudflare Enterprise](https://www.cloudflare.com/enterprise/), bisa gunakan Layanan CDN dari [Akamai](https://www.akamai.com) atau [5centscdn](https://www.5centscdn.net/) untuk lebih 'murah' nya.
 
-Sekedar Informasi saja bahwa mayoritas ISP di Indonesia (termasuk Telkomsel/Telkom) memiliki hubungan/relasi yang baik dengan Akamai dan bahkan ada beberapa diantaranya memiliki Server _Cache_ nya sendiri sehingga akses nya akan jauh lebih cepat oleh Pengguna ISP nya, sehingga ini patut dipertimbangkan.
+Sekadar Informasi saja bahwa mayoritas ISP di Indonesia (termasuk Telkomsel/Telkom) memiliki hubungan/relasi yang baik dengan Akamai dan bahkan ada beberapa diantaranya memiliki Server _Cache_ nya sendiri sehingga akses nya akan jauh lebih cepat oleh Pengguna ISP nya, sehingga ini patut dipertimbangkan.
 
 Layanan CDN dari _Hyperscaler_ Raksasa seperti [Google Cloud CDN](https://cloud.google.com/cdn), AWS [CloudFront](https://aws.amazon.com/id/cloudfront/)/[Global Accelerator](https://aws.amazon.com/global-accelerator/), [Alibaba Cloud CDN](https://www.alibabacloud.com/id/product/cdn) atau [Microsoft Azure CDN](https://azure.microsoft.com/services/cdn/)\*\* mungkin bisa Anda pertimbangkan juga, mengingat mayoritas dari mereka memiliki pusat data di Indonesia (khususnya di Jakarta) dengan biaya yang bisa Anda hitung sendiri dan masing-masing ada "Tingkat Gratis" nya juga, walau gak semua.
 
@@ -332,7 +324,7 @@ Layanan CDN dari _Hyperscaler_ Raksasa seperti [Google Cloud CDN](https://cloud.
 Saya tidak bisa menyebutkan selain itu, jadi saya kira cukupkan sampai sini saja untuk layanan CDN nya.
 
 ### Pertanyaan ke-6: Apa itu "Server Asli" atau "Server Asal"? {#pertanyaan-ke6}
-Jawab: "Server Asli" atau "Server Asal" itu merujuk pada Server yang Anda gunakan untuk meng-hoskan Situs Web/Blog Anda, entah itu di Server Hosting (jika Anda menggunakan layanan _Shared Hosting_ dan layanan Hosting lainnya), Server VPS, Server Khusus _(Dedicated Server)_, Server Kolokasi _(Colocation Server)_, Server Penyimpanan _(Storage Server)_, dll.
+Jawab: "Server Asli" atau "Server Asal" itu merujuk pada Server yang Anda gunakan untuk menghoskan Situs Web/Blog Anda, entah itu di Server Hosting (jika Anda menggunakan layanan _Shared Hosting_ dan layanan Hosting lainnya), Server VPS, Server Khusus _(Dedicated Server)_, Server Kolokasi _(Colocation Server)_, Server Penyimpanan _(Storage Server)_, dll.
 
 "Server Asli" atau "Server Asal" juga merupakan Bahasa Indonesia dari "Origin Server". Kenapa disebut seperti itu oleh Penyedia CDN adalah karena cara kerja CDN itu sendiri yang berperan sebagai 'penengah'.
 
@@ -354,7 +346,7 @@ Ya sudah, sepertinya pembahas di artikel ini saya cukupkan sampai sini saja. Ngo
 
 Terima kasih bagi Anda yang telah membaca artikel ini. Mohon maaf jika artikel ini memiliki kekeliruan dan kesalahan, baik dari ada yang salah ngetik, terlalu panjang, bertele-tele, dll.
 
-Serta saya juga tidak bermaksud untuk menyinggung siapapun disini, saya cuma bermaksud untuk membahas tentang Kelebihan dan Kekurangan dari Ketiga Layanan Cloudflare yang bisa digunakan untuk Web/Blog Anda. Saya juga berharap agar pembaca bisa mempertimbangkan keputusan nya mengenai penggunaan layanan dari Cloudflare untuk Web/Blog nya setelah membaca artikel ini.
+Serta saya juga tidak bermaksud untuk menyinggung siapapun di sini, saya cuma bermaksud untuk membahas tentang Kelebihan dan Kekurangan dari Ketiga Layanan Cloudflare yang bisa digunakan untuk Web/Blog Anda. Saya juga berharap agar pembaca bisa mempertimbangkan keputusan nya mengenai penggunaan layanan dari Cloudflare untuk Web/Blog nya setelah membaca artikel ini.
 
 Jika adanya kesalahan dan kekeliruan dari saya, atau jika Anda memiliki pertanyaan lain nya/klarifikasi, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepan nya nanti.
 
@@ -363,7 +355,7 @@ Terima kasih atas perhatian nya dan ~~Selamat menunaikan Ibadah Puasa Ramadhan 1
 **PEMBARUAN Jum'at, 28 Mei 2021:** Sekarang bulan Ramadhan sudah berakhir dan memasukki bulan Syawal sejak Artikel ini diperbarui. Selamat Hari Raya Idul Fitri 1442H, Mohon maaf lahir dan batin dan maaf juga kalau saya sangat telat mengucapkan nya 🙏
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang digunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 

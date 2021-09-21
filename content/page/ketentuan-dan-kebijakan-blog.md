@@ -3,6 +3,7 @@ Title: Ketentuan dan Kebijakan Blog
 Slug: ketentuan-dan-kebijakan-blog
 Authors: Farrel Franqois
 comments: false
+license: Laman ini telah saya buat dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
 menu:
   main:
     identifier: policy
@@ -28,7 +29,7 @@ Blog ini dan konten nya saya rilis di bawah lisensi berikut:
 
 - Blog ini menggunakan [Twemoji (Twitter Emoji)](https://twemoji.twitter.com/) yang merupakan salah satu Emoji yang di buat oleh Twitter sebagai Emoji Bawaan nya. Di Lisensi kan di bawah ["Creative Commons Attribution 4.0 Internasional (CC BY 4.0)"](https://creativecommons.org/licenses/by/4.0/) untuk Grafik Emoji nya dan [Lisensi MIT](https://github.com/twitter/twemoji/blob/master/LICENSE) untuk [Kode Sumber nya](https://github.com/twitter/twemoji).
 
-- Mungkin untuk Gambar, Illustrasi, Grafis atau/dan referensi lain nya yang telah saya dapatkan dari Situs Web/Blog lain akan menggunakan Lisensi yang berbeda. Oleh karena itu, sebagai kredit (jika di izinkan), saya akan berikan atribusi berupa pencantuman Judul/Nama dari Gambar/Illustrasi/Grafis, Pembuat nya, Sumber Gambar dan juga Lisensi yang di gunakan nya di akhir artikel/laman.
+- Mungkin untuk Gambar, Illustrasi, Grafis atau/dan referensi lain nya yang telah saya dapatkan dari Situs Web/Blog lain akan menggunakan Lisensi yang berbeda. Oleh karena itu, sebagai kredit (jika di izinkan), saya akan berikan atribusi berupa pencantuman Judul/Nama dari Gambar/Illustrasi/Grafis, Pembuat nya, Sumber Gambar dan juga Lisensi yang di gunakan nya di akhir artikel/halaman.
 
 
 ### Merek Dagang Perusahaan
@@ -49,7 +50,7 @@ Jadi, segala resiko yang telah Anda timbulkan setelah mengakses, menjelajah, dan
 
 
 ### Kerahasiaan informasi yang dikirim oleh Anda
-Tentu saja, saya tidak ingin menerima Informasi Rahasia dari Anda melalui Blog ini. Setiap Informasi atau Materi yang di kirim ke Blog ini akan dianggap tidak bersifat Rahasia atau bukan suatu Informasi yang di rahasia-kan dan itu bisa di publikasikan oleh saya dan juga pengunjung lain nya, bahkan oleh pihak ketiga lain nya.
+Tentu saja, saya tidak ingin menerima Informasi Rahasia dari Anda melalui Blog ini. Setiap Informasi atau Materi yang di kirim ke Blog ini akan dianggap tidak bersifat Rahasia atau bukan suatu Informasi yang di rahasiakan dan itu bisa di publikasikan oleh saya dan juga pengunjung lain nya, bahkan oleh pihak ketiga lain nya.
 
 Ini Artinya, Anda mengakui bahwa Anda yang bertanggung jawab penuh atas semua konten atau/dan informasi yang telah Anda kirimkan kepada saya.
 
@@ -80,7 +81,7 @@ Saya menggunakan [Disqus](https://disqus.com) sebagai Sistem Komentar di dalam B
 
 Jadi karena mereka memiliki Kebijakan Privasi nya sendiri, maka artinya Anda telah mengakui bahwa saya tidak bisa 'benar-benar' mengendalikan data/aliran data Anda. Karena saya tidak bisa 'benar-benar' mengendalikan data Anda, dan jika Anda berkomentar di dalam blog ini, ini artinya Anda telah menyetujui dan mematuhi [Kebijakan Privasi dari Disqus](https://help.disqus.com/en/articles/1717103-disqus-privacy-policy).
 
-Namun, Anda bisa mengatur bagaimana Disqus akan menggunakan/membagikan Data yang ada pada akun Disqus Anda. Anda bisa mengatur nya [disini](https://disqus.com/data-sharing-settings/).
+Namun, Anda bisa mengatur bagaimana Disqus akan menggunakan/membagikan Data yang ada pada akun Disqus Anda. Anda bisa mengatur nya [di sini](https://disqus.com/data-sharing-settings/).
 
 Jadi, harap maklum.
 
@@ -90,13 +91,13 @@ Anda berhak untuk mengomentari atau bertanya disini, selama topik pembahasan nya
 
 Ini artinya Anda tidak diperbolehkan untuk mengomentari yang tidak berkaitan dengan topik pembahasan dari Artikel/Pos di Blog ini, dengan alasan apapun. Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus, jika berulang kali di lakukan (selama 3 kali) maka akun Anda akan saya Ban.
 
-Saya telah menyediakan sebuah 'wadah' agar Anda bisa berkomentar di luar topik pembahasan Artikel/Pos, bahkan di luar pembahasan yang ada di Blog ini, yaitu sebuah laman bernama ["Buku Tamu"](/buku-tamu).
+Saya telah menyediakan sebuah 'wadah' agar Anda bisa berkomentar di luar topik pembahasan Artikel/Pos, bahkan di luar pembahasan yang ada di Blog ini, yaitu sebuah halaman yang bernama ["Buku Tamu"](/buku-tamu).
 
 Di Laman tersebut Anda bisa berkomentar dengan topik apapun, baik itu yang berkaitan dengan pembahasan di Blog ini atau tidak sama sekali, selama Anda menyetujui dan mematuhi ketentuan dan kebijakan ini.
 
 
 ### Lisensi Komentar
-Secara bawaan, komentar Anda akan di lindungi oleh Undang-undang Hak Cipta yang berlaku di setiap Negara, termasuk tapi tidak terbatas pada Negara Kesatuan Republik Indonesia.
+Secara asali, komentar Anda akan di lindungi oleh Undang-undang Hak Cipta yang berlaku di setiap Negara, termasuk tapi tidak terbatas pada Negara Kesatuan Republik Indonesia.
 
 Anda mempunyai hak untuk menentukan Lisensi mana yang akan Anda gunakan di dalam kolom komentar, selama lisensi tersebut memperbolehkan orang lain untuk melihat, membaca dan memahami komentar Anda.
 
@@ -122,11 +123,7 @@ Anda dilarang untuk menggantikan nama merek dagang tersebut dengan nama lain tan
 
 Ingatlah bahwa semua merek dagang yang Anda dan saya sebutkan di blog ini semua nya telah dimiliki oleh pemiliknya masing-masing, sehingga Anda harus mematuhi tata cara penulisan dan penyebutan merek dagang yang disediakan oleh pemilik merek dagang.
 
-Serta Anda juga tidak perlu menyensorkan setiap nama merek dagang yang ingin Anda sebut/tulis, karena ini bukan acara televisi, meskipun Anda berhak untuk menyensorkan namanya dengan alasan yang jelas dan tidak berniat untuk mengejek nya.
-
-Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus. Namun, jika adanya pelanggaran yang ringan, seperti dilakukan Penyensoran terhadap Merek Dagang tanpa alasan yang jelas, salah penyebutan, dll, maka akan di ingatkan atau saya Edit komentar Anda.
-
-Jika Anda melakukan itu berulang kali padahal sudah di ingatkan, maka akun Anda akan saya ban. Harap maklum.
+Jika Anda melanggar aturan ini, maka komentar Anda akan saya hapus. Tapi jika Anda melakukan itu berulang kali, maka akun Anda akan saya ban. Harap maklum.
 
 
 ### Pornografi, Pelecehan Seksual dan Tindakan Asusila
@@ -178,11 +175,11 @@ Jadi, mohon bijaksanalah dan hati-hati dalam berkomentar.
 ### Jaminan Balasan Komentar dan Pertanyaan
 Dengan berkomentar di Blog ini, maka artinya Anda telah mengakui bahwa segala komentar/pertanyaan yang Anda lontarkan tidak menjamin akan mendapatkan jawaban atau balasan nya secara langsung, baik itu dari orang lain, atau bahkan dari saya itu sendiri.
 
-Ini Artinya, setiap orang memiliki Hak untuk tidak menjawab atau membalas Pertanyaan atau Komentar Anda dengan alasan apapun, termasuk Karena Ketidaktahuan nya, Sedang Sibuk, Terjadinya Bencana/Berita Duka, dan segala situasi atau kondisi yang menyebabkan demikian. 
+Ini Artinya, setiap orang memiliki hak untuk tidak menjawab atau membalas pertanyaan atau komentar Anda dengan alasan apapun, termasuk, tetapi tidak terbatas pada ketidaktahuannya, sedang sibuk, terjadinya bencana/berita duka, dan segala situasi atau kondisi yang menyebabkan demikian.
 
 Jadi, jika Anda berkomentar disini, maka sebaiknya Anda jangan pernah merasa berhak untuk di jawab atau di balas oleh orang lain dengan alasan apapun. Sadarilah bahwa Anda tidak mengeluarkan uang sepeserpun untuk berkomentar/bertanya disini, jadi jawaban/balasan komentar yang ada itu bersifat "sukarela".
 
-Jika Anda melanggar ketentuan ini, maka tuntutan hak Anda untuk di jawab akan saya hapus, jika ini di lakukan beberapa kali, maka akun Anda akan saya ban. Harap maklumi.
+Jika Anda melanggar ketentuan ini, maka komentar Anda mengenai tuntutan hak Anda untuk di jawab akan saya hapus, jika ini di lakukan beberapa kali, maka akun Anda akan saya ban. Harap maklumi.
 
 
 ### Kepatuhan terhadap Aturan Hukum
@@ -204,15 +201,15 @@ Jadi, baca/tidak baca, mau/tidak mau, suka/tidak suka atau setuju/tidak setuju, 
 
 Jika Anda tidak menyetujui dan tidak ingin mematuhi pernyataan tersebut, maka sebaiknya Anda tidak perlu mengunjungi, menjelajahi dan menggunakan blog ini. Harap maklumi.
 
-Serta semua Pernyataan yang ada di laman ini akan di rubah kapanpun dan dimanapun oleh saya sendiri, tanpa pemberitahuan terlebih dahulu, dengan alasan apapun.
+Serta semua Pernyataan yang ada di halaman ini akan di rubah kapanpun dan dimanapun oleh saya sendiri, tanpa pemberitahuan terlebih dahulu, dengan alasan apapun.
 
-Ketentuan dan Kebijakan Blog ini:
+Mengenai halaman Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/di ubah pada Hari/Tanggal: **Rabu, 24 Maret 2021**
-- Di berlakukan pada Hari/Tanggal: **Rabu, 24 Maret 2021**
+- Di perbarui/di ubah pada Hari/Tanggal: **Rabu, 22 September 2021**
+- Di berlakukan pada Hari/Tanggal: **Rabu, 22 September 2021**
 
 
 ## Penutup
-Baiklah, sekian untuk laman Ketentuan dan Kebijakan Blog kali ini. Semoga Anda memahami dan memaklumi adanya Ketentuan dan Pernyataan seperti ini. Dan, semoga Anda bisa mentaati nya untuk kebaikan bersama dan Anda juga.
+Baiklah, sekian untuk halaman Ketentuan dan Kebijakan Blog kali ini. Semoga Anda memahami dan memaklumi adanya Ketentuan dan Pernyataan seperti ini. Dan, semoga Anda bisa mentaati nya untuk kebaikan bersama dan Anda juga.
 
 Terima kasih atas perhatian nya dari Anda 😊

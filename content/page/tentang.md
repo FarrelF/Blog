@@ -1,6 +1,7 @@
 ---
 title: Tentang
 description: Laman ini berisikan Informasi Tentang Saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
+license: Laman ini telah saya buat dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
 slug: tentang
 comments: false
 aliases: 
@@ -15,6 +16,12 @@ menu:
     weight: -90
     pre: user
 ---
+<style>
+  .tab-center {
+    display: block;
+    text-align: center;
+  }
+</style>
 
 ## Tentang Saya dan Blog ini
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
@@ -39,7 +46,20 @@ Bukan apa-apa, namun kedepan nya mungkin blog ini agak nge-_random_ dari yang bi
 - Keybase: [FarrelF](https://keybase.io/farrelf) (Jarang Aktif)
 
 ## Kunci PGP/GPG
-- [`0xA47AE59DC94ABF69`](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69) atau [`A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69) (Masa Berlaku: 21 Januari 2026)
+
+Berikut adalah Informasi mengenai kunci GPG saya:
+
+|<span class="tab-center">Informasi</span>|<span class="tab-center">Nilai</span>|
+|:--------------------|:-------------------------------------------------------------|
+| Atas Nama           | Farrel Franqois                                              |
+| Jenis Kunci         | ECC (Curve 25519)                                            |
+| Masa Berlaku        | 21 Januari 2026                                              |
+| ID Kunci (Pendek)   | `0xA47AE59DC94ABF69`                                         |
+| ID Kunci (Panjang)  | `A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`          |
+
+Unduh kunci:
+- [Mailvelope](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69)
+- [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
 
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF)

@@ -1,0 +1,52 @@
+languageCode: id-id
+title: Farrel Franqois Blog
+theme: hugo-theme-stack
+paginate: 5
+enableEmoji: true
+enableInlineShortcodes: true
+enableGitInfo: true
+content-dir: content
+timeout: 1200000
+timeZone: "Asia/Jakarta"
+
+DefaultContentLanguage: id
+disqusShortname: farrelf-blog
+
+ignoreFiles:
+  - README.md
+
+permalinks:
+  post: /:slug/
+  page: /:slug/
+  tags: /tag/:slug/
+  categories: /kategori/:slug/
+
+menu:
+  main:
+    - identifier: home
+      name: Beranda
+      url: /
+      weight: -100
+      pre: home
+
+related:
+  includeNewer: true
+  threshold: 60
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+
+    - name: categories
+      weight: 200
+
+markup:
+  tableOfContents:
+    start: 1
+    end: 4
+    ordered: true
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true

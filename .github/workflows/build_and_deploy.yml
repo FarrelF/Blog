@@ -72,16 +72,15 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v2-hugo-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
+        key: v2-1-hugo-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
         restore-keys: | 
-          - v2-hugo-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/config.yaml') }}
-          - v2-hugo-${{ hashFiles('**/Images.hash.list') }}-${{ hashFiles('**/layouts-tree.hash') }}-
-          - v2-hugo-${{ hashFiles('**/Images.hash.list') }}-
+          - v2-1-hugo-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
+          - v2-1-hugo-${{ hashFiles('**/layouts-tree.hash') }}-
 
     - name: Building the Blog HTML
       run: |
         rm static/robots_preview
-        hugo --gc --minify --enableGitInfo --cacheDir ${PWD}/cache
+        hugo --gc --minify --cacheDir ${PWD}/cache
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
