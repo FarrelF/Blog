@@ -1339,9 +1339,9 @@ acme.sh --set-default-ca --server letsencrypt
 Penggantian ini harusnya dilakukan sebelum Anda menerbitkan sertifikat SSL apapun, karena ini hanya berefek jika Anda menerbitkan sertifikat SSL terbaru. Tapi jika Anda melakukan itu setelah menerbitkan sertifikat SSL nya, maka Anda perlu menggantikan sertifikat SSL tersebut.
 
 ### Pertanyaan ke-5: Bagaimana caranya agar saya bisa menggantikan sertifikat SSL menjadi dari Let's Encrypt atau CA lain nya, saya tidak ingin sertifikat SSL dari ZeroSSL? {#pertanyaan-ke5}
-**Jawab:** Caranya Anda tinggal menerbitkan ulang sertifikat SSL dengan CA yang berbeda secara paksa.
+**Jawab:** Caranya Anda tinggal terbitkan ulang sertifikat SSL oleh CA yang berbeda secara paksa.
 
-Saat menerbitkan sertifikat SSL, Anda tinggal perlu tambahkan parameter `--server opsi_ca`, setelah itu Anda harus barengi itu dengan opsi `--force` agar acme.sh dapat melakukan nya dengan paksa. Tanpa parameter/argumen `--force`, maka Anda tidak mungkin bisa mengganti nya.
+Saat menerbitkan sertifikat SSL, Anda perlu menambahkan parameter `--server opsi_ca` dan itu harus dibarengi dengan parameter `--force` agar acme.sh dapat melakukan nya dengan paksa. Tanpa parameter/argumen `--force`, maka Anda tidak mungkin bisa mengganti nya.
 
 Format perintah nya akan seperti berikut:
 
@@ -1352,7 +1352,7 @@ acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
 Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Server ACME yang dimiliki oleh CA, seperti yang telah saya bahas di pertanyaan sebelumnya.
 
 ### Pertanyaan ke-6: Bagaimana caranya agar saya bisa menghapus sertifikat nya? {#pertanyaan-ke6}
-**Jawab:** Jika Anda ingin berniat untuk menghapus sertifikat SSL dari acme.sh, maka Anda perlu mengetahui Domain mana yang ingin dihapus sertifikat SSL nya dan Domain Pertama yang Anda masukkan saat menerbitkan sertifikat SSL nya.
+**Jawab:** Jika Anda berniat untuk menghapus sertifikat SSL dari acme.sh, maka Anda perlu mengetahui Domain mana yang ingin dihapus sertifikat SSL nya dan Domain Pertama yang Anda masukkan saat menerbitkan sertifikat SSL nya.
 
 Pertama-tama, Anda perlu tahu Domain Pertama yang Anda masukkan dengan mengetahui isi dari direktori acme.sh nya, memakai perintah berikut: (beserta keluarannya)
 
@@ -1375,9 +1375,9 @@ drwx------   2 user user   4096 Jul 22 12:06 domain.com_ecc
 drwxr-xr-x   2 user user   4096 Agu 11 16:56 notify
 ```
 
-Nah, sekarang lihat pada hasil keluaran di atas, itu ada nama domain `domain.com` dan `*.domain.com`, itu adalah domain pertama yang Anda masukkan saat menerbitkan sertifikat SSL, beserta ada versi ECC nya.
+Nah, sekarang lihat hasil keluaran di atas, itu ada nama domain `domain.com` dan `*.domain.com`, itu adalah domain pertama yang Anda masukkan saat menerbitkan sertifikat SSL, beserta ada versi ECC nya (cth. `domain.com_ecc` dan `*.domain.com_ecc`).
 
-Anda bisa pilih salah satu domain yang ingin Anda hapus, di pembahasan kali ini saya menghapus sertifikat SSL untuk `domain.com`.
+Anda bisa pilih salah satu domain yang ingin Anda hapus, di pembahasan kali ini saya menghapus sertifikat SSL untuk `domain.com` yang bukan merupakan sertifikat SSL dengan kunci ECC.
 
 Untuk memasukkan alamat Domain nya, Anda tidak perlu mengingat deretan domain saat menerbitkan SSL, Anda cukup tahu Domain Pertama yang Anda masukkan saat menerbitkan sertifikat SSL nya dan itu bisa Anda lihat melalui nama direktorinya saja.
 
@@ -1526,7 +1526,7 @@ Jika Anda bingung, silahkan lihat cuplikan berikut:
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
-Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android, serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
+Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
 
 Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan.
 
