@@ -1,5 +1,5 @@
 ---
-title: Buku tamu
+title: Buku Tamu
 slug: buku-tamu
 author: Farrel Franqois
 license: Laman ini telah saya buat dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>

@@ -54,12 +54,13 @@ Berikut adalah Informasi mengenai kunci GPG saya:
 | Atas Nama           | Farrel Franqois                                              |
 | Jenis Kunci         | ECC (Curve 25519)                                            |
 | Masa Berlaku        | 21 Januari 2026                                              |
-| ID Kunci (Pendek)   | `0xA47AE59DC94ABF69`                                         |
+| ID Kunci (Pendek)   | `0xA47AE59DC94ABF69` atau `A47AE59DC94ABF69`                 |
 | ID Kunci (Panjang)  | `A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`          |
 
 Unduh kunci:
 - [Mailvelope](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69)
 - [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
+- [Blog ini (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF)

@@ -14,3 +14,17 @@ arcio:
   # Check https://arc.io
   enabled: true
   widgetId: D1Tc1z8H
+
+comments:
+  enabled: true
+  provider: giscus
+  giscus:
+    repo: FarrelF/Blog
+    repoID: MDEwOlJlcG9zaXRvcnkzMzYxMTQzMzc=
+    category: Komentar Blog
+    categoryID: DIC_kwDOFAiyoc4B_M30
+    mapping: pathname
+    lightTheme: light
+    darkTheme: dark_dimmed
+    reactionsEnabled: 1
+    emitMetadata: 1

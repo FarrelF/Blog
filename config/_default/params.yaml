@@ -30,15 +30,6 @@ favicon:
 footer:
   since: 2019
 
-comments:
-  enabled: true
-  provider: disqus
-  utterances:
-    repo:
-    issueTerm: pathname
-    label:
-    theme: preferred-color-scheme
-
 widgets:
   enabled:
     - search

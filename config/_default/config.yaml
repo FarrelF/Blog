@@ -10,7 +10,6 @@ timeout: 1200000
 timeZone: "Asia/Jakarta"
 
 DefaultContentLanguage: id
-disqusShortname: farrelf-blog
 
 ignoreFiles:
   - README.md
