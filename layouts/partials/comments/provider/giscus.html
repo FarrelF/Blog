@@ -2,12 +2,43 @@
 <div id="giscus_thread">
     <div id="giscus_empty"></div>
 </div>
+{{- if eq .lazyLoad "intersectionObserver" -}}
+<script>
+    var giscus_observer = new IntersectionObserver(function(entries) {
+        // comments section reached
+        // start loading Disqus now
+        
+        if(entries[0].isIntersecting) {
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://giscus.app/client.js';
+                s.type = 'text/javascript';
+                s.async = true;
+                s.crossOrigin = 'anonymous';
+                s.setAttribute('data-repo', '{{- .repo -}}');
+                s.setAttribute('data-repo-id', '{{- .repoID -}}');
+                s.setAttribute('data-category', '{{- .category -}}');
+                s.setAttribute('data-category-id', '{{- .categoryID -}}');
+                s.setAttribute('data-reactions-enabled', '{{- default 1 .reactionsEnabled -}}');
+                s.setAttribute('data-emit-metadata', '{{- default 0 .emitMetadata -}}');
+                s.setAttribute('data-theme', '{{- default `light` .lightTheme -}}');
+                (d.getElementById('giscus_thread')).appendChild(s);
+                console.log('Giscus loaded.');
+            })();
+    
+            // once executed, stop observing
+            giscus_observer.disconnect();
+        }
+    }, { threshold: [0] });
+    giscus_observer.observe(document.querySelector("#giscus_thread"));
+</script>
+{{- else -}}
 <script>
     function load_giscus() {
         var d = document;
             is_giscus_empty = d.getElementById('giscus_empty'),
             giscus_target   = d.getElementById('giscus_thread'),
-            giscus_hook     = (d.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]);
+            giscus_hook     = d.getElementById('giscus_thread');
             s = d.createElement('script');
 
         if( giscus_target && is_giscus_empty ) {
@@ -23,6 +54,7 @@
             s.setAttribute('data-emit-metadata', '{{- default 0 .emitMetadata -}}');
             s.setAttribute('data-theme', '{{- default `light` .lightTheme -}}');
             giscus_hook.appendChild(s);
+            console.log('Giscus loaded.');
             is_giscus_empty.remove();
         }
     };
@@ -32,10 +64,10 @@
         var giscus_target = document.getElementById('giscus_thread');
         if( giscus_target && (currentScroll > giscus_target.getBoundingClientRect().top - 150) ) {
             load_giscus();
-            console.log('Giscus loaded.');
         }
     }, false);
 </script>
+{{- end -}}
 <script>
     function setGiscusTheme(theme) {
         let giscus = document.querySelector('iframe.giscus-frame');
