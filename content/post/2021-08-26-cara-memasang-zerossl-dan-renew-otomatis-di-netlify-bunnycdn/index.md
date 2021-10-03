@@ -325,7 +325,7 @@ Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 ![Memilih Templat untuk membuat Token](Cloudflare_Create_API_Token_2.png)
 
 4. Setelah menentukan templat nya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
-   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara asali, nama Token menggunakan nama templatnya, Anda bisa rubah itu sesuka Anda dengan meng-klik pada ikon Pensil di sebelah namanya
+   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara baku, nama Token menggunakan nama templatnya, Anda bisa rubah itu sesuka Anda dengan meng-klik pada ikon Pensil di sebelah namanya
    - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat **Edit zone DNS**, maka seharusnya Informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **Zone**, **DNS** dan **Edit**, kalau sudah, Anda bisa lewati ini.
    - **Zone Resources**: Itu merupakan cakupan Zona (_Zone_) untuk Token ini. Jika Anda ingin Token yang Anda buat itu dapat mencakup semua Domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
        - **Include** dan **All zones**
@@ -1499,7 +1499,7 @@ Solusi nya adalah Hapus Direktori tersebut (cth. `${HOME}/.acme.sh/domain.com` u
 ### Pertanyaan ke-9: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot atau Lego? {#pertanyaan-ke9}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
 
-Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena itu merupakan berkas skrip _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA asali selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti tanpa perlu memasukkan Alamat URL nya lagi.
+Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena itu merupakan berkas skrip _Shell_, serta mendukung berbagai layanan DNS Otoritatif yang ada di Internet dan berbagai CA baku selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti tanpa perlu memasukkan Alamat URL nya lagi.
 
 Mengenai alasan kenapa saya tidak menggunakan [Lego](https://github.com/go-acme/lego) sebagai perkakas klien ACME, karena jujur saja saya baru tahu perkakas tersebut dan saya sendiri sudah lama terbiasa dengan acme.sh, jadi saya perlu waktu untuk mempelajari nya.
 
