@@ -71,3 +71,17 @@ Twemoji:
     baseURL: https://cdn.statically.io/gh/twitter/twemoji/v13.1.0/
     Path: assets/svg
     Ext: .svg
+
+comments:
+  enabled: true
+  provider: giscus
+  giscus:
+    repo: FarrelF/Blog
+    repoID: MDEwOlJlcG9zaXRvcnkzMzYxMTQzMzc=
+    category: Komentar Blog
+    categoryID: DIC_kwDOFAiyoc4B_M30
+    mapping: pathname
+    lightTheme: light
+    darkTheme: dark_dimmed
+    reactionsEnabled: 1
+    emitMetadata: 1
