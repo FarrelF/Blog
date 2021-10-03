@@ -66,23 +66,39 @@ Sertifikat SSL dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal sebagai 
 
 Informasi mengenai sertifikat akarnya sebagai berikut:
 
-- Akar Pertama: "[AAA Certificate Service](https://censys.io/certificates/d7a7a0fb5d7e2731d771e9484ebcdef71d5f0c3e0a2948782bc83ee0ea699ef4)" yang masa berlakunya sampai 31 Desember 2028 pukul 23:59:59 atau 01 Januari 2029
+- Akar Pertama: "[AAA Certificate Service](https://censys.io/certificates/d7a7a0fb5d7e2731d771e9484ebcdef71d5f0c3e0a2948782bc83ee0ea699ef4)" yang masa berlakunya sampai 31 Desember 2028 pukul 23:59:59 atau 01 Januari 2029 dalam waktu UTC
 
-- Akar Kedua: "[USERTrust RSA Certification Authority](https://censys.io/certificates/e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2)" atau "[USERTrust ECC Certification Authority](https://censys.io/certificates/4ff460d54b9c86dabfbcfc5712e0400d2bed3fbc4d4fbdaa86e06adcd2a9ad7a)" yang masing-masing masa berlakunya sampai 18 Januari 2038 pukul 23:59:59 atau 19 Januari 2038
+- Akar Kedua: "[USERTrust RSA Certification Authority](https://censys.io/certificates/e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2)" atau "[USERTrust ECC Certification Authority](https://censys.io/certificates/4ff460d54b9c86dabfbcfc5712e0400d2bed3fbc4d4fbdaa86e06adcd2a9ad7a)" yang masing-masing masa berlakunya sampai 18 Januari 2038 pukul 23:59:59 atau 19 Januari 2038 dalam waktu UTC
 
 Ini artinya, hampir semua perangkat lunak bisa menggunakan sertifikat ini, bahkan oleh perangkat lunak versi lama sekalipun (cth. Internet Explorer 6.0+, Mozilla Firefox 1.0+, Opera 6.1+, AOL 5+, Peramban pada Blackberry 4.3.0+, Android 1.5+, dll)
 
 Untuk lebih lanjut, Anda bisa kunjungi halaman [daftar kompatibilitas nya](https://help.zerossl.com/hc/en-us/articles/360058294074-ZeroSSL-Compatibility-List).
 
-Akar dari Sertifikat Let's Encrypt (DST Root X1) memang mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP.
+Sedangkan akar pada sertifikat SSL dari Let's Encrypt adalah ([DST Root CA X3](https://censys.io/certificates/0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739)) (dari "IdenTrust") yang juga mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP SP3 dan Android 7.1.1 kebawah.
 
-Namun, sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, akar tersebut akan habis pada tanggal 30 September 2021, sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
+Namun, sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, akar tersebut akan habis pada tanggal 30 September 2021 dan akan digantikan dengan yang baru, yakni "[ISRG Root X1](https://censys.io/certificates/96bcec06264976f37460779acf28c5a7cfe8a3c0aae11a8ffcee05c0bddf08c6)" (dari "Internet Security Research Group"), sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
 
-Tapi, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_ antara akar "[DST X1 Root](https://censys.io/certificates/0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739)" (dari "IdenTrust") dan akar yang baru, yakni "[ISRG X1 Root](https://censys.io/certificates/96bcec06264976f37460779acf28c5a7cfe8a3c0aae11a8ffcee05c0bddf08c6)" (dari "Internet Security Research Group").
+Tapi, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_, yang artinya sertifikat akar yang lama (DST Root CA X3) telah menerbitkan sertifikat yang 'sama dengan' sertifikat akar barunya, yakni "[ISRG Root X1](https://censys.io/certificates/6d99fb265eb1c5b3744765fcbc648f3cd8e1bffafdc4c2f99b9d47cf7ff1c24f)" sebagai sertifikat penengah, agar 'rantai' dapat terus digunakan meski ada bagian yang rapuh karena sudah habis masanya.
 
-![Cuplikan layar Hierarki Sertifikat SSL dari Let's Encrypt di Android 6.0 (di dalam Peramban Web berbasis Chrome/Chromium)](Hierarki_Sertifikat_SSL_Lets_Encrypt_di_Android_6.png)
+![Cuplikan layar Hierarki/Rantai Sertifikat SSL dari Let's Encrypt di Android 6.0 (di dalam Peramban Web berbasis Chrome/Chromium), bukti bahwa Cross-sign itu bekerja](Hierarki_Sertifikat_SSL_Lets_Encrypt_di_Android_6.png)
 
-Hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa ada perangkat lain yang tidak kompatibel dengan Akar "ISRG X1 Root" ini setelah Akar pertama habis masa berlaku nya, selain Windows XP SP3 dan Android 2.3.6 (atau di atasnya). Jika Anda ingin melihat kompatibilitasnya, silahkan kunjungi [halaman ini](https://letsencrypt.org/docs/certificate-compatibility/).
+Hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa ada perangkat lain yang tidak kompatibel dengan Akar baru ini setelah Akar pertama habis masa berlaku nya, kecuali Windows XP SP3 (jika Anda memperbarui sertifikat akar nya) dan Android 2.3.6 (atau di atasnya).
+
+Berdasarkan Halaman [Kompatibilitas Sertifikat nya](https://letsencrypt.org/docs/certificate-compatibility/), sepertinya perangkat yang mempercayai "ISRG Root X1" itu berkurang bila dibandingkan dengan perangkat yang mempercayai "DST Root CA X3". Sehingga, ada kemungkinan bahwa banyak perangkat lain yang tidak kompatibel dengan Let's Encrypt.
+
+{{< info text="**PEMBARUAN, 03 Oktober 2021:**" >}}
+Per tanggal 30 September 2021 kemarin, sertifikat akar "DST Root CA X3" telah habis masa berlaku nya dan telah diganti menjadi "ISRG Root X1".
+
+Meski masa berlaku nya habis, Let's Encrypt tetap kompatibel dengan Sistem Operasi Android 7.1.1 ke bawah, tapi masih menggunakan "DST Root CA X3" sebagai akarnya (lihat cuplikan layar di atas).
+
+Jadi, jika Anda menggunakan Android 7.1.1 ke bawah, maka Anda tidak perlu melakukan apapun.
+
+Namun jika Anda tidak menggunakan Android, tidak bisa mengakses Web/Blog yang menggunakan Let's Encrypt atau sekadar ingin menikmati akar baru dari Let's Encrypt, silahkan unduh sertifikat akar "[ISRG Root X1](https://letsencrypt.org/certs/isrgrootx1.pem)", lalu instal sertifikat akar tersebut agar dapat dipercaya oleh perangkat Anda.
+
+Setelah selesai menginstal, nonaktifkan/hapus sertifikat akar lama, yakni "DST Root CA X3" dari perangkat Anda.
+
+Selain mengunduh dan menginstal sertifikat akarnya secara manual, Anda juga dapat memperbarui sistem pada perangkat Anda agar dapat menikmati sertifikat akar yang baru.
+{{< / info >}}
 
 Jadi, jika Anda ingin sebuah Sertifikat SSL Gratis untuk Web/Blog atau Aplikasi Anda serta dapat diakses oleh hampir semua orang atau/dan Anda kurang yakin dengan resolusi dari pihak Let's Encrypt, mungkin ZeroSSL bisa menjadi pilihan yang terbaik buat Anda.
 
@@ -1593,11 +1609,11 @@ Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada Sertif
 
 Jika Anda bingung, silahkan lihat cuplikan berikut:
 
-![Hierarki Sertifikat SSL dari ZeroSSL di Windows 10](Hierarki_Sertifikat_SSL.png) ![Hierarki Sertifikat SSL dari ZeroSSL di Peramban berbasis Chromium untuk GNU/Linux](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.png)
+![Hierarki/Rantai Sertifikat SSL dari ZeroSSL di Windows 10](Hierarki_Sertifikat_SSL.png) ![Hierarki/Rantai Sertifikat SSL dari ZeroSSL di Peramban berbasis Chromium untuk GNU/Linux](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.png)
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
-Berbeda bila dibandingkan dengan Hierarki Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
+Berbeda bila dibandingkan dengan Hierarki/Rantai Sertifikat SSL di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta Perangkat Lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai Sertifikat Akar nya.
 
 Jadi, sertifikat akar yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan.
 
@@ -1669,7 +1685,7 @@ Selain itu, Anda juga dapat merubah nilai dari variabel `SAVED_(VARIABEL)` secar
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke20}
 **Jawab:** Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenis nya.
 
-Untuk Sistem Operasi nya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows. Di Android juga bisa, tapi gunakan aplikasi Termux.
+Untuk Sistem Operasi nya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows. Di Android juga bisa, tapi saya sarankan unduh, instal dan gunakan aplikasi Termux untuk itu.
 
 ### Pertanyaan ke-21: Bagaimana caranya agar saya bisa menyalinkan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke21}
 **Jawab:** Untuk menyalinkan acme.sh ke dalam Perangkat lain, Anda bisa baca bagian "[_Renew_ SSL secara Otomatis di Android](#renew-ssl-di-android)" yang ada di artikel ini.
@@ -1699,7 +1715,7 @@ Selain itu, saat sertifikat SSL ingin dibuat dengan acme.sh, Anda bisa menentuka
 Namun, hal itu akan mengorbankan kinerja dari sebuah perangkat saat mengunjungi nya karena perangkat keras belum tentu dapat memprosesnya dengan cepat, apalagi jika tidak memiliki fitur akselerasi dari perangkat keras, sehingga ini juga akan mengorbankan kinerja dari sebuah Web/Blog.
 
 ### Pertanyaan ke-24: Masa aktif sertifikat SSL gratisan (termasuk dari ZeroSSL) rata-rata hanya 90 hari, apakah itu tidak bermasalah? {#pertanyaan-ke24}
-**Jawab:** Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah, bahkan sertifikat SSL untuk hampir seluruh layanan Google memiliki masa aktif hanya 90 hari atau sekitar 3 bulan saja.
+**Jawab:** Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah.
 
 Sekarang ini sudah sangat banyak atau bahkan mayoritas Perangkat Lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui SSL tersebut secara otomatis berkat dukungan protokol ACME nya.
 
@@ -1743,7 +1759,7 @@ Jadi, selama ZeroSSL lebih baik daripada Let's Encrypt pada beberapa aspek, kena
 #### Merasa tertantang dan mendapat ilmu baru
 Saat ingin menggunakan ZeroSSL, mayoritas penyedia web belum mendukung antarmuka untuk pemasangan sertifikat SSL dari ZeroSSL secara otomatis, kebanyakan dari mereka cuma mendukung Let's Encrypt saja, seperti yang pernah saya bahas di awal.
 
-Sehingga saya merasa tertantang untuk menerbitkan, memasang dan meng-otomasi pembaruan sertifikat SSL tersebut sendirian, dengan menggunakan acme.sh untuk mengelola sertifikat nya dan cURL untuk memasang sertifikat nya dengan memanfaatkan Server API dari Penyedia Web nya.
+Sehingga saya merasa tertantang untuk menerbitkan, memasang dan mengotomasi pembaruan sertifikat SSL tersebut sendirian, dengan menggunakan acme.sh untuk mengelola sertifikat nya dan cURL untuk memasang sertifikat nya dengan memanfaatkan Server API dari Penyedia Web nya.
 
 Pada akhirnya, saya mendapatkan ilmu baru yang cukup berguna juga, setidaknya untuk saya sendiri.
 
@@ -1753,9 +1769,9 @@ Pada akhirnya, saya mendapatkan ilmu baru yang cukup berguna juga, setidaknya un
 - Server ACME nya yang kadang-kadang bermasalah. Jadi, Anda harus bersabar jika Anda mengalami masalah saat menerbitkan/memperbarui sertifikat SSL melalui server ACME nya. Kalo gak mau sabar, ya berlangganan aja atau ganti dengan yang lain.
 - Memiliki kelebihan di Pengelolaan Sertifikat nya, tapi tidak bisa mencabut atau menghapus sertifikat SSL yang diterbitkan melalui server ACME nya.
 
-Itu aja sih kekurangan nya untuk saat ini, masalah sertifikat Akar yang berubah itu adalah masalah lain, karena yang kamu tanyakan adalah saat ini, bukan kedepannya, jadi ya lihat saja.
+Itu aja sih kekurangan nya untuk saat ini, masalah sertifikat Akar yang berubah itu adalah masalah lain, karena yang kamu tanyakan adalah saat ini, bukan kedepannya.
 
-Lagian kalau sertifikat akarnya berubah, tinggal saya putuskan saja apakah mau saya rubah CA nya atau tidak, sesederhana itu.
+Kalau sertifikat akarnya berubah, saya tinggal putuskan apakah CA tersebut perlu diganti atau tidaknya.
 
 ## Referensi lain di Artikel ini
 Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang sebelum nya tidak saya sebut/bahas.
