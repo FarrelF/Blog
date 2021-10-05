@@ -2,6 +2,7 @@ Vibrant:
   - src: https://cdn.statically.io/js/unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js
     integrity: sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM= sha384-xglTO/8Oa3fXW5xzsGkQbc0ofkFDkEwusRGEKsNk+DHlAeoH6cbU8Pu/1KhMAVqz sha512-SzKezyOOe19oOvjHkyAkQXCjZ3qmGtpl78ZkLEemazIvoh+kgDVDWYELe3giYBr+40LPqJDAolvCv3TVRSMIaA==
     type: script
+    defer: true
 
 PhotoSwipe:
   - src: https://cdn.statically.io/js/unpkg.com/photoswipe@4.1.3/dist/photoswipe.min.js
@@ -39,4 +40,4 @@ Twemoji:
   - src: https://cdn.statically.io/js/unpkg.com/twemoji@13.1.0/dist/twemoji.min.js
     integrity: sha256-Dg5SWeP/jqgF4MVmDGM29/RrFDMuPK+4KTnh2z2otvg= sha384-gPMUf7aEYa6qc3MgqTrigJqf4gzeO6v11iPCKv+AP2S4iWRWCoWyiR+Z7rWHM/hU sha512-bCQnYghGORM1nHpRLnCs2UJ4mBGgx1V9qstncNLQ4vejHwTHRh+b8C4T6uDjt37hxb4Lvbq678yZ/zJGJ/pDqQ==
     type: script
-    defer: true
+    async: true

@@ -87,9 +87,9 @@ Hal ini bukan berarti masalah sudah selesai sepenuhnya, kemungkinan besar bahwa 
 Berdasarkan Halaman [Kompatibilitas Sertifikat nya](https://letsencrypt.org/docs/certificate-compatibility/), sepertinya perangkat yang mempercayai "ISRG Root X1" itu berkurang bila dibandingkan dengan perangkat yang mempercayai "DST Root CA X3". Sehingga, ada kemungkinan bahwa banyak perangkat lain yang tidak kompatibel dengan Let's Encrypt.
 
 {{< info text="**PEMBARUAN, 03 Oktober 2021:**" >}}
-Per tanggal 30 September 2021 kemarin, sertifikat akar "DST Root CA X3" telah habis masa berlaku nya dan telah diganti menjadi "ISRG Root X1".
+Per tanggal 30 September 2021 kemarin, sertifikat akar "DST Root CA X3" telah habis masa berlakunya dan telah diganti menjadi "ISRG Root X1".
 
-Meski masa berlaku nya habis, Let's Encrypt tetap kompatibel dengan Sistem Operasi Android 7.1.1 ke bawah, tapi masih menggunakan "DST Root CA X3" sebagai akarnya (lihat cuplikan layar di atas).
+Meski masa berlakunya habis, Let's Encrypt tetap kompatibel dengan Sistem Operasi Android 7.1.1 ke bawah, tapi masih menggunakan "DST Root CA X3" sebagai akarnya (lihat cuplikan layar di atas).
 
 Jadi, jika Anda menggunakan Android 7.1.1 ke bawah, maka Anda tidak perlu melakukan apapun.
 
@@ -116,68 +116,75 @@ Selain itu, Anda bisa menghabiskan kuota "SSL Gratis" yang telah diberikan oleh 
 
 Tapi sayangnya, Anda tidak bisa mencabut sertifikat SSL yang telah Anda terbitkan melalui server ACME nya di dalam Situs Web nya, jadi Anda hanya bisa melihat dan mengunduhnya saja.
 
-### Persyaratan Perangkat Lunak
+### Persiapan {#persiapan}
 Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis \*nix/mirip Unix, termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
 
-Maka, persyaratan perangkat lunak yang harus Anda penuhi bagi pengguna Sistem Operasi agar bisa menggunakan acme.sh serta agar dapat mengikuti artikel ini secara keseluruhan. Berikut di bawah ini adalah persyaratannya:
+Anda harus mempersiapkannya agar perkakas acme.sh bisa digunakan dan agar Anda bisa mengikuti artikel ini secara keseluruhan, apalagi jika Anda menggunakan Sistem Operasi Windows.
 
-#### Untuk Pengguna GNU/Linux, macOS, BSD dan Sistem Operasi berbasis \*nix lainnya {#syarat-pengguna-unix-like}
+Berikut di bawah ini adalah persiapannya:
+
+#### Untuk Pengguna GNU/Linux, macOS, BSD dan Sistem Operasi berbasis \*nix lainnya {#persiapan-pengguna-unix-like}
 {{< spoiler text="tl;dr" >}}
-Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
+Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebagai berikut:
 - OpenSSL (atau LibreSSL?)
 - cURL
 - Cron
-- Socat (Opsional, karena tidak saya bahas)
+
+Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
 {{< / spoiler >}}
 
 Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk \*nix.
 
-Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, di artikel ini saya bahas hanya untuk mengunduh dan menginstal acme.sh saja.
+Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
 
-Selain itu, Anda juga dapat meng-instal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas di dalam artikel ini.
+Selain itu, Anda juga dapat meng-instal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas lebih lanjut di sini.
 
-#### Untuk Pengguna Windows {#syarat-pengguna-windows}
+#### Untuk Pengguna Windows {#persiapan-pengguna-windows}
 {{< spoiler text="tl;dr" >}}
-Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
+Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 - Memiliki Akses ke Lingkungan Unix/Mirip-Unix: (Pilih salah satu caranya)
     - Mengaktifkan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) untuk Windows 10 atau di atasnya
     - Mesin Virtual atau Kontainer dengan Sistem Operasi berbasis Unix/Mirip-Unix (disarankan GNU/Linux)
     - Mengakses Server Anda yang menggunakan Sistem Operasi \*nix dengan menggunakan Klien SSH
-- Persyaratan Perangkat Lunak pada WSL, Mesin Virtual/Kontainer atau pada Server bisa mengikuti [persyaratan untuk Sistem Operasi \*nix](#syarat-pengguna-unix-like)
+- Persiapan Perangkat Lunak pada WSL, Mesin Virtual/Kontainer atau pada Server bisa mengikuti [persiapan untuk Sistem Operasi \*nix](#persiapan-pengguna-unix-like)
 {{< / spoiler >}}
 
-Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses Lingkungan Unix/Mirip-Unix (\*nix), Anda bisa gunakan cara apapun untuk melakukan nya. Jika Anda menggunakan Windows 10 (atau di atasnya), maka Anda bisa gunakan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar Anda bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows.
+Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses Lingkungan Unix/Mirip-Unix (\*nix), Anda bisa gunakan cara apapun untuk melakukan nya.
+
+Jika Anda menggunakan Windows 10 (atau di atasnya), maka Anda bisa gunakan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar Anda bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows.
 
 Atau, jika Anda tidak ingin/tidak bisa menggunakan WSL, maka Anda juga bisa memiliki Mesin Virtual/Kontainer dan Instal, lalu gunakan Sistem Operasi berbasis Unix/Mirip-Unix (seperti GNU/Linux) di dalam Mesin tersebut.
 
 Atau, Anda juga bisa akses Server Anda yang menggunakan Sistem Operasi \*nix untuk mengikuti artikel ini dengan menggunakan Klien SSH tanpa perlu mengorbankan kinerja pada Komputer/Laptop Anda.
 
-Ketika Anda sedang memakai WSL, Mesin Virtual/Kontainer atau Server, maka Anda bisa mengikuti persyaratan perangkat lunak untuk Sistem Operasi \*nix. Jadi pastikan jika cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam Sistem WSL (Biasanya ada), di dalam Mesin Virtual/Kontainer atau di dalam Server Anda.
+Ketika Anda sedang memakai WSL, Mesin Virtual/Kontainer atau Server, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi \*nix. Jadi pastikan jika cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam Sistem WSL (Biasanya ada), di dalam Mesin Virtual/Kontainer atau di dalam Server Anda.
 
-#### Untuk Pengguna Android (tidak perlu akses _root_) {#syarat-pengguna-android}
+#### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 {{< spoiler text="tl;dr" >}}
-Jika terlalu panjang, maka persyaratan nya adalah sebagai berikut:
-- Tidak perlu Akses _root_ atau perangkat tidak perlu dalam keadaan ter-_root_. Jika demikian, ya tidak masalah
+Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 - Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lama nya](https://archive.org/details/termux-repositories-legacy), tapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan nya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
-- Persyaratan di Termux setelah di-instal sebagai berikut:
-    1. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
-    2. Persyaratan Perangkat Lunak pada Termux bisa mengikuti [persyaratan untuk GNU/Linux](#syarat-pengguna-unix-like). Tapi, Anda juga dapat meng-instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tools cronie termux-services`, lalu mulai ulang Termux jika berhasil
-    3. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond`
-    4. Pastikan Termux bisa mengakses Penyimpanan Internal atau Eksternal pada perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Referensi: ["Internal and external storage"](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dari Wiki Termux (Baca dan pahami mulai dari bagian "Access shared and external storage")
+- Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
+    1. Buka Termux nya
+    2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
+    3. Instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tools cronie termux-services`, lalu mulai ulang Termux jika berhasil
+    4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond`
+    5. Pastikan Termux bisa mengakses Penyimpanan Internal atau Eksternal pada perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Referensi: ["Internal and external storage"](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dari Wiki Termux (Baca dan pahami mulai dari bagian "Access shared and external storage")
+
+**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atas nya, sebagai syarat untuk menggunakan Termux.
 
-Tapi jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lama nya](https://archive.org/details/termux-repositories-legacy), namun saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya, serta mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
+Tapi jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lama nya](https://archive.org/details/termux-repositories-legacy), namun saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya, jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
 
 Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid nya](https://f-droid.org/repository/browse/?fdid=com.termux).
 
 Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silahkan Anda baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persyaratan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, dan Cron sudah ada di dalam Termux Anda.
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, dan Cron sudah ada di dalam Termux Anda.
 
-Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal paket-paket yang diperlukan dengan perintah berikut:
+Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
 pkg update
@@ -188,16 +195,16 @@ Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo`
 
 Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka lagi Termux nya agar perubahannya bisa diterapkan. Setelah Termux dibuka lagi, aktifkan Cron dari latar belakang dengan meng-eksekusi perintah `sv-enable crond`.
 
-Selain itu, pastikan Termux bisa mengakses Penyimpanan Internal dan Eksternal pada perangkat Anda. agar Anda bisa berbagi penyimpanan pada Termux. Silahkan Anda baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dan pahami mulai dari bagian "Access shared and external storage".
+Terakhir, pastikan Termux bisa mengakses Penyimpanan Internal dan Eksternal di perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Untuk caranya, silahkan Anda baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dan pahami mulai dari bagian "Access shared and external storage".
 
-Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan ter-_root_, jadi Anda tidak perlu khawatir akan kehilangan garansi pada perangkat Anda.
+Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_, jadi Anda tidak perlu khawatir akan kehilangan garansi pada perangkat Anda, karena ini sama sekali tidak menghilangkan garansi pada perangkat Anda.
 
 ### Catatan, Peringatan dan Sanggahan
 Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, maka saya sarankan cari Artikel lain yang membahas ini secara sederhana, jangan paksakan diri Anda kecuali jika Anda ingin belajar.
 
-Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga mudah dipahami oleh Anda.
+Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
 
-Jika Anda mengalami kesulitan navigasi, silahkan Anda gunakan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
+Jika Anda mengalami kesulitan dalam bernavigasi, silahkan Anda gunakan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
 
 Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk tapi tidak terbatas pada Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang menggunakan Kernel Linux (cth. GNU/Linux, Android, Alpine Linux, Void Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
 
@@ -225,7 +232,7 @@ Kredensial EAB adalah sebuah kredensial untuk menghubungkan antara perkakas/pera
 
 Tanpa basa-basi lagi, langkah-langkahnya sebagai berikut:
 
-0. Daftar Akun ZeroSSL nya [di sana](https://app.zerossl.com/signup) dan Login setelah itu (Atau, Anda hanya perlu [Login](https://app.zerossl.com/login) saja jika Anda sudah pernah mendaftar akun sebelumnya)
+0. Daftar Akun ZeroSSL nya [di Situs Web nya](https://app.zerossl.com/signup) dan Login setelah itu (Atau, Anda hanya perlu [Login](https://app.zerossl.com/login) saja jika Anda sudah pernah mendaftar akun sebelumnya)
 1. Pada Dasbor ZeroSSL, klik **Developer**
 2. Setelah itu, pada bagian **EAB Credentials for ACME Clients**, klik _Button_ **Generate**
 3. Simpan **EAB KID** dan **EAB HMAC Key** yang telah dihasilkan itu dengan baik, nanti akan digunakan lagi untuk acme.sh
@@ -301,13 +308,15 @@ Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ atau tidak perlu
 
 Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, serta Anda melakukan nya di dalam perangkat seperti Komputer PC, Laptop atau Ponsel Pintar Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, serta Anda melakukan nya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
 
-Namun, agar acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
+Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
-Untuk itu, Anda perlu memberikan acme.sh sebuah izin untuk mengaksesnya dengan memberinya sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
+Untuk itu, Anda perlu berikan acme.sh sebuah izin mengakses akun untuk keperluan membaca dan merubah _DNS Record_ nya dengan memberikan sebuah _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi untuk mengakses akun tertentu.
 
-Bisa saja Anda melakukan Verifikasi DNS secara Manual, tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya dan saat pembaruan Anda harus masukkan lagi _DNS Record_ nya secara manual, sehingga tidak mungkin kamu akan memperbarui sertifikat SSL tersebut secara otomatis.
+Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record_ nya secara manual.
+
+Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi _DNS Record_ nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat SSL tersebut secara otomatis.
 
 Pertanyaan nya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang Otomatis saja ketimbang pake yang Manual.
 
@@ -431,7 +440,7 @@ Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk men
 Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
 
 ### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
-Secara bawaan, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
+Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_) nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME nya menggunakan acme.sh dengan perintah berikut:
 
 ```shell
 acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
@@ -1336,7 +1345,7 @@ Serta, perangkat ponsel pintar dengan Sistem Operasi Android juga sangat bervari
 
 Tanpa basa-basi lagi, caranya sebagai berikut:
 
-0. Pastikan Perangkat Lunak pada Ponsel Android Anda sudah memenuhi [Persyaratan nya](#syarat-pengguna-android) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
+0. Pastikan Anda sudah [menyiapkannya](#persiapan-pengguna-android) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
 1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat lain dari Komputer PC/Laptop Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari Komputer PC/Laptop Anda:
 
 ```shell
@@ -1351,7 +1360,7 @@ Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asa
 2. Setelah meng-kompresinya, silahkan Anda langsung menyalinkan nya ke dalam penyimpanan perangkat Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkan nya
 3. (**Catatan:** Mulai sekarang/di langkah ini, gunakan Ponsel Pintar Anda dan langkah seterusnya akan menggunakan Ponsel Pintar, tidak lagi menggunakan Komputer PC/Laptop) Setelah disalin ke dalam perangkat Anda, silahkan Anda pindahkan berkas tersebut ke dalam direktori "Home" yang berada di dalam Penyimpanan Termux.
 
-   Pastikan Aplikasi Manajemen Berkas di Android Anda dapat mengakses Penyimpanan Termux, sesuai dengan persyaratan
+   Pastikan Aplikasi Manajemen Berkas di Android Anda dapat mengakses Penyimpanan Termux, sesuai dengan persiapan yang telah Anda lakukan sebelumnya
 
 4. Setelah itu, buka Termux, lalu instal terlebih dahulu acme.sh nya di dalam Termux dengan perintah berikut:
 ```bash
@@ -1549,7 +1558,7 @@ Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-
 
 Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lain nya.
 
-Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tools` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya [syaratkan dari awal](#syarat-pengguna-windows) agar menggunakan Mesin Virtual, Kontainer atau WSL (Windows Subsystem for Linux) sekalian yang sudah terinstal OpenSSL.
+Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tools` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
 
 Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
 
@@ -1702,7 +1711,7 @@ Untuk Sistem Operasi nya, saya sarankan Anda gunakan GNU/Linux yang merupakan Si
 
 Bagian tersebut juga membahas bagaimana caranya menyalinkan acme.sh ke dalam Perangkat Ponsel Pintar yang berbasis Android. 
 
-Caranya akan sama saja, hanya saja beda nya di Persyaratan untuk Perangkat lain, Perintah untuk mengaktifkan Layanan Cron dan Penyebutan Perangkatnya saja. Sesuaikan semua itu dengan perangkat milik Anda.
+Caranya akan sama saja, hanya saja beda nya di Persiapan untuk Perangkat lain, Perintah untuk mengaktifkan Layanan Cron dan Penyebutan Perangkatnya saja. Sesuaikan semua itu dengan perangkat milik Anda.
 
 ### Pertanyaan ke-22: Saat saya menerbitkan/memperbarui Sertifikat SSL melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke22}
 **Jawab:** Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, Koneksi dari Server/Proksi yang melambat, dll.

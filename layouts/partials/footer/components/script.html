@@ -14,4 +14,4 @@
     {{- $Permalink = $script.RelPermalink -}}
 {{- end -}}
 
-<script type="text/javascript" src="{{ $Permalink }}"{{ if eq .Site.Params.SRIHash.JS true }} integrity="{{ $script.Data.Integrity }}"{{ end }}{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} defer></script>
+<script type="text/javascript" src="{{ $Permalink }}"{{ if eq .Site.Params.SRIHash.JS true }} integrity="{{ $script.Data.Integrity }}"{{ end }}{{ if eq hugo.IsProduction true }} crossorigin="anonymous"{{ end }} async></script>
