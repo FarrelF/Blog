@@ -85,3 +85,4 @@ comments:
     darkTheme: dark_dimmed
     reactionsEnabled: 1
     emitMetadata: 1
+    lazyLoad: intersectionObserver

@@ -6,7 +6,7 @@
 <script>
     var giscus_observer = new IntersectionObserver(function(entries) {
         // comments section reached
-        // start loading Disqus now
+        // start loading Giscus now
         
         if(entries[0].isIntersecting) {
             (function() {
@@ -24,8 +24,8 @@
                 s.setAttribute('data-theme', '{{- default `light` .lightTheme -}}');
                 (d.getElementById('giscus_thread')).appendChild(s);
                 console.log('Giscus loaded.');
+                (d.getElementById('giscus_empty')).remove()
             })();
-    
             // once executed, stop observing
             giscus_observer.disconnect();
         }
