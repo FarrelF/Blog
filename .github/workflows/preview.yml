@@ -63,9 +63,9 @@ jobs:
         rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
-        find ./content -type f -exec file {} \; | awk -F: '{ if ($2 ~/[Ii]mage|EPS/) print $1}' > Images.list
-        sha256sum $(cat Images.list) > Images.hash.list
-        git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
+        # find ./content -type f -exec file {} \; | awk -F: '{ if ($2 ~/[Ii]mage|EPS/) print $1}' > Images.list
+        # sha256sum $(cat Images.list) > Images.hash.list
+        # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
     
     - name: Set up Hugo Resources Cache
       uses: actions/cache@v2
@@ -73,10 +73,9 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
+        key: v2-2-hugo-preview
         restore-keys: | 
-          - v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-${{ hashFiles('**/Images.hash.list') }}
-          - v2-1-hugo-preview-${{ hashFiles('**/layouts-tree.hash') }}-
+          - v2-2-hugo-preview
 
     - name: Building the Blog HTML (Preview)
       run: |

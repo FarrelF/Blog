@@ -1,11 +1,20 @@
-/public
-/resources
-/cache
-/assets/jsconfig.json
-config.dev.yaml
+# Default ignored files
 .DS_Store
 node_modules
 dist
 tmp
+
+# Generated files by Windows 10 while transferring files to WSL
 *:Zone.identifier
 *:Zone.Identifier
+
+# Generated files by Hugo
+/public
+/resources
+/cache
+jsconfig.json
+
+# Hugo Executable Files
+hugo.exe
+hugo.linux
+hugo.darwin
