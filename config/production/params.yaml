@@ -12,5 +12,5 @@ CDN:
 
 arcio:
   # Check https://arc.io
-  enabled: true
+  enabled: false
   widgetId: D1Tc1z8H
