@@ -10,6 +10,8 @@ on:
       - "**/CONTRIBUTING.md"
       - "**/.gitignore"
       - "**/netlify.toml"
+      - "config/development/**"
+      - "archetypes/**"
 
 jobs:
   build:
