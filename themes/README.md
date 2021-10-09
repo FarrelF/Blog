@@ -28,7 +28,7 @@ themes
 ```
 
 Seperti yang Anda lihat di atas, di sini ada 2 folder untuk saat ini, yakni:
-- [`hugo-stack-theme`](hugo-stack-theme): Merupakan folder tema utama, tema yang saya gunakan sekarang dan itu merupakan _Submodule_ dari [_Repository_ Aslinya](https://github.com/CaiJimmy/hugo-theme-stack)
+- `hugo-stack-theme`: Merupakan folder tema utama, tema yang saya gunakan sekarang dan itu merupakan _Submodule_ dari [_Repository_ Aslinya](https://github.com/CaiJimmy/hugo-theme-stack)
 - [`stack-modified`](stack-modified): Merupakan folder yang menyimpan berkas-berkas tema yang telah dimodifikasi dan merupakan tema 'turunan' dari folder [`hugo-stack-theme`](hugo-stack-theme), sehingga struktur direktori nya menurun dari yang aslinya.
 
 ## Cara Kontribusi
@@ -40,7 +40,7 @@ Jadi, jika Anda ingin memodifikasi tema yang saya gunakan di Blog ini, pertama-t
 
 Intinya yang perlu Anda lakukan adalah menyalinkan berkas yang ingin Anda rubah dari [tema aslinya](hugo-theme-stack), lalu salinkan berkas tersebut ke dalam [tema turunan nya](stack-modified) dengan lokasi folder yang sama, setelah itu Anda rubah berkas yang Anda salinkan itu.
 
-**Contoh:** Jika Anda ingin memodifikasi berkas `pagination.html` yang terletak di [`hugo-theme-stack/layouts/partials/pagination.html`](hugo-theme-stack/layouts/partials/pagination.html), maka Anda perlu salinkan berkas tersebut ke dalam folder `stack-modified/layouts/partials`, lalu berkas yang perlu Anda rubah adalah `stack-modified/layouts/partials/pagination.html`.
+**Contoh:** Jika Anda ingin memodifikasi berkas `pagination.html` yang terletak di [`hugo-theme-stack/layouts/partials/pagination.html`](https://github.com/CaiJimmy/hugo-theme-stack/blob/e24f5672c3bf9680fbc529b43562a94a05c90333/layouts/partials/pagination.html), maka Anda perlu salinkan berkas tersebut ke dalam folder `stack-modified/layouts/partials`, lalu berkas yang perlu Anda rubah adalah `stack-modified/layouts/partials/pagination.html`.
 
 Serta, jika ada berkas yang ingin Anda tambahkan sendiri, silahkan tambahkan itu ke dalam folder tema turunan.
 
