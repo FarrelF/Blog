@@ -13,19 +13,17 @@ Berikut di bawah ini adalah Struktur Direktori dan Berkas nya:
 
 ```plain
 FarrelF-Blog
-├── archetypes
-│   ├── categories.md
-│   ├── default.md
-│   └── tags.md
 ├── config
 │   ├── _default
 │   ├── development
-│   └── production
+│   ├── production
+│   └── README.md
 ├── content
 │   ├── 404.md
 │   ├── categories
 │   ├── page
 │   ├── post
+│   ├── README.md
 │   └── tags
 ├── CONTRIBUTING.md
 ├── .github
@@ -51,6 +49,7 @@ FarrelF-Blog
 │   └── robots.txt
 └── themes
     ├── hugo-theme-stack
+    ├── README.md
     └── stack-modified
 ```
 
