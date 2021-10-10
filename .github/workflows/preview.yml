@@ -12,7 +12,7 @@ on:
       - "**/.gitignore"
       - "**/netlify.toml"
       - "config/development/**"
-      - "archetypes/**"
+      - "**/archetypes/**"
 
 jobs:
   build:

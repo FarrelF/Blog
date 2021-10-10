@@ -69,10 +69,6 @@ Dan berikut adalah Informasi mengenai direktori-direktori nya:
 
     Yap, Anda gak salah mengira, saya Hosting Blog ini di banyak tempat dan Netlify bukanlah tempat Hosting yang utama, melainkan cadangannya saja.
 
-- [`archetypes`](archetypes): Adalah direktori yang menyimpan berkas _Archetypes_ yang merupakan berkas templat yang digunakan oleh Hugo jika Anda membuat sebuah konten dengan perintah `hugo new`.
-
-    Dokumentasi nya bisa Anda baca [di sini](https://gohugo.io/content-management/archetypes/)
-
 - [`config`](config): Adalah direktori yang menyimpan berkas konfigurasi untuk Hugo.
 
     Yap, Anda tidak salah baca, saya tidak menggunakan berkas `config.toml`, `config.yaml` atau `config.json` sebagai konfigurasi Hugo di sini, melainkan saya menggunakan direktori agar konfigurasinya jadi lebih mudah dan bisa mengurangi kerepotan, serta membuat kode sumber terlihat lebih rapi.
@@ -96,7 +92,7 @@ Dan berikut adalah Informasi mengenai direktori-direktori nya:
 
 - [`themes`](themes): Adalah direktori yang menyimpan tema-tema yang digunakan untuk Blog ini, selain tema, di situ juga terdapat sub-direktori untuk menyimpan berkas-berkas tema yang telah dimodifikasi.
 
-    Untuk saat ini, di dalam direktori tersebut ada 2 sub-direktori, yakni [`hugo-theme-stack`](themes/hugo-theme-stack) yang merupakan merupakan _Submodule_ dari [_Repository_ asli nya](https://github.com/CaiJimmy/hugo-theme-stack) dan [`stack-modified`](themes/stack-modified) merupakan sebuah sub-direktori yang hanya menyimpan berkas-berkas tema yang telah dimodifikasi.
+    Untuk saat ini, di dalam direktori tersebut ada 2 sub-direktori, yakni `hugo-theme-stack` yang merupakan merupakan _Submodule_ dari [_Repository_ asli nya](https://github.com/CaiJimmy/hugo-theme-stack) dan [`stack-modified`](themes/stack-modified) merupakan sebuah sub-direktori yang hanya menyimpan berkas-berkas tema yang telah dimodifikasi.
 
     Jika Anda ingin berkontribusi pada penampilan di blog ini, silahkan modifikasi itu di dalam direktori `stack-modified` dan pelajari [dokumentasi nya](https://gohugo.io/hugo-modules/theme-components/). Tapi jika Anda ingin kontribusi terhadap tema aslinya, silahkan kontribusi ke Halaman _Repository_ Tema Aslinya.
 

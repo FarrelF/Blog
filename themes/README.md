@@ -21,6 +21,7 @@ themes
 │   └── theme.toml
 ├── README.md
 └── stack-modified
+    ├── archetypes
     ├── assets
     ├── data
     ├── i18n
