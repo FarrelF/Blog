@@ -23,16 +23,47 @@ menu:
   }
 </style>
 
-## Tentang Saya dan Blog ini
+## Tentang Saya
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
 
-Blog ini telah menggunakan [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting dan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn) sebagai _Reverse-proxy_, _TLS termination_ dan CDN, serta menggunakan [ZeroSSL](https://zerossl.com) sebagai Sertifikat SSL nya. 
+## Tentang Blog ini
+### Ikhtisar
+Blog ini merupakan blog pribadi milik saya, tapi yang saya bahas ini bukan sekadar tentang pribadi saya saja. Di blog ini, saya membahas apa yang ingin saya bahas.
 
-Selain itu, saya juga menggunakan [Statically](https://statically.io) sebagai CDN untuk memuat semua berkas-berkas statik di blog ini, termasuk Berkas Gambar, CSS, JS, Fonta yang tersimpan di dalam blog ini dan memuat pustaka-pustaka yang ada.
+Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasan nya, entah itu bikin tutorial, beropini, bikin catatan biar gak lupa atau sekadar bikin diari kalo niat.
 
-Blog ini di bangun dengan [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})) dan saya menggunakan tema ["Stack"](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com).
+### Penggunaan Blog
+Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu beberapa komponen yang membantu nya.
 
-Bukan apa-apa, namun kedepan nya mungkin blog ini agak nge-_random_ dari yang biasanya saya selalu bikin tutorial.
+Blog ini pake apa aja sih? Nah, berikut adalah apa yang saya pakai untuk blog ini:
+
+- SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
+- Tema: [Stack](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com)
+- Fonta: [Lato](https://www.latofonts.com/)
+- VCS: [GitHub](https://www.github.com)
+- CI/CD:
+  - GitHub Actions sebagai CI/CD Utama
+  - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
+- Domain: 
+  - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
+  - [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb) sebagai Reseller/Pengelola Domain nya
+- Hosting:
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
+  - [Bunny Edge Storage](https://bunny.net/edge-storage?ref=giufh6asq3) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
+- Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
+- Sertifikat SSL: [ZeroSSL](https://zerossl.com)
+- CDN: [Statically](https://statically.io) (Untuk berkas JS, CSS, Fonta dan gambar, baik itu yang disimpan di dalam Blog ini atau Eksternal)
+
+### Kode Sumber Blog
+Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lain nya, silahkan kunjungi alamat URL berikut:
+
+```plain
+https://github.com/FarrelF/Blog
+```
+
+Kode Sumber tersebut dilisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog).
+
+Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakan nya.
 
 ## Informasi Kontak
 ### Surel
