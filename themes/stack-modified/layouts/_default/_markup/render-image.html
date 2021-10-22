@@ -33,6 +33,7 @@
 			{{- $Srcset = printf `%s%s 480w, %s%s 1024w` $ImageURL $small.RelPermalink $ImageURL $big.RelPermalink -}}
 		{{- end -}}
 	{{- else -}}
+		{{- $image = $image | resources.Fingerprint "sha256" -}}
 		{{- $Permalink = printf "%s%s" $svgURL $image.RelPermalink -}}
 	{{- end -}}
 {{- end -}}
