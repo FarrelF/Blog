@@ -50,7 +50,7 @@ Tapi, Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hug
 - Sistem Operasi berbasiskan Linux yang berarsitektur x64, itupun perlu "GNU C Library" (glibc)
 - macOS yang berarsitektur x64 dan ARM64
 
-Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas saja, bukan berarti Hugo Extended hanya bisa untuk _Platform_ di atas saja, ada _Platform_ lain yang bisa lainnya, salah satunya adalah Void Linux dan Termux di Android yang nanti akan saya bahas cara instalnya.
+Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas saja, bukan berarti Hugo Extended hanya bisa untuk _Platform_ di atas saja, ada _Platform_ lain yang bisa memakainya, Void Linux dan Termux di Android adalah salah satu contohnya, nanti akan saya bahas cara instalnya.
 
 ## Cara Install Hugo
 Di bagian ini, saya akan membahas Cara Install nya.
