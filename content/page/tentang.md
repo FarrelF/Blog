@@ -39,10 +39,10 @@ Blog ini pake apa aja sih? Nah, berikut adalah apa yang saya pakai untuk blog in
 
 - SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
 - Tema: [Stack](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com)
-- Fonta: [Lato](https://www.latofonts.com/)
-- VCS: [GitHub](https://www.github.com)
+- Fonta: [Lato Latin](https://www.latofonts.com/)
+- VCS: [GitHub](https://github.com)
 - CI/CD:
-  - GitHub Actions sebagai CI/CD Utama
+  - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain: 
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain

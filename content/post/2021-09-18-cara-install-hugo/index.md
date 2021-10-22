@@ -22,7 +22,7 @@ Description: >
     Artikel ini akan membahas tentang Apa itu Hugo dan Cara Installnya, baik itu di dalam Windows, GNU/Linux, macOS, Android, dll.
 
 
-    Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja varian nya, setelah itu saya langsung membahas cara Install nya.
+    Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja lainnya, setelah itu saya langsung membahas cara Install nya.
 
 
     Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
@@ -40,22 +40,22 @@ Hugo mendukung berbagai _Platform_ yang ada, termasuk Sistem Operasi Windows, ma
 
 SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apapun dan memiliki fitur yang dinamakan _Fast-render_.
 
-Selain itu, Hugo juga memiliki banyak fitur lain nya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
+Selain itu, Hugo juga memiliki banyak fitur lainnya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
 
 ## Varian Hugo
 Hugo memiliki 2 varian, yakni Hugo dan Hugo Extended, bedanya adalah kalau Hugo Extended memiliki fitur tambahan, seperti Pemrosesan berkas SCSS/SASS yang tidak dimiliki oleh Hugo Standar.
 
-Tapi, Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hugo biasa dan secara resmi hanya mendukung Sistem Operasi berikut:
+Tapi, Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hugo biasa dan secara resmi hanya disediakan untuk Sistem Operasi berikut:
 - Windows yang berarsitektur x64
 - Sistem Operasi berbasiskan Linux yang berarsitektur x64, itupun perlu "GNU C Library" (glibc)
 - macOS yang berarsitektur x64 dan ARM64
 
-Meskipun secara resmi Hugo Extended hanya didukung oleh _Platform_ di atas saja, tapi ada beberapa _Platform_ lain yang bisa menggunakan nya, salah satunya Void Linux dan Termux yang nanti akan saya bahas.
+Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas saja, bukan berarti Hugo Extended hanya bisa untuk _Platform_ di atas saja, ada _Platform_ lain yang bisa lainnya, salah satunya adalah Void Linux dan Termux di Android yang nanti akan saya bahas cara instalnya.
 
 ## Cara Install Hugo
 Di bagian ini, saya akan membahas Cara Install nya.
 
-Caranya sendiri akan berbeda-beda untuk setiap Sistem Operasi, jadi pastikan Anda mengikutinya sesuai dengan Sistem Operasi yang Anda gunakan.
+Caranya sendiri akan berbeda-beda untuk setiap Sistem Operasi ataupun _Platform_ yang ada, jadi pastikan Anda mengikutinya sesuai dengan Sistem Operasi atau _Platform_ yang Anda gunakan.
 
 Berikut adalah cara instalasinya:
 
@@ -109,13 +109,13 @@ Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda in
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
 
 #### Berkas Biner, tanpa Pengelola Paket (Manual)
-Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung, jadi Anda bisa langsung menggunakan nya setelah berkas tersebut diunduh.
+Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung, jadi Anda bisa langsung lainnya setelah berkas tersebut diunduh.
 
 Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
 
 Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk meng-installnya, maka berikut adalah langkah-langkahnya:
 
-1. Unduh Berkas Arsip yang berisi berkas biner Hugo di [Halaman Perilisan nya](https://github.com/gohugoio/hugo/releases).
+1. Unduh Berkas Arsip yang berisi berkas biner Hugo di [Halaman Perilisannya](https://github.com/gohugoio/hugo/releases).
 
     Di situ tersedia 4 berkas yang bisa Anda unduh salah satunya, semua itu diarsipkan dalam format Zip, sesuaikan dengan Arsitektur Sistem Operasi yang Anda gunakan.
 
@@ -147,39 +147,39 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk meng-installnya, 
 
 6. Anda memasukki dialog yang berjudul **Edit environment variables**, di situ Anda akan merubah nilai dari variabel tersebut. Windows 10 dan Windows 7 mungkin memiliki penampilan yang berbeda, jadi cara mengubahnya akan berbeda-beda, berikut di bawah ini adalah caranya:
 
-    - Di Windows 10: Nilai dari variabel `PATH` yang tampil di Windows 10 adalah dalam bentuk daftar. Untuk menambahkan nya, cukup Anda klik pada _Button_ **New**, lalu isi nilainya dengan Lokasi berkas Biner Hugo itu berada.
+    - Di Windows 10: Nilai dari variabel `PATH` yang tampil di Windows 10 adalah dalam bentuk daftar. Untuk menambahkannya, cukup Anda klik pada _Button_ **New**, lalu isi nilainya dengan Lokasi berkas Biner Hugo itu berada.
 
-        Jika Anda sebelumnya mengekstrak Hugo di `C:\Hugo\bin`, maka isi nilainya dengan `C:\Hugo\bin` juga. Setelah menambahkan nya, klik pada _Button_ **OK**, seperti cuplikan berikut:
+        Jika Anda sebelumnya mengekstrak Hugo di `C:\Hugo\bin`, maka isi nilainya dengan `C:\Hugo\bin` juga. Setelah menambahkannya, klik pada _Button_ **OK**, seperti cuplikan berikut:
 
         ![Mengubah variabel PATH di Windows 10](Edit-Environment-Variables-in-Windows-10.png)
 
-    - Di Windows 7: Nilai dari Variabel `PATH` yang tampil di Windows 7 adalah dalam bentuk deretan. Untuk menambahkan nya, cukup Anda tambahkan `C:\Hugo\bin;` saja di bagian akhir deretan (**JANGAN DIGANTI SEMUA DERETANNYA!!!**).
+    - Di Windows 7: Nilai dari Variabel `PATH` yang tampil di Windows 7 adalah dalam bentuk deretan. Untuk menambahkannya, cukup Anda tambahkan `C:\Hugo\bin;` saja di bagian akhir deretan (**JANGAN DIGANTI SEMUA DERETANNYA!!**).
 
         `C:\Hugo\bin` menunjukkan tempat di mana Hugo diekstrak, jika Anda mengekstraknya di tempat lain, maka ganti `C:\Hugo\bin` menjadi lokasi di mana Berkas Biner Hugo itu berada.
 
         Setelah itu, klik pada _Button_ **OK**.
 
-        **Catatan:** Mohon maaf, karena saya tidak lagi memakai Windows 7, jadi cuplikan nya belum ada saat ini
+        **Catatan:** Mohon maaf, karena saya tidak lagi memakai Windows 7, jadi cuplikannya belum ada saat ini
 
 7. Jika masih ada sesi Command Prompt, Windows Terminal, Windows PowerShell, PowerShell Core, dll, maka Anda perlu menutup semuanya terlebih dahulu/mengakhiri semua sesinya, lalu membukanya kembali.
 
-    Biasanya, perubahan pada variabel `PATH` tidak akan berefek jika sesinya masih ada. Jika Anda tidak membuka Terminal nya, silahkan Anda membukanya terlebih dahulu, entah itu Command Prompt, Windows Terminal, PowerShell, dll.
+    Biasanya, perubahan pada variabel `PATH` tidak akan berefek jika sesinya masih ada. Jika Anda tidak membuka Terminalnya, silahkan Anda membukanya terlebih dahulu, entah itu Command Prompt, Windows Terminal, PowerShell, dll.
 
-8. Setelah Anda membuka Terminal nya, silahkan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
+8. Setelah Anda membuka Terminalnya, silahkan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
 ```plain
 hugo v0.88.1-5BC54738+extended windows/amd64 BuildDate=2021-09-04T09:39:19Z VendorInfo=gohugoio
 ```
 
-9. Selamat! Anda telah berhasil meng-install Hugo. Jika Anda ingin memperbarui versi Hugo nya, cukup unduh lagi berkas biner nya, lalu tinggal timpakan berkas lamanya.
+9. Selamat! Anda telah berhasil meng-install Hugo. Jika Anda ingin memperbarui versi Hugo nya, cukup unduh lagi berkas binernya, lalu tinggal timpakan berkas lamanya.
 
 Nah, untuk Windows nya saya cukupkan di sini dulu, berikutnya saya bahas Cara Install Hugo untuk Sistem Operasi GNU/Linux.
 
 WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus menggunakan metode lain selain WinGet tentunya.
 
 ### GNU/Linux
-#### Debian, Ubuntu dan Turunan nya
-Jika Anda adalah pengguna Debian, Ubuntu atau Turunan nya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
+#### Debian, Ubuntu dan Turunannya
+Jika Anda adalah pengguna Debian, Ubuntu atau Turunannya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
 
 ```shell
 $ sudo -- sh -c 'apt update; apt install -y hugo'
@@ -230,8 +230,8 @@ sudo dpkg -i ${FILENAME}
 
 Jika Anda ingin memperbarui versi Hugo nya, silahkan gunakan lagi langkah/perintah di atas.
 
-#### Arch Linux, Manjaro dan Turunan nya
-Jika Anda adalah pengguna Arch Linux, Manjaro atau Turunan nya, Anda dapat meng-install Hugo dengan perintah berikut:
+#### Arch Linux, Manjaro dan Turunannya
+Jika Anda adalah pengguna Arch Linux, Manjaro atau Turunannya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ sudo pacman -S hugo
@@ -247,25 +247,25 @@ Tapi jika Anda menggunakan Yay sebagai _AUR Helper_ nya, maka Anda dapat memakai
 $ yay -S hugo-bin
 ```
 
-**Catatan:** Varian Hugo yang digunakan oleh Arch, Manjaro dan Turunan nya adalah Hugo Extended, begitupula dengan paket `hugo-bin` yang ada di AUR.
+**Catatan:** Varian Hugo yang digunakan oleh Arch, Manjaro dan Turunannya adalah Hugo Extended, begitupula dengan paket `hugo-bin` yang ada di AUR.
 
-#### Solus dan Turunan nya
-Jika Anda menggunakan Solus atau Turunan nya, maka Anda dapat meng-installnya dengan perintah berikut:
+#### Solus dan Turunannya
+Jika Anda menggunakan Solus atau Turunannya, maka Anda dapat meng-installnya dengan perintah berikut:
 
 ```shell
 $ sudo eopkg install hugo
 ```
 
-**Catatan:** Saya tidak memakai Solus dan Turunan nya, tapi berdasarkan [konfigurasinya](https://dev.getsol.us/source/hugo/browse/master/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan Turunan nya adalah Hugo Extended.
+**Catatan:** Saya tidak memakai Solus dan Turunannya, tapi berdasarkan [konfigurasinya](https://dev.getsol.us/source/hugo/browse/master/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan Turunannya adalah Hugo Extended.
 
-#### Void Linux dan Turunan nya
-Jika Anda adalah pengguna Void Linux atau Turunan nya, Anda dapat meng-install Hugo dengan perintah berikut:
+#### Void Linux dan Turunannya
+Jika Anda adalah pengguna Void Linux atau Turunannya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ sudo xbps-install -S hugo
 ```
 
-**Catatan:** Saya tidak memakai Void Linux dan Turunan nya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/tree/master/srcpkgs/hugo), kemungkinan varian Hugo yang digunakan oleh Void Linux dan Turunan nya adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
+**Catatan:** Saya tidak memakai Void Linux dan Turunannya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan Turunannya adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
 
 #### Homebrew (Universal)
 Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa meng-installnya dengan perintah berikut:
@@ -291,18 +291,18 @@ $ snap install hugo --channel=extended
 {{< info text="Catatan:" >}}
 Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan Systemd sebagai ketergantungan, sehingga Distribusi yang Anda gunakan harus memakai Systemd sebagai Init agar Snap bisa digunakan. 
 
-Jika Anda menggunakan Distribusi Non-Systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, GUIX dan Turunan nya dan lain nya, maka kemungkinan besar Anda tidak dapat menggunakan Pengelola Paket Snap.
+Jika Anda menggunakan Distribusi Non-Systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, GUIX dan Turunannya dan lainnya, maka kemungkinan besar Anda tidak dapat menggunakan Pengelola Paket Snap.
 
-Makanya di awal saya bilang "lebih Universal", karena bisa untuk distribusi lain nya yang lebih luas ketimbang menggunakan Pengelola Paket bawaan.
+Makanya di awal saya bilang "lebih Universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan Pengelola Paket bawaan.
 {{< / info >}}
 
 #### Berkas Biner, tanpa Pengelola Paket (Universal, Manual)
-Hugo telah menyediakan berkas Biner yang telah dikompilasi untuk GNU/Linux agar dapat digunakan secara langsung, jadi Anda bisa langsung menggunakan nya setelah berkas tersebut diunduh.
+Hugo telah menyediakan berkas Biner yang telah dikompilasi untuk GNU/Linux agar dapat digunakan secara langsung, jadi Anda bisa langsung lainnya setelah berkas tersebut diunduh.
 
-Berkas tersebut biasanya akan kompatibel dengan hampir seluruh distribusi GNU/Linux, jadi jika distribusi yang Anda gunakan tidak saya bahas di sini dan tidak mau menggunakan Pengelola Paket 'Universal' atau bahkan sama sekali tidak mau menggunakan Pengelola Paket, maka Anda bisa gunakan berkas Biner nya.
+Berkas tersebut biasanya akan kompatibel dengan hampir seluruh distribusi GNU/Linux, jadi jika distribusi yang Anda gunakan tidak saya bahas di sini dan tidak mau menggunakan Pengelola Paket 'Universal' atau bahkan sama sekali tidak mau menggunakan Pengelola Paket, maka Anda bisa gunakan berkas Binernya.
 
 Cara sederhananya:
-1. Unduh salah satu berkas Arsip yang berisikan berkas Biner Hugo dari [Halaman Perilisan nya](https://github.com/gohugoio/hugo/releases) (yang berformat `.tar.gz`)
+1. Unduh salah satu berkas Arsip yang berisikan berkas Biner Hugo dari [Halaman Perilisannya](https://github.com/gohugoio/hugo/releases) (yang berformat `.tar.gz`)
 2. Ekstrak berkasnya
 3. Izinkan agar berkas yang bernama `hugo` bisa dieksekusi (dengan mengeksekusi perintah `chmod +x hugo`)
 4. Pindahkan berkas yang bernama `hugo` ke dalam direktori `/usr/local/bin` (dengan mengeksekusi perintah `sudo mv hugo /usr/local/bin/`)
@@ -355,7 +355,7 @@ Setelah itu, pastikan kalau Hugo dapat berjalan dengan mengeksekusi perintah ber
 $ hugo version
 ```
 
-Jika berhasil, maka keluaran nya akan seperti di bawah ini:
+Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 ```plain
 hugo v0.88.1-5BC54738+extended linux/amd64 BuildDate=2021-09-04T09:39:19Z VendorInfo=gohugoio
@@ -412,13 +412,13 @@ $ pkg update; pkg install hugo
 
 Perintah di atas akan meng-install Hugo Extended, bukan Hugo varian Biasa/Standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
 
-Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda, tapi saya sarankan agar Anda menggunakan [Termux versi terbaru nya](https://f-droid.org/en/packages/com.termux/) (tidak diunduh dari Google Play Store) untuk pengalaman yang lebih nyaman dan versi Android nya minimal 7.0 agar Termux versi terbaru bisa digunakan.
+Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda, tapi saya sarankan agar Anda menggunakan [Termux versi terbarunya](https://f-droid.org/en/packages/com.termux/) (tidak diunduh dari Google Play Store) untuk pengalaman yang lebih nyaman dan versi Android nya minimal 7.0 agar Termux versi terbaru bisa digunakan.
 
 ### BSD
-#### OpenBSD dan Turunan nya
+#### OpenBSD dan Turunannya
 **Catatan:** Saya tidak memakai Sistem Operasi berbasis BSD, seperti OpenBSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna OpenBSD, mohon berikan masukkan/koreksi dari Anda melalui Kolom Komentar.
 
-Jika Anda adalah pengguna OpenBSD dan Turunan nya, maka Anda dapat meng-install Hugo dengan perintah berikut:
+Jika Anda adalah pengguna OpenBSD dan Turunannya, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ doas pkg_add hugo
@@ -428,11 +428,14 @@ Karena saya tidak pakai, jadi saya tidak tahu apa varian Hugo yang terinstal nan
 
 Jika versi yang didapat adalah versi lama dan Anda sangat ingin mendapatkan versi terbarunya, maka Anda bisa mempertimbangkan opsi instalasi melalui [OpenBSD Ports](https://openports.se/www/hugo), mungkin ini akan menghimpun (_compile_) kode sumber Hugo.
 
+### Docker
+Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`klakegg/hugo`](https://hub.docker.com/r/klakegg/hugo/) untuk itu. Ini memang bukan resmi dari pengembang, tapi mereka sendiri merekomendasikannya.
+
 ## Penutup
-Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja varian nya.
+Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja lainnya.
 
 Demi kesederhanaan Artikel ini, maka topik tentang membuat Blog di Hugo beserta konfigurasinya akan saya bahas secara terpisah.
 
-Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lain nya, silahkan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang).
+Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lainnya, silahkan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang).
 
-Terima kasih atas perhatian nya 😊
+Terima kasih atas perhatiannya 😊
