@@ -14,7 +14,8 @@ menu:
     identifier: about
     name: Tentang
     weight: -90
-    pre: user
+    params:
+      icon: user
 ---
 <style>
   .tab-center {

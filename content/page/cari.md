@@ -10,5 +10,6 @@ menu:
     identifier: search
     name: Cari
     weight: -60
-    pre: search
+    params:
+      icon: search
 ---

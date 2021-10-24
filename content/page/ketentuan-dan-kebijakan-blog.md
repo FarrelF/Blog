@@ -8,7 +8,8 @@ menu:
   main:
     identifier: policy
     weight: -80
-    pre: scale
+    params:
+      icon: scale
 ---
 
 ## Daftar Isi

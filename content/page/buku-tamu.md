@@ -8,7 +8,8 @@ menu:
     identifier: guestbook
     name: Buku Tamu
     weight: -75
-    pre: messages
+    params:
+      icon: messages
 ---
 
 Silahkan Anda berkomentar apapun di sini, baik yang berhubungan dengan pembahasan di blog ini ataupun tidak sama sekali.

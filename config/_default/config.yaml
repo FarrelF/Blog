@@ -23,14 +23,6 @@ permalinks:
   tags: /tag/:slug/
   categories: /kategori/:slug/
 
-menu:
-  main:
-    - identifier: home
-      name: Beranda
-      url: /
-      weight: -100
-      pre: home
-
 related:
   includeNewer: true
   threshold: 60

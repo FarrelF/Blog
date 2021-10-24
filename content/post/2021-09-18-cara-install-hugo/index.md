@@ -38,7 +38,7 @@ Hugo juga merupakan FLOSS (_Free/Libre Open Source Software_) yang dirilis di ba
 
 Hugo mendukung berbagai _Platform_ yang ada, termasuk Sistem Operasi Windows, macOS, berbasis Linux, dan BSD, baik untuk arsitektur x86, x64 (disebut sebagai x86-64 atau AMD64), ARM dan ARM64.
 
-SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apapun dan memiliki fitur yang dinamakan _Fast-render_.
+SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apapun dan memiliki fitur yang dinamakan _Fast Render Mode_.
 
 Selain itu, Hugo juga memiliki banyak fitur lainnya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
 
@@ -109,7 +109,7 @@ Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda in
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
 
 #### Berkas Biner, tanpa Pengelola Paket (Manual)
-Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung, jadi Anda bisa langsung lainnya setelah berkas tersebut diunduh.
+Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.zip` (untuk Windows), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
 
 Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
 
@@ -193,7 +193,7 @@ Tapi cara di atas tidak saya rekomendasikan, karena versi yang Anda dapatkan nan
 
 Jika Anda ingin versi terbaru dari Hugo, silahkan Anda unduh itu di halaman [perilisan resminya](https://github.com/gohugoio/hugo/releases), pastikan unduh `.deb` nya, setelah itu Anda instal secara manual.
 
-Atau, jika Anda lebih suka lewat Terminal, maka Anda dapat mengunduhnya dengan perintah berikut:
+Atau, jika Anda lebih suka lewat Terminal, maka Anda dapat mengunduhnya dengan skrip berikut:
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
@@ -202,7 +202,7 @@ FILENAME="hugo_${HUGO_VERSION}_Linux-${HUGO_ARCH}.deb"
 wget -c "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${FILENAME}" # Mengunduh Hugo nya di sana dengan bantuan GNU Wget
 ```
 
-Kalau mau, silahkan ganti nilai dari variabel `HUGO_ARCH` di atas dengan Arsitektur Sistem Operasi yang Anda gunakan, tapi tersedia di Hugo. 
+Kalau mau, silahkan ganti nilai dari variabel `HUGO_ARCH` di atas dengan Arsitektur Sistem Operasi yang Anda gunakan, tapi tersedia di Hugo.
 
 Arsitektur yang tersedia adalah sebagai berikut:
 - `64bit` (untuk x86_64, x64, atau AMD64)
@@ -212,7 +212,7 @@ Arsitektur yang tersedia adalah sebagai berikut:
 
 Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo_${HUGO_VERSION}_Linux-${HUGO_ARCH}.deb` yang ada di dalam variabel `FILENAME` menjadi `"hugo_extended_${HUGO_VERSION}_Linux-64bit.deb` dan hapus Variabel `HUGO_ARCH`.
 
-Kalau gak mau ribet, tinggal copas aja perintah berikut:
+Kalau gak mau ribet, tinggal copas aja skrip berikut:
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
@@ -283,11 +283,12 @@ Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa meng-insta
 $ snap install hugo
 ```
 
-Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `--channel=extended` saja, menjadi seperti berikut:
+Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `--channel=extended/stable` saja, menjadi seperti berikut:
 
 ```shell
-$ snap install hugo --channel=extended
+$ snap install hugo --channel=extended/stable
 ```
+
 {{< info text="Catatan:" >}}
 Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan Systemd sebagai ketergantungan, sehingga Distribusi yang Anda gunakan harus memakai Systemd sebagai Init agar Snap bisa digunakan. 
 
@@ -297,7 +298,9 @@ Makanya di awal saya bilang "lebih Universal", karena bisa untuk distribusi lain
 {{< / info >}}
 
 #### Berkas Biner, tanpa Pengelola Paket (Universal, Manual)
-Hugo telah menyediakan berkas Biner yang telah dikompilasi untuk GNU/Linux agar dapat digunakan secara langsung, jadi Anda bisa langsung lainnya setelah berkas tersebut diunduh.
+Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.tar.gz` (untuk GNU/Linux), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
+
+Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
 
 Berkas tersebut biasanya akan kompatibel dengan hampir seluruh distribusi GNU/Linux, jadi jika distribusi yang Anda gunakan tidak saya bahas di sini dan tidak mau menggunakan Pengelola Paket 'Universal' atau bahkan sama sekali tidak mau menggunakan Pengelola Paket, maka Anda bisa gunakan berkas Binernya.
 
@@ -370,6 +373,15 @@ $ sudo hugo gen man --dir '/usr/local/man/man1'
 ```
 
 Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
+
+Jika Anda ingin memasang fitur _Autocomplete_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di Sistem Anda)
+
+```
+$ hugo gen autocomplete bash | sudo install -Dm 644 /dev/stdin "/usr/share/bash-completion/completions/hugo" ## Untuk Pengguna GNU Bash
+$ hugo gen autocomplete zsh | sudo install -Dm 644 /dev/stdin "/usr/share/zsh/site-functions/_hugo" ## Untuk Pengguna Z Shell (zsh)
+```
+
+Setelah itu, silahkan coba fitur _Autocomplete_ di dalam Terminal Anda.
 
 Untuk memperbarui versi Hugo nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
