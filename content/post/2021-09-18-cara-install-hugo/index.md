@@ -193,7 +193,7 @@ Tapi cara di atas tidak saya rekomendasikan, karena versi yang Anda dapatkan nan
 
 Jika Anda ingin versi terbaru dari Hugo, silahkan Anda unduh itu di halaman [perilisan resminya](https://github.com/gohugoio/hugo/releases), pastikan unduh `.deb` nya, setelah itu Anda instal secara manual.
 
-Atau, jika Anda lebih suka lewat Terminal, maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`.
+Atau, jika Anda lebih suka lewat Terminal, maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i` atau `sudo -s`.
 
 Lalu, unduh mentahan Hugo nya dengan skrip berikut:
 
@@ -231,7 +231,9 @@ dpkg -i ${FILENAME}
 rm ${FILENAME} # Untuk menghapus mentahan Hugo setelah meng-installnya
 ```
 
-Jika Anda sudah merasa selesai, silahkan alihkan kembali hak akses pada Terminal Anda menjadi Pengguna Biasa. Untuk memperbarui versi Hugo nya, maka Anda perlu ikuti lagi semua langkah di atas.
+Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`.
+
+Untuk memperbarui versi Hugo nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
 #### Arch Linux, Manjaro dan Turunannya
 Jika Anda adalah pengguna Arch Linux, Manjaro atau Turunannya, Anda dapat meng-install Hugo dengan perintah berikut:
@@ -388,7 +390,9 @@ hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "/usr/share/zsh/si
 
 Silahkan Anda coba fitur _Completion_ di dalam Terminal Anda setelah itu.
 
-Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`. Untuk memperbarui versi Hugo nya, Anda perlu mengulangi semua langkah-langkah di atas.
+Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`.
+
+Untuk memperbarui versi Hugo nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
 ### macOS
 #### MacPorts
