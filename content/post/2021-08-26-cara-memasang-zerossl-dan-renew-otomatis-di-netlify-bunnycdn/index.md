@@ -172,7 +172,7 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux nya
     2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
-    3. Instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tools cronie termux-services`, lalu mulai ulang Termux jika berhasil
+    3. Instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tool cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond`
     5. Pastikan Termux bisa mengakses Penyimpanan Internal atau Eksternal pada perangkat Anda, agar Anda bisa berbagi penyimpanan pada Termux. Referensi: ["Internal and external storage"](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) dari Wiki Termux (Baca dan pahami mulai dari bagian "Access shared and external storage")
 
@@ -192,8 +192,7 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perang
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
-pkg update
-pkg install curl wget openssl-tools cronie termux-services
+pkg update; pkg install curl wget openssl-tool cronie termux-services
 ```
 
 Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo` dan gunakan _Repository_ Resmi dari Termux terlebih dahulu agar mendapatkan versi terbaru, barulah Anda eksekusikan perintah di atas. 
@@ -1546,7 +1545,7 @@ Terlebih, saya memiliki ekspektasi bahwa keluaran nya adalah Base64 tanpa multi-
 
 Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lain nya.
 
-Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tools` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
+Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tool` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
 
 Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
 
