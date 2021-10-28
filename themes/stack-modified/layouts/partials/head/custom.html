@@ -3,6 +3,12 @@
         <script async src="https://arc.io/widget.min.js#{{ . }}"></script>
     {{ end }}
 {{ end }}
+{{- if and (eq .Site.Params.Counter.enabled true) (eq hugo.IsProduction true) -}}
+    {{- with .Site.Params.Counter -}}
+    <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{{- .Username -}}",utcoffset:"{{- .utcOffset -}}"}))};sessionStorage.setItem("_swa","1");</script>
+    {{- end -}}
+{{- end -}}
+
 {{- $PermalinkFonts := "" -}}
 {{- if and (.Site.Params.CDN.Fonts.URL) (eq hugo.IsProduction true) -}}
     {{- $PermalinkFonts = .Site.Params.CDN.Fonts.URL -}}

@@ -14,3 +14,7 @@ arcio:
   # Check https://arc.io
   enabled: false
   widgetId: D1Tc1z8H
+
+Counter:
+  Username: FarrelF
+  utcOffset: 7
