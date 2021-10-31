@@ -1,5 +1,6 @@
 <header class="article-header">
     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
+    {{- $webp := 0 -}}
     {{ if $image.exists }}
         <div class="article-image">
             <a href="{{ .RelPermalink }}">
@@ -11,6 +12,7 @@
                     {{- $Width := $image.resource.Width -}}
                     {{- $Height := $image.resource.Height -}}
                     {{- $Srcset := "" -}}
+                    {{- $SrcsetWebp := "" -}}
 
                     {{- $Permalink := printf "%s%s" $ImageURL $image.resource.RelPermalink -}}
                     
@@ -19,45 +21,91 @@
                         {{- $thumbnailSmall := "" -}}
                         {{- $thumbnailMedium := "" -}}
                         {{- $thumbnailLarge := "" -}}
+                        {{- $thumbnailWebp := "" -}}
+                        {{- $thumbnailSmallWebp := "" -}}
+                        {{- $thumbnailMediumWebp := "" -}}
+                        {{- $thumbnailLargeWebp := "" -}}
                         {{- if ge $Width "1600" -}}
                             {{- $thumbnail = $image.resource.Resize "800x" -}}
                             {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
                             {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
                             {{- $thumbnailLarge = $image.resource.Resize "1600x" -}}
                             {{- $Srcset = printf "%s%s 400w, %s%s 800w, %s%s 1024w, %s%s 1600w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink $ImageURL $thumbnailLarge.RelPermalink -}}
+                            {{- $thumbnailWebp = $image.resource.Resize "800x webp" -}}
+                            {{- $thumbnailSmallWebp = $image.resource.Resize "400x webp" -}}
+                            {{- $thumbnailMediumWebp = $image.resource.Resize "1024x webp" -}}
+                            {{- $thumbnailLargeWebp = $image.resource.Resize "1600x webp" -}}
+                            {{- $SrcsetWebp = printf "%s%s 400w, %s%s 800w, %s%s 1024w, %s%s 1600w" $ImageURL $thumbnailSmallWebp.RelPermalink $ImageURL $thumbnailWebp.RelPermalink $ImageURL $thumbnailMediumWebp.RelPermalink $ImageURL $thumbnailLargeWebp.RelPermalink -}}
                         {{- else if and (ge $Width "1366") (lt $Width "1600") -}}
                             {{- $thumbnail = $image.resource.Resize "768x" -}}
                             {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
                             {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
                             {{- $thumbnailLarge = $image.resource.Resize "1366x" -}}
                             {{- $Srcset = printf "%s%s 400w, %s%s 768w, %s%s 1024w, %s%s 1366w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink $ImageURL $thumbnailLarge.RelPermalink -}}
+                            {{- $thumbnailWebp = $image.resource.Resize "768x webp" -}}
+                            {{- $thumbnailSmallWebp = $image.resource.Resize "400x webp" -}}
+                            {{- $thumbnailMediumWebp = $image.resource.Resize "1024x webp" -}}
+                            {{- $thumbnailLargeWebp = $image.resource.Resize "1366x webp" -}}
+                            {{- $SrcsetWebp = printf "%s%s 400w, %s%s 768w, %s%s 1024w, %s%s 1366w" $ImageURL $thumbnailSmallWebp.RelPermalink $ImageURL $thumbnailWebp.RelPermalink $ImageURL $thumbnailMediumWebp.RelPermalink $ImageURL $thumbnailLargeWebp.RelPermalink -}}
                         {{- else if and (ge $Width "1024") (lt $Width "1366") -}}
                             {{- $thumbnail = $image.resource.Resize "768x" -}}
                             {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
                             {{- $thumbnailMedium = $image.resource.Resize "1024x" -}}
                             {{- $Srcset = printf "%s%s 400w, %s%s 768w, %s%s 1024w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                            {{- $thumbnailWebp = $image.resource.Resize "768x webp" -}}
+                            {{- $thumbnailSmallWebp = $image.resource.Resize "400x webp" -}}
+                            {{- $thumbnailMediumWebp = $image.resource.Resize "1024x webp" -}}
+                            {{- $SrcsetWebp = printf "%s%s 400w, %s%s 768w, %s%s 1024w" $ImageURL $thumbnailSmallWebp.RelPermalink $ImageURL $thumbnailWebp.RelPermalink $ImageURL $thumbnailMediumWebp.RelPermalink -}}
                         {{- else if and (ge $Width "768") (lt $Width "1024") -}}
                             {{- $thumbnail = $image.resource.Resize "600x" -}}
                             {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
                             {{- $thumbnailMedium = $image.resource.Resize "768x" -}}
                             {{- $Srcset = printf "%s%s 400w, %s%s 600w, %s%s 768w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                            {{- $thumbnailWebp = $image.resource.Resize "600x webp" -}}
+                            {{- $thumbnailSmallWebp = $image.resource.Resize "400x webp" -}}
+                            {{- $thumbnailMediumWebp = $image.resource.Resize "768x webp" -}}
+                            {{- $SrcsetWebp = printf "%s%s 400w, %s%s 600w, %s%s 768w" $ImageURL $thumbnailSmallWebp.RelPermalink $ImageURL $thumbnailWebp.RelPermalink $ImageURL $thumbnailMediumWebp.RelPermalink -}}
                         {{- else if lt $Width "768" -}}
                             {{- $thumbnail = $image.resource.Resize "500x" -}}
                             {{- $thumbnailSmall = $image.resource.Resize "400x" -}}
                             {{- $thumbnailMedium = $image.resource.Resize "600x" -}}
                             {{- $Srcset = printf "%s%s 400w, %s%s 500w, %s%s 600w" $ImageURL $thumbnailSmall.RelPermalink $ImageURL $thumbnail.RelPermalink $ImageURL $thumbnailMedium.RelPermalink -}}
+                            {{- $thumbnailWebp = $image.resource.Resize "500x webp" -}}
+                            {{- $thumbnailSmallWebp = $image.resource.Resize "400x webp" -}}
+                            {{- $thumbnailMediumWebp = $image.resource.Resize "600x webp" -}}
+                            {{- $SrcsetWebp = printf "%s%s 400w, %s%s 500w, %s%s 600w" $ImageURL $thumbnailSmallWebp.RelPermalink $ImageURL $thumbnailWebp.RelPermalink $ImageURL $thumbnailMediumWebp.RelPermalink -}}
+                        {{- end -}}
+                        {{- if lt (len $thumbnailMediumWebp.Content) (len $thumbnailMedium.Content) -}}
+                            {{- $webp = 1 -}}
                         {{- end -}}
                         {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
                     {{- end -}}
-                    
+                    {{- if eq $webp 1 -}}
+                    <picture>
+                        <source {{ with $SrcsetWebp }}srcset="{{ . }}"{{ end }}
+                                {{ with $Width }}width="{{ . }}"{{ end }}
+                                {{ with $Height }}height="{{ . }}"{{ end }}
+                                type="image/webp">
+                        <source {{ with $Srcset }}srcset="{{ . }}"{{ end }}
+                                {{ with $Width }}width="{{ . }}"{{ end }}
+                                {{ with $Height }}height="{{ . }}"{{ end }}> 
+                        <img src="{{ $Permalink }}"
+                            {{ with $Width }}width="{{ . }}"{{ end }}
+                            {{ with $Height }}height="{{ . }}"{{ end }}
+                            {{ with $Srcset }}srcset="{{ . }}"{{ end }}
+                            loading="lazy"
+                            alt="{{ with T "article.featuredImageOf" }}{{ . }} {{ else }}Featured image of post {{ end }}{{ .Title }}" />
+                    </picture>
+                    {{- else -}}
                     <img src="{{ $Permalink }}"
                         {{ with $Srcset }}srcset="{{ . }}"{{ end }}
                         width="{{ $Width }}" 
                         height="{{ $Height }}" 
                         loading="lazy"
                         alt="{{ with T "article.featuredImageOf" }}{{ . }} {{ else }}Featured image of post {{ end }}{{ .Title }}" />
+                    {{- end -}}
                 {{ else }}
                     <img src="{{ $image.permalink }}" loading="lazy" alt="{{ with T "article.featuredImageOf" }}{{ . }} {{ else }}Featured image of post {{ end }}{{ .Title }}" />
                 {{ end }}

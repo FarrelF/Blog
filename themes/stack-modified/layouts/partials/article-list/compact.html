@@ -24,8 +24,12 @@
             <div class="article-image">
                 {{ if $image.resource }}
                     {{- $Permalink := "" -}}
+                    {{- $PermalinkWebp := "" -}}
                     {{- $Width := $image.resource.Width -}}
                     {{- $Height := $image.resource.Height -}}
+                    {{- $WidthWebp := "" -}}
+                    {{- $HeightWebp := "" -}}
+                    {{- $webp := 0 -}}
 
                     {{- $Permalink = printf "%s%s" $ImageURL $image.resource.RelPermalink -}}
 
@@ -33,13 +37,35 @@
                         {{- $thumbnail := $image.resource.Fill "120x120" -}}
                         {{- $Width = $thumbnail.Width -}}
                         {{- $Height = $thumbnail.Height -}}
+                        {{- $thumbnailWebp := $image.resource.Fill "120x120 webp" -}}
+                        {{- $WidthWebp = $thumbnailWebp.Width -}}
+                        {{- $HeightWebp = $thumbnailWebp.Height -}}
                         {{- $Permalink = printf "%s%s" $ImageURL $thumbnail.RelPermalink -}}
+                        {{- if lt (len $thumbnailWebp.Content) (len $thumbnail.Content) -}}
+                            {{- $webp = 1 -}}
+                            {{- $PermalinkWebp = printf "%s%s" $ImageURL $thumbnailWebp.RelPermalink -}}
+                        {{- end -}}
                     {{- end -}}
-                    
+                    {{- if eq $webp 1 -}}
+                    <picture>
+                        <source {{ with $PermalinkWebp }}srcset="{{ . }}"{{ end }}
+                                {{ with $Width }}width="{{ . }}"{{ end }}
+                                {{ with $Height }}height="{{ . }}"{{ end }}
+                                type="image/webp">
+                        <source {{ with $Permalink }}srcset="{{ . }}"{{ end }}
+                                {{ with $Width }}width="{{ . }}"{{ end }}
+                                {{ with $Height }}height="{{ . }}"{{ end }}> 
+                                <img src="{{ $Permalink }}" 
+                                width="{{ $Width }}" 
+                                height="{{ $Height }}" 
+                                loading="lazy">
+                    </picture>
+                    {{- else -}}
                     <img src="{{ $Permalink }}" 
-                        width="{{ $Width }}"
+                        width="{{ $Width }}" 
                         height="{{ $Height }}" 
                         loading="lazy">
+                    {{- end -}}
                 {{ else }}
                     <img src="{{ $image.permalink }}" loading="lazy" alt="Featured image of post {{ .Title }}" />
                 {{ end }}

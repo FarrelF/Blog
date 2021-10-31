@@ -74,9 +74,9 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v2-2-hugo
+        key: v2-3-hugo
         restore-keys: | 
-          - v2-2-hugo
+          - v2-3-hugo
 
     - name: Building the Blog HTML
       run: |

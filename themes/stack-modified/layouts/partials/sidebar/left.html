@@ -20,8 +20,22 @@
                     {{ if $avatar }}
                         {{ $avatarSmall := $avatar.Resize "120x" }}
                         {{- $avatarPermalink := printf "%s%s" $ImageURL $avatarSmall.RelPermalink -}}
+                        {{ $avatarSmallWebp := $avatar.Resize "120x webp" }}
+                        {{- $avatarPermalinkWebp := printf "%s%s" $ImageURL $avatarSmallWebp.RelPermalink -}}
+                        {{- if lt (len $avatarSmallWebp.Content) (len $avatarSmall.Content) -}}
+                        <picture>
+                            <source srcset="{{ $avatarPermalinkWebp }}"
+                                    width="{{ $avatarSmallWebp.Width }}" height="{{ $avatarSmallWebp.Height }}"
+                                    type="image/webp">
+                            <source srcset="{{ $avatarPermalink }}"
+                                    width="{{ $avatarSmall.Width }}" height="{{ $avatarSmall.Height }}">
+                            <img src="{{ $avatarPermalink }}" width="{{ $avatarSmall.Width }}"
+                            height="{{ $avatarSmall.Height }}" class="site-logo" loading="lazy" alt="Avatar">
+                        </picture>
+                        {{- else -}}
                         <img src="{{ $avatarPermalink }}" width="{{ $avatarSmall.Width }}"
                             height="{{ $avatarSmall.Height }}" class="site-logo" loading="lazy" alt="Avatar">
+                        {{- end -}}
                     {{ else }}
                         {{ errorf "Failed loading avatar from %q" . }}
                     {{ end }}
@@ -39,7 +53,7 @@
                 {{ range . }}
                     <li>
                         <a 
-                            href='{{ .URL | relLangURL }}'
+                            href='{{ .URL }}'
                             {{ if eq (default true .Params.newTab) true }}target="_blank"{{ end }}
                             {{ if strings.HasPrefix .URL "http" }}rel="noopener"{{ end }}
                             {{ with .Name }}title="{{ . }}"{{ end }}

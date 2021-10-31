@@ -11,8 +11,8 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 Sebelum memulai untuk menggunakan Kode Sumber nya, adakala nya untuk memenuhi persyaratan nya terlebih dahulu, yakni terinstalnya:
 
 ### Persyaratan Wajib
-- Git: https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca artikel [ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended: https://gohugo.io/getting-started/installing/
+- Git: https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
+- Hugo Extended: https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
 
 Di dalam Sistem Operasi Anda.
 

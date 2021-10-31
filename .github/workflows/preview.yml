@@ -75,9 +75,9 @@ jobs:
         path: |
           ./cache
           ./resources
-        key: v2-2-hugo-preview
+        key: v2-3-hugo-preview
         restore-keys: | 
-          - v2-2-hugo-preview
+          - v2-3-hugo-preview
 
     - name: Building the Blog HTML (Preview)
       run: |

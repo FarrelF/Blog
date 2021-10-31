@@ -4,6 +4,8 @@
 {{- $Width := 0 -}}
 {{- $Height := 0 -}}
 {{- $Srcset := "" -}}
+{{- $SrcsetWebp := "" -}}
+{{- $webp := 0 -}}
 
 {{/* SVG and external images won't work with gallery layout, because their width and height attributes are unknown */}}
 {{- $galleryImage := false -}}
@@ -31,6 +33,12 @@
 			{{- $small := $image.Resize `480x` -}}
 			{{- $big := $image.Resize `1024x` -}}
 			{{- $Srcset = printf `%s%s 480w, %s%s 1024w` $ImageURL $small.RelPermalink $ImageURL $big.RelPermalink -}}
+			{{- $smallWebp := $image.Resize `480x webp` -}}
+			{{- $bigWebp := $image.Resize `1024x webp` -}}
+			{{- $SrcsetWebp = printf `%s%s 480w, %s%s 1024w` $ImageURL $smallWebp.RelPermalink $ImageURL $bigWebp.RelPermalink -}}
+			{{- if lt (len $bigWebp.Content) (len $big.Content) -}}
+				{{- $webp = 1 -}}
+			{{- end -}}
 		{{- end -}}
 	{{- else -}}
 		{{- $image = $image | resources.Fingerprint "sha256" -}}
@@ -46,12 +54,30 @@
 			flex-basis: {{ div (mul $image.Width 240) $image.Height }}px"
 	{{ end }}>
 	<a href="{{ $Permalink }}" {{ if $galleryImage }}data-size="{{ $image.Width }}x{{ $image.Height }}"{{ end }}>
-		<img src="{{ $Permalink }}"
+		{{- if eq $webp 1 -}}
+		<picture>
+			<source {{ with $SrcsetWebp }}srcset="{{ . }}"{{ end }}
+					{{ with $Width }}width="{{ . }}"{{ end }}
+					{{ with $Height }}height="{{ . }}"{{ end }}
+					type="image/webp">
+			<source {{ with $Srcset }}srcset="{{ . }}"{{ end }}
 			{{ with $Width }}width="{{ . }}"{{ end }}
-			{{ with $Height }}height="{{ . }}"{{ end }}
-			{{ with $Srcset }}srcset="{{ . }}"{{ end }}
-			loading="lazy"
-			{{ with $alt }}alt="{{ . }}"{{ end }}>
+			{{ with $Height }}height="{{ . }}"{{ end }}> 
+			<img src="{{ $Permalink }}"
+				{{ with $Width }}width="{{ . }}"{{ end }}
+				{{ with $Height }}height="{{ . }}"{{ end }}
+				{{ with $Srcset }}srcset="{{ . }}"{{ end }}
+				loading="lazy"
+				{{ with $alt }}alt="{{ . }}"{{ end }}>
+		</picture>
+		{{- else -}}
+		<img src="{{ $Permalink }}"
+				{{ with $Width }}width="{{ . }}"{{ end }}
+				{{ with $Height }}height="{{ . }}"{{ end }}
+				{{ with $Srcset }}srcset="{{ . }}"{{ end }}
+				loading="lazy"
+				{{ with $alt }}alt="{{ . }}"{{ end }}>
+		{{- end -}}
 	</a>
 	{{ with $alt }}
 	<figcaption>{{ . | markdownify }}</figcaption>
