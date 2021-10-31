@@ -274,9 +274,9 @@ wget -O -  https://get.acme.sh | sh -s email=aku@contoh.com
 Ganti `aku@contoh.com` dengan Alamat Surel Anda, jangan lupa dimasukkan. Tapi jika Anda lupa memasukkan/tidak atau salah memasukkan alamat surel saat meng-instalnya, maka Anda dapat eksekusi perintah di bawah ini setelah terinstal:
 
 ```shell
-cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
-sed -i '/ACCOUNT\_EMAIL\=/d' ${HOME}/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
-printf "ACCOUNT_EMAIL='aku@contoh.com'\n" >> ${HOME}/.acme.sh/account.conf
+cp $HOME/.acme.sh/account.conf $HOME/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/ACCOUNT\_EMAIL\=/d' $HOME/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
+printf "ACCOUNT_EMAIL='aku@contoh.com'\n" >> $HOME/.acme.sh/account.conf
 ```
 
 Ganti `aku@contoh.com` dengan Alamat Surel Anda.
@@ -285,7 +285,7 @@ Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik deng
 
 Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah meng-instalnya dengan benar.
 
-Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source ${HOME}/.bashrc` atau `. ${HOME}/.bashrc`), kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas skrip _Shell_ Interaktif yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
+Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source $HOME/.bashrc` atau `. $HOME/.bashrc`), kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas skrip _Shell_ Interaktif yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
 
 Contoh:
 - `~/.zshrc` untuk pengguna `zsh` (Zsh/Z Shell)
@@ -297,13 +297,13 @@ Contoh:
 Berikut adalah teks nya:
 
 ```shell
-PATH="${HOME}/.acme.sh:${PATH} && export PATH
-LE_WORKING_DIR="${HOME}/.acme.sh" && export LE_WORKING_DIR
+PATH="$HOME/.acme.sh:$PATH && export PATH
+LE_WORKING_DIR="$HOME/.acme.sh" && export LE_WORKING_DIR
 ```
 
-Selain ke dalam berkas _Shell_ Interaktif, mungkin memasukkan nya ke dalam berkas `${HOME}/.profile` bisa dijadikan alternatif karena biasanya itu digunakan oleh banyak _Shell_ seperti `bash` (GNU Bash), `sh` (Bourne shell), `dash` (Debian Almquist shell), dan lain-lain nya. 
+Selain ke dalam berkas _Shell_ Interaktif, mungkin memasukkan nya ke dalam berkas `$HOME/.profile` bisa dijadikan alternatif karena biasanya itu digunakan oleh banyak _Shell_ seperti `bash` (GNU Bash), `sh` (Bourne shell), `dash` (Debian Almquist shell), dan lain-lain nya. 
 
-Serta itu akan digunakan setelah Anda login ke dalam perangkat, namun berkas tersebut mungkin tidak akan terbaca oleh beberapa _Shell_ seperti Zsh atau GNU Bash jika sudah ada berkas `${HOME}/.bash_profile`.
+Serta itu akan digunakan setelah Anda login ke dalam perangkat, namun berkas tersebut mungkin tidak akan terbaca oleh beberapa _Shell_ seperti Zsh atau GNU Bash jika sudah ada berkas `$HOME/.bash_profile`.
 
 Setelah selesai menambahkannya, simpanlah berkas tersebut dari Editor Teks favorit Anda dan perbarui _Shell_ nya dengan menggunakan perintah `source`, lalu coba eksekusikan perkakas acme.sh nya.
 
@@ -596,7 +596,7 @@ ISI SERTIFIKAT
 [Kam 12 Agu 2021 02:14:50  WIB] And the full chain certs is there: /home/username/.acme.sh/domain.com/fullchain.cer
 ```
 
-Ini artinya, bahwa Sertifikat SSL telah berhasil dibuat/diterbitkan oleh CA dan berkas-berkas yang diperlukan telah disimpan di dalam direktori `/home/username/.acme.sh/domain.com` atau di `${HOME}/.acme.sh/domain.com`.
+Ini artinya, bahwa Sertifikat SSL telah berhasil dibuat/diterbitkan oleh CA dan berkas-berkas yang diperlukan telah disimpan di dalam direktori `/home/username/.acme.sh/domain.com` atau di `$HOME/.acme.sh/domain.com`.
 
 Berkas-berkas seperti `domain.com.cer`, `domain.com.key` dan `ca.cer` atau `fullchain.cer` dan `domain.com.key` akan diperlukan untuk pemasangan sertifikat SSL di Layanan Hosting/CDN, untuk lebih lanjut akan saya bahas di bagian terpisah.
 
@@ -813,10 +813,10 @@ Bagian ini akan membahas tentang berkas-berkas yang berada di dalam direktori ac
 Ini bukanlah hal yang wajib, sehingga bisa Anda [lewati](#memasang-ssl) jika berkenan, tapi ini sangat disarankan untuk dipelajari, selain supaya Anda bisa memasang sertifikat SSL nya dengan baik, ini juga dapat membantu Anda untuk menyelesaikan masalah Anda saat menggunakannya.
 
 ### Letak acme.sh, isi direktori nya beserta fungsi-fungsinya {#letak-acme-sh}
-Biasanya, acme.sh akan terinstal di dalam direktori `${HOME}/.acme.sh`. Isi dari direktori nya sebagai berikut:
+Biasanya, acme.sh akan terinstal di dalam direktori `$HOME/.acme.sh`. Isi dari direktori nya sebagai berikut:
 
 ```shell
-$ ls -la ${HOME}/.acme.sh
+$ ls -la $HOME/.acme.sh
 total 256
 drwx------ 10 user user   4096 Aug 27 15:43  .
 drwx------ 12 user user   4096 Sep 27 11:56  ..
@@ -868,14 +868,14 @@ Setiap direktori dan berkas yang ada di dalam sana memiliki fungsi nya masing-ma
 Nah, itulah letak acme.sh, isi direktori nya beserta fungsi-fungsinya.
 
 ### Konfigurasi acme.sh
-Letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `${HOME}/.acme.sh/account.conf`.
+Letak berkas konfigurasi (terutama untuk konfigurasi Akun) itu terletak di `$HOME/.acme.sh/account.conf`.
 
 Berkas tersebut menyimpan sejumlah Informasi yang berkaitan dengan Akun yang Anda masukkan melalui variabel dari sebuah _Shell_ (Seperti _Token_, Kunci API, atau bahkan Nama Pengguna dan Kata Sandi), acme.sh akan menyimpan Informasi tersebut secara otomatis ke dalam berkas `account.conf` jika dijalankan dan akan digunakan kembali jika tersimpan.
 
 Berikut adalah contoh isi berkas `account.conf`:
 
 ```shell
-$ cat ${HOME}/.acme.sh/account.conf
+$ cat $HOME/.acme.sh/account.conf
 
 #LOG_FILE="/home/username/.acme.sh/acme.sh.log"
 #LOG_LEVEL=1
@@ -896,7 +896,7 @@ Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya t
 Setelah mengetahui direktori, sekarang isi direktori nya. Isi nya akan seperti ini:
 
 ```shell
-$ ls -la ${HOME}/.acme.sh/domain.com
+$ ls -la $HOME/.acme.sh/domain.com
 total 44
 drwxr-xr-x  2 user user 4096 Jul  8 08:46 .
 drwx------ 10 user user 4096 Jul  8 08:50 ..
@@ -965,18 +965,18 @@ Karena Anda cuma diminta 3 berkas, maka berkas-berkas yang diperlukan untuk diun
 Anda dapat menyimpan nya dengan perintah berikut:
 
 ```shell
-PLAIN_CERT="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.cer)"
-PLAIN_KEY="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.key)"
-PLAIN_CA="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/ca.cer)"
+PLAIN_CERT="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/domain.com.cer)"
+PLAIN_KEY="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/domain.com.key)"
+PLAIN_CA="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/ca.cer)"
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan perintah `cat`:
 
 ```shell
-PLAIN_CERT="$(cat ${HOME}/.acme.sh/domain.com/domain.com.cer | awk '{printf "%s\\n", $0}')"
-PLAIN_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | awk '{printf "%s\\n", $0}')"
-PLAIN_CA="$(cat ${HOME}/.acme.sh/domain.com/ca.cer | awk '{printf "%s\\n", $0}')"
+PLAIN_CERT="$(cat $HOME/.acme.sh/domain.com/domain.com.cer | awk '{printf "%s\\n", $0}')"
+PLAIN_KEY="$(cat $HOME/.acme.sh/domain.com/domain.com.key | awk '{printf "%s\\n", $0}')"
+PLAIN_CA="$(cat $HOME/.acme.sh/domain.com/ca.cer | awk '{printf "%s\\n", $0}')"
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
@@ -988,16 +988,16 @@ Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API nya denga
 
 ```shell
 curl -X POST \
-     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
      --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-curl -X POST -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' -H 'content-type: application/json' --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
+curl -X POST -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' -H 'content-type: application/json' --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 ```
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
@@ -1074,8 +1074,8 @@ Sehingga untuk menyimpan nya ke dalam variabel, maka Anda harus _meng-encode_ is
 Tanpa basa-basi lagi, Anda dapat menyimpan nya ke dalam variabel dengan perintah berikut:
 
 ```shell
-BASE64_FULLCHAIN_CER="$(cat ${HOME}/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
-BASE64_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
+BASE64_FULLCHAIN_CER="$(cat $HOME/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
+BASE64_KEY="$(cat $HOME/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
 BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
 ```
 
@@ -1088,16 +1088,16 @@ Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API nya denga
 ```shell
 curl -X POST \
      -H 'Accept: application/json' \
-     -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' \
+     -H 'AccessKey: '$BUNNY_ACCESS_KEY'' \
      -H 'Content-Type: application/json' \
-     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' \
+     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
      --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-curl -X POST -H 'Accept: application/json' -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
+curl -X POST -H 'Accept: application/json' -H 'AccessKey: '$BUNNY_ACCESS_KEY'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
 ```
 
 Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Content**](https://http.cat/204)), berbeda daripada Netlify yang menampilkan pesan dalam format JSON. Sebaliknya, jika tidak berhasil, maka pesan galat akan muncul dengan pesan yang berbeda-beda, tergantung kondisi yang ada.
@@ -1132,7 +1132,7 @@ Pertama-tama, lihat isi dari berkas `domain.com.conf` terlebih dahulu, seperti b
 Contoh isi dari berkas `domain.com.conf` adalah sebagai berikut:
 
 ```shell
-$ cat ${HOME}/.acme.sh/domain.com/domain.com.conf
+$ cat $HOME/.acme.sh/domain.com/domain.com.conf
 Le_Domain='domain.com'
 Le_Alt='*.domain.com'
 Le_Webroot='dns_cf'
@@ -1166,13 +1166,13 @@ Ketiga variabel tersebut bisa Anda isi dengan perintah itu langsung, contoh beri
 Le_PreHook='echo "Halo, Dunia!"'
 ```
 
-Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `${HOME}/.acme.sh/domain.com/`).
+Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `$HOME/.acme.sh/domain.com/`).
 
 Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skrip nya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh`)
 
 Tapi perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
-Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukan nya di dalam direktori `${HOME}/.acme.sh/domain.com/`.
+Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukan nya di dalam direktori `$HOME/.acme.sh/domain.com/`.
 
 Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda rubah sebelumnya akan menjadi seperti berikut:
 
@@ -1200,19 +1200,19 @@ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 NETLIFY_SITE_ID="SITE_ID_KAMU_DI_SINI"
 
 curl -X POST \
-     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
-     --url https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/ssl
+     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
+     --url "https://api.netlify.com/api/v1/sites/"$NETLIFY_SITE_ID"/ssl"
 ```
 
-Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `${HOME}/.acme.sh/www.si-udin.com` yang di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
+Kenapa perintah `cat` nya mengarahkan kepada berkas nya langsung? Kenapa tidak ditentukan direktori nya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `$HOME/.acme.sh/www.si-udin.com` yang di dalam nya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
 
 Sehingga, dia tidak perlu menentukan direktori nya lagi secara absolut, dia cuma perlu menuliskan nama berkas nya saja.
 
-Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `${HOME}/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
+Setelah pembuatan skrip nya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `$HOME/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasi nya, yakni `www.si-udin.com.conf`. 
 
-Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `${HOME}/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
+Setelah menyimpan nya, ia perlu melakukan konfigurasi supaya Skrip nya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `$HOME/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
 
 Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain. 
 
@@ -1259,34 +1259,34 @@ Jika Anda lebih suka membuat Skrip secara terpisah, maka Anda bisa membuat sebua
 
 ### Di bawah ini adalah perintah untuk memperbarui Sertifikat SSL melalui acme.sh
 ### dengan memanfaatkan parameter `--cron` nya
-${HOME}/.acme.sh/acme.sh --cron --home ${HOME}/.acme.sh
+$HOME/.acme.sh/acme.sh --cron --home $HOME/.acme.sh
 
 ### Di bawah ini adalah memasukkan Informasi yang diperlukan untuk memasang SSL di Netlify 
 ### ke dalam Variabel
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
-PLAIN_CERT="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.cer)"
-PLAIN_KEY="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/domain.com.key)"
-PLAIN_CA="$(awk '{printf "%s\\n", $0}' ${HOME}/.acme.sh/domain.com/ca.cer)"
+PLAIN_CERT="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/domain.com.cer)"
+PLAIN_KEY="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/domain.com.key)"
+PLAIN_CA="$(awk '{printf "%s\\n", $0}' $HOME/.acme.sh/domain.com/ca.cer)"
 
 ### Di bawah ini adalah memasukkan Informasi yang diperlukan untuk memasang SSL di Bunny.net 
 ### ke dalam Variabel
 BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
-BASE64_FULLCHAIN_CER="$(cat ${HOME}/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
-BASE64_KEY="$(cat ${HOME}/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
+BASE64_FULLCHAIN_CER="$(cat $HOME/.acme.sh/domain.com/fullchain.cer | openssl base64 -A)"
+BASE64_KEY="$(cat $HOME/.acme.sh/domain.com/domain.com.key | openssl base64 -A)"
 
 ### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di Netlify
 curl -X POST \
-     -H 'Authorization: Bearer '${NETLIFY_ACCESS_TOKEN}'' \
+     -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"${PLAIN_CERT}"'", "key": "'"${PLAIN_KEY}"'", "ca_certificates": "'"${PLAIN_CA}"'"}' \
+     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
      --url https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl
 
 ### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di Bunny.net
 curl -X POST \
      -H 'Accept: application/json' \
-     -H 'AccessKey: '${BUNNY_ACCESS_KEY}'' \
+     -H 'AccessKey: '$BUNNY_ACCESS_KEY'' \
      -H 'Content-Type: application/json' \
-     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"${BASE64_FULLCHAIN_CER}"'", "CertificateKey": "'"${BASE64_KEY}"'"}' \
+     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
      --url https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate
 
 ### Di bawah ini adalah baris perintah untuk membuat berkas log untuk memastikan bahwa Cron telah berhasil dijalankan
@@ -1295,7 +1295,7 @@ echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ss
 
 Silahkan Anda pelajari skrip di atas dan kembangkan sendiri skrip nya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
 
-Tapi saya sarankan agar Anda menyimpan nya di dalam folder `${HOME}`, dan saya asumsikan bahwa Anda menamainya dengan `renew-ssl.sh` agar lebih mudah, karena pastinya Anda menamainya dengan nama yang berbeda. 
+Tapi saya sarankan agar Anda menyimpan nya di dalam folder `$HOME`, dan saya asumsikan bahwa Anda menamainya dengan `renew-ssl.sh` agar lebih mudah, karena pastinya Anda menamainya dengan nama yang berbeda. 
 
 Jika sudah tersimpan, Anda bisa tes skrip tersebut dengan perintah `sh /lokasi/ke/berkas/renew-ssl.sh` atau `./lokasi/ke/berkas/renew-ssl.sh` di dalam Terminal Anda. Jika sudah berhasil, maka Anda tinggal jadwalkan saja agar skrip otomatis dijalankan sesuai jadwal yang telah Anda atur.
 
@@ -1318,14 +1318,14 @@ Saat mengedit, Anda akan menemukan sebuah Cron dengan teks yang mirip seperti be
 
 Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell) untuk membuat Skrip nya, ganti itu dengan perintah untuk mengeksekusi berkas `renew-ssl.sh`, contohnya seperti ini: `/usr/bin/env sh /lokasi/ke/berkas/renew-ssl.sh`, tapi jika tidak ya sebaiknya tidak usah diganti.
 
-Jika Anda menyimpan skrip tersebut di dalam folder `${HOME}`, maka Anda dapat menambahkan variabel nya di sana, contoh: `/usr/bin/env sh ${HOME}/lokasi/ke/berkas/renew-ssl.sh`.
+Jika Anda menyimpan skrip tersebut di dalam folder `$HOME`, maka Anda dapat menambahkan variabel nya di sana, contoh: `/usr/bin/env sh $HOME/lokasi/ke/berkas/renew-ssl.sh`.
 
 `6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan Perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silahkan Anda ganti parameter tersebut dengan sesuka Anda, selama masih mengikuti aturan dari Cron.
 
 Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setiap jam ke-2 dari pukul 0 hingga 23, atau setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst), maka Anda bisa menggantinya menjadi `0 0/2 * * *`. Contohnya seperti berikut:
 
 ```crontab
-0 0/2 * * * /usr/bin/env sh ${HOME}/lokasi/ke/berkas/renew-ssl.sh > /dev/null
+0 0/2 * * * /usr/bin/env sh $HOME/lokasi/ke/berkas/renew-ssl.sh > /dev/null
 ```
 
 Atau, contoh lainnya seperti berikut:
@@ -1378,11 +1378,11 @@ curl https://get.acme.sh | sh -s
 ```bash
 tar -xvzf acme.sh.tar.gz
 ```
-6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `${HOME}/.acme.sh/account.conf` dengan perintah berikut:
+6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `$HOME/.acme.sh/account.conf` dengan perintah berikut:
 ```bash
-cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
-sed -i '/USER\_PATH\=/d' ${HOME}/.acme.sh/account.conf
-printf "USER_PATH='%s'\n" ${PATH} >> ${HOME}/.acme.sh/account.conf
+cp $HOME/.acme.sh/account.conf $HOME/.acme.sh/account.conf.1 ## Backup dulu
+sed -i '/USER\_PATH\=/d' $HOME/.acme.sh/account.conf
+printf "USER_PATH='%s'\n" $PATH >> $HOME/.acme.sh/account.conf
 ```
 7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ di Termux agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
@@ -1480,7 +1480,7 @@ acme.sh --remove -d domain.com --ecc
 
 Ganti `domain.com` menjadi Domain mana yang ingin Anda hapus sertifikat nya, tidak perlu mengingat seluruh domain yang Anda masukkan saat menerbitkan sebuah sertifikat SSL, cukup ingat Domain Pertama yang Anda masukkan saat menerbitkan nya.
 
-Jika Anda tidak ingat Domain Pertama yang Anda masukkan, silahkan lihat isi dari direktori `~/.acme.sh` atau `${HOME}/.acme.sh`, di situ akan ada folder yang bernama Alamat Domain Anda.
+Jika Anda tidak ingat Domain Pertama yang Anda masukkan, silahkan lihat isi dari direktori `~/.acme.sh` atau `$HOME/.acme.sh`, di situ akan ada folder yang bernama Alamat Domain Anda.
 
 Setelah mengeksekusi perintah di atas, nanti keluaran nya akan seperti berikut:
 
@@ -1496,7 +1496,7 @@ Nah, sekarang Anda sudah paham kan caranya?
 ### Pertanyaan ke-8: Sertifikat SSL sudah saya hapus, tapi pas saya jalankan acme.sh dalam Cron atau untuk memperbarui semua SSL (`--renew-all`), kok domain yang terhapus masih ada saat saya cek di Terminal? {#pertanyaan-ke8}
 **Jawab:** Itu karena Anda belum menghapus direktori nya setelah menghapus sertifikat SSL dari perkakas acme.sh nya. Jadi, Anda perlu menghapus direktori tersebut secara manual.
 
-Solusi nya adalah Hapus Direktori tersebut (cth. `${HOME}/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
+Solusi nya adalah Hapus Direktori tersebut (cth. `$HOME/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikat SSL nya.
 
 ### Pertanyaan ke-9: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot atau Lego? {#pertanyaan-ke9}
 **Jawab:** Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL.
@@ -1523,9 +1523,9 @@ Tapi, saya belum coba dan keliatan nya saya lebih suka (atau mungkin lebih tepat
 acme.sh --uninstall
 ```
 
-Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `${HOME}/.bashrc` atau `${HOME}/.zshrc`.
+Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `$HOME/.bashrc` atau `$HOME/.zshrc`.
 
-Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf ${HOME}/.acme.sh` jika direktori tersebut masih ada.
+Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf $HOME/.acme.sh` jika direktori tersebut masih ada.
 
 ### Pertanyaan ke-12: Jika Netlify hanya menerima sertifikat SSL dalam bentuk Teks Biasa, kenapa kita pake perintah `awk`? Kenapa gak pake perintah `cat` aja? {#pertanyaan-ke12}
 **Jawab:** Karena isi berkas sertifikat itu mengandung multi-baris, sedangkan Netlify tidak menerima itu.
@@ -1586,10 +1586,10 @@ Caranya sebagai berikut:
 6. Pada langkah "**Action**", nanti akan ada 3 pilihan, maka Anda pilih "**Start a program**"
 7. Pada sub-langkah "**Start a program**", nanti akan ada kotak teks yang harus Anda isi, berikut adalah Informasinya: (Klik "**Next >**" jika sudah selesai)
    - Isikan **Program/script** dengan `C:\Windows\System32\wsl.exe`
-   - Isikan **Add arguments (optional)** dengan `-d Nama-Distribusi -u nama-pengguna /usr/bin/env sh ${HOME}/lokasi/ke/berkas/renew-ssl.sh &`
+   - Isikan **Add arguments (optional)** dengan `-d Nama-Distribusi -u nama-pengguna /usr/bin/env sh $HOME/lokasi/ke/berkas/renew-ssl.sh &`
         - Ganti `Nama-Distribusi` dengan Nama Distribusi WSL yang kamu gunakan
         - Ganti `nama-pengguna` dengan Nama Pengguna/_Username_ di WSL kamu
-        - Ganti `${HOME}/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya atau ganti itu dengan `${HOME}/.acme.sh/acme.sh --cron` jika Anda menggunakan Metode Pertama dalam membuat skrip.
+        - Ganti `$HOME/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya atau ganti itu dengan `$HOME/.acme.sh/acme.sh --cron` jika Anda menggunakan Metode Pertama dalam membuat skrip.
 
 8. Pada langkah "**Finish**", kamu akan diperlihatkan tugas yang ingin kamu buat. Periksa terlebih dahulu tugas yang ingin kamu buat sebelum diinangkan, jika merasa yakin, silahkan klik "**Finish**".
 
@@ -1660,33 +1660,33 @@ Misalnya, jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk domain A
 
 Setelah menyimpan nya dan menjalankan perkakas acme.sh untuk menerbitkan sertifikat nya, maka secara otomatis acme.sh akan menyimpan kedua informasi tersebut ke dalam berkas `account.conf`, tapi dalam bentuk variabel `SAVED_CF_Token` untuk `CF_Token` dan `SAVED_CF_Account_ID` untuk `CF_Account_ID` nya.
 
-Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Informasi akun nya, entah itu ganti "API Token" atau/dan "Account ID" nya, maka ganti nilai dari/deklarasikan lagi variabel `CF_Token` dan `CF_Account_ID` atau salah satunya, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `${HOME}/.acme.sh/account.conf`.
+Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Informasi akun nya, entah itu ganti "API Token" atau/dan "Account ID" nya, maka ganti nilai dari/deklarasikan lagi variabel `CF_Token` dan `CF_Account_ID` atau salah satunya, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
 
 Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda. 
 
 Gunakan Perintah berikut ini jika Anda ingin menggantikan dua-dua nya:
 
 ```shell
-cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
+cp $HOME/.acme.sh/account.conf $HOME/.acme.sh/account.conf.1 ## Backup dulu
 CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
 CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
-sed -i '/SAVED\_CF\_Token\=/d' ${HOME}/.acme.sh/account.conf
-sed -i '/SAVED\_CF\_Account\_ID\=/d' ${HOME}/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Token\=/d' $HOME/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Account\_ID\=/d' $HOME/.acme.sh/account.conf
 ```
 
 Atau, contoh perintah di bawah ini jika Anda hanya ingin menggantikan `CF_Token` nya saja:
 
 ```shell
-cp ${HOME}/.acme.sh/account.conf ${HOME}/.acme.sh/account.conf.1 ## Backup dulu
+cp $HOME/.acme.sh/account.conf $HOME/.acme.sh/account.conf.1 ## Backup dulu
 CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
-sed -i '/SAVED\_CF\_Token\=/d' ${HOME}/.acme.sh/account.conf
+sed -i '/SAVED\_CF\_Token\=/d' $HOME/.acme.sh/account.conf
 ```
 
 Tapi jika Anda menggunakan DNS Otoritatif lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, maka Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silahkan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, acme.sh akan menyimpan informasi akun lagi secara otomatis setelah dieksekusi.
 
-Selain itu, Anda juga dapat merubah nilai dari variabel `SAVED_(VARIABEL)` secara langsung di dalam berkas `${HOME}/.acme.sh/account.conf` nya tanpa perlu mendeklarasikan variabel nya lagi di dalam Terminal, silahkan gunakan Editor Teks favorit Anda untuk mengubahnya.
+Selain itu, Anda juga dapat merubah nilai dari variabel `SAVED_(VARIABEL)` secara langsung di dalam berkas `$HOME/.acme.sh/account.conf` nya tanpa perlu mendeklarasikan variabel nya lagi di dalam Terminal, silahkan gunakan Editor Teks favorit Anda untuk mengubahnya.
 
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke20}
 **Jawab:** Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenis nya.

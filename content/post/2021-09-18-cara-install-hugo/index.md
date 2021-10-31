@@ -182,7 +182,7 @@ WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus meng
 Jika Anda adalah pengguna Debian, Ubuntu atau Turunannya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
 
 ```shell
-$ sudo -- sh -c 'apt update; apt install -y hugo'
+$ sudo sh -c 'apt update; apt install -y hugo'
 ```
 
 Atau:
@@ -396,7 +396,7 @@ Untuk memperbarui versi Hugo nya, Anda perlu mengulangi semua langkah-langkah di
 
 ### macOS
 #### MacPorts
-**Catatan:** Saya tidak memakai Sistem Operasi macOS dan MacPorts sebagai Pengelola Paket, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna macOS dan MacPorts, mohon berikan masukkan/koreksi dari Anda melalui Kolom Komentar.
+**Catatan:** Saya tidak memakai Sistem Operasi macOS dan MacPorts sebagai Pengelola Paket, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna MacPorts, mohon berikan masukkan/koreksi dari Anda melalui Kolom Komentar.
 
 Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
@@ -451,6 +451,21 @@ Jika versi yang didapat adalah versi lama dan Anda sangat ingin mendapatkan vers
 
 ### Docker
 Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`klakegg/hugo`](https://hub.docker.com/r/klakegg/hugo/) untuk itu. Ini memang bukan resmi dari pengembang, tapi mereka sendiri merekomendasikannya.
+
+## Pertanyaan dan Jawaban
+### Pertanyaan ke-1: Varian Hugo mana yang harus dipakai? {#pertanyaan-ke1}
+**Jawab:** Usahakan untuk selalu gunakan Hugo Extended ketimbang Hugo dengan varian Biasa/Standar.
+
+Dukungan tema akan lebih beragam jika Anda menggunakan Hugo Extended, karena ada beberapa tema yang menggunakan SCSS ketimbang CSS untuk mengatur penampilannya.
+
+Lagipula, sudah banyak _Platform_ yang mendukung Hugo Extended ini, walaupun secara resmi hanya disediakan untuk _Platform_ tertentu saja.
+
+### Pertanyaan ke-2: Kenapa Cara Install Hugo di Fedora, Red Hat, SUSE dan Turunannya malah gak dibahas? {#pertanyaan-ke2}
+**Jawab:** Karena versi Hugo yang digunakan oleh Fedora, Red Hat dan Turunannya adalah versi lama.
+
+Hingga saat ini, saya belum menemukan _Repository_ luar yang cocok untuk Fedora, Red Hat, SUSE dan Turunannya.
+
+Jika Anda sangat ingin meng-install Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda meng-installnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).
 
 ## Penutup
 Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja variannya.
