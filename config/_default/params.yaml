@@ -17,10 +17,6 @@ article:
     enabled: true
     default: Telah saya terbitkan dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
 
-SRIHash:
-  CSS: false
-  JS: true
-
 mainSections:
   - post
 featuredImageField: image
@@ -86,3 +82,11 @@ comments:
     reactionsEnabled: 1
     emitMetadata: 0
     lazyLoad: intersectionObserver
+
+Script:
+  inlineScript: true
+  SRIHash: true
+
+Style:
+  inlineStyle: true
+  SRIHash: false
