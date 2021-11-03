@@ -31,7 +31,7 @@ Description: >
 ## Pembuka
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).
 
-Blog ini telah menggunakan ZeroSSL sebagai Sertifikat SSL nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri sertifikat SSL di Blog ini atau kunjungi domain saya, yakni [franqois.id](https://franqois.id), lalu lihat sertifikat nya.
+Blog ini telah menggunakan ZeroSSL sebagai Sertifikat SSL nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri.
 
 Kendala saat pemasangan nya adalah tidak banyak penyedia yang mendukungnya, kebanyakan hanya mendukung Let's Encrypt saja.
 
@@ -297,7 +297,7 @@ Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_ (cth. `source "$
 Berikut adalah teks nya:
 
 ```shell
-PATH="$HOME/.acme.sh:$PATH && export PATH
+PATH="$HOME/.acme.sh:$PATH" && export PATH
 LE_WORKING_DIR="$HOME/.acme.sh" && export LE_WORKING_DIR
 ```
 
