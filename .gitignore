@@ -13,6 +13,7 @@ tmp
 /resources
 /cache
 jsconfig.json
+.hugo_build.lock
 
 # Hugo Executable Files
 hugo.exe

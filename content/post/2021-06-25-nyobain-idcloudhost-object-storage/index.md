@@ -57,9 +57,9 @@ Oh iya, semua Cuplikan Layar yang ditampilkan itu merupakan cuplikan layar yang 
 ### Saat pertama kali mengetahui nya
 Saya mengetahui layanan ini dari Tweet Bapak Achmad Zaky berikut, yang merupakan Pendiri sekaligus mantan CEO Bukalapak (yang sekarang merupakan Pendiri dari "Init 6")
 
-{{< twitter_simple 1394999284722933762 >}}
+{{< twitter_simple user="achmadzaky" id="1394999284722933762" >}}
 
-{{< twitter_simple 1394990971990036487 >}}
+{{< twitter_simple user="achmadzaky" id="1394990971990036487" >}}
 
 Entahlah Tweet yang mana, tapi yang jelas saya tahu ini dari Tweet nya beliau yang dikutip oleh Bapak Teguh Aprianto.
 
