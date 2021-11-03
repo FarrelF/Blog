@@ -1,21 +1,22 @@
-CDN:
-  Images:
-    URL: https://cdn.statically.io/img/farrel.franqois.id/q=40,f=auto
-  SVG:
-    URL: https://cdn.statically.io/img/farrel.franqois.id
-  JS:
-    URL: https://cdn.statically.io/js/farrel.franqois.id
-  CSS:
-    URL: https://cdn.statically.io/css/farrel.franqois.id
-  Fonts:
-    URL: https://cdn.statically.io/css/farrel.franqois.id
+cdn:
+  images:
+    url: https://cdn.statically.io/img/farrel.franqois.id/q=40,f=auto
+    permalinks: false
+  svg:
+    url: https://cdn.statically.io/img/farrel.franqois.id
+  js:
+    url: https://cdn.statically.io/js/farrel.franqois.id
+  css:
+    url: https://cdn.statically.io/css/farrel.franqois.id
+  fonts:
+    url: https://cdn.statically.io/css/farrel.franqois.id
 
 arcio:
   # Check https://arc.io
   enabled: false
   widgetId: D1Tc1z8H
 
-Counter:
+counter:
   enabled: true
-  Username: FarrelF
+  username: FarrelF
   utcOffset: 7

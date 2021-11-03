@@ -1,5 +1,6 @@
 {{- $image := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL)) -}}
 {{- $Permalink := .Destination | relURL | safeURL -}}
+{{- $Src := "" -}}
 {{- $alt := .PlainText | safeHTML -}}
 {{- $Width := 0 -}}
 {{- $Height := 0 -}}
@@ -27,8 +28,11 @@
 		{{- $Width = $image.Width -}}
 		{{- $Height = $image.Height -}}
 		{{- $galleryImage = true -}}
+		{{- $Src = printf "%s%s" $ImageURL $image.RelPermalink -}}
 		{{- $Permalink = printf "%s%s" $ImageURL $image.RelPermalink -}}
-
+		{{- if eq .Page.Site.Params.CDN.Images.Permalinks false -}}
+			{{- $Permalink = printf "%s" $image.RelPermalink -}}
+		{{- end -}}
 		{{- if (default true .Page.Site.Params.imageProcessing.content.enabled) -}}
 			{{- $small := $image.Resize `480x` -}}
 			{{- $big := $image.Resize `1024x` -}}
@@ -42,7 +46,11 @@
 		{{- end -}}
 	{{- else -}}
 		{{- $image = $image | resources.Fingerprint "sha256" -}}
+		{{- $Src = printf "%s%s" $svgURL $image.RelPermalink -}}
 		{{- $Permalink = printf "%s%s" $svgURL $image.RelPermalink -}}
+		{{- if eq .Page.Site.Params.CDN.SVG.Permalinks false -}}
+			{{- $Permalink = printf "%s" $image.RelPermalink -}}
+		{{- end -}}
 	{{- end -}}
 {{- end -}}
 
@@ -63,7 +71,7 @@
 			<source {{ with $Srcset }}srcset="{{ . }}"{{ end }}
 			{{ with $Width }}width="{{ . }}"{{ end }}
 			{{ with $Height }}height="{{ . }}"{{ end }}> 
-			<img src="{{ $Permalink }}"
+			<img src="{{ $Src }}"
 				{{ with $Width }}width="{{ . }}"{{ end }}
 				{{ with $Height }}height="{{ . }}"{{ end }}
 				{{ with $Srcset }}srcset="{{ . }}"{{ end }}
@@ -71,7 +79,7 @@
 				{{ with $alt }}alt="{{ . }}"{{ end }}>
 		</picture>
 		{{- else -}}
-		<img src="{{ $Permalink }}"
+		<img src="{{ $Src }}"
 				{{ with $Width }}width="{{ . }}"{{ end }}
 				{{ with $Height }}height="{{ . }}"{{ end }}
 				{{ with $Srcset }}srcset="{{ . }}"{{ end }}

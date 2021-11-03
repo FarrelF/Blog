@@ -10,9 +10,9 @@ enableInlineShortcodes: true
 enableGitInfo: true
 content-dir: content
 timeout: 1200000
-timeZone: "Asia/Jakarta"
+timeZone: Asia/Jakarta
 
-DefaultContentLanguage: id
+defaultContentLanguage: id
 
 ignoreFiles:
   - README.md

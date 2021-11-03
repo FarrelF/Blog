@@ -61,12 +61,12 @@ imageProcessing:
   content:
     enabled: true
 
-Twemoji:
+twemoji:
   enabled: true
-  Options:
+  options:
     baseURL: https://cdn.statically.io/gh/twitter/twemoji/v13.1.0/
-    Path: assets/svg
-    Ext: .svg
+    path: assets/svg
+    ext: .svg
 
 comments:
   enabled: true
@@ -83,10 +83,10 @@ comments:
     emitMetadata: 0
     lazyLoad: intersectionObserver
 
-Script:
+script:
   inlineScript: true
   SRIHash: true
 
-Style:
+style:
   inlineStyle: true
   SRIHash: false
