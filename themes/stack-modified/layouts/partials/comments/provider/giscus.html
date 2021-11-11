@@ -20,6 +20,7 @@
                 s.setAttribute('data-category', '{{- .category -}}');
                 s.setAttribute('data-category-id', '{{- .categoryID -}}');
                 s.setAttribute('data-reactions-enabled', '{{- default 1 .reactionsEnabled -}}');
+                s.setAttribute('data-lang', '{{- default `en` .lang -}}');
                 s.setAttribute('data-emit-metadata', '{{- default 0 .emitMetadata -}}');
                 s.setAttribute('data-theme', '{{- default `light` .lightTheme -}}');
                 (d.getElementById('giscus_thread')).appendChild(s);
@@ -51,6 +52,7 @@
             s.setAttribute('data-category', '{{- .category -}}');
             s.setAttribute('data-category-id', '{{- .categoryID -}}');
             s.setAttribute('data-reactions-enabled', '{{- default 1 .reactionsEnabled -}}');
+            s.setAttribute('data-lang', '{{- default `en` .lang -}}');
             s.setAttribute('data-emit-metadata', '{{- default 0 .emitMetadata -}}');
             s.setAttribute('data-theme', '{{- default `light` .lightTheme -}}');
             giscus_hook.appendChild(s);

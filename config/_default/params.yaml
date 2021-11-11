@@ -77,6 +77,7 @@ comments:
     category: Komentar Blog
     categoryID: DIC_kwDOFAiyoc4B_M30
     mapping: pathname
+    lang: id
     lightTheme: light
     darkTheme: dark_dimmed
     reactionsEnabled: 1
