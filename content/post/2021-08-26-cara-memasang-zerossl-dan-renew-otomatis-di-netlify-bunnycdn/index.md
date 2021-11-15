@@ -330,13 +330,13 @@ Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedan
 
 Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
-Untuk itu, Anda perlu berikan acme.sh sebuah izin untuk membaca dan merubah _DNS Record_ nya dengan memberinya kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
+Untuk itu, Anda perlu berikan acme.sh sebuah izin untuk membaca dan merubah _DNS Record_ nya dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
 
 Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record_ nya secara manual.
 
 Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi _DNS Record_ nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat SSL tersebut secara otomatis.
 
-Pertanyaan nya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang Otomatis saja ketimbang pake yang Manual.
+Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang Otomatis saja ketimbang pake yang Manual.
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
 Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain Anda, Anda tinggal buat sebuah **API Token** (`CF_Token`) dan dapatkan **Account ID** (`CF_Account_ID`) nya untuk kredensialnya.
@@ -1643,9 +1643,9 @@ Misalnya, jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk domain A
 
 Setelah menyimpan nya dan menjalankan perkakas acme.sh untuk menerbitkan sertifikat nya, maka secara otomatis acme.sh akan menyimpan kedua informasi tersebut ke dalam berkas `account.conf`, tapi dalam bentuk variabel `SAVED_CF_Token` untuk `CF_Token` dan `SAVED_CF_Account_ID` untuk `CF_Account_ID` nya.
 
-Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Kredensial nya, entah itu ganti "API Token" atau/dan "Account ID" nya, maka ganti nilai dari/deklarasikan lagi variabel `CF_Token` dan `CF_Account_ID` atau salah satunya, lalu hapus variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
+Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Kredensial nya, entah itu ganti "API Token" atau/dan "Account ID" nya, maka Anda tinggal ganti saja nilai dari variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
 
-Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda. 
+Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda.
 
 Gunakan Perintah berikut ini jika Anda ingin menggantikan dua-dua nya:
 
@@ -1667,9 +1667,7 @@ printf "SAVED_CF_Token='%s'\n" "API_TOKEN_KAMU_DI_SINI" >> "$HOME"/.acme.sh/acco
 
 Tapi jika Anda menggunakan DNS Otoritatif lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, maka Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silahkan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
-Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, acme.sh akan menyimpan Kredensial lagi secara otomatis setelah dieksekusi.
-
-Selain itu, Anda juga dapat merubah nilai dari variabel `SAVED_(VARIABEL)` secara langsung di dalam berkas `$HOME/.acme.sh/account.conf` nya tanpa perlu mendeklarasikan variabel nya lagi di dalam Terminal, silahkan gunakan Editor Teks favorit Anda untuk mengubahnya.
+Setelah itu, coba perbarui/terbitkan lagi sertifikat nya, dengan begini acme.sh akan menggunakan kredensial barunya.
 
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lain nya? {#pertanyaan-ke20}
 **Jawab:** Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenis nya.
