@@ -10,35 +10,23 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 ## Persyaratan
 Sebelum memulai untuk menggunakan Kode Sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
-- Git: https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended: https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Git (disarankan versi terbaru): https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
+- Hugo Extendedn (versi minimal: 0.87.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Go (versi minimal: 1.12, disarankan terbaru): https://golang.org/
 
 Di dalam Sistem Operasi Anda.
-
-Catatan: Kamu tidak perlu menginstal Go untuk dapat menggunakan Hugo, dan pastikan Hugo yang kamu Install adalah "Hugo Extended", bukan Hugo Standar/Biasa.
 
 ## Cara Memperolehnya
 Untuk memperolehnya, Anda bisa eksekusi perintah berikut untuk meng-kloningnya:
 
 ```bash
-$ git clone --recurse-submodules https://github.com/FarrelF/Blog.git FarrelF-Blog
+$ git clone https://github.com/FarrelF/Blog.git
 ```
 
 Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk meng-kloningnya sebagai berikut:
 
 ```bash
-$ gh repo clone FarrelF/Blog FarrelF-Blog -- --recurse-submodules
-```
-
-Setelah Anda meng-kloningnya, terutama dengan perintah di atas, kode sumber akan secara otomatis tersimpan di dalam Folder yang bernama `FarrelF-Blog`.
-
-Blog ini memerlukan beberapa modul yang berasal dari luar _Repository_ ini (Seperti: Tema), makanya saya gunakan _Submodules_ di dalam _Repository_ ini.
-
-Jika Anda terlanjur tidak menggunakan opsi `--recurse-submodules` atau `--recursive` saat kloning, maka Anda dapat mengikuti perintah berikut setelah meng-kloningnya:
-
-```bash
-$ cd FarrelF-Blog
-$ git submodule update --init --recursive
+$ gh repo clone FarrelF/Blog
 ```
 
 ## Cara Instal dan Menggunakannya

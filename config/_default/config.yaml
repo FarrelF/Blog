@@ -1,9 +1,5 @@
 languageCode: id-id
 title: Farrel Franqois Blog
-theme: 
-  - stack-modified
-  - hugo-theme-stack
-
 paginate: 5
 enableEmoji: true
 enableInlineShortcodes: true

@@ -29,35 +29,31 @@ FarrelF-Blog
 ├── .github
 │   └── workflows
 ├── .gitignore
-├── .gitmodules
+├── go.mod
+├── go.sum
 ├── layouts
 │   └── shortcodes
 ├── LICENSE
 ├── netlify.toml
 ├── README.md
-├── static
-│   ├── 0xA47AE59DC94ABF69.asc
-│   ├── ads.txt
-│   ├── BingSiteAuth.xml
-│   ├── CNAME
-│   ├── copyrighted-d8d7be3e6f3ee7ab.html
-│   ├── google0ec7ff3a4f28b0d2.html
-│   ├── google71ef861592f6b855.html
-│   ├── keybase.txt
-│   ├── _redirects
-│   ├── robots_preview
-│   └── robots.txt
-└── themes
-    ├── hugo-theme-stack
-    ├── README.md
-    └── stack-modified
+└── static
+    ├── 0xA47AE59DC94ABF69.asc
+    ├── ads.txt
+    ├── BingSiteAuth.xml
+    ├── CNAME
+    ├── copyrighted-d8d7be3e6f3ee7ab.html
+    ├── google0ec7ff3a4f28b0d2.html
+    ├── google71ef861592f6b855.html
+    ├── keybase.txt
+    ├── _redirects
+    ├── robots_preview
+    └── robots.txt
 ```
 
 Setelah melihat struktur direktori dan berkas nya di atas, maka saatnya Anda mengetahui apa berkas dan direktori tersebut.
 
 Berikut adalah Informasi mengenai berkas-berkas nya yang berada di dalam direktori Akar (_Root directory_) nya:
 - [`.gitignore`](.gitignore): Adalah berkas yang berisikan berkas-berkas atau direktori yang akan diabaikan oleh Git, sehingga direktori atau berkas di dalam daftar tersebut tidak akan dimasukkan ke dalam Kode Sumber/_Repository_ karena alasan tertentu.
-- [`.gitmodules`](.gitmodules): Adalah berkas yang berisikan _Submodule_ yang digunakan oleh _Repository_ Git ini.
 - `CONTRIBUTING.md`: Adalah berkas yang Anda akses sekarang.
 - [`LICENSE`](LICENSE): Adalah berkas Lisensi untuk Kode Sumber ini,
 - [`README.md`](README.md): Sepertinya Anda sangat tahu apa berkas ini, jadi tidak usah saya jelaskan.
@@ -89,14 +85,6 @@ Dan berikut adalah Informasi mengenai direktori-direktori nya:
 
     Dokumentasi nya bisa Anda baca [di sini](https://gohugo.io/content-management/static-files/)
 
-- [`themes`](themes): Adalah direktori yang menyimpan tema-tema yang digunakan untuk Blog ini, selain tema, di situ juga terdapat sub-direktori untuk menyimpan berkas-berkas tema yang telah dimodifikasi.
-
-    Untuk saat ini, di dalam direktori tersebut ada 2 sub-direktori, yakni `hugo-theme-stack` yang merupakan merupakan _Submodule_ dari [_Repository_ asli nya](https://github.com/CaiJimmy/hugo-theme-stack) dan [`stack-modified`](themes/stack-modified) merupakan sebuah sub-direktori yang hanya menyimpan berkas-berkas tema yang telah dimodifikasi.
-
-    Jika Anda ingin berkontribusi pada penampilan di blog ini, silahkan modifikasi itu di dalam direktori `stack-modified` dan pelajari [dokumentasi nya](https://gohugo.io/hugo-modules/theme-components/). Tapi jika Anda ingin kontribusi terhadap tema aslinya, silahkan kontribusi ke Halaman _Repository_ Tema Aslinya.
-
-    Jangan 'mengotori' dan menggantikan direktori _Submodule_ nya dengan alasan apapun! Jika Anda melakukan nya, maka dengan senang hati saya menolak _Pull Request_ dari Anda.
-
 Jika Anda ingin merubah kode sumber yang berada di dalam direktori, masuklah ke dalam direktori tersebut untuk lebih lanjut dan baca berkas `README.md` yang ada di setiap direktori, tapi gak semua direktori.
 
 ### Cara merubah Kode Sumber
@@ -119,6 +107,9 @@ Cara nya cukup mudah, Anda tinggal ikuti langkah di bawah ini:
 8. Setelah Anda selesai, buatlah sebuah _Pull Request_ jika Anda benar-benar ingin mengubah Kode Sumber ini. Pastikan Anda membuatnya dari _Branch_ yang Anda buat tadi di dalam Repo _fork_ Anda ke tujuan `FarrelF-Blog:main`
 
 Ya udah, cuma gitu aja.
+
+### Cara memodifikasi tema
+Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silahkan lakukan itu di dalam _Repository_ [`stack-modified`](https://github.com/FarrelF/stack-modified) milik saya.
 
 ## Cara ke-2: Melakukan Donasi
 Anda bisa menyisihkan sedikit uang Anda untuk mendonasikan nya sebagai kontribusi Anda untuk Blog ini. 
