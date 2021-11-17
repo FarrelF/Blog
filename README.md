@@ -11,7 +11,7 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 Sebelum memulai untuk menggunakan Kode Sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extendedn (versi minimal: 0.87.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Hugo Extended (versi minimal: 0.87.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
 - Go (versi minimal: 1.12, disarankan terbaru): https://golang.org/
 
 Di dalam Sistem Operasi Anda.
@@ -20,13 +20,19 @@ Di dalam Sistem Operasi Anda.
 Untuk memperolehnya, Anda bisa eksekusi perintah berikut untuk meng-kloningnya:
 
 ```bash
-$ git clone https://github.com/FarrelF/Blog.git
+git clone https://github.com/FarrelF/Blog.git
+```
+
+Atau, jika Anda ingin menggunakan SSH, maka Anda bisa gunakan perintah berikut untuk meng-kloningnya:
+
+```bash
+git clone git@github.com:FarrelF/Blog.git
 ```
 
 Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk meng-kloningnya sebagai berikut:
 
 ```bash
-$ gh repo clone FarrelF/Blog
+gh repo clone FarrelF/Blog
 ```
 
 ## Cara Instal dan Menggunakannya
@@ -42,7 +48,7 @@ Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Dis
 Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ketik perintah berikut di dalam Terminal:
 
 ```bash
-$ hugo server -D --gc 
+hugo server -D --gc
 ```
 
 Parameter `-D` digunakan untuk membangun artikel/laman yang didraf, silahkan hapus parameter tersebut jika Anda tidak menginginkannya.
@@ -57,7 +63,7 @@ Selain di atas, Hugo telah menyediakan cara untuk membangun Web/Blog Statis tanp
 Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu eksekusi perintah berikut di dalam Terminal:
 
 ```bash
-$ hugo
+hugo --gc --minify
 ```
 
 Perintah di atas akan menghasilkan Blog Statis yang siap digunakan untuk produksi, dan hasilnya akan tersimpan di dalam folder `public`.

@@ -28,36 +28,35 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install Go
+    - name: Install and Set up Go
       uses: actions/setup-go@v2
       with:
         go-version: '^1.17.3'
 
     - name: Install and Set up Locales and Other Packages
       run: |
-        case "$(curl -s --max-time 3 -I http://azure.archive.ubuntu.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
-          [23]) echo "The Repository HTTP Server is up"
-                if nc -zw3 azure.archive.ubuntu.com 80; then
-                  echo "The Repository Server has been connected successfully"
-                else
-                  echo "The Repository server is down, changing the Repository Server. Please wait....."
-                  sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
-                  sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
-                  sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
-                fi;;
-          *) echo "The Repository HTTP Server is down, changing the Repository Server. Please wait....."
-             sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
-             sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
-             sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list;;
-        esac
-        sudo apt update
-        sudo apt install locales locales-all pigz
+        # case "$(curl -s --max-time 3 -I http://azure.archive.ubuntu.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
+        #   [23]) echo "The Repository HTTP Server is up"
+        #         if nc -zw3 azure.archive.ubuntu.com 80; then
+        #           echo "The Repository Server has been connected successfully"
+        #         else
+        #           echo "The Repository server is down, changing the Repository Server. Please wait....."
+        #           sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+        #           sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+        #           sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list
+        #         fi;;
+        #   *) echo "The Repository HTTP Server is down, changing the Repository Server. Please wait....."
+        #      sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu/|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+        #      sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
+        #      sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list;;
+        # esac
+        sudo sh -c 'apt update; apt install -y locales locales-all pigz'
         sudo sed -i 's/id_ID\s.*$/id_ID id_ID.utf8/g' /usr/share/locale/locale.alias
         sudo sed -i 's/# id_ID\.UTF-8/id_ID\.UTF-8/' /etc/locale.gen
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
         DEBIAN_FRONTEND=noninteractive sudo -E dpkg-reconfigure locales
-        sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-    
+        sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
+
     - name: Install and Set up Hugo Extended
       run: |
         HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
@@ -72,7 +71,7 @@ jobs:
         # find ./content -type f -exec file {} \; | awk -F: '{ if ($2 ~/[Ii]mage|EPS/) print $1}' > Images.list
         # sha256sum $(cat Images.list) > Images.hash.list
         # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
-    
+
     - name: Set up Hugo Resources Cache
       uses: actions/cache@v2
       with:
