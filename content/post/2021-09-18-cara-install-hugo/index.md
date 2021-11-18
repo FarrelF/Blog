@@ -321,7 +321,7 @@ Cara sederhananya:
 
 Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`, atau `sudo -s`.
 
-Lalu, unduh versi terbaru dari Hugo dengan mengeksekusi skrip berikut: (Langsung copas aja)
+Lalu, unduh versi terbaru dari Hugo dengan mengeksekusi skrip berikut, lalu tekan "Enter": (Langsung copas aja)
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
@@ -428,7 +428,7 @@ $ brew install hugo
 Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ pkg update; pkg install hugo
+$ pkg upgrade; pkg i hugo
 ```
 
 Perintah di atas akan meng-install Hugo Extended, bukan Hugo varian Biasa/Standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.

@@ -155,12 +155,16 @@ Anda bisa lakukan ini melalui Klien SSH yang ada di Komputer/Laptop kamu, termas
 Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di Komputer/Laptop kamu, maka perintah untuk _login_ nya sebagai berikut:
 
 ```shell
-ssh 192.168.100.81 -p 8022
+ssh 192.168.100.81 -p PORT
 ```
 
-Yap, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ di Termux itu cuma satu saja. Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
+Silahkan ganti `192.168.100.81` menjadi Alamat IP dari ponsel Anda.
 
-Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH yang ada di Sistem lain, berdasarkan tambalan yang dilakukan oleh mereka.
+Setelah menentukan Alamat IP nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, silahkan ganti `PORT` di atas dengan _port_ yang digunakan oleh Server SSH Anda, _port_ bakunya adalah `8022`, seperti yang telah saya jelaskan di langkah ke-5 pada "Konfigurasi Awal".
+
+Mengenai _Username_ nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja. Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
+
+Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH yang ada di Sistem lain, berdasarkan [tambalan](https://github.com/termux/termux-packages/blob/6499dede84dae2ecfbb1c1a2914526b78d4ff24a/packages/openssh/auth.c.patch) yang dilakukan oleh mereka.
 
 **Langkah ke-2:** Jika ada pesan yang menyatakan "Are you sure you want to continue connecting?", ketik saja `yes`, lalu tekan "Enter". Setelah itu, masukkan kata sandinya.
 
@@ -186,7 +190,7 @@ Bagaimana? Mudah sekali bukan? Tapi artikel ini belum selesai sampai sini saja, 
 
 ## Lainnya
 ### Menggunakan SFTP
-Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, merubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan SFTP.
+Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, merubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan protokol SFTP.
 
 Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dalam Termux kamu, maka Protokol SFTP secara otomatis diaktifkan.
 

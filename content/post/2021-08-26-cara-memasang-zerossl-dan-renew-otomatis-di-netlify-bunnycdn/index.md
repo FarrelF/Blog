@@ -131,7 +131,7 @@ Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebaga
 - OpenSSL (atau LibreSSL?)
 - cURL
 - Cron
-- _Shell_ yang disarankan: _Shell_ seperti GNU Bash (`bash`), Z Shell (`zsh`), atau Bourne-shell (`sh`). Penggunaan `fish` belum bisa saya sarankan, selain sangat berbeda dan tidak sesuai dengan POSIX, mungkin hasilnya tidak sesuai ekspektasi, terutama jika Anda menggunakan Netlify
+- _Shell_ yang disarankan: _Shell_ seperti GNU Bash (`bash`), Z Shell (`zsh`), atau Bourne-shell (`sh`). Penggunaan `fish` belum bisa saya sarankan, selain sangat berbeda, mungkin hasilnya tidak sesuai ekspektasi, terutama jika Anda menggunakan Netlify
 
 Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
 {{< / spoiler >}}
@@ -142,7 +142,7 @@ Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalanka
 
 Untuk _Shell_ nya, saya sarankan agar Anda gunakan _Shell_ seperti GNU Bash (`bash`), Z Shell (`zsh`) atau Bourne-shell (`sh`).
 
-Saya belum menyarankan penggunaan `fish` sebagai _Shell_, terutama jika Anda menggunakan Netlify. Kenapa? Selain sangat berbeda dan tidak sesuai dengan POSIX, hasilnya mungkin akan tidak sesuai dengan ekspektasi Anda, terutama jika Anda memasukkan isi berkas sertifikat yang akan dikirimkan ke Netlify ke dalam variabel atau mungkin saya belum mempelajarinya lebih lanjut.
+Saya belum menyarankan penggunaan `fish` sebagai _Shell_, terutama jika Anda menggunakan Netlify. Kenapa? Selain sangat berbeda, hasilnya mungkin akan tidak sesuai dengan ekspektasi Anda, terutama jika Anda memasukkan isi berkas sertifikat yang akan dikirimkan ke Netlify ke dalam variabel atau mungkin saya belum mempelajarinya lebih lanjut.
 
 Saya tetap membahas cara memasukkan variabel di dalam _Shell_ `fish` jika Anda tetap ingin menggunakannya, tapi saya gak membahasnya lebih lanjut sampai memasukkan isi berkas sertifikat ke dalam variabel, terutama untuk Netlify.
 
@@ -178,10 +178,10 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasan nya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux nya
-    2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg update`
-    3. Instal semua keperluan nya dengan perintah: `pkg install curl wget openssl-tool cronie termux-services`, lalu mulai ulang Termux jika berhasil
+    2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg upgrade`
+    3. Instal semua keperluan nya dengan perintah: `pkg i curl wget openssl-tool cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond`
-    5. Atau, jika Anda memiliki komputer/laptop dan Ponsel Pintar berbasis Android yang terkoneksi jaringan yang sama, maka sebaiknya kamu instal `openssh-server` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH
+    5. Atau, jika Anda memiliki komputer/laptop dan Ponsel Pintar berbasis Android yang terkoneksi jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH. Caranya Anda bisa baca [artikel ini](/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_.
 {{< / spoiler >}}
@@ -199,14 +199,14 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perang
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
-pkg update; pkg install curl wget openssl-tool cronie termux-services
+pkg upgrade; pkg i curl wget openssl-tool cronie termux-services
 ```
 
 Kalau perlu, ganti _Repository_ pada Termux dengan perintah `termux-change-repo` dan gunakan _Repository_ Resmi dari Termux terlebih dahulu agar mendapatkan versi terbaru, barulah Anda eksekusikan perintah di atas. 
 
 Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka lagi Termux nya agar perubahannya bisa diterapkan. Setelah Termux dibuka lagi, aktifkan Cron dari latar belakang dengan meng-eksekusi perintah `sv-enable crond`.
 
-Jika Anda memiliki komputer/laptop dan Ponsel Pintar berbasis Android yang terkoneksi jaringan yang sama, maka sebaiknya kamu instal `openssh-server` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH, sehingga tidak perlu melakukan pemindahan lagi ke dalam Android.
+Jika Anda memiliki komputer/laptop dan Ponsel Pintar berbasis Android yang terkoneksi jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH, sehingga tidak perlu melakukan pemindahan lagi ke dalam Android. Anda bisa baca [artikel ini](/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
 
 Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_, jadi Anda tidak perlu khawatir akan kehilangan garansi pada perangkat Anda, karena ini sama sekali tidak menghilangkan garansi pada perangkat Anda.
 
@@ -986,7 +986,7 @@ Langkah selanjutnya adalah memasang Sertifikat SSL melalui API nya.
 {{< info text="Catatan untuk Pengguna `fish`" >}}
 Jika Anda menggunakan `fish` sebagai _Shell_ baku, mungkin perintah di bawah ini akan tidak bekerja, karena cara memasukkan variabelnya yang sangat berbeda ketimbang _Shell_ pada umumnya dan hasilnya mungkin tidak akan sesuai dengan ekspektasi jikapun bisa.
 
-Jadi, saya sarankan agar Anda gunakan _Shell_ lainnya yang sesuai dengan POSIX seperti `bash`, `zsh` atau `sh` terlebih dahulu untuk sementara.
+Jadi, saya sarankan agar Anda gunakan _Shell_ lainnya seperti `bash`, `zsh` atau `sh` terlebih dahulu untuk sementara.
 {{< / info >}}
 
 Sekarang Anda tinggal memasang sertifikat nya saja melalui API dari Netlify. Sebelum itu, Netlify meminta agar kita mengirimkan 3 Informasi/Berkas untuk memasang Sertifikat SSL nya.
