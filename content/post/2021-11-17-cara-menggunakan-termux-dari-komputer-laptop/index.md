@@ -33,7 +33,7 @@ Description: >
 {{< toc >}}
 
 ## Pembuka
-Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, maka sama saja seperti membuang air ke laut, ya sama-sama gak tujuan nya.
+Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, maka sama saja seperti membuang air ke laut, ya sama-sama gak berguna.
 
 Tapi bagi sebagian orang, mengetik baris perintah dari layar ponsel itu sangatlah tidak nyaman, apalagi jika baris perintah itu panjang kali lebar dan berjumlah banyak.
 
@@ -50,15 +50,15 @@ Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel Android Anda dan t
 
 Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di F-Droid, bukan di Google Play Store.
 
-Kalo kamu terlanjut mengunduhnya di Google Play Store, kamu perlu hapus dulu Termux nya, lalu kamu unduh Termux nya dari F-Droid dan Install lagi.
+Kalo kamu sudah telanjur mengunduhnya di Google Play Store, kamu perlu hapus dulu Termux nya, lalu kamu unduh Termux nya dari F-Droid dan Install lagi.
 
-Untuk versi Android nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya, agar kamu bisa menggunakan Termux versi terbaru.
+Untuk versi Android nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya, untuk menggunakan Termux versi terbaru.
 
-Sebaiknya kamu _meng-update_ semua paket yang ter-install di Termux untuk mengikuti ini, tapi kalo tidak mau ya gak apa-apa, bisa dicoba dulu.
+Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini, tapi kalo tidak mau ya gak apa-apa, bisa dicoba dulu.
 
-Pastikan agar Komputer/Laptop dan Ponsel Android kamu terkoneksi dengan jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, dll, Anda bisa gunakan fitur **Hotspot Tethering** yang ada di Ponsel kamu.
+Pastikan agar Komputer/Laptop dan Ponsel Android kamu terkoneksi dengan jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal WiFi di rumah, Anda bisa gunakan fitur **Hotspot Tethering** atau **Penambatan Hotspot** yang ada di Ponsel kamu.
 
-Serta pastikan juga bahwa Perangkat Lunak Klien SSH ada/ter-install di dalam Komputer/Laptop kamu. Anda bisa gunakan PuTTY atau Bitvise untuk itu, tapi jika Anda menggunakan Windows 10 atau Sistem Operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH bawaan sistem.
+Serta pastikan juga bahwa Perangkat Lunak Klien SSH ada terinstal di dalam Komputer/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tapi jika Anda menggunakan Windows 10 atau Sistem Operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
 ## Caranya
 ### Konfigurasi Awal
@@ -132,16 +132,32 @@ tun0: flags=81<UP,POINTOPOINT,RUNNING>  mtu 1500
         inet 10.18.234.134  netmask 255.0.0.0  destination 10.18.234.134
         unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 500  (UNSPEC)
 
-wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.100.81  netmask 255.255.255.0  broadcast 192.168.100.255
-        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)
+wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1460
+         inet 192.168.100.81  netmask 255.255.255.0  broadcast 192.168.100.255
+         unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 3000  (UNSPEC)
 ```
 
 Seperti yang Anda lihat di atas, bahwa Alamat IP untuk Antarmuka sambungan Wi-Fi (`wlan0`) yang saya dapatkan adalah `192.168.100.81` yang letaknya berada di paling bawah.
 
-Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP nya.
+Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP nya. Jika Anda menggunakan **Hotspot Tethering**, maka cari Alamat IP Anda di antarmuka `ap0`, bukan `wlan0`.
 
-Alamat IP ini nantinya akan digunakan untuk _login_ melalui Klien SSH yang ada di Komputer/Laptop kamu, jadi jangan sampai lupa!
+Selain `ifconfig`, Anda juga dapat mencari Alamat IP nya melalui perintah `ip addr list (nama_antarmuka)`.
+
+Contoh perintah dan keluarannya seperti berikut:
+
+```shell
+$ ip addr list wlan0
+52: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1460 qdisc mq state UP group default qlen 3000
+    link/ether b4:a5:ac:cd:17:ef brd ff:ff:ff:ff:ff:ff
+    inet 192.168.100.81/24 brd 192.168.100.255 scope global wlan0
+       valid_lft forever preferred_lft forever
+```
+
+Ganti `wlan0` yang di atas menjadi antarmuka yang ingin Anda lihat alamat IP nya.
+
+Sebagai contoh, Anda bisa menggantinya dengan `ap0` jika ponsel Anda sedang menggunakan fitur **Hotspot Tethering** atau **Penambatan hotspot**.
+
+Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui Klien SSH yang ada di Komputer/Laptop kamu, jadi jangan sampai lupa!
 
 ### Mengakses Ponsel Android melalui SSH
 Setelah melakukan konfigurasi awal, maka saatnya mengakses Ponsel Android dari Komputer/Laptop Anda.
@@ -155,12 +171,12 @@ Anda bisa lakukan ini melalui Klien SSH yang ada di Komputer/Laptop kamu, termas
 Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di Komputer/Laptop kamu, maka perintah untuk _login_ nya sebagai berikut:
 
 ```shell
-ssh 192.168.100.81 -p PORT
+ssh 192.168.100.81 -p 8022
 ```
 
 Silahkan ganti `192.168.100.81` menjadi Alamat IP dari ponsel Anda.
 
-Setelah menentukan Alamat IP nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, silahkan ganti `PORT` di atas dengan _port_ yang digunakan oleh Server SSH Anda, _port_ bakunya adalah `8022`, seperti yang telah saya jelaskan di langkah ke-5 pada "Konfigurasi Awal".
+Setelah menentukan Alamat IP nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silahkan ganti `8022` di atas dengan _port_ yang digunakan oleh Server SSH Anda.
 
 Mengenai _Username_ nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja. Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
 
@@ -180,7 +196,7 @@ Sebagai contoh, di sini saya ingin meng-install Neofetch di Termux, maka perinta
 pkg i neofetch
 ```
 
-Setelah ter-install, saya eksekusikan perintah `neofetch` dari Komputer/Laptop, maka kira-kira hasilnya akan seperti cuplikan berikut:
+Setelah terinstal, saya eksekusikan perintah `neofetch` dari Komputer/Laptop, maka kira-kira hasilnya akan seperti cuplikan berikut:
 
 ![Hasil dari salah satu perintah yang dieksekusikan oleh Termux secara 'Remote'](Termux_SSH_Neofetch.png)
 
@@ -201,7 +217,7 @@ Setelah ter-install, buka Aplikasi tersebut, lalu Anda harus mengisi Informasi b
 - Hos (_Host_): `sftp://ALAMAT_IP_KAMU` (cth. `sftp://192.168.100.81`) atau `sftp://ALAMAT_IP_KAMU:PORT` (cth. `sftp://192.168.100.81:8022`)
 - Nama Pengguna (_Username_): Wajib diisi, tidak boleh kosong, tapi bisa Anda isi bebas
 - Kata Sandi (_Password_): Isi ini dengan kata sandi Termux Anda
-- _Port_: Isi dengan _Port_ yang digunakan oleh Server SSH kamu, _Port_ bakunya adalah `8022`
+- _Port_: Isi dengan _Port_ yang digunakan oleh Server SSH kamu, _Port_ bakunya adalah `8022` (sebaiknya jangan diisi jika Anda sudah mengisi _port_ nya saat mengisikan Alamat URL Hos)
 
 Setelah memasukkan semua Informasi di atas, silahkan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau bahasa Indonesia nya adalah **Koneksi Cepat**).
 
@@ -232,7 +248,7 @@ Tapi, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban be
 3. Buka Aplikasi **Termux:Boot** dengan mengklik ikon aplikasi di _Launcher_/Peluncur Anda. Ini mengizinkan agar Termux bisa dijalankan secara otomatis setelah perangkat _di-boot_
 4. Buka Aplikasi **Termux** nya, lalu buatlah direktori `~/.termux/boot/` di sana dengan perintah: `mkdir -p ~/.termux/boot/`
 5. Buatlah berkas skripnya di sana (`~/.termux/boot/`), nama berkasnya bisa bebas, tapi contoh kali ini saya menamainya dengan `startup-script`
-6. Isilah berkas `startup-script` dengan skrip yang ingin Anda jalankan saat perangkat sudah _di-boot_ dan awali terlebih dahulu dengan _shebang_
+6. Isilah berkas `startup-script` dengan skrip yang ingin Anda jalankan saat perangkat sudah _di-boot_ dan awali terlebih dahulu dengan `/data/data/com.termux/files/usr/bin/sh` sebagai _shebang_
 
 Oh iya, setelah menentukan _shebang_ nya, mungkin memasukkan perintah `termux-wake-lock` akan sangat membantu agar perangkat tidak "tertidur" dan Termux bisa tetap berjalan di latar belakang.
 
@@ -261,8 +277,10 @@ Saya tahu ada layanan [ngrok](https://ngrok.com/) atau sejenisnya, tapi itu belu
 
 Jadi, untuk saat ini saya masih belum tahu bisa atau tidaknya, tapi jika Anda mempunyai caranya dan ingin memberitahukannya, silahkan Anda berikan masukkannya melalui kolom komentar.
 
+Mungkin penggunaan VPN dengan Alamat IP sendiri atau melakukan **Reverse SSH Tunneling** bisa membantu Anda, tapi saya kurang paham caranya.
+
 ## Penutup
-Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang membaca dan memahami artikel ini sampai habis.
+Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang telah membaca dan memahami artikel ini sampai habis.
 
 Mohon maaf apabila adanya kekurangan atau kesalahan yang ada di artikel ini, seperti salah ketik, salah informasi, dll. Kesalahan-kesalahan tersebut saya usahakan untuk diperrbaiki kedepannya.
 
