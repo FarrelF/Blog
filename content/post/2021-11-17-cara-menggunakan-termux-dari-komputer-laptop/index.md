@@ -46,17 +46,17 @@ Nah, inilah yang sedang saya bahas di artikel ini, yakni "Cara menggunakan Termu
 Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
 ## Persiapan
-Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel Android Anda dan tentunya sudah ter-install Termux.
+Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel Android Anda dan tentunya sudah terinstal Termux.
 
-Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di F-Droid, bukan di Google Play Store.
+Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di [F-Droid](https://f-droid.org/en/packages/com.termux/), bukan di Google Play Store.
 
-Kalo kamu sudah telanjur mengunduhnya di Google Play Store, kamu perlu hapus dulu Termux nya, lalu kamu unduh Termux nya dari F-Droid dan Install lagi.
+Kalo kamu sudah telanjur mengunduhnya di Google Play Store, kamu perlu [mencadangkan (_backup_) datanya](https://wiki.termux.com/wiki/Backing_up_Termux) terlebih dahulu, setelah itu hapus Termux nya, lalu kamu unduh Termux nya dari F-Droid dan Install lagi.
 
 Untuk versi Android nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya, untuk menggunakan Termux versi terbaru.
 
 Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini, tapi kalo tidak mau ya gak apa-apa, bisa dicoba dulu.
 
-Pastikan agar Komputer/Laptop dan Ponsel Android kamu terkoneksi dengan jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal WiFi di rumah, Anda bisa gunakan fitur **Hotspot Tethering** atau **Penambatan Hotspot** yang ada di Ponsel kamu.
+Pastikan agar Komputer/Laptop dan Ponsel Android kamu terkoneksi dengan jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) yang ada di Ponsel kamu.
 
 Serta pastikan juga bahwa Perangkat Lunak Klien SSH ada terinstal di dalam Komputer/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tapi jika Anda menggunakan Windows 10 atau Sistem Operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
@@ -71,7 +71,7 @@ Berikut adalah hal yang harus Anda lakukan:
 **Langkah ke-2:** Instal paket `openssh` dan `nmap` di Termux kamu dengan perintah berikut:
 
 ```shell
-pkg i openssh nmap
+pkg i -y openssh nmap
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
@@ -139,7 +139,9 @@ wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1460
 
 Seperti yang Anda lihat di atas, bahwa Alamat IP untuk Antarmuka sambungan Wi-Fi (`wlan0`) yang saya dapatkan adalah `192.168.100.81` yang letaknya berada di paling bawah.
 
-Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP nya. Jika Anda menggunakan **Hotspot Tethering**, maka cari Alamat IP Anda di antarmuka `ap0`, bukan `wlan0`.
+Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP nya.
+
+Jika Anda menggunakan **Hotspot Tethering**, maka cari Alamat IP Anda di antarmuka `ap0`, bukan `wlan0`.
 
 Selain `ifconfig`, Anda juga dapat mencari Alamat IP nya melalui perintah `ip addr list (nama_antarmuka)`.
 
@@ -155,7 +157,7 @@ $ ip addr list wlan0
 
 Ganti `wlan0` yang di atas menjadi antarmuka yang ingin Anda lihat alamat IP nya.
 
-Sebagai contoh, Anda bisa menggantinya dengan `ap0` jika ponsel Anda sedang menggunakan fitur **Hotspot Tethering** atau **Penambatan hotspot**.
+Sebagai contoh, Anda bisa menggantinya dengan `ap0` jika ponsel Anda sedang menggunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**).
 
 Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui Klien SSH yang ada di Komputer/Laptop kamu, jadi jangan sampai lupa!
 
@@ -166,7 +168,9 @@ Berikut adalah caranya:
 
 **Langkah ke-1:** Sekarang Anda gunakan Komputer/Laptopmu dan jangan akhiri sesi Termux nya. Coba kamu akses Android kamu dari Komputer/Laptopmu melalui SSH dengan melakukan _login_ terlebih dahulu.
 
-Anda bisa lakukan ini melalui Klien SSH yang ada di Komputer/Laptop kamu, termasuk PuTTY. Untuk kredensialnya, cukup masukkan Alamat IP, _Port_ dan kata sandinya saja, tidak perlu kamu masukkan _Username_ atau Nama Penggunanya.
+Anda bisa lakukan ini melalui Klien SSH yang ada di Komputer/Laptop kamu, termasuk PuTTY.
+
+Untuk kredensialnya, cukup masukkan Alamat IP, _Port_ dan kata sandinya saja, tidak perlu kamu masukkan _Username_ atau Nama Penggunanya. Kalaupun kamu ingin memasukkannya, kamu bisa memasukkan _Username_ nya dengan bebas.
 
 Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di Komputer/Laptop kamu, maka perintah untuk _login_ nya sebagai berikut:
 
@@ -178,7 +182,9 @@ Silahkan ganti `192.168.100.81` menjadi Alamat IP dari ponsel Anda.
 
 Setelah menentukan Alamat IP nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silahkan ganti `8022` di atas dengan _port_ yang digunakan oleh Server SSH Anda.
 
-Mengenai _Username_ nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja. Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
+Mengenai _Username_ nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja.
+
+Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
 
 Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH yang ada di Sistem lain, berdasarkan [tambalan](https://github.com/termux/termux-packages/blob/6499dede84dae2ecfbb1c1a2914526b78d4ff24a/packages/openssh/auth.c.patch) yang dilakukan oleh mereka.
 
@@ -212,14 +218,14 @@ Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dala
 
 Agar bisa mengakses SFTP nya, Anda perlu sebuah Aplikasi FTP untuk itu, untuk kasus ini saya gunakan [FileZilla](https://filezilla-project.org/).
 
-Setelah ter-install, buka Aplikasi tersebut, lalu Anda harus mengisi Informasi berikut di bawah ini di dalam Aplikasinya untuk menggunakan SFTP:
+Setelah terinstal, buka Aplikasi tersebut, lalu Anda harus mengisi kredensialnya berikut di bawah ini di dalam Aplikasinya untuk menggunakan SFTP:
 
 - Hos (_Host_): `sftp://ALAMAT_IP_KAMU` (cth. `sftp://192.168.100.81`) atau `sftp://ALAMAT_IP_KAMU:PORT` (cth. `sftp://192.168.100.81:8022`)
 - Nama Pengguna (_Username_): Wajib diisi, tidak boleh kosong, tapi bisa Anda isi bebas
 - Kata Sandi (_Password_): Isi ini dengan kata sandi Termux Anda
 - _Port_: Isi dengan _Port_ yang digunakan oleh Server SSH kamu, _Port_ bakunya adalah `8022` (sebaiknya jangan diisi jika Anda sudah mengisi _port_ nya saat mengisikan Alamat URL Hos)
 
-Setelah memasukkan semua Informasi di atas, silahkan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau bahasa Indonesia nya adalah **Koneksi Cepat**).
+Setelah memasukkan semua Informasi/Kredensial di atas, silahkan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau bahasa Indonesia nya adalah **Koneksi Cepat**).
 
 > Tapi, _Username_ nya diisi bebas, apa artinya bisa diisi sembarangan?
 
@@ -229,7 +235,7 @@ Sangat bisa, Anda sangat bisa sembarang isi _Username_ nya, untuk buktinya bisa 
 
 Apakah isinya sama? Sama aja, mau Anda masukkan apapun _Username_ nya, isinya akan sama saja, gak ada bedanya sama sekali. Hal ini karena OpenSSH pada Termux tidak membandingkan _Username_, jadi ia hanya fokus pada 1 _Username_ saja.
 
-Kenapa begitu? Karena Termux hanya memiliki 1 Pengguna Standar saja dan itupun karena Android sendiri yang membatasinya.
+Kenapa begitu? Karena Termux hanya memiliki 1 Pengguna Standar saja, seperti yang telah saya jelaskan di bagian "Mengakses Ponsel Android melalui SSH" pada langkah ke-1 sebelumnya.
 
 Oh iya, agar Anda bisa mentransfer berkas ke/dari dalam Ponsel ke/dari Perangkat lain, Anda bisa gunakan perintah `termux-setup-storage`. Untuk lebih lanjut, silahkan baca [di sini](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) (Baca mulai dari bagian "Access shared and external storage").
 

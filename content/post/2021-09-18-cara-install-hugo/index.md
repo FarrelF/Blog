@@ -242,15 +242,17 @@ Jika Anda adalah pengguna Arch Linux, Manjaro atau Turunannya, Anda dapat meng-i
 $ sudo pacman -S hugo
 ```
 
-Namun jika Anda lebih memilih lewat AUR (_Arch User Repository_), silahkan gunakan paket [`hugo-bin`](https://aur.archlinux.org/packages/hugo-bin/) dari AUR.
+~~Namun jika Anda lebih memilih lewat AUR (_Arch User Repository_), silahkan gunakan paket [`hugo-bin`](https://aur.archlinux.org/packages/hugo-bin/) dari AUR.~~
 
-Cara Instal paket dari AUR akan berbeda-beda, tergantung _AUR Helper_ yang Anda gunakan.
+~~Cara Instal paket dari AUR akan berbeda-beda, tergantung _AUR Helper_ yang Anda gunakan.~~
 
-Tapi jika Anda menggunakan Yay sebagai _AUR Helper_ nya, maka Anda dapat memakai perintah berikut:
+~~Tapi jika Anda menggunakan Yay sebagai _AUR Helper_ nya, maka Anda dapat memakai perintah berikut:~~
 
 ```shell
 $ yay -S hugo-bin
 ```
+
+**PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui Paket resminya saja.
 
 **Catatan:** Varian Hugo yang digunakan oleh Arch, Manjaro dan Turunannya adalah Hugo Extended, begitupula dengan paket `hugo-bin` yang ada di AUR.
 
@@ -428,7 +430,7 @@ $ brew install hugo
 Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ pkg upgrade; pkg i hugo
+$ pkg i hugo
 ```
 
 Perintah di atas akan meng-install Hugo Extended, bukan Hugo varian Biasa/Standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
