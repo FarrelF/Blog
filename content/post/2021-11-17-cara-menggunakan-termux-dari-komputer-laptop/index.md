@@ -50,7 +50,7 @@ Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel Android Anda dan t
 
 Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di [F-Droid](https://f-droid.org/en/packages/com.termux/), bukan di Google Play Store.
 
-Kalo kamu sudah telanjur mengunduhnya di Google Play Store, kamu perlu [mencadangkan (_backup_) datanya](https://wiki.termux.com/wiki/Backing_up_Termux) terlebih dahulu, setelah itu hapus Termux nya, lalu kamu unduh Termux nya dari F-Droid dan Install lagi.
+Kalo kamu sudah telanjur mengunduhnya di Google Play Store, kamu perlu [mencadangkan (_backup_) datanya](https://wiki.termux.com/wiki/Backing_up_Termux) terlebih dahulu, setelah itu hapus Termux-nya, lalu kamu unduh Termux-nya dari F-Droid dan Install lagi.
 
 Untuk versi Android nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya, untuk menggunakan Termux versi terbaru.
 
@@ -166,7 +166,7 @@ Setelah melakukan konfigurasi awal, maka saatnya mengakses Ponsel Android dari K
 
 Berikut adalah caranya:
 
-**Langkah ke-1:** Sekarang Anda gunakan Komputer/Laptopmu dan jangan akhiri sesi Termux nya. Coba kamu akses Android kamu dari Komputer/Laptopmu melalui SSH dengan melakukan _login_ terlebih dahulu.
+**Langkah ke-1:** Sekarang Anda gunakan Komputer/Laptopmu dan jangan akhiri sesi Termux-nya. Coba kamu akses Android kamu dari Komputer/Laptopmu melalui SSH dengan melakukan _login_ terlebih dahulu.
 
 Anda bisa lakukan ini melalui Klien SSH yang ada di Komputer/Laptop kamu, termasuk PuTTY.
 
@@ -249,7 +249,7 @@ Tapi, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban be
 ### Pertanyaan ke-1: Bagaimana caranya agar Server SSH bisa diaktifkan secara otomatis setelah Perangkat _di-boot_ tanpa perlu mengaktifkannya lagi di Termux secara manual? {#pertanyaan-ke1}
 **Jawab:** Anda bisa melakukannya dengan cara berikut:
 
-1. Unduh dan Instal Aplikasi [**Termux:Boot**](https://f-droid.org/packages/com.termux.boot/) dari F-Droid, pastikan Anda mengunduh Termux nya di F-Droid juga, bukan di Google Play Store, jangan dicampur-campur!
+1. Unduh dan Instal Aplikasi [**Termux:Boot**](https://f-droid.org/packages/com.termux.boot/) dari F-Droid, pastikan Anda mengunduh Termux-nya di F-Droid juga, bukan di Google Play Store, jangan dicampur-campur!
 2. Pergi ke Setelan Android Anda, lalu nonaktifkan fitur "Pengoptimalan Baterai" untuk Aplikasi **Termux** dan **Termux:Boot**.
 3. Buka Aplikasi **Termux:Boot** dengan mengklik ikon aplikasi di _Launcher_/Peluncur Anda. Ini mengizinkan agar Termux bisa dijalankan secara otomatis setelah perangkat _di-boot_
 4. Buka Aplikasi **Termux** nya, lalu buatlah direktori `~/.termux/boot/` di sana dengan perintah: `mkdir -p ~/.termux/boot/`

@@ -36,7 +36,7 @@ Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasan nya, entah it
 ### Penggunaan Blog
 Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu beberapa komponen yang membantu nya.
 
-Blog ini pake apa aja sih? Nah, berikut adalah apa yang saya pakai untuk blog ini:
+Berikut ini adalah apa yang saya pakai untuk blog ini:
 
 - SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
 - Tema: [Stack](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com)
@@ -45,14 +45,15 @@ Blog ini pake apa aja sih? Nah, berikut adalah apa yang saya pakai untuk blog in
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
-- Domain: 
+- Domain:
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
   - [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb) sebagai Reseller/Pengelola Domain nya
+- DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
   - [Bunny Edge Storage](https://bunny.net/edge-storage?ref=giufh6asq3) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
-- Sertifikat SSL: [ZeroSSL](https://zerossl.com)
+- Sertifikat TLS/SSL: [ZeroSSL](https://zerossl.com)
 - CDN: [Statically](https://statically.io) (Untuk berkas JS, CSS, Fonta dan gambar, baik itu yang disimpan di dalam Blog ini atau Eksternal)
 
 ### Kode Sumber Blog
@@ -97,4 +98,4 @@ Unduh kunci:
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF)
 - [Trakteer](https://trakteer.id/farrelf) (Khusus untuk Indonesia)
-- Meng-klik tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di laman ini juga ada tautan afiliasi, hehe 😁
+- Mengklik tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di laman ini juga ada tautan afiliasi, hehe 😁
