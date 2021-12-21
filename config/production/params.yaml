@@ -17,6 +17,6 @@ arcio:
   widgetId: D1Tc1z8H
 
 counter:
-  enabled: true
+  enabled: false
   username: FarrelF
   utcOffset: 7
