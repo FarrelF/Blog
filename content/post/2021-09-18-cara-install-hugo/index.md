@@ -179,7 +179,7 @@ WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus meng
 
 ### GNU/Linux {#gnu-linux}
 #### Debian, Ubuntu dan Keluarganya
-Jika Anda adalah pengguna Debian, Ubuntu atau Turunannya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
+Jika Anda adalah pengguna Debian, Ubuntu atau Keluarganya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
 
 ```shell
 $ sudo sh -c 'apt update; apt install -y hugo'
@@ -253,7 +253,7 @@ Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal 
 Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
 #### Arch Linux, Manjaro dan Keluarganya
-Jika Anda adalah pengguna Arch Linux, Manjaro atau Turunannya, Anda dapat meng-install Hugo dengan perintah berikut:
+Jika Anda adalah pengguna Arch Linux, Manjaro atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ sudo pacman -S hugo
@@ -274,7 +274,7 @@ $ yay -S hugo-bin
 **Catatan:** Varian Hugo yang digunakan oleh Arch, Manjaro dan Keluarganya adalah Hugo Extended, begitupula dengan paket `hugo-bin` yang ada di AUR.
 
 #### Solus dan Keluarganya
-Jika Anda menggunakan Solus atau Turunannya, maka Anda dapat meng-installnya dengan perintah berikut:
+Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat meng-installnya dengan perintah berikut:
 
 ```shell
 $ sudo eopkg install hugo
@@ -283,7 +283,7 @@ $ sudo eopkg install hugo
 **Catatan:** Saya tidak memakai Solus dan Keluarganya, tapi berdasarkan [konfigurasinya](https://dev.getsol.us/source/hugo/browse/master/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan Keluarganya adalah Hugo Extended.
 
 #### Void Linux dan Keluarganya
-Jika Anda adalah pengguna Void Linux atau Turunannya, Anda dapat meng-install Hugo dengan perintah berikut:
+Jika Anda adalah pengguna Void Linux atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ sudo xbps-install -S hugo
