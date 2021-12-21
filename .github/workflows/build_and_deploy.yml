@@ -76,9 +76,9 @@ jobs:
       with:
         path: |
           ./resources
-        key: v2-4-hugo
+        key: v2-5-hugo
         restore-keys: | 
-          - v2-4-hugo
+          - v2-5-hugo
 
     - name: Set up Hugo Modules Cache
       uses: actions/cache@v2
@@ -94,6 +94,11 @@ jobs:
       run: |
         rm static/robots_preview
         hugo --gc --minify --cacheDir ${PWD}/cache
+
+    - name: Compressing Static Web Files
+      run: |
+        pigz -k -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml')
+        brotli -Z $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml')
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact

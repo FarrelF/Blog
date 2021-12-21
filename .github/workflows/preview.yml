@@ -77,9 +77,9 @@ jobs:
       with:
         path: |
           ./resources
-        key: v2-4-hugo-preview
+        key: v2-5-hugo-preview
         restore-keys: | 
-          - v2-4-hugo-preview
+          - v2-5-hugo-preview
 
     - name: Set up Hugo Modules Cache
       uses: actions/cache@v2
@@ -96,7 +96,12 @@ jobs:
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
         mv static/robots_preview static/robots.txt
         hugo --gc --minify --buildFuture --environment staging --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
-        tar cvf - public | pigz -9 > files.tar.gz
+
+    - name: Compressing Static Web Files
+      run: |
+        pigz -k -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml')
+        brotli -Z $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml')
+        tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v2
