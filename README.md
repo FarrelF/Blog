@@ -11,8 +11,9 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 Sebelum memulai untuk menggunakan Kode Sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended (versi minimal: 0.87.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Hugo Extended (versi minimal: 0.91.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
 - Go (versi minimal: 1.12, disarankan terbaru): https://golang.org/
+- Mengkloning _Repository_ [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam Folder `FarrelF/stack-modified`
 
 Di dalam Sistem Operasi Anda.
 
@@ -20,20 +21,27 @@ Di dalam Sistem Operasi Anda.
 Untuk memperolehnya, Anda bisa eksekusi perintah berikut untuk meng-kloningnya:
 
 ```bash
-git clone https://github.com/FarrelF/Blog.git
+git clone https://github.com/FarrelF/Blog.git FarrelF/Blog
 ```
 
 Atau, jika Anda ingin menggunakan SSH, maka Anda bisa gunakan perintah berikut untuk meng-kloningnya:
 
 ```bash
-git clone git@github.com:FarrelF/Blog.git
+git clone git@github.com:FarrelF/Blog.git FarrelF/Blog
 ```
 
 Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk meng-kloningnya sebagai berikut:
 
 ```bash
-gh repo clone FarrelF/Blog
+gh repo clone FarrelF/Blog FarrelF/Blog
 ```
+
+Kode Sumber akan disimpan di dalam sebuah subfolder yang bernama `Blog` yang terletak di dalam folder `FarrelF`, jadi untuk mengaksesnya bisa pakai perintah `cd FarrelF/Blog`.
+
+## Sebelum Instal
+Sebelum Instal, pastikan Anda sudah mengkloning Repository [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam Folder `FarrelF` (sesuai petunjuk yang ada di dalam _Repository_ nya) dan memenuhi semua persyaratannya terlebih dahulu.
+
+Jika sudah, Anda bisa lanjut ke langkah berikutnya.
 
 ## Cara Instal dan Menggunakannya
 Agar Kode Sumber ini bisa digunakan, maka Anda perlu menghasilkan HTML untuk Blog ini. Ada dua cara untuk menghasilkan HTML nya, berikut di bawah ini:
@@ -45,7 +53,7 @@ Cara kerjanya adalah Hugo terlebih dahulu membuat berkas-berkas statis yang dipe
 
 Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Diska (_Disk_), sehingga datanya tidak bisa Anda temukan di manapun ketika Anda mencarinya. Perubahan akan secara otomatis diterapkan secara langsung selama fitur tersebut aktif.
 
-Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu ketik perintah berikut di dalam Terminal:
+Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah mengakses kode sumbernya:
 
 ```bash
 hugo server -D --gc
@@ -60,7 +68,7 @@ Untuk penggunaan lebih lanjut, silahkan kunjungi laman [dokumentasi nya](https:/
 ### Cara Kedua: Membangun Blog/Web Statis tanpa _Web Server_
 Selain di atas, Hugo telah menyediakan cara untuk membangun Web/Blog Statis tanpa harus menggunakan fitur _Web Server_ nya, hasilnya tidak akan tersimpan ke dalam memori (RAM), melainkan ke Perangkat Diska (_Disk_), ini akan sangat berguna untuk produksi atau sekedar memeriksa Kode dari Berkas Skrip/HTML, sampai Berkas-berkas media (Seperti: Gambar) sebelum disebar ke Lingkungan Produksi.
 
-Untuk caranya, Anda tinggal navigasikan ke dalam Folder Kode Sumber dengan perintah `cd`, lalu eksekusi perintah berikut di dalam Terminal:
+Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah mengakses kode sumbernya:
 
 ```bash
 hugo --gc --minify
