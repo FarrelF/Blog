@@ -7,6 +7,7 @@ sidebar:
   subtitle: (Bukan) Sekadar Blog Pribadi saya
   avatar:
     local: true
+    resolution: 240
     src: img/profile/avatar.jpg
 
 article:
@@ -64,8 +65,8 @@ imageProcessing:
 twemoji:
   enabled: true
   options:
-    baseURL: https://cdn.statically.io/gh/twitter/twemoji/v13.1.0/
-    path: assets/svg
+    baseURL: /twemoji/13.1.0/
+    path: svg
     ext: .svg
 
 comments:

@@ -5,3 +5,7 @@ hugoVersion:
 imports:
   - path: github.com/FarrelF/stack-modified
   - path: github.com/CaiJimmy/hugo-theme-stack
+  - path: github.com/twitter/twemoji
+    mounts:
+    - source: assets/svg
+      target: static/twemoji/13.1.0/svg
