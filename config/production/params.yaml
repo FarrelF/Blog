@@ -1,15 +1,15 @@
-cdn:
-  images:
-    url: https://cdn.statically.io/img/farrel.franqois.id/f=auto
-    permalinks: false
-  svg:
-    url: https://cdn.statically.io/img/farrel.franqois.id
-  js:
-    url: https://cdn.statically.io/js/farrel.franqois.id
-  css:
-    url: https://cdn.statically.io/css/farrel.franqois.id
-  fonts:
-    url: https://cdn.statically.io/css/farrel.franqois.id
+#cdn:
+#  images:
+#    url: https://cdn.statically.io/img/farrel.franqois.id/f=auto
+#    permalinks: false
+#  svg:
+#    url: https://cdn.statically.io/img/farrel.franqois.id
+#  js:
+#    url: https://cdn.statically.io/js/farrel.franqois.id
+#  css:
+#    url: https://cdn.statically.io/css/farrel.franqois.id
+#  fonts:
+#    url: https://cdn.statically.io/css/farrel.franqois.id
 
 arcio:
   # Check https://arc.io
