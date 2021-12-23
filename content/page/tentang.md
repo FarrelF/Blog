@@ -39,22 +39,23 @@ Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu 
 Berikut ini adalah apa yang saya pakai untuk blog ini:
 
 - SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
-- Tema: [Stack](https://github.com/CaiJimmy/hugo-theme-stack) yang di rancang oleh [Jimmy Cai](https://jimmycai.com)
-- Fonta: [Lato Latin](https://www.latofonts.com/)
+- Tema: [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)
+- Fonta: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
 - VCS: [GitHub](https://github.com)
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain:
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
-  - [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb) sebagai Reseller/Pengelola Domain nya
+  - [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb) sebagai Reseller/Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
   - [Bunny Edge Storage](https://bunny.net/edge-storage?ref=giufh6asq3) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
 - Sertifikat TLS/SSL: [ZeroSSL](https://zerossl.com)
-- CDN: [Statically](https://statically.io) (Untuk berkas JS, CSS, Fonta dan gambar, baik itu yang disimpan di dalam Blog ini atau Eksternal)
+- CDN: Bunny CDN (Untuk berkas CSS, Fonta dan Gambar)
+- Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
 Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lain nya, silahkan kunjungi alamat URL berikut:
@@ -63,7 +64,7 @@ Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, memp
 https://github.com/FarrelF/Blog
 ```
 
-Kode Sumber tersebut dilisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog).
+Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog).
 
 Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakan nya.
 
@@ -79,7 +80,6 @@ Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah l
 - Keybase: [FarrelF](https://keybase.io/farrelf) (Jarang Aktif)
 
 ## Kunci PGP/GPG
-
 Berikut adalah Informasi mengenai kunci GPG saya:
 
 |<span class="tab-center">Informasi</span>|<span class="tab-center">Nilai</span>|

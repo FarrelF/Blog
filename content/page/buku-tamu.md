@@ -14,4 +14,4 @@ menu:
 
 Silahkan Anda berkomentar apapun di sini, baik yang berhubungan dengan pembahasan di blog ini ataupun tidak sama sekali.
 
-Tapi jika Anda berkomentar di Blog ini, maka mau-tidak mau dan suka-tidak suka, Anda harus menyetujui dan mematuhi [ketentuan dan kebijakan](/ketentuan-dan-kebijakan-blog) atau [aturan komentar](/ketentuan-dan-kebijakan-blog#ketentuankebijakan-komentar) yang berlaku di Blog ini.
+Tapi jika Anda berkomentar di Blog ini, maka mau-tidak mau dan suka-tidak suka, Anda harus menyetujui dan mematuhi [ketentuan dan kebijakan](/ketentuan-dan-kebijakan-blog) atau [aturan komentar](/ketentuan-dan-kebijakan-blog#kebijakan-komentar) yang berlaku di Blog ini.
