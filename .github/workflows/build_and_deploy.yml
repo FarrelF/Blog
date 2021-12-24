@@ -85,9 +85,9 @@ jobs:
       with:
         path: |
           ./cache/modules
-        key: v1-0-hugo-modules-{{ hashFiles('**/go.sum') }}
+        key: v1-1-hugo-modules-{{ hashFiles('**/go.mod') }}-{{ hashFiles('**/go.sum') }}
         restore-keys: | 
-          - v1-0-hugo-modules-{{ hashFiles('**/go.sum') }}
+          - v1-1-hugo-modules-{{ hashFiles('**/go.mod') }}-{{ hashFiles('**/go.sum') }}
 
     - name: Building the Blog HTML
       run: |
