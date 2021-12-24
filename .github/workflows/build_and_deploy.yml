@@ -97,8 +97,8 @@ jobs:
 
     - name: Compressing Static Web Files
       run: |
-        pigz -k -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' -o -iname '*.svg')
-        brotli -Z $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' -o -iname '*.svg')
+        pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' -o -iname '*.svg')
+        brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.xml' -o -iname '*.svg')
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
