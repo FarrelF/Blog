@@ -7,5 +7,21 @@ headers:
     X-Content-Type-Options: nosniff
     X-Frame-Options: DENY
     Referrer-Policy: strict-origin-when-cross-origin
-    Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), vibrate=(), magnetometer=(), camera=("https://farrelf-blog.disqus.com" "https://*.disquscdn.com"), midi=()
-    Feature-Policy: camera https://farrelf-blog.disqus.com https://*.disquscdn.com; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'
+    Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://giscus.app"), vibrate=(), magnetometer=(), camera=("https://giscus.app"), midi=()
+    Feature-Policy: camera https://giscus.app; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'
+    Content-Security-Policy: >
+      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/ 'sha256-Inl1XvIysSWAB3uU8xjLeDFheihJnI1ITZwieoVE5lI=' 'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0=' 'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-DG35NmVUJgv3m/vJ5M4QGn+x+iFNPv64dc66jygrIT0=' 'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M=' 'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU=' 'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
+      font-src 'self';
+      img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
+      base-uri 'self';
+      connect-src 'self';
+      object-src 'none';
+      frame-src https://giscus.app/id/ iframe.mediadelivery.net/embed/926/;
+      child-src https://giscus.app/id/ iframe.mediadelivery.net/embed/926/;
+      media-src 'none';
+      form-action 'self';
+      frame-ancestors 'none';
+      manifest-src 'none';
+      worker-src 'none';
+      prefetch-src https://cdn.statically.io/;
+      sandbox allow-scripts allow-forms allow-same-origin allow-popups
