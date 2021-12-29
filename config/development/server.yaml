@@ -7,21 +7,67 @@ headers:
     X-Content-Type-Options: nosniff
     X-Frame-Options: DENY
     Referrer-Policy: strict-origin-when-cross-origin
-    Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://giscus.app"), vibrate=(), magnetometer=(), camera=("https://giscus.app"), midi=()
-    Feature-Policy: camera https://giscus.app; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'
+    Permissions-Policy: > 
+      gyroscope=(),
+      usb=(),
+      autoplay=(),
+      microphone=("https://giscus.app"),
+      vibrate=(),
+      magnetometer=(),
+      camera=("https://giscus.app"),
+      midi=(),
+      accelerometer=(),
+      ambient-light-sensor=(),
+      display-capture=(),
+      document-domain=(),
+      encrypted-media=(),
+      geolocation=(),
+      hid=(),
+      idle-detection=(),
+      interest-cohort=(),
+      payment=(),
+      publickey-credentials-get=(),
+      screen-wake-lock=(),
+      serial=(),
+      sync-xhr=(),
+      xr-spatial-tracking=()
+    Feature-Policy: >
+      gyroscope 'none';
+      usb 'none';
+      autoplay 'none';
+      microphone https://giscus.app;
+      vibrate 'none';
+      magnetometer 'none';
+      camera https://giscus.app;
+      midi 'none';
+      accelerometer 'none';
+      ambient-light-sensor 'none';
+      display-capture 'none';
+      document-domain 'none';
+      encrypted-media 'none';
+      geolocation 'none';
+      hid 'none';
+      idle-detection 'none';
+      interest-cohort 'none';
+      payment 'none';
+      publickey-credentials-get 'none';
+      screen-wake-lock 'none';
+      serial 'none';
+      sync-xhr 'none';
+      xr-spatial-tracking 'none'
     Content-Security-Policy: >
-      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/ 'sha256-Inl1XvIysSWAB3uU8xjLeDFheihJnI1ITZwieoVE5lI=' 'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0=' 'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-DG35NmVUJgv3m/vJ5M4QGn+x+iFNPv64dc66jygrIT0=' 'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M=' 'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU=' 'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
+      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js 'sha256-Inl1XvIysSWAB3uU8xjLeDFheihJnI1ITZwieoVE5lI=' 'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0=' 'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-DG35NmVUJgv3m/vJ5M4QGn+x+iFNPv64dc66jygrIT0=' 'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M=' 'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU=' 'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
       font-src 'self';
       img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
       base-uri 'self';
       connect-src 'self';
       object-src 'none';
-      frame-src https://giscus.app/id/ iframe.mediadelivery.net/embed/926/;
-      child-src https://giscus.app/id/ iframe.mediadelivery.net/embed/926/;
+      frame-src https://giscus.app/id/widget iframe.mediadelivery.net/embed/926/;
+      child-src https://giscus.app/id/widget iframe.mediadelivery.net/embed/926/;
       media-src 'none';
       form-action 'self';
       frame-ancestors 'none';
       manifest-src 'none';
       worker-src 'none';
       prefetch-src https://cdn.statically.io/;
-      sandbox allow-scripts allow-forms allow-same-origin allow-popups
+      sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-top-navigation-by-user-activation

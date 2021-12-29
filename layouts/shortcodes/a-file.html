@@ -1,1 +1,15 @@
-{{ if eq hugo.IsProduction true }}<a class="link" href="https://farrel.franqois.id/{{ $.Page.Params.Slug }}/{{ .Get "path" }}" {{ with .Get "rel" }}rel="{{ . }}"{{ else }}rel="noopener"{{ end }} {{ with .Get "target" }}target="{{ . }}"{{ else }}target="_blank"{{ end }}>{{ .Inner | $.Page.RenderString | emojify }}</a>{{ else }}<a class="link" href="/{{ $.Page.Params.Slug }}/{{ .Get "path" }}" {{ with .Get "rel" }}rel="{{ . }}"{{ end }} {{ with .Get "target" }}target="{{ . }}"{{ end }}>{{ .Inner | $.Page.RenderString | emojify }}</a>{{ end }}
+{{- $Resource := .Page.Resources.GetMatch (printf "%s" (.Get "path")) | resources.Fingerprint "md5" -}}
+<a class="link" 
+    href="{{ $Resource.RelPermalink }}"
+    {{ with .Get "rel" }}
+    rel="{{ . }}"
+    {{ else }}
+    rel="noopener"
+    {{ end }}
+    {{ with .Get "target" }}
+    target="{{ . }}"
+    {{ else }}
+    target="_blank"
+    {{ end }}>
+    {{ .Inner | $.Page.RenderString | emojify }}
+</a>
