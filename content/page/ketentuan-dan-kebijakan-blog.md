@@ -127,8 +127,6 @@ Testimoni pada Produk/Layanan memang adalah salah satu bentuk dari Promosi/Iklan
 
 Jika Anda mengiklankan suatu Produk, mungkin saya akan hapus/menolak komentar Anda terlebih dahulu, dan kalau kurang kapok/berkali-kali, saya ban. Namun, jika Anda melakukan Spamming + Iklan, maka Anda akan saya ban permanen.
 
-Terakhir, jika Anda ingin mempromosikan Web/Blog Anda, lebih baik jangan di kolom komentar, cukup Anda masukkan Alamat URL di dalam Profil Disqus Anda, maka secara otomatis orang lain akan melihat profil Anda dan mungkin orang lain akan mengunjungi Web/Blog Anda.
-
 Jadi, mohon untuk berkomentar dengan sewajarnya saja.
 
 ### Diskriminasi dan Penghinaan terhadap Seseorang/Kelompok
@@ -179,7 +177,7 @@ Serta semua Pernyataan yang ada di halaman ini akan dirubah kapanpun dan di mana
 
 Mengenai halaman Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/diubah pada Hari/Tanggal: **Jum'at, 24 Desember 2021**
+- Di perbarui/diubah pada Hari/Tanggal: **Senin, 03 Desember 2021**
 - Di berlakukan pada Hari/Tanggal: **Jum'at, 24 Desember 2021**
 
 

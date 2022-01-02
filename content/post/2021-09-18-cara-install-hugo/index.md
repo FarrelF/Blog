@@ -25,18 +25,18 @@ Description: >
     Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja variannya, setelah itu saya langsung membahas cara Install nya.
 
 
-    Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan Anda simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
+    Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
 ---
 
 ## Daftar Isi
 {{< toc >}}
 
 ## Apa itu Hugo?
-Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis yang dibuat menggunakan bahasa pemrograman Go, dikembangkan oleh Bjørn Erik Pedersen, Steve Francia, dan kontributor lainnya
+Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis yang dibuat menggunakan bahasa pemrograman Go, dikembangkan oleh Steve Francia, Bjørn Erik Pedersen, dan kontributor lainnya
 
 Hugo juga merupakan FLOSS (_Free/Libre Open Source Software_) yang dirilis di bawah [Lisensi Apache 2.0](https://github.com/gohugoio/hugo/blob/master/LICENSE), kode sumbernya bisa Anda akses [di sini](https://github.com/gohugoio/hugo).
 
-Hugo mendukung berbagai _Platform_ yang ada, termasuk Sistem Operasi Windows, macOS, berbasis Linux, dan BSD, baik untuk arsitektur x86, x64 (disebut sebagai x86-64 atau AMD64), ARM dan ARM64.
+Hugo mendukung berbagai _Platform_ yang ada, termasuk Sistem Operasi Windows, macOS, berbasis Linux, dan BSD, baik untuk arsitektur x86, x64 (disebut sebagai x86-64, x86_64 atau AMD64), ARM dan ARM64.
 
 SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apapun dan memiliki fitur yang dinamakan _Fast Render Mode_.
 
@@ -50,10 +50,10 @@ Tapi, Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hug
 - Sistem Operasi berbasiskan Linux yang berarsitektur x64, itupun perlu "GNU C Library" (glibc)
 - macOS yang berarsitektur x64 dan ARM64
 
-Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas saja, bukan berarti Hugo Extended hanya bisa untuk _Platform_ di atas saja, ada _Platform_ lain yang bisa memakainya, Void Linux dan Termux di Android adalah salah satu contohnya, nanti akan saya bahas cara instalnya.
+Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas saja, bukan berarti Hugo Extended hanya bisa untuk _Platform_ di atas saja. Salah satunya adalah Void Linux dan Termux di Android, nanti akan saya bahas cara instalnya.
 
 ## Cara Install Hugo
-Di bagian ini, saya akan membahas Cara Install nya.
+Di bagian ini, saya akan membahas Cara Install-nya.
 
 Caranya sendiri akan berbeda-beda untuk setiap Sistem Operasi ataupun _Platform_ yang ada, jadi pastikan Anda mengikutinya sesuai dengan Sistem Operasi atau _Platform_ yang Anda gunakan.
 
@@ -219,7 +219,7 @@ Arsitektur yang tersedia adalah sebagai berikut:
 - `64bit` (untuk x86_64, x64, atau AMD64)
 - `32bit` (untuk x86 atau i686)
 - `ARM` (untuk AArch32 atau Pengguna ARM dengan 32-bit)
-- `ARM64` (untuk Pengguna ARM dengan 64-bit)
+- `ARM64` (untuk Pengguna AArch64 atau ARM dengan 64-bit)
 
 Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".deb` yang ada di dalam variabel `FILENAME` menjadi `hugo_extended_"$HUGO_VERSION"_Linux-64bit.deb` dan hapus Variabel `HUGO_ARCH`.
 
@@ -271,7 +271,7 @@ $ yay -S hugo-bin
 
 **PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui Paket resminya saja.
 
-**Catatan:** Varian Hugo yang digunakan oleh Arch, Manjaro dan Keluarganya adalah Hugo Extended, begitupula dengan paket `hugo-bin` yang ada di AUR.
+**Catatan:** Berdasarkan [Konfigurasinya](https://github.com/archlinux/svntogit-community/blob/packages/hugo/trunk/PKGBUILD), varian Hugo yang digunakan oleh Arch, Manjaro dan Keluarganya adalah Hugo Extended.
 
 #### Solus dan Keluarganya
 Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat meng-installnya dengan perintah berikut:
@@ -364,7 +364,7 @@ Arsitektur yang tersedia adalah sebagai berikut:
 - `64bit` (untuk x86_64, x64, atau AMD64)
 - `32bit` (untuk x86 atau i686)
 - `ARM` (untuk AArch32 atau Pengguna ARM dengan 32-bit)
-- `ARM64` (untuk Pengguna ARM dengan 64-bit)
+- `ARM64` (untuk Pengguna AArch64 atau ARM dengan 64-bit)
 
 Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".tar.gz` yang ada di dalam variabel `FILENAME` menjadi `hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz` dan hapus Variabel `HUGO_ARCH`.
 

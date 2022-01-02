@@ -1826,13 +1826,13 @@ Jadi, selama ZeroSSL lebih baik daripada Let's Encrypt pada beberapa aspek, kena
 #### Membantu Let's Encrypt
 Alasan ini mungkin terlihat aneh, tapi saya jelaskan kenapa menggunakan alasan ini.
 
-Let's Encrypt itu merupakan organisasi nirlaba yang super sibuk, CA tersebut terkenal di mana-mana dan hampir semua penyedia Hosting/CDN mendukungnya, salah satunya adalah Netlify, Vercel, OnRender, GitHub Pages, GitLab Pages, Bunny CDN, Akamai, Cloudflare, bahkan di layanan _Shared Hosting_ biasa pun mayoritasnya ada.
+Let's Encrypt itu merupakan organisasi nirlaba yang super sibuk, CA tersebut terkenal di mana-mana dan hampir semua penyedia Hosting/CDN menyediakan fitur pemasangan sertifikat SSL tersebut dari Panelnya, salah satunya adalah Netlify, Vercel, OnRender, GitHub Pages, GitLab Pages, Bunny CDN, Akamai, Cloudflare, bahkan di layanan _Shared Hosting_ biasa pun mayoritasnya ada fitur tersebut.
 
 Karena saya tidak bisa berdonasi dalam bentuk uang, sponsor atau dalam bentuk apapun itu, maka saya tidak lagi mengekslusifkan Let's Encrypt untuk seluruh domain dan subdomain saya sebagai CA demi menghemat pengeluaran mereka serta memaksimalkan anggarannya.
 
 Dengan memaksimalkan anggarannya, maka mereka bisa memfokuskan anggarannya untuk hal lain, seperti mengembangkan protokol ACME agar protokol tersebut bisa lebih baik lagi dari yang sekarang.
 
-Lagipula, memiliki lebih dari 1 ACME CA Gratisan itu merupakan hal yang sangat, sangat baik untuk ekosistem IKP dan penggunanya sama-sama diuntungkan di sini, karena ada pilihan lain.
+Lagipula, memiliki lebih dari 1 CA Gratisan yang menggunakan Protokol ACME itu merupakan hal yang sangat, sangat baik untuk ekosistem IKP dan penggunanya sama-sama diuntungkan di sini, karena ada pilihan lain.
 
 #### Merasa tertantang dan mendapat ilmu baru
 Saat ingin menggunakan ZeroSSL, mayoritas penyedia web belum mendukung antarmuka untuk pemasangan sertifikat SSL dari ZeroSSL secara otomatis, kebanyakan dari mereka cuma mendukung Let's Encrypt saja, seperti yang pernah saya bahas di awal.
