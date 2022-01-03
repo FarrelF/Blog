@@ -177,7 +177,7 @@ Serta semua Pernyataan yang ada di halaman ini akan dirubah kapanpun dan di mana
 
 Mengenai halaman Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/diubah pada Hari/Tanggal: **Senin, 03 Desember 2021**
+- Di perbarui/diubah pada Hari/Tanggal: **Senin, 03 Januari 2022**
 - Di berlakukan pada Hari/Tanggal: **Jum'at, 24 Desember 2021**
 
 
