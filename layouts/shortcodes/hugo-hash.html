@@ -1,0 +1,8 @@
+{{- $Hugo_Hash := hugo.CommitHash -}}
+{{- if eq (.Get "upper") true -}}
+    {{- $Hugo_Hash = upper $Hugo_Hash -}}
+{{- end -}}
+{{- with .Get "max_char" -}}
+    {{- $Hugo_Hash = slicestr $Hugo_Hash 0 (printf "%d" .) -}}
+{{- end -}}
+{{- print $Hugo_Hash -}}

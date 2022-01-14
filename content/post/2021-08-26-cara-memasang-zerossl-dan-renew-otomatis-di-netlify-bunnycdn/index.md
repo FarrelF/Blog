@@ -66,7 +66,7 @@ Infonya dari mana? Salah satu infonya berasal dari [dokumentasinya](https://zero
 
 Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan sertifikat SSL dari ZeroSSL, kecuali jika Anda ingin Layanan Dukungan, Akses REST API-nya, serta sertifikat SSL dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
 
-### Kenapa ZeroSSL? Dan, kenapa gak Let's Encrypt aja? {#zerossl-vs-lets-encrypt}
+### Kenapa ZeroSSL? Dan, kenapa gak pakai Let's Encrypt aja? {#zerossl-vs-lets-encrypt}
 #### Kompatibilitas Perangkat
 Sertifikat SSL dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja) sebagai Sertifikat Akar dari Rantai Sertifikat (yang bisa disebut dengan "Rantai Kepercayaan", bahasa Inggrisnya: _Chain of Trust_), yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama. 
 
@@ -340,9 +340,9 @@ Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedan
 
 Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL-nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
-Untuk itu, Anda perlu berikan acme.sh sebuah izin untuk membaca dan merubah _DNS Record-nya_ dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
+Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan merubah _DNS Record-nya_ dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
 
-Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record-nya_ secara manual.
+**Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record-nya_ secara manual juga.
 
 Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi _DNS Record-nya_ secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat SSL tersebut secara otomatis.
 
@@ -358,7 +358,12 @@ Untuk membuat _API Token-nya_, silahkan Anda baca [dokumentasinya](https://devel
 Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 
 0. Pastikan Anda sudah login terlebih dahulu menggunakan akun Cloudflare Anda dengan mengunjungi [Halaman Dasbornya](https://dash.cloudflare.com/login). Udah? Kalo gitu, Anda bisa lanjut
-1. Jika Anda sudah sampai di halaman dasbornya: a. Klik pada Ikon Orang di pojok kanan atas -> b. Lalu, klik **My Profile** -> c. Setelah itu, klik pada tab **API Tokens**. Atau sederhananya, silahkan [klik di sini](https://dash.cloudflare.com/profile/api-tokens)
+1. Jika Anda sudah sampai di halaman dasbornya: 
+   - a. Klik pada Ikon Orang di pojok kanan atas
+   - b. Lalu, klik **My Profile**
+   - c. Setelah itu, klik pada tab **API Tokens**. 
+
+    Atau sederhananya, silahkan [klik di sini](https://dash.cloudflare.com/profile/api-tokens)
 2. Setelah Anda memasukki bagian **API Token**, klik pada _Button_ **Create Token**
 
     Kira-kira untuk no. 1 dan 2 cuplikannya akan seperti berikut:
@@ -492,13 +497,13 @@ acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMA
 
 Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
 
-Atau, jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
+**Kalau saya belum daftar sama sekali gimana?** Jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
 
 ```shell
 acme.sh --register-account
 ```
 
-keluarannya akan seperti di bawah ini:
+Keluarannya akan seperti di bawah ini:
 
 ```plain
 [Sel 10 Agu 2021 05:31:16  WIB] Create account key ok.
@@ -507,6 +512,8 @@ keluarannya akan seperti di bawah ini:
 [Sel 10 Agu 2021 05:31:20  WIB] Registered
 [Sel 10 Agu 2021 05:31:20  WIB] ACCOUNT_THUMBPRINT='f4qxxxxxxxxxxxxxxxxx_xxxxxxx-xxxxxxxxx_xxxx'
 ```
+
+**Kalau saya gak peroleh Kredensial EAB-nya gimana? Apakah bisa memakai perintah di atas?** Sepengalaman saya dulu, bisa.
 
 {{< info text="**Perhatian !**" >}}
 Dengan mengeksekusi perintah di atas (`acme.sh --register-account` saja), itu bukan berarti Anda telah mendaftarkan akun ZeroSSL yang kemudian bisa Anda gunakan untuk login ke dalam [Situs Web ZeroSSL-nya](https://app.zerossl.com/login).
@@ -552,7 +559,7 @@ Atau, di bawah ini untuk GNU/Linux: (Lebih tepatnya di Peramban Web berbasis Chr
 
 Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal Sertifikat yang saya terbitkan itu adalah Sertifikat SSL _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Pertamanya.
 
-Kenapa bisa begitu? Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah Sertifikat SSL adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
+**Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah Sertifikat SSL adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
 
 Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL Anda. Parameter selain `--issue` adalah sebagai berikut:
 - `--renew` untuk memperbarui Sertifikat SSL yang ada
@@ -734,11 +741,15 @@ Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` 
 
 Jika Anda bukan pengguna Cloudflare, maka Anda tinggal ganti saja `dns_cf`-nya.
 
-Kenapa _Wildcard-nya_ dikutip? Karena terkadang _Shell_ lain memperlakukan tanda bintang dengan berbeda jika tidak dikutip, seperti Zsh (Z shell) misalnya.
+**Kenapa _Wildcard-nya_ dikutip?** Karena terkadang _Shell_ lain memperlakukan tanda bintang dengan berbeda jika tidak dikutip, seperti Zsh (Z shell) misalnya.
 
-Kenapa _Wildcard-nya_ diletakkan di awal? Agar Domain _Wildcard-nya_ tampil sebagai "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL. Kenapa? Karena Sertifikat SSL _Wildcard_ yang saya lihat menampilkan Domain _Wildcard_ sebagai "Issued to"/"Common Name"-nya. Apa itu "Issued to"/"Common Name"? Itu sudah saya jelaskan [di bagian awal](#issue-cert).
+**Kenapa _Wildcard-nya_ diletakkan di awal?** Agar Domain _Wildcard-nya_ tampil sebagai "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL.
 
-Apakah itu menjangkau Sub-subdomain seperti `sub.sub.domain.com`? Tentu saja tidak, karena sertifikat SSL tersebut cuma diterbitkan untuk `*.domain.com` dan `domain.com`, yang mana cuma menjangkau `sub1.domain.com`, `sub2.domain.com`, dst, bukan `sub.sub.domain.com`.
+**Kenapa seperti itu?** Karena Sertifikat SSL _Wildcard_ yang saya lihat menampilkan Domain _Wildcard_ sebagai "Issued to"/"Common Name"-nya.
+
+**Apa itu "Issued to"/"Common Name"?** Itu sudah saya jelaskan [di bagian awal](#issue-cert).
+
+**Apakah itu menjangkau Sub-subdomain seperti `sub.sub.domain.com`?** Tentu saja tidak, karena sertifikat SSL tersebut cuma diterbitkan untuk `*.domain.com` dan `domain.com`, yang mana cuma menjangkau `sub1.domain.com`, `sub2.domain.com`, dst, bukan `sub.sub.domain.com`.
 
 Jika Anda mau seperti itu, tambahkan saja Subdomain Anda beserta _Wildcard-nya_, jadi parameter yang Anda tambahkan adalah `-d '*.sub.domain.com' -d sub.domain.com`.
 
@@ -824,6 +835,16 @@ Ukuran Kunci ECC/ECDSA yang didukung oleh acme.sh beserta nilai dari parameter `
 - ECDSA P-512 (`ec-512`)
 
 **Catatan:** Didukung oleh acme.sh, bukan berarti didukung oleh CA yang digunakan, termasuk Let's Encrypt yang belum mendukung kunci ECDSA dengan ukuran kunci P-512.
+
+{{< info text="**PERINGATAN !**" >}}
+Saya tidak menyarankan Anda untuk menerbitkan serta menggunakan ukuran kunci yang terlalu besar. 
+
+Karena selain menghasilkan kunci dengan ukuran yang besar, terkadang proses pemuatan konten pada Perangkat Lunak (termasuk Peramban Web) akan memakan waktu saat sedang proses 'jabat tangan' TLS (_TLS handshake_), yang berakibat pada membengkaknya penggunaan CPU/Prosesor pada Perangkat tertentu untuk meng-enkripsi transaksi data saat proses 'jabat tangan'.
+
+Jika Anda merupakan pemilik Web/Blog, maka kemungkinan hal ini akan mempengaruhi performa Web/Blog secara keseluruhan dan ini mungkin akan berpotensi mengurangi pengunjung pada Web/Blog Anda.
+
+Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal untuk kebanyakan kasus adalah P-256, atau yang paling besar adalah P-384, tidak perlu terlalu besar.
+{{< / info >}}
 
 Sekadar Informasi saja, jika Anda menerbitkan sertifikat SSL dengan kunci ECC/ECDSA, maka berkas-berkas sertifikat SSL akan tersimpan di dalam direktori yang berakhiran dengan `_ecc`, seperti: `/home/username/.acme.sh/domain.com_ecc`, bukan di dalam direktori `/home/username/.acme.sh/domain.com`. 
 
@@ -930,8 +951,8 @@ USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/loc
 
 Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya tidak valid, entah itu salah memasukkan atau kredensialnya tidak ada, Anda bisa menggantinya dengan merubah berkas tersebut dengan menggunakan Editor Teks favorit Anda.
 
-### Isi direktori dan berkas yang diperlukan {#isi-direktori}
-Setelah mengetahui direktori, sekarang isi direktorinya. Isinya akan seperti ini:
+### Isi direktori `domain.com` dan berkas yang diperlukan {#isi-direktori-domain-com}
+Berikut di bawah ini adalah isi dari direktori `domain.com` yang ada di dalam perkakas acme.sh, di dalamnya ada berkas-berkas yang diperlukan untuk memasangkan sertifikat SSL.
 
 ```shell
 $ ls -la "$HOME"/.acme.sh/domain.com
@@ -971,7 +992,7 @@ Setelah menerbitkan sertifikat SSL, Anda perlu memasangkannya supaya sertifikat 
 
 Memasang Sertifikat SSL yang saya bahas di sini tidaklah menggunakan metode unggah manual melalui Web, melainkan kamu 'Nembak' ke API-nya.
 
-Maksudnya Anda akan melakukan _Request_ dengan metode POST kepada Server API masing-masing penyedianya agar Sertifikat SSL bisa terpasang.
+Maksudnya Anda akan memanggil Server API masing-masing penyedianya untuk melakukan _Request_ dengan metode POST agar Sertifikat SSL bisa terpasang.
 
 Berikut adalah cara-caranya:
 
@@ -1158,13 +1179,13 @@ Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Conte
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di BunnyCDN dengan memanggil API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh) terlebih dahulu sebelum itu.
 
 ### Disebutkan secara khusus: Di cPanel (butuh Akses SSH) {#di-cpanel}
-Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, mungkin Anda bisa kunjungi [Halaman Wiki-nya](https://github.com/acmesh-official/acme.sh/wiki/Simple-guide-to-add-TLS-cert-to-cpanel) untuk .
+Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, mungkin bisa langsung kunjungi [Halaman Wiki-nya](https://github.com/acmesh-official/acme.sh/wiki/Simple-guide-to-add-TLS-cert-to-cpanel).
 
 Saya tidak bisa jelaskan lebih lengkap dan tidak bisa menjamin bahwa ini akan bekerja, karena saya tidak memakainya.
 
 Anda akan membutuhkan kemampuan untuk Akses SSH ke Akun cPanel Anda untuk melakukan itu. Jika Anda merupakan pengguna Layanan _Shared Hosting_, silahkan hubungi dukungan terkait agar Akses SSH bisa dibuka dan sertai alasan yang jelas agar Anda tidak dianggap sebagai orang yang ingin menyalahgunakan fitur tersebut.
 
-Tapi, ada beberapa layanan Hosting Web yang memisahkan paket tertentu untuk Akses SSH-nya, sehingga mungkin Anda perlu _Upgrade_ paket terlebih dahulu agar bisa menggunakan fitur tersebut.
+Tapi, ada beberapa layanan Hosting Web yang memisahkan paket tertentu untuk Akses SSH-nya, sehingga mungkin Anda perlu _Upgrade_/Pindah paket terlebih dahulu agar bisa menggunakan fitur tersebut.
 
 ### Lainnya
 Jika Anda menggunakan Penyedia Hosting selain Netlify (seperti GitHub Pages, Vercel, Surge\.sh, Render\.com), Kontrol Panel untuk Hosting selain cPanel (seperti DirectAdmin, Virtualmin/Webmin, CyberPanel, Kloxo-MR, InterWorx, dll) atau menggunakan Penyedia CDN selain Bunny CDN (seperti Cloudflare, Fastly, AWS CloudFront, Akamai, Verizon EdgeCast, SwiftServe, dll), mohon maaf di sini belum tersedia.
@@ -1205,7 +1226,9 @@ Le_NextRenewTime='1630806543'
 
 Jika Anda ingin merubahnya, silahkan Anda rubah/edit isi dari berkas tersebut dengan Editor Teks favorit Anda.
 
-Dari semua variabel, yang boleh dirubah adalah nilai dari variabel `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja. Bagaimana dengan lainnya? Untuk lainnya saya sarankan agar Anda tidak merubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
+Dari semua variabel, yang boleh dirubah adalah nilai dari variabel `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja.
+
+**Bagaimana dengan lainnya?** Untuk lainnya saya sarankan agar Anda tidak merubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
 
 Jadi, saya bahas yang boleh dirubah saja. Berikut adalah penjelasan mengenai nilai dari konfigurasi/variabel di atas:
 
@@ -1230,10 +1253,10 @@ Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakuka
 Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda rubah sebelumnya akan menjadi seperti berikut:
 
 ```shell
-__ACME_BASE64__START_(BARIS_PERINTAH_DALAM_BENTUK_BASE64)__ACME_BASE64__END_
+__ACME_BASE64__START_<BARIS_PERINTAH_DALAM_BENTUK_BASE64>__ACME_BASE64__END_
 ```
 
-`(BARIS_PERINTAH_DALAM_BENTUK_BASE64)` adalah Base64 dari perintah yang sebelumnya Anda terapkan di dalam variabel tersebut. Ya, acme.sh secara otomatis meng-konversikan perintah yang Anda tentukan menjadi Base64.
+`<BARIS_PERINTAH_DALAM_BENTUK_BASE64>` adalah Base64 dari perintah yang sebelumnya Anda terapkan di dalam variabel tersebut. Ya, acme.sh secara otomatis _meng-encode_ perintah yang Anda tentukan menjadi Base64.
 
 ### Contoh Kasus: Menjalankan sebuah Berkas Skrip setelah Memperbarui Sertifikat SSL
 Contohnya Si Udin membuat sebuah berkas skrip yang bernama `renew.sh` untuk memperbarui SSL pada domain `www.si-udin.com` miliknya yang di Hosting menggunakan Netlify dan dia ingin agar skrip tersebut dijalankan/dieksekusi setelah sertifikat SSL sukses diperbarui.
@@ -1259,15 +1282,15 @@ curl -X POST \
      --url "https://api.netlify.com/api/v1/sites/"$NETLIFY_SITE_ID"/ssl"
 ```
 
-Kenapa perintah di atas mengarahkan kepada berkasnya langsung? Kenapa tidak ditentukan direktorinya? Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `$HOME/.acme.sh/www.si-udin.com` yang di dalamnya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
+**Kenapa perintah di atas mengarahkan kepada berkasnya langsung? Kenapa tidak ditentukan direktorinya?** Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `$HOME/.acme.sh/www.si-udin.com` yang di dalamnya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
 
 Sehingga, dia tidak perlu menentukan direktorinya lagi secara absolut, dia cuma perlu menuliskan nama berkasnya saja.
 
-Setelah pembuatan skripnya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `$HOME/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasinya, yakni `www.si-udin.com.conf`. 
+Setelah pembuatan skripnya selesai, ia simpan berkas tersebut, berkas skrip tersebut ia simpan di dalam direktori `$HOME/.acme.sh/www.si-udin.com/`, sehingga berkas tersebut berdekatan dengan berkas konfigurasinya, yakni `www.si-udin.com.conf`.
 
 Setelah menyimpannya, ia perlu melakukan konfigurasi supaya skripnya bisa dijalankan saat acme.sh sukses memperbarui sertifikatnya. Untuk melakukan konfigurasi, maka ia perlu mengubah isi dari berkas `$HOME/.acme.sh/www.si-udin.com/www.si-udin.com.conf`.
 
-Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain. 
+Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat sertifikat SSL sukses diperbarui, jadi ia memilih untuk mengisi variabel `Le_RenewHook` ketimbang variabel lain.
 
 Nah, dia isi itu dengan `/usr/bin/env sh renew.sh`. Jadi, variabelnya akan menjadi seperti berikut:
 
@@ -1285,19 +1308,19 @@ Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo__ACME_BASE64
 
 Itu artinya, perintah tersebut telah dikonversikan menjadi Base64 secara otomatis oleh acme.sh saat perintah tersebut dieksekusi. `L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo` adalah Base64 dari perintah `/usr/bin/env sh renew.sh`.
 
-Nah, sekarang Anda sudah paham, kan? Jika sudah paham, silahkan Anda lanjut ke [bagian selanjutnya](#renew-ssl).
+Nah, sekarang Anda sudah paham, kan? Jika sudah paham, silahkan lanjut ke [bagian selanjutnya](#renew-ssl).
 
 ## Membuat Skrip untuk _me-renew_ SSL {#renew-ssl}
 Setelah Anda mempelajari di bagian-bagian sebelumnya, sekarang Anda tinggal membuat Sertifikat SSL ini bisa diperbarui/_di-renew_ secara otomatis. Lalu, bagaimana caranya?
 
 Anda perlu membuat sebuah skrip terlebih dahulu agar SSL dapat diperbarui, ada dua metode yang bisa Anda coba. Metodenya sebagai berikut:
 
-### Metode ke-1: Memanfaatkan Konfigurasi dari acme.sh (Disarankan) {#memanfaatkan-konfigurasi-acme-sh}
+### Metode ke-1: Memanfaatkan Konfigurasi dari acme.sh {#memanfaatkan-konfigurasi-acme-sh}
 Anda bisa gunakan konfigurasi dari perkakas acme.sh agar dia mengeksekusi baris perintah setelah acme.sh berhasil memperbarui sertifikat SSL-nya untuk Domain tertentu. Untuk selengkapnya, bisa Anda pelajari itu di [bagian sebelumnya](#konfigurasi-acme-sh-untuk-domain).
 
-Kenapa saya rekomendasikan? Karena dengan ini Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL-nya).
+Kelebihannya Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL-nya).
 
-Selain itu, jika Anda menyalinkan acme.sh ke perangkat lain, maka acme.sh tetap akan mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya daripada Anda membuat skrip sendiri secara terpisah.
+Selain itu, jika Anda menyalinkan/memindahkan acme.sh ke perangkat lain, maka acme.sh tetap akan mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya daripada Anda membuat skrip sendiri secara terpisah.
 
 Setelah melakukan konfigurasi, Anda tinggal perlu menunggu sampai acme.sh berhasil memperbarui sertifikat SSL-nya untuk Anda, pastikan _Cron Job_ dalam keadaan aktif.
 
@@ -1350,9 +1373,11 @@ echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ss
 
 Silahkan Anda pelajari skrip di atas dan kembangkan sendiri skripnya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
 
-Tapi saya sarankan agar Anda menyimpannya di dalam folder `$HOME`, dan saya asumsikan bahwa Anda menamainya dengan `renew-ssl.sh` agar lebih mudah, karena pastinya Anda menamainya dengan nama yang berbeda. 
+Tapi saya sarankan agar Anda menyimpannya di dalam folder `$HOME`, dan saya asumsikan bahwa Anda menamainya dengan `renew-ssl.sh` agar mempermudah saya dalam membahasnya, karena pastinya Anda menamainya dengan nama yang berbeda.
 
-Jika sudah tersimpan, Anda bisa tes skrip tersebut dengan perintah `sh /lokasi/ke/berkas/renew-ssl.sh` atau `./lokasi/ke/berkas/renew-ssl.sh` di dalam Terminal Anda. Jika sudah berhasil, maka Anda tinggal jadwalkan saja agar skrip otomatis dijalankan sesuai jadwal yang telah Anda atur.
+Jika sudah tersimpan, berikan ijin eksekusi terhadap berkas tersebut dengan perintah `chmod +x renew-ssl.sh` atau `chmod +x /lokasi/ke/berkas/renew-ssl.sh`.
+
+Setelah itu, Anda bisa tes skrip tersebut dengan perintah `sh /lokasi/ke/berkas/renew-ssl.sh` atau `./lokasi/ke/berkas/renew-ssl.sh` di dalam Terminal Anda. Jika sudah berhasil, maka Anda tinggal jadwalkan saja agar skrip otomatis dijalankan sesuai jadwal yang telah Anda atur.
 
 ## Otomatisasi Skrip dengan _Cron Job_ {#otomatisasi-skrip-dengan-cron-jobs}
 Anda bisa membuat Skrip tersebut (Melalui Konfigurasi atau berkas `renew-ssl.sh`) berjalan secara Otomatis/terjadwal dengan _Cron Job_. Bagaimana caranya? Caranya sebagai berikut:
@@ -1722,7 +1747,7 @@ cp "$HOME"/.acme.sh/account.conf "$HOME"/.acme.sh/account.conf.1 ## Backup dulu
 sed -i '/USER\_PATH\=/d' "$HOME"/.acme.sh/account.conf
 printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 ```
-7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum ++++paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
+7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
    Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis di atur setelah Anda menginstal perkakas acme.sh-nya. 
 

@@ -89,7 +89,7 @@ Jika Anda sudah meng-install `sudo` melalui Scoop atau [`gsudo`](https://github.
 > sudo scoop install hugo-extended -g
 ```
 
-Dengan begini, Anda tidak perlu membuka Terminal sebagai Administrator lagi.
+Dengan begini, Anda tidak perlu membuka Terminal-nya sebagai Administrator lagi.
 
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `update`.
 
@@ -105,6 +105,14 @@ Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda in
 ```powershell
 > choco install hugo-extended
 ```
+
+{{< info text="**Catatan:**" >}}
+Secara baku, Chocolatey akan meng-install paket-paketnya di dalam direktori `%ProgramData%\chocolatey`, sehingga paket yang terinstal dapat diakses oleh semua pengguna di dalam 1 sistem.
+
+Tapi, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
+
+Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar Anda dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
+{{< / info >}}
 
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
 
@@ -168,7 +176,7 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk meng-installnya, 
 8. Setelah Anda membuka Terminalnya, silahkan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
 ```plain
-hugo v0.88.1-5BC54738+extended windows/amd64 BuildDate=2021-09-04T09:39:19Z VendorInfo=gohugoio
+{{< hugo-version-long extended=true platform="windows/amd64" >}}
 ```
 
 9. Selamat! Anda telah berhasil meng-install Hugo. Jika Anda ingin memperbarui versi Hugo-nya, cukup unduh lagi berkas binernya, lalu tinggal timpakan berkas lamanya.
@@ -198,20 +206,26 @@ Atau, jika Anda lebih suka lewat Terminal, maka pertama-tama Anda perlu mengubah
 Lalu, unduh mentahan Hugo-nya dengan skrip berikut:
 
 ```shell
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
-HUGO_ARCH="64bit" # Arsitektur yang tersedia adalah 64bit, 32bit, ARM atau ARM64
+HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
+HUGO_ARCH="64bit"
 FILENAME="hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".deb"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Mengunduh mentahan Hugo-nya dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
 ```shell
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1) # Untuk mendapatkan versi terbaru Hugo
-set HUGO_ARCH "64bit" # Arsitektur yang tersedia adalah 64bit, 32bit, ARM atau ARM64
+set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
+set HUGO_ARCH "64bit"
 set FILENAME "hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".deb"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
+
+**Penjelasan:**
+- Baris `HUGO_VERSION=` atau `set HUGO_VERSION`: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
+- Baris `HUGO_ARCH=` atau `set HUGO_ARCH`: Untuk menentukan Arsitektur Sistem pada berkas Hugo yang ingin Anda unduh. Arsitektur yang tersedia adalah `64bit`, `32bit`, `ARM` atau `ARM64`
+- Baris `FILENAME` atau `set FILENAME`: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_VERSION` untuk versinya dan `HUGO_ARCH` untuk Arsitektur Sistemnya
+- `cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""`: Untuk menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 Kalau mau, silahkan ganti nilai dari variabel `HUGO_ARCH` di atas dengan Arsitektur Sistem Operasi yang Anda gunakan, tapi tersedia di Hugo.
 
@@ -226,18 +240,23 @@ Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo
 Kalau gak mau ribet, tinggal copas aja skrip berikut, lalu tekan "Enter":
 
 ```shell
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
+HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
 FILENAME="hugo_extended_"$HUGO_VERSION"_Linux-64bit.deb"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Mengunduh mentahan Hugo-nya dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
 ```shell
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1) # Untuk mendapatkan versi terbaru Hugo
+set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set FILENAME "hugo_extended_"$HUGO_VERSION"_Linux-64bit.deb"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
+
+**Penjelasan:**
+- Baris `HUGO_VERSION=` atau `set HUGO_VERSION`: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
+- Baris `FILENAME` atau `set FILENAME`: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_VERSION` untuk versinya
+- `cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""`: Untuk menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 **Catatan:** Secara resmi, Hugo Extended tidak disediakan berkas Biner yang telah dikompilasi untuk arsitektur selain `64bit`, kecuali untuk Sistem Operasi macOS yang disediakan arsitektur `ARM64` nya juga.
 
@@ -245,8 +264,12 @@ Lalu, instal berkas yang telah Anda unduh dengan perintah berikut:
 
 ```shell
 dpkg -i "$FILENAME"
-rm "$FILENAME" # Untuk menghapus mentahan Hugo setelah meng-installnya
+rm "$FILENAME"
 ```
+
+**Penjelasan:**
+- `dpkg -i "$FILENAME"`: Untuk meng-install Hugo melalui `dpkg` dari berkas mentahannya yang berekstensi `deb` dan nama berkasnya diambil dari variabel `FILENAME`.
+- `rm "$FILENAME"`: Untuk menghapus mentahan Hugo setelah meng-installnya
 
 Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`.
 
@@ -291,7 +314,7 @@ $ sudo xbps-install -S hugo
 
 **Catatan:** Saya tidak memakai Void Linux dan Keluarganya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan Keluarganya adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
 
-#### Homebrew (Universal)
+#### Homebrew (Lebih Universal)
 Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa meng-installnya dengan perintah berikut:
 
 ```shell
@@ -300,7 +323,7 @@ $ brew install hugo
 
 **Catatan:** Saya tidak memakai Pengelola Paket Homebrew, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Pengelola Paket Homebrew adalah Hugo Extended.
 
-#### Snap (Universal)
+#### Snap (Lebih Universal)
 Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa meng-installnya dengan perintah berikut:
 
 ```shell
@@ -321,7 +344,7 @@ Jika Anda menggunakan Distribusi Non-Systemd seperti Void Linux, Devuan, MX Linu
 Makanya di awal saya bilang "lebih Universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan Pengelola Paket bawaan.
 {{< / info >}}
 
-#### Berkas Biner, tanpa Pengelola Paket (Universal, Manual)
+#### Berkas Biner, tanpa Pengelola Paket (Lebih Universal, Manual)
 Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.tar.gz` (untuk GNU/Linux), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
 
 Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
@@ -343,20 +366,26 @@ Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjang
 Lalu, unduh versi terbaru dari Hugo dengan mengeksekusi skrip berikut, lalu tekan "Enter": (Langsung copas aja)
 
 ```shell
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
-HUGO_ARCH="64bit" # Arsitektur yang tersedia adalah 64bit, 32bit, ARM atau ARM64
+HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
+HUGO_ARCH="64bit"
 FILENAME="hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
 ```shell
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1) # Untuk mendapatkan versi terbaru Hugo
-set HUGO_ARCH "64bit" # Arsitektur yang tersedia adalah 64bit, 32bit, ARM atau ARM64
+set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
+set HUGO_ARCH "64bit"
 set FILENAME "hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
+
+**Penjelasan:**
+- Baris `HUGO_VERSION=` atau `set HUGO_VERSION`: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
+- Baris `HUGO_ARCH=` atau `set HUGO_ARCH`: Untuk menentukan Arsitektur Sistem pada berkas Hugo yang ingin Anda unduh. Arsitektur yang tersedia adalah `64bit`, `32bit`, `ARM` atau `ARM64`
+- Baris `FILENAME` atau `set FILENAME`: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_VERSION` untuk versinya dan `HUGO_ARCH` untuk Arsitektur Sistemnya
+- `cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""`: Untuk menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 Kalau mau, silahkan ganti nilai dari variabel `HUGO_ARCH` di atas dengan Arsitektur Sistem Operasi yang Anda gunakan, tapi tersedia di Hugo. 
 
@@ -371,29 +400,42 @@ Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo
 Kalau gak mau ribet, tinggal copas aja skrip berikut, lalu tekan "Enter":
 
 ```shell
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)" # Untuk mendapatkan versi terbaru Hugo
+HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
 FILENAME="hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
 ```shell
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1) # Untuk mendapatkan versi terbaru Hugo
+set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set FILENAME "hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME"" # Menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
 ```
+
+**Penjelasan:**
+- Baris `HUGO_VERSION=` atau `set HUGO_VERSION`: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
+- Baris `FILENAME` atau `set FILENAME`: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_VERSION` untuk versinya
+- `cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""`: Untuk menavigasikan Terminal ke /tmp, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 **Catatan:** Secara resmi, Hugo Extended tidak disediakan berkas Biner yang telah dikompilasi untuk arsitektur selain `64bit`, kecuali untuk Sistem Operasi macOS yang disediakan arsitektur `ARM64` nya juga.
 
 Setelah mengunduhnya, Anda perlu mengeksekusi skrip berikut untuk meng-installnya:
 
 ```shell
-tar -xvzf "$FILENAME"; chmod +x hugo # Ekstrak Berkas Arsip dan Izinkan berkas yang bernama 'hugo' agar dapat dieksekusi
-mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo # Memindahkan berkas yang bernama 'hugo' ke /usr/local/bin dan mengubah kepemilikan berkas 'hugo' menjadi milik 'root'
-rm "$FILENAME" LICENSE README.md # Menghapus berkas yang sudah tak terpakai lagi
-cd - # Kembali ke direktori sebelumnya
+tar -xvzf "$FILENAME"; chmod +x hugo
+mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo
+install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
+rm "$FILENAME" LICENSE README.md
+cd -
 ```
+
+**Penjelasan:**
+- `tar -xvzf "$FILENAME"; chmod +x hugo`: Untuk mengekstrak Berkas Arsip, lalu mengizinkan berkas yang bernama `hugo` agar dapat dieksekusi
+- `mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo`: Untuk memindahkan berkas yang bernama `hugo` ke `/usr/local/bin`, setelah itu perintah `chown root:root` akan mengubah kepemilikan berkas `hugo` menjadi milik `root`
+- `install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE`: Untuk menyalinkan berkas `LICENSE` milik Hugo kedalam direktori `/usr/share/licenses/hugo` dan Chmod dari berkas tersebut disetel dengan nilai 644.
+- `rm "$FILENAME" LICENSE README.md`: Menghapus berkas yang sudah tak terpakai lagi
+- `cd -`: Kembali ke direktori sebelumnya
 
 Setelah itu, pastikan kalau Hugo dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo yang Anda gunakan sekarang:
 
@@ -404,16 +446,25 @@ hugo version
 Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 ```plain
-hugo v0.88.1-5BC54738+extended linux/amd64 BuildDate=2021-09-04T09:39:19Z VendorInfo=gohugoio
+{{< hugo-version-long extended=true >}}
 ```
 
 Keluaran di atas itu terjadi karena saya menggunakan Hugo Extended, jika Anda menggunakan varian biasa, harusnya sih sama aja, bedanya cuma gak ada tulisan `extended` nya aja.
 
-Kalau mau, Anda juga dapat membuat Halaman Panduan (manpages) untuk Hugo dengan perintah berikut:
+Kalau mau, Anda juga dapat membuat Halaman Panduan (manpages) untuk Hugo dengan skrip berikut:
 
 ```shell
-hugo gen man --dir '/usr/local/man/man1'
+hugo gen man --dir 'hugo_manpages'
+cd hugo_manpages; gzip -9 *
+cp * /usr/local/man/man1
+cd -; rm -rf hugo_manpages
 ```
+
+**Penjelasan:**
+- `hugo gen man --dir 'hugo_manpages'`: Untuk membuat Halaman Panduan Hugo dan berkas-berkasnya akan diletakkan di dalam direktori `hugo_manpages` (Direktori tersebut akan dibuatkan secara otomatis jika tidak ada)
+- `cd hugo_manpages; gzip -9 *`: Untuk menavigasikan _Shell_ ke dalam direktori `hugo_manpages`, lalu mengkompresi semua berkas di dalamnya dengan Gzip dan menghapus semua berkas aslinya
+- `cp * /usr/local/man/man1`: Untuk menyalinkan semua berkas di dalamnya ke direktori `/usr/local/man/man1`
+- `cd -; rm -rf hugo_manpages`: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
 Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
 
@@ -423,6 +474,10 @@ Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di T
 hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "/usr/share/bash-completion/completions/hugo" ## Untuk Pengguna GNU Bash
 hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "/usr/share/zsh/site-functions/_hugo" ## Untuk Pengguna Z Shell (zsh)
 ```
+
+**Penjelasan:**
+- Baris `hugo gen autocomplete --type=bash`: Untuk membuat _Autocomplete_ untuk GNU Bash dan meletakkannya ke dalam direktori `/usr/share/bash-completion/completions` sebagai berkas yang bernama `hugo`
+- Baris `hugo gen autocomplete --type=zsh`: Untuk membuat _Autocomplete_ untuk Z Shell dan meletakkannya ke dalam direktori `/usr/share/zsh/site-functions/completions` sebagai berkas yang bernama `_hugo`
 
 Silahkan Anda coba fitur _Completion_ di dalam Terminal Anda setelah itu.
 
@@ -445,6 +500,8 @@ Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin men
 ```shell
 $ sudo port install hugo +extended
 ```
+
+**Catatan:** Meng-installnya melalui MacPorts mungkin akan menghimpun (_compile_) kode sumber Hugo di dalam perangkat Anda.
 
 Anda juga dapat menambahkan fitur _Completion_ untuk Bash kalau mau dengan menambahkan argumen `+bash_completion` di dalam baris perintahnya saja.
 
@@ -469,7 +526,7 @@ $ pkg i hugo
 
 Perintah di atas akan meng-install Hugo Extended, bukan Hugo varian Biasa/Standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
 
-Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda, tapi saya sarankan agar Anda menggunakan [Termux versi terbarunya](https://f-droid.org/en/packages/com.termux/) (tidak diunduh dari Google Play Store) untuk pengalaman yang lebih nyaman dan versi Android nya minimal 7.0 agar Termux versi terbaru bisa digunakan.
+Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda, tapi saya sarankan agar Anda menggunakan [Termux versi terbarunya](https://f-droid.org/en/packages/com.termux/) (tidak diunduh dari Google Play Store) untuk pengalaman yang lebih nyaman dan versi Android-nya minimal 7.0 agar Termux versi terbaru bisa digunakan.
 
 ### BSD
 #### OpenBSD dan Keluarganya

@@ -1,0 +1,12 @@
+{{- $Platform := "linux/amd64" -}}
+{{- $Hash := slicestr (hugo.CommitHash | upper) 0 8 -}}
+{{- $Version := hugo.Version -}}
+{{- $BuildDate := hugo.BuildDate -}}
+{{- $Extended := "" -}}
+{{- with .Get "platform" -}}
+    {{- $Platform = . -}}
+{{- end -}}
+{{ if eq (.Get "extended") true }}
+    {{- $Extended = "+extended" -}}
+{{ end }}
+{{- printf "hugo v%s-%s%s %s BuildDate=%s VendorInfo=gohugoio" $Version $Hash $Extended $Platform $BuildDate -}}

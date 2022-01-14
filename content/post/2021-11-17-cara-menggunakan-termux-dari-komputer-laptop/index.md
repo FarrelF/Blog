@@ -266,24 +266,27 @@ termux-wake-lock
 sshd
 ```
 
-Atau, jika Anda ingin agar [**Termux-services**](https://wiki.termux.com/wiki/Termux-services) mengaktifkan semua layanan yang ada dan didukungnya (seperti OpenSSH, Cronie/Cron Job, Apache2, NGINX, dll), maka isi dari skrip `startup-script` akan seperti berikut:
+Atau, jika Anda ingin agar [**Termux-services**](https://wiki.termux.com/wiki/Termux-services) mengaktifkan semua layanan yang ada dan didukungnya (seperti OpenSSH, Cronie/Cron Job, Apache2, NGINX, dll) dan mengaktifkan server SSH nya, maka isi dari skrip `startup-script` akan seperti berikut:
 
 ```shell
 #!/data/data/com.termux/files/usr/bin/sh
 termux-wake-lock
+sshd
 . $PREFIX/etc/profile
 ```
 
-Solusi seperti ini akan sangat cocok bagi Anda yang ingin mengotomatiskan sesuatu, salah satunya adalah membuat pembaruan sertifikat SSL dari ZeroSSL melalui acme.sh secara otomatis di Termux yang telah saya bahas [di artikel sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/).
+Solusi seperti ini akan sangat cocok bagi Anda yang ingin mengotomatiskan sesuatu, salah satunya adalah mengotomatiskan pembaruan sertifikat SSL dari ZeroSSL melalui acme.sh di Termux yang telah saya bahas [di artikel sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/).
 
 ### Pertanyaan ke-2: Apakah ada caranya agar akses SSH ini bisa dilakukan secara remot tanpa harus terhubung di jaringan yang sama? (cth. Ketika saya sedang berada di luar kota) {#pertanyaan-ke2}
-**Jawab:** Untuk saat ini saya belum tahu caranya, jadi maaf kalau saya belum bisa memberikan caranya di sini.
+**Jawab:** ~~Untuk saat ini saya belum tahu caranya, jadi maaf kalau saya belum bisa memberikan caranya di sini.~~
 
-Saya tahu ada layanan [ngrok](https://ngrok.com/) atau sejenisnya, tapi itu belum saya coba buat akses SSH.
+~~Saya tahu ada layanan [ngrok](https://ngrok.com/) atau sejenisnya, tapi itu belum saya coba buat akses SSH.~~
 
-Jadi, untuk saat ini saya masih belum tahu bisa atau tidaknya, tapi jika Anda mempunyai caranya dan ingin memberitahukannya, silahkan Anda berikan masukkannya melalui kolom komentar.
+~~Jadi, untuk saat ini saya masih belum tahu bisa atau tidaknya, tapi jika Anda mempunyai caranya dan ingin memberitahukannya, silahkan Anda berikan masukkannya melalui kolom komentar.~~
 
-Mungkin penggunaan VPN dengan Alamat IP sendiri atau melakukan **Reverse SSH Tunneling** bisa membantu Anda, tapi saya kurang paham caranya.
+~~Mungkin penggunaan VPN dengan Alamat IP sendiri atau melakukan **Reverse SSH Tunneling** bisa membantu Anda, tapi saya kurang paham caranya.~~
+
+**PEMBARUAN, Jum'at 14 Januari 2022:** Anda bisa mencoba [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/tutorials/ssh) dan Cloudflare Argo Tunnel agar dapat mengakses SSH dari jarak jauh tanpa harus terhubung di jaringan yang sama, atau terhubung dari jaringan Internet, seperti yang saya lakukan sekarang.
 
 ## Penutup
 Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang telah membaca dan memahami artikel ini sampai habis.
