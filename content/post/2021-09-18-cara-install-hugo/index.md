@@ -203,7 +203,11 @@ Jika Anda ingin versi terbaru dari Hugo, silahkan Anda unduh itu di halaman [per
 
 Atau, jika Anda lebih suka lewat Terminal, maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i` atau `sudo -s`.
 
-Lalu, unduh mentahan Hugo-nya dengan skrip berikut:
+Setelah itu, tentukan apakah Anda mau meng-install Hugo varian Biasa/Standar atau Extended, beserta Arsitektur Sistem Operasi yang Anda gunakan sekarang.
+
+Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
+
+Jika Anda ingin menggunakan Hugo dengan varian Standar, silahkan Anda salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan "Enter": (Langsung copas aja)
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
@@ -235,9 +239,7 @@ Arsitektur yang tersedia adalah sebagai berikut:
 - `ARM` (untuk AArch32 atau Pengguna ARM dengan 32-bit)
 - `ARM64` (untuk Pengguna AArch64 atau ARM dengan 64-bit)
 
-Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".deb` yang ada di dalam variabel `FILENAME` menjadi `hugo_extended_"$HUGO_VERSION"_Linux-64bit.deb` dan hapus Variabel `HUGO_ARCH`.
-
-Kalau gak mau ribet, tinggal copas aja skrip berikut, lalu tekan "Enter":
+Jika Anda ingin mengunduh Hugo Extended, maka tinggal Anda copas saja skrip berikut ke dalam Terminal, lalu tekan "Enter":
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
@@ -363,7 +365,11 @@ Cara sederhananya:
 
 Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`, atau `sudo -s`.
 
-Lalu, unduh versi terbaru dari Hugo dengan mengeksekusi skrip berikut, lalu tekan "Enter": (Langsung copas aja)
+Setelah itu, tentukan apakah Anda mau meng-install Hugo varian Biasa/Standar atau Extended, beserta Arsitektur Sistem Operasi yang Anda gunakan sekarang.
+
+Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
+
+Jika Anda ingin menggunakan Hugo dengan varian Standar, silahkan Anda salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan "Enter": (Langsung copas aja)
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
@@ -395,9 +401,7 @@ Arsitektur yang tersedia adalah sebagai berikut:
 - `ARM` (untuk AArch32 atau Pengguna ARM dengan 32-bit)
 - `ARM64` (untuk Pengguna AArch64 atau ARM dengan 64-bit)
 
-Atau, jika Anda ingin mengunduh Hugo Extended, maka Anda bisa menggantikan `hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".tar.gz` yang ada di dalam variabel `FILENAME` menjadi `hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz` dan hapus Variabel `HUGO_ARCH`.
-
-Kalau gak mau ribet, tinggal copas aja skrip berikut, lalu tekan "Enter":
+Jika Anda ingin mengunduh Hugo Extended, maka tinggal Anda copas saja skrip berikut ke dalam Terminal, lalu tekan "Enter":
 
 ```shell
 HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
@@ -424,7 +428,7 @@ Setelah mengunduhnya, Anda perlu mengeksekusi skrip berikut untuk meng-installny
 
 ```shell
 tar -xvzf "$FILENAME"; chmod +x hugo
-mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo
+mv hugo /usr/local/bin/; chown $USER:$USER /usr/local/bin/hugo
 install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
 rm "$FILENAME" LICENSE README.md
 cd -
@@ -432,7 +436,7 @@ cd -
 
 **Penjelasan:**
 - `tar -xvzf "$FILENAME"; chmod +x hugo`: Untuk mengekstrak Berkas Arsip, lalu mengizinkan berkas yang bernama `hugo` agar dapat dieksekusi
-- `mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo`: Untuk memindahkan berkas yang bernama `hugo` ke `/usr/local/bin`, setelah itu perintah `chown root:root` akan mengubah kepemilikan berkas `hugo` menjadi milik `root`
+- `mv hugo /usr/local/bin/; chown $USER:$USER /usr/local/bin/hugo`: Untuk memindahkan berkas yang bernama `hugo` ke `/usr/local/bin`, setelah itu perintah `chown $USER:$USER` akan mengubah kepemilikan berkas `hugo` menjadi milik `$USER` (dalam hal ini milik `root`)
 - `install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE`: Untuk menyalinkan berkas `LICENSE` milik Hugo kedalam direktori `/usr/share/licenses/hugo` dan Chmod dari berkas tersebut disetel dengan nilai 644.
 - `rm "$FILENAME" LICENSE README.md`: Menghapus berkas yang sudah tak terpakai lagi
 - `cd -`: Kembali ke direktori sebelumnya
@@ -451,28 +455,30 @@ Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 Keluaran di atas itu terjadi karena saya menggunakan Hugo Extended, jika Anda menggunakan varian biasa, harusnya sih sama aja, bedanya cuma gak ada tulisan `extended` nya aja.
 
-Kalau mau, Anda juga dapat membuat Halaman Panduan (manpages) untuk Hugo dengan skrip berikut:
+Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat Halaman Panduan (manpages) untuk Hugo dengan skrip berikut:
 
 ```shell
-hugo gen man --dir 'hugo_manpages'
-cd hugo_manpages; gzip -9 *
+hugo gen man --dir '/tmp/hugo_manpages'
+cd /tmp/hugo_manpages; gzip -9 *
+chown $USER:$USER *; chmod 644 *
 cp * /usr/local/man/man1
-cd -; rm -rf hugo_manpages
+cd -; rm -rf /tmp/hugo_manpages
 ```
 
 **Penjelasan:**
-- `hugo gen man --dir 'hugo_manpages'`: Untuk membuat Halaman Panduan Hugo dan berkas-berkasnya akan diletakkan di dalam direktori `hugo_manpages` (Direktori tersebut akan dibuatkan secara otomatis jika tidak ada)
-- `cd hugo_manpages; gzip -9 *`: Untuk menavigasikan _Shell_ ke dalam direktori `hugo_manpages`, lalu mengkompresi semua berkas di dalamnya dengan Gzip dan menghapus semua berkas aslinya
-- `cp * /usr/local/man/man1`: Untuk menyalinkan semua berkas di dalamnya ke direktori `/usr/local/man/man1`
-- `cd -; rm -rf hugo_manpages`: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
+- `hugo gen man --dir '/tmp/hugo_manpages'`: Untuk membuat Halaman Panduan Hugo dan berkas-berkasnya akan diletakkan di dalam direktori `/tmp/hugo_manpages` (Direktori tersebut akan dibuatkan secara otomatis jika tidak ada, jadi Anda tidak perlu membuatnya terlebih dahulu)
+- `cd /tmp/hugo_manpages; gzip -9 *`: Untuk menavigasikan _Shell_ ke dalam direktori `/tmp/hugo_manpages`, lalu mengkompresi semua berkas di dalamnya dengan Gzip dan menghapus semua berkas aslinya
+- `chown $USER:$USER *; chmod 644 *`: Untuk mengubah kepemilikan semua berkasnya menjadi milik `$USER` (dalam hal ini `root`), lalu mengubah perizinan/Nilai Chmod untuk semua berkasnya menjadi 644. Tujuan saya memasuki perintah ini hanya untuk memastikan saja bahwa perizinannya sudah tepat
+- `cp * /usr/local/man/man1`: Untuk menyalinkan semua berkas di dalamnya ke dalam direktori `/usr/local/man/man1`
+- `cd -; rm -rf /tmp/hugo_manpages`: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `/tmp/hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
 Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
 
 Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di Sistem Anda)
 
 ```shell
-hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "/usr/share/bash-completion/completions/hugo" ## Untuk Pengguna GNU Bash
-hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "/usr/share/zsh/site-functions/_hugo" ## Untuk Pengguna Z Shell (zsh)
+hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "/usr/share/bash-completion/completions/hugo"
+hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "/usr/share/zsh/site-functions/_hugo"
 ```
 
 **Penjelasan:**
@@ -518,7 +524,7 @@ $ brew install hugo
 
 ### Android
 #### Termux
-Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
+Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
 $ pkg i hugo

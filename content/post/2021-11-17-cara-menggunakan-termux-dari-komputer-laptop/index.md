@@ -286,7 +286,17 @@ Solusi seperti ini akan sangat cocok bagi Anda yang ingin mengotomatiskan sesuat
 
 ~~Mungkin penggunaan VPN dengan Alamat IP sendiri atau melakukan **Reverse SSH Tunneling** bisa membantu Anda, tapi saya kurang paham caranya.~~
 
-**PEMBARUAN, Jum'at 14 Januari 2022:** Anda bisa mencoba [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/tutorials/ssh) dan Cloudflare Argo Tunnel agar dapat mengakses SSH dari jarak jauh tanpa harus terhubung di jaringan yang sama, atau terhubung dari jaringan Internet, seperti yang saya lakukan sekarang.
+{{< info text="**PEMBARUAN, Jum'at 14 Januari 2022:**" >}}
+Anda bisa mencoba [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/tutorials/ssh) dan Cloudflare Argo Tunnel agar dapat mengakses SSH dari jarak jauh tanpa harus terhubung di jaringan yang sama.
+
+Jadi, Anda bisa mengaksesnya melalui jaringan Internet, seperti yang saya lakukan sekarang.
+
+Namun, Anda perlu menghimpun kode sumber Cloudflared-nya terlebih dahulu di Termux, silahkan [klik di sini](https://gist.github.com/Erisa/4015ae12211434b8f2f64ac1d731b830) untuk caranya.
+
+Setelah itu Anda perlu pastikan bahwa Termux-nya telah aktif terus di latar belakang di Ponsel Anda, jangan dimatikan.
+
+Selebihnya nanti akan saya buatkan artikelnya.
+{{< / info >}}
 
 ## Penutup
 Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang telah membaca dan memahami artikel ini sampai habis.

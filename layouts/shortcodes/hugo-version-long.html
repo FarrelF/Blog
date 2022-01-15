@@ -1,12 +1,10 @@
-{{- $Platform := "linux/amd64" -}}
-{{- $Hash := slicestr (hugo.CommitHash | upper) 0 8 -}}
-{{- $Version := hugo.Version -}}
-{{- $BuildDate := hugo.BuildDate -}}
+{{- $Platform := default "linux/amd64" (.Get "platform") -}}
+{{- $Hash := default (slicestr (hugo.CommitHash | upper) 0 8) (.Get "hash" | upper) -}}
+{{- $Version := default hugo.Version (.Get "version") -}}
+{{- $BuildDate := default hugo.BuildDate (.Get "buildDate") -}}
+{{- $IsExtended := default hugo.IsExtended (.Get "extended") -}}
 {{- $Extended := "" -}}
-{{- with .Get "platform" -}}
-    {{- $Platform = . -}}
-{{- end -}}
-{{ if eq (.Get "extended") true }}
+{{ if eq $IsExtended true }}
     {{- $Extended = "+extended" -}}
 {{ end }}
 {{- printf "hugo v%s-%s%s %s BuildDate=%s VendorInfo=gohugoio" $Version $Hash $Extended $Platform $BuildDate -}}
