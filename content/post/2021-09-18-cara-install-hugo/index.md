@@ -19,10 +19,10 @@ Tags:
 readMore: true
 DescriptionSEO: Apakah Anda ingin meng-install Hugo, tapi tidak tahu caranya? Jika iya, Anda bisa kunjungi artikel ini
 Description: >
-    Artikel ini akan membahas tentang Apa itu Hugo dan Cara Installnya, baik itu di dalam Windows, GNU/Linux, macOS, Android, dll.
+    Artikel ini akan membahas tentang Apa itu Hugo dan Cara Install-nya, baik itu di dalam Windows, GNU/Linux, macOS, Android, dll.
 
 
-    Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja variannya, setelah itu saya langsung membahas cara Install nya.
+    Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja variannya, setelah itu saya langsung membahas cara Install-nya.
 
 
     Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
@@ -81,7 +81,7 @@ Perintahnya akan menjadi seperti berikut:
 > scoop install hugo-extended -g
 ```
 
-Tapi, Anda perlu membuka Command Prompt, Windows Terminal, Windows PowerShell atau PowerShell Core nya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
+Tapi, Anda perlu membuka Command Prompt, Windows Terminal, Windows PowerShell atau PowerShell Core-nya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
 
 Jika Anda sudah meng-install `sudo` melalui Scoop atau [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
 
@@ -121,7 +121,7 @@ Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan 
 
 Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
 
-Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk meng-installnya, maka berikut adalah langkah-langkahnya:
+Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, maka berikut adalah langkah-langkahnya:
 
 1. Unduh Berkas Arsip yang berisi berkas biner Hugo di [Halaman Perilisannya](https://github.com/gohugoio/hugo/releases).
 
@@ -187,7 +187,7 @@ WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus meng
 
 ### GNU/Linux {#gnu-linux}
 #### Debian, Ubuntu dan Keluarganya
-Jika Anda adalah pengguna Debian, Ubuntu atau Keluarganya, sebenarnya Anda dapat meng-installnya dengan perintah berikut:
+Jika Anda adalah pengguna Debian, Ubuntu atau Keluarganya, sebenarnya Anda dapat menginstalnya dengan perintah berikut:
 
 ```shell
 $ sudo sh -c 'apt update; apt install -y hugo'
@@ -271,11 +271,36 @@ rm "$FILENAME"
 
 **Penjelasan:**
 - `dpkg -i "$FILENAME"`: Untuk meng-install Hugo melalui `dpkg` dari berkas mentahannya yang berekstensi `deb` dan nama berkasnya diambil dari variabel `FILENAME`.
-- `rm "$FILENAME"`: Untuk menghapus mentahan Hugo setelah meng-installnya
+- `rm "$FILENAME"`: Untuk menghapus mentahan Hugo setelah menginstalnya
 
 Jika merasa sudah selesai, silahkan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`.
 
 Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di atas.
+
+#### SUSE Linux Enterprise (SLE), openSUSE Leap/Tumbleweed dan Keluarganya (Tidak Resmi)
+Jika Anda adalah pengguna SUSE Linux Enterprise, openSUSE Leap/Tumbleweed atau Keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps), jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
+
+```shell
+### Untuk Pengguna SUSE Linux Enterprise (SLE) 15 SP3
+$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
+
+### Untuk Pengguna openSUSE Leap 15.3
+$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Leap_15.3/home:darix:apps.repo
+
+### Untuk Pengguna openSUSE Tumbleweed
+$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
+```
+
+Setelah itu segarkan repositorinya, lalu install Hugo-nya dengan perintah berikut:
+
+```shell
+$ sudo zypper ref
+$ sudo zypper in hugo
+```
+
+Untuk lebih lanjut. silahkan kunjungi [Halaman Unduh Repositorinya](https://software.opensuse.org/download/package?package=hugo&project=home%3Adarix%3Aapps).
+
+**Catatan:** Saya tidak memakai SUSE Linux Enterprise, openSUSE dan Keluarganya, tapi berdasarkan [konfigurasinya](https://build.opensuse.org/package/view_file/home:darix:apps/hugo/hugo.spec?expand=1), kemungkinan varian Hugo yang digunakan adalah Hugo Extended.
 
 #### Arch Linux, Manjaro dan Keluarganya
 Jika Anda adalah pengguna Arch Linux, Manjaro atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
@@ -294,12 +319,12 @@ $ sudo pacman -S hugo
 $ yay -S hugo-bin
 ```
 
-**PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui Paket resminya saja.
+**PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui paket resminya saja.
 
 **Catatan:** Berdasarkan [Konfigurasinya](https://github.com/archlinux/svntogit-community/blob/packages/hugo/trunk/PKGBUILD), varian Hugo yang digunakan oleh Arch, Manjaro dan Keluarganya adalah Hugo Extended.
 
 #### Solus dan Keluarganya
-Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat meng-installnya dengan perintah berikut:
+Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat menginstalnya dengan perintah berikut:
 
 ```shell
 $ sudo eopkg install hugo
@@ -317,7 +342,7 @@ $ sudo xbps-install -S hugo
 **Catatan:** Saya tidak memakai Void Linux dan Keluarganya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan Keluarganya adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
 
 #### Homebrew (Lebih Universal)
-Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa meng-installnya dengan perintah berikut:
+Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
 ```shell
 $ brew install hugo
@@ -326,7 +351,7 @@ $ brew install hugo
 **Catatan:** Saya tidak memakai Pengelola Paket Homebrew, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Pengelola Paket Homebrew adalah Hugo Extended.
 
 #### Snap (Lebih Universal)
-Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa meng-installnya dengan perintah berikut:
+Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
 ```shell
 $ snap install hugo
@@ -424,20 +449,24 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 
 **Catatan:** Secara resmi, Hugo Extended tidak disediakan berkas Biner yang telah dikompilasi untuk arsitektur selain `64bit`, kecuali untuk Sistem Operasi macOS yang disediakan arsitektur `ARM64` nya juga.
 
-Setelah mengunduhnya, Anda perlu mengeksekusi skrip berikut untuk meng-installnya:
+{{< spoiler text="Mengenai Instalasi Hugo" >}}
+Setelah mengunduhnya, tentukan terlebih dahulu di mana Anda meng-install Hugo-nya, apakah di dalam direktori pengguna yang hanya dapat dijalankan oleh Anda sendiri atau di dalam direktori sistem agar dapat dijalankan oleh semua pengguna.
+
+Jika Anda ingin Hugo-nya dapat dijalankan oleh semua pengguna, silahkan ikuti caranya di bawah ini. Tapi, jika Anda ingin Hugo-nya diinstal di dalam direktori pengguna dan tanpa perlu perintah `sudo` ataupun hak akses `root`, silahkan [klik di sini](#pertanyaan-ke4).
+{{< / spoiler >}}
+
+Setelah mengunduhnya, Anda perlu mengeksekusi skrip berikut untuk menginstalnya:
 
 ```shell
-tar -xvzf "$FILENAME"; chmod +x hugo
-mv hugo /usr/local/bin/; chown $USER:$USER /usr/local/bin/hugo
+tar -xvzf "$FILENAME"; install -Dm755 hugo /usr/local/bin/
 install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
-rm "$FILENAME" LICENSE README.md
+rm "$FILENAME" hugo LICENSE README.md
 cd -
 ```
 
 **Penjelasan:**
-- `tar -xvzf "$FILENAME"; chmod +x hugo`: Untuk mengekstrak Berkas Arsip, lalu mengizinkan berkas yang bernama `hugo` agar dapat dieksekusi
-- `mv hugo /usr/local/bin/; chown $USER:$USER /usr/local/bin/hugo`: Untuk memindahkan berkas yang bernama `hugo` ke `/usr/local/bin`, setelah itu perintah `chown $USER:$USER` akan mengubah kepemilikan berkas `hugo` menjadi milik `$USER` (dalam hal ini milik `root`)
-- `install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE`: Untuk menyalinkan berkas `LICENSE` milik Hugo kedalam direktori `/usr/share/licenses/hugo` dan Chmod dari berkas tersebut disetel dengan nilai 644.
+- `tar -xvzf "$FILENAME"; install -Dm755 hugo /usr/local/bin/`: Untuk mengekstrak Berkas Arsip, lalu menginstal Hugo di direktori `/usr/local/bin` dan Chmod dari berkas tersebut disetel dengan nilai 755
+- `install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE`: Untuk menyalinkan berkas `LICENSE` milik Hugo kedalam direktori `/usr/share/licenses/hugo` dan Chmod dari berkas tersebut disetel dengan nilai 644
 - `rm "$FILENAME" LICENSE README.md`: Menghapus berkas yang sudah tak terpakai lagi
 - `cd -`: Kembali ke direktori sebelumnya
 
@@ -460,16 +489,14 @@ Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat Halaman Panduan
 ```shell
 hugo gen man --dir '/tmp/hugo_manpages'
 cd /tmp/hugo_manpages; gzip -9 *
-chown $USER:$USER *; chmod 644 *
-cp * /usr/local/man/man1
+install -Dm644 * -t /usr/local/man/man1
 cd -; rm -rf /tmp/hugo_manpages
 ```
 
 **Penjelasan:**
 - `hugo gen man --dir '/tmp/hugo_manpages'`: Untuk membuat Halaman Panduan Hugo dan berkas-berkasnya akan diletakkan di dalam direktori `/tmp/hugo_manpages` (Direktori tersebut akan dibuatkan secara otomatis jika tidak ada, jadi Anda tidak perlu membuatnya terlebih dahulu)
 - `cd /tmp/hugo_manpages; gzip -9 *`: Untuk menavigasikan _Shell_ ke dalam direktori `/tmp/hugo_manpages`, lalu mengkompresi semua berkas di dalamnya dengan Gzip dan menghapus semua berkas aslinya
-- `chown $USER:$USER *; chmod 644 *`: Untuk mengubah kepemilikan semua berkasnya menjadi milik `$USER` (dalam hal ini `root`), lalu mengubah perizinan/Nilai Chmod untuk semua berkasnya menjadi 644. Tujuan saya memasuki perintah ini hanya untuk memastikan saja bahwa perizinannya sudah tepat
-- `cp * /usr/local/man/man1`: Untuk menyalinkan semua berkas di dalamnya ke dalam direktori `/usr/local/man/man1`
+- `install -Dm644 * -t /usr/local/man/man1`: Untuk menyalinkan semua berkas di dalamnya ke `/usr/local/man/man1` dan menyetel nilai Chmod-nya ke 644
 - `cd -; rm -rf /tmp/hugo_manpages`: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `/tmp/hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
 Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
@@ -559,12 +586,146 @@ Dukungan tema akan lebih beragam jika Anda menggunakan Hugo Extended, karena ada
 
 Lagipula, sudah banyak _Platform_ yang mendukung Hugo Extended ini, walaupun secara resmi hanya disediakan untuk _Platform_ tertentu saja.
 
-### Pertanyaan ke-2: Kenapa Cara Install Hugo di Fedora, Red Hat, SUSE dan Keluarganya malah gak dibahas? {#pertanyaan-ke2}
-**Jawab:** Karena versi Hugo yang digunakan oleh Fedora, Red Hat dan Keluarganya adalah versi lama.
+### Pertanyaan ke-2: Kenapa Cara Install Hugo di Fedora, Red Hat dan Keluarganya malah gak dibahas? {#pertanyaan-ke2}
+**Jawab:** Karena versi Hugo yang digunakan oleh Fedora, Red Hat, dan Keluarganya adalah versi lama.
 
-Hingga saat ini, saya belum menemukan _Repository_ luar yang cocok untuk Fedora, Red Hat, SUSE dan Keluarganya.
+Hingga saat ini, saya belum menemukan _Repository_ luar yang cocok untuk Fedora, Red Hat, dan Keluarganya.
 
-Jika Anda sangat ingin meng-install Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda meng-installnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).
+Jika Anda sangat ingin meng-install Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda menginstalnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).
+
+### Pertanyaan ke-3: Apakah Cara Install untuk openSUSE Leap/Tumbleweed atau SLE bisa diaplikasikan di Fedora Red Hat dan Keluarganya? {#pertanyaan-ke3}
+**Jawab:** Tidak bisa, kalaupun bisa maka sebaiknya jangan, karena pada dasarnya Distribusi Keluarga SUSE dan Fedora/Red Hat memang berbeda meskipun sama-sama menggunakan RPM sebagai salah satu Sistem Pengelolaan Paketnya dan sama-sama merupakan GNU/Linux.
+
+Letak perbedaannya nanti di paket ketergantungannya, mulai dari nama paketnya sampai versi dari paket-paket tersebut yang didapat akan berbeda satu sama lain.
+
+Jika Anda ingin mencobanya ya silahkan saja, tapi segala resiko yang ada atau yang telah terjadi, silahkan Anda tanggung sendiri.
+
+### Pertanyaan ke-4: Saya ingin menginstal Hugo dengan mengunduh Berkas Biner di GNU/Linux, tapi apakah ada cara agar saya dapat menginstalnya di direktori pengguna tanpa perlu hak akses `root` ataupun menggunakan `sudo` lagi? {#pertanyaan-ke4}
+**Jawab**: Ada, pada dasarnya Anda dapat mengikuti cara di atas, tapi Anda perlu mengubah beberapa direktori tujuan pada skrip di atas, seperti `/usr/local/bin` menjadi `$HOME/.local/bin`, `/usr/local/man/man1` menjadi `$HOME/.local/share/man/man1` untuk Halaman Manual, dll.
+
+**Catatan**: Saya belum pernah coba instal Hugo di dalam direktori pengguna, sehingga akan terjadi ketidakakuratan dalam pembahasan, namun saya berani jamin bahwa perintah-perintah di bawah ini tidak akan membahayakan sedikitpun baik untuk Sistem Operasi dan data-data pribadi Anda.
+
+#### Install Hugo
+Kalau Anda gak mau ribet, setelah Anda mengunduh Hugo-nya, Anda bisa gunakan skrip berikut untuk menginstal Hugo-nya di dalam direktori pengguna:
+
+```shell
+tar -xvzf "$FILENAME"; install -Dm755 hugo "$HOME"/.local/bin/
+install -Dm644 LICENSE "$HOME"/.local/share/licenses/hugo/LICENSE
+rm "$FILENAME" hugo LICENSE README.md
+cd -
+```
+
+Setelah menginstalnya, silahkan Anda pastikan agar Hugo dapat dieksekusi setelah diinstal dengan perintah berikut untuk menampilan versinya:
+
+```shell
+hugo version
+```
+
+Jika berhasil, maka harusnya akan muncul keluaran seperti di bawah ini:
+
+```shell
+{{< hugo-version-long extended=true >}}
+```
+
+Kalau muncul keluaran seperti di atas, maka tandanya Hugo berhasil diinstal. Tulisan `+extended` di atas terjadi ketika Anda menggunakan Hugo Extended, kalau tidak, maka tulisan tersebut memang tidak ada.
+
+Kalau tidak muncul sama sekali atau bahkan mengalami pesan galat, maka artinya instalasi belum berhasil.
+
+#### Membuat Halaman Panduan Hugo
+Kalau mau, Anda juga dapat membuat halaman panduannya yang akan disimpan di dalam direktori pengguna dengan skrip berikut:
+
+```shell
+hugo gen man --dir '/tmp/hugo_manpages'
+cd /tmp/hugo_manpages; gzip -9 *
+install -Dm644 * -t "$HOME"/.local/share/man/man1
+cd -; rm -rf /tmp/hugo_manpages
+```
+
+Secara baku, direktori `"$HOME"/.local/share/man/man1` tidak dianggap sebagai tempat untuk menyimpan halaman panduan, sehingga tidak terbaca oleh Aplikasi pembaca Halaman Panduan seperti `man`.
+
+Jadi, Anda harus memasukkan direktori tersebut ke dalam variabel `MANPATH` bersamaan dengan direktori lainnya yang ada di dalam perintah `manpath -g`.
+
+Anda bisa gunakan perintah di bawah ini untuk menambahkannya:
+
+```shell
+MANPATH="$(manpath -g):$HOME/.local/share/man" && export MANPATH
+```
+
+Atau, jika Anda menggunakan `fish` sebagai _Shell_, silahkan gunakan perintah berikut:
+
+```shell
+set -gx MANPATH (manpath -g) "$HOME"/.local/share/man
+```
+
+Anda bisa menyimpan salah satu dari perintah di atas ke dalam berkas konfigurasi untuk _Shell_ yang Anda gunakan agar perintah tersebut bisa dieksekusi ketika _Shell_ dijalankan secara interaktif.
+
+#### Membuat fitur _Shell Completion_ untuk Hugo
+Jika Anda adalah pengguna GNU Bash dan ingin menambahkan fitur _Shell Completion_ untuk Hugo, maka Anda dapat melakukannya melalui perintah berikut:
+
+```shell
+hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
+```
+
+Fitur seperti ini akan memerlukan paket/perkakas yang bernama [`bash-completion`](https://github.com/scop/bash-completion/) dan itu bisa Anda instal di dalam distribusi yang Anda gunakan. 
+
+Biasanya, perkakas tersebut sudah terinstal secara baku di beberapa distribusi GNU/Linux, seperti: Ubuntu, openSUSE, Fedora, Manjaro, dll. Tapi jika Anda merasa tidak demikian, maka Anda bisa menginstalnya sendiri dengan mengikuti petunjuk dari distribusi Anda.
+
+Jika Anda menggunakan perkakas `bash-completion` versi 2.8 atau di atasnya (seperti yang ada pada mayoritas Distribusi GNU/Linux), maka seharusnya itu langsung bekerja.
+
+Tapi jika Anda merasa masih menggunakan versi di bawahnya atau merasa kurang yakin, maka Anda dapat menambahkan baris skrip berikut ke dalam berkas `~/.bash_completion` ataupun di dalam berkas `~/.bashrc`:
+
+```shell
+for bcfile in "$HOME"/.local/share/bash-completion/completions/* ; do
+  [ -f "$bcfile" ] && . $bcfile
+done
+```
+
+**Catatan**: Skrip di atas saya dapatkan dari [Jawaban Russell E Glaue](https://serverfault.com/a/831184) untuk pertanyaan **"Standard place for user defined bash_completion.d scripts?"** di Server Fault, dilisensikan di bawah CC BY-SA 4.0 oleh penjawab.
+
+Dengan begitu, Anda bisa menggunakan fitur _Shell Completion-nya_ di dalam Bash.
+
+Tapi jika Anda menggunakan Z Shell (disingkat menjadi `zsh`), maka pertama-tama Anda perlu ketahui terlebih dahulu isi dari variabel `FPATH` dengan perintah berikut beserta keluarannya:
+
+```shell
+$ echo $FPATH
+/home/user/.oh-my-zsh/plugins/colored-man-pages:/home/user/.oh-my-zsh/plugins/sudo:/home/user/.oh-my-zsh/plugins/debian:/home/user/.oh-my-zsh/plugins/git:/home/user/.oh-my-zsh/functions:/home/user/.oh-my-zsh/completions:/home/user/.oh-my-zsh/cache/completions:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/functions/Calendar:/usr/share/zsh/functions/Chpwd:/usr/share/zsh/functions/Completion:/usr/share/zsh/functions/Completion/Base:/usr/share/zsh/functions/Completion/Linux:/usr/share/zsh/functions/Completion/Unix:/usr/share/zsh/functions/Completion/X:/usr/share/zsh/functions/Completion/Zsh:/usr/share/zsh/functions/Exceptions:/usr/share/zsh/functions/Math:/usr/share/zsh/functions/MIME:/usr/share/zsh/functions/Misc:/usr/share/zsh/functions/Newuser:/usr/share/zsh/functions/Prompts:/usr/share/zsh/functions/TCP:/usr/share/zsh/functions/VCS_Info:/usr/share/zsh/functions/VCS_Info/Backends:/usr/share/zsh/functions/Zftp:/usr/share/zsh/functions/Zle
+```
+
+Hasil keluaran di atas mungkin akan berbeda-beda pada setiap perangkat, adapun tulisan `/home/user/.oh-my-zsh` pada keluaran di atas itu akan terjadi jika Anda menggunakan [`oh-my-zsh`](https://ohmyz.sh/) sebagai kerangka kerja untuk mengelola konfigurasi Z Shell Anda.
+
+Variabel tersebut mendefinisikan satu set direktori, yang berisi berkas yang dapat ditandai untuk dimuat secara otomatis oleh Z Shell saat dijalankan, termasuk _Completion-nya_. Jadi, ketika Anda membuat sebuah skrip _Completion_, maka Anda perlu meletakkannya di dalam salah satu direktori yang ada di dalam variabel `FPATH` itu tadi.
+
+Contohnya jika Anda menggunakan `oh-my-zsh`, maka Anda perlu meletakkannya di dalam folder `~/.oh-my-zsh/completions` dan kabar baiknya direktori tersebut ada di dalam variabel `FPATH`. Berikut adalah perintah untuk membuat _Completion-nya_:
+
+```shell
+hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
+```
+
+Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my-zsh/completions/_hugo` di atas menjadi direktori lain, tapi termasuk dalam variabel `FPATH`.
+
+Jika Anda ingin meletakkannya di dalam direktori kustom yang mana itu tidak termasuk dalam variabel `FPATH`, maka Anda perlu memasukkan direktori tersebut ke dalam variabelnya secara manual dengan perintah/skrip berikut:
+
+```shell
+FPATH="/direktori/kustom/kamu:$FPATH" && export FPATH
+```
+
+Atau, perintah berikut:
+
+```shell
+fpath=( /direktori/kustom/kamu "${fpath[@]}" )
+```
+
+Atau, berikut di bawah ini jika Anda ingin multi-baris:
+
+```shell
+fpath=(
+    /direktori/kustom/kamu
+    /direktori/kustom/kamu2
+    "${fpath[@]}"
+)
+```
+
+Anda bisa simpan perintah/skrip di atas di dalam berkas `~/.zshrc` agar perintah tersebut dapat dieksekusi oleh Z Shell ketika dijalankan secara interaktif.
 
 ## Penutup
 Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja variannya.
