@@ -114,9 +114,9 @@ Apakah itu merupakan suatu hal yang wajar jika tampilan atau bahkan dokumen nya 
 
 Dan, apakah masalah seperti ini perlu di keluhkan? Kalau menurut saya, tidak perlu, bahkan sama sekali. Lagian juga, LibreOffice ini di buat untuk membantu Anda bekerja dengan dokumen di dalam komputer Anda tanpa harus mengorbankan [4 kebebasan utama dalam perangkat lunak](https://www.gnu.org/philosophy/free-sw.html), bukan cuma untuk memenuhi Standar dari Microsoft Office saja*.
 
-**\*Catatan**: "bukan untuk memenuhi Standar dari Microsoft Office" bukan berarti bahwa mereka sama sekali tidak mendukung/meng-implementasikan Format OOXML, yah :slightly_smiling_face: 
+**\*Catatan**: "bukan untuk memenuhi Standar dari Microsoft Office" bukan berarti bahwa mereka sama sekali tidak mendukung/meng-implementasikan Format OOXML, yah 🙂 
 
-Bagaimana kalau dokumen nya tidak menjadi kacau, atau tampilan nya sangat baik, bahkan "sempurna"? Yah, itu artinya kamu sedang "beruntung" atau mungkin saja ada faktor lain nya yang membuat dokumen tidak tampil berantakan, seperti dokumen nya tidak terlalu kompleks misalnya :slightly_smiling_face:
+Bagaimana kalau dokumen nya tidak menjadi kacau, atau tampilan nya sangat baik, bahkan "sempurna"? Yah, itu artinya kamu sedang "beruntung" atau mungkin saja ada faktor lain nya yang membuat dokumen tidak tampil berantakan, seperti dokumen nya tidak terlalu kompleks misalnya 🙂
 
 Mau Referensi lain nya? Silahkan klik salah satu tautan berikut:
 
@@ -288,7 +288,7 @@ Iya, memang seperti itu, dan itu merupakan suatu hal yang wajar, karena seperti 
 
 Walaupun itu semua cukup berat bagi Anda, bukan berarti menjadi tidak mungkin, kan? Tapi setidak nya, LibreOffice ini termasuk Perangkat Lunak Bebas, yang mana Anda bisa bebas untuk mendistribusikan, memodifikasi, mempelajari dan menggunakan nya untuk keperluan apapun, termasuk komersial sekalipun, tidak seperti Microsoft Office yang bukan Perangkat Lunak Bebas.
 
-Jadi, jika Anda menggunakan LibreOffice, maka Anda juga harus mempelajari nya, mau-tidak mau :slightly_smiling_face:
+Jadi, jika Anda menggunakan LibreOffice, maka Anda juga harus mempelajari nya, mau-tidak mau 🙂
 
 ## Penutup
 Jika Anda ingin menggunakan LibreOffice, maka Anda harus bisa menggunakan nya dengan "Benar". Jangan pernah berharap untuk menggunakan Format OOXML di dalam LibreOffice.
@@ -305,7 +305,7 @@ Sehingga, orang lain (terutama "Pemula") menjadi seperti tidak ada harapan untuk
 
 Saya kira, pembahasan nya sudah cukup sampai disini saja. Mohon maaf jika adanya kesalahan pada artikel ini, atau jika kamu mempunyai pertanyaan, kritik dan saran, komentar, pendapat/opini kamu atau masukkan lain nya, silahkan kamu berkomentar atau kamu bisa berdiskusi dengan saya melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang) jika kamu lebih suka lewat "Jalur Pribadi".
 
-Terima kasih atas perhatian nya :blush:
+Terima kasih atas perhatian nya 😊
 
 ## Penggunaan Gambar dan Atribusi
 Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 

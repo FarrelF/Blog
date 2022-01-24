@@ -164,7 +164,7 @@ Karakter *Line Ending* itu sendiri berbeda-beda, tergantung Sistem Operasi mana 
 
 Ada beberapa istilah mengenai *Line Ending* ini, salah satu nya adalah: LF, CR dan CRLF. LF merupakan singkatan dari *Line Feed* atau `\n`, sedangkan CR merupakan singkatan dari *Carriage Return* atau `\r`. Dan, CRLF merupakan gabungan dari CR dan LF, atau `\r\n` yang di berlakukan oleh Sistem Operasi Windows dan macOS hingga saat ini.
 
-Untuk mempelajari lebih lanjut mengenai apa itu *Line Ending*, cari sendiri lewat Google, yah :slightly_smiling_face:
+Untuk mempelajari lebih lanjut mengenai apa itu *Line Ending*, cari sendiri lewat Google, yah 🙂
 
 Jadi, karena Anda saat ini meng-install Git untuk Windows, maka pilihan yang terbaik untuk Sistem Operasi Windows adalah Opsi Pertama, yaitu **Checkout Windows-style, commit Unix-style line endings**.
 

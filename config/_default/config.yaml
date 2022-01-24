@@ -1,7 +1,7 @@
 languageCode: id-id
 title: Farrel Franqois Blog
 paginate: 5
-enableEmoji: true
+enableEmoji: false
 enableInlineShortcodes: true
 enableGitInfo: true
 content-dir: content

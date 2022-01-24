@@ -1,9 +1,18 @@
-<div {{ with .Get "div-style" }}style="{{ . }}"{{ else }}style="position: relative; padding-top: 56.25%;"{{ end }}>
+{{- $divStyle := default (print "position: relative; padding-top: 56.25%;" | safeCSS) (.Get "div-style" | safeCSS) -}}
+{{- $Style := default (print "border: none; position: absolute; top: 0; height: 100%; width: 100%;" | safeCSS) (.Get "style" | safeCSS) -}}
+{{- $Allow := default `accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;` (.Get "allow") -}}
+{{- $embedURI := default (print "https://iframe.mediadelivery.net/embed" | safeURL) (.Get "embed-uri" | safeURL) -}}
+{{- $libraryID := default "926" (.Get "library-id") -}}
+{{- $videoID := .Get "id" -}}
+{{- $Autoplay := default false (.Get "autoplay") -}}
+{{- $videoURL := printf "%s/%s/%s?autoplay=%s" $embedURI $libraryID $videoID (string $Autoplay) | safeURL -}}
+
+<div style="{{- $divStyle -}}">
     <iframe 
-        src="//{{ with .Get "embed-uri" }}{{ . }}{{ else }}iframe.mediadelivery.net/embed{{ end }}/{{ with .Get "library-id" }}{{ . }}{{ else }}926{{ end }}/{{ .Get "id" }}{{ if or (eq (.Get "autoplay") true) (eq (.Get "autoplay") "true") }}?autoplay=true{{ else }}?autoplay=false{{ end }}" 
-        {{ if or (eq (.Get "lazyload") true) (eq (.Get "lazyload") "true") }}loading="lazy"{{ end }} 
-        {{ with .Get "style" }}style="{{ . }}"{{ else }}style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"{{ end }} 
-        {{ with .Get "allow" }}allow="{{ . }}"{{ else }}allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"{{ end }} 
-        {{ if or (eq (.Get "allowfullscreen") true) (eq (.Get "allowfullscreen") "true") }}allowfullscreen="true"{{ else }}allowfullscreen="false"{{ end }}>
+        src="{{- $videoURL -}}" 
+        {{- if eq (.Get "lazyload") true -}}loading="lazy"{{- end -}} 
+        style="{{- $Style -}}" 
+        allow="{{- $Allow -}}"
+        {{- if eq (.Get "allowfullscreen") true -}}allowfullscreen="true"{{- end -}}>
     </iframe>
 </div>

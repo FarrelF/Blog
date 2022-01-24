@@ -40,7 +40,7 @@ SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adal
 Selain itu, Hugo juga memiliki banyak fitur lainnya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
 
 ## Varian Hugo
-Hugo memiliki 2 varian, yakni Hugo dan Hugo Extended, bedanya adalah kalau Hugo Extended memiliki fitur tambahan, seperti Pemrosesan berkas SCSS/SASS yang tidak dimiliki oleh Hugo Standar.
+Hugo memiliki 2 varian, yakni Hugo (varian Standar/Biasa) dan Hugo Extended, bedanya adalah kalau Hugo Extended memiliki fitur tambahan, seperti Pemrosesan berkas SCSS/SASS yang tidak dimiliki oleh Hugo Standar.
 
 Tapi, Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hugo biasa dan secara resmi hanya disediakan untuk Sistem Operasi berikut:
 - Windows yang berarsitektur x64
@@ -173,7 +173,7 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, ma
 8. Setelah Anda membuka Terminalnya, silahkan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
 ```plain
-{{< hugo-version-long extended=true platform="windows/amd64" >}}
+{{< hugo-version-long isExtended=true platform="windows/amd64" >}}
 ```
 
 9. Selamat! Anda telah berhasil meng-install Hugo. Jika Anda ingin memperbarui versi Hugo-nya, cukup unduh lagi berkas binernya, lalu tinggal timpakan berkas lamanya.
@@ -279,13 +279,13 @@ Jika Anda adalah pengguna SUSE Linux Enterprise, openSUSE Leap/Tumbleweed atau K
 
 ```shell
 ### Untuk Pengguna SUSE Linux Enterprise (SLE) 15 SP3
-$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
+$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Leap 15.3
-$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Leap_15.3/home:darix:apps.repo
+$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Leap_15.3/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Tumbleweed
-$ sudo zypper ar https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
+$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
 ```
 
 Setelah itu segarkan repositorinya, lalu install Hugo-nya dengan perintah berikut:
@@ -476,7 +476,7 @@ hugo version
 Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 ```plain
-{{< hugo-version-long extended=true >}}
+{{< hugo-version-long isExtended=true >}}
 ```
 
 Keluaran di atas itu terjadi karena saya menggunakan Hugo Extended, jika Anda menggunakan varian biasa, harusnya sih sama aja, bedanya cuma gak ada tulisan `extended` nya aja.
@@ -621,7 +621,7 @@ hugo version
 Jika berhasil, maka harusnya akan muncul keluaran seperti di bawah ini:
 
 ```shell
-{{< hugo-version-long extended=true >}}
+{{< hugo-version-long isExtended=true >}}
 ```
 
 Kalau muncul keluaran seperti di atas, maka tandanya Hugo berhasil diinstal. Tulisan `+extended` di atas terjadi ketika Anda menggunakan Hugo Extended, kalau tidak, maka tulisan tersebut memang tidak ada.

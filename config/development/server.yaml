@@ -58,7 +58,7 @@ headers:
       xr-spatial-tracking 'none'
 
     Content-Security-Policy: >
-      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
+      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
       'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0='
       'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU='
       'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0='
@@ -78,4 +78,4 @@ headers:
       manifest-src 'none';
       worker-src 'none';
       prefetch-src https://cdn.statically.io/;
-      sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-top-navigation-by-user-activation
+      sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-top-navigation-by-user-activation allow-downloads

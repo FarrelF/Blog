@@ -34,7 +34,7 @@ Atau, bahkan yang lebih parahnya adalah ada yang menggunakan 'chmod 777' pada �
 Lalu, bagaimana caranya agar kita bisa meng-install _Web Stack_ ke dalam sistem operasi dengan "benar"? Anda bisa baca tutorial nya di dalam artikel ini, tapi sebelumnya Anda harus membaca Sanggahan Tambahan nya terlebih dahulu agar Anda bisa paham.
 
 ## Sanggahan
-Cara ini bukanlah cara cepat untuk meng-install _LAMP Stack_ ke dalam Sistem Anda, ini adalah cara yang ‘fleksibel’ untuk meng-install _LAMP Stack_. Jadi, tutorial ini tidaklah cocok bagi Anda yang ingin serba instan. Jadi, Artikel ini akan membahasnya dengan “Panjang x Lebar”, dan saya harap Anda kuat baca dan pemahamnya, hehe :grinning:
+Cara ini bukanlah cara cepat untuk meng-install _LAMP Stack_ ke dalam Sistem Anda, ini adalah cara yang ‘fleksibel’ untuk meng-install _LAMP Stack_. Jadi, tutorial ini tidaklah cocok bagi Anda yang ingin serba instan. Jadi, Artikel ini akan membahasnya dengan “Panjang x Lebar”, dan saya harap Anda kuat baca dan pemahamnya, hehe 😀
 
 Dengan “Panjang x Lebar” nya pembahasan ini, saya harapkan bahwa Anda bisa mempelajari apa yang kamu lakukan nanti nya, baik itu sebelum melakukan nya sampai sesudah melakukan nya.
 Artikel ini tidak pernah saya tujukan untuk pengguna Server (meski bisa), melainkan untuk Web Developer/Programmer yang ingin menggunakan/meng-install _LAMP Stack_.
@@ -43,9 +43,9 @@ Karena di tujukan untuk Web Developer/Programmer, maka bahasan tentang Keamanan 
 
 Artikel ini memang membahas tentang “cara install yang benar”, bukan berarti Artikel ini sepenuhnya benar. “Benar” disini maksudnya adalah melakukan sesuatu dengan praktek yang lebih baik atau/dan "lebih benar" daripada yang Anda praktekkan sebelumnya, bukan bermaksud pada “sepenuhnya benar”. 
 
-Jadi, mohon perhatian dan pengertian nya dari pembaca sekalian :slightly_smiling_face:
+Jadi, mohon perhatian dan pengertian nya dari pembaca sekalian 🙂
 
-Terima kasih atas perhatian dan pengertian nya :blush:
+Terima kasih atas perhatian dan pengertian nya 😊
 
 ## I. Sebelum Install
 Sebelum Anda meng-install _LAMP Stack_, sebaiknya Anda Perbarui (_Update_) terlebih dahulu Repo Anda dan semua Perangkat Lunak yang terpasang terlebih dahulu, dengan menggunakan perintah berikut:
@@ -604,7 +604,7 @@ Alasan saya mengapa lebih memilih metode manual daripada menggunakan Repository,
 
 2. Konfigurasi lebih mudah, karena struktur/alur konfigurasi nya yang tidak berubah daripada kita meng-installnya dari Repo. Jadi, cara konfigurasi nya akan menyesuaikan dengan [Dokumentasi phpMyAdmin](https://docs.phpmyadmin.net/en/latest/) nya, sehingga hal itu akan mempermudah kamu untuk melakukan konfigurasi pada phpMyAdmin nantinya.
 
-3. Langsung menggunakan versi terbaru dari phpMyAdmin nya saat di install nanti. Anda juga bisa meng-upgrade (update versi) atau men-downgrade nya kalo mau :slightly_smiling_face:
+3. Langsung menggunakan versi terbaru dari phpMyAdmin nya saat di install nanti. Anda juga bisa meng-upgrade (update versi) atau men-downgrade nya kalo mau 🙂
 
 4. Sangat Fleksibel, bila di bandingkan dengan meng-install nya dengan Repo.
 
@@ -866,7 +866,7 @@ Mohon maaf, jika artikel ini memiliki kekeliruan dan kesalahan, baik dari ada ya
 
 Jika adanya kesalahan dan kekeliruan, atau kalo Anda memiliki pertanyaan lain nya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepan nya nanti.
 
-Terima kasih atas perhatian nya :blush:
+Terima kasih atas perhatian nya 😊
 
 ## Penggunaan Gambar dan Atribusi
 Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog). 

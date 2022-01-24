@@ -192,7 +192,7 @@ Selang beberapa waktu setelah nya, saya mencoba menghapus Bucket S3 melalui AWS 
 
 Untuk buktinya, Anda bisa lihat/tonton video berikut:
 
-{{< bunny-stream id="a917f4c0-a553-4e77-8154-257881fb1418" autoplay="false" lazyload="true" allowfullscreen="true" >}}
+{{< bunny-stream id="a917f4c0-a553-4e77-8154-257881fb1418" autoplay=true lazyload=true allowfullscreen=true >}}
 
 Hal ini lantas membuat saya berpikir:
 

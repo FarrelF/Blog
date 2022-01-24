@@ -69,7 +69,9 @@ Selebihnya masih banyak cara lain yang bisa Anda lakukan untuk mengecilkan ukura
 
 Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web.
 
-Singkatnya, Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lain nya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna. Tentu saja _Cache_ dari Peramban Web ini tersimpan di dalam perangkat penyimpanan yang digunakan sekarang, seperti Harddisk/SSD atau bahkan Memori RAM bisa digunakan.
+Singkatnya, Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lain nya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna.
+
+Tentu saja _Cache_ dari Peramban Web ini tersimpan di dalam perangkat penyimpanan yang digunakan sekarang, seperti Harddisk/SSD atau bahkan Memori RAM bisa digunakan.
 
 Saat pengguna mengunjungi Situs Web nya kembali, disinilah _HTTP Header_ `Cache-Control` itu berperan, _Header_ tersebut menetapkan sebuah aturan untuk menentukan apakah Peramban Web yang digunakan oleh Pengguna tersebut akan memuat sumber daya yang diperlukan nya melalui _Cache_ atau justru malah sebaliknya, serta dapat mengatur/menentukan durasi penyimpanan _Cache_ nya.
 
@@ -111,7 +113,7 @@ Sehingga peramban web milik pengunjung akan memuat berkas-berkas statik nya mela
 
 Contoh lain? Sesuai contoh di atas, Anda juga bisa menggunakan [Google Fonts](https://fonts.google.com) sebagai penyedia Fonta untuk Situs Web/Blog Anda dibandingkan dengan melakukan Hos Mandiri di Server Utama Anda.
 
-Atau, Anda juga bisa gunakan layanan CDN untuk umum seperti [cdnjs](https://cdnjs.com), [unpkg](https://unpkg.com), [jsDelivr](https://www.jsdelivr.com), atau [Statically](https://statically.io) untuk memuat pustaka-pustaka web yang ada, seperti jQuery, Bootstrap, Twemoji dan Pustaka lain nya dibandingkan dengan melakukan Hos Mandiri.
+Atau, Anda juga bisa gunakan layanan CDN untuk Publik seperti [cdnjs](https://cdnjs.com), [unpkg](https://unpkg.com), [jsDelivr](https://www.jsdelivr.com), atau [Statically](https://statically.io) untuk memuat pustaka-pustaka web yang ada, seperti jQuery, Bootstrap, Twemoji dan Pustaka lain nya dibandingkan dengan melakukan Hos Mandiri.
 
 Bahkan Anda juga bisa menggunakan Layanan CDN (_Content Delivery Network_) pihak ketiga yang dipasang pada Web/Blog Anda untuk mengakali nya.
 

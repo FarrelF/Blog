@@ -21,7 +21,7 @@ Sudah lama sekali saya tidak pernah menulis artikel di dalam blog saya. Tapi, mu
 
 Seperti yang Anda tahu, bahwa Blog ini merupakan sebuah berkas HTML Statis, yang di hasilkan melalui [Pelican](https://blog.getpelican.org) yang bertindak sebagai _Static Site Generator_.
 
-Jadi, blog ini di tenagai oleh 'Pelican'. Ehh, tapi bukan oleh [Burung 'Pelican'](https://www.google.com/search?q=burung+pelikan&tbm=isch), yah, hehe :grinning:
+Jadi, blog ini di tenagai oleh 'Pelican'. Ehh, tapi bukan oleh [Burung 'Pelican'](https://www.google.com/search?q=burung+pelikan&tbm=isch), yah, hehe 😀
 
 ## Hosting yang saya gunakan
 Untuk hosting nya, saya gunakan [Netlify](https://www.netlify.com/) sebagai pengganti dari _Web Hosting_, agar saya bisa menghemat biaya yang cukup banyak, karena tidak perlu lagi bayar perbulan nya (Saya harap ini bertahan sampai seterusnya). Palingan, saya hanya perlu bayar domain saya saja yang pertahun.
@@ -52,16 +52,16 @@ Kenapa pake CDN ini? Agar bisa menghemat _Bandwidth_ yang cukup besar, mengingat
 
 Lumayan besar (malah besar banget) sih batasan nya untuk blog seperti ini, cuma ya kalo bisa di hemat, kenapa tidak? Nah, karena CDN Statically ini gratis dan juga _Bandwidth_ nya 'tidak terbatas', maka saya manfaatkan CDN ini untuk memuat berkas yang ada di dalam Repo GitHub saya.
 
-Dengan ini, (harusnya) _Bandwidth_ Netlify tidak terpakai sama sekali/tidak terakumulasi, karena saya menggantungkan Asset Blog ini kepada Statically yang mana tugasnya untuk menghantarkan sebuah berkas dari dalam Repo GitHub, dan itupun dimuat secara eksternal (diluar blog ini). Jadi, lalu lintas bisa sedikit di perhemat :slightly_smiling_face:
+Dengan ini, (harusnya) _Bandwidth_ Netlify tidak terpakai sama sekali/tidak terakumulasi, karena saya menggantungkan Asset Blog ini kepada Statically yang mana tugasnya untuk menghantarkan sebuah berkas dari dalam Repo GitHub, dan itupun dimuat secara eksternal (diluar blog ini). Jadi, lalu lintas bisa sedikit di perhemat 🙂
 
-Saya mempunyai Akun [BunnyCDN](https://bunnycdn.com), cuma saya gak implementasikan disini, mengingat mungkin kedepan nya saya akan terus menggunakan CDN Statically daripada BunnyCDN, karena saya lebih nyaman disitu, meski gak ada fitur Custom Domain dan kurang lengkap (karena Statically merupakan Layanan _Public CDN_) :slightly_smiling_face:
+Saya mempunyai Akun [BunnyCDN](https://bunnycdn.com), cuma saya gak implementasikan disini, mengingat mungkin kedepan nya saya akan terus menggunakan CDN Statically daripada BunnyCDN, karena saya lebih nyaman disitu, meski gak ada fitur Custom Domain dan kurang lengkap (karena Statically merupakan Layanan _Public CDN_) 🙂
 
 ## Apa Fokus kedepan nya?
 Karena saya lebih suka penggunaan _Static Site Generator_ bila dibandingkan dengan menggunakan WordPress untuk keperluan Blogging, seperti yang saya katakan pada pembahasan sebelum nya.
 
 Jadi, bisa kamu tebak dong jawaban nya seperti apa? Yap! Saya akan lebih fokus untuk menulis disini, daripada di [blog lama](https://farrelf.wpinter.com) saya yang berbasis WordPress. Jadi, blog lama saya berhentikan, alias udah gak saya urus lagi.
 
-Sudah saya bahas alasan nya di bagian "[Hosting yang saya gunakan](#hosting-yang-saya-gunakan)", jadi saya kira alasan nya sudah jelas :slightly_smiling_face:
+Sudah saya bahas alasan nya di bagian "[Hosting yang saya gunakan](#hosting-yang-saya-gunakan)", jadi saya kira alasan nya sudah jelas 🙂
 
 ~~Tapi, sebelum saya menulis artikel lagi, mungkin saya akan fokus untuk merombak blog sedikit terlebih dahulu, mengingat ini jauh sekali dari kata 'lengkap', seperti ada Laman yang kosong, Mesin Pencarian juga tidak ada, begitu pula dengan Analitik nya, dan fitur-fitur lain nya.~~
 
@@ -87,11 +87,11 @@ Jika Anda merasa bahwa artikel ini kepanjangan atau sulit untuk di baca, maka sa
 
     - Saat saya menulis artikel/laman dengan WordPress, Komputer/Laptop saya terkadang seringkali mengalami 'pembengkakan' kinerja, terutama pada bagian penggunaan Sumber Daya (seperti: CPU, RAM, dll) seiring lamanya atau banyaknya kalimat di dalam artikel/laman yang saya tulis di dalam Editor.
 
-    - Meminimalisir kesalahan 503 (_Internal Server Error_, baik karena Salah konfigurasi sampai Server Hosting) dan juga segala Gangguan dari Server Hosting saat menulis artikel. Karena saya menulisnya di dalam Editor, gak harus Online juga, hehe :grinning:
+    - Meminimalisir kesalahan 503 (_Internal Server Error_, baik karena Salah konfigurasi sampai Server Hosting) dan juga segala Gangguan dari Server Hosting saat menulis artikel. Karena saya menulisnya di dalam Editor, gak harus Online juga, hehe 😀
 
 2. Blog ini juga menggunakan Netlify sebagai Hosting nya. Alasan kenapa saya menggunakan nya sebagai berikut:
 
-    - Karena Gratis, sehingga tidak perlu bayar hosting/server per bulan/tahun nya (Kecuali Domain, yang bayarnya pertahun). Sehingga ini akan sangat menghemat biaya untuk orang seperti saya :slightly_smiling_face:
+    - Karena Gratis, sehingga tidak perlu bayar hosting/server per bulan/tahun nya (Kecuali Domain, yang bayarnya pertahun). Sehingga ini akan sangat menghemat biaya untuk orang seperti saya 🙂
 
     - Secara Bawaan, Netlify menggunakan CDN (Atau, lebih tepatnya 'ADN' yang merupakan kepanjangan dari '_Application Delivery Network_'), sehingga dapat meminimalisir lambatnya akses ketika pertama kali di buka. Udah gitu, gratis pula.
 
@@ -121,4 +121,4 @@ Jadi, sudah dulu yah, saya juga mau fokus merombak blog ini terlebih dahulu, dib
 
 Kalau Anda mempunyai kritik dan saran atau masukkan lain nya, silahkan Anda berkomentar melalui kolom komentar yang telah di sediakan, atau jika Anda ingin lebih pribadi, silahkan [Hubungi Saya](/tentang).
 
-Terima kasih atas perhatian nya :blush:
+Terima kasih atas perhatian nya 😊
