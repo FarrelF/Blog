@@ -29,9 +29,6 @@ Description: >
        Yap, artikel ini membahas solusinya, tapi jika Anda tidak merasa seperti itu yah kalo gak baca juga gak apa-apa.
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Pembuka
 Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, maka sama saja seperti membuang air ke laut, ya sama-sama gak berguna.
 

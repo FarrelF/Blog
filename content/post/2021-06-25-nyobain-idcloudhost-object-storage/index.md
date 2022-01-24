@@ -36,8 +36,6 @@ Description: >
     
     Bagaimana pengalaman nya? Berikut adalah pengalaman saya ketika menggunakan Layanan Penyimpanan ini 🙂
 ---
-## Daftar Isi
-{{< toc >}}
 
 ## Pembuka
 Setelah berbulan-bulan saya menggunakan FTP sebagai Protokol nya untuk blog ini, kini saatnya saya beralih ke Protokol S3 sebagai Protokol Penyimpanan nya. Sehingga jika saya ingin menggunakannya, tentunya saya harus pindah penyedia penyimpanan.

@@ -23,9 +23,6 @@ Description: >
     Kenapa saya gunakan Hugo daripada Pelican? Dan, apa rencana kedepan nya? Kalo penasaran silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Alasan Migrasi dari Pelican ke Hugo
 [Pelican](https://blog.getpelican.com) (bukan [Burung 'Pelican'](https://www.google.com/search?q=burung+pelikan&tbm=isch)) merupakan salah satu _Static-site Generator_ (atau saya singkat "SSG") berbasis Python yang cukup populer di kalangan pengguna Python, saya adalah salah satu pengguna sebelumnya.
 

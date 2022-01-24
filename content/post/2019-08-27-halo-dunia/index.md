@@ -14,9 +14,6 @@ description: >
     </p>
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Pembuka
 Halo Dunia! (Lagi. "Eh, emang pernah, yah?"), ini adalah artikel pertama yang bukan merupakan artikel uji coba.
 

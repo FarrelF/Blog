@@ -25,8 +25,6 @@ Description: >
     
     Jika Anda ingin memasang Sertifikat TLS/SSL dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---
-## Daftar Isi
-{{< toc >}}
 
 ## Pembuka
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).

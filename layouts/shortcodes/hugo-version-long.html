@@ -3,8 +3,14 @@
 {{- $Version := default hugo.Version (.Get "version") -}}
 {{- $BuildDate := default hugo.BuildDate (.Get "buildDate") -}}
 {{- $IsExtended := default hugo.IsExtended (.Get "extended") -}}
+{{- $VendorInfo := default "gohugoio" (.Get "vendorInfo") -}}
+{{- $IsVendorInfo := default true (.Get "isVendorInfo") -}}
+{{- $VendorInfoText := "" -}}
 {{- $Extended := "" -}}
-{{ if eq $IsExtended true }}
+{{- if eq $IsVendorInfo true -}}
+    {{- $VendorInfoText = printf " VendorInfo=%s" $VendorInfo -}}
+{{- end -}}
+{{- if eq $IsExtended true -}}
     {{- $Extended = "+extended" -}}
-{{ end }}
-{{- printf "hugo v%s-%s%s %s BuildDate=%s VendorInfo=gohugoio" $Version $Hash $Extended $Platform $BuildDate -}}
+{{- end -}}
+{{- printf "hugo v%s-%s%s %s BuildDate=%s%s" $Version $Hash $Extended $Platform $BuildDate $VendorInfoText -}}

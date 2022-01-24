@@ -21,9 +21,6 @@ description: >
     </p>
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## I. Cara Install Git
 Untuk meng-install nya, Anda hanya perlu meng-unduh Git nya terlebih dahulu, bisa Anda kunjungi situs web resmi nya untuk meng-unduh Git, yakni: [https://git-scm.com](https://git-scm.com). Lalu, klik pada _Button_ "Download Git" bla bla bla. Atau, Anda juga bisa mengunjungi [Halaman Unduhan](https://git-scm.com/downloads) Resmi nya untuk meng-unduh Git.
 

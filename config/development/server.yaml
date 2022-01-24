@@ -31,6 +31,7 @@ headers:
       serial=(),
       sync-xhr=(),
       xr-spatial-tracking=()
+
     Feature-Policy: >
       gyroscope 'none';
       usb 'none';
@@ -55,8 +56,15 @@ headers:
       serial 'none';
       sync-xhr 'none';
       xr-spatial-tracking 'none'
+
     Content-Security-Policy: >
-      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js 'sha256-Inl1XvIysSWAB3uU8xjLeDFheihJnI1ITZwieoVE5lI=' 'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0=' 'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-DG35NmVUJgv3m/vJ5M4QGn+x+iFNPv64dc66jygrIT0=' 'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M=' 'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU=' 'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
+      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
+      'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0='
+      'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU='
+      'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0='
+      'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-rxKxKCm9oxlwnQMcxDqT7wcpcb2x/Xi2UdJN7K2W+48='
+      'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M='
+      'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
       font-src 'self';
       img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
       base-uri 'self';

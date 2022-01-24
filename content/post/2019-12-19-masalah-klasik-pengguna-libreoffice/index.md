@@ -25,9 +25,6 @@ description: >
     Penasaran? Silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Pembuka
 LibreOffice merupakan sebuah Perangkat Lunak Paket Perkantoran yang merupakan Perangkat Lunak Bebas/FLOSS (Free/Libre Open Source Software) dan juga bisa di peroleh secara gratis. Biasanya Perangkat Lunak ini bisa menjadi alternatif, bahkan menggantikan Microsoft Office itu sendiri. Perangkat Lunak ini di kembangkan oleh sebuah organisasi nirlaba, yakni: [The Document Foundation (TDF)](https://www.documentfoundation.org/) dan sejumlah kontributor lain nya.
 

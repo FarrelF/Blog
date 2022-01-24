@@ -21,8 +21,6 @@ description: >
 
     Penasaran? Silahkan baca artikel ini, kalau tidak, ya tidak apa-apa 🙂
 ---
-## Daftar Isi
-{{< toc >}}
 
 ## Pembuka
 Banyak sekali pengguna GNU/Linux yang ingin menguji Aplikasi Web yang telah di buatnya, seperti seseorang yang ingin menguji Aplikasi Web yang di buat nya dengan bahasa pemrograman PHP dengan meng-install Webserver seperti Apache2 serta Bahasa Pemrograman Web seperti PHP juga turut di Install, agar Aplikasi Web tersebut bisa di uji.

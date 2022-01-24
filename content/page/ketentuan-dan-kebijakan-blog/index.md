@@ -12,9 +12,6 @@ menu:
       icon: scale
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Pembuka
 Dengan mengakses, menjelajah dan menggunakan Blog ini, yaitu "Farrel Franqois Blog", maka Anda harus memahami dan menerima ketentuan di dalam halaman ini. Blog ini mencakup `farrel.franqois.id` dan seluruh sub-subdomainnya.
 
@@ -177,7 +174,7 @@ Serta semua Pernyataan yang ada di halaman ini akan dirubah kapanpun dan di mana
 
 Mengenai halaman Ketentuan dan Kebijakan Blog ini:
 
-- Di perbarui/diubah pada Hari/Tanggal: **Senin, 03 Januari 2022**
+- Di perbarui/diubah pada Hari/Tanggal: **Senin, 24 Januari 2022**
 - Di berlakukan pada Hari/Tanggal: **Jum'at, 24 Desember 2021**
 
 

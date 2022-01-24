@@ -22,9 +22,6 @@ Description: >
     Sehingga Anda ingin menghemat konsumsi _Bandwidth_ Server/Hosting agar Web/Blog Anda bisa tetap bertahan meski 'dihantam' oleh pengunjung/bot selama ribuan atau bahkan jutaan kali, tapi tidak tahu caranya? Jika Anda ingin tahu caranya, silahkan lanjut baca artikel ini, kalo tidak ya tidak usah 🙂
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Pembuka
 Kita semua tahu bahwa tidak semua Hosting menerapkan _Unmetered Bandwidth_ atau _Unlimited Bandwidth_ sehingga diberlakukan batasan kuota _Bandwidth_, jika melebihi batas tersebut maka Web/Blog menjadi tidak bisa diakses dan disuruh membayar biaya tambahan untuk menambahkan batasan tersebut agar Web/Blog bisa diakses.
 

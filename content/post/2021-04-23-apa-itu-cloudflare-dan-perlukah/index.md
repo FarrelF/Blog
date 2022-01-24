@@ -32,9 +32,6 @@ Artikel yang Anda lihat/baca sekarang ini adalah versi fafifu wasweswos nya, ali
 
 {{< / spoiler >}}
 
-## Daftar Isi
-{{< toc >}}
-
 ## Apa itu Cloudflare?
 **Cloudflare&reg;** (atau lengkapnya: **Cloudflare, Inc.**) adalah sebuah perusahaan Amerika Serikat yang menyediakan jasa-jasa yang diperuntukan bagi pembuat ataupun yang mengelola sebuah Web/Blog, seperti jasa jaringan pengantaran konten/_Content Delivery Network_ (CDN), pencegah serangan DDoS, mengamankan Web/Blog, Analitik, Pengelola Domain dan DNS.
 

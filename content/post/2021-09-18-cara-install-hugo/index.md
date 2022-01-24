@@ -28,9 +28,6 @@ Description: >
     Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
 ---
 
-## Daftar Isi
-{{< toc >}}
-
 ## Apa itu Hugo?
 Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis yang dibuat menggunakan bahasa pemrograman Go, dikembangkan oleh Steve Francia, Bjørn Erik Pedersen, dan kontributor lainnya
 
@@ -593,7 +590,7 @@ Hingga saat ini, saya belum menemukan _Repository_ luar yang cocok untuk Fedora,
 
 Jika Anda sangat ingin meng-install Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda menginstalnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).
 
-### Pertanyaan ke-3: Apakah Cara Install untuk openSUSE Leap/Tumbleweed atau SLE bisa diaplikasikan di Fedora Red Hat dan Keluarganya? {#pertanyaan-ke3}
+### Pertanyaan ke-3: Apakah Cara Install untuk openSUSE Leap/Tumbleweed atau SLE bisa diaplikasikan di Fedora, Red Hat, dan Keluarganya? {#pertanyaan-ke3}
 **Jawab:** Tidak bisa, kalaupun bisa maka sebaiknya jangan, karena pada dasarnya Distribusi Keluarga SUSE dan Fedora/Red Hat memang berbeda meskipun sama-sama menggunakan RPM sebagai salah satu Sistem Pengelolaan Paketnya dan sama-sama merupakan GNU/Linux.
 
 Letak perbedaannya nanti di paket ketergantungannya, mulai dari nama paketnya sampai versi dari paket-paket tersebut yang didapat akan berbeda satu sama lain.
