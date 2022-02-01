@@ -1,15 +1,7 @@
 {{- $Resource := .Page.Resources.GetMatch (printf "%s" (.Get "path")) | resources.Fingerprint "md5" -}}
 <a class="link" 
-    href="{{ $Resource.RelPermalink }}"
-    {{ with .Get "rel" }}
-    rel="{{ . }}"
-    {{ else }}
-    rel="noopener"
-    {{ end }}
-    {{ with .Get "target" }}
-    target="{{ . }}"
-    {{ else }}
-    target="_blank"
-    {{ end }}>
-    {{ .Inner | $.Page.RenderString | emojify }}
+    href="{{- $Resource.RelPermalink -}}"
+    rel="{{- default `noopener` (.Get "rel") -}}"
+    target="{{- default `_blank` (.Get "target") -}}">
+    {{- .Inner | $.Page.RenderString -}}
 </a>
