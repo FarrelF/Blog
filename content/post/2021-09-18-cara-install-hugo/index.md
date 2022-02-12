@@ -501,13 +501,15 @@ Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man 
 Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di Sistem Anda)
 
 ```shell
-hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "/usr/share/bash-completion/completions/hugo"
-hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "/usr/share/zsh/site-functions/_hugo"
+hugo completion bash | install -Dm644 /dev/stdin "/usr/share/bash-completion/completions/hugo"
+hugo completion zsh | install -Dm644 /dev/stdin "/usr/share/zsh/site-functions/_hugo"
+hugo completion fish | install -Dm644 /dev/stdin "/usr/share/fish/vendor_completions.d/hugo.fish"
 ```
 
 **Penjelasan:**
-- Baris `hugo gen autocomplete --type=bash`: Untuk membuat _Autocomplete_ untuk GNU Bash dan meletakkannya ke dalam direktori `/usr/share/bash-completion/completions` sebagai berkas yang bernama `hugo`
-- Baris `hugo gen autocomplete --type=zsh`: Untuk membuat _Autocomplete_ untuk Z Shell dan meletakkannya ke dalam direktori `/usr/share/zsh/site-functions/completions` sebagai berkas yang bernama `_hugo`
+- Baris `hugo completion bash`: Untuk membuat _Autocomplete_ untuk GNU Bash dan meletakkannya ke dalam direktori `/usr/share/bash-completion/completions` sebagai berkas yang bernama `hugo` (Untuk pengguna GNU Bash/`bash`)
+- Baris `hugo completion zsh`: Untuk membuat _Autocomplete_ untuk Z Shell dan meletakkannya ke dalam direktori `/usr/share/zsh/site-functions/completions` sebagai berkas yang bernama `_hugo` (Untuk pengguna Z Shell/`zsh`)
+- Baris `hugo completion fish`: Untuk membuat _Autocomplete_ untuk `fish` dan meletakkannya ke dalam direktori `/usr/share/fish/vendor_completions.d` sebagai berkas yang bernama `hugo.fish` (Untuk pengguna `fish`)
 
 Silahkan Anda coba fitur _Completion_ di dalam Terminal Anda setelah itu.
 
@@ -660,7 +662,7 @@ Anda bisa menyimpan salah satu dari perintah di atas ke dalam berkas konfigurasi
 Jika Anda adalah pengguna GNU Bash dan ingin menambahkan fitur _Shell Completion_ untuk Hugo, maka Anda dapat melakukannya melalui perintah berikut:
 
 ```shell
-hugo gen autocomplete --type=bash | install -Dm 644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
+hugo completion bash | install -Dm 644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
 ```
 
 Fitur seperti ini akan memerlukan paket/perkakas yang bernama [`bash-completion`](https://github.com/scop/bash-completion/) dan itu bisa Anda instal di dalam distribusi yang Anda gunakan. 
@@ -695,7 +697,7 @@ Variabel tersebut mendefinisikan satu set direktori, yang berisi berkas yang dap
 Contohnya jika Anda menggunakan `oh-my-zsh`, maka Anda perlu meletakkannya di dalam folder `~/.oh-my-zsh/completions` dan kabar baiknya direktori tersebut ada di dalam variabel `FPATH`. Berikut adalah perintah untuk membuat _Completion-nya_:
 
 ```shell
-hugo gen autocomplete --type=zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
+hugo completion zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
 ```
 
 Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my-zsh/completions/_hugo` di atas menjadi direktori lain, tapi termasuk dalam variabel `FPATH`.

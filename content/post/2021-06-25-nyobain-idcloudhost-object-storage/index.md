@@ -31,7 +31,7 @@ Description: >
     Beberapa bulan kemarin, saya sudah berencana kalau saya akan menggunakan Penyimpanan yang menggunakan Protokol S3 ini sebagai tempat penyimpanan untuk Blog ini.
     
     
-    Karena sampai sekarang Bunny\.net belum juga membuat layanan penyimpanan yang menggunakan protokol S3 nya, maka saya pun menggunakan layanan dari IDCloudHost ini.
+    Karena sampai sekarang Bunny\.net belum juga membuat layanan penyimpanan yang menggunakan protokol S3-nya, maka saya pun menggunakan layanan dari IDCloudHost ini.
 
     
     Bagaimana pengalaman nya? Berikut adalah pengalaman saya ketika menggunakan Layanan Penyimpanan ini 🙂
@@ -97,7 +97,7 @@ Wadah tersebut sudah jelas fungsinya, yakni untuk menyimpan Berkas dan Folder di
 
 Untuk membuat bucket nya sendiri cukup mudah, Anda tinggal klik pada "Storage" lalu klik "Create New Storage", isikan nama bucket nya, karakter nama bucket yang diizinkan yaitu: Mengandung angka, huruf kecil atau/dan tanda hubung (-). Kalau selesai, tinggal klik "Create" saja di bagian paling kanan.
 
-Pembuatan yang mudah dan tanpa halangan, itulah yang saya alami saat membuat Bucket S3 di IDCloudHost, bucket S3 pertama yang saya buat bernama `farrelf` pada saat itu. Cuplikan di bawah ini hanyalah gambaran penampilan nya saja, karena pada saat itu tampilan nya benar-benar kosong dan belum ada satupun Bucket S3 nya saat itu.
+Pembuatan yang mudah dan tanpa halangan, itulah yang saya alami saat membuat Bucket S3 di IDCloudHost, bucket S3 pertama yang saya buat bernama `farrelf` pada saat itu. Cuplikan di bawah ini hanyalah gambaran penampilan nya saja, karena pada saat itu tampilan nya benar-benar kosong dan belum ada satupun Bucket S3-nya saat itu.
 
 ![Penampilan saat Bucket S3 dibuat dan disebelah kiri adalah Daftar Bucket S3 yang sudah dibuat](Penampilan_saat_Bucket_S3_ingin_dibuat.jpg)
 
@@ -122,7 +122,7 @@ Kalau di Windows itu ada sebuah Perangkat Lunak yang bernama ["Cyberduck"](https
 
 Pada saat menggunakan Cyberduck dan saya klik kanan pada salah satu objek/berkas, lalu saya arahkan kursor nya ke "Copy URL", di situlah saya langsung menyadari kalau Bucket S3 itu bisa diakses melalui URL Alternatif, yaitu `https://nama-bucket.is3.cloudhost.id` dan sayangnya di Panel/Konsol nya belum ada Informasi seperti itu, padahal menurut saya lebih enak cara mengakses seperti ini, lebih bersih aja daripada `https://is3.cloudhost.id/nama-bucket`.
 
-Lalu, bagaimana dengan GNU/Linux atau Android? Hmmm, di GNU/Linux saya harus me-_mounting_ Bucket S3 nya secara manual menggunakan `s3fs` agar bisa mengelola Berkas-berkas didalam nya (itupun sampai sekarang belum bisa).
+Lalu, bagaimana dengan GNU/Linux atau Android? Hmmm, di GNU/Linux saya harus me-_mounting_ Bucket S3-nya secara manual menggunakan `s3fs` agar bisa mengelola Berkas-berkas didalam nya (itupun sampai sekarang belum bisa).
 
 Kalau di Android saya kurang tahu, ada sebuah Aplikasi yang tersebar di Play Store untuk ini, tapi rasanya saya kurang percaya aja mengingat perangkat lunak tersebut tak terurus sejak lama dan itu bukanlah termasuk FLOSS.
 
@@ -161,7 +161,7 @@ Ya langsung bingung dong, masa gak boleh sih cuma pake fitur ini doang biar bisa
 
 Akhirnya, ketika saya ingin menggunakan Bunny CDN sebagai _Reverse-proxy_ untuk Blog ini seperti sekarang, saya malah harus menyetel "Edge Rule" nya terlebih dahulu agar berkas `index.html` bisa terbaca dengan baik.
 
-Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Seperti yang saya bilang diawal, bahwa blog ini saya hosting di _Object Storage_ nya dan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ dan juga CDN, sehingga pengunjung tidak mengakses Bucket S3 nya, melainkan CDN nya.
+Setelah itu, saya sinkronkan secara manual dengan menggunakan Rclone. Seperti yang saya bilang diawal, bahwa blog ini saya hosting di _Object Storage_ nya dan saya gunakan Bunny CDN sebagai _Reverse-proxy_, _TLS termination proxy_ dan juga CDN, sehingga pengunjung tidak mengakses Bucket S3-nya, melainkan CDN nya.
 
 Saat saya menghubungi dan membuat Tiket Dukungan nya (Support Ticket), mereka bilang kalau saat ini belum ada fitur Hosting Web Statis di Bucket S3, sedang dalam pengembangan katanya.
 
@@ -180,7 +180,7 @@ Setelah saya akses Bucket nya melalui Peramban Web, masih bisa diakses dong, den
 
 Kalau sudah terhapus, seharusnya cuma nampil `NoSuchBucket` saat diakses lewat Peramban Web dan Bucket sudah tidak bisa diakses sama sekali dengan cara apapun, sehingga sudah seharusnya dapat dibuat lagi dengan nama yang sama, ini tidak.
 
-Tapi pas saya coba mengaksesnya lewat AWS CLI untuk mencoba menghapus Bucket S3 nya, saya malah tidak dapat mengakses nya.
+Tapi pas saya coba mengaksesnya lewat AWS CLI untuk mencoba menghapus Bucket S3-nya, saya malah tidak dapat mengakses nya.
 
 Karena Bucket tersebut tidak benar-benar terhapus, maka saya buat Bucket S3 lagi yang bernama `farrelfstaticblog` untuk menyimpan Blog Statis dan saya gunakan sebelum artikel ini terbit.
 
@@ -200,7 +200,7 @@ Hal ini lantas membuat saya berpikir:
 
 Mungkin karena saat itu saya masih baru banget terhadap Penyimpanan yang menggunakan Protokol S3 ini, jadi ya saya belum tahu banyak.
 
-Jadi jika Anda kebetulan berlangganan S3 dari IDCloudHost dan Anda ingin menghapus salah satu Bucket dengan alasan apapun, saran saya jangan hapus Bucket S3 dari Laman Panel nya jika Anda ingin membuatnya lagi.
+Jadi jika Anda kebetulan berlangganan S3 dari IDCloudHost dan Anda ingin menghapus salah satu Bucket dengan alasan apapun, saran saya jangan hapus Bucket S3 dari Laman Panelnya jika Anda ingin membuatnya lagi.
 
 ### Saat menghubungi Dukungan Layanan
 Alasan saya menghubungi dukungan layanan adalah karena masalah fitur Hosting Web Statis di S3, Penghapusan Bucket S3 dan fitur CNAME. Inti dari dukungan layanan (salah satunya melalui Tiket Dukungan/_Support Ticket_) selain fitur Hosting Web Statis adalah tentang penghapusan Bucket S3 yang gak _realtime_ itu.
@@ -221,7 +221,7 @@ Jika Anda ingin melihat percakapan nya seperti apa di tiket dukungan, silahkan A
 
 ![1](Ticket_1.jpg) ![2](Ticket_2.jpg) ![3](Ticket_3.jpg) ![4](Ticket_4.jpg) ![5](Ticket_5.jpg) ![6](Ticket_6.jpg)
 
-Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.jpg" >}}klik disini{{< / a-file >}} (Ukuran Berkas nya sebesar 380 KB dan Resolusinya sebesar 842x5254).
+Jika Anda ingin melihat Cuplikan Transkrip nya secara utuh, silahkan {{< a-file path="Transkrip_Obrolan_lewat_Tiket_Dukungan.jpg" >}}klik di sini{{< / a-file >}} (Ukuran Berkas nya sebesar 380 KB dan Resolusinya sebesar 842x5254).
 
 Bagaimana menurutmu mengenai tiket dukungan ini? Kalau menurut saya, respon mereka terlalu lambat dan mereka terlalu sering "melempar" pesan ke "tim terkait", mungkin saja mereka ini adalah beda tim divisi atau apalah saya juga gak tahu.
 
@@ -231,14 +231,49 @@ Tapi yang jelas, respon mereka sangatlah lambat, kadang seringkali seharian baru
 
 Selama 4-5 Harian, barulah kasusnya terselesaikan dan akhirnya Bucket nya benar-benar terhapus, sehingga saya bisa lagi membuat Bucket S3 dengan nama yang sama seperti sebelumnya.
 
+### PEMBARUAN 12/02/2022: Saat mengalami gangguan {#saat-mengalami-gangguan}
+Sebetulnya gangguan itu sendiri sudah sangat lama, sekitar 7 bulanan kurang lebih, hanya saja saya baru memperbaruinya sekarang.
+
+Saat menggunakannya, saya pernah mengalami gangguan yang membuat blog saya menjadi tidak bisa diakses, yakni mengalami galat "503 Service Unavailable".
+
+Saat saya sadar bahwa blognya mengalami galat seperti itu, awalnya saya mengira bahwa CDN-lah yang menjadi penyebabnya, tapi setelah saya akses Bucket S3-nya, ternyata terkena galat 503 juga.
+
+Ini artinya, penyebab dari masalah tersebut adalah dari Bucket S3-nya yang mengalami gangguan, bukan layanan CDN-nya (entah pada jaringan mereka atau server mereka, saya gak ngerti).
+
+Di bawah ini adalah penampakannya:
+
+![Penampakan Galat pada Bucket S3 saya](Penampilan_Error_503_Service_Unavailable.png)
+
+Saya sudah mengecek Blog dan Bucket S3 saya ke beberapa Situs Web yang menguji ketersediaan dari sebuah Situs Web (seperti [Uptrends](https://www.uptrends.com/tools/uptime)), dan ternyata mengalami galat yang sama juga, jadi ini jelas bukan dari ISP yang saya gunakan.
+
+Maaf apabila saya tidak bisa memberikan cuplikan layarnya di sini, sehingga buktinya kurang lengkap, karena pada saat itu saya tidak sempat mengambil cuplikannya.
+
+Sejak saat itu, saya langsung membuat tiket dukungan, tapi balasnya lama sekali. Saya memulai itu dari sekitar pukul 18:06 WIB dan setengah jam kemudian gak ada jawaban.
+
+Karena gak ada jawaban apapun, maka saya menanyakan kenapa tiketnya tidak dibalas. Setengah jam lagi kemudian setelah saya menanyakannya, akhirnya tiket tersebut baru dijawab, tapi sayangnya masalah tersebut masih belum selesai, "sedang dilakukan pengecekan oleh team kami" katanya.
+
+Jika Anda ingin melihat percakapannya, silahkan lihat cuplikan berikut dan klik pada cuplikannya untuk memperbesar:
+
+![Transkrip Percakapan lewat Tiket Dukungan saat mengalami gangguan](Transkrip_Obrolan_lewat_Tiket_Dukungan_saat_Gangguan.png)
+
+Karena penyelesaian masalahnya yang lambat, maka saya pindahkan dulu Hosting-nya untuk sementara memakai Netlify, untung saja saya memiliki cadangannya.
+
+Setelah itu saya langsung mencari layanan penyimpanan S3 atau _Object Storage_ yang lain, tentunya kalo bisa yang Gratis dan gak perlu kartu kredit buat verifikasi. Saat mencari, ketemulah [Storj DCS](https://www.storj.io) yang selain gratis dan memiliki S3-compatible pada layanan penyimpanannya, ia juga tidak memerlukan kartu kredit untuk bisa digunakan.
+
+Meskipun penyetelannya sulit (atau bisa Anda bilang "sangat sulit"), tapi saya tetap memindahkan blog statis saya dari IS3 ke Storj DCS. Jadi, saya langsung pindah dari IDCloudHost S3 pada saat itu juga.
+
+Beberapa jam kemudian, sampai jam 9 malam, saya melihat bahwa masalah tersebut sebenarnya sudah selesai setelah saya mengakses Bucket S3-nya, hanya saja si CS belum memberitahukan apapun kepada saya, saya pikir itu belum selesai sepenuhnya, jadi saya tunggu besok saja.
+
+Keesokkan harinya, si CS belum juga membalas ataupun merespon tiketnya sama sekali dan masalah sepertinya sudah teratasi sepenuhnya, jadi saya tutup saja tiketnya secara manual.
+
 ## Kesimpulan
 Apakah Layanan ini disarankan? Jika Anda adalah orang yang pemula banget sama Protokol S3 ini dan sangat ingin belajar, maka untuk saat ini saya belum terlalu bisa menyarankan ini.
 
 Kenapa? Karena Dokumentasi nya sangat belum lengkap dan belum tentu juga semua API Penyimpanan S3 dari AWS akan didukung oleh Penyimpanan S3 dari IDCloudHost, yah namanya juga "S3-compatible".
 
-Belum lagi masalah penghapusan Bucket S3 melalui Panel yang tidak dilakukan secara _realtime_, melainkan secara terjadwal, kecuali jika Anda tahu bagaimana cara menghapus Bucket S3 nya secara _realtime_.
+Belum lagi masalah penghapusan Bucket S3 melalui Panel yang tidak dilakukan secara _realtime_, melainkan secara terjadwal, kecuali jika Anda tahu bagaimana cara menghapus Bucket S3-nya secara _realtime_.
 
-Saya lebih menyarankan Anda untuk belajar menggunakan S3 dari AWS nya secara langsung untuk saat ini, di sana dokumentasinya sangatlah lengkap dan komprehensif, sehingga apa yang Anda eksekusikan di sana maka akan sesuai dengan apa yang Anda pelajari di sana.
+Saya lebih menyarankan Anda untuk belajar menggunakan S3 dari AWS-nya secara langsung untuk saat ini, di sana dokumentasinya sangatlah lengkap dan komprehensif, sehingga apa yang Anda eksekusikan di sana maka akan sesuai dengan apa yang Anda pelajari di sana.
 
 Tapi jika Anda ingin belajar dengan menggunakan S3 dari IDCloudHost, ya silahkan Anda coba sendiri.
 
@@ -255,12 +290,12 @@ Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.
 {{< / spoiler >}}
 
-Menggunakan Cloudflare Gratisan? Mungkin bisa Anda coba, tapi yang jelas itu perlu mengkaitkan terlebih dahulu domain nya dengan CNAME ke Bucket S3 nya.
+Menggunakan Cloudflare Gratisan? Mungkin bisa Anda coba, tapi yang jelas itu perlu mengkaitkan terlebih dahulu domain nya dengan CNAME ke Bucket S3-nya.
 
 ### Untuk Kebutuhan lain
 Bagaimana jika saya butuhnya cuma Integrasi ke WordPress, Backup Data, atau simpan data saja atau lain nya?
 
-Yah, jika Anda tidak terlalu butuh _Support_/dukungan layanan atau jika Anda tidak masalah dengan Penghapusan Bucket S3 nya, saya bisa menyarankan Anda untuk menggunakan nya, terlepas dari kekurangan yang telah saya sampaikan sebelumnya.
+Yah, jika Anda tidak terlalu butuh _Support_/dukungan layanan atau jika Anda tidak masalah dengan Penghapusan Bucket S3-nya, saya bisa menyarankan Anda untuk menggunakan nya, terlepas dari kekurangan yang telah saya sampaikan sebelumnya.
 
 Kenapa? Karena mereka menggunakan Server Indonesia (yang pasti sangat cepat jika diakses dari Indonesia), biaya yang fleksibel, harga yang sangat murah untuk per GB nya, pembayaran yang mudah dan beragam, serta tidak terkendala Bahasa saat berkomunikasi dengan Dukungan Layanan nya.
 
@@ -326,14 +361,14 @@ Mungkin saya akan mempertimbangkan opsi Kartu Kredit Virtual untuk ini, namun ji
 ### Pertanyaan ke-5: Server Penyimpanan nya ada di Indonesia, tapi PoP Bunny CDN belum ada di Indonesia, sedangkan targetnya Indonesia. Bukankah ini akan memperlambat Blog nya sendiri karena 'bolak-balik' seperti itu? {#pertanyaan-ke5}
 **Jawab:** Blog ini merupakan blog statis yang konten nya 'pasti', sehingga tidak perlu proses dinamis untuk menampilkan sebuah konten yang mempengaruhi sebuah kecepatan.
 
-Jadi, seharusnya secara kecepatan juga tidak ada perbedaan yang berarti. Untuk berkas-berkas statik nya sendiri, seperti Berkas-berkas CSS, JS dan Gambar, itu sudah dibantu oleh fitur ["Perma-Cache" dari Bunny CDN](https://bunny.net/cdn/perma-cache) agar berkas tersebut tidak lagi ditarik oleh Server CDN dari Penyimpanan S3 nya lagi setelah dikunjungi balik.
+Jadi, seharusnya secara kecepatan juga tidak ada perbedaan yang berarti. Untuk berkas-berkas statik nya sendiri, seperti Berkas-berkas CSS, JS dan Gambar, itu sudah dibantu oleh fitur ["Perma-Cache" dari Bunny CDN](https://bunny.net/cdn/perma-cache) agar berkas tersebut tidak lagi ditarik oleh Server CDN dari Penyimpanan S3-nya lagi setelah dikunjungi balik.
 
 Apalagi jika berkas tersebut disimpan ke dalam "Edge Storage" yang telah direplikasi, sehingga akses ke berkas-berkas statik akan menjadi jauh lebih cepat, tanpa menyentuh Server Aslinya sama sekali.
 
 **PEMBARUAN Rabu, 07 Juli 2021:** Karena saya Hosting di [Storj DCS](https://www.storj.io) dan bukan di IDCloudHost lagi, jadi 'masalah' di pertanyaan ini sudah terselesaikan.
 
 ### Pertanyaan ke-6: Apakah semua API S3 yang saya pelajari dari Dokumentasi AWS bisa saya gunakan di IDCloudHost? {#pertanyaan-ke6}
-**Jawab:** Belum tentu, sejak ini merupakan "S3-compatible" belum tentu semua fitur dari AWS S3 bisa diaplikasikan ke dalam S3 nya IDCloudHost.
+**Jawab:** Belum tentu, sejak ini merupakan "S3-compatible" belum tentu semua fitur dari AWS S3 bisa diaplikasikan ke dalam S3-nya IDCloudHost.
 
 Tapi jika Anda sudah berkecimpung cukup lama dengan protokol S3 ini dan ingin mempelajari API S3 pada IDCloudHost yang bisa digunakan, ya silahkan Anda coba saja sendiri.
 

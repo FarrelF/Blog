@@ -1,7 +1,45 @@
 headers:
-- for: /**
+- for: /**/*.*
   values:
-    Cache-Control: no-cache, no-store, must-revalidate
+    X-XSS-Protection: 0
+    X-Content-Type-Options: nosniff
+    X-Frame-Options: DENY
+    Referrer-Policy: strict-origin-when-cross-origin
+    Cache-Control: public, max-age=31536000, immutable
+
+- for: /**/*.json
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/index.json
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/*.html
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/*.xml
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/index.xml
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/*.txt
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+    Pragma: no-cache
+
+- for: /**/
+  values:
+    Cache-Control: no-cache, no-store, must-revalidate, max-age=0
     Pragma: no-cache
     X-XSS-Protection: 0
     X-Content-Type-Options: nosniff
@@ -58,13 +96,18 @@ headers:
       xr-spatial-tracking 'none'
 
     Content-Security-Policy: >
-      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
+      default-src 'none';
+      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
       'sha256-waBSrFxedVzyz4KunjBV8Uw/sdoc0MI6pms2+SMfuUA=' 'sha256-t378Diw7bH6ArzR5phdi/cLrELw4CrJElGYbVWVrkm0='
-      'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU='
-      'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0='
-      'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-rxKxKCm9oxlwnQMcxDqT7wcpcb2x/Xi2UdJN7K2W+48='
+      'sha256-kEnxRcBmCK8U+LpFuzFErD1xliPNUJ0XZ+W9PB2NBrI=' 'sha256-k4p5daLoUhxoKIocoQgMS5o6Q+1HkV2Jf/eTs2RnE3c='
       'sha256-WiADmDlcjuwMdYHOyAyDISNN2AnlcwCzdq0rNBzQtpU=' 'sha256-ICnaTRSf2f3y7dJdCpLe0w1qeJABvvhgZ35TkqudO6M='
-      'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
+      'sha256-ipDZNDbPH+CckoD6d3Zx2Hyaz77xp1qPzqu756opmpc=' 'sha256-zIhn2Z/U4FolQnemqH71xHGnWYJFB6I1KeFivza/HlU='
+      'sha256-LkfjWGZI7q9qyebTIA+J7AxkmLHJFyWYNusN4dmEQ/g=' 'sha256-+bAo0zJMDNkq2hxubZUYL5yR0baqvY8cuUWvUSGQ+a0=';
+      style-src 'self' 'unsafe-hashes' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/
+      'sha256-OZH/2VZI7GoaSujPVBdMMbawaes1a9/AHCSoQ+n/x7c=' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o='
+      'sha256-rKe1O4wMQqCkLQ9l3ZSM8wXxD+vP+51p1/9Pfuc5GPU=' 'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo='
+      'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI=' 'sha256-cx7wkErrQYJFfScmtKFGqmfHLeVOzYvV5AllofiNg3c='
+      'sha256-Z3dYvdAP0SFTVJt0ORc80e1EUQLSlr+DvZ1ZaO9uv6Y=' 'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ=';
       font-src 'self';
       img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
       base-uri 'self';

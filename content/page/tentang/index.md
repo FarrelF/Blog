@@ -16,13 +16,10 @@ menu:
     weight: -90
     params:
       icon: user
+custom:
+  css:
+    path: custom.css
 ---
-<style>
-  .tab-center {
-    display: block;
-    text-align: center;
-  }
-</style>
 
 ## Tentang Saya
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
@@ -40,7 +37,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 
 - SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
 - Tema: [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)
-- Fonta: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
+- Fon: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
 - VCS: [GitHub](https://github.com)
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
@@ -54,7 +51,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [Bunny Edge Storage](https://bunny.net/edge-storage?ref=giufh6asq3) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
 - Sertifikat TLS/SSL: [ZeroSSL](https://zerossl.com)
-- CDN: Bunny CDN (Untuk berkas CSS, Fonta dan Gambar)
+- CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
