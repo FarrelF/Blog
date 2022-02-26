@@ -103,6 +103,8 @@ Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda in
 > choco install hugo-extended
 ```
 
+Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
+
 {{< info text="**Catatan:**" >}}
 Secara baku, Chocolatey akan meng-install paket-paketnya di dalam direktori `%ProgramData%\chocolatey`, sehingga paket yang terinstal dapat diakses oleh semua pengguna di dalam 1 sistem.
 
@@ -110,8 +112,6 @@ Tapi, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh ka
 
 Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar Anda dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
 {{< / info >}}
-
-Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
 
 #### Berkas Biner, tanpa Pengelola Paket (Manual)
 Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.zip` (untuk Windows), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
