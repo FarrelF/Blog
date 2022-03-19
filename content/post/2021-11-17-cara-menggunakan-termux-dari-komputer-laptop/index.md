@@ -68,13 +68,13 @@ Berikut adalah hal yang harus Anda lakukan:
 **Langkah ke-2:** Instal paket `openssh` dan `nmap` di Termux kamu dengan perintah berikut:
 
 ```shell
-pkg i -y openssh nmap
+pkg i -y openssh nmap termux-services
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
 ```shell
-apt update; apt install -y openssh nmap
+apt update; apt install -y openssh nmap termux-services
 ```
 
 **Langkah ke-3:** Kamu perlu menyetel kata sandi untuk Nama Pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan "Enter", tanpa perlu mengingat/menyebutkan Nama Penggunanya secara spesifik dan tanpa perlu memasukkan argumen apapun.
@@ -136,11 +136,11 @@ wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1460
 
 Seperti yang Anda lihat di atas, bahwa Alamat IP untuk Antarmuka sambungan Wi-Fi (`wlan0`) yang saya dapatkan adalah `192.168.100.81` yang letaknya berada di paling bawah.
 
-Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP nya.
+Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP-nya.
 
-Jika Anda menggunakan **Hotspot Tethering**, maka cari Alamat IP Anda di antarmuka `ap0`, bukan `wlan0`.
+Jika Anda menggunakan **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**), maka cari Alamat IP Anda di antarmuka `ap0` atau `swlan0`, bukan `wlan0`. Mungkin nama antarmukanya akan berbeda di beberapa perangkat tertentu, tapi biasanya salah satu dari kedua nama tersebut digunakan sebagai nama antarmuka untuk Penambatan Hotspot.
 
-Selain `ifconfig`, Anda juga dapat mencari Alamat IP nya melalui perintah `ip addr list (nama_antarmuka)`.
+Selain `ifconfig`, Anda juga dapat mencari Alamat IP-nya melalui perintah `ip addr list (nama_antarmuka)`.
 
 Contoh perintah dan keluarannya seperti berikut:
 
@@ -152,11 +152,13 @@ $ ip addr list wlan0
        valid_lft forever preferred_lft forever
 ```
 
-Ganti `wlan0` yang di atas menjadi antarmuka yang ingin Anda lihat alamat IP nya.
+Ganti `wlan0` yang di atas menjadi antarmuka yang ingin Anda lihat alamat IP-nya.
 
-Sebagai contoh, Anda bisa menggantinya dengan `ap0` jika ponsel Anda sedang menggunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**).
+Sebagai contoh, Anda bisa menggantinya dengan `ap0` atau `swlan0` jika ponsel Anda sedang menggunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**).
 
 Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui Klien SSH yang ada di Komputer/Laptop kamu, jadi jangan sampai lupa!
+
+**Langkah ke-7:** Terakhir, aktifkan _service_/layanan untuk OpenSSH agar Server SSH dapat diaktifkan ketika Termux dijalankan dengan mengeksekusi perintah `sv enable sshd` di dalam Termux.
 
 ### Mengakses Ponsel Android melalui SSH
 Setelah melakukan konfigurasi awal, maka saatnya mengakses Ponsel Android dari Komputer/Laptop Anda.
@@ -177,7 +179,7 @@ ssh 192.168.100.81 -p 8022
 
 Silahkan ganti `192.168.100.81` menjadi Alamat IP dari ponsel Anda.
 
-Setelah menentukan Alamat IP nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silahkan ganti `8022` di atas dengan _port_ yang digunakan oleh Server SSH Anda.
+Setelah menentukan Alamat IP-nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh Server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silahkan ganti `8022` di atas dengan _port_ yang digunakan oleh Server SSH Anda.
 
 Mengenai _Username_ nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja.
 
@@ -215,6 +217,8 @@ Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dala
 
 Agar bisa mengakses SFTP nya, Anda perlu sebuah Aplikasi FTP untuk itu, untuk kasus ini saya gunakan [FileZilla](https://filezilla-project.org/).
 
+Selain FileZilla, Anda juga dapat menggunakan Aplikasi lain seperti [WinSCP](https://winscp.net/), [CyberDuck](https://cyberduck.io/), dll. Hanya saja, dalam kasus ini saya gunakan FileZilla.
+
 Setelah terinstal, buka Aplikasi tersebut, lalu Anda harus mengisi kredensialnya berikut di bawah ini di dalam Aplikasinya untuk menggunakan SFTP:
 
 - Hos (_Host_): `sftp://ALAMAT_IP_KAMU` (cth. `sftp://192.168.100.81`) atau `sftp://ALAMAT_IP_KAMU:PORT` (cth. `sftp://192.168.100.81:8022`)
@@ -234,9 +238,11 @@ Apakah isinya sama? Sama aja, mau Anda masukkan apapun _Username_ nya, isinya ak
 
 Kenapa begitu? Karena Termux hanya memiliki 1 Pengguna Standar saja, seperti yang telah saya jelaskan di bagian "Mengakses Ponsel Android melalui SSH" pada langkah ke-1 sebelumnya.
 
-Oh iya, agar Anda bisa mentransfer berkas ke/dari dalam Ponsel ke/dari Perangkat lain, Anda bisa gunakan perintah `termux-setup-storage`. Untuk lebih lanjut, silahkan baca [di sini](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) (Baca mulai dari bagian "Access shared and external storage").
+Oh iya, agar Anda bisa mentransfer berkas dari dalam Ponsel ke Perangkat lain atau sebaliknya, Anda bisa gunakan perintah `termux-setup-storage` untuk membuka perizinannya/jembatan antara Termux dan Penyimpanan pada Perangkat, setelahnya Anda tinggal transfer saja melalui Aplikasi Klien FTP.
 
-Dengan begini, Anda bisa mentransfer berkas ke/dari dalam Ponsel Anda ke/dari dalam Perangkat lain tanpa perlu meng-install Aplikasi "khusus" lagi ataupun tanpa terkena kendala kabel/lubangnya lagi.
+Untuk lebih lanjut, silahkan baca [di sini](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) (Baca mulai dari bagian "Access shared and external storage").
+
+Dengan begini, Anda bisa mentransfer berkas dari dalam Ponsel Anda ke dalam Perangkat lain atau sebaliknya tanpa perlu meng-install Aplikasi "khusus" lagi ataupun tanpa terkena kendala kabel/lubangnya lagi.
 
 ## Pertanyaan dan Jawaban
 Jika Anda memiliki pertanyaan, silahkan masukkan pertanyaan dari Anda ke dalam kolom komentar yang tersedia.
@@ -268,7 +274,6 @@ Atau, jika Anda ingin agar [**Termux-services**](https://wiki.termux.com/wiki/Te
 ```shell
 #!/data/data/com.termux/files/usr/bin/sh
 termux-wake-lock
-sshd
 . $PREFIX/etc/profile
 ```
 
@@ -290,10 +295,41 @@ Jadi, Anda bisa mengaksesnya melalui jaringan Internet, seperti yang saya lakuka
 
 Namun, Anda perlu menghimpun kode sumber Cloudflared-nya terlebih dahulu di Termux, silahkan [klik di sini](https://gist.github.com/Erisa/4015ae12211434b8f2f64ac1d731b830) untuk caranya.
 
-Setelah itu Anda perlu pastikan bahwa Termux-nya telah aktif terus di latar belakang di Ponsel Anda, jangan dimatikan.
+Setelah itu Anda perlu pastikan bahwa Termux-nya telah aktif terus di latar belakang pada Ponsel Anda, jangan dimatikan.
 
 Selebihnya nanti akan saya buatkan artikelnya.
 {{< / info >}}
+
+### Pertanyaan ke-3: Kenapa saya tetap mendapatkan pesan "Permission Denied", padahal penyimpanan sudah saya izinkan dan `termux-setup-storage` sudah saya jalankan? {#pertanyaan-ke3}
+**Jawab:** Bisa jadi karena kutu (_bug_) yang terjadi di dalam Sistem Operasi Android yang Anda gunakan, terutama untuk pengguna Android 11.
+
+Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa Anda coba matikan izin "Penyimpanan" pada Aplikasi Termux, lalu nyalakan kembali setelah itu.
+
+Melakukannya mungkin akan mematikan Termux di Perangkat Anda, dengan kata lain Termux akan "Force Close" atau ditutup secara paksa, namun Anda dapat membuka aplikasinya kembali setelah itu seperti biasanya.
+
+Setelah Anda membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola Penyimpanan Perangkat dari Termux tanpa terkena galat "Permission Denied" lagi.
+
+**Bagaimana jika saya bukan pengguna Android 11?** Mungkin ini bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu cara selain ini.
+
+### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari Komputer/Laptop saya, padahal sudah di dalam jaringan yang sama dan Alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
+**Jawab:** Banyak faktor sebenarnya mengenai hal ini, salah satunya adalah:
+
+1. _Firewall_ (Baik yang dilakukan oleh Sistem Operasi, Aplikasi pihak ketiga, Router/ONT, dll) yang memblokir Alamat IP, aplikasi ataupun akses tertentu.
+2. Alamat IP Lokal yang Anda ataupun perangkat Anda dapatkan itu sudah digunakan oleh orang lain (Alamat IP Duplikat). Ini mungkin akan terjadi jika Anda berada di tempat ramai atau Anda menggunakan MAC Acak saat terkoneksi ke jaringan yang mana Anda akan mendapatkan Alamat IP yang acak pula.
+3. Jaringan yang Anda gunakan mungkin tidak mengizinkan akses ke perangkat lain secara lokal untuk alasan keamanan, seperti jaringan [wifi.id](https://wifi.id) oleh Grup Telkom.
+4. Dan faktor-faktor lainnya.
+
+Solusi yang bisa Anda coba salah satunya yaitu:
+
+1. Periksa kembali Alamat IP yang Anda tuju, pastikan bahwa Alamat IP yang Anda tuju sudah benar.
+2. Periksa Pengaturan _Firewall_ Anda, baik dari bawaan Sistem Operasi, Aplikasi Pihak Ketiga atau dari Router/ONT sekalipun, jika terblokir maka Anda harus membuka aksesnya. Kalau perlu, Anda juga dapat mematikan _Firewall-nya_ terlebih dahulu untuk sementara waktu.
+3. Coba usahakan untuk tidak menggunakan Alamat MAC yang Acak terlebih dahulu agar memperkecil kemungkinan untuk mendapatkan Alamat IP yang sama. Jika Anda tidak ingin menggunakan Alamat MAC Asli ataupun tidak bisa, Anda bisa coba ganti Alamat IP-nya.
+4. Coba koneksikan ke/gunakan jaringan lokal lain, jangan gunakan jaringan Wi-Fi yang memerlukan login seperti wifi.id, Biznet Wifi, dll.
+5. Buatlah jaringan lokal sendiri, berikut di bawah ini adalah salah satu caranya:
+    - Untuk pengguna Android: Anda dapat menggunakan fitur **Penambatan Hotspot** (bahasa Inggris: **Hotspot Tethering**) untuk membuat jaringan lokal sendiri secara nirkabel. Jika Anda sedang tersambung dengan Koneksi Wi-Fi di perangkat, pastikan perangkat Anda memiliki dan mengaktifkan fitur **Wi-Fi Sharing**, **Berbagi Wi-Fi**, dan fitur sejenis lainnya agar koneksi Wi-Fi tidak terputus saat penambatan diaktifkan.
+    - Untuk pengguna Windows 10 atau di atasnya: Anda bisa menggunakan fitur **Mobile Hotspot** di dalam Windows 10 (atau di atasnya) bagi pengguna komputer PC/Laptop untuk membuat jaringan lokal secara nirkabel.
+
+Nah, itu saja penyebab dari masalah ini beserta solusi yang bisa Anda coba salah satunya.
 
 ## Penutup
 Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang telah membaca dan memahami artikel ini sampai habis.

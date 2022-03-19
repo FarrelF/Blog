@@ -8,4 +8,4 @@ imports:
   - path: github.com/twitter/twemoji
     mounts:
     - source: assets/svg
-      target: static/twemoji/13.1.0/svg
+      target: static/twemoji/14.0.0/svg

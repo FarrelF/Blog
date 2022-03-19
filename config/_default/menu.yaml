@@ -1,10 +1,4 @@
-main:
-  - identifier: home
-    name: Beranda
-    url: /
-    weight: -100
-    params:
-      icon: home
+main: []
 
 social:
   - identifier: github

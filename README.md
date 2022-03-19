@@ -3,34 +3,34 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 
-_Repository_ ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya.
+Repositori ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya.
 
-Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya untuk nge-blog, untuk Kode Sumber nya bisa Anda lihat [_Repository_ saya sebelumnya](https://github.com/FarrelF/Blog-Old).
+Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya untuk nge-blog, untuk Kode Sumber nya bisa Anda lihat [Repositori saya sebelumnya](https://github.com/FarrelF/Blog-Old).
 
 ## Persyaratan
 Sebelum memulai untuk menggunakan Kode Sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended (versi minimal: 0.91.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
-- Go (versi minimal: 1.12, disarankan terbaru): https://golang.org/
+- Hugo Extended (versi minimal: 0.91.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Instalnya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Go (versi minimal: 1.17, disarankan terbaru): https://golang.org/
 - Mengkloning _Repository_ [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam Folder `FarrelF/stack-modified`
 
 Di dalam Sistem Operasi Anda.
 
 ## Cara Memperolehnya
-Untuk memperolehnya, Anda bisa eksekusi perintah berikut untuk meng-kloningnya:
+Untuk memperolehnya, Anda bisa eksekusi perintah berikut untuk mengkloningnya:
 
 ```bash
 git clone https://github.com/FarrelF/Blog.git FarrelF/Blog
 ```
 
-Atau, jika Anda ingin menggunakan SSH, maka Anda bisa gunakan perintah berikut untuk meng-kloningnya:
+Atau, jika Anda ingin menggunakan SSH, maka Anda bisa gunakan perintah berikut untuk mengkloningnya:
 
 ```bash
 git clone git@github.com:FarrelF/Blog.git FarrelF/Blog
 ```
 
-Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk meng-kloningnya sebagai berikut:
+Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah untuk mengkloningnya sebagai berikut:
 
 ```bash
 gh repo clone FarrelF/Blog FarrelF/Blog
@@ -71,7 +71,7 @@ Selain di atas, Hugo telah menyediakan cara untuk membangun Web/Blog Statis tanp
 Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah mengakses kode sumbernya:
 
 ```bash
-hugo --gc --minify
+hugo --gc
 ```
 
 Perintah di atas akan menghasilkan Blog Statis yang siap digunakan untuk produksi, dan hasilnya akan tersimpan di dalam folder `public`.

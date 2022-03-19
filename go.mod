@@ -1,9 +1,9 @@
 module github.com/FarrelF/Blog
 
-go 1.12
+go 1.17
 
 require (
-	github.com/CaiJimmy/hugo-theme-stack/v3 v3.8.1-0.20220212132338-0fbbc12949c8 // indirect
-	github.com/FarrelF/stack-modified v0.0.0-20220226125803-014d6a5ded9e // indirect
-	github.com/twitter/twemoji v13.1.0+incompatible // indirect
+	github.com/CaiJimmy/hugo-theme-stack/v3 v3.10.0 // indirect
+	github.com/FarrelF/stack-modified v0.0.0-20220318142842-f9ce26acbc43 // indirect
+	github.com/twitter/twemoji v14.0.0+incompatible // indirect
 )

@@ -43,12 +43,12 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain:
-  - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
-  - [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb) sebagai Reseller/Pengelola Domainnya
+  - [PT Awan Kilat Semesta](https://paas.id/) sebagai Registrar Domain
+  - [IDCloudHost](https://afiliasi.farrel.franqois.id/idch) sebagai Reseller/Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
-  - [Bunny Edge Storage](https://bunny.net/edge-storage?ref=giufh6asq3) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
+  - [Bunny Edge Storage](https://bunny.net/edge-storage) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
 - Sertifikat TLS/SSL: [ZeroSSL](https://zerossl.com)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -74,7 +74,7 @@ Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah l
 - Telegram: [@FarrelF](https://t.me/FarrelF)
 - Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
-- Keybase: [FarrelF](https://keybase.io/farrelf) (Jarang Aktif)
+- Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 
 ## Kunci PGP/GPG
 Berikut adalah Informasi mengenai kunci GPG saya:
@@ -93,6 +93,7 @@ Unduh kunci:
 - [Blog ini (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
 ## Donasi/Dukungan
-- [PayPal](https://paypal.me/FarrelF)
-- [Trakteer](https://trakteer.id/farrelf) (Khusus untuk Indonesia)
+- [PayPal](https://paypal.me/FarrelF) (Internasional)
+- [Trakteer](https://trakteer.id/farrelf)
+- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
 - Mengklik tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di laman ini juga ada tautan afiliasi, hehe 😁
