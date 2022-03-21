@@ -65,16 +65,28 @@ Berikut adalah hal yang harus Anda lakukan:
 
 **Langkah ke-1:** Buka Aplikasi Termux (Pastinya)
 
-**Langkah ke-2:** Instal paket `openssh` dan `nmap` di Termux kamu dengan perintah berikut:
+**Langkah ke-2:** Instal paket `openssh` dan `termux-services` di Termux kamu dengan perintah berikut:
 
 ```shell
-pkg i -y openssh nmap termux-services
+pkg i -y openssh termux-services
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
 ```shell
-apt update; apt install -y openssh nmap termux-services
+apt update; apt install -y openssh termux-services
+```
+
+Setelah ini dan kalau mau, Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
+
+```shell
+pkg i -y nmap iproute2
+```
+
+Atau, di bawah ini jika Anda ingin menggunakan APT:
+
+```shell
+apt update; apt install -y nmap iproute2
 ```
 
 **Langkah ke-3:** Kamu perlu menyetel kata sandi untuk Nama Pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan "Enter", tanpa perlu mengingat/menyebutkan Nama Penggunanya secara spesifik dan tanpa perlu memasukkan argumen apapun.
@@ -94,9 +106,15 @@ Ini serius, kamu gak perlu menyebutkan ataupun mengingat Nama Pengguna (_Usernam
 
 **Langkah ke-4:** Aktifkan Server SSH nya dengan mengetik `sshd` di dalam Termux, lalu tekan "Enter"
 
-**Langkah ke-5:** Cek terlebih dahulu untuk memastikan Server SSH aktif di Termux dengan mengetikkan `nmap localhost`, lalu tekan "Enter".
+**Langkah ke-5:** Cek terlebih dahulu untuk memastikan Server SSH aktif di Termux dengan mengetikkan `pidof sshd`, lalu tekan "Enter".
 
-Jika hasil keluarannya seperti berikut:
+Jika tidak ada hasil keluaran apapun, maka artinya Server SSH tidak dalam keadaan aktif.
+
+Jika ada hasil keluaran yang berbentuk angka, maka artinya Server SSH dalam keadaan aktif.
+
+Selain menggunakan `pidof`, jika tadi Anda menginstal `nmap`, maka Anda juga dapat mengeceknya melalui `nmap` untuk memastikan _port_ mana saja yang aktif.
+
+Eksekusikan perintah `nmap localhost` di dalam Termux untuk mengeceknya melalui `nmap`, lalu hasilnya akan seperti berikut:
 
 ```shell
 $ nmap localhost
@@ -110,7 +128,7 @@ PORT     STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.20 seconds
 ```
 
-Atau, lebih tepatnya ada tulisan `8022/tcp open oa-system`, maka artinya Server SSH dalam keadaan aktif.
+Jika ada tulisan seperti `8022/tcp open oa-system` di atas, maka artinya Server SSH dalam keadaan aktif dan _port_ `8022` itu terbuka.
 
 Oh iya, jangan lupa bahwa `8022` adalah _port_ SSH yang digunakan, jadi ketika Anda login, pastikan agar menggunakan _port_ `8022`.
 
@@ -140,7 +158,7 @@ Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti
 
 Jika Anda menggunakan **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**), maka cari Alamat IP Anda di antarmuka `ap0` atau `swlan0`, bukan `wlan0`. Mungkin nama antarmukanya akan berbeda di beberapa perangkat tertentu, tapi biasanya salah satu dari kedua nama tersebut digunakan sebagai nama antarmuka untuk Penambatan Hotspot.
 
-Selain `ifconfig`, Anda juga dapat mencari Alamat IP-nya melalui perintah `ip addr list (nama_antarmuka)`.
+Selain `ifconfig`, jika tadi Anda menginstal `iproute2`, maka Anda juga dapat mencari Alamat IP-nya melalui perintah `ip addr list (nama_antarmuka)`.
 
 Contoh perintah dan keluarannya seperti berikut:
 

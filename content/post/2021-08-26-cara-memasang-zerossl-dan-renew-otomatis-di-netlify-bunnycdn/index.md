@@ -1242,7 +1242,7 @@ Le_PreHook='echo "Halo, Dunia!"'
 
 Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `$HOME/.acme.sh/domain.com/`).
 
-Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh` atau `/data/data/com.termux/files/usr/bin/sh renew.sh` jika Anda menggunakan Termux)
+Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh` atau `/data/data/com.termux/files/usr/bin/env sh renew.sh` jika Anda menggunakan Termux)
 
 Tapi perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
@@ -1369,7 +1369,7 @@ echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ss
 
 **Catatan:** Skrip di atas juga dapat bekerja di _Shell_ yang sangat berbeda dan tidak sesuai dengan POSIX seperti `fish`, karena mengikuti _Shebang_ yang telah saya tentukan, yakni `/usr/bin/env sh`. Jadi, skrip di atas seharusnya dapat dieksekusi oleh _Shell_ apapun selama mengikuti/'menghormati' _Shebang_ yang telah ditentukan.
 
-Skrip di atas menggunakan `/usr/bin/env sh` sebagai _shebang_. Jika Anda adalah pengguna Termux dan kalau mau, Anda bisa menggantinya menjadi `/data/data/com.termux/files/usr/bin/sh`, meskipun Termux sendiri mentoleransi penggunaan `/usr/bin/env sh` sebagai _shebang_.
+Skrip di atas menggunakan `/usr/bin/env sh` sebagai _shebang_. Jika Anda adalah pengguna Termux dan kalau mau, Anda bisa menggantinya menjadi `/data/data/com.termux/files/usr/bin/env sh`, meskipun Termux sendiri mentoleransi penggunaan `/usr/bin/env sh` sebagai _shebang_.
 
 Silahkan Anda pelajari skrip di atas dan kembangkan sendiri skripnya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
 
