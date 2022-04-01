@@ -121,7 +121,7 @@ headers:
       manifest-src 'none';
       worker-src 'none';
       prefetch-src https://cdn.statically.io/;
-      sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-top-navigation-by-user-activation allow-downloads
+      sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-downloads
 
 # CSP for main pages
 #- for: /**/**/
