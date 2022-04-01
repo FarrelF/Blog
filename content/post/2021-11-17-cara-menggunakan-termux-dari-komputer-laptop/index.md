@@ -77,7 +77,7 @@ Atau, di bawah ini jika Anda ingin menggunakan APT:
 apt update; apt install -y openssh termux-services
 ```
 
-Setelah ini dan kalau mau, Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
+Kalau mau, setelah ini Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
 
 ```shell
 pkg i -y nmap iproute2

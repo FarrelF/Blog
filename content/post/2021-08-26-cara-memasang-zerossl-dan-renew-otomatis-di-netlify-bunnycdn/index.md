@@ -1487,6 +1487,10 @@ acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
 
 Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Server ACME yang dimiliki oleh CA, seperti yang telah saya bahas di pertanyaan sebelumnya.
 
+Setelah menerbitkan ulang sertifikatnya, tentu saja acme.sh tidak mengeksekusikan skrip _renewal-nya_ secara otomatis, jadi sertifikat SSL yang terpasang pada Aplikasi/Web yang Anda miliki tidak terganti, apalagi jika Anda lebih memilih untuk membuatkan skripnya secara terpisah.
+
+**Lalu, bagaimana caranya agar saya bisa menggantikan sertifikatnya?** Ya, Anda tinggal eksekusikan saja skrip _renewal_ tersebut secara manual untuk memasangkan sertifikat SSL yang terbaru di Sirus Web/Blog atau Aplikasi Anda.
+
 ### Pertanyaan ke-7: Bagaimana caranya agar saya bisa menghapus sertifikatnya? {#pertanyaan-ke7}
 **Jawab:** Anda bisa menghapusnya dengan perintah berikut:
 
@@ -1686,7 +1690,7 @@ Setelah menyimpannya dan menjalankan perkakas acme.sh untuk menerbitkan sertifik
 
 Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Kredensialnya, entah itu ganti "API Token" atau/dan "Account ID"-nya, maka Anda tinggal ganti saja nilai dari variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
 
-Kalau mau cepat, Anda bisa salin dan tempelkan perintah berikut ke dalam Terminal Anda.
+Kalau mau cepat, Anda bisa salin, lalu tempelkan perintah berikut ke dalam Terminal Anda.
 
 Gunakan Perintah berikut ini jika Anda ingin menggantikan dua-duanya:
 
@@ -1715,11 +1719,11 @@ Setelah itu, coba perbarui/terbitkan lagi sertifikatnya, dengan begini acme.sh a
 
 Untuk Sistem Operasinya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows. Di Android juga bisa, tapi saya sarankan unduh, instal dan gunakan aplikasi Termux untuk itu.
 
-### Pertanyaan ke-21: Bagaimana caranya agar saya bisa menyalinkan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke21}
-**Jawab:** Bisa sekali, cara menyalinkan acme.sh ke dalam Perangkat lainnya sebagai berikut:
+### Pertanyaan ke-21: Bagaimana cara memindahkan salinan acme.sh ke dalam Perangkat lain? {#pertanyaan-ke21}
+**Jawab:** Bisa sekali, cara memindahkan acme.sh ke dalam Perangkat lainnya sebagai berikut:
 
-0. Pastikan perangkat yang Anda tuju/perangkat baru Anda sudah memenuhi [persiapannya](#persiapan) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
-1. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat baru dari perangkat lama Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari perangkat lama Anda:
+1. Pastikan perangkat yang Anda tuju/perangkat baru Anda sudah memenuhi [persiapannya](#persiapan) terlebih dahulu. Sudah? Kalau begitu, Anda bisa lanjut.
+2. Sebelum itu, Anda perlu menyalinkan direktori acme.sh ke perangkat baru dari perangkat lama Anda. Kompresi direktori dan berkas tersebut dengan perintah berikut dari perangkat lama Anda:
 
 ```shell
 cd
@@ -1882,7 +1886,7 @@ Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang
 Berikut adalah referensinya:
 
 ### Referensi Penggunaan API Bunny.net
-- Halaman [Dokumentasi API Bunny.net](https://docs.bunny.net/reference/pull-zone#pullzonepublic_addcertificate)
+- Halaman [Dokumentasi API Bunny.net](https://docs.bunny.net/reference/pullzonepublic_addcertificate)
 - Cuplikan berikut adalah Obrolan di Dukungan Tiket yang menyatakan jika ingin memasangkan sertifikat SSL menggunakan panggilan API-nya, maka berkas-berkas tersebut harus dikirimkan dalam bentuk Base64:
 
 ![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan](Bunny.net_API_Support_Ticket.png)
@@ -1903,7 +1907,7 @@ Berikut adalah referensinya:
   6. Setelah muncul, arahkan kursor kamu ke sebelah kanan Panel, lalu kamu gulirkan itu ke bawah menggunakan tetikus (_mouse_) kamu sampai kamu menemukan bagian **"Request Payload"** atau sejenisnya.
   7. Jika ketemu, seperti itulah data yang akan kamu kirimkan ke Netlify saat memasang sertifikat SSL kamu secara manual
 
-- Untuk cara menghilangkan jeda barisnya (_line break_) dan menggantinya dengan karakter `\n`, saya pakai [jawaban dari "Ed Morton"](https://stackoverflow.com/a/38674872) di Stack Overflow sebagai referensi, jawabannya dilisensikan di bawah lisensi [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- Untuk cara menghilangkan jeda barisnya (_line break_) dan menggantinya dengan karakter `\n`, saya pakai [jawaban dari "Ed Morton"](https://stackoverflow.com/a/38674872) di Stack Overflow sebagai referensi, jawabannya dilisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ### Referensi untuk lainnya
 - Utas yang berjudul **"[How do I Crontab on Termux..](https://www.reddit.com/r/termux/comments/i27szk/how_do_i_crontab_on_termux/)"** di Reddit sebagai referensi untuk menginstal _Cron Job_ di Termux

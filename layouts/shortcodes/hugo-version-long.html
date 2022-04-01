@@ -1,5 +1,5 @@
 {{- $Platform := default "linux/amd64" (.Get "platform") -}}
-{{- $Hash := default (slicestr (hugo.CommitHash) 0 8) (.Get "hash") -}}
+{{- $Hash := default hugo.CommitHash (.Get "hash") -}}
 {{- $Version := default hugo.Version (.Get "version") -}}
 {{- $BuildDate := default hugo.BuildDate (.Get "buildDate") -}}
 {{- $IsExtended := default hugo.IsExtended (or (.Get "isExtended") (.Get "extended")) -}}
@@ -13,4 +13,4 @@
 {{- if eq $IsExtended true -}}
     {{- $Extended = "+extended" -}}
 {{- end -}}
-{{- printf "hugo v%s-%s%s %s BuildDate=%s%s" $Version ($Hash | upper) $Extended $Platform $BuildDate $VendorInfoText -}}
+{{- printf "hugo v%s-%s%s %s BuildDate=%s%s" $Version $Hash $Extended $Platform $BuildDate $VendorInfoText -}}
