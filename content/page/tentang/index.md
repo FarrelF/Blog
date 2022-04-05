@@ -50,7 +50,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
   - [Bunny Edge Storage](https://bunny.net/edge-storage) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
-- Sertifikat TLS/SSL: [ZeroSSL](https://zerossl.com)
+- Sertifikat TLS/SSL: [Google Trust Services](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 

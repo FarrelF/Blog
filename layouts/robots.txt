@@ -1,0 +1,9 @@
+User-Agent: *
+{{ if eq hugo.IsProduction true }}
+Disallow: /drafts/
+{{ range where .Data.Pages "Params.robotsDisallow" true }}Disallow: {{ .RelPermalink }}
+{{ end }}
+Sitemap: {{ "sitemap.xml" | absLangURL }}
+{{ else }}
+Disallow: *
+{{ end }}

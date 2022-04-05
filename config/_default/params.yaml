@@ -67,7 +67,7 @@ imageProcessing:
 twemoji:
   enabled: true
   options:
-    baseURL: /twemoji/14.0.0/
+    baseURL: /twemoji/14.0.2/
     path: svg
     ext: .svg
 

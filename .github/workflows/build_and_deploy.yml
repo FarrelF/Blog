@@ -92,7 +92,6 @@ jobs:
 
     - name: Building the Blog HTML
       run: |
-        rm static/robots_preview
         hugo --gc --minify --cacheDir ${PWD}/cache
 
     - name: Compressing Static Web Files

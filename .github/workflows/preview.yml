@@ -94,7 +94,6 @@ jobs:
     - name: Building the Blog HTML (Preview)
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
-        mv static/robots_preview static/robots.txt
         hugo --gc --minify --buildFuture --environment staging --cacheDir ${PWD}/cache -b https://deploy-preview.farrel.franqois.id
 
     - name: Compressing Static Web Files

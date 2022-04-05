@@ -1,6 +1,6 @@
-github.com/CaiJimmy/hugo-theme-stack/v3 v3.10.0 h1:M0LF4RPtDT/2oOzMOkq4+fwXmuMeNYtF7nF/M1xmjeY=
-github.com/CaiJimmy/hugo-theme-stack/v3 v3.10.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
+github.com/CaiJimmy/hugo-theme-stack/v3 v3.11.0 h1:HyHdT59BYMdPSjDljIWpJY/DT+NPiZgfqMlJBQwOa1A=
+github.com/CaiJimmy/hugo-theme-stack/v3 v3.11.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
 github.com/FarrelF/stack-modified v0.0.0-20220318142842-f9ce26acbc43 h1:Rb60kzr+vw2kftWOvh/27kjFvHvX4JRVwezRk7CioEE=
 github.com/FarrelF/stack-modified v0.0.0-20220318142842-f9ce26acbc43/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
-github.com/twitter/twemoji v14.0.0+incompatible h1:LOctre+/aCkzVLljVSbWFIRmprleCO83hQJPY2u/5nE=
-github.com/twitter/twemoji v14.0.0+incompatible/go.mod h1:06L6PdKuWDx/Yh6s4B7yGkAeBmWZzbFZgfNnWlJPPYM=
+github.com/twitter/twemoji v14.0.2+incompatible h1:VeWJj1W5zCuRtv+mx+tHqWuIAb1SynMj/hvemifv1uw=
+github.com/twitter/twemoji v14.0.2+incompatible/go.mod h1:06L6PdKuWDx/Yh6s4B7yGkAeBmWZzbFZgfNnWlJPPYM=
