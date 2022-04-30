@@ -22,16 +22,16 @@ custom:
 ---
 
 ## Tentang Saya
-Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewa nya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
+Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
 
 ## Tentang Blog ini
 ### Ikhtisar
 Blog ini merupakan blog pribadi milik saya, tapi yang saya bahas ini bukan sekadar tentang pribadi saya saja. Di blog ini, saya membahas apa yang ingin saya bahas.
 
-Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasan nya, entah itu bikin tutorial, beropini, bikin catatan biar gak lupa atau sekadar bikin diari kalo niat.
+Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasannya, entah itu bikin tutorial, beropini, bikin catatan biar gak lupa atau sekadar bikin diari kalo niat.
 
 ### Penggunaan Blog
-Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu beberapa komponen yang membantu nya.
+Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu beberapa komponen yang membantunya.
 
 Berikut ini adalah apa yang saya pakai untuk blog ini:
 
@@ -44,26 +44,32 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain:
   - [PT Awan Kilat Semesta](https://paas.id/) sebagai Registrar Domain
-  - [IDCloudHost](https://afiliasi.farrel.franqois.id/idch) sebagai Reseller/Pengelola Domainnya
+  - [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) sebagai Reseller/Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
-  - [Bunny Edge Storage](https://bunny.net/edge-storage) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
-- Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)
-- Sertifikat TLS/SSL: [Google Trust Services](https://pki.goog)
+  - [Bunny Edge Storage](https://afiliasi.farrel.franqois.id/bunnycdn/?page=edge-storage) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
+- Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn/)
+- Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
-Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lain nya, silahkan kunjungi alamat URL berikut:
+Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silahkan kunjungi alamat URL berikut:
 
 ```plain
 https://github.com/FarrelF/Blog
 ```
 
+Atau, alamat URL berikut untuk kode sumber cerminnya:
+
+```plain
+https://gitlab.com/FarrelF/Blog
+```
+
 Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog).
 
-Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakan nya.
+Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakannya.
 
 ## Informasi Kontak
 ### Surel
@@ -94,6 +100,7 @@ Unduh kunci:
 
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
-- [Trakteer](https://trakteer.id/farrelf)
+- Alamat proksi BI-FAST: farrel(at)franqois(dot)id
 - Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
-- Mengklik tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di laman ini juga ada tautan afiliasi, hehe 😁
+- Kamu bisa [traktir coklat panas ke saya](https://trakteer.id/farrelf) melalui Trakteer
+- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasi, hehe 😁

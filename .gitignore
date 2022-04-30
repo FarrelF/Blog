@@ -3,6 +3,7 @@
 node_modules
 dist
 tmp
+*.bak
 
 # Generated files by Windows 10 while transferring files to WSL
 *:Zone.identifier

@@ -95,19 +95,19 @@ headers:
       sync-xhr 'none';
       xr-spatial-tracking 'none'
 
-    Content-Security-Policy: >
+    Content-Security-Policy-Report-Only: >
       default-src 'none';
-      script-src 'self' 'unsafe-inline' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
+      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
       'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
-      'sha256-tju0DFy7WnEhM4CjTO67xvil6ERhn1ShrrUxVcTOd50=' 'sha256-34ePYAVhz26TlIIcKtH3N/noQl+FLQA6+etwhntWESI='
-      'sha256-DJEfHiFbpMGtKrEglCcOocyyb8XfWYHJ1qgn1k68uKY=' 'sha256-iiYY3madJ9dlxoMNyCHLbK9ayJYfGzGPj1UBkULoeK4='
+      'sha256-3PCW1zxTJi8yGvS0zNZ5/fb+zzVHyNIIdTKU5Q4K6e4=' 'sha256-juSSTJ0r3BM0BpKu4eQcE2SU3TL/EYfFjLnijxrD0/4='
+      'sha256-L8WTTFP+/cswleatcnZb7vLUtYG/enL03+wgq5GqiPo=' 'sha256-iiYY3madJ9dlxoMNyCHLbK9ayJYfGzGPj1UBkULoeK4='
       'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=' 'sha256-X5Lf3t41J296Jo+QRWSTxJBSKKaCTEPeRX5Mt82Uw4s='
-      'sha256-QFwCnCKYppKaNLFwju258z8VZxIC7AgWBz/fT6DBiO0=' 'sha256-uQYvZ7jHUN+cIjQAMRbluynsmeXw/ZUBGSk2sgOlqLI='
-      'sha256-4naJFnLqBTYs0cgxApgChcIRtIfGe67y8/E7Sa5bsMg=';
-      style-src 'self' 'unsafe-inline' 'unsafe-hashes' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/
+      'sha256-QFwCnCKYppKaNLFwju258z8VZxIC7AgWBz/fT6DBiO0=' 'sha256-EQrK50U/BqXmfOQJNK2A4LcxpnrJ7Vpp3ppuKPIK4VE='
+      'sha256-xnpGhATVX7iH3/FKSYnaMj7u3LYvAU3Mb5A+lya4nc8=';
+      style-src 'self' 'unsafe-hashes' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/
       'sha256-pF9BEz8CU4Be+mXxBIZBT/yDe+3L5nmormdJ7pJTfew=' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o='
       'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ=' 'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo='
-      'sha256-rKe1O4wMQqCkLQ9l3ZSM8wXxD+vP+51p1/9Pfuc5GPU=' 'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI=';
+      'sha256-8r2wkNd7y5t42rwVYQq1N86jT4H+QpO/L30lmmVGGcs=' 'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI=';
       font-src 'self';
       img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
       base-uri 'self';
@@ -130,8 +130,8 @@ headers:
 #      default-src 'none';
 #      script-src 'self' 'unsafe-inline'
 #      'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
-#      'sha256-tju0DFy7WnEhM4CjTO67xvil6ERhn1ShrrUxVcTOd50=' 'sha256-34ePYAVhz26TlIIcKtH3N/noQl+FLQA6+etwhntWESI='
-#      'sha256-DJEfHiFbpMGtKrEglCcOocyyb8XfWYHJ1qgn1k68uKY=' 'sha256-iiYY3madJ9dlxoMNyCHLbK9ayJYfGzGPj1UBkULoeK4='
+#      'sha256-3PCW1zxTJi8yGvS0zNZ5/fb+zzVHyNIIdTKU5Q4K6e4=' 'sha256-juSSTJ0r3BM0BpKu4eQcE2SU3TL/EYfFjLnijxrD0/4='
+#      'sha256-L8WTTFP+/cswleatcnZb7vLUtYG/enL03+wgq5GqiPo=' 'sha256-iiYY3madJ9dlxoMNyCHLbK9ayJYfGzGPj1UBkULoeK4=';
 #       style-src 'self' 'unsafe-inline' 'unsafe-hashes'
 #      'sha256-pF9BEz8CU4Be+mXxBIZBT/yDe+3L5nmormdJ7pJTfew=' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=';
 #      font-src 'self';
