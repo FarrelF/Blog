@@ -135,7 +135,6 @@ Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebaga
 - OpenSSL (atau LibreSSL?)
 - cURL
 - Cron
-- _Shell_ yang disarankan: _Shell_ seperti GNU Bash (`bash`), Z Shell (`zsh`), atau Bourne-shell (`sh`). Penggunaan `fish` belum bisa saya sarankan, selain sangat berbeda, mungkin hasilnya tidak sesuai ekspektasi, terutama jika Anda menggunakan Netlify
 
 Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
 {{< / spoiler >}}
@@ -143,12 +142,6 @@ Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh
 Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk \*nix.
 
 Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
-
-Untuk _Shell-nya_, saya sarankan agar Anda gunakan _Shell_ seperti GNU Bash (`bash`), Z Shell (`zsh`) atau Bourne-shell (`sh`).
-
-Saya belum menyarankan penggunaan `fish` sebagai _Shell_, terutama jika Anda menggunakan Netlify. Kenapa? Selain sangat berbeda, hasilnya mungkin akan tidak sesuai dengan ekspektasi Anda, terutama jika Anda memasukkan isi berkas sertifikat yang akan dikirimkan ke Netlify ke dalam variabel atau mungkin saya belum mempelajarinya lebih lanjut.
-
-Saya tetap membahas cara memasukkan variabel di dalam _Shell_ `fish` jika Anda tetap ingin menggunakannya, tapi saya gak membahasnya lebih lanjut sampai memasukkan isi berkas sertifikat ke dalam variabel, terutama untuk Netlify.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas lebih lanjut di sini.
 
@@ -975,9 +968,9 @@ Atau, jika mereka cuma meminta 2 Informasi saja, maka berkas yang perlu Anda gun
 - `fullchain.cer` (Sebagai sertifikatnya)
 - `domain.com.key` (Sebagai Kuncinya)
 
-Udah itu saja? Udah, hanya itu yang perlu kamu unggah nantinya. Berkas `.csr`, `.csr.conf` dan `.conf` tidak perlu kamu unggah sama sekali, karena itu akan berguna nantinya untuk memperbarui sertifikat SSL Anda.
-
 Kenapa bukan `domain.com.cer`? Karena `fullchain.cer` itu merupakan gabungan dari `domain.com.cer` dan `ca.cer`. 
+
+Udah itu saja? Udah, hanya itu yang perlu kamu unggah nantinya. Berkas `.csr`, `.csr.conf` dan `.conf` tidak perlu kamu unggah sama sekali, karena itu akan berguna nantinya untuk memperbarui sertifikat SSL Anda.
 
 Praktik terbaik dalam memasang Sertifikat SSL, selain sertifikat untuk domain, adalah Anda diharuskan untuk memasang/memberikan Informasi mengenai Kunci dan Sertifikat Penengah (_Intermediate Certificate_) dari CA kepada penyedianya.
 
@@ -1013,13 +1006,6 @@ Jika Anda melihat cuplikan di atas, **API ID** yang saya tunjuk itu merupakan **
 Langkah selanjutnya adalah memasang Sertifikat SSL melalui API-nya.
 
 #### Memasang Sertifikat SSL melalui API dari Netlify
-
-{{< info text="Catatan untuk Pengguna `fish`" >}}
-Jika Anda menggunakan `fish` sebagai _Shell_ baku, mungkin perintah di bawah ini akan tidak bekerja, karena cara memasukkan variabelnya yang sangat berbeda ketimbang _Shell_ pada umumnya dan hasilnya mungkin tidak akan sesuai dengan ekspektasi jikapun bisa.
-
-Jadi, saya sarankan agar Anda gunakan _Shell_ lainnya seperti `bash`, `zsh` atau `sh` terlebih dahulu untuk sementara.
-{{< / info >}}
-
 Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Netlify. Sebelum itu, Netlify meminta agar kita mengirimkan 3 Informasi/Berkas untuk memasang Sertifikat SSL-nya.
 
 Agar kita dapat mengirimkan berkas-berkas itu melalui API-nya, maka sebelum mengakses API-nya, Anda perlu menyimpan isi dari 3 berkas tersebut ke dalam sebuah Variabel. 
@@ -1035,13 +1021,22 @@ PLAIN_CA="$(awk '{printf "%s\\n", $0}' "$HOME"/.acme.sh/domain.com/ca.cer)"
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
-Atau, di bawah ini jika Anda ingin cara lain:
+Atau di bawah ini jika Anda ingin cara lain:
 
 ```shell
 PLAIN_CERT="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/domain.com.cer)"
 PLAIN_KEY="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/domain.com.key)"
 PLAIN_CA="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/ca.cer)"
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
+```
+
+Atau di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
+
+```shell
+set PLAIN_CERT (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/domain.com.cer)
+set PLAIN_KEY (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/domain.com.key)
+set PLAIN_CA (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/ca.cer)
+set NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
 Silahkan ubah direktori dan nama berkas di atas sesuai dengan letak sertifikat SSL yang telah tersimpan di dalam Perangkat Anda dan ubah teks `ACCESS_TOKEN_KAMU_DI_SINI` menjadi _Personal access token_ yang telah Anda buat dan simpan sebelumnya.
@@ -1195,7 +1190,7 @@ Anda bisa membaca dan mempelajari masing-masing dokumentasinya sebagai referensi
 ## Konfigurasi acme.sh untuk Domain tertentu {#konfigurasi-acme-sh-untuk-domain}
 Salah satu kelebihan acme.sh selain ringan dan kompatibel di hampir semua Sistem Operasi berbasis \*nix adalah mampu memberikan fleksibilitas bagi Anda untuk mengatur perkakasnya dan mengatur apa yang dilakukan baik sebelum dan sesudah mengeksekusi perkakas tersebut melalui konfigurasinya.
 
-Konfigurasi tersebut bisa Anda lakukan untuk Domain tertentu, sehingga tidak semua Domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak penyedia Hosting/CDN memperlakukan setiap Domain dengan berbeda-beda.
+Konfigurasi tersebut bisa Anda lakukan untuk Domain tertentu, sehingga tidak semua Domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak penyedia Hosting/CDN memperlakukan setiap Domain-nya dengan berbeda-beda.
 
 Jadi, sebelum membuat/menentukan skrip untuk _me-renew_/memperbarui sertifikat SSL, mungkin ada baiknya Anda pelajari terlebih dahulu cara mengkonfigurasi acme.sh untuk Domain tertentu di sini, meskipun ini bisa langsung Anda [lewati](#renew-ssl).
 
@@ -1400,9 +1395,11 @@ Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell) untuk membuat s
 
 Jika Anda menyimpan skrip tersebut di dalam folder `$HOME`, maka Anda dapat menambahkan variabelnya di sana, contoh: `/usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh`.
 
-`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan Perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silahkan Anda ganti parameter tersebut dengan sesuka Anda, selama masih mengikuti aturan dari Cron.
+`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silahkan Anda ganti parameter tersebut sesuka Anda, selama masih mengikuti aturan dari Cron.
 
-Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setiap jam ke-2 dari pukul 0 hingga 23, atau setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst), maka Anda bisa menggantinya menjadi `0 */2 * * *`. Contohnya seperti berikut:
+Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setiap jam ke-2 dari pukul 0 hingga 23, atau setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst), maka Anda bisa menggantinya menjadi `0 */2 * * *`.
+
+Contohnya seperti berikut:
 
 ```crontab
 0 */2 * * * /usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh > /dev/null
@@ -1414,7 +1411,7 @@ Atau, contoh lainnya seperti berikut:
 0 */2 * * * "/home/username/.acme.sh"/acme.sh --cron --home "/home/username/.acme.sh" > /dev/null
 ```
 
-Atau, Anda bisa manfaatkan Situs Web [Crontab.guru](https://crontab.guru/) untuk membantu Anda dalam menentukan Parameter pada _Crontab-nya_.
+Atau, Anda bisa manfaatkan Situs Web [Crontab.guru](https://crontab.guru/) untuk membantu Anda dalam menentukan parameter pada _Crontab-nya_.
 
 Untuk `> /dev/null`-nya biarkan saja, fungsinya itu hanya membuang keluaran, karena ini dijalankan melalui _Cron Job_, maka keluaran tidak diperlukan untuk itu. Tapi Anda bisa mengganti atau menghapusnya jika merasa tidak yakin.
 
@@ -1734,32 +1731,32 @@ Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asa
 
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh`-nya juga.
 
-2. Setelah mengkompresinya, silahkan Anda langsung menyalinkannya ke dalam perangkat yang ingin Anda tuju/perangkat baru Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkannya
-3. (**Catatan:** Mulai sekarang/di langkah ini, gunakan perangkat yang Anda tuju/perangkat baru Anda sampai seterusnya) Setelah disalin ke dalam perangkat baru, silahkan Anda pindahkan berkas tersebut ke direktori `$HOME` atau `~` yang ada di dalam perangkat baru Anda.
+3. Setelah mengkompresinya, silahkan Anda langsung menyalinkannya ke dalam perangkat yang ingin Anda tuju/perangkat baru Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkannya
+4. (**Catatan:** Mulai sekarang/di langkah ini, gunakan perangkat yang Anda tuju/perangkat baru Anda sampai seterusnya) Setelah disalin ke dalam perangkat baru, silahkan Anda pindahkan berkas tersebut ke direktori `$HOME` atau `~` yang ada di dalam perangkat baru Anda.
 
-4. Setelah itu, buka Terminalnya dari perangkat baru, lalu instal terlebih dahulu acme.sh-nya di dalam perangkatnya dengan perintah berikut:
+5. Setelah itu, buka Terminalnya dari perangkat baru, lalu instal terlebih dahulu acme.sh-nya di dalam perangkatnya dengan perintah berikut:
 ```bash
 curl https://get.acme.sh | sh -s
 ```
-5. Setelah Anda menginstalnya, dekripsi berkas `acme.sh.tar.gz` jika Anda melakukan enkripsi, lalu ekstrak berkas tersebut dengan perintah berikut:
+6. Setelah Anda menginstalnya, dekripsi berkas `acme.sh.tar.gz` jika Anda melakukan enkripsi, lalu ekstrak berkas tersebut dengan perintah berikut:
 ```bash
 tar -xvzf acme.sh.tar.gz
 ```
-6. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `$HOME/.acme.sh/account.conf` dengan perintah berikut:
+7. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `$HOME/.acme.sh/account.conf` dengan perintah berikut:
 ```bash
 cp "$HOME"/.acme.sh/account.conf "$HOME"/.acme.sh/account.conf.1 ## Backup dulu
 sed -i '/USER\_PATH\=/d' "$HOME"/.acme.sh/account.conf
 printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 ```
-7. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
+8. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silahkan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
    Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis di atur setelah Anda menginstal perkakas acme.sh-nya. 
 
    Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam perangkat baru Anda untuk memasang _Cron Job-nya_.
 
-8. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
+9. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
 
-9. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan sertifikat SSL di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikat SSL-nya hanya karena Informasi/kredensialnya sama.
+10. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan sertifikat SSL di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikat SSL-nya hanya karena Informasi/kredensialnya sama.
 
     Caranya bisa hapus manual melalui `crontab -e`, atau gunakan perintah `acme.sh --uninstall-cronjob` untuk menghapusnya secara otomatis dari perangkat lama Anda
 
@@ -1779,7 +1776,9 @@ Sertifikatnya sendiri tidak mempunyai andil besar dalam menentukan seberapa kuat
 
 Bahkan jika Anda menggunakan sertifikat yang telah Anda tandatangani sendiripun (_self-signed certificate_), proses Enkripsinya tetap berjalan seperti biasa saat mengunjunginya, tapi Blog/Web-nya menjadi tidak bisa diakses dari perangkat lain. Kenapa? Karena sertifikat yang digunakan itu tidak dipercaya oleh perangkat lunak secara universal.
 
-Sertifikat SSL sendiri hanya membawakan Kunci Publik (_Public key_) yang tertera di dalamnya yang digunakan untuk membantu berjalannya proses 'jabat tangan' TLS (_TLS handshake_) agar menciptakan proses transaksi yang aman saat mengunjungi sebuah Web/Blog atau mengirimkan data ke dalam sebuah Web serta menerima data dari sebuah Web.
+Sertifikat SSL sendiri hanya membawakan Kunci Publik (_Public key_) yang tertera di dalamnya beserta algoritma tanda tangan yang digunakan untuk membantu berjalannya proses 'jabat tangan' TLS (_TLS handshake_) agar menciptakan proses transaksi yang aman saat mengunjungi sebuah Web/Blog atau mengirimkan data ke dalam sebuah Web serta menerima data dari sebuah Web.
+
+Jadi, sertifikat SSL itu sendiri memang memiliki andil dalam halnya keamanan bertransaksi, namun secarik sertifikat saja tidak bisa menentukan seberapa kuatnya enkripsi karena parameter terbesarnya adalah berasal dari Server itu sendiri, meski sertifikatnya membawa kunci publik untuk membantu proses enkripsi data.
 
 Selain itu, saat sertifikat SSL ingin dibuat dengan acme.sh, Anda bisa menentukan ukuran dan jenis kuncinya dengan bebas, semakin besar ukuran kuncinya maka semakin kuat kuncinya.
 
@@ -1879,6 +1878,9 @@ Pada akhirnya, saya mendapatkan ilmu baru yang cukup berguna juga, setidaknya un
 Itu aja sih kekurangannya untuk saat ini, masalah sertifikat Akar yang berubah itu adalah masalah lain, karena yang kamu tanyakan adalah saat ini, bukan kedepannya.
 
 Kalau sertifikat akarnya berubah, saya tinggal putuskan apakah CA tersebut perlu diganti atau tidaknya.
+
+### Pertanyaan ke-28: Saya memasang CAA Record pada DNS Domain saya, apa CAA yang harus saya isi biar supaya saya bisa menggunakan ZeroSSL? {#pertanyaan-ke28}
+**Jawab:** Anda bisa mengisinya dengan `sectigo.com`. Kenapa? Karena pada dasarnya ia menggunakan sertifikat SSL dari Sectigo, sehingga ZeroSSL itu sebenarnya tidak 'berdiri sendiri', melainkan menjalin kerjasama dengan Sectigo.
 
 ## Referensi lain di Artikel ini
 Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang sebelumnya tidak saya sebut/bahas.
