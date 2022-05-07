@@ -29,7 +29,9 @@ Description: >
 ## Pembuka
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).
 
-Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri.
+~~Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri.~~
+
+**PEMBARUAN, 08 Mei 2022:** Blog ini telah memakai Google Trust Services (GTS), tidak lagi menggunakan ZeroSSL, namun semua instruksi yang artikel ini bahas tidak banyak berubah/tidak berubah total.
 
 Kendala saat pemasangannya adalah tidak banyak penyedia yang mendukungnya, kebanyakan hanya mendukung Let's Encrypt saja.
 
@@ -329,9 +331,9 @@ Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL untuk semua S
 
 Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
 
-Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL-nya, maka acme.sh harus dapat mengakses dan merubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
+Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL-nya, maka acme.sh harus dapat mengakses dan mengubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
-Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan merubah _DNS Record-nya_ dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
+Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah _DNS Record-nya_ dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
 
 **Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record-nya_ secara manual juga.
 
@@ -366,7 +368,7 @@ Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 ![Memilih Templat untuk membuat Token](Cloudflare_Create_API_Token_2.png)
 
 4. Setelah menentukan templatnya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
-   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara baku, nama Token menggunakan nama templatnya, Anda bisa rubah itu sesuka Anda dengan mengklik pada ikon Pensil di sebelah namanya
+   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara baku, nama Token menggunakan nama templatnya, Anda bisa ubah itu sesuka Anda dengan mengklik pada ikon Pensil di sebelah namanya
    - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat **Edit zone DNS**, maka seharusnya Informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **Zone**, **DNS** dan **Edit**, kalau sudah, Anda bisa lewati ini.
    - **Zone Resources**: Itu merupakan cakupan Zona (_Zone_) untuk Token ini. Jika Anda ingin Token yang Anda buat itu dapat mencakup semua Domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
        - **Include** dan **All zones**
@@ -940,7 +942,7 @@ ACCOUNT_EMAIL='aku@contoh.com'
 USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin'
 ```
 
-Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya tidak valid, entah itu salah memasukkan atau kredensialnya tidak ada, Anda bisa menggantinya dengan merubah berkas tersebut dengan menggunakan Editor Teks favorit Anda.
+Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya tidak valid, entah itu salah memasukkan atau kredensialnya tidak ada, Anda bisa menggantinya dengan mengubah berkas tersebut dengan menggunakan Editor Teks favorit Anda.
 
 ### Isi direktori `domain.com` dan berkas yang diperlukan {#isi-direktori-domain-com}
 Berikut di bawah ini adalah isi dari direktori `domain.com` yang ada di dalam perkakas acme.sh, di dalamnya ada berkas-berkas yang diperlukan untuk memasangkan sertifikat SSL.
@@ -1356,11 +1358,11 @@ Le_NextRenewTimeStr='Mon Sep  6 01:49:03 UTC 2021'
 Le_NextRenewTime='1630806543'
 ```
 
-Jika Anda ingin merubahnya, silahkan Anda rubah/edit isi dari berkas tersebut dengan Editor Teks favorit Anda.
+Jika Anda ingin mengubahnya, silahkan Anda ubah/edit isi dari berkas tersebut dengan Editor Teks favorit Anda.
 
 Dari semua variabel, yang boleh dirubah adalah nilai dari variabel `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja.
 
-**Bagaimana dengan lainnya?** Untuk lainnya saya sarankan agar Anda tidak merubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
+**Bagaimana dengan lainnya?** Untuk lainnya saya sarankan agar Anda tidak mengubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
 
 Jadi, saya bahas yang boleh dirubah saja. Berikut adalah penjelasan mengenai nilai dari konfigurasi/variabel di atas:
 
@@ -1376,13 +1378,13 @@ Le_PreHook='echo "Halo, Dunia!"'
 
 Namun, jika perintah yang ingin Anda jalankan itu mengandung multi-baris atau lebih dari satu baris perintah, maka saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.conf` itu berada (cth. di dalam direktori `$HOME/.acme.sh/domain.com/`).
 
-Setelah itu, rubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh` atau `/data/data/com.termux/files/usr/bin/env sh renew.sh` jika Anda menggunakan Termux)
+Setelah itu, ubah nilai dari variabel `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya. (Disarankan: `/usr/bin/env sh nama-berkas-skrip.sh` atau `/data/data/com.termux/files/usr/bin/env sh renew.sh` jika Anda menggunakan Termux)
 
 Tapi perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
 Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakukan saat perintah tersebut dijalankan (cth. membuat sebuah berkas atau folder, melihat isi dari berkas dengan perintah `cat`, dll) tanpa menyertakan direktori lengkapnya, maka Anda akan melakukannya di dalam direktori `$HOME/.acme.sh/domain.com/`.
 
-Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda rubah sebelumnya akan menjadi seperti berikut:
+Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda ubah sebelumnya akan menjadi seperti berikut:
 
 ```shell
 __ACME_BASE64__START_<BARIS_PERINTAH_DALAM_BENTUK_BASE64>__ACME_BASE64__END_
@@ -1697,30 +1699,30 @@ Jika saya hanya menggunakan perintah `cat`, maka akan tampil isi dari berkas ser
 Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` menggunakan perintah `awk`, agar si Netlify bisa memproses permintaan dari kita.
 
 ### Pertanyaan ke-13: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke13}
-**Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat, seperti Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
+**Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat dan sistem operasi, seperti oleh Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
 
-Sedangkan `base64` itu belum tentu kompatibel dan akan sama hasil keluarannya untuk semua perangkat, `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluarannya.
+Sedangkan `base64` itu belum tentu kompatibel dan akan sama baik perintah ataupun hasil keluarannya di kebanyakan Sistem Operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
 
-Serta, macOS tidak menggunakan "GNU coreutils", sehingga perintah dan keluarannya pun belum tentu sama dengan perintah dan keluaran yang ada di Sistem Operasi lain, seperti GNU/Linux.
+Lagipula, tidak semua Sistem Operasi berbasis \*nix memakai GNU coreutils, sebut saja macOS, Alpine Linux, dan BSD yang merupakan tiga di antaranya, jadi ya wajar saja jika mereka berbeda bila dibandingkan dengan GNU/Linux.
 
-Terlebih, saya memiliki ekspektasi bahwa keluarannya adalah Base64 tanpa multi-baris atau baris pemisah (_line break_) sama sekali, sedangkan perintah `base64` belum tentu atau bahkan bisa jadi tidak memenuhi ekspektasi saya, tapi saya tidak yakin di Sistem Operasi lain akan seperti apa keluarannya, sejak perintah-perintahnya saja berbeda.
+Oleh karena itu, saya memakai OpenSSL sebagai gantinya, selain karena kompatibilitas, saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi yang berbasis \*nix seperti GNU/Linux, BSD, macOS, dan lainnya.
 
-Jadi, saya gunakan OpenSSL sebagai gantinya, karena saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, BSD, macOS, dan Sistem Operasi berbasis \*nix lainnya.
+Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tool` saja di dalam Termux.
 
-Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tool` saja di dalam Termux. Bagaimana dengan Windows? Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
+**Lalu, bagaimana dengan Windows?** Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
 
 Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
 
 Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silahkan Anda komentar di dalam kolom komentar yang telah disediakan.
 
 ### Pertanyaan ke-14: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang sertifikat SSL dengan mengikuti artikel ini, tapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
-**Jawab**: Jika Anda mempunyai Ponsel Pintar dengan menggunakan Sistem Operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui Ponsel saja dan Komputer PC/Laptopnya Anda gunakan untuk menerbitkan sertifikat atau saat memakai acme.sh.
+**Jawab**: Jika Anda mempunyai Ponsel Pintar dengan menggunakan Sistem Operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui Ponsel saja dan Komputer PC/Laptopnya Anda gunakan untuk meremot Ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
 
-Saya sarankan ini karena selain bisa dibawa ke mana-mana (karena berukuran kecil) dan konektivitasnya lebih luas/banyak, ponsel juga bisa diaktifkan lebih lama ketimbang Komputer/Laptop kamu, bahkan bisa diaktifkan selama 24/7 jam nonstop kalau kamu mau.
+Saya sarankan ini karena selain bisa dibawa ke mana-mana (karena berukuran kecil) dan konektivitasnya lebih luas/banyak, ponsel juga bisa diaktifkan lebih lama ketimbang Komputer/Laptop kamu, bahkan bisa diaktifkan selama 24/7 jam nonstop kalau kamu mau selama suhu perangkat terjaga dan arus listriknya sehat.
 
 Caranya sudah saya bahas secara lengkap di artikel ini.
 
-Tapi jika Anda terpaksa tidak menggunakannya dengan alasan apapun, Anda bisa melakukannya di Windows 10.
+Tapi jika Anda terpaksa tidak menggunakannya dengan alasan apapun, Anda bisa melakukannya di Windows 10 atau di atasnya melalui WSL.
 
 Untuk saat ini ada dua cara, yakni dengan menggunakan _Cron Job_ yang ada di salah satu distribusi WSL atau menggunakan "Task Scheduler". Cara-caranya sebagai berikut:
 
@@ -1803,7 +1805,7 @@ Tapi, jika tidak bisa diperbarui, maka Perangkat Lunak akan menggunakan Sertifik
 Jika sertifikat akar tersebut habis masa berlakunya, maka skenario terburuknya adalah Aplikasi/Web yang terpasang sertifikat SSL dengan akar tersebut akan tidak bisa diakses dari perangkat itu sebagaimana mestinya.
 
 ### Pertanyaan ke-18: Saya mengalami galat/_error_ selama menggunakan acme.sh, bagaimana cara mengatasinya? {#pertanyaan-ke18}
-**Jawab:** Cara mengatasinya itu bergantung dengan galatnya. Berbeda pesan galat, maka akan beda penyebabnya, beda penyebab maka solusi pun akan berbeda. Sehingga, saya tidak bisa memberikan solusi yang pasti.
+**Jawab:** Cara mengatasinya itu bergantung dengan galatnya. Berbeda pesan galat, maka akan beda penyebabnya, beda penyebab maka solusi pun akan berbeda pula. Sehingga, saya tidak bisa memberikan solusi yang pasti.
 
 Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untuk caranya, silahkan Anda kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
 
@@ -1813,10 +1815,10 @@ Jika Anda merasa kesulitan untuk mengatasi masalahnya, mungkin Anda bisa salinka
 
 Setelah menempelkannya, maka Anda perlu mengirimkan teksnya, sebelum dikirimkan mungkin Anda perlu menutupi beberapa informasi terlebih dahulu, setelah dikirimkan maka akan muncul Alamat URL untuk mengakses teksnya, salinkan Alamat URL tersebut dan tempelkan itu ke dalam kolom komentar nantinya.
 
-Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll selengkap mungkin di dalam kolom komentarnya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan tersedia.
+Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll, selengkap mungkin di dalam kolom komentarnya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan telah tersedia.
 
 ### Pertanyaan ke-19: Bagaimana cara menggantikan Kredensial Akun yang telah saya masukkan sebelumnya? Soalnya tadi saya salah memasukkannya {#pertanyaan-ke19}
-**Jawab:** Jika Anda ingin mengganti Kredensial yang telah Anda masukkan sebelumnya dengan alasan apapun, seperti salah ketik, kredensialnya telah diganti, dll, maka Anda bisa lakukan itu dengan merubah/deklarasi lagi variabel tersebut ke dalam _Shell-nya_, lalu rubah isi berkas `account.conf` yang berada di dalam direktori acme.sh
+**Jawab:** Jika Anda ingin mengganti Kredensial yang telah Anda masukkan sebelumnya dengan alasan apapun, seperti salah ketik, kredensialnya telah diganti, dll, maka Anda bisa lakukan itu dengan mengubah/deklarasi lagi variabel tersebut ke dalam _Shell-nya_, lalu ubah isi berkas `account.conf` yang berada di dalam direktori acme.sh
 
 Saat menerbitkan/memperbarui sertifikat, acme.sh secara otomatis akan menyimpan kredensial yang telah Anda masukkan sebelumnya melalui Terminal ke dalam berkas `account.conf` dalam bentuk variabel `SAVED_{VARIABEL}` dan akan digunakan lagi untuk memperbarui sertifikat SSL yang telah Anda terbitkan sebelumnya.
 
@@ -1870,10 +1872,10 @@ Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asa
 
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh`-nya juga.
 
-3. Setelah mengkompresinya, silahkan Anda langsung menyalinkannya ke dalam perangkat yang ingin Anda tuju/perangkat baru Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkannya
+3. Setelah mengkompresinya, silahkan langsung menyalinkannya ke dalam perangkat yang ingin Anda tuju/perangkat baru Anda. Jika perlu, silahkan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkannya
 4. (**Catatan:** Mulai sekarang/di langkah ini, gunakan perangkat yang Anda tuju/perangkat baru Anda sampai seterusnya) Setelah disalin ke dalam perangkat baru, silahkan Anda pindahkan berkas tersebut ke direktori `$HOME` atau `~` yang ada di dalam perangkat baru Anda.
 
-5. Setelah itu, buka Terminalnya dari perangkat baru, lalu instal terlebih dahulu acme.sh-nya di dalam perangkatnya dengan perintah berikut:
+5. Setelah itu, buka Terminalnya dari perangkat baru, lalu instal terlebih dahulu acme.sh-nya dengan perintah berikut:
 ```bash
 curl https://get.acme.sh | sh -s
 ```
@@ -1895,7 +1897,7 @@ printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 
 9. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
 
-10. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan sertifikat SSL di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikat SSL-nya hanya karena Informasi/kredensialnya sama.
+10. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan sertifikat SSL di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikat SSL-nya hanya karena kredensialnya sama.
 
     Caranya bisa hapus manual melalui `crontab -e`, atau gunakan perintah `acme.sh --uninstall-cronjob` untuk menghapusnya secara otomatis dari perangkat lama Anda
 
@@ -1909,19 +1911,17 @@ Jadi, sabarlah menunggu sampai beberapa waktu kemudian, entah itu beberapa menit
 ### Pertanyaan ke-23: Apakah benar bahwa SSL Gratisan itu memiliki Enkripsi yang lemah? {#pertanyaan-ke23}
 **Jawab:** Itu tidak benar, jika ada artikel yang menyatakan demikian, itu bisa dipastikan sesat. Karena Enkripsi, baik itu Algoritma, _Cipher_ (Penyandian) dan Entropi pada Enkripsi itu ditentukan sepenuhnya oleh Konfigurasi _Cipher Suite_ yang ada pada Server.
 
-Jadi, besaran kekuatan enkripsi pada Protokol TLS/SSL itu sepenuhnya ditentukan oleh Server, bukan oleh sertifikat maupun pihak CA.
+Sertifikatnya memang punya andil yang sangat penting sih dalam keamanan, karena ia membawa kunci publik di dalamnya, tapi yang melakukan enkripsi dan dekripsi tetap saja oleh Server dan Kliennya, bukan oleh Sertifikat atau pun pihak CA-nya.
 
-Sertifikatnya sendiri tidak mempunyai andil besar dalam menentukan seberapa kuatnya Enkripsi, karena sebenarnya Sertifikat SSL itu sendiri tidak melakukannya, itu cuma membuktikan kalau Blog/Web tersebut sudah 'ditandatangani' oleh pemilik yang bersangkutan melalui CA sebagai pihak ketiga/perantara, enkripsinya sendiri dilakukan oleh Perangkat Lunak yang digunakan oleh Klien dan Server.
+Lagipula, algoritma dan ukuran kunci publik yang bisa Anda dapatkan baik dari sertifikat SSL berbayar atau bahkan gratisan itu sama aja, kok, dan yang pasti Anda tidak akan mendapatkan kunci yang sudah 'tertinggal' (cth. RSA dengan ukuran 1024-bit).
 
-Bahkan jika Anda menggunakan sertifikat yang telah Anda tandatangani sendiripun (_self-signed certificate_), proses Enkripsinya tetap berjalan seperti biasa saat mengunjunginya, tapi Blog/Web-nya menjadi tidak bisa diakses dari perangkat lain. Kenapa? Karena sertifikat yang digunakan itu tidak dipercaya oleh perangkat lunak secara universal.
+Bahkan algoritma kunci publik yang digunakan pada sertifikat SSL berbayar yang terpasang di dalam Situs Web/Blog yang saya lihat kebanyakan pada memakai algoritma kunci RSA dengan ukuran 2048-bit saja, yang merupakan kunci yang cukup ideal untuk saat ini, walaupun saat ini ada yang memakai algoritma yang lebih baru (seperti ECC/ECDSA), empat di antaranya adalah Facebook, Twitter, Cloudflare dan Google (meski rantainya tidak sepenuhnya ECC).
 
-Sertifikat SSL sendiri hanya membawakan Kunci Publik (_Public key_) yang tertera di dalamnya beserta algoritma tanda tangan yang digunakan untuk membantu berjalannya proses 'jabat tangan' TLS (_TLS handshake_) agar menciptakan proses transaksi yang aman saat mengunjungi sebuah Web/Blog atau mengirimkan data ke dalam sebuah Web serta menerima data dari sebuah Web.
+Selain itu, saat sertifikat SSL ingin dibuat memakai acme.sh saja, Anda bisa menentukan ukuran dan jenis kuncinya dengan bebas selama didukung oleh acme.sh dan pihak CA-nya, semakin besar ukuran kuncinya maka semakin kuat kuncinya.
 
-Jadi, sertifikat SSL itu sendiri memang memiliki andil dalam halnya keamanan bertransaksi, namun secarik sertifikat saja tidak bisa menentukan seberapa kuatnya enkripsi karena parameter terbesarnya adalah berasal dari Server itu sendiri, meski sertifikatnya membawa kunci publik untuk membantu proses enkripsi data.
+Namun, semakin besar pula pengorbanan kinerja dari sebuah perangkat saat mengunjunginya, karena perangkat keras belum tentu dapat memprosesnya dengan cepat, apalagi jika tidak memiliki fitur akselerasi dari perangkat keras, sehingga ini akan mengorbankan kinerja dari sebuah Web/Blog juga.
 
-Selain itu, saat sertifikat SSL ingin dibuat dengan acme.sh, Anda bisa menentukan ukuran dan jenis kuncinya dengan bebas, semakin besar ukuran kuncinya maka semakin kuat kuncinya.
-
-Namun, hal itu akan mengorbankan kinerja dari sebuah perangkat saat mengunjunginya karena perangkat keras belum tentu dapat memprosesnya dengan cepat, apalagi jika tidak memiliki fitur akselerasi dari perangkat keras, sehingga ini juga akan mengorbankan kinerja dari sebuah Web/Blog.
+Jadi, harus dipertimbangkan dengan baik untuk pemilihan kuncinya ya 🙂
 
 ### Pertanyaan ke-24: Masa aktif sertifikat SSL gratisan (termasuk dari ZeroSSL) rata-rata hanya 90 hari, apakah itu tidak bermasalah? {#pertanyaan-ke24}
 **Jawab:** Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah.
@@ -1947,7 +1947,7 @@ Ada beberapa manfaat yang bisa Anda dapatkan untuk masa berlaku yang pendek ini,
 
     Jika terjadinya _mis-issuance_ pada sertifikat atau kunci pribadimu dikompromikan/dicuri, maka hal ini tidak akan bertahan lama karena masanya yang pendek.
 
-    Jadi, Anda tinggal menunggu sampai masa berlakunya habis atau menerbitkan ulang sertifikatnya dengan kunci pribadi yang baru, tanpa perlu _me-revoke_ sertifikat lamanya terlebih dahulu yang membuat situs web/aplikasi menjadi _down_/tidak berfungsi (kalau bisa sih _di-revoke_ dulu), ini akan mengurangi ketergantungan Anda pada proses _Revocation_ yang menurut Scott Helme itu ["kacau balau"](https://scotthelme.co.uk/revocation-is-broken/)
+    Jadi, Anda tinggal menunggu sampai masa berlakunya habis atau menerbitkan ulang sertifikatnya, tanpa perlu _me-revoke_ sertifikat lamanya terlebih dahulu yang membuat situs web/aplikasi menjadi _down_/tidak berfungsi (kalau bisa sih _di-revoke_ dulu), ini akan mengurangi ketergantungan Anda pada proses _Revocation_ yang menurut Scott Helme itu ["kacau balau"](https://scotthelme.co.uk/revocation-is-broken/)
 
 5. Anda selalu bisa mendapatkan kunci terbaru (dengan merotasi kunci pribadi) ketika memperbarui sertifikatnya secara otomatis.
 
@@ -1978,7 +1978,7 @@ Kalaupun tidak boleh dipasang di Situs Web tersebut, saya juga kurang tahu apaka
 
 Jadi, jawabannya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa seizin dari mereka.
 
-### Pertanyaan ke-26: Apa alasan kamu menggunakan ZeroSSL? Padahal tampilan blog ini akan lebih baik apabila diakses dengan Web Browser yang Sangat Modern {#pertanyaan-ke26}
+### Pertanyaan ke-26: Apa alasan kamu menggunakan ZeroSSL? Kenapa kamu gak pakai Let's Encrypt aja? Padahal tampilan blog ini akan lebih baik apabila diakses dengan Peramban Web yang Sangat Modern {#pertanyaan-ke26}
 **Jawab:** Alasan saya menggunakan ZeroSSL sebagai berikut:
 
 #### Karena ingin mencoba hal yang baru dan merasa ZeroSSL lebih baik ketimbang Let's Encrypt
@@ -2031,6 +2031,8 @@ Berikut adalah referensinya:
 - Cuplikan berikut adalah Obrolan di Dukungan Tiket yang menyatakan jika ingin memasangkan sertifikat SSL menggunakan panggilan API-nya, maka berkas-berkas tersebut harus dikirimkan dalam bentuk Base64:
 
 ![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan](Bunny.net_API_Support_Ticket.png)
+
+Ngomong-ngomong, saya tanya di Tiket Dukungan itu karena saat artikel ini ditulis sampai pertama kali diterbitkan belum ada dokumentasi resmi yang menyatakan bahwa itu dikirimkan dalam bentuk Base64, kalau sekarang sih sudah ada.
 
 - Untuk konversi ke dalam Base64, komentar-komentar di dalam [jawaban dari "Steve Folly"](https://superuser.com/a/120815) di Super User sangat membantu saya.
 
