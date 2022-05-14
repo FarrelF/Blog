@@ -1,0 +1,89 @@
+/*
+    Cache-Control: public, max-age=180
+    X-XSS-Protection: 0
+    Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: strict-origin-when-cross-origin
+    Expect-CT: max-age=604800, enforce, report-uri="https://farrelf.report-uri.com/r/d/ct/enforce"
+    Report-To: {"group":"default","max_age":31536000,"endpoints":[{"url":"https://farrelf.report-uri.com/a/d/g"}],"include_subdomains":true}
+    Nel: {"report_to":"default","max_age":31536000,"include_subdomains":true}
+    X-Frame-Options: DENY
+    Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline' 'report-sample' 'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0=' 'sha256-3PCW1zxTJi8yGvS0zNZ5/fb+zzVHyNIIdTKU5Q4K6e4=' 'sha256-BzgUY9cM+NUJ5P24N/QXGqtSq0vOA9uXvPRfDZapUO4=' 'sha256-L8WTTFP+/cswleatcnZb7vLUtYG/enL03+wgq5GqiPo=' 'sha256-iiYY3madJ9dlxoMNyCHLbK9ayJYfGzGPj1UBkULoeK4='; style-src 'unsafe-hashes' 'report-sample' 'sha256-pF9BEz8CU4Be+mXxBIZBT/yDe+3L5nmormdJ7pJTfew=' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o='; font-src 'self'; img-src data: 'self'; base-uri 'none'; connect-src 'none'; object-src 'none'; frame-src 'none'; child-src 'none'; media-src 'none'; form-action 'self'; frame-ancestors 'none'; manifest-src 'none'; worker-src 'none'; prefetch-src https://cdn.statically.io/; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms allow-same-origin; upgrade-insecure-requests; report-uri https://farrelf.report-uri.com/r/d/csp/enforce https://gate.rapidsec.net/g/r/csp/9b0c4293-8604-4d2b-9375-10e50805d222/0/1/3?sct=94532776-a781-4197-8eaa-3867ac159f91&dpos=enforce; report-to default
+
+    Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://giscus.app"), vibrate=(), magnetometer=(), camera=("https://giscus.app"), midi=(), accelerometer=(), ambient-light-sensor=(), display-capture=(), document-domain=(), encrypted-media=(), geolocation=(), hid=(), idle-detection=(), interest-cohort=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), xr-spatial-tracking=()
+
+    Feature-Policy: gyroscope 'none'; usb 'none'; autoplay 'none'; microphone https://giscus.app; vibrate 'none'; magnetometer 'none'; camera https://giscus.app; midi 'none'; accelerometer 'none'; ambient-light-sensor 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; geolocation 'none'; hid 'none'; idle-detection 'none'; interest-cohort 'none'; payment 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; sync-xhr 'none'; xr-spatial-tracking 'none'
+
+/*.jpg
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/jpeg
+
+/*.jpeg
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/jpeg
+
+/*.png
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/png
+
+/*.apng
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/apng
+
+/*.webp
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/webp
+
+/*.svg
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/svg+xml
+
+/*.gif
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/gif
+
+/*.css
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: text/css
+
+/*.js
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: text/javascript
+
+/*.jpeg
+    Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+    Access-Control-Allow-Origin: *
+    Access-Control-Expose-Headers: *
+    Timing-Allow-Origin: *
+    Content-Type: image/jpeg
+
+https://:project.pages.dev/*
+    Access-Control-Allow-Origin: https://staging.:project.pages.dev/
+    X-Robots-Tag: noindex, nofollow, noarchive

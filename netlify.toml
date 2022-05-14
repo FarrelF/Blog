@@ -7,27 +7,63 @@
     TZ = "Asia/Jakarta"
 
 [context.production]
-    command = "hugo --minify --gc"
+    command = "rm static/_headers; hugo --minify --gc"
     [context.production.environment]
         HUGO_ENV = "production"
 
 [context.split1]
-    command = "hugo --minify --gc"
+    command = "rm static/_headers; hugo --minify --gc"
     [context.split1.environment]
         HUGO_ENV = "production"
 
 [context.deploy-preview]
-    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_redirects; hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
+    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
     [context.deploy-preview.environment]
         HUGO_ENV = "staging"
 
 [context.branch-deploy]
-    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_redirects; hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
+    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
     [context.branch-deploy.environment]
         HUGO_ENV = "staging"
 
 [context.next.environment]
     HUGO_ENABLEGITINFO = "true"
+
+[[redirects]]
+  from = "http://www.farrel.franqois.id/*"
+  to = "https://farrel.franqois.id/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.farrel.franqois.id/*"
+  to = "https://farrel.franqois.id/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://farrel.franqois.id/*"
+  to = "https://farrel.franqois.id/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://farrelf.netlify.app/*"
+  to = "https://farrel.franqois.id/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://farrelf.netlify.app/*"
+  to = "https://farrel.franqois.id/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/categories/*"
+  to = "/kategori/:splat"
+  status = 301
+  force = true
 
 [[plugins]]
     package = "netlify-plugin-hugo-cache-resources"
