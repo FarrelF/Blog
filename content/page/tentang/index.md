@@ -48,7 +48,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
-  - [Bunny Edge Storage](https://afiliasi.farrel.franqois.id/bunnycdn/?page=edge-storage) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
+  - [Bunny Edge Storage](https://afiliasi.farrel.franqois.id/bunnycdn/edge-storage/) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -67,7 +67,7 @@ Atau, alamat URL berikut untuk kode sumber cerminnya:
 https://gitlab.com/FarrelF/Blog
 ```
 
-Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog).
+Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
 
 Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakannya.
 
