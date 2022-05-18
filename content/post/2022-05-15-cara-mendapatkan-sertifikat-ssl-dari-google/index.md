@@ -132,11 +132,11 @@ Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan me
 
 **Kenapa?** Karena Anda perlu mengaktifkan API **Public Certificate Authority** yang mana itu dinonaktifkan secara baku dan itu wajar karena sebenarnya server tersebut masih dalam tahap Uji Coba (_Beta preview_).
 
-**Biar apa?** Biar supaya Anda bisa meminta Kredensial EAB (_External Account Binding_) melalui panggilan API-nya, lalu Anda pakai kredensial tersebut untuk menerbitkan sertifikat SSL-nya melalui perkakas klien ACME, seperti acme.sh nantinya.
+**Biar apa?** Biar supaya Anda bisa meminta Kredensial EAB (_External Account Binding_) melalui panggilan API-nya, lalu Anda pakai kredensial tersebut untuk menerbitkan sertifikat SSL-nya melalui perkakas klien ACME (seperti acme.sh) nantinya.
 
 Silahkan [klik di sini](https://docs.google.com/forms/d/e/1FAIpQLSd8zUIww_ztyT9a56OPq9NXISiyw6Y9g8S7LBtRQjxPhsHz5A/viewform?ts=620a6854) untuk mengakses formulirnya.
 
-Formulirnya akan seperti pada cuplikan layar berikut:
+Formulirnya akan seperti cuplikan layar berikut:
 
 ![Formulir Permintaan Akses terhadap API](Google_Request_Form.png)
 
@@ -145,7 +145,7 @@ Akun Google-nya bisa bebas, tapi lebih baik gunakan akun Google yang Anda gunaka
 Setelah itu, isikan formulirnya dengan benar, berikut adalah penjelasan mengenai formulir yang Anda isikan nantinya
 
 - **Email:** Isikan Alamat Surel Anda, alamat ini nantinya digunakan untuk mengirimkan sebuah pemberitahuan bahwa Proyek tersebut telah diterima oleh Google
-- **Google Cloud Project ID:** Isikan itu dengan ID Proyek (bahasa Inggrisnya: **Project ID**) dari Proyek yang telah Anda buat sebelumnya di **Google Cloud Console**
+- **Google Cloud Project ID:** Isikan itu dengan ID dari Proyek (bahasa Inggrisnya: **Project ID**) yang telah Anda buat sebelumnya di **Google Cloud Console**
 - **Estimated usage:** Perkirakan berapa sertifikat SSL yang Anda terbitkan/perbarui setiap 3 bulan sekali, sebaiknya kalau bisa isi itu dengan benar dan jujur, serta isi itu sesuai dengan kebutuhan Anda, ini kemungkinan bisa jadi penentu persiapan yang dilakukan oleh pihak mereka nantinya.
 
     Tips: Untuk meminimalkan jumlah sertifikat SSL per 3 bulan, saran saya pikirkanlah untuk memakai sertifikat SSL dalam bentuk _Wildcard_ dan manfaatkan _Multi-domain_ dalam 1 sertifikat jika perlu
@@ -268,7 +268,7 @@ Hanya saja, maksimum proyek yang bisa Anda buat adalah sebanyak 10 proyek per Ak
 ### Pertanyaan ke-2: Apakah semua sertifikat SSL yang diterbitkan oleh Google Public CA ini gratis? {#pertanyaan-ke2}
 **Jawab:** Untuk saat ini, jawabannya adalah **Iya**. Anda bisa menerbitkan sertifikat SSL tersebut secara gratis melalui protokol ACME-nya.
 
-Baik sertifikat SSL dalam bentuk biasa, _Multi-domain_ atau bahkan _Wildcard_ sekalipun bisa Anda terbitkan secara gratis dengan Algoritma kunci RSA atau ECC.
+Baik sertifikat SSL dalam bentuk biasa, _Multi-domain_ atau bahkan _Wildcard_ sekalipun bisa Anda terbitkan secara gratis dengan RSA atau ECC sebagai Algoritma Kunci Publiknya.
 
 Hanya saja sifatnya ini adalah _Self-managed_, sehingga semuanya Anda kelola secara mandiri tanpa bantuan ataupun dukungan dari pihak Google secara langsung.
 
@@ -319,7 +319,7 @@ Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatn
 
 Semua sertifikat SSL yang telah Anda terbitkan melalui **Google Public CA** itu adalah sertifikat langsung dari **Google Trust Services (GTS)**, yang di mana sertifkatnya digunakan oleh seluruh layanan Google, sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
 
-### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL dengan memakai Algoritma Kunci ECC, apakah rantai yang dipakai menggunakan murni ECC juga? {#pertanyaan-ke6}
+### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL dengan memakai ECC sebagai Algoritma Kunci Publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke6}
 **Jawab:** Sayangnya, tidak. Alasannya kurang tahu dan kapan menggunakan rantai murni ECC yang sepenuhnya juga saya kurang tahu, yang jelas bukan sekarang ini menurut klaim mereka.
 
 ### Pertanyaan ke-7: Saya memakai perkakas ACME selain acme.sh, seperti Certbot, apa Alamat URL untuk server ACME-nya? {#pertanyaan-ke7}
@@ -350,16 +350,16 @@ Jadi saya langsung saja bahas hal yang menarik dan yang perlu diperhatikan soal 
 Hal yang menarik:
 - Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan sertifikat akan menjadi jauh lebih cepat
 - Lebih minim gangguan saat proses penerbitan/pembaruan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan/pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
-- Kamu bisa menerbitkan sertifikat dalam bentuk biasa, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan Algoritma kunci RSA ataupun ECC
+- Kamu bisa menerbitkan sertifikat dalam bentuk biasa, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai Algoritma Kunci Publiknya
 - Sertifikat yang diterbitkannya bisa digunakan oleh hampir semua perangkat. Hal ini dikarenakan ia menggunakan [GlobalSign Root CA - R1](https://crt.sh/?id=88) (Halaman demonya [di sini](https://valid.r1.roots.globalsign.com/)) sebagai sertifikat akar, yang merupakan sertifikat akar tertua dari GlobalSign yang berlaku dari tahun 1998 sampai 2028 dan digunakan secara luas pada tahun 1999. Selain itu, sertifikatnya digunakan oleh hampir semua layanan Google, sehingga kompatibilitasnya tidak perlu diragukan lagi
 - Yang paling penting adalah semuanya bisa digunakan secara gratis, setidaknya untuk saat ini
 
 Hal yang perlu diperhatikan:
 - Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan dan keputusan bisa saja berubah dengan cepat
 - Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan
-- Algoritma kunci pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL-nya diterbitkan menggunakan kunci ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
-- Tidak mendukung nama domain Unicode yang disandikan Punycode. Jadi jika nama domain Anda mengandung huruf/karakter non-latin seperti Huruf Arab, Mandarin, Kanji, Katakana, Hiragana, Hangul, mengandung Emoji, dll, mungkin Anda belum dapat memakai sertifikat SSL ini
-- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok, mungkin sebaiknya jangan gunakan sertifikat SSL ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya
+- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
+- Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode
+- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok Daratan, mungkin sebaiknya jangan gunakan sertifikat SSL ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya. Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Republik Rakyat Tiongkok
 
 Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah hal ini merupakan hal yang menarik atau justru merupakan hal yang perlu diperhatikan.
 

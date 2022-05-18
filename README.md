@@ -12,7 +12,7 @@ Sebelum memulai untuk menggunakan Kode Sumber ini, adakalanya untuk memenuhi per
 
 - Git (disarankan versi terbaru): https://git-scm.com/downloads (Untuk mengetahui Cara Install nya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
 - Hugo Extended (versi minimal: 0.91.0, disarankan terbaru): https://gohugo.io/getting-started/installing/ (Untuk mengetahui Cara Instalnya, silahkan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
-- Go (versi minimal: 1.17, disarankan terbaru): https://golang.org/
+- Go (versi minimal: 1.12, disarankan: 1.17 atau terbaru): https://golang.org/
 - Mengkloning _Repository_ [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam Folder `FarrelF/stack-modified`
 
 Di dalam Sistem Operasi Anda.

@@ -22,7 +22,7 @@ custom:
 ---
 
 ## Tentang Saya
-Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada Blog ini, harap dimaklumi, saya juga sedang belajar menggunakan _Static-site Generator_.
+Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada Blog ini, tolong dikoreksi yah, saya juga sedang belajar menggunakan _Static-site Generator_.
 
 ## Tentang Blog ini
 ### Ikhtisar
@@ -88,7 +88,7 @@ Berikut adalah Informasi mengenai kunci GPG saya:
 |<span class="tab-center">Informasi</span>|<span class="tab-center">Nilai</span>|
 |:--------------------|:-------------------------------------------------------------|
 | Atas Nama           | Farrel Franqois                                              |
-| Jenis Kunci         | ECC (Curve 25519)                                            |
+| Jenis Kunci         | ECC (Ed25519 dan Curve25519)                                 |
 | Masa Berlaku        | 21 Januari 2026                                              |
 | ID Kunci (Pendek)   | `0xA47AE59DC94ABF69` atau `A47AE59DC94ABF69`                 |
 | ID Kunci (Panjang)  | `A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`          |
