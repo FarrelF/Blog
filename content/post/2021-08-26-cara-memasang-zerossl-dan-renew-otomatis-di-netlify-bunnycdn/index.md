@@ -27,6 +27,11 @@ Description: >
 ---
 
 ## Pembuka
+
+{{< info text="tl;dr" >}}
+Jika Anda tidak ingin membaca basa-basinya, Anda bisa langsung lanjut ke subbagian [**"Persiapan"**](#persiapan).
+{{< / info >}}
+
 Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).
 
 ~~Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri.~~
@@ -244,17 +249,17 @@ Tapi saya tetap sarankan agar Anda tidak melewati langkah ini.
 
 Sebelum Anda menerbitkan sertifikat SSL-nya, maka Anda disarankan untuk mendaftar akun ZeroSSL terlebih dahulu melalui [Situs Webnya](https://zerossl.com).
 
-Setelah mendaftar, kamu tidak perlu membuat/menerbitkan sertifikatnya di sana, melainkan hanya perlu Kredensial EAB (_External Account Binding_) yakni **EAB KID** dan **EAB HMAC Key**-nya saja.
+Setelah mendaftar, kamu tidak perlu membuat/menerbitkan sertifikatnya di sana, melainkan hanya perlu Kredensial EAB (_External Account Binding_) yakni **"EAB KID"** dan **"EAB HMAC Key"**-nya saja.
 
 **Apa itu Kredensial EAB?** Kredensial EAB adalah sebuah kredensial untuk menghubungkan antara perkakas/perangkat lunak yang merupakan klien untuk protokol ACME dengan akun CA/PSrE yang telah Anda daftarkan.
 
 Tanpa basa-basi lagi, langkah-langkahnya sebagai berikut:
 
 1. Daftar Akun ZeroSSL-nya [di Situs Web-nya](https://app.zerossl.com/signup) dan Login setelah itu (Atau, kamu hanya perlu [Login](https://app.zerossl.com/login) saja jika kamu sudah pernah mendaftar akun sebelumnya)
-2. Pada Dasbor ZeroSSL, klik **Developer**
-3. Setelah itu, pada bagian **EAB Credentials for ACME Clients**, klik _Button_ **Generate**
-3. Simpan **EAB KID** dan **EAB HMAC Key** yang telah dihasilkan itu dengan baik, nanti akan digunakan lagi untuk acme.sh
-4. Setelah menyimpannya, kamu tinggal klik _Button_ **Done** dan Selesai
+2. Pada Dasbor ZeroSSL, klik **"Developer"**
+3. Setelah itu, pada bagian **"EAB Credentials for ACME Clients"**, klik _Button_ **"Generate"**
+3. Simpan **"EAB KID"** dan **"EAB HMAC Key"** yang telah dihasilkan itu dengan baik, nanti akan digunakan lagi untuk acme.sh
+4. Setelah menyimpannya, kamu tinggal klik _Button_ **"Done"** dan Selesai
 
 Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengkliknya)
 
@@ -342,9 +347,9 @@ Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga haru
 Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang Otomatis saja ketimbang pake yang Manual.
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
-Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain-mu, Anda perlu buat sebuah _API Token_ (`CF_Token`) dan dapatkan **Account ID** (`CF_Account_ID`)-nya untuk kredensialnya.
+Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk Domain-mu, Anda perlu buat sebuah _API Token_ (`CF_Token`) dan dapatkan **"Account ID"** (`CF_Account_ID`)-nya untuk kredensialnya.
 
-Jika berkenan, Anda juga bisa mendapatkan **Zone ID** (`CF_Zone_ID`)-nya agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik, tapi ini tidak wajib, jadi sebaiknya tidak usah.
+Jika berkenan, Anda juga bisa mendapatkan **"Zone ID"** (`CF_Zone_ID`)-nya agar acme.sh hanya menargetkan ke 1 Domain Utama saja secara spesifik, tapi ini tidak wajib, jadi sebaiknya tidak usah.
 
 Untuk membuat _API Token-nya_, silahkan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat _API Token-nya_.
 
@@ -353,40 +358,40 @@ Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 0. Pastikan Anda sudah login terlebih dahulu menggunakan akun Cloudflare Anda dengan mengunjungi [Halaman Dasbornya](https://dash.cloudflare.com/login). Udah? Kalo gitu, Anda bisa lanjut
 1. Jika Anda sudah sampai di halaman dasbornya: 
    - a. Klik pada Ikon Orang di pojok kanan atas
-   - b. Lalu, klik **My Profile**
-   - c. Setelah itu, klik pada tab **API Tokens**. 
+   - b. Lalu, klik **"My Profile"**
+   - c. Setelah itu, klik pada tab **"API Tokens"**. 
 
     Atau sederhananya, silahkan [klik di sini](https://dash.cloudflare.com/profile/api-tokens)
-2. Setelah Anda memasukki bagian **API Token**, klik pada _Button_ **Create Token**
+2. Setelah Anda memasukki bagian **"API Token"**, klik pada _Button_ **"Create Token"**
 
     Kira-kira untuk no. 1 dan 2 cuplikannya akan seperti berikut:
 
 ![Menuju ke bagian "API Token"](Cloudflare_Create_API_Token_1.png)
 
-3. Saat proses membuat Token, Anda akan memilih templat yang digunakan untuk membuat Tokennya. Maka dari itu, gunakan saja templat **Edit zone DNS** dengan mengklik _Button_ **Use this template** di sebelahnya (Seperti pada cuplikan berikut)
+3. Saat proses membuat Token, Anda akan memilih templat yang digunakan untuk membuat Tokennya. Maka dari itu, gunakan saja templat **"Edit zone DNS"** dengan mengklik _Button_ **"Use this template"** di sebelahnya (Seperti pada cuplikan berikut)
 
 ![Memilih Templat untuk membuat Token](Cloudflare_Create_API_Token_2.png)
 
 4. Setelah menentukan templatnya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
    - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara baku, nama Token menggunakan nama templatnya, Anda bisa ubah itu sesuka Anda dengan mengklik pada ikon Pensil di sebelah namanya
-   - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat **Edit zone DNS**, maka seharusnya Informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **Zone**, **DNS** dan **Edit**, kalau sudah, Anda bisa lewati ini.
+   - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat **"Edit zone DNS"**, maka seharusnya Informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **"Zone"**, **"DNS"** dan **"Edit"**, kalau sudah, Anda bisa lewati ini.
    - **Zone Resources**: Itu merupakan cakupan Zona (_Zone_) untuk Token ini. Jika Anda ingin Token yang Anda buat itu dapat mencakup semua Domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
-       - **Include** dan **All zones**
-       - **Include**, **All zones from an account**, lalu pilih Akun yang ingin Anda cakup
+       - **"Include"** dan **"All zones"**
+       - **"Include"**, **"All zones from an account"**, lalu pilih Akun yang ingin Anda cakup
    - **Client IP Address Filtering**: Jika Anda ingin mengatur/menyaring Alamat IP Klien/Pengguna API, maka Anda bisa atur itu. Jika tidak, maka sebaiknya lewati saja.
    - **TTL**: Atur itu jika Anda ingin Token yang Anda buat memiliki masa berlaku, jika tidak maka sebaiknya lewati saja
 
-5. Jika Anda sudah mengisi semua informasinya, klik pada _Button_ **Continue to summary**
+5. Jika Anda sudah mengisi semua informasinya, klik pada _Button_ **"Continue to summary"**
 
     Kira-kira untuk no. 4 dan 5, cuplikannya akan menjadi seperti berikut:
 
 ![Melengkapi Informasi untuk Token](Cloudflare_Create_API_Token_3.png)
 
-6. Di sana Anda akan melihat kesimpulan dari Token yang ingin Anda buat, jika merasa yakin, silahkan klik pada _Button_ **Create Token** (Seperti pada cuplikan berikut)
+6. Di sana Anda akan melihat kesimpulan dari Token yang ingin Anda buat, jika merasa yakin, silahkan klik pada _Button_ **"Create Token"** (Seperti pada cuplikan berikut)
 
 ![Kesimpulan dari Token yang ingin dibuat](Cloudflare_Create_API_Token_4.png)
 
-7. Setelah itu, kodenya akan tampil di sana. Salinkan _API Token_ tersebut dengan mengklik pada _Button_ **Copy**, lalu simpan itu baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satupun orang lain yang mengetahuinya kecuali dengan seizin Anda. Selain itu, Anda juga dapat mengujinya di sana untuk memastikan apakah kode terebut bekerja atau tidak.
+7. Setelah itu, kodenya akan tampil di sana. Salinkan _API Token_ tersebut dengan mengklik pada _Button_ **"Copy"**, lalu simpan itu baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satupun orang lain yang mengetahuinya kecuali dengan seizin Anda. Selain itu, Anda juga dapat mengujinya di sana untuk memastikan apakah kode terebut bekerja atau tidak.
 
 !["API Token" yang telah dibuat di Cloudflare](Cloudflare_Create_API_Token_5.png)
 
@@ -431,24 +436,24 @@ set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
-Jika Anda menggunakan Netlify sebagai DNS Otoritatif untuk Domain-mu, Anda perlu buat sebuah **Personal Access Token** (`NETLIFY_ACCESS_TOKEN`)-nya.
+Jika Anda menggunakan Netlify sebagai DNS Otoritatif untuk Domain-mu, Anda perlu buat sebuah **"Personal Access Token"** (`NETLIFY_ACCESS_TOKEN`)-nya.
 
 Ngomong-ngomong, selain bisa untuk Verifikasi DNS, _Token_ ini bisa Anda gunakan untuk memasang [sertifikat SSL-nya](#pasang-ssl-di-netlify) nanti. Jadi, setelah Anda membuatnya, simpanlah _Token_ tersebut dengan baik agar bisa digunakan nanti.
 
 Cara membuatnya sebagai berikut:
 
 0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
-1. Klik pada _Button_ **New access token** di Bagian **Personal access tokens**
+1. Klik pada _Button_ **"New access token"** di Bagian **"Personal access tokens"**
 
 !["Personal access tokens" di Netlify](Netlify_Access_Token_1.png)
 
 2. Masukkan Nama/Deskripsi mengenai Tokennya
-3. Setelah itu, klik pada _Button_ **Generate** untuk menghasilkan **Access Token**-nya
+3. Setelah itu, klik pada _Button_ **"Generate"** untuk menghasilkan **"Access Token"**-nya
 
 ![Membuat "Personal access token" di Netlify](Netlify_Access_Token_2.png)
 
-4. Setelah **Access Token** tampil, simpan itu baik-baik, karena **Access Token** tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
-5. Klik pada _Button_ **Done**"jika merasa sudah selesai
+4. Setelah **"Access Token"** tampil, simpan itu baik-baik, karena **"Access Token"** tersebut tidak bisa tampil lagi dan itu akan digunakan kembali, serta pastikan bahwa tidak ada orang lain yang mengetahuinya
+5. Klik pada _Button_ **"Done"**"jika merasa sudah selesai
 
 ![Setelah Token berhasil dibuat](Netlify_Access_Token_3.png)
 
@@ -538,7 +543,7 @@ Parameter `-d` berfungsi untuk menentukan domain yang dijangkau oleh sertifikat 
 
 Sebenarnya, Anda juga dapat menambahkan perameter `-d` agar Sertifikat SSL menjangkau setiap domain yang Anda masukkan, sebanyak yang Anda mau.
 
-Domain Pertama yang Anda masukkan akan menjadi **Common Name**, **Subject** atau **Issued to** pada Sertifikat SSL, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya hanya dimasukkan kedalam SAN saja.
+Domain Pertama yang Anda masukkan akan menjadi **"Common Name"**, **"Subject"** atau **"Issued to"** pada Sertifikat SSL, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya hanya dimasukkan kedalam SAN saja.
 
 Selain itu, nama direktori untuk Sertifikat SSL-nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
 
@@ -992,18 +997,18 @@ Berikut adalah cara-caranya:
 ### Di Netlify {#pasang-ssl-di-netlify}
 #### Membuat _Personal Access Token_ dan Mendapatkan _Site ID_ {#membuat-personal-access-token-dan-site-id}
 {{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **Personal Access Token** dan **Site ID**-nya di dalam Perangkat Anda.
+Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Personal Access Token"** dan **"Site ID"**-nya di dalam Perangkat Anda.
 {{< / info >}}
 
 Agar Anda bisa mengakses Server API-nya, maka Anda perlu untuk membuat kunci aksesnya, salah satunya adalah dengan membuat **Personal Access Token**-nya.
 
-Untuk membuat _Personal Access Token-nya_ sendiri sudah saya bahas di bagian "Verifikasi DNS di acme.sh". Jika Anda belum sempat membuat _Personal Access Token_ sebelumnya, silahkan [klik di sini](#untuk-pengguna-netlify-dns) untuk caranya.
+Untuk membuat **"Personal Access Token"**-nya sendiri sudah saya bahas di bagian "Verifikasi DNS di acme.sh". Jika Anda belum sempat membuat **Personal Access Token** sebelumnya, silahkan [klik di sini](#untuk-pengguna-netlify-dns) untuk caranya.
 
-Setelah _Personal Access Token_ dibuat, maka Anda perlu mendapatkan **Site ID**-nya. Tapi untuk mendapatkannya, Anda bisa pergi ke **Site settings**, lalu klik pada **General** -> Terakhir, klik **Site details**, di situ akan muncul informasi-informasi mengenai Web Anda, seperti cuplikan berikut:
+Setelah _Personal Access Token_ dibuat, maka Anda perlu mendapatkan **"Site ID"**-nya. Tapi untuk mendapatkannya, Anda bisa pergi ke **"Site settings"**, lalu klik pada **"General"** -> Terakhir, klik **"Site details"**, di situ akan muncul informasi-informasi mengenai Web Anda, seperti cuplikan berikut:
 
 !["Site ID" di Netlify](Netlify_Site_ID.png)
 
-Jika Anda melihat cuplikan di atas, **API ID** yang saya tunjuk itu merupakan **Site ID**-nya, simpan ID tersebut baik-baik. Selain _API ID_, Anda juga bisa menggunakan domain Anda atau menggunakan subdomain dari Netlify sebagai _Site ID-nya_.
+Jika Anda melihat cuplikan di atas, **"API ID"** yang saya tunjuk itu merupakan **"Site ID"**-nya, simpan ID tersebut baik-baik. Selain **API ID**, Anda juga bisa menggunakan domain Anda atau menggunakan subdomain dari Netlify sebagai **"Site ID"**-nya.
 
 Langkah selanjutnya adalah memasang Sertifikat SSL melalui API-nya.
 
@@ -1095,21 +1100,21 @@ Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda
 ### Di Bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
 #### Mendapatkan "Access Key" dan "Pull Zone ID"-nya
 {{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **Access Key** dan **Pull Zone ID**-nya di dalam Perangkat Anda, serta jika Anda telah mengetahui Nama Hos tujuannya.
+Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Access Key"** dan **"Pull Zone ID"**-nya di dalam Perangkat Anda, serta jika Anda telah mengetahui Nama Hos tujuannya.
 {{< / info >}}
 
-Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **Access Key** dan **Pull Zone ID**-nya terlebih dahulu, berikut di bawah ini adalah caranya:
+Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu, berikut di bawah ini adalah caranya:
 
 0. Silahkan akses ke [Dasbor Bunny.net](https://panel.bunny.net/)-nya, login jika diminta.
-1. Klik pada **Account** yang letaknya di atas dan berikon seorang raja
-2. Di bagian **API**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon mata jika Anda ingin melihatnya isi sebenarnya
-3. Nah, _Access Key_ sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui _Access Key-nya_
+1. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
+2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon mata jika Anda ingin melihatnya isi sebenarnya
+3. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **Access Key**-nya
 
 Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengkliknya)
 
 !["Access Key" Bunny.net](Bunny.net_Access_Key.png)
 
-Untuk _Pull Zone ID-nya_, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **Pull Zones** -> Lalu kamu pilih _Pull Zone_ yang ingin kamu pasangkan Sertifikat SSL-nya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
+Untuk _Pull Zone ID-nya_, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **"Pull Zones"** -> Lalu kamu pilih _Pull Zone_ yang ingin kamu pasangkan Sertifikat SSL-nya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
 
 ```text
 https://panel.bunny.net/pullzones/edit/ANGKA_YANG_MUNCUL
@@ -1187,15 +1192,25 @@ Fitur ini masih dalam tahap eksperimental, sehingga segala perubahan yang terjad
 
 Cara buatnya adalah sebagai berikut:
 1. Masuk ke cPanel menggunakan Akun cPanel Anda, bukan Akun _Billing_ (Akun cPanel dan _Billing_ itu beda lho, jangan salah)
-2. Setelah masuk ke cPanel, gulirkan tetikusnya ke arah bawah sampai ke bagian **Security** (bahasa Indonesia: **Keamanan**), pada bagian tersebut kamu klik **Manage API Tokens**
+2. Setelah masuk ke cPanel, gulirkan tetikusnya ke arah bawah sampai ke bagian **"Security"** (bahasa Indonesia: **"Keamanan"**), pada bagian tersebut kamu klik **"Manage API Tokens"**, seperti cuplikan berikut: (Atau, langsung cari aja **"Manage API Tokens"**, terus tinggal kamu klik aja hasilnya)
+
+![Fitur "Manage API Tokens" di cPanel](cPanel_Manage_API_Tokens.png)
+
 3. Jika Anda baru pertama kali membuat _API Token_, Anda akan langsung diminta untuk melengkapi informasi yang ada di sana untuk dibuatkan _API Token_-nya. Lengkapi informasi berikut ini:
+
+    ![Pembuatan "API Token" di cPanel](cPanel_Create_API_Token.png)
+
     - **API Token Name:** Itu merupakan Nama _API Token_ yang ingin Anda buat, Anda bisa mengisinya dengan bebas, tapi karakter yang boleh dimasukkan adalah alfanumerik (besar dan kecil diperbolehkan), tanda hubung/pisah dan tanda garis bawah saja, serta peka terhadap huruf besar dan kecil (_case sensitive_)
-    - **Should the API Token Expire?:** Itu menentukan masa berlaku _API Token_ yang Anda buat, jika tidak ingin ada masa berlaku, Anda tinggal pilih **The API Token will not expire** atau **Specify an expiration date** jika Anda ingin menyetel tanggalnya (Saran saya jangan ada masa berlaku, kalau mau ada masa berlakunya pastikan Anda bisa memperbaruinya secara otomatis)
+    - **Should the API Token Expire?:** Itu menentukan masa berlaku _API Token_ yang Anda buat, jika tidak ingin ada masa berlaku, Anda tinggal pilih **"The API Token will not expire"** atau **"Specify an expiration date"** jika Anda ingin menyetel tanggalnya (Saran saya jangan ada masa berlaku, kalau mau ada masa berlakunya pastikan Anda bisa memperbaruinya secara otomatis)
 
-4. Jika sudah selesai, klik pada _button_ **Create** (bahasa Indonesia: **Buat**)
-5. Setelah mengkliknya, kamu akan melihat Kode _API Token_ yang hanya bisa dilihat sekali saja, jadi simpanlah _API Token_ tersebut baik-baik dan pastikan tidak ada seorang pun yang mengetahuinya kecuali Anda sendiri
+4. Jika sudah selesai, klik pada _button_ **"Create"** (bahasa Indonesia: **"Buat"**)
+5. Setelah mengkliknya, kamu akan melihat Kode _API Token_ yang hanya bisa dilihat sekali saja, jadi simpanlah _API Token_ tersebut baik-baik dan pastikan tidak ada seorang pun yang mengetahuinya kecuali Anda sendiri.
 
-Setelah membuat _API Token_ dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari cPanel nantinya, terutama fitur _URI Encode_-nya yang diperlukan oleh cPanel.
+   Jika sudah, centang pada bagian **"Create another token after I click Yes, I saved my token."**, lalu klik pada _Button_ **"Yes, I Saved My Token"**, seperti cuplikan berikut:
+
+    ![Setelah sukses membuat "API Token" di cPanel](cPanel_API_Token_Created.png)
+
+Setelah membuat **"API Token"** dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari cPanel nantinya, terutama fitur **URI Encode**-nya yang diperlukan oleh cPanel.
 
 Jika Anda menggunakan Termux, maka Anda bisa menginstalnya dengan perintah berikut:
 
