@@ -61,13 +61,13 @@ Berikut adalah cara instalasinya:
 Jika Anda menggunakan [Scoop](https://scoop.sh) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
 
 ```powershell
-> scoop install hugo
+scoop install hugo
 ```
 
 Atau, ganti `hugo` jadi `hugo-extended` jika Anda ingin meng-install Hugo Extended, seperti berikut:
 
 ```powershell
-> scoop install hugo-extended
+scoop install hugo-extended
 ```
 
 Perintah di atas akan meng-install Hugo di dalam Direktori Pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di Semua Pengguna, maka Anda perlu menambahkan argumen `-g`.
@@ -75,7 +75,7 @@ Perintah di atas akan meng-install Hugo di dalam Direktori Pengguna (`%USERPROFI
 Perintahnya akan menjadi seperti berikut:
 
 ```powershell
-> scoop install hugo-extended -g
+scoop install hugo-extended -g
 ```
 
 Tapi, Anda perlu membuka Command Prompt, Windows Terminal, Windows PowerShell atau PowerShell Core-nya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
@@ -83,7 +83,7 @@ Tapi, Anda perlu membuka Command Prompt, Windows Terminal, Windows PowerShell at
 Jika Anda sudah meng-install `sudo` melalui Scoop atau [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
 
 ```powershell
-> sudo scoop install hugo-extended -g
+sudo scoop install hugo-extended -g
 ```
 
 Dengan begini, Anda tidak perlu membuka Terminal-nya sebagai Administrator lagi.
@@ -94,13 +94,13 @@ Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `updat
 Jika Anda menggunakan [Chocolatey](https://chocolatey.org/) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
 
 ```powershell
-> choco install hugo
+choco install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda ingin meng-install Hugo Extended, cukup ganti saja `hugo` menjadi `hugo-extended`, seperti berikut:
 
 ```powershell
-> choco install hugo-extended
+choco install hugo-extended
 ```
 
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `upgrade`.
@@ -187,7 +187,7 @@ WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus meng
 Jika Anda adalah pengguna Debian, Ubuntu atau Keluarganya, sebenarnya Anda dapat menginstalnya dengan perintah berikut:
 
 ```shell
-$ sudo sh -c 'apt update; apt install -y hugo'
+sudo sh -c 'apt update; apt install -y hugo'
 ```
 
 Atau:
@@ -279,20 +279,20 @@ Jika Anda adalah pengguna SUSE Linux Enterprise, openSUSE Leap/Tumbleweed atau K
 
 ```shell
 ### Untuk Pengguna SUSE Linux Enterprise (SLE) 15 SP3
-$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Leap 15.3
-$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Leap_15.3/home:darix:apps.repo
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Leap_15.3/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Tumbleweed
-$ sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
 ```
 
 Setelah itu segarkan repositorinya, lalu install Hugo-nya dengan perintah berikut:
 
 ```shell
-$ sudo zypper ref
-$ sudo zypper in hugo
+sudo zypper ref
+sudo zypper in hugo
 ```
 
 Untuk lebih lanjut. silahkan kunjungi [Halaman Unduh Repositorinya](https://software.opensuse.org/download/package?package=hugo&project=home%3Adarix%3Aapps).
@@ -303,7 +303,7 @@ Untuk lebih lanjut. silahkan kunjungi [Halaman Unduh Repositorinya](https://soft
 Jika Anda adalah pengguna Arch Linux, Manjaro atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ sudo pacman -S hugo
+sudo pacman -S hugo
 ```
 
 ~~Namun jika Anda lebih memilih lewat AUR (_Arch User Repository_), silahkan gunakan paket [`hugo-bin`](https://aur.archlinux.org/packages/hugo-bin/) dari AUR.~~
@@ -313,7 +313,7 @@ $ sudo pacman -S hugo
 ~~Tapi jika Anda menggunakan Yay sebagai _AUR Helper_ nya, maka Anda dapat memakai perintah berikut:~~
 
 ```shell
-$ yay -S hugo-bin
+yay -S hugo-bin
 ```
 
 **PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui paket resminya saja.
@@ -324,7 +324,7 @@ $ yay -S hugo-bin
 Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat menginstalnya dengan perintah berikut:
 
 ```shell
-$ sudo eopkg install hugo
+sudo eopkg install hugo
 ```
 
 **Catatan:** Saya tidak memakai Solus dan Keluarganya, tapi berdasarkan [konfigurasinya](https://dev.getsol.us/source/hugo/browse/master/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan Keluarganya adalah Hugo Extended.
@@ -333,7 +333,7 @@ $ sudo eopkg install hugo
 Jika Anda adalah pengguna Void Linux atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ sudo xbps-install -S hugo
+sudo xbps-install -S hugo
 ```
 
 **Catatan:** Saya tidak memakai Void Linux dan Keluarganya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan Keluarganya adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
@@ -342,7 +342,7 @@ $ sudo xbps-install -S hugo
 Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
 ```shell
-$ brew install hugo
+brew install hugo
 ```
 
 **Catatan:** Saya tidak memakai Pengelola Paket Homebrew, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Pengelola Paket Homebrew adalah Hugo Extended.
@@ -351,13 +351,13 @@ $ brew install hugo
 Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
 ```shell
-$ snap install hugo
+snap install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `--channel=extended/stable` saja, menjadi seperti berikut:
 
 ```shell
-$ snap install hugo --channel=extended/stable
+snap install hugo --channel=extended/stable
 ```
 
 {{< info text="Catatan:" >}}
@@ -524,13 +524,13 @@ Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di
 Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ sudo port install hugo
+sudo port install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `+extended` saja, menjadi seperti berikut:
 
 ```shell
-$ sudo port install hugo +extended
+sudo port install hugo +extended
 ```
 
 **Catatan:** Meng-installnya melalui MacPorts mungkin akan menghimpun (_compile_) kode sumber Hugo di dalam perangkat Anda.
@@ -543,7 +543,7 @@ Jika Anda tidak ingin menggunakan `sudo`, maka hapus saja `sudo` nya.
 Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```
-$ brew install hugo
+brew install hugo
 ```
 
 **Catatan:** Saya tidak memakai Pengelola Paket Homebrew, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Pengelola Paket Homebrew adalah Hugo Extended.
@@ -553,7 +553,7 @@ $ brew install hugo
 Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ pkg i hugo
+pkg i hugo
 ```
 
 Perintah di atas akan meng-install Hugo Extended, bukan Hugo varian Biasa/Standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
@@ -567,7 +567,7 @@ Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android And
 Jika Anda adalah pengguna OpenBSD dan Keluarganya, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
 ```shell
-$ doas pkg_add hugo
+doas pkg_add hugo
 ```
 
 Karena saya tidak pakai, jadi saya tidak tahu apa varian Hugo yang terinstal nantinya dan dapat versi berapa.
@@ -686,7 +686,7 @@ Dengan begitu, Anda bisa menggunakan fitur _Shell Completion-nya_ di dalam Bash.
 Tapi jika Anda menggunakan Z Shell (disingkat menjadi `zsh`), maka pertama-tama Anda perlu ketahui terlebih dahulu isi dari variabel `FPATH` dengan perintah berikut beserta keluarannya:
 
 ```shell
-$ echo $FPATH
+echo $FPATH
 /home/user/.oh-my-zsh/plugins/colored-man-pages:/home/user/.oh-my-zsh/plugins/sudo:/home/user/.oh-my-zsh/plugins/debian:/home/user/.oh-my-zsh/plugins/git:/home/user/.oh-my-zsh/functions:/home/user/.oh-my-zsh/completions:/home/user/.oh-my-zsh/cache/completions:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/functions/Calendar:/usr/share/zsh/functions/Chpwd:/usr/share/zsh/functions/Completion:/usr/share/zsh/functions/Completion/Base:/usr/share/zsh/functions/Completion/Linux:/usr/share/zsh/functions/Completion/Unix:/usr/share/zsh/functions/Completion/X:/usr/share/zsh/functions/Completion/Zsh:/usr/share/zsh/functions/Exceptions:/usr/share/zsh/functions/Math:/usr/share/zsh/functions/MIME:/usr/share/zsh/functions/Misc:/usr/share/zsh/functions/Newuser:/usr/share/zsh/functions/Prompts:/usr/share/zsh/functions/TCP:/usr/share/zsh/functions/VCS_Info:/usr/share/zsh/functions/VCS_Info/Backends:/usr/share/zsh/functions/Zftp:/usr/share/zsh/functions/Zle
 ```
 

@@ -359,7 +359,7 @@ Hal yang perlu diperhatikan:
 - Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode
-- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok Daratan, mungkin sebaiknya jangan gunakan sertifikat SSL ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya. Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Republik Rakyat Tiongkok
+- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok Daratan, mungkin sebaiknya jangan gunakan sertifikat SSL ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya. Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Tiongkok Daratan
 
 Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah hal ini merupakan hal yang menarik atau justru merupakan hal yang perlu diperhatikan.
 

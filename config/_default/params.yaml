@@ -88,9 +88,9 @@ comments:
     lazyLoad: intersectionObserver
 
 script:
-  inlineScript: true
+  inlineScript: false
   SRIHash: true
 
 style:
-  inlineStyle: true
-  SRIHash: false
+  inlineStyle: false
+  SRIHash: true
