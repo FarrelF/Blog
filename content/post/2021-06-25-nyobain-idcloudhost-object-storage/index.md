@@ -147,13 +147,13 @@ Karena secara bawaan _(default)_ fitur tersebut tidak diaktifkan, maka saya beri
 
 Setelah saya membuat berkas `bucket-website.json` (sesuai Referensi) dan mengeksekusi perintah berikut:
 
-```bash
+```bash {linenos=false}
 $ aws s3api put-bucket-website --bucket <NAMA_BUCKET> --website-configuration file://bucket-website.json
 ```
 
 Malah muncul kesalahan (error) dengan pesan berikut:
 
-```
+```plain {linenos=false}
 An error occurred (MethodNotAllowed) when calling the PutBucketWebsite operation: Unknown
 ```
 
@@ -333,7 +333,7 @@ Kenapa gak pake `lftp` aja semuanya? Karena `lftp` yang saya dan CI "GitHub Acti
 
 Misalnya, berkas yang diunggah itu adalah `style.min.9rcxxxx.css` untuk menggantikan `style.min.8bcxxxx.css` di Server, tapi berkas di Server tidak bisa terhapus melalui `lftp` karena suatu kesalahan yang entah penyebabnya. Pesan kesalahan nya seperti berikut:
 
-```
+```plain {linenos=false}
 rm: Access failed: 550 File Not Found (./style.min.8bcxxxx.css)
 ```
 
@@ -390,7 +390,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
-```plaintext
+```plain {linenos=false}
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-06-25-nyobain-idcloudhost-object-storage
 ```
 

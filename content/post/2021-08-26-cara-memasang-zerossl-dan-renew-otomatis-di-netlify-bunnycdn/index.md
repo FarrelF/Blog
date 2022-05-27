@@ -202,7 +202,7 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perang
 
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
-```bash
+```bash {linenos=false}
 pkg up -y; pkg i -y curl wget openssl-tool cronie termux-services
 ```
 
@@ -276,13 +276,13 @@ Cara menginstalnya adalah dengan mengeksekusikan salah satu perintah berikut:
 
 Dengan cURL:
 
-```shell
+```shell {linenos=false}
 curl https://get.acme.sh | sh -s email=aku@contoh.com
 ```
 
 Atau dengan GNU Wget:
 
-```shell
+```shell {linenos=false}
 wget -O -  https://get.acme.sh | sh -s email=aku@contoh.com
 ```
 
@@ -311,14 +311,14 @@ LE_WORKING_DIR="$HOME/.acme.sh" && export LE_WORKING_DIR
 
 Atau, berikut di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 fish_add_path "$HOME"/.acme.sh
 set -xU LE_WORKING_DIR "$HOME"/.acme.sh
 ```
 
 Atau, di bawah ini jika Anda menggunakan `fish` dengan versi di bawah 3.2.0:
 
-```shell
+```fish
 set -Ua fish_user_paths "$HOME"/.acme.sh
 set -xU LE_WORKING_DIR "$HOME"/.acme.sh
 ```
@@ -427,7 +427,7 @@ export CF_Zone_ID="ZONE_ID_KAMU_DI_SINI"
 
 Atau di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set -x CF_Token "API_TOKEN_KAMU_DI_SINI"
 set -x CF_Account_ID "ACCOUNT_ID_KAMU_DI_SINI"
 set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
@@ -461,19 +461,19 @@ Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan La
 
 Nah, setelah berhasil didapat, maka Anda tinggal masukkan saja semua Informasinya ke dalam variabel. Dengan cara berikut:
 
-```shell
+```shell {linenos=false}
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI" && export NETLIFY_ACCESS_TOKEN
 ```
 
 Atau, dengan cara berikut:
 
-```shell
+```shell {linenos=false}
 export NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
 Atau di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish {linenos=false}
 set -x NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
@@ -489,7 +489,7 @@ Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
 ### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
 Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_)-nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME-nya menggunakan acme.sh dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
 ```
 
@@ -497,7 +497,7 @@ Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" da
 
 **Kalau saya belum daftar sama sekali gimana?** Jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --register-account
 ```
 
@@ -533,7 +533,7 @@ Berikut adalah cara-caranya:
 ### Menerbitkan Sertifikat SSL (Wajib dipelajari) {#issue-cert}
 Jika Anda ingin menerbitkan sertifikat SSL dengan acme.sh (cth. hanya untuk 1 Domain dan 1 Subdomain), maka format perintahnya akan menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d www.domain.com -d domain.com METODE_VERIFIKASI PARAMETER_TAMBAHAN
 ```
 
@@ -647,7 +647,7 @@ Tapi, nama direktori untuk menyimpan dan bahkan nama dari berkas-berkas tersebut
 
 Contohnya Anda ingin menerbitkan sertifikat SSL dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d www.domain.com -d domain.com --nginx
 ```
 
@@ -660,7 +660,7 @@ Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Metode v
 
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai Metode Verifikasi:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d www.domain.com -d domain.com --dns dns_cf
 ```
 
@@ -674,7 +674,7 @@ Jika Anda menggunakan Penyedia DNS Otoritatif selain Cloudflare, ganti saja `dns
 
 Misalnya: Anda ingin menerbitkan sebuah Sertifikat SSL untuk `www.domain.com` dan ingin menggunakan Netlify DNS sebagai Metode Verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns dns_netlify`. Jadinya seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d www.domain.com -d domain.com --dns dns_netlify
 ```
 
@@ -689,7 +689,7 @@ Untuk menerbitkan Sertifikat SSL yang menargetkan Banyak Domain dan Subdomain, s
 
 Untuk 2 Domain dan 4 Subdomain:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.com -d www.domain2.com -d sub.domain2.com
 ```
 
@@ -701,13 +701,13 @@ Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Pro
 
 Untuk 4 Domain saja:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d domain1.com -d domain2.com -d domain3.com -d domain4.com
 ```
 
 Atau, jika Anda ingin menggunakan metode verifikasi yang berbeda-beda untuk setiap domain, maka Anda bisa meraciknya dengan contoh seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue \
         -d www.domain1.com -d domain1.com --dns dns_cf \
         -d www.domain2.com -d domain2.com --dns dns_netlify \
@@ -725,7 +725,7 @@ Tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [
 
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan Semua Subdomainnya dengan menggunakan DNS dari Cloudflare sebagai Verifikasi:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf
 ```
 
@@ -753,7 +753,7 @@ Jika Anda mau seperti itu, tambahkan saja Subdomain Anda beserta _Wildcard-nya_,
 
 Contohnya menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d '*.domain.com' -d domain.com -d '*.sub.domain.com' -d sub.domain.com --dns dns_cf
 ```
 
@@ -766,7 +766,7 @@ Jika Anda ingin menerbitkan Sertifikat SSL dengan ukuran kunci yang berbeda, tam
 
 Contoh Perintah di bawah ini jika Anda ingin menerbitkannya dengan kunci RSA yang berukuran 3072 bit (RSA-3072):
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 ```
 
@@ -778,7 +778,7 @@ Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Pro
 
 Atau, berikut di bawah ini jika Anda ingin menerbitnya dalam bentuk _Wildcard_:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d '*.domain.com' -d domain.com --keylength 3072 --dns dns_cf
 ```
 
@@ -809,7 +809,7 @@ Jika Anda ingin menerbitkannya menggunakan kunci ECC (_Eliptic Curve Cryptograph
 
 Contoh Perintah di bawah ini jika Anda ingin menerbitkan Sertifikat SSL ECDSA dengan ukuran P-384:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 ```
 
@@ -821,7 +821,7 @@ Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Pro
 
 Atau, berikut di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d '*.domain.com' -d domain.com --keylength ec-384 --dns dns_cf
 ```
 
@@ -850,7 +850,7 @@ Nama berkas-berkasnya akan sama saja, tidak ada yang berbeda. Satu hal lagi, jik
 
 Contoh perintahnya sebagai berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --remove -d domain.com --ecc
 ```
 
@@ -1039,7 +1039,7 @@ NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 
 Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set PLAIN_CERT (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/domain.com.cer)
 set PLAIN_KEY (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/domain.com.key)
 set PLAIN_CA (awk -vORS="\\\n" '1' "$HOME"/.acme.sh/domain.com/ca.cer)
@@ -1052,7 +1052,7 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 curl -X POST \
      -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
@@ -1062,13 +1062,13 @@ curl -X POST \
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
-```shell
+```shell {linenos=false}
 curl -X POST -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' -H 'content-type: application/json' --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' --url "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
 ```
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
 
-```json
+```json {linenos=false}
 {"id":"5dxxxxxxxxxxxxxxxxxxxxxx","state":"custom","domains":["*.domain.com","domain.com"],"created_at":"2019-08-30T06:39:58.331Z","updated_at":"2021-07-12T17:07:40.622Z","expires_at":"2021-10-06T23:59:59.000Z","custom":true,"migrate_to_le_running":false,"renewal_error_message":null,"renewable":false,"renew_running":false}
 ```
 
@@ -1116,7 +1116,7 @@ Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplik
 
 Untuk _Pull Zone ID-nya_, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **"Pull Zones"** -> Lalu kamu pilih _Pull Zone_ yang ingin kamu pasangkan Sertifikat SSL-nya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
 
-```text
+```plain {linenos=false}
 https://panel.bunny.net/pullzones/edit/ANGKA_YANG_MUNCUL
 ```
 
@@ -1147,7 +1147,7 @@ BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
 
 Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set BASE64_FULLCHAIN_CER (openssl base64 -A < "$HOME"/.acme.sh/domain.com/fullchain.cer)
 set BASE64_KEY (openssl base64 -A < "$HOME"/.acme.sh/domain.com/domain.com.key)
 set BUNNY_ACCESS_KEY "ACCESS_KEY_KAMU_DI_SINI"
@@ -1159,7 +1159,7 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 curl -X POST \
      -H 'Accept: application/json' \
      -H 'AccessKey: '$BUNNY_ACCESS_KEY'' \
@@ -1170,7 +1170,7 @@ curl -X POST \
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
-```shell
+```shell {linenos=false}
 curl -X POST -H 'Accept: application/json' -H 'AccessKey: '$BUNNY_ACCESS_KEY'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' --url "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
 ```
 
@@ -1214,13 +1214,13 @@ Setelah membuat **"API Token"** dan menyimpannya, Anda perlu menginstal [`jq`](h
 
 Jika Anda menggunakan Termux, maka Anda bisa menginstalnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 pkg i -y jq
 ```
 
 Atau, jika Anda merupakan pengguna GNU/Linux (x64), Anda bisa menginstalnya dengan salah satu perintah berikut:
 
-```shell
+```shell {linenos=false}
 ## Instal di Direktori Sistem ##
 sudo sh -c 'wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /usr/local/bin/jq; chmod +x /usr/local/bin/jq'
 
@@ -1248,7 +1248,7 @@ CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI"
 
 Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set CPANEL_PLAIN_CERT (jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.cer)
 set CPANEL_PLAIN_KEY (jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.key)
 set CPANEL_PLAIN_CA (jq -sRr @uri < "$HOME"/.acme.sh/domain.com/ca.cer)
@@ -1265,20 +1265,20 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
           'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
-```shell
+```shell {linenos=false}
 curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' 'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
 ```
 
 Atau, memakai perintah seperti di bawah ini juga boleh biar lebih rapi:
 
-```shell
+```shell {linenos=false}
 curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
      -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' \
      -d 'cert='$CPANEL_PLAIN_CERT'' \
@@ -1291,7 +1291,7 @@ Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat Domain/Subdomain di cPanel y
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
 
-```json
+```json {linenos=false}
 {"metadata":{},"messages":["The certificate was successfully installed on the domain “domain.com”."],"data":{"extra_certificate_domains":["sub.domain.com"],"servername":"domain.com","message":"Sertifikat SSL ini sekarang diinstal ke domain “domain.com” menggunakan alamat IP “144.xxx.xxx.xxx”. Apache diaktifkan ulang di latar belakang.\n","status":1,"domain":"domain.com","user":"username","cert_id":"ec-_wildcard__domain_com_000xxxxxxx_16xxxxxx65_3cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1","key_id":"ec-000xxxxx38_4dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxc","action":"install","warning_domains":[],"statusmsg":"Sertifikat SSL ini sekarang diinstal ke domain “domain.com” menggunakan alamat IP “144.xxx.xxx.xxx”. Apache diaktifkan ulang di latar belakang.\n","aliases":"","working_domains":["domain.com"],"ip":"144.xxx.xxx.xxx","html":"<br>Sertifikat SSL ini sekarang diinstal ke domain “domain.com” menggunakan alamat IP “144.xxx.xxx.xxx”.<br />Apache diaktifkan ulang di latar belakang."},"errors":["The event UAPI::SSL::install_ssl was handled successfully."],"status":1,"warnings":null}
 ```
 
@@ -1387,7 +1387,7 @@ Jadi, saya bahas yang boleh dirubah saja. Berikut adalah penjelasan mengenai nil
 
 Ketiga variabel tersebut bisa Anda isi dengan perintah itu langsung, contoh berikut ini adalah ketika Anda ingin menyetak teks "Halo, Dunia!" di sebelum perkakas acme.sh menjalankan tugasnya:
 
-```shell
+```shell {linenos=false}
 Le_PreHook='echo "Halo, Dunia!"'
 ```
 
@@ -1401,7 +1401,7 @@ Jadi, segala aktivitas masukkan/keluaran pada penyimpanan yang telah Anda lakuka
 
 Setelah perintah tersebut berhasil dieksekusi, maka nilai variabel yang telah Anda ubah sebelumnya akan menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 __ACME_BASE64__START_<BARIS_PERINTAH_DALAM_BENTUK_BASE64>__ACME_BASE64__END_
 ```
 
@@ -1443,7 +1443,7 @@ Di dalam berkas tersebut ada banyak variabel yang kosong, termasuk `Le_PreHook`,
 
 Nah, dia isi itu dengan `/usr/bin/env sh renew.sh`. Jadi, variabelnya akan menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 Le_RenewHook='/usr/bin/env sh renew.sh'
 ```
 
@@ -1451,7 +1451,7 @@ Setelah itu, ia simpan berkas tersebut dan beberapa bulan kemudian, acme.sh memp
 
 Setelah skrip tersebut berhasil dijalankan dan melihat lagi konfigurasinya, ia melihat kalau nilai dari variabel `Le_RenewHook` itu berubah menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo__ACME_BASE64__END_'
 ```
 
@@ -1535,13 +1535,13 @@ Anda bisa membuat Skrip tersebut (Melalui Konfigurasi atau berkas `renew-ssl.sh`
 
 Edit _Crontab_ dengan perintah berikut: (tanpa perlu akses _root_ ataupun menggunakan `sudo`)
 
-```shell
+```shell {linenos=false}
 crontab -e
 ```
 
 Saat mengedit, Anda akan menemukan sebuah Cron dengan teks yang mirip seperti berikut:
 
-```crontab
+```crontab {linenos=false}
 6 0 * * * "/home/username/.acme.sh"/acme.sh --cron --home "/home/username/.acme.sh" > /dev/null
 ```
 
@@ -1557,13 +1557,13 @@ Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setia
 
 Contohnya seperti berikut:
 
-```crontab
+```crontab {linenos=false}
 0 */2 * * * /usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh > /dev/null
 ```
 
 Atau, contoh lainnya seperti berikut:
 
-```crontab
+```crontab {linenos=false}
 0 */2 * * * "/home/username/.acme.sh"/acme.sh --cron --home "/home/username/.acme.sh" > /dev/null
 ```
 
@@ -1613,7 +1613,7 @@ Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcent
 
 Maka format perintahnya akan seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --set-default-ca --server opsi_ca
 ```
 
@@ -1621,7 +1621,7 @@ Anda bisa ganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh 
 
 Contoh perintah di bawah ini adalah menggantikan CA Asali/Baku menjadi Let's Encrypt:
 
-```shell
+```shell {linenos=false}
 acme.sh --set-default-ca --server letsencrypt
 ```
 
@@ -1634,7 +1634,7 @@ Saat menerbitkan sertifikat SSL, Anda perlu menambahkan parameter `--server opsi
 
 Format perintahnya akan seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
 ```
 
@@ -1647,13 +1647,13 @@ Setelah menerbitkan ulang sertifikatnya, tentu saja acme.sh tidak mengeksekusika
 ### Pertanyaan ke-7: Bagaimana caranya agar saya bisa menghapus sertifikatnya? {#pertanyaan-ke7}
 **Jawab:** Anda bisa menghapusnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --remove -d domain.com
 ```
 
 Anda bisa menambahkan argumen `--ecc` jika Anda ingin menghapus sertifikat ECC/ECDSA, contoh perintahnya akan seperti berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --remove -d domain.com --ecc
 ```
 
@@ -1698,7 +1698,7 @@ Tapi, saya belum coba dan keliatannya saya lebih suka (atau mungkin lebih tepatn
 ### Pertanyaan ke-11: Bagaimana caranya saya hapus acme.sh sepenuhnya? {#pertanyaan-ke11}
 **Jawab:** Anda tinggal ketik perintah berikut:
 
-```shell
+```shell {linenos=false}
 acme.sh --uninstall
 ```
 
@@ -1999,7 +1999,7 @@ Saya kurang tahu/kurang paham apa maksud dari kalimat `for any commercial purpos
 
 Kalaupun tidak boleh dipasang di Situs Web tersebut, saya juga kurang tahu apakah itu berlaku untuk pengguna gratisan, yang berbayar atau malah semua. Karena TOS ini sepertinya melingkupi semua layanan yang ada pada ZeroSSL, gak peduli itu gratisan ataupun berbayar.
 
-Jadi, jawabannya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa seizin dari mereka.
+Jadi, jawabannya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa izin dari mereka.
 
 ### Pertanyaan ke-26: Apa alasan kamu menggunakan ZeroSSL? Kenapa kamu gak pakai Let's Encrypt aja? Padahal tampilan blog ini akan lebih baik apabila diakses dengan Peramban Web yang Sangat Modern {#pertanyaan-ke26}
 **Jawab:** Alasan saya menggunakan ZeroSSL sebagai berikut:
@@ -2037,9 +2037,7 @@ Pada akhirnya, saya mendapatkan ilmu baru yang cukup berguna juga, setidaknya un
 - Server ACME-nya yang kadang-kadang bermasalah. Jadi, Anda harus bersabar jika Anda mengalami masalah saat menerbitkan/memperbarui sertifikat SSL melalui server ACME-nya. Kalo gak mau sabar, ya berlangganan aja atau ganti dengan yang lain.
 - Memiliki kelebihan di Pengelolaan Sertifikatnya, tapi tidak bisa mencabut atau menghapus sertifikat SSL yang diterbitkan melalui server ACME-nya.
 
-Itu aja sih kekurangannya untuk saat ini, masalah sertifikat Akar yang berubah itu adalah masalah lain, karena yang kamu tanyakan adalah saat ini, bukan kedepannya.
-
-Kalau sertifikat akarnya berubah, saya tinggal putuskan apakah CA tersebut perlu diganti atau tidaknya.
+Itu aja sih kekurangannya untuk saat ini.
 
 ### Pertanyaan ke-28: Saya memasang CAA Record pada DNS Domain saya, apa CAA yang harus saya isi biar supaya saya bisa menggunakan ZeroSSL? {#pertanyaan-ke28}
 **Jawab:** Anda bisa mengisinya dengan `sectigo.com`. Kenapa? Karena pada dasarnya ia menggunakan sertifikat SSL dari Sectigo, sehingga ZeroSSL itu sebenarnya tidak 'berdiri sendiri', melainkan menjalin kerjasama dengan Sectigo.
@@ -2100,7 +2098,7 @@ rsa 4096 bits 0.012121s 0.000186s     82.5   5368.5
 ```
 
 - Halaman **"[Making tar Archives More Portable](https://www.gnu.org/software/tar/manual/html_section/Portability.html)"** dari Proyek GNU
-- Halaman [Manual Perintah `tar` untuk macOS](https://ss64.com/osx/tar.html) (yang entah apakah benar sesuai atau tidaknya untuk versi sekarang)
+- Halaman [Manual Perintah `tar` untuk macOS](https://ss64.com/osx/tar.html) (yang entah apakah benar sesuai atau tidaknya untuk versi sekarang, itupun bukan halaman resmi dari Apple)
 
 ## Penutup
 Ya udah, segitu aja dulu artikel kali ini. Gimana? Pusing? Meriang? Ya makanya pelan-pelan bacanya, sudah saya jelaskan dari awal kalau artikel ini bakalan panjang kali lebar.
@@ -2120,7 +2118,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan
 
 Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
 
-```plaintext
+```plain {linenos=false}
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-08-26-cara-memasang-zerossl-dan-renew-otomatis-di-netlify-bunnycdn
 ```
 

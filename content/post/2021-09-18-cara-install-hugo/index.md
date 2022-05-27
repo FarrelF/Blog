@@ -60,13 +60,13 @@ Berikut adalah cara instalasinya:
 #### Pengelola Paket Scoop
 Jika Anda menggunakan [Scoop](https://scoop.sh) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
 
-```powershell
+```powershell {linenos=false}
 scoop install hugo
 ```
 
 Atau, ganti `hugo` jadi `hugo-extended` jika Anda ingin meng-install Hugo Extended, seperti berikut:
 
-```powershell
+```powershell {linenos=false}
 scoop install hugo-extended
 ```
 
@@ -74,7 +74,7 @@ Perintah di atas akan meng-install Hugo di dalam Direktori Pengguna (`%USERPROFI
 
 Perintahnya akan menjadi seperti berikut:
 
-```powershell
+```powershell {linenos=false}
 scoop install hugo-extended -g
 ```
 
@@ -82,7 +82,7 @@ Tapi, Anda perlu membuka Command Prompt, Windows Terminal, Windows PowerShell at
 
 Jika Anda sudah meng-install `sudo` melalui Scoop atau [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
 
-```powershell
+```powershell {linenos=false}
 sudo scoop install hugo-extended -g
 ```
 
@@ -93,13 +93,13 @@ Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `updat
 #### Pengelola Paket Chocolatey
 Jika Anda menggunakan [Chocolatey](https://chocolatey.org/) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
 
-```powershell
+```powershell {linenos=false}
 choco install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dalam varian Biasa/Standar, jika Anda ingin meng-install Hugo Extended, cukup ganti saja `hugo` menjadi `hugo-extended`, seperti berikut:
 
-```powershell
+```powershell {linenos=false}
 choco install hugo-extended
 ```
 
@@ -186,13 +186,15 @@ WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus meng
 #### Debian, Ubuntu dan Keluarganya
 Jika Anda adalah pengguna Debian, Ubuntu atau Keluarganya, sebenarnya Anda dapat menginstalnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 sudo sh -c 'apt update; apt install -y hugo'
 ```
 
 Atau:
 
-    # apt update; apt install -y hugo
+```shell {linenos=false}
+apt update; apt install -y hugo
+```
 
 Tapi cara di atas tidak saya rekomendasikan, karena versi yang Anda dapatkan nantinya merupakan versi yang lama (kecuali jika Anda menggunakan Distribusi dengan rilis bergulir).
 
@@ -215,7 +217,7 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set HUGO_ARCH "64bit"
 set FILENAME "hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".deb"
@@ -246,7 +248,7 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set FILENAME "hugo_extended_"$HUGO_VERSION"_Linux-64bit.deb"
 cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
@@ -277,7 +279,7 @@ Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di
 #### SUSE Linux Enterprise (SLE), openSUSE Leap/Tumbleweed dan Keluarganya (Tidak Resmi)
 Jika Anda adalah pengguna SUSE Linux Enterprise, openSUSE Leap/Tumbleweed atau Keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps), jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
 
-```shell
+```shell {linenos=false}
 ### Untuk Pengguna SUSE Linux Enterprise (SLE) 15 SP3
 sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/SLE_15_SP3/home:darix:apps.repo
 
@@ -302,7 +304,7 @@ Untuk lebih lanjut. silahkan kunjungi [Halaman Unduh Repositorinya](https://soft
 #### Arch Linux, Manjaro dan Keluarganya
 Jika Anda adalah pengguna Arch Linux, Manjaro atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 sudo pacman -S hugo
 ```
 
@@ -312,7 +314,7 @@ sudo pacman -S hugo
 
 ~~Tapi jika Anda menggunakan Yay sebagai _AUR Helper_ nya, maka Anda dapat memakai perintah berikut:~~
 
-```shell
+```shell {linenos=false}
 yay -S hugo-bin
 ```
 
@@ -323,7 +325,7 @@ yay -S hugo-bin
 #### Solus dan Keluarganya
 Jika Anda menggunakan Solus atau Keluarganya, maka Anda dapat menginstalnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 sudo eopkg install hugo
 ```
 
@@ -332,7 +334,7 @@ sudo eopkg install hugo
 #### Void Linux dan Keluarganya
 Jika Anda adalah pengguna Void Linux atau Keluarganya, Anda dapat meng-install Hugo dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 sudo xbps-install -S hugo
 ```
 
@@ -341,7 +343,7 @@ sudo xbps-install -S hugo
 #### Homebrew (Lebih Universal)
 Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 brew install hugo
 ```
 
@@ -350,13 +352,13 @@ brew install hugo
 #### Snap (Lebih Universal)
 Jika Anda ingin menggunakan Snap yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 snap install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `--channel=extended/stable` saja, menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 snap install hugo --channel=extended/stable
 ```
 
@@ -402,7 +404,7 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set HUGO_ARCH "64bit"
 set FILENAME "hugo_"$HUGO_VERSION"_Linux-"$HUGO_ARCH".tar.gz"
@@ -433,7 +435,7 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _Shell_:
 
-```shell
+```fish
 set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
 set FILENAME "hugo_extended_"$HUGO_VERSION"_Linux-64bit.tar.gz"
 cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$FILENAME""
@@ -469,13 +471,13 @@ cd -
 
 Setelah itu, pastikan kalau Hugo dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo yang Anda gunakan sekarang:
 
-```shell
+```shell {linenos=false}
 hugo version
 ```
 
 Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
-```plain
+```plain {linenos=false}
 {{< hugo-version-long isExtended=true >}}
 ```
 
@@ -523,13 +525,13 @@ Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di
 
 Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 sudo port install hugo
 ```
 
 Perintah di atas akan meng-install Hugo dengan varian biasa, jika Anda ingin meng-install Hugo Extended, Anda hanya perlu tambahkan argumen `+extended` saja, menjadi seperti berikut:
 
-```shell
+```shell {linenos=false}
 sudo port install hugo +extended
 ```
 
@@ -542,7 +544,7 @@ Jika Anda tidak ingin menggunakan `sudo`, maka hapus saja `sudo` nya.
 #### Homebrew
 Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
-```
+```shell {linenos=false}
 brew install hugo
 ```
 
@@ -552,7 +554,7 @@ brew install hugo
 #### Termux
 Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 pkg i hugo
 ```
 
@@ -566,7 +568,7 @@ Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android And
 
 Jika Anda adalah pengguna OpenBSD dan Keluarganya, maka Anda dapat meng-install Hugo dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 doas pkg_add hugo
 ```
 
@@ -616,13 +618,13 @@ cd -
 
 Setelah menginstalnya, silahkan Anda pastikan agar Hugo dapat dieksekusi setelah diinstal dengan perintah berikut untuk menampilan versinya:
 
-```shell
+```shell {linenos=false}
 hugo version
 ```
 
 Jika berhasil, maka harusnya akan muncul keluaran seperti di bawah ini:
 
-```shell
+```plain {linenos=false}
 {{< hugo-version-long isExtended=true >}}
 ```
 
@@ -646,13 +648,13 @@ Jadi, Anda harus memasukkan direktori tersebut ke dalam variabel `MANPATH` bersa
 
 Anda bisa gunakan perintah di bawah ini untuk menambahkannya:
 
-```shell
+```shell {linenos=false}
 MANPATH="$(manpath -g):$HOME/.local/share/man" && export MANPATH
 ```
 
 Atau, jika Anda menggunakan `fish` sebagai _Shell_, silahkan gunakan perintah berikut:
 
-```shell
+```fish {linenos=false}
 set -gx MANPATH (manpath -g) "$HOME"/.local/share/man
 ```
 
@@ -661,7 +663,7 @@ Anda bisa menyimpan salah satu dari perintah di atas ke dalam berkas konfigurasi
 #### Membuat fitur _Shell Completion_ untuk Hugo
 Jika Anda adalah pengguna GNU Bash dan ingin menambahkan fitur _Shell Completion_ untuk Hugo, maka Anda dapat melakukannya melalui perintah berikut:
 
-```shell
+```shell {linenos=false}
 hugo completion bash | install -Dm 644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
 ```
 
@@ -673,7 +675,7 @@ Jika Anda menggunakan perkakas `bash-completion` versi 2.8 atau di atasnya (sepe
 
 Tapi jika Anda merasa masih menggunakan versi di bawahnya atau merasa kurang yakin, maka Anda dapat menambahkan baris skrip berikut ke dalam berkas `~/.bash_completion` ataupun di dalam berkas `~/.bashrc`:
 
-```shell
+```shell {linenos=false}
 for bcfile in "$HOME"/.local/share/bash-completion/completions/* ; do
   [ -f "$bcfile" ] && . $bcfile
 done
@@ -685,7 +687,7 @@ Dengan begitu, Anda bisa menggunakan fitur _Shell Completion-nya_ di dalam Bash.
 
 Tapi jika Anda menggunakan Z Shell (disingkat menjadi `zsh`), maka pertama-tama Anda perlu ketahui terlebih dahulu isi dari variabel `FPATH` dengan perintah berikut beserta keluarannya:
 
-```shell
+```shell {linenos=false}
 echo $FPATH
 /home/user/.oh-my-zsh/plugins/colored-man-pages:/home/user/.oh-my-zsh/plugins/sudo:/home/user/.oh-my-zsh/plugins/debian:/home/user/.oh-my-zsh/plugins/git:/home/user/.oh-my-zsh/functions:/home/user/.oh-my-zsh/completions:/home/user/.oh-my-zsh/cache/completions:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/functions/Calendar:/usr/share/zsh/functions/Chpwd:/usr/share/zsh/functions/Completion:/usr/share/zsh/functions/Completion/Base:/usr/share/zsh/functions/Completion/Linux:/usr/share/zsh/functions/Completion/Unix:/usr/share/zsh/functions/Completion/X:/usr/share/zsh/functions/Completion/Zsh:/usr/share/zsh/functions/Exceptions:/usr/share/zsh/functions/Math:/usr/share/zsh/functions/MIME:/usr/share/zsh/functions/Misc:/usr/share/zsh/functions/Newuser:/usr/share/zsh/functions/Prompts:/usr/share/zsh/functions/TCP:/usr/share/zsh/functions/VCS_Info:/usr/share/zsh/functions/VCS_Info/Backends:/usr/share/zsh/functions/Zftp:/usr/share/zsh/functions/Zle
 ```
@@ -696,7 +698,7 @@ Variabel tersebut mendefinisikan satu set direktori, yang berisi berkas yang dap
 
 Contohnya jika Anda menggunakan `oh-my-zsh`, maka Anda perlu meletakkannya di dalam folder `~/.oh-my-zsh/completions` dan kabar baiknya direktori tersebut ada di dalam variabel `FPATH`. Berikut adalah perintah untuk membuat _Completion-nya_:
 
-```shell
+```shell {linenos=false}
 hugo completion zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
 ```
 
@@ -704,13 +706,13 @@ Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my
 
 Jika Anda ingin meletakkannya di dalam direktori kustom yang mana itu tidak termasuk dalam variabel `FPATH`, maka Anda perlu memasukkan direktori tersebut ke dalam variabelnya secara manual dengan perintah/skrip berikut:
 
-```shell
+```shell {linenos=false}
 FPATH="/direktori/kustom/kamu:$FPATH" && export FPATH
 ```
 
 Atau, perintah berikut:
 
-```shell
+```shell {linenos=false}
 fpath=( /direktori/kustom/kamu "${fpath[@]}" )
 ```
 

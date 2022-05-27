@@ -67,25 +67,25 @@ Berikut adalah hal yang harus Anda lakukan:
 
 **Langkah ke-2:** Instal paket `openssh` dan `termux-services` di Termux kamu dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 pkg i -y openssh termux-services
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
-```shell
+```shell {linenos=false}
 apt update; apt install -y openssh termux-services
 ```
 
 Kalau mau, setelah ini Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
 
-```shell
+```shell {linenos=false}
 pkg i -y nmap iproute2
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
-```shell
+```shell {linenos=false}
 apt update; apt install -y nmap iproute2
 ```
 
@@ -191,7 +191,7 @@ Untuk kredensialnya, cukup masukkan Alamat IP, _Port_ dan kata sandinya saja, ti
 
 Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di Komputer/Laptop kamu, maka perintah untuk _login_ nya sebagai berikut:
 
-```shell
+```shell {linenos=false}
 ssh 192.168.100.81 -p 8022
 ```
 
@@ -215,7 +215,7 @@ Di langkah ini, kamu sudah bisa mengontrol/menggunakan Termux dari Komputer/Lapt
 
 Sebagai contoh, di sini saya ingin meng-install Neofetch di Termux, maka perintahnya adalah sebagai berikut:
 
-```shell
+```shell {linenos=false}
 pkg i neofetch
 ```
 
@@ -363,6 +363,6 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
-```plaintext
+```plain {linenos=false}
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-11-17-cara-menggunakan-termux-dari-komputer-laptop
 ```
