@@ -57,13 +57,13 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 ### Kode Sumber Blog
 Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silahkan kunjungi alamat URL berikut:
 
-```plain {linenos=false}
+```plain
 https://github.com/FarrelF/Blog
 ```
 
 Atau, alamat URL berikut untuk kode sumber cerminnya:
 
-```plain {linenos=false}
+```plain
 https://gitlab.com/FarrelF/Blog
 ```
 

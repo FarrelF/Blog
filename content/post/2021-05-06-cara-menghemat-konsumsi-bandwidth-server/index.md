@@ -60,8 +60,6 @@ Jika Anda menggunakan WordPress\.org (Hos Mandiri/_Self-hosted_), harusnya sudah
 
 Atau, jika Anda menggunakan SSG (_Static-site Generator_), terutama Hugo, maka seharusnya ada fitur ["Image Processing"](https://gohugo.io/content-management/image-processing/) untuk memproses berkas Gambar dan ["Hugo Pipes"](https://gohugo.io/hugo-pipes/) untuk memproses berkas-berkas JS, CSS dan SASS yang bisa diimplementasikan kedalam Tema.
 
-Jadi, itu bergantung pada tema yang Anda gunakan, jika temanya mengimplementasikan kedua fitur tersebut dengan benar dan optimal, maka beruntunglah Anda! Tapi, bagaimana jika tidak? Implementasikan lalu optimalkan saja sendiri dan jangan malas!
-
 Selebihnya masih banyak cara lain yang bisa Anda lakukan untuk mengecilkan ukuran berkas-berkas statik, sebelum akhirnya digunakan untuk Produksi.
 
 ### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#solusi-ke2}
@@ -247,7 +245,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang digunakan 
 
 Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
 
-```plain {linenos=false}
+```plain
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-05-06-cara-menghemat-konsumsi-bandwidth-server
 ```
 

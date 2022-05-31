@@ -67,25 +67,25 @@ Berikut adalah hal yang harus Anda lakukan:
 
 **Langkah ke-2:** Instal paket `openssh` dan `termux-services` di Termux kamu dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 pkg i -y openssh termux-services
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
-```shell {linenos=false}
+```shell
 apt update; apt install -y openssh termux-services
 ```
 
 Kalau mau, setelah ini Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 pkg i -y nmap iproute2
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
 
-```shell {linenos=false}
+```shell
 apt update; apt install -y nmap iproute2
 ```
 
@@ -116,7 +116,7 @@ Selain menggunakan `pidof`, jika tadi Anda menginstal `nmap`, maka Anda juga dap
 
 Eksekusikan perintah `nmap localhost` di dalam Termux untuk mengeceknya melalui `nmap`, lalu hasilnya akan seperti berikut:
 
-```shell
+```shell {linenos=true}
 $ nmap localhost
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-04 22:49 WIB
 Nmap scan report for localhost (127.0.0.1)
@@ -136,7 +136,7 @@ Oh iya, jangan lupa bahwa `8022` adalah _port_ SSH yang digunakan, jadi ketika A
 
 Contoh keluarannya akan seperti berikut:
 
-```shell
+```shell {linenos=true}
 $ ifconfig
 Warning: cannot open /proc/net/dev (Permission denied). Limited output.
 lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
@@ -162,7 +162,7 @@ Selain `ifconfig`, jika tadi Anda menginstal `iproute2`, maka Anda juga dapat me
 
 Contoh perintah dan keluarannya seperti berikut:
 
-```shell
+```shell {linenos=true}
 $ ip addr list wlan0
 52: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1460 qdisc mq state UP group default qlen 3000
     link/ether b4:a5:ac:cd:17:ef brd ff:ff:ff:ff:ff:ff
@@ -191,7 +191,7 @@ Untuk kredensialnya, cukup masukkan Alamat IP, _Port_ dan kata sandinya saja, ti
 
 Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di Komputer/Laptop kamu, maka perintah untuk _login_ nya sebagai berikut:
 
-```shell {linenos=false}
+```shell
 ssh 192.168.100.81 -p 8022
 ```
 
@@ -215,7 +215,7 @@ Di langkah ini, kamu sudah bisa mengontrol/menggunakan Termux dari Komputer/Lapt
 
 Sebagai contoh, di sini saya ingin meng-install Neofetch di Termux, maka perintahnya adalah sebagai berikut:
 
-```shell {linenos=false}
+```shell
 pkg i neofetch
 ```
 
@@ -281,7 +281,7 @@ Oh iya, setelah menentukan _shebang_ nya, mungkin memasukkan perintah `termux-wa
 
 **Contoh:** Jika Anda ingin menjalankan Server SSH atau `sshd`, maka isi dari skrip `startup-script` akan seperti berikut:
 
-```shell
+```shell {linenos=true}
 #!/data/data/com.termux/files/usr/bin/sh
 termux-wake-lock
 sshd
@@ -289,7 +289,7 @@ sshd
 
 Atau, jika Anda ingin agar [**Termux-services**](https://wiki.termux.com/wiki/Termux-services) mengaktifkan semua layanan yang ada dan didukungnya (seperti OpenSSH, Cronie/Cron Job, Apache2, NGINX, dll) dan mengaktifkan server SSH nya, maka isi dari skrip `startup-script` akan seperti berikut:
 
-```shell
+```shell {linenos=true}
 #!/data/data/com.termux/files/usr/bin/sh
 termux-wake-lock
 . $PREFIX/etc/profile
@@ -363,6 +363,6 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
-```plain {linenos=false}
+```plain
 https://github.com/FarrelF/Blog/tree/main/content/post/2021-11-17-cara-menggunakan-termux-dari-komputer-laptop
 ```

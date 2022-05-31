@@ -64,7 +64,7 @@ Tapi, kalau kamu sebelumnya pernah memasang sertifikat SSL dari ZeroSSL dengan m
 
 Jika Anda menggunakan acme.sh sebagai perkakasnya, silahkan perbarui terlebih dahulu versinya dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 acme.sh --upgrade --auto-upgrade
 ```
 
@@ -97,7 +97,7 @@ Jika belum, Anda bisa membuatnya melalui **Cloud Shell** yang ada di **Google Cl
 
 **Langkah ke-3:** Di **Cloud Shell**-nya, silahkan Anda buat proyeknya dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 gcloud projects create <PROJECT_ID>
 ```
 
@@ -105,7 +105,7 @@ Tentukan sendiri ID Proyeknya (_Project ID_) dengan menggantikan `<PROJECT_ID>`-
 
 Contoh:
 
-```shell {linenos=false}
+```shell
 gcloud projects create test-project-3049113
 ```
 
@@ -113,7 +113,7 @@ gcloud projects create test-project-3049113
 
 **Langkah ke-4:** Setelah menentukan ID Proyeknya, silahkan tekan "Enter", nanti secara otomatis akan dibuatkan Proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
 
-```shell {linenos=false}
+```shell
 $ gcloud projects create test-project-3049113
 Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/test-project-3049113].
 Waiting for [operations/cp.5266221063755867120] to finish...done.    
@@ -171,7 +171,7 @@ Caranya seperti berikut:
 
 **Langkah ke-3:** Di **Cloud Shell**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
 
-```shell {linenos=false}
+```shell
 gcloud config set project <PROJECT_ID>
 ```
 
@@ -179,7 +179,7 @@ Ganti `<PROJECT_ID>` dengan ID Proyek Anda.
 
 **Langkah ke-4:** Berikan izin untuk membuat kredensial EAB dengan perintah berikut di dalam **Cloud Shell**-nya:
 
-```shell {linenos=false}
+```shell
 gcloud projects add-iam-policy-binding <PROJECT_ID> \
   --member=user:<USER> \
   --role=roles/publicca.externalAccountKeyCreator
@@ -190,19 +190,19 @@ Ganti `<USER>` dengan Alamat Surel untuk akun Google Anda atau Alamat Surel lain
 
 **Langkah ke-5:** Aktifkan Akses API-nya dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 gcloud services enable publicca.googleapis.com
 ```
 
 **Langkah ke-6:** Setelah diaktifkan, buatlah kredensial EAB-nya dengan perintah berikut:
 
-```shell {linenos=false}
+```shell
 gcloud beta publicca external-account-keys create
 ```
 
 Jika berhasil, nanti keluarannya akan seperti berikut:
 
-```plain {linenos=false}
+```plain
 [b64MacKey: Qxxx_dxxxxxxxxxxxxxxxxxxxxx_cxxx-2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 keyId: bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
 ```
@@ -222,7 +222,7 @@ Setelah membuat kredensial EAB-nya, sekarang waktunya Anda gunakan kredensial te
 
 Untuk mendaftarkan sebuah akun dengan menggunakan Kredensial EAB-nya, Anda dapat menggunakan perintah berikut:
 
-```shell {linenos=false}
+```shell
 acme.sh  --register-account -m <ALAMAT_SUREL_KAMU> --server google \
     --eab-kid <EAB_KID_KAMU> \
     --eab-hmac-key <EAB_HMAC_KEY_KAMU>
@@ -238,7 +238,7 @@ Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL 
 ## Menerbitkan sertifikat SSL dari Google
 Untuk menerbitkan sertifikat SSL dari Google melalui acme.sh, maka Anda hanya perlu pelajari contoh perintah berikut:
 
-```shell {linenos=false}
+```shell
 acme.sh --issue --server google \
    -d '*.contoh.com' -d contoh.com --dns dns_cf
 ```
@@ -251,7 +251,7 @@ Perkakas acme.sh menggunakan ZeroSSL sebagai CA baku, sehingga Anda tetap diharu
 
 Jika Anda ingin menggantikan CA bakunya, Anda bisa memakai perintah berikut:
 
-```shell {linenos=false}
+```shell
 acme.sh --set-default-ca --server google
 ```
 
@@ -286,7 +286,7 @@ Tapi, mereka sendiri menyarankan Anda untuk menerbitkan sertifikatnya minimal de
 
 Contoh:
 
-```shell {linenos=false}
+```shell
 acme.sh --issue -d '*.contoh.com' -d contoh.com --dns dns_cf --valid-to "+30d"
 ```
 
@@ -294,7 +294,7 @@ Perintah di atas akan menerbitkan sertifikat SSL untuk domain `*.contoh.com` dan
 
 Contoh lainnya:
 
-```shell {linenos=false}
+```shell
 acme.sh --issue -d '*.contoh.com' -d contoh.com --dns dns_cf --valid-to "+30h"
 ```
 
@@ -306,7 +306,7 @@ Selain menggunakan format yang relatif, Anda juga bisa menggunakan format yang a
 
 Contoh:
 
-```shell {linenos=false}
+```shell
 acme.sh --issue -d '*.contoh.com' -d contoh.com --dns dns_cf --valid-to "2022-04-01T08:10:33Z"
 ```
 
