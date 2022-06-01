@@ -113,7 +113,7 @@ gcloud projects create test-project-3049113
 
 **Langkah ke-4:** Setelah menentukan ID Proyeknya, silahkan tekan "Enter", nanti secara otomatis akan dibuatkan Proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
 
-```shell
+```shell {linenos=true}
 $ gcloud projects create test-project-3049113
 Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/test-project-3049113].
 Waiting for [operations/cp.5266221063755867120] to finish...done.    
