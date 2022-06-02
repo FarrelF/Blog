@@ -15,6 +15,7 @@
     Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://giscus.app"), vibrate=(), magnetometer=(), camera=("https://giscus.app"), midi=(), accelerometer=(), ambient-light-sensor=(), display-capture=(), document-domain=(), encrypted-media=(), geolocation=(), hid=(), idle-detection=(), interest-cohort=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), xr-spatial-tracking=()
 
     Feature-Policy: gyroscope 'none'; usb 'none'; autoplay 'none'; microphone https://giscus.app; vibrate 'none'; magnetometer 'none'; camera https://giscus.app; midi 'none'; accelerometer 'none'; ambient-light-sensor 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; geolocation 'none'; hid 'none'; idle-detection 'none'; interest-cohort 'none'; payment 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; sync-xhr 'none'; xr-spatial-tracking 'none'
+    X-Robots-Tag: noindex, nofollow, noarchive
 
 /*/
     Cache-Control: public, max-age=180
@@ -33,6 +34,7 @@
     Permissions-Policy: gyroscope=(), usb=(), autoplay=(), microphone=("https://giscus.app"), vibrate=(), magnetometer=(), camera=("https://giscus.app"), midi=(), accelerometer=(), ambient-light-sensor=(), display-capture=(), document-domain=(), encrypted-media=(), geolocation=(), hid=(), idle-detection=(), interest-cohort=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), xr-spatial-tracking=()
 
     Feature-Policy: gyroscope 'none'; usb 'none'; autoplay 'none'; microphone https://giscus.app; vibrate 'none'; magnetometer 'none'; camera https://giscus.app; midi 'none'; accelerometer 'none'; ambient-light-sensor 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; geolocation 'none'; hid 'none'; idle-detection 'none'; interest-cohort 'none'; payment 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; sync-xhr 'none'; xr-spatial-tracking 'none'
+    X-Robots-Tag: noindex, nofollow, noarchive
 
 /*.jpg
     Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
