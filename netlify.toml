@@ -30,40 +30,40 @@
     HUGO_ENABLEGITINFO = "true"
 
 [[redirects]]
-  from = "http://www.farrel.franqois.id/*"
-  to = "https://farrel.franqois.id/:splat"
-  status = 301
-  force = true
+    from = "http://www.farrel.franqois.id/*"
+    to = "https://farrel.franqois.id/:splat"
+    status = 301
+    force = true
 
 [[redirects]]
-  from = "https://www.farrel.franqois.id/*"
-  to = "https://farrel.franqois.id/:splat"
-  status = 301
-  force = true
+    from = "https://www.farrel.franqois.id/*"
+    to = "https://farrel.franqois.id/:splat"
+    status = 301
+    force = true
 
 [[redirects]]
-  from = "http://farrel.franqois.id/*"
-  to = "https://farrel.franqois.id/:splat"
-  status = 301
-  force = true
+    from = "http://farrel.franqois.id/*"
+    to = "https://farrel.franqois.id/:splat"
+    status = 301
+    force = true
 
 [[redirects]]
-  from = "http://farrelf.netlify.app/*"
-  to = "https://farrel.franqois.id/:splat"
-  status = 301
-  force = true
+    from = "http://farrelf.netlify.app/*"
+    to = "https://farrel.franqois.id/:splat"
+    status = 301
+    force = true
 
 [[redirects]]
-  from = "https://farrelf.netlify.app/*"
-  to = "https://farrel.franqois.id/:splat"
-  status = 301
-  force = true
+    from = "https://farrelf.netlify.app/*"
+    to = "https://farrel.franqois.id/:splat"
+    status = 301
+    force = true
 
 [[redirects]]
-  from = "/categories/*"
-  to = "/kategori/:splat"
-  status = 301
-  force = true
+    from = "/categories/*"
+    to = "/kategori/:splat"
+    status = 301
+    force = true
 
 [[plugins]]
     package = "netlify-plugin-hugo-cache-resources"

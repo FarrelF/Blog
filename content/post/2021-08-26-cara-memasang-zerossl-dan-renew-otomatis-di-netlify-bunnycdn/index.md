@@ -1360,7 +1360,7 @@ Atau, penampilannya akan seperti berikut jika dipercantik:
     ],
     "data": {
         "extra_certificate_domains": [
-            "*.domain.com"
+            "sub.domain.com"
         ],
         "servername": "domain.com",
         "message": "Sertifikat SSL ini sekarang diinstal ke domain “domain.com” menggunakan alamat IP “144.xxx.xxx.xxx”. Apache diaktifkan ulang di latar belakang.\n",
@@ -1792,9 +1792,11 @@ Mengenai alasan kenapa saya tidak menggunakan [Lego](https://github.com/go-acme/
 Tapi, jika Anda lebih suka atau lebih memilih untuk menggunakan Lego atau Certbot, ya silahkan saja.
 
 ### Pertanyaan ke-10: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke10}
-**Jawab:** Ada, namanya [win-acme](https://www.win-acme.com/) atau [Lego](https://github.com/go-acme/lego) yang mendukung Windows secara _native_. Sebenarnya, Anda juga bisa menggunakan Certbot, dia juga mendukung Windows.
+**Jawab:** Ada, namanya [win-acme](https://www.win-acme.com/) atau [Lego](https://github.com/go-acme/lego) yang mendukung Windows secara _native_.
 
-Tapi, saya belum coba dan keliatannya saya lebih suka (atau mungkin lebih tepatnya "lebih terbiasa" dengan) acme.sh daripada lainnya, meskipun saya harus menggunakan WSL agar mengoperasikannya. Kalo mau pake ya silahkan.
+Selain itu, ada juga [Posh-ACME](https://poshac.me/) yang merupakan modul untuk PowerShell, sehingga bisa dijalankan oleh hampir semua Sistem Operasi termasuk Windows, GNU/Linux, dan macOS selama terinstal [PowerShell](https://microsoft.com/PowerShell) sebagai _Shell-nya_, tapi saat ini PowerShell [belum bisa diinstal secara langsung](https://github.com/termux/termux-packages/issues/1729) di Termux, harus memakai [beberapa "trik"](https://dev.to/thementor/i-run-powershell-on-android-and-so-can-you-458k) terlebih dahulu.
+
+Saya belum coba semuanya dan keliatannya saya lebih suka (atau mungkin lebih tepatnya "lebih terbiasa" dengan) acme.sh daripada lainnya, meskipun saya harus menggunakan WSL agar mengoperasikannya. Kalo mau pake ya silahkan.
 
 ### Pertanyaan ke-11: Bagaimana caranya saya hapus acme.sh sepenuhnya? {#pertanyaan-ke11}
 **Jawab:** Anda tinggal ketik perintah berikut:
@@ -1803,7 +1805,7 @@ Tapi, saya belum coba dan keliatannya saya lebih suka (atau mungkin lebih tepatn
 acme.sh --uninstall
 ```
 
-Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas Skrip _Shell_ Interaktif milik Anda, seperti di dalam berkas `$HOME/.bashrc` atau `$HOME/.zshrc`.
+Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas konfigurasi _Shell_ yang Anda gunakan, seperti di dalam berkas `$HOME/.bashrc` atau `$HOME/.zshrc`.
 
 Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf "$HOME"/.acme.sh` jika direktori tersebut masih ada.
 
@@ -1817,7 +1819,7 @@ Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` meng
 ### Pertanyaan ke-13: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke13}
 **Jawab:** Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat dan sistem operasi, seperti oleh Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
 
-Sedangkan `base64` itu belum tentu kompatibel dan akan sama baik perintah ataupun hasil keluarannya di kebanyakan Sistem Operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
+Sedangkan `base64` itu belum tentu kompatibel dan belum tentu akan sama baik perintah ataupun hasil keluarannya di kebanyakan Sistem Operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
 
 Lagipula, tidak semua Sistem Operasi berbasis \*nix memakai GNU coreutils, sebut saja macOS, Alpine Linux, dan BSD yang merupakan tiga di antaranya, jadi ya wajar saja jika mereka berbeda bila dibandingkan dengan GNU/Linux.
 
@@ -1886,11 +1888,15 @@ Biasanya kebanyakan Peramban Web di Desktop dan Seluler (terutama versi terbaru)
 
 Tapi, ada beberapa perangkat lunak klien lainnya yang tidak mendukung ekstensi AIA ini dan ada pula yang tidak menembolokan sertifikat penengah, sehingga mereka tidak mendukung sertifikat SSL yang rantainya tidak lengkap.
 
-Kalau Anda ingin menguji aksesnya dari perangkat Anda, silahkan kunjungi alamat URL [https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/) atau Situs Web [badssl.com](https://badssl.com) untuk pengujian lainnya.
+Kalau Anda ingin menguji 'reaksi' dari Peramban Web yang Anda gunakan, silahkan kunjungi alamat URL [https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/) atau Situs Web [badssl.com](https://badssl.com) untuk pengujian lainnya.
 
 Atau, kalau Anda ingin mengecek rantai sertifikat yang terpasang di Situs Web/Blog/Aplikasi Anda, silahkan kunjungi halaman [SSL Checker](https://www.sslshopper.com/ssl-checker.html) dari SSL Shopper atau [SSL Server Test](https://www.ssllabs.com/ssltest/) dari Qualys SSL Labs.
 
 Selain hal di atas, jika Anda tidak memasang Kunci Pribadi, maka sertifikat tersebut biasanya tidak bisa digunakan/tidak diterima oleh Perangkat Lunak, karena Server memerlukan Kunci Pribadi untuk melakukan Dekripsi Data.
+
+Kalau kuncinya tidak cocok dengan sertifikatnya, maka akan ada galat seperti cuplikan di bawah ini jika Anda mengaksesnya:
+
+![Galat "ERR_SSL_VERSION_OR_CIPHER_MISMATCH" di Peramban Web Brave ketika mengakses blog ini, berdasarkan pengalaman pribadi](SSL_TLS_Cipher_Misatch_Error.png) ![Galat pada SSLTest ketika ingin menguji blog ini](SSLTest_Error.png)
 
 Atau, jika Anda tidak memasang sertifikat untuk Domainnya, sepertinya Anda sudah bisa menebak apa yang akan terjadi.
 
@@ -1950,7 +1956,7 @@ Misalnya, jika Anda menggunakan Cloudflare sebagai DNS Otoritatif untuk domain A
 
 Setelah menyimpannya dan menjalankan perkakas acme.sh untuk menerbitkan sertifikatnya, maka secara otomatis acme.sh akan menyimpan kedua informasi tersebut ke dalam berkas `account.conf`, tapi dalam bentuk variabel `SAVED_CF_Token` untuk `CF_Token` dan `SAVED_CF_Account_ID` untuk `CF_Account_ID`-nya.
 
-Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Kredensialnya, entah itu ganti "API Token" atau/dan "Account ID"-nya, maka Anda tinggal ganti saja nilai dari variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
+Nah, jika Anda menggunakan DNS Otoritatif dari Cloudflare dan ingin menggantikan Kredensialnya, entah itu ganti "API Token" atau/dan "Account ID"-nya, maka cukup ganti saja nilai dari variabel `SAVED_CF_Token` dan `SAVED_CF_Account_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/account.conf`.
 
 Kalau mau cepat, Anda bisa salin, lalu tempelkan perintah berikut ke dalam Terminal Anda.
 
