@@ -1896,7 +1896,7 @@ Selain hal di atas, jika Anda tidak memasang Kunci Pribadi, maka sertifikat ters
 
 Kalau kuncinya tidak cocok dengan sertifikatnya, maka akan ada galat seperti cuplikan di bawah ini jika Anda mengaksesnya:
 
-![Galat "ERR_SSL_VERSION_OR_CIPHER_MISMATCH" di Peramban Web Brave ketika mengakses blog ini, berdasarkan pengalaman pribadi](SSL_TLS_Cipher_Misatch_Error.png) ![Galat pada SSLTest ketika ingin menguji blog ini](SSLTest_Error.png)
+![Galat di Peramban Web Brave saat mengakses blog ini](SSL_TLS_Cipher_Misatch_Error.png) ![Galat pada SSLTest saat ingin menguji blog ini](SSLTest_Error.png)
 
 Atau, jika Anda tidak memasang sertifikat untuk Domainnya, sepertinya Anda sudah bisa menebak apa yang akan terjadi.
 
