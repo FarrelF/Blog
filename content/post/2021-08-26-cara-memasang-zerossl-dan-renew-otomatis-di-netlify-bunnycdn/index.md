@@ -1,6 +1,10 @@
 ---
-Title: Cara memasang ZeroSSL + Renew Otomatis di Netlify dan BunnyCDN
-Slug: cara-memasang-zerossl-di-netlify-bunnycdn
+Title: Cara memasang ZeroSSL + Renew Otomatis di Netlify, BunnyCDN, cPanel dan DirectAdmin
+Slug: cara-memasang-zerossl-di-netlify-bunnycdn-cpanel-directadmin
+Aliases:
+    - cara-memasang-zerossl-di-netlify-bunnycdn
+    - cara-memasang-zerossl-di-netlify-bunnycdn-cpanel
+    - cara-memasang-zerossl-di-netlify-bunnycdn-directadmin
 Author: Farrel Franqois
 Categories: 
     - Web dan Blog
@@ -14,25 +18,27 @@ Tags:
     - ZeroSSL
     - Netlify
     - BunnyCDN
+    - cPanel
+    - DirectAdmin
 readMore: true
-DescriptionSEO: Apakah Anda ingin memasang ZeroSSL, tapi Anda juga ingin bisa me-renew-nya secara otomatis di Netlify dan BunnyCDN? Jika iya, Anda bisa baca artikel ini untuk mengetahuinya.
+DescriptionSEO: Apakah Anda ingin memasang ZeroSSL, tapi Anda juga ingin bisa me-renew-nya secara otomatis di Netlify, BunnyCDN, cPanel dan DirectAdmin? Jika iya, Anda bisa baca artikel ini untuk mengetahuinya.
 Description: >
     Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya, tapi kendalanya adalah CA ini tidak didukung oleh Penyedia Web secara luas, artinya sertifikat tersebut belum bisa _di-renew_ secara otomatis.
     
     
-    Tapi akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).
+    Tapi akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn), cPanel dan DirectAdmin.
     
     
-    Jika Anda ingin memasang Sertifikat TLS/SSL dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
+    Jika Anda ingin memasang Sertifikat TLS/SSL dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN, cPanel atau DirectAdmin sebagai Panel untuk layanan Hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---
 
 ## Pembuka
 
 {{< info text="tl;dr" >}}
-Jika Anda tidak ingin membaca basa-basinya, Anda bisa langsung lanjut ke subbagian [**"Persiapan"**](#persiapan).
+Jika Anda tidak ingin membaca basa-basinya, Anda bisa langsung lanjut ke subbagian [**"Prakata"**](#prakata) sebelum ke subbagian [**"Persiapan"**](#persiapan).
 {{< / info >}}
 
-Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com) dan [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn).
+Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn), cPanel dan DirectAdmin.
 
 ~~Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya dalam bentuk _Wildcard_. Gak percaya? Silahkan Anda lihat sendiri.~~
 
@@ -129,6 +135,23 @@ Selain itu, Anda bisa menghabiskan kuota "SSL Gratis" yang telah diberikan oleh 
 
 Tapi sayangnya, Anda tidak bisa mencabut sertifikat SSL yang telah Anda terbitkan melalui server ACME-nya di dalam Situs Web-nya, jadi Anda hanya bisa melihat dan mengunduhnya saja.
 
+### Prakata
+Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, maka saya sarankan cari Artikel lain yang membahas ini dengan lebih sederhana, jangan paksakan diri Anda kecuali jika Anda ingin belajar.
+
+Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
+
+Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari Ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Desktop Mode pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah Papan ketik (_Keyboard_) untuk mengikuti artikel ini.
+
+Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
+
+Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk tapi tidak terbatas pada Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
+
+Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua Sistem Operasi, karena saya belum mencoba di Sistem Operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
+
+Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda sudah memahami semuanya.
+
+Terima kasih dan selamat melanjutkan 😊
+
 ### Persiapan {#persiapan}
 Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis berbasis Unix/Mirip Unix (\*nix), termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
 
@@ -146,6 +169,7 @@ Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebaga
 - OpenSSL (atau LibreSSL?)
 - cURL
 - Cron
+- [`jq`](https://stedolan.github.io/jq/) (khusus untuk pengguna cPanel atau/dan DirectAdmin)
 
 Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
 {{< / spoiler >}}
@@ -153,6 +177,8 @@ Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh
 Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk \*nix.
 
 Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
+
+Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://stedolan.github.io/jq/) di dalam Sistem Operasi Anda agar mempermudah dalam memasangkan sertifikat SSL-nya.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas lebih lanjut di sini.
 
@@ -179,7 +205,7 @@ Selain itu, Anda juga bisa akses Server Anda yang menggunakan Sistem Operasi \*n
 
 Ketika Anda sedang memakai WSL, Mesin Virtual/Kontainer atau Server, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi \*nix. Jadi pastikan jika cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam Sistem WSL (Biasanya ada), di dalam Mesin Virtual/Kontainer atau di dalam Server Anda.
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya bisa diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [klik di sini](/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya bisa diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [klik di sini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 {{< spoiler text="tl;dr" >}}
@@ -189,9 +215,9 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux-nya
     2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg up`
-    3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool cronie termux-services`, lalu mulai ulang Termux jika berhasil
+    3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH. Caranya bisa Anda baca [artikel ini](/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_.
 {{< / spoiler >}}
@@ -209,33 +235,16 @@ Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perang
 Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
-pkg up -y; pkg i -y curl wget openssl-tool cronie termux-services
+pkg up -y; pkg i -y curl wget openssl-tool jq cronie termux-services
 ```
 
 Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka lagi Termux-nya agar perubahannya bisa diterapkan. Setelah Termux dibuka lagi, aktifkan Cron dari latar belakang dengan mengeksekusi perintah `sv-enable crond && sv up crond`.
 
 Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH, sehingga tidak perlu melakukan pemindahan lagi ke dalam Android.
 
-Anda bisa baca [artikel ini](/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
+Anda bisa baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
 
 Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_, ini sama sekali tidak menghilangkan garansi pada perangkat Anda, jadi tidak usah khawatir.
-
-### Prakata
-Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, maka saya sarankan cari Artikel lain yang membahas ini dengan lebih sederhana, jangan paksakan diri Anda kecuali jika Anda ingin belajar.
-
-Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
-
-Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari Ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Desktop Mode pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah Papan ketik (_Keyboard_) untuk mengikuti artikel ini.
-
-Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
-
-Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk tapi tidak terbatas pada Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
-
-Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua Sistem Operasi, karena saya belum mencoba di Sistem Operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
-
-Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda sudah memahami semuanya.
-
-Terima kasih dan selamat melanjutkan 😊
 
 ## Sebelum menerbitkan Sertifikat SSL
 Sebelum menerbitkannya, Anda perlu mengikuti beberapa poin pembahasan terlebih dahulu. Poin-poin akan saya bahas dalam langkah-demi-langkah.
@@ -302,7 +311,7 @@ Ganti `aku@contoh.com` dengan Alamat Surel Anda.
 
 Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
 
-Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar.
+Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, dan [klik di sini](#membuat-kode-token-api) untuk melanjutkan ke langkah berikutnya.
 
 Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_, kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas konfigurasi _Shell_ yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
 
@@ -338,7 +347,9 @@ Sebelum menerbitkan sertifikat SSL, maka ada baiknya untuk membuat Kode Token un
 
 Ini akan sangat berguna untuk verifikasi DNS kedepannya dan juga memasang sertifikat SSL itu sendiri. Jadi, Anda wajib membuatnya, tapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
-Misalnya, jika Anda menggunakan Cloudflare sebagai DNS dan Netlify sebagai Hosting, maka Anda hanya perlu membuat kode token Cloudflare untuk keperluan verifikasi DNS dan Netlify untuk keperluan memasang sertifikat SSL.
+Misalnya, jika Anda menggunakan Cloudflare sebagai DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, maka Anda hanya perlu membuat kode token Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat SSL.
+
+Atau, jika Anda menggunakan Netlify sebagai DNS dan Hostingnya, maka Anda hanya cukup membuat 1 kode token Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikat SSL-nya, iya cukup 1 saja, tidak perlu membuat banyak untuk keperluan yang berbeda-beda.
 
 Jika Anda sudah tahu caranya, maka Anda bisa langsung [lewati ini](#verifikasi-dns-di-acmesh).
 
@@ -397,6 +408,8 @@ Untuk mendapatkan kedua itu, Anda tinggal ke [Halaman Dasbor Cloudflare](https:/
 
 Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
 
+Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+
 #### Netlify {#netlify-personal-access-token}
 Jika Anda menggunakan Netlify sebagai Hosting ataupun DNS Otoritatif untuk Domain-mu atau kedua-duanya, Anda perlu buat sebuah **"Personal access token"**.
 
@@ -423,6 +436,8 @@ Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan La
 
 Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
 
+Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+
 #### Bunny\.net (sebelumnya BunnyCDN) {#bunny-access-key}
 Jika Anda menggunakan Bunny\.net (sebelumnya: BunnyCDN) sebagai CDN, _Reverse-proxy_ ataupun Hosting, maka Anda bisa mendapatkan **"Access Key"**-nya di sini. Ini akan berguna untuk [memasangkan sertifikat SSL di Bunny CDN](#pasang-ssl-di-bunnycdn) nantinya.
 
@@ -430,7 +445,7 @@ Berikut di bawah ini adalah caranya:
 
 0. Silahkan akses ke [Dasbor Bunny.net](https://panel.bunny.net/)-nya, login jika diminta.
 1. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
-2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon mata jika Anda ingin melihatnya isi sebenarnya
+2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon Mata jika Anda ingin melihat isi sebenarnya
 3. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **"Access Key"**-nya
 
 Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengkliknya)
@@ -439,24 +454,94 @@ Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplik
 
 Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
 
+Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+
+#### cPanel {#cpanel-api-token}
+Jika Anda merupakan pengguna cPanel, baik di Server Anda sendiri ataupun di Layanan _Shared Hosting_ yang Anda gunakan, Anda diharuskan untuk membuat Token API agar dapat [memasangkan sertifikat SSL-nya](#pasang-ssl-di-cpanel) secara otomatis melalui Akses API-nya.
+
+{{< info text="**Catatan:**" >}}
+Fitur ini masih dalam tahap eksperimental, sehingga segala perubahan yang terjadi dengan cepat hingga resiko yang akan Anda hadapi semuanya Anda tanggung sendiri.
+{{< / info >}}
+
+Cara buatnya adalah sebagai berikut:
+1. Masuk ke cPanel menggunakan Akun cPanel Anda, bukan Akun _Billing_ (Akun cPanel dan _Billing_ itu beda lho, jangan salah)
+2. Setelah masuk ke cPanel, gulirkan tetikusnya ke arah bawah sampai ke bagian **"Security"** (bahasa Indonesia: **"Keamanan"**), pada bagian tersebut kamu klik **"Manage API Tokens"**, seperti cuplikan berikut: (Atau, langsung cari aja **"Manage API Tokens"**, terus tinggal kamu klik aja hasilnya)
+
+![Fitur "Manage API Tokens" di cPanel](cPanel_Manage_API_Tokens.png)
+
+3. Jika Anda baru pertama kali membuat _API Token_, Anda akan langsung diminta untuk melengkapi informasi yang ada di sana untuk dibuatkan _API Token_-nya. Lengkapi informasi berikut ini:
+
+    ![Pembuatan "API Token" di cPanel](cPanel_Create_API_Token.png)
+
+    - **API Token Name:** Itu merupakan Nama _API Token_ yang ingin Anda buat, Anda bisa mengisinya dengan bebas, tapi karakter yang boleh dimasukkan adalah alfanumerik (besar dan kecil diperbolehkan), tanda hubung/pisah dan tanda garis bawah saja, serta peka terhadap huruf besar dan kecil (_case sensitive_)
+    - **Should the API Token Expire?:** Itu menentukan masa berlaku _API Token_ yang Anda buat, jika tidak ingin ada masa berlaku, Anda tinggal pilih **"The API Token will not expire"** atau **"Specify an expiration date"** jika Anda ingin menyetel tanggalnya (Saran saya jangan ada masa berlaku, kalau mau ada masa berlakunya pastikan Anda bisa memperbaruinya secara otomatis)
+
+4. Jika sudah selesai, klik pada _button_ **"Create"** (bahasa Indonesia: **"Buat"**)
+5. Setelah mengkliknya, kamu akan melihat Kode _API Token_ yang hanya bisa dilihat sekali saja, jadi simpanlah _API Token_ tersebut baik-baik dan pastikan tidak ada seorang pun yang mengetahuinya kecuali Anda sendiri.
+
+   Jika sudah, centang pada bagian **"Create another token after I click Yes, I saved my token."**, lalu klik pada _Button_ **"Yes, I Saved My Token"**, seperti cuplikan berikut:
+
+    ![Setelah sukses membuat "API Token" di cPanel](cPanel_API_Token_Created.png)
+
+Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
+
+Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+
+#### DirectAdmin {#directadmin-login-key}
+Jika Anda merupakan pengguna DirectAdmin, baik di Server Anda sendiri ataupun di Layanan _Shared Hosting_ yang Anda gunakan, sebaiknya Anda membuat **"Login Key"** (bahasa Indonesia: Kunci Masuk) terlebih dahulu agar dapat [memasangkan sertifikat SSL-nya](#pasang-ssl-di-cpanel) secara otomatis melalui Akses API-nya.
+
+Cara membuatnya sebagai berikut:
+
+1. Masuk ke DirectAdmin menggunakan Akun DirectAdmin Anda, bukan Akun _Billing_ (Akun DirectAdmin dan _Billing_ itu beda lho, jangan salah)
+2. Setelah masuk ke DirectAdmin, gunakan fasilitas Pencarian untuk mencari **"Login Keys"** (tanpa kutip), jika ketemu klik pada **"Login Keys"**. Seperti cuplikan berikut:
+
+!["Login Keys" pada DirectAdmin](DirectAdmin_Login_Keys.png)
+
+3. Setelah masuk ke **"Login Keys"**, klik pada _Button_ **"Create"** untuk membuat **"Login Key"**-nya. Seperti cuplikan berikut:
+
+![Proses pembuatan "Login Key" di DirectAdmin](DirectAdmin_Create_Login_Key.png)
+
+4. Lalu, lengkapi informasi berikut untuk membuatnya:
+
+    ![Informasi yang dilengkapi untuk membuat "Login Key"](DirectAdmin_Create_Login_Key_2.png)
+
+    - **Key Type:** Pilih jenis kuncinya, pilih saja **"Key"**
+    - **Key Name:** Tentukan nama kuncinya, nama hanya boleh mengandung karakter alfanumerik saja, besar-kecilnya diperhatikan, tidak boleh ada karakter apapun selain itu termasuk simbol dan spasi
+    - **Key Value:** Tentukan nilai kuncinya, saran saya klik pada ikon dadu saja agar bisa dihasilkan dengan acak, tidak disarankan untuk menggunakan kata sandi Anda sebagai nilai kuncinya
+    - **Expires On:** Tentukan masa berlaku kuncinya, saran saya centang **"Never"** saja, kecuali jika Anda dapat memperbaruinya secara terprogram
+    - **Clear Key:** Di bagian ini ada opsi **"Automatically delete the key once the key expires"** yang bisa Anda centang, ini tidak akan berpengaruh kalau **"Login Key"**-nya tidak memiliki masa berlaku
+    - **Allow HTM:** Di bagian ini ada opsi **"Allows browsing of the DA interface to HTM, IMG and CSS files."** yang bisa Anda centang, entah ini fungsinya buat apaan, sepertinya untuk kasus ini dicentang atau tidak juga tidak terlalu berpengaruh
+    - **Commands:** Di bagian ini, Anda harus menentukan perintah mana yang diizinkan dan ditolak. Untuk kasus ini, Anda harus menolak semua perintah selain `CMD_API_SSL` dan `CMD_SSL` yang diizinkan. Caranya tinggal centang **"Deny"**, lalu cari dengan kata kunci **"SSL"** (tanpa kutip), setelah itu centang dua-duanya di kolom **"Allow"** (Untuk lebih jelas, bisa lihat pada cuplikan di atas) 
+    - **Allowed IPs:** Anda bisa menentukan hanya dari Alamat IP apa saja yang diperpolehkan untuk menggunakan kunci ini, saran saya tidak usah diisi untuk mengijinkan semua Alamat IP untuk menggunakan kunci ini, kecuali jika Anda mempunyai kebutuhan khusus
+    - **Current Password:** Isikan ini dengan kata sandi Akun DirectAdmin Anda yang sekarang
+
+5. Jika sudah selesai, klik pada _Button_ **"Create"** untuk membuatkan kuncinya
+6. Setelah mengkliknya, kamu akan melihat **"Key Value"** yang kamu isi dan itu adalah **"Login Key"**-nya yang hanya bisa dilihat satu kali saja, jadi simpanlah kunci tersebut baik-baik dan pastikan tidak ada seorang pun yang dapat mengetahuinya kecuali Anda sendiri dan orang yang Anda percaya.
+
+    Jika sudah, Anda tinggal menutupinya saja dengan klik pada ikon silang. Seperti cuplikan berikut:
+
+    ![Setelah dibuatkan "Login Key" di DirectAdmin](DirectAdmin_After_Create_Login_Key.png)
+
+Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
-Verifikasi DNS merupakan sebuah metode yang menggunakan pengaturan DNS Otoritatif pada Domain untuk memverifikasi Kepemilikan Domain sebelum sertifikat SSL diterbitkan/diperbarui.
+Verifikasi DNS merupakan sebuah metode yang menggunakan Catatan DNS (bahasa Inggris: _DNS Record_) pada Domain untuk memverifikasi Bukti Kepemilikan Domain sebelum sertifikat SSL diterbitkan/diperbarui.
 
-Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ atau tidak perlu mengakses konten apapun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer PC, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server/Perangkat terlebih dahulu.
+Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ dan tidak perlu mengakses konten apapun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer PC, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server/Perangkat terlebih dahulu.
 
 Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL untuk semua Subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify dan BunnyCDN, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, karena Anda ingin memasang sertifikat SSL di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify, BunnyCDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
 
-Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL-nya, maka acme.sh harus dapat mengakses dan mengubah _DNS Record_ di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
+Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL-nya, maka acme.sh harus dapat mengakses dan mengubah Catatan DNS di dalam Domain milik Anda dengan mengakses Akun Penyedia DNS Otoritatif milik Anda.
 
-Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah _DNS Record-nya_ dengan memberinya sebuah kredensial milik Anda, seperti: _Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
+Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah Catatan DNS dengan memberinya sebuah kredensial milik Anda, seperti: _API Token_, Kunci API atau bahkan Nama Pengguna dan Kata Sandi.
 
-**Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan _DNS Record-nya_ secara manual juga.
+**Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan Catatan DNS-nya secara manual juga.
 
-Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi _DNS Record-nya_ secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat SSL tersebut secara otomatis.
+Tapi sertifikat SSL tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi Catatan DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat SSL tersebut secara otomatis.
 
 Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang Otomatis saja ketimbang pake yang Manual.
 
@@ -503,7 +588,7 @@ set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 
 Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
 
-Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan Informasi-informasi di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
+Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
 Jika Anda menggunakan Netlify sebagai Layanan DNS Otoritatif untuk Domain-mu, Anda cuma perlu membuat **"Personal Access Token"**-nya (`NETLIFY_ACCESS_TOKEN`) saja.
@@ -533,7 +618,7 @@ Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarny
 Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
 
 #### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
-Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare dan Netlify DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare dan Netlify DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, Google Cloud DNS, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
 
@@ -709,7 +794,7 @@ Karena domain pertama yang dimasukkan adalah `www.domain.com`, bukan `domain.com
 
 Nah, sekarang Anda sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi menggunakan DNS dan tentukan cara menerbitkan sertifikat SSL-nya dengan sesuka kamu.
 
-### Menerbitkan Sertifikat SSL dengan Menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
+### Menerbitkan Sertifikat SSL dengan menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
 Jika Anda ingin menerbitkan Sertifikat SSL yang menggunakan DNS sebagai Metode verifikasinya, maka Anda tinggal tambahkan saja parameter `--dns nama_dns`.
 
 Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai Metode Verifikasi:
@@ -865,7 +950,7 @@ Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal
 ### Menerbitkan Sertifikat SSL dengan kunci ECC/ECDSA {#ecdsa-ssl}
 Secara bawaan, acme.sh akan menerbitkan Sertifikat SSL dengan kunci RSA. 
 
-Jika Anda ingin menerbitkannya menggunakan kunci ECC (_Eliptic Curve Cryptography_)/ECDSA (_Eliptic Curve Digital Signature Algorithm_), maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`. Ganti `ukuran_kuncinya` dengan Ukuran kunci ECC yang didukung.
+Jika Anda ingin menerbitkannya menggunakan kunci ECC (_Eliptic Curve Cryptography_)/ECDSA (_Eliptic Curve Digital Signature Algorithm_) yang ukuran kuncinya jauh lebih kecil, maka Anda hanya perlu tambahkan saja parameter `--keylength ec-ukuran_kuncinya`. Ganti `ukuran_kuncinya` dengan ukuran kunci ECC yang didukung.
 
 Contoh Perintah di bawah ini jika Anda ingin menerbitkan Sertifikat SSL ECDSA dengan ukuran P-384:
 
@@ -1009,7 +1094,7 @@ ACCOUNT_EMAIL='aku@contoh.com'
 USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin'
 ```
 
-Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena akunnya tidak valid, entah itu salah memasukkan atau kredensialnya tidak ada, Anda bisa menggantinya dengan mengubah berkas tersebut dengan menggunakan Editor Teks favorit Anda.
+Jadi, jika Anda memiliki masalah saat menggunakan acme.sh hanya karena kredensialnya tidak valid, entah itu salah memasukkan atau tidak ada, Anda bisa menggantinya dengan mengubah berkas tersebut dengan memakai Editor Teks favorit Anda.
 
 ### Isi direktori `domain.com` dan berkas yang diperlukan {#isi-direktori-domain-com}
 Berikut di bawah ini adalah isi dari direktori `domain.com` yang ada di dalam perkakas acme.sh, di dalamnya ada berkas-berkas yang diperlukan untuk memasangkan sertifikat SSL.
@@ -1075,11 +1160,9 @@ Jika Anda melihat cuplikan di atas, **"API ID"** yang saya tunjuk itu merupakan 
 Langkah selanjutnya adalah memasang Sertifikat SSL melalui API-nya.
 
 #### Memasang Sertifikat SSL melalui API dari Netlify
-Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Netlify. Sebelum itu, Netlify meminta agar kita mengirimkan 3 Informasi/Berkas untuk memasang Sertifikat SSL-nya.
+Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Netlify.
 
-Agar kita dapat mengirimkan berkas-berkas itu melalui API-nya, maka sebelum mengakses API-nya, Anda perlu menyimpan isi dari 3 berkas tersebut ke dalam sebuah Variabel. 
-
-Karena Anda cuma diminta 3 berkas, maka berkas-berkas yang diperlukan untuk diunggah/Anda kirimkan ke Netlify adalah `domain.com.cer` sebagai Sertifikatnya, `domain.com.key` sebagai Kunci Pribadinya dan `ca.cer` Sertifikat Penengahnya, berkas lainnya (seperti: `fullchain.cer`) tidak perlu Anda kirimkan.
+Pertama-tama, Anda perlu menyimpan isi dari berkas-berkas yang diperlukannya terlebih dahulu ke dalam sebuah variabel.
 
 Anda dapat menyimpannya dengan perintah berikut:
 
@@ -1115,17 +1198,17 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
 ```shell {linenos=true}
-curl -X POST \
+curl -sX POST \
      -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
-     --url "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
+     -d '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
+     "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-curl -X POST -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' -H 'content-type: application/json' --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' --url "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
+curl -sX POST -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' -H 'content-type: application/json' --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' --url "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
 ```
 
 Jika sukses, maka akan tampil pesan dalam format JSON, seperti di bawah ini:
@@ -1182,15 +1265,9 @@ Karena selain **"Access Key"** dan **"Pull Zone ID"**, mempunyai **"Custom Hostn
 Setelah mendapatkan semuanya, selanjutnya adalah memasang Sertifikat SSL melalui API-nya.
 
 #### Memasang Sertifikat SSL melalui API dari Bunny\.net
-Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Bunny\.net. Sebelum itu, Bunny\.net meminta agar kita hanya mengunggah 2 Berkas saja untuk memasang Sertifikat SSL-nya.
+Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Bunny\.net.
 
-Agar kita dapat mengunggah 2 Berkas itu melalui API-nya, maka sebelum mengakses API-nya, Anda perlu menyimpan isi dari 2 berkas tersebut ke dalam sebuah Variabel.
-
-Karena Anda cuma diminta 2 berkas saja, maka berkas-berkas yang diperlukan untuk diunggah/Anda kirimkan ke BunnyCDN adalah `domain.com.key` untuk Kunci Pribadinya dan `fullchain.cer` untuk Sertifikatnya, berkas lainnya (seperti: `ca.cer` dan `domain.com.cer`) tidak perlu Anda kirimkan.
-
-Tapi dalam pengiriman berkas untuk SSL, Bunny\.net sedikit berbeda daripada Netlify yang hanya menerima dalam bentuk teks biasa (_Plain text_), di sana Anda hanya bisa mengirimkannya dalam bentuk Base64 saja.
-
-Sehingga untuk menyimpannya ke dalam variabel, maka Anda harus _meng-encode_ isi berkas-berkas tersebut ke dalam Base64.
+Pertama-tama, Anda perlu menyimpan isi dari berkas-berkas yang diperlukannya terlebih dahulu ke dalam sebuah variabel.
 
 Tanpa basa-basi lagi, Anda dapat menyimpannya ke dalam variabel dengan perintah berikut:
 
@@ -1215,75 +1292,37 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
 ```shell {linenos=true}
-curl -X POST \
+curl -sX POST \
      -H 'Accept: application/json' \
      -H 'AccessKey: '$BUNNY_ACCESS_KEY'' \
      -H 'Content-Type: application/json' \
-     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
-     --url "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
+     -d '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
+     "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell
-curl -X POST -H 'Accept: application/json' -H 'AccessKey: '$BUNNY_ACCESS_KEY'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' --url "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
+curl -sX POST -H 'Accept: application/json' -H 'AccessKey: '$BUNNY_ACCESS_KEY'' -H 'Content-Type: application/json' --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' --url "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
 ```
 
 Jika berhasil, maka tidak akan muncul pesan apapun (Kode Status: [**204 No Content**](https://http.cat/204)), berbeda daripada Netlify yang menampilkan pesan dalam format JSON. Sebaliknya, jika tidak berhasil, maka pesan galat akan muncul dengan pesan yang berbeda-beda, tergantung penyebabnya.
 
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda di BunnyCDN dengan memanggil API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
 
-### Disebutkan secara khusus: Di cPanel {#di-cpanel}
+### Di cPanel {#pasang-ssl-di-cpanel}
 #### Membuat API Token dan Persiapannya
 Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
 
-Tapi sebelum itu, Anda diharuskan untuk membuat **API Token**-nya terlebuh dahulu di cPanel-nya, yang tentu saja Anda perlu Akun cPanel-nya untuk ini.
+Tidak ada syarat khusus dalam Hosting untuk memasangkan sertifikat SSL melalui API ini, jadi Anda bisa memasangnya dengan memakai paket Hosting termurah sekalipun, selama Hosting mendukung pemasangan Sertifikat SSL Kustom.
 
-Jika Anda bukan merupakan pengguna/pemilik Server, maka Anda bisa menyewa sebuah layanan _Shared Hosting_ yang memakai cPanel, paket yang termurah pun juga harusnya bisa dan tidak perlu ada fitur Akses SSH, intinya sesuaikan dengan kebutuhan spesifik dan anggaran Anda.
+Tapi sebelum itu, Anda diharuskan untuk membuat **"API Token"**-nya terlebih dahulu di cPanel-nya, yang tentu saja Anda perlu Akun cPanel-nya untuk ini.
 
-{{< info text="**Catatan:**" >}}
-Fitur ini masih dalam tahap eksperimental, sehingga segala perubahan yang terjadi dengan cepat hingga resiko yang akan Anda hadapi kedepannya itu semua Anda tanggung sendiri.
-{{< / info >}}
-
-Cara buatnya adalah sebagai berikut:
-1. Masuk ke cPanel menggunakan Akun cPanel Anda, bukan Akun _Billing_ (Akun cPanel dan _Billing_ itu beda lho, jangan salah)
-2. Setelah masuk ke cPanel, gulirkan tetikusnya ke arah bawah sampai ke bagian **"Security"** (bahasa Indonesia: **"Keamanan"**), pada bagian tersebut kamu klik **"Manage API Tokens"**, seperti cuplikan berikut: (Atau, langsung cari aja **"Manage API Tokens"**, terus tinggal kamu klik aja hasilnya)
-
-![Fitur "Manage API Tokens" di cPanel](cPanel_Manage_API_Tokens.png)
-
-3. Jika Anda baru pertama kali membuat _API Token_, Anda akan langsung diminta untuk melengkapi informasi yang ada di sana untuk dibuatkan _API Token_-nya. Lengkapi informasi berikut ini:
-
-    ![Pembuatan "API Token" di cPanel](cPanel_Create_API_Token.png)
-
-    - **API Token Name:** Itu merupakan Nama _API Token_ yang ingin Anda buat, Anda bisa mengisinya dengan bebas, tapi karakter yang boleh dimasukkan adalah alfanumerik (besar dan kecil diperbolehkan), tanda hubung/pisah dan tanda garis bawah saja, serta peka terhadap huruf besar dan kecil (_case sensitive_)
-    - **Should the API Token Expire?:** Itu menentukan masa berlaku _API Token_ yang Anda buat, jika tidak ingin ada masa berlaku, Anda tinggal pilih **"The API Token will not expire"** atau **"Specify an expiration date"** jika Anda ingin menyetel tanggalnya (Saran saya jangan ada masa berlaku, kalau mau ada masa berlakunya pastikan Anda bisa memperbaruinya secara otomatis)
-
-4. Jika sudah selesai, klik pada _button_ **"Create"** (bahasa Indonesia: **"Buat"**)
-5. Setelah mengkliknya, kamu akan melihat Kode _API Token_ yang hanya bisa dilihat sekali saja, jadi simpanlah _API Token_ tersebut baik-baik dan pastikan tidak ada seorang pun yang mengetahuinya kecuali Anda sendiri.
-
-   Jika sudah, centang pada bagian **"Create another token after I click Yes, I saved my token."**, lalu klik pada _Button_ **"Yes, I Saved My Token"**, seperti cuplikan berikut:
-
-    ![Setelah sukses membuat "API Token" di cPanel](cPanel_API_Token_Created.png)
+Jika kamu tidak pernah membuat **"API Token"** sebelumnya (di dalam bagian **"Membuat Kode Token API"**), silahkan [klik di sini](#cpanel-api-token) untuk caranya.
 
 Setelah membuat **"API Token"** dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari cPanel nantinya, terutama fitur **URI Encode**-nya yang diperlukan oleh cPanel.
 
-Jika Anda menggunakan Termux, maka Anda bisa menginstalnya dengan perintah berikut:
-
-```shell
-pkg i -y jq
-```
-
-Atau, jika Anda merupakan pengguna GNU/Linux (x64), Anda bisa menginstalnya dengan salah satu perintah berikut:
-
-```shell {linenos=true}
-## Instal di Direktori Sistem ##
-sudo sh -c 'wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /usr/local/bin/jq; chmod +x /usr/local/bin/jq'
-
-## Instal di Direktori Pengguna ##
-wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O "$HOME"/.local/bin/jq; chmod +x "$HOME"/.local/bin/jq
-```
-
-Setelah menginstalnya, silahkan lanjut ke langkah berikutnya.
+Jika sudah diinstal, maka Anda dapat lanjut ke langkah berikutnya.
 
 #### Memasang Sertifikat SSL melalui API dari cPanel
 Pada langkah ini Anda akan memasangkan sertifikat SSL-nya melalui panggilan API dari cPanel. Pemasangannya sendiri agak beda dari yang lain, kedua penyedia di atas menggunakan metode POST, sedangkan yang ini menggunakan metode GET.
@@ -1320,26 +1359,19 @@ Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama vari
 
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
-```shell
-curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
-          'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
-```
-
-Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
-
-```shell
-curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' 'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
-```
-
-Atau, memakai perintah seperti di bawah ini juga boleh biar lebih rapi:
-
 ```shell {linenos=true}
 curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
      -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' \
      -d 'cert='$CPANEL_PLAIN_CERT'' \
      -d 'key='$CPANEL_PLAIN_KEY'' \
      -d 'cabundle='$CPANEL_PLAIN_CA'' \
-     'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl'
+     "https://"$CPANEL_HOSTNAME":2083/execute/SSL/install_ssl"
+```
+
+Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
+
+```shell
+curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' 'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
 ```
 
 Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat Domain/Subdomain di cPanel yang ingin kamu pasangkan sertifikatnya.
@@ -1391,8 +1423,86 @@ Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pes
 
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang sertifikat SSL Anda di cPanel dengan API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
 
+### Di DirectAdmin {#pasang-ssl-di-directadmin}
+Jika Anda merupakan pengguna DirectAdmin sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
+
+Tidak ada syarat khusus dalam Hosting untuk memasangkan sertifikat SSL melalui API ini, jadi Anda bisa memasangnya dengan memakai paket Hosting termurah sekalipun, selama Hosting mendukung pemasangan Sertifikat SSL Kustom.
+
+Tapi sebelum itu, saya sarankan bahwa Anda perlu membuat **"Login Key"**-nya terlebih dahulu di dalam DirectAdmin-nya.
+
+Sebenarnya bisa saja Anda memakai kata sandi Akun DirectAdmin Anda sebagai gantinya, hanya saja saya tidak merekomendasikan ini, selain karena orang lain dapat mengetahui kata sandi utamanya, hak akses yang diberikan telalu luas untuk keperluan akses yang spesifik saja sehingga metode ini kurang aman.
+
+Dengan menggunakan **"Login Key"**, Anda bisa mengatur hak akses dan batasannya dengan bebas, sehingga jika orang lain dapat mengetahui **"Login Key"**-nya tanpa sengaja, maka hal tersebut tidak berpengaruh/merembet ke yang lain karena dibatasi aksesnya.
+
+Jika kamu tidak pernah membuat **"Login Key"** sebelumnya (di dalam bagian **"Membuat Kode Token API"**), silahkan [klik di sini](#directadmin-login-key) untuk caranya.
+
+Setelah membuat **"Login Key"** dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari DirectAdmin nantinya, terutama fitur **URI Encode**-nya yang diperlukan oleh DirectAdmin.
+
+Jika sudah diinstal, maka Anda dapat lanjut ke langkah berikutnya.
+
+#### Memasang Sertifikat SSL melalui API dari DirectAdmin
+Pada langkah ini Anda akan memasangkan sertifikat SSL-nya melalui panggilan API dari DirectAdmin.
+
+Pertama-tama, Anda perlu menyimpan isi dari berkas-berkas yang diperlukannya terlebih dahulu ke dalam sebuah variabel.
+
+Tanpa basa-basi lagi, Anda dapat menyimpan berkas sertifikat tersebut ke dalam variabel dengan perintah berikut:
+
+```shell {linenos=true}
+DIRECTADMIN_PLAIN_FULLCHAIN=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/fullchain.cer)
+DIRECTADMIN_PLAIN_KEY=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.key)
+DIRECTADMIN_HOSTNAME="NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI"
+DIRECTADMIN_USERNAME="USERNAME_DIRECTADMIN_KAMU_DI_SINI"
+DIRECTADMIN_LOGIN_KEY="LOGIN_KEY_KAMU_DI_SINI"
+```
+
+Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
+
+```fish {linenos=true}
+set DIRECTADMIN_PLAIN_FULLCHAIN (jq -sRr @uri < "$HOME"/.acme.sh/domain.com/fullchain.cer)
+set DIRECTADMIN_PLAIN_KEY (jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.key)
+set DIRECTADMIN_HOSTNAME "NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI"
+set DIRECTADMIN_USERNAME "USERNAME_DIRECTADMIN_KAMU_DI_SINI"
+set DIRECTADMIN_LOGIN_KEY "LOGIN_KEY_KAMU_DI_SINI"
+```
+
+Silahkan ubah direktori dan nama berkas di atas sesuai dengan sertifikat SSL yang tersimpan di dalam perangkat Anda. 
+
+Ubah teks `NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI` menjadi Nama Hos atau Alamat IP yang biasa Anda gunakan untuk login ke DirectAdmin, `USERNAME_DIRECTADMIN_KAMU_DI_SINI` menjadi _Username_ DirectAdmin kamu dan ubah teks `LOGIN_KEY_KAMU_DI_SINI` menjadi **"Login Key"** yang telah Anda simpan sebelumnya.
+
+Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `DIRECTADMIN_PLAIN_CA` jadi `PLAIN_CA`, atau `CA`, atau lainnya, asal bisa Anda kembali gunakan variabel tersebut.
+
+Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
+
+```shell {linenos=true}
+curl -sX POST \
+     -u ''$DIRECTADMIN_USERNAME':'$DIRECTADMIN_LOGIN_KEY'' \
+     -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' \
+     -d 'action=save' \
+     -d 'type=paste' \
+     -d 'certificate='$DIRECTADMIN_PLAIN_FULLCHAIN''$DIRECTADMIN_PLAIN_KEY'' \
+     "https://"$DIRECTADMIN_HOSTNAME":2222/CMD_API_SSL"
+```
+
+Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
+
+```shell
+curl -sX POST -u ''$DIRECTADMIN_USERNAME':'$DIRECTADMIN_LOGIN_KEY'' -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' -d 'action=save' -d 'type=paste' -d 'certificate='$DIRECTADMIN_PLAIN_FULLCHAIN''$DIRECTADMIN_PLAIN_KEY'' "https://"$DIRECTADMIN_HOSTNAME":2222/CMD_API_SSL"
+```
+
+Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat "Domain" yang ada di DirectAdmin yang ingin kamu pasangkan sertifikatnya. Jika Anda ingin memasangkan sertifikatnya untuk subdomain, maka Anda perlu menambahkan subdomain tersebut ke dalam "Domain" di DirectAdmin-nya (Bukan ke dalam **"Subdomain Management"** yah).
+
+Jika sukses, maka akan tampil pesan seperti di bawah ini:
+
+```plain
+error=0&text=Certificate%20and%20Key%20Saved%2E&details=&
+```
+
+Yap, tidak ada rincian lebih lanjut, hanya pesan itu saja yang tampil, tapi jika tidak berhasil maka pesannya tidak seperti di atas, melainkan pesan galat yang berbeda-beda tergantung penyebabnya.
+
+Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang sertifikat SSL Anda di DirectAdmin melalui API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
+
 ### Lainnya
-Jika Anda menggunakan Penyedia Hosting selain Netlify (seperti GitHub Pages, Vercel, Surge\.sh, Render\.com), Kontrol Panel untuk Hosting selain cPanel (seperti DirectAdmin, Virtualmin/Webmin, CyberPanel, Kloxo-MR, InterWorx, dll) atau menggunakan Penyedia CDN selain Bunny CDN (seperti Cloudflare, Fastly, AWS CloudFront, Akamai, Verizon EdgeCast, SwiftServe, dll), mohon maaf di sini belum tersedia.
+Jika Anda menggunakan Penyedia Hosting selain Netlify (seperti GitHub Pages, Vercel, Surge\.sh, Render\.com), Kontrol Panel untuk Hosting selain cPanel dan DirectAdmin (seperti Virtualmin/Webmin, Webuzo, CyberPanel, aaPanel, CWP, Kloxo-MR, InterWorx, dll) atau menggunakan Penyedia CDN selain Bunny CDN (seperti Cloudflare, Fastly, AWS CloudFront, Akamai, Verizon EdgeCast, SwiftServe, dll), mohon maaf di sini belum tersedia.
 
 Kenapa? Karena setiap penyedia dan perangkat lunak mempunyai cara yang berbeda untuk memanggil API-nya, serta cara yang berbeda dalam mengirim datanya dan jika saya ingin mengetahui cara kerjanya, maka saya harus mencobanya terlebih dahulu, maka dari itu saya belum (atau mungkin tidak) bisa menyediakan semuanya di sini.
 
@@ -1506,6 +1616,12 @@ Selain ketiga opsi di atas, Anda dapat menambahkan opsi-opsi lain di dalam konfi
 
     Sedangkan skrip _Renew Hook_ akan dijalankan setelahnya dan peruntukannya lebih luas daripada itu.
 
+- Kredensial Penyedia DNS kamu: Anda dapat menyimpan Kredensial dari Penyedia DNS Otoritatif yang Anda gunakan di konfigurasi khusus domain ini.
+
+    Jika Anda adalah pengguna Cloudflare, Anda dapat menyimpan variabel `CF_Token`, `CF_Account_ID` dan `CF_Zone_ID` beserta nilainya di dalam konfigurasi tersebut tanpa perlu meletakkannya lagi di dalam berkas `~/.acme.sh/account.conf`, sehingga lebih aman dan lebih spesifik.
+
+    Mungkin hal itu berlaku juga bagi pengguna layanan DNS lainnya, seperti Netlify yang hanya perlu menyimpan `NETLIFY_ACCESS_TOKEN` saja.
+
 Ya udah, itu saja dulu mengenai opsi-opsinya, di bawah ini membahas contoh kasusnya.
 
 ### Contoh Kasus: Menjalankan sebuah Berkas Skrip setelah Memperbarui Sertifikat SSL
@@ -1523,13 +1639,13 @@ PLAIN_CERT="$(awk '{printf "%s\\n", $0}' < www.si-udin.com.cer)"
 PLAIN_KEY="$(awk '{printf "%s\\n", $0}' < www.si-udin.com.key)"
 PLAIN_CA="$(awk '{printf "%s\\n", $0}' < ca.cer)"
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
-NETLIFY_SITE_ID="SITE_ID_KAMU_DI_SINI"
+NETLIFY_SITE_ID="www.si-udin.com"
 
-curl -X POST \
+curl -sX POST \
      -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
-     --url "https://api.netlify.com/api/v1/sites/"$NETLIFY_SITE_ID"/ssl"
+     -d '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
+     "https://api.netlify.com/api/v1/sites/"$NETLIFY_SITE_ID"/ssl"
 ```
 
 **Kenapa perintah di atas mengarahkan kepada berkasnya langsung? Kenapa tidak ditentukan direktorinya?** Itu karena suatu saat skrip tersebut dijalankan, maka direktori kerjanya adalah `$HOME/.acme.sh/www.si-udin.com` yang di dalamnya ada berkas `www.si-udin.com.cer`, `www.si-udin.com.key` dan `ca.cer` dan itu diperlukan bagi Netlify, serta itu merupakan tempat berkas `www.si-udin.com.conf` berada, yang gunanya untuk mengkonfigurasi supaya skrip tersebut bisa digunakan.
@@ -1587,33 +1703,67 @@ Jika Anda lebih suka membuat Skrip secara terpisah, maka Anda bisa membuat sebua
 ### dengan memanfaatkan parameter `--cron`-nya
 "$HOME"/.acme.sh/acme.sh --cron --home "$HOME"/.acme.sh
 
-### Di bawah ini adalah memasukkan Informasi yang diperlukan untuk memasang SSL di Netlify 
+### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di Netlify 
 ### ke dalam Variabel
 NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 PLAIN_CERT="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/domain.com.cer)"
 PLAIN_KEY="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/domain.com.key)"
 PLAIN_CA="$(awk '{printf "%s\\n", $0}' < "$HOME"/.acme.sh/domain.com/ca.cer)"
 
-### Di bawah ini adalah memasukkan Informasi yang diperlukan untuk memasang SSL di Bunny.net 
+### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di Bunny.net 
 ### ke dalam Variabel
 BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI"
 BASE64_FULLCHAIN_CER="$(openssl base64 -A < "$HOME"/.acme.sh/domain.com/fullchain.cer)"
 BASE64_KEY="$(openssl base64 -A < "$HOME"/.acme.sh/domain.com/domain.com.key)"
 
+### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di cPanel
+### ke dalam Variabel
+CPANEL_PLAIN_CERT=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.cer)
+CPANEL_PLAIN_KEY=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.key)
+CPANEL_PLAIN_CA=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/ca.cer)
+CPANEL_HOSTNAME="NAMA_HOS_UNTUK_CPANEL_KAMU_DI_SINI"
+CPANEL_USERNAME="USERNAME_CPANEL_KAMU_DI_SINI"
+CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI"
+
+### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di DirectAdmin
+### ke dalam Variabel
+DIRECTADMIN_PLAIN_FULLCHAIN=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/fullchain.cer)
+DIRECTADMIN_PLAIN_KEY=$(jq -sRr @uri < "$HOME"/.acme.sh/domain.com/domain.com.key)
+DIRECTADMIN_HOSTNAME="NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI"
+DIRECTADMIN_USERNAME="USERNAME_DIRECTADMIN_KAMU_DI_SINI"
+DIRECTADMIN_LOGIN_KEY="LOGIN_KEY_KAMU_DI_SINI"
+
 ### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di Netlify
-curl -X POST \
+curl -sX POST \
      -H 'Authorization: Bearer '$NETLIFY_ACCESS_TOKEN'' \
      -H 'content-type: application/json' \
-     --data '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
-     --url "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
+     -d '{"certificate": "'"$PLAIN_CERT"'", "key": "'"$PLAIN_KEY"'", "ca_certificates": "'"$PLAIN_CA"'"}' \
+     "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
 
 ### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di Bunny.net
-curl -X POST \
+curl -sX POST \
      -H 'Accept: application/json' \
      -H 'AccessKey: '$BUNNY_ACCESS_KEY'' \
      -H 'Content-Type: application/json' \
-     --data '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
-     --url "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
+     -d '{"Hostname": "CUSTOM_HOSTNAME_KAMU_DI_SINI", "Certificate": "'"$BASE64_FULLCHAIN_CER"'", "CertificateKey": "'"$BASE64_KEY"'"}' \
+     "https://api.bunny.net/pullzone/PULL_ZONE_ID_KAMU_DI_SINI/addCertificate"
+
+### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di cPanel
+curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
+     -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' \
+     -d 'cert='$CPANEL_PLAIN_CERT'' \
+     -d 'key='$CPANEL_PLAIN_KEY'' \
+     -d 'cabundle='$CPANEL_PLAIN_CA'' \
+     "https://"$CPANEL_HOSTNAME":2083/execute/SSL/install_ssl"
+
+### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di DirectAdmin
+curl -sX POST \
+     -u ''$DIRECTADMIN_USERNAME':'$DIRECTADMIN_LOGIN_KEY'' \
+     -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' \
+     -d 'action=save' \
+     -d 'type=paste' \
+     -d 'certificate='$DIRECTADMIN_PLAIN_FULLCHAIN''$DIRECTADMIN_PLAIN_KEY'' \
+     "https://"$DIRECTADMIN_HOSTNAME":2222/CMD_API_SSL"
 
 ### Di bawah ini adalah baris perintah untuk membuat berkas log untuk memastikan bahwa Cron telah berhasil dijalankan
 echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ssl.log
