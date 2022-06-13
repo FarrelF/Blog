@@ -1370,8 +1370,8 @@ curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
-```shell
-curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' 'https://'$CPANEL_HOSTNAME':2083/execute/SSL/install_ssl?domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>&cert='$CPANEL_PLAIN_CERT'&key='$CPANEL_PLAIN_KEY'&cabundle='$CPANEL_PLAIN_CA''
+```shell {linenos=true}
+curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' -d 'cert='$CPANEL_PLAIN_CERT'' -d 'key='$CPANEL_PLAIN_KEY'' -d 'cabundle='$CPANEL_PLAIN_CA'' "https://"$CPANEL_HOSTNAME":2083/execute/SSL/install_ssl"
 ```
 
 Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat Domain/Subdomain di cPanel yang ingin kamu pasangkan sertifikatnya.
@@ -1469,7 +1469,7 @@ Silahkan ubah direktori dan nama berkas di atas sesuai dengan sertifikat SSL yan
 
 Ubah teks `NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI` menjadi Nama Hos atau Alamat IP yang biasa Anda gunakan untuk login ke DirectAdmin, `USERNAME_DIRECTADMIN_KAMU_DI_SINI` menjadi _Username_ DirectAdmin kamu dan ubah teks `LOGIN_KEY_KAMU_DI_SINI` menjadi **"Login Key"** yang telah Anda simpan sebelumnya.
 
-Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `DIRECTADMIN_PLAIN_CA` jadi `PLAIN_CA`, atau `CA`, atau lainnya, asal bisa Anda kembali gunakan variabel tersebut.
+Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `DIRECTADMIN_PLAIN_FULLCHAIN` jadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau lainnya, asal bisa Anda kembali gunakan variabel tersebut.
 
 Setelah memasukkannya ke dalam Variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 

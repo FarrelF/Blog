@@ -100,7 +100,8 @@ Unduh kunci:
 
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
-- Alamat proksi BI-FAST: farrel(at)franqois(dot)id
-- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
-- Kamu bisa [traktir coklat panas ke saya](https://trakteer.id/farrelf) melalui Trakteer
+- Rekening Bank:
+  - Alamat Proksi BI-FAST: farrel(at)franqois(dot)id
+  - Nama Bank: blu/BCA Digital (PT Bank Digital BCA)
+- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria, metode pembayaran yang didukung: QRIS, LinkAja, OVO, GoPay dan DANA.
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasi, hehe 😁

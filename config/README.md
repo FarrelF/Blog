@@ -30,7 +30,7 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
 
     Karena merupakan konfigurasi baku, jadi berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan apapun, termasuk lingkungan produksi atau pengembangan.
 
-    Di dalam direktori tersebut, ada 2 berkas konfigurasi, yakni: 
+    Di dalam direktori tersebut, ada 4 berkas konfigurasi, yakni: 
     - [`_default/config.yaml`](_default/config.yaml): Merupakan berkas konfigurasi utama
     - [`_default/menu.yaml`](_default/menu.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`menu`](https://gohugo.io/content-management/menus/) atau `[Menu]` pada Konfigurasi Hugo
     - [`_default/module.yaml`](_default/module.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`module`](https://gohugo.io/hugo-modules/configuration/) atau `[Module]` pada Konfigurasi Hugo
@@ -38,7 +38,7 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
 
 - [`development`](development): Merupakan direktori yang menyimpan berkas-berkas konfigurasi untuk lingkungan pengembangan pada Hugo.
 
-    Berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan pengembangan. Di dalam direktori tersebut, ada 1 berkas konfigurasi, yakni:
+    Berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan pengembangan. Di dalam direktori tersebut, ada 2 berkas konfigurasi, yakni:
     - [`development/module.yaml`](development/module.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`module`](https://gohugo.io/hugo-modules/configuration/) atau `[Module]` pada Konfigurasi Hugo
     - [`development/server.yaml`](development/server.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`server`](https://gohugo.io/getting-started/configuration/#configure-server) atau `[Server]` pada Konfigurasi Hugo
 
