@@ -34,7 +34,7 @@ Description: >
 
 ## Pembuka
 
-{{< info text="tl;dr" >}}
+{{< info text="Catatan" >}}
 Jika Anda tidak ingin membaca basa-basinya, Anda bisa langsung lanjut ke subbagian [**"Prakata"**](#prakata) sebelum ke subbagian [**"Persiapan"**](#persiapan).
 {{< / info >}}
 
@@ -1142,14 +1142,14 @@ Maksudnya Anda akan memanggil Server API masing-masing penyedianya untuk melakuk
 Berikut adalah cara-caranya:
 
 ### Di Netlify {#pasang-ssl-di-netlify}
-#### Membuat _Personal Access Token_ dan Mendapatkan _Site ID_ {#membuat-personal-access-token-dan-site-id}
+#### Membuat "Personal Access Token" dan Mendapatkan "Site ID" {#membuat-personal-access-token-dan-site-id}
 {{< info text="**Catatan:**" >}}
 Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Personal Access Token"** dan **"Site ID"**-nya di dalam Perangkat Anda.
 {{< / info >}}
 
-Agar Anda bisa mengakses Server API-nya, maka Anda perlu untuk membuat kunci aksesnya, salah satunya adalah dengan membuat **Personal Access Token**-nya.
+Agar Anda bisa mengakses Server API-nya, maka Anda perlu untuk membuat kunci aksesnya, salah satunya adalah dengan membuat **"Personal Access Token"**-nya.
 
-Untuk membuat **"Personal Access Token"**-nya sendiri sudah saya bahas di bagian "Verifikasi DNS di acme.sh". Jika Anda belum sempat membuat **Personal Access Token** sebelumnya, silahkan [klik di sini](#netlify-personal-access-token) untuk caranya.
+Untuk membuat **"Personal Access Token"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika Anda belum sempat membuatnya, silahkan [klik di sini](#netlify-personal-access-token) untuk caranya.
 
 Setelah **"Personal Access Token"** dibuat, maka Anda perlu mendapatkan **"Site ID"**-nya. Tapi untuk mendapatkannya, Anda bisa pergi ke **"Site settings"**, lalu klik pada **"General"** -> Terakhir, klik **"Site details"**, di situ akan muncul informasi-informasi mengenai Web Anda, seperti cuplikan berikut:
 
@@ -1250,7 +1250,7 @@ Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Access Key"
 
 Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
 
-Untuk cara mendapatkan **"Access Key"**-nya, silahkan [klik di sini](#bunny-access-key).
+Untuk mendapatkan **"Access Key"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika belum sempat mendapatkannya, silahkan [klik di sini](#bunny-access-key) untuk caranya.
 
 Untuk **"Pull Zone ID"**-nya, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **"Pull Zones"** -> Lalu, kamu pilih _Pull Zone_ yang ingin kamu pasangkan sertifikat SSL-nya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
 
@@ -1312,7 +1312,7 @@ Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda
 
 ### Di cPanel {#pasang-ssl-di-cpanel}
 #### Membuat API Token dan Persiapannya
-Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
+Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda ataupun pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
 
 Tidak ada syarat khusus dalam Hosting untuk memasangkan sertifikat SSL melalui API ini, jadi Anda bisa memasangnya dengan memakai paket Hosting termurah sekalipun, selama Hosting mendukung pemasangan Sertifikat SSL Kustom.
 
@@ -1424,24 +1424,24 @@ Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pes
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang sertifikat SSL Anda di cPanel dengan API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
 
 ### Di DirectAdmin {#pasang-ssl-di-directadmin}
-Jika Anda merupakan pengguna DirectAdmin sebagai Kontrol Panelnya, baik itu di dalam Server Anda atau pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
+Jika Anda merupakan pengguna DirectAdmin sebagai Kontrol Panelnya, baik itu di dalam Server Anda ataupun pada Layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
 
 Tidak ada syarat khusus dalam Hosting untuk memasangkan sertifikat SSL melalui API ini, jadi Anda bisa memasangnya dengan memakai paket Hosting termurah sekalipun, selama Hosting mendukung pemasangan Sertifikat SSL Kustom.
 
 Tapi sebelum itu, saya sarankan bahwa Anda perlu membuat **"Login Key"**-nya terlebih dahulu di dalam DirectAdmin-nya.
 
-Sebenarnya bisa saja Anda memakai kata sandi Akun DirectAdmin Anda sebagai gantinya, hanya saja saya tidak merekomendasikan ini, selain karena orang lain dapat mengetahui kata sandi utamanya, hak akses yang diberikan telalu luas untuk keperluan akses yang spesifik saja sehingga metode ini kurang aman.
+Sebenarnya bisa saja memakai kata sandi Akun DirectAdmin Anda sebagai gantinya, hanya saja saya tidak merekomendasikan ini, selain karena orang lain dapat mengetahui kata sandi utamanya, hak akses yang diberikan telalu luas untuk keperluan akses yang spesifik saja sehingga metode ini kurang aman.
 
 Dengan menggunakan **"Login Key"**, Anda bisa mengatur hak akses dan batasannya dengan bebas, sehingga jika orang lain dapat mengetahui **"Login Key"**-nya tanpa sengaja, maka hal tersebut tidak berpengaruh/merembet ke yang lain karena dibatasi aksesnya.
 
-Jika kamu tidak pernah membuat **"Login Key"** sebelumnya (di dalam bagian **"Membuat Kode Token API"**), silahkan [klik di sini](#directadmin-login-key) untuk caranya.
+Jika kamu belum pernah membuatnya (di dalam bagian **"Membuat Kode Token API"**), silahkan [klik di sini](#directadmin-login-key) untuk caranya.
 
-Setelah membuat **"Login Key"** dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari DirectAdmin nantinya, terutama fitur **URI Encode**-nya yang diperlukan oleh DirectAdmin.
+Setelah membuat **"Login Key"** dan menyimpannya, Anda perlu menginstal [`jq`](https://stedolan.github.io/jq/) di dalam perangkat Anda, ini akan sangat diperlukan untuk memasang sertifikat SSL melalui API dari DirectAdmin nantinya, terutama fitur **URI Encode**-nya.
 
 Jika sudah diinstal, maka Anda dapat lanjut ke langkah berikutnya.
 
 #### Memasang Sertifikat SSL melalui API dari DirectAdmin
-Pada langkah ini Anda akan memasangkan sertifikat SSL-nya melalui panggilan API dari DirectAdmin.
+Pada langkah ini, Anda akan memasangkan sertifikat SSL-nya melalui panggilan API dari DirectAdmin.
 
 Pertama-tama, Anda perlu menyimpan isi dari berkas-berkas yang diperlukannya terlebih dahulu ke dalam sebuah variabel.
 
@@ -1489,7 +1489,9 @@ Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris
 curl -sX POST -u ''$DIRECTADMIN_USERNAME':'$DIRECTADMIN_LOGIN_KEY'' -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' -d 'action=save' -d 'type=paste' -d 'certificate='$DIRECTADMIN_PLAIN_FULLCHAIN''$DIRECTADMIN_PLAIN_KEY'' "https://"$DIRECTADMIN_HOSTNAME":2222/CMD_API_SSL"
 ```
 
-Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat "Domain" yang ada di DirectAdmin yang ingin kamu pasangkan sertifikatnya. Jika Anda ingin memasangkan sertifikatnya untuk subdomain, maka Anda perlu menambahkan subdomain tersebut ke dalam "Domain" di DirectAdmin-nya (Bukan ke dalam **"Subdomain Management"** yah).
+Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat "Domain" yang ada di DirectAdmin yang ingin kamu pasangkan sertifikatnya.
+
+Jika Anda ingin memasangkan sertifikatnya untuk subdomain, maka Anda perlu menambahkan subdomain tersebut ke dalam **"Domain"** di DirectAdmin-nya (Bukan ke dalam **"Subdomain Management"** yah).
 
 Jika sukses, maka akan tampil pesan seperti di bawah ini:
 
@@ -1513,7 +1515,7 @@ Salah satu kelebihan acme.sh selain ringan dan kompatibel di hampir semua Sistem
 
 Konfigurasi tersebut bisa Anda lakukan untuk Domain tertentu, sehingga tidak semua Domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak penyedia Hosting/CDN memperlakukan setiap Domain-nya dengan berbeda-beda.
 
-Jadi, sebelum membuat/menentukan skrip untuk _me-renew_/memperbarui sertifikat SSL, mungkin ada baiknya Anda pelajari terlebih dahulu cara mengkonfigurasi acme.sh untuk Domain tertentu di sini, meskipun ini bisa langsung Anda [lewati](#renew-ssl).
+Jadi, sebelum membuat/menentukan skrip untuk _me-renew_/memperbarui sertifikat SSL, mungkin ada baiknya Anda pelajari terlebih dahulu cara mengkonfigurasi acme.sh untuk Domain tertentu di sini, meskipun ini bisa langsung Anda [lewati](#renew-ssl) kalau mau.
 
 Pertama-tama, lihat isi dari berkas `domain.com.conf` terlebih dahulu, seperti biasa, ganti `domain.com` dengan Domain Anda. 
 
@@ -1684,9 +1686,15 @@ Anda perlu membuat sebuah skrip terlebih dahulu agar SSL dapat diperbarui, ada d
 ### Metode ke-1: Memanfaatkan Konfigurasi dari acme.sh {#memanfaatkan-konfigurasi-acme-sh}
 Anda bisa gunakan konfigurasi dari perkakas acme.sh agar dia mengeksekusi baris perintah setelah acme.sh berhasil memperbarui sertifikat SSL-nya untuk Domain tertentu. Untuk selengkapnya, bisa Anda pelajari itu di [bagian sebelumnya](#konfigurasi-acme-sh-untuk-domain).
 
-Kelebihannya Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL-nya).
+Hal yang menarik mengenai metode ini adalah sebagai berikut:
+- Anda tidak perlu memanggil API setiap hari yang memakan kuota Internet Anda (terlebih jika Anda menggunakan Data Seluler) karena mengunggah berkas-berkas yang diperlukan, Anda bisa memanggil API tersebut hanya di saat tertentu saja (cth. Hanya saat acme.sh sukses memperbarui sertifikat SSL-nya)
 
-Selain itu, jika Anda menyalinkan/memindahkan acme.sh ke perangkat lain, maka acme.sh tetap akan mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya daripada Anda membuat skrip sendiri secara terpisah.
+- Jika Anda menyalinkan/memindahkan acme.sh ke perangkat lain, maka acme.sh tetap dapat mengeksekusikan skrip tersebut di perangkat lain sesuai konfigurasi yang telah Anda atur di dalamnya
+
+Di samping hal menarik, berikut ini adalah hal yang perlu Anda perhatikan ketika memakai metode ini:
+- Skrip pembaruan di tiap Domain itu tidaklah sama, jadi ketika Anda ingin membuat skrip tersebut untuk domain lain, maka Anda harus menyesuaikan skrip tersebut untuk domain itu dan skripnya harus diletakkan ke dalam folder domain lain itu juga.
+
+    Hal seperti ini dianggap kurang efisien karena harus menyesuaikan skrip untuk domain lainnya, namun jika Anda tidak menganggapnya itu sebagai masalah, maka harusnya ini bukanlah sebuah kekurangan bagi Anda
 
 Setelah melakukan konfigurasi, Anda tinggal perlu menunggu sampai acme.sh berhasil memperbarui sertifikat SSL-nya untuk Anda, pastikan _Cron Job_ dalam keadaan aktif.
 

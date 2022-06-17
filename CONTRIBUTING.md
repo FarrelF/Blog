@@ -129,6 +129,6 @@ Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog
 
 - Jika Anda mempunyai pertanyaan lainnya yang mana tidak mungkin Anda sebarkan ke publik, silahkan hubungi saya.
 
-Nah, itulah cara kontribusinya, jika Anda mempunyai pertanyaan mengenai Berkas ini, silahkan tanyakan itu melalui ["Discussion"](https://github.com/FarrelF/Blog/discussions) di dalam Repo inih.
+Nah, itulah cara kontribusinya, jika Anda mempunyai pertanyaan mengenai Berkas ini, silahkan tanyakan itu melalui ["Discussion"](https://github.com/FarrelF/Blog/discussions) di dalam Repo ini.
 
 Terima kasih 😊
