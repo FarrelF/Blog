@@ -110,18 +110,17 @@ headers:
 
     Content-Security-Policy-Report-Only: >
       default-src 'none';
-      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js
-      'sha256-WZ07PBFdgPIQGul1TPe2xeawF/hpG7MxkXd61gZ25Jo=' 'sha256-U9bva7YwwbSs/D9GiLVzHCCnx27Sqb1ERkmGdPSyBlE='
-      'sha256-3PCW1zxTJi8yGvS0zNZ5/fb+zzVHyNIIdTKU5Q4K6e4=' 'sha256-PtVgh3fYynHDbKIYA+50xrk/E3h8rgOfY1xLRQ3zv3A='
-      'sha256-u/u6EZ+lhdTkrWpo83IwNp2V0B8CHZY1NaGM/5VVoIc=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY='
-      'sha256-jYcvSua0wWjBOGlPqzBCu4IDQ8yaKxhYIwrnrBM1A9I=' 'sha256-eZ15s1xSQzB4h+Nv1YT5p854a9wsMu4h0qXg/V37s6o=' 
-      'sha256-EQrK50U/BqXmfOQJNK2A4LcxpnrJ7Vpp3ppuKPIK4VE=' 'sha256-xnpGhATVX7iH3/FKSYnaMj7u3LYvAU3Mb5A+lya4nc8=';
-      style-src 'self' 'unsafe-hashes' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/
+      script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
+      'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
+      'sha256-HyIh5rj6bY6tl40Rx55AbY4s5AyWHYzfOBOS0pmDSSE=' 'sha256-LxePw1MNwpBBGOXU5w3Hi4eP2h84rCHQAaEODlQ6Mso='
+      'sha256-1f2J/64qgbhAZYGa37arGnks3NdW5ZME5MIAQLJnlMY=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY='
+      'sha256-X5Lf3t41J296Jo+QRWSTxJBSKKaCTEPeRX5Mt82Uw4s=' 'sha256-CY5oWMzbbw1oSfTE2eRxcI/lZoIjqXxJCEbxyOfvZak=';
+      style-src 'self' 'unsafe-hashes' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
       'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=' 'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ='
       'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo=' 'sha256-8r2wkNd7y5t42rwVYQq1N86jT4H+QpO/L30lmmVGGcs='
       'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI=';
       font-src 'self';
-      img-src data: 'self' https://cdn.statically.io/gh/dimsemenov/PhotoSwipe/;
+      img-src data: 'self' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/;
       base-uri 'self';
       connect-src 'self';
       object-src 'none';
@@ -141,9 +140,9 @@ headers:
 #    Content-Security-Policy: >
 #      default-src 'none';
 #      script-src 'self' 'unsafe-inline'
-#      'sha256-WZ07PBFdgPIQGul1TPe2xeawF/hpG7MxkXd61gZ25Jo=' 'sha256-U9bva7YwwbSs/D9GiLVzHCCnx27Sqb1ERkmGdPSyBlE='
-#      'sha256-3PCW1zxTJi8yGvS0zNZ5/fb+zzVHyNIIdTKU5Q4K6e4=' 'sha256-PtVgh3fYynHDbKIYA+50xrk/E3h8rgOfY1xLRQ3zv3A='
-#      'sha256-u/u6EZ+lhdTkrWpo83IwNp2V0B8CHZY1NaGM/5VVoIc=';
+#      'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
+#      'sha256-HyIh5rj6bY6tl40Rx55AbY4s5AyWHYzfOBOS0pmDSSE=' 'sha256-LxePw1MNwpBBGOXU5w3Hi4eP2h84rCHQAaEODlQ6Mso='
+#      'sha256-1f2J/64qgbhAZYGa37arGnks3NdW5ZME5MIAQLJnlMY=';
 #       style-src 'self' 'unsafe-inline' 'unsafe-hashes'
 #      'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=';
 #      font-src 'self';

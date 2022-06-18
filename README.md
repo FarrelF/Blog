@@ -2,6 +2,7 @@
 [![GitHub Actions](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
+[![Ditenagai oleh Hugo](https://img.shields.io/badge/Hugo-ff4088?logo=hugo&style=flat-square&label=Ditenagai%20oleh)](https://gohugo.io)
 
 Repositori ini merupakan kode sumber Blog saya. Blog ini saya buat menggunakan Hugo, yang berbasis Go dan jauh lebih sederhana dan lebih cepat daripada sebelumnya.
 
