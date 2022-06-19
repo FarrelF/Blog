@@ -38,6 +38,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
 - Tema: [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)
 - Fon: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
+- Favicon: Ikon [Papan Klip](https://pixabay.com/images/id-1294565/) oleh [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) dari Pixabay, dilisensikan di bawah [Lisensi Pixabay](https://pixabay.com/service/license/)
 - VCS: [GitHub](https://github.com)
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
@@ -103,5 +104,6 @@ Unduh kunci:
 - Rekening Bank:
   - Alamat Proksi BI-FAST: farrel(at)franqois(dot)id
   - Nama Bank: blu/BCA Digital (PT Bank Digital BCA)
-- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria, metode pembayaran yang didukung: QRIS, LinkAja, OVO, GoPay dan DANA.
+- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
+- Kamu bisa [memberikan tip ke saya](https://arxist.id/tip/farrelf) melalui Arxist
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasi, hehe 😁

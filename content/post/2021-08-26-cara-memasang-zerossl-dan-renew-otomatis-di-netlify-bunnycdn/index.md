@@ -230,9 +230,9 @@ Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://p
 
 Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silahkan Anda baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, dan Cron sudah ada di dalam Termux Anda.
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
 
-Tapi sayangnya, di dalam Termux belum terinstal OpenSSL dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
+Tapi sayangnya, di dalam Termux belum terinstal OpenSSL, jq dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
 pkg up -y; pkg i -y curl wget openssl-tool jq cronie termux-services
@@ -311,7 +311,7 @@ Ganti `aku@contoh.com` dengan Alamat Surel Anda.
 
 Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
 
-Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, dan [klik di sini](#membuat-kode-token-api) untuk melanjutkan ke langkah berikutnya.
+Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, dan [klik di sini](#registrasi-akun-acme-sh) untuk melanjutkan ke langkah berikutnya.
 
 Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_, kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas konfigurasi _Shell_ yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
 
@@ -341,6 +341,43 @@ set -xU LE_WORKING_DIR "$HOME"/.acme.sh
 Tambahkan baris di atas ke dalam berkas `~/.config/fish/conf.d/acme.sh.fish` jika Anda menggunakan `fish` sebagai _Shell_.
 
 Setelah selesai menambahkannya, simpanlah berkas tersebut dari Editor Teks favorit Anda dan perbarui _Shell-nya_ dengan menggunakan perintah `source` atau keluar dari Terminal lalu buka lagi, setelah itu coba eksekusikan ulang perkakas acme.sh-nya.
+
+### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
+Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_)-nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME-nya menggunakan acme.sh dengan perintah berikut:
+
+```shell
+acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
+```
+
+Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
+
+**Kalau saya belum daftar sama sekali gimana?** Jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
+
+```shell
+acme.sh --register-account
+```
+
+Keluarannya akan seperti di bawah ini:
+
+```plain {linenos=true}
+[Sel 10 Agu 2021 05:31:16  WIB] Create account key ok.
+[Sel 10 Agu 2021 05:31:16  WIB] No EAB credentials found for ZeroSSL, let's get one
+[Sel 10 Agu 2021 05:31:17  WIB] Registering account: https://acme.zerossl.com/v2/DV90
+[Sel 10 Agu 2021 05:31:20  WIB] Registered
+[Sel 10 Agu 2021 05:31:20  WIB] ACCOUNT_THUMBPRINT='f4qxxxxxxxxxxxxxxxxx_xxxxxxx-xxxxxxxxx_xxxx'
+```
+
+**Kalau saya gak peroleh Kredensial EAB-nya gimana? Apakah bisa memakai perintah di atas?** Sepengalaman saya dulu, bisa.
+
+{{< info text="**Perhatian !**" >}}
+Dengan mengeksekusi perintah di atas (`acme.sh --register-account` saja), itu bukan berarti Anda telah mendaftarkan akun ZeroSSL yang kemudian bisa Anda gunakan untuk login ke dalam [Situs Web ZeroSSL-nya](https://app.zerossl.com/login).
+
+Jika Anda ingin mengelola sertifikat tersebut di Web-nya, maka saya sarankan agar Anda membuat akunnya terlebih dahulu melalui Situs Web-nya, caranya bisa Anda baca di [langkah pertama](#membuat-akun-zerossl), lalu kaitkan Kredensial EAB-nya di acme.sh.
+{{< / info >}}
+
+Anda bisa Simpan `ACCOUNT_THUMBPRINT`-nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)". Tapi, Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
+
+Jika sudah, silahkan lanjut ke [langkah berikutnya](#membuat-kode-token-api).
 
 ### Membuat Kode Token API
 Sebelum menerbitkan sertifikat SSL, maka ada baiknya untuk membuat Kode Token untuk Akses API-nya (sebutan lainnya adalah _API Token_) terlebih dahulu.
@@ -588,7 +625,7 @@ set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 
 Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
 
-Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, maka Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
+Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#issue-cert) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
 Jika Anda menggunakan Netlify sebagai Layanan DNS Otoritatif untuk Domain-mu, Anda cuma perlu membuat **"Personal Access Token"**-nya (`NETLIFY_ACCESS_TOKEN`) saja.
@@ -615,49 +652,12 @@ set -x NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 
 Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
 
-Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#registrasi-akun-acme-sh) saja.
+Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan Informasi-informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#issue-cert) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna DNS Otoritatif lain {#untuk-pengguna-dns-lain}
 Jika Anda menggunakan Layanan DNS Otoritatif selain Cloudflare dan Netlify DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, Google Cloud DNS, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Karena setiap Penyedia DNS Otoritatif mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silahkan ikuti yang ada di dokumentasinya.
-
-Jika sudah, silahkan lanjut ke [langkah berikutnya](#registrasi-akun-acme-sh).
-
-### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
-Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_)-nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silahkan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME-nya menggunakan acme.sh dengan perintah berikut:
-
-```shell
-acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
-```
-
-Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
-
-**Kalau saya belum daftar sama sekali gimana?** Jika Anda belum pernah daftar akun ZeroSSL sama sekali dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL dari Web, maka Anda dapat eksekusi perintah berikut:
-
-```shell
-acme.sh --register-account
-```
-
-Keluarannya akan seperti di bawah ini:
-
-```plain {linenos=true}
-[Sel 10 Agu 2021 05:31:16  WIB] Create account key ok.
-[Sel 10 Agu 2021 05:31:16  WIB] No EAB credentials found for ZeroSSL, let's get one
-[Sel 10 Agu 2021 05:31:17  WIB] Registering account: https://acme.zerossl.com/v2/DV90
-[Sel 10 Agu 2021 05:31:20  WIB] Registered
-[Sel 10 Agu 2021 05:31:20  WIB] ACCOUNT_THUMBPRINT='f4qxxxxxxxxxxxxxxxxx_xxxxxxx-xxxxxxxxx_xxxx'
-```
-
-**Kalau saya gak peroleh Kredensial EAB-nya gimana? Apakah bisa memakai perintah di atas?** Sepengalaman saya dulu, bisa.
-
-{{< info text="**Perhatian !**" >}}
-Dengan mengeksekusi perintah di atas (`acme.sh --register-account` saja), itu bukan berarti Anda telah mendaftarkan akun ZeroSSL yang kemudian bisa Anda gunakan untuk login ke dalam [Situs Web ZeroSSL-nya](https://app.zerossl.com/login).
-
-Jika Anda ingin mengelola sertifikat tersebut di Web-nya, maka saya sarankan agar Anda membuat akunnya terlebih dahulu melalui Situs Web-nya, caranya bisa Anda baca di [langkah pertama](#membuat-akun-zerossl), lalu kaitkan Kredensial EAB-nya di acme.sh.
-{{< / info >}}
-
-Anda bisa Simpan `ACCOUNT_THUMBPRINT`-nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)". Tapi, Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
 
 Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk menerbitkan/membuat dan memperbarui sertifikat SSL kamu.
 
@@ -806,6 +806,8 @@ acme.sh --issue -d www.domain.com -d domain.com --dns dns_cf
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
+Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan parameter `--force --server letsencrypt_test`, karena sekarang acme.sh akan secara otomatis membalikkan opsi CA-nya ke Let's Encrypt versi Produksi yang mana itu bukan lagi termasuk tahap uji coba.
+
 Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
@@ -835,9 +837,9 @@ acme.sh --issue -d domain1.com -d www.domain1.com -d sub.domain1.com -d domain2.
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
-
 Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan parameter `--force --server letsencrypt_test`, karena sekarang acme.sh akan secara otomatis membalikkan opsi CA-nya ke Let's Encrypt versi Produksi yang mana itu bukan lagi termasuk tahap uji coba.
+
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Untuk 4 Domain saja:
@@ -873,9 +875,9 @@ acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
-
 Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan parameter `--force --server letsencrypt_test`, karena sekarang acme.sh akan secara otomatis membalikkan opsi CA-nya ke Let's Encrypt versi Produksi yang mana itu bukan lagi termasuk tahap uji coba.
+
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` dan `domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
@@ -916,9 +918,9 @@ acme.sh --issue -d domain.com -d www.domain.com --keylength 3072
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
-
 Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan parameter `--force --server letsencrypt_test`, karena sekarang acme.sh akan secara otomatis membalikkan opsi CA-nya ke Let's Encrypt versi Produksi yang mana itu bukan lagi termasuk tahap uji coba.
+
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Atau, berikut di bawah ini jika Anda ingin menerbitnya dalam bentuk _Wildcard_:
@@ -961,9 +963,9 @@ acme.sh --issue -d domain.com -d www.domain.com --keylength ec-384
 {{< info text="**Perhatian !**" >}}
 Jika Anda sedang mempelajari penggunaan perkakas acme.sh, maka saya sarankan agar Anda selalu tambahkan parameter `--test` atau `--staging` untuk menjalankan perkakas acme.sh dalam mode pengujian, ini cocok untuk Anda yang sedang belajar.
 
-Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
-
 Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan parameter `--force --server letsencrypt_test`, karena sekarang acme.sh akan secara otomatis membalikkan opsi CA-nya ke Let's Encrypt versi Produksi yang mana itu bukan lagi termasuk tahap uji coba.
+
+Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
 Atau, berikut di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
@@ -1143,10 +1145,6 @@ Berikut adalah cara-caranya:
 
 ### Di Netlify {#pasang-ssl-di-netlify}
 #### Membuat "Personal Access Token" dan Mendapatkan "Site ID" {#membuat-personal-access-token-dan-site-id}
-{{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Personal Access Token"** dan **"Site ID"**-nya di dalam Perangkat Anda.
-{{< / info >}}
-
 Agar Anda bisa mengakses Server API-nya, maka Anda perlu untuk membuat kunci aksesnya, salah satunya adalah dengan membuat **"Personal Access Token"**-nya.
 
 Untuk membuat **"Personal Access Token"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika Anda belum sempat membuatnya, silahkan [klik di sini](#netlify-personal-access-token) untuk caranya.
@@ -1244,10 +1242,6 @@ Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL Anda
 
 ### Di Bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
 #### Mendapatkan "Access Key" dan "Pull Zone ID"-nya
-{{< info text="**Catatan:**" >}}
-Anda bisa abaikan ini jika Anda sudah membuat dan masih menyimpan **"Access Key"** dan **"Pull Zone ID"**-nya di dalam Perangkat Anda, serta jika Anda telah mengetahui Nama Hos tujuannya.
-{{< / info >}}
-
 Sebelum Anda bisa memasang Sertifikat SSL menggunakan API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
 
 Untuk mendapatkan **"Access Key"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika belum sempat mendapatkannya, silahkan [klik di sini](#bunny-access-key) untuk caranya.
@@ -1863,7 +1857,7 @@ Tujuan IKP adalah untuk memfasilitasi transfer informasi elektronik yang aman un
 IKP diperlukan untuk aktivitas di mana kata sandi sederhana merupakan metode otentikasi yang kurang memadai dan juga diperlukan sebagai bukti yang lebih ketat untuk mengonfirmasi identitas pihak yang terlibat dalam komunikasi, serta untuk memvalidasi informasi yang ditransfer.
 
 ### Pertanyaan ke-4: Apa saja CA selain ZeroSSL dan Let's Encrypt yang bisa menggunakan Protokol ACME? {#pertanyaan-ke4}
-**Jawab:** Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl) dan [SSL.com](https://www.ssl.com/certificates/free/).
+**Jawab:** Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl), [SSL.com](https://www.ssl.com/certificates/free/) dan Google Public CA yang saya bahas di [artikel ini](https://farrel.franqois.id/cara-mendapatkan-sertifikat-ssl-dari-google/).
 
 Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Entrust](https://www.entrust.com/knowledgebase/ssl/how-to-use-acme-to-install-ssl-tls-certificates-in-entrust-certificate-services-apache) dan mungkin SSL\.com ada versi berbayarnya juga.
 
