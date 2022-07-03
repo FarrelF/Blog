@@ -22,13 +22,7 @@ readMore: true
 #    render: true
 DescriptionSEO: Sebenarnya, saat ini Anda sudah dapat menggunakan SSL dari Google secara gratis tanpa harus memakai layanannya, lho. Mau? Silahkan baca artikel ini
 Description: >
-    Sudah berapa bulan saya gak posting-posting yah, dari tahun baru kemarin saja saya gak posting, update artikel dan update ini itu mulu, terus artikel yang ingin saya buat malah menumpuk yang semoga saja bisa saya selesaikan segera.
-
-
-    Selain itu, tidak terasa juga bahwa kita sudah memasukki kuartal kedua dari tahun 2022 ini dan bahkan saat artikel ini diterbitkan saja sudah memasukki bulan Syawal tahun 1443H, Alhamdulillah. Bagi umat muslim, bulan kemarin puasanya bagaimana? Lancar, kan? Selamat Idul Fitri dan Mohon Maaf lahir batin yah buat umat muslim sekalian yang merayakannya.
-
-
-    Kembali lagi ke topik artikel. Untuk saat ini, blog ini sudah memakai sertifikat SSL/TLS dari Google.
+    Untuk saat ini, blog ini sudah memakai sertifikat SSL/TLS dari Google.
 
 
     Yap, Anda gak salah lihat, saya memakai sertifikat SSL dari Google atau lebih tepatnya Google Trust Services yang biasanya hanya dipakai untuk Layanan dari Google beserta Web/Blog Pengguna yang dibuat menggunakan salah satu layanannya (salah satunya adalah Blogger).
@@ -38,7 +32,7 @@ Description: >
 ---
 
 ## Pembuka
-Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **Google Public CA**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekalipun untuk Aplikasinya.
+Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekalipun untuk Aplikasinya.
 
 Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
 
@@ -48,7 +42,7 @@ Untuk saat ini, Anda bisa mendapatkan sertifikat SSL tersebut secara gratis, men
 
 _Semoga seterusnya bisa gratis, Amiin_.
 
-Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**Google Trust Services (GTS)**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
+Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**"Google Trust Services (GTS)"**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
 
 ## Persiapan
 Karena ini sepenuhnya menggunakan protokol ACME dan ini bersifat _Self-managed_, maka tentu saja tidak ada antarmuka pengguna dari Google secara langsung untuk mengelolanya.
@@ -81,21 +75,21 @@ Dengan mengikuti petunjuk/instruksi dari artikel ini, maka artinya Anda telah me
 Setelah semuanya sudah siap, gak usah banyak _cing-cong_, mari kita langsung eksekusi!
 
 ## Membuat Proyek di Google Cloud Console
-Pertama-tama, Anda perlu membuat sebuah Proyek (bahasa Inggrisnya: **Project**) di [**Google Cloud Console**](https://console.cloud.google.com/) (Sebelumnya **Google Developer Console**). Ini nantinya diperlukan karena kita akan mengakses API-nya.
+Pertama-tama, Anda perlu membuat sebuah Proyek (bahasa Inggrisnya: **Project**) di [**"Google Cloud Console"**](https://console.cloud.google.com/) (Sebelumnya bernama **"Google Developer Console"**). Ini nantinya diperlukan karena kita akan mengakses API-nya.
 
 Sebagai catatan, Anda tidak perlu memasukkan kartu kredit/debit hanya untuk menambahkan proyek di sana, jadi Anda bisa melakukan semuanya secara gratis. Tapi, kuotanya terbatas untuk 10 proyek saja per Akun.
 
-Jadi, jika Anda sebelumnya telah membuat proyek di sana, maka saya sarankan Anda lewati ini dan pakai proyek yang ada saja, cukup simpan saja **Project ID** pada Proyek yang telah Anda buat sebelumnya, karena itu akan dipakai.
+Jadi, jika Anda sebelumnya telah membuat proyek di sana, maka saya sarankan Anda lewati ini dan pakai proyek yang ada saja, cukup simpan saja **"Project ID"** pada Proyek yang telah Anda buat sebelumnya, karena itu akan dipakai.
 
-Jika belum, Anda bisa membuatnya melalui **Cloud Shell** yang ada di **Google Cloud Console**-nya, caranya berikut ini:
+Jika belum, Anda bisa membuatnya melalui **"Cloud Shell"** yang ada di **"Google Cloud Console"**-nya, caranya berikut ini:
 
-**Langkah ke-1:** Masuk ke [**Google Cloud Console**-nya](https://console.cloud.google.com/)
+**Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
-**Langkah ke-2:** Setelah masuk, silahkan aktifkan **Cloud Shell**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
+**Langkah ke-2:** Setelah masuk, silahkan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
 
 ![Cara aktivasi Google Cloud Shell](Activate_Cloud_Shell.png)
 
-**Langkah ke-3:** Di **Cloud Shell**-nya, silahkan Anda buat proyeknya dengan perintah berikut:
+**Langkah ke-3:** Di **"Cloud Shell"**-nya, silahkan Anda buat proyeknya dengan perintah berikut:
 
 ```shell
 gcloud projects create <PROJECT_ID>
@@ -111,7 +105,7 @@ gcloud projects create test-project-3049113
 
 `test-project-3049113` adalah contoh ID Proyek yang saya buat.
 
-**Langkah ke-4:** Setelah menentukan ID Proyeknya, silahkan tekan "Enter", nanti secara otomatis akan dibuatkan Proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
+**Langkah ke-4:** Setelah menentukan ID Proyeknya, silahkan tekan **"Enter"**, nanti secara otomatis akan dibuatkan proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
 
 ```shell {linenos=true}
 $ gcloud projects create test-project-3049113
@@ -123,14 +117,14 @@ Operation "operations/acat.p2-566660100705-de51fa1a-3c95-49b1-907a-7e26627da3e4"
 
 Kira-kira akan seperti di atas.
 
-**Langkah ke-5:** Jika berhasil, maka sebaiknya kamu simpan ID Proyek tersebut dengan baik di dalam perangkat kamu.
+**Langkah ke-5:** Jika berhasil, maka sebaiknya kamu simpan ID dari proyek tersebut dengan baik di dalam perangkat kamu.
 
 Jika semua sudah selesai, Anda tinggal langsung daftarkan proyeknya saja.
 
 ## Mendaftarkan Proyek
 Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan mengisi formulir permintaan akses yang tersedia.
 
-**Kenapa?** Karena Anda perlu mengaktifkan API **Public Certificate Authority** yang mana itu dinonaktifkan secara baku dan itu wajar karena sebenarnya server tersebut masih dalam tahap Uji Coba (_Beta preview_).
+**Kenapa?** Karena Anda perlu mengaktifkan API **"Public Certificate Authority"** yang mana itu dinonaktifkan secara baku dan itu wajar karena sebenarnya server tersebut masih dalam tahap Uji Coba (_Beta preview_).
 
 **Biar apa?** Biar supaya Anda bisa meminta Kredensial EAB (_External Account Binding_) melalui panggilan API-nya, lalu Anda pakai kredensial tersebut untuk menerbitkan sertifikat SSL-nya melalui perkakas klien ACME (seperti acme.sh) nantinya.
 
@@ -140,36 +134,36 @@ Formulirnya akan seperti cuplikan layar berikut:
 
 ![Formulir Permintaan Akses terhadap API](Google_Request_Form.png)
 
-Akun Google-nya bisa bebas, tapi lebih baik gunakan akun Google yang Anda gunakan ketika membuat proyek di **Google Cloud Console**. Jika Anda ingin menggantikan akunnya, silahkan klik pada tautan **Ganti akun**.
+Akun Google-nya bisa bebas, tapi lebih baik gunakan akun Google yang Anda gunakan ketika membuat proyek di **"Google Cloud Console"**. Jika Anda ingin menggantikan akunnya, silahkan klik pada tautan **"Ganti akun"**.
 
 Setelah itu, isikan formulirnya dengan benar, berikut adalah penjelasan mengenai formulir yang Anda isikan nantinya
 
 - **Email:** Isikan Alamat Surel Anda, alamat ini nantinya digunakan untuk mengirimkan sebuah pemberitahuan bahwa Proyek tersebut telah diterima oleh Google
-- **Google Cloud Project ID:** Isikan itu dengan ID dari Proyek (bahasa Inggrisnya: **Project ID**) yang telah Anda buat sebelumnya di **Google Cloud Console**
+- **Google Cloud Project ID:** Isikan itu dengan ID dari Proyek (bahasa Inggrisnya: **"Project ID"**) yang telah Anda buat sebelumnya di **"Google Cloud Console"**
 - **Estimated usage:** Perkirakan berapa sertifikat SSL yang Anda terbitkan/perbarui setiap 3 bulan sekali, sebaiknya kalau bisa isi itu dengan benar dan jujur, serta isi itu sesuai dengan kebutuhan Anda, ini kemungkinan bisa jadi penentu persiapan yang dilakukan oleh pihak mereka nantinya.
 
     Tips: Untuk meminimalkan jumlah sertifikat SSL per 3 bulan, saran saya pikirkanlah untuk memakai sertifikat SSL dalam bentuk _Wildcard_ dan manfaatkan _Multi-domain_ dalam 1 sertifikat jika perlu
 
 - **Optional feedback:** Anda bisa mengisi masukkan untuk Google Public CA nanti, ini tidak wajib diisi, jika Anda tidak mempunyai masukkan apapun, ya tidak usah diisi
 
-Nah, setelah semua sudah diisi, silahkan klik pada _Button_ **Kirim** (atau, bahasa Inggrisnya adalah **Submit**), lalu tinggal Anda tunggu saja hasilnya, biasanya hanya dalam beberapa jam.
+Nah, setelah semua sudah diisi, silahkan klik pada _Button_ **"Kirim"** (atau, bahasa Inggrisnya adalah **"Submit"**), lalu tinggal Anda tunggu saja hasilnya, biasanya hanya dalam beberapa jam.
 
 Pastikan untuk selalu periksa pesan surel Anda baik di dalam kotak masuk ataupun di dalam folder Spam, karena jika sudah diterima, maka akan muncul pesan surel dari `public-ca-preview-access@google.com` dengan nama `Public CA Preview Access`, bersubjek `Welcome to Google Cloud Certificate Manager, Public CA`, yang isinya kira-kira seperti cuplikan berikut:
 
 ![Isi Pesan Surel dari Google Public CA](Google_Public_CA_Email_Message.png)
 
-Jika Anda menerima pesan di atas, maka sudah dipastikan bahwa Anda bisa mengaktifkan Akses API untuk **Public Certificate Authority** milik Google melalui **Google Cloud Console**.
+Jika Anda menerima pesan di atas, maka sudah dipastikan bahwa Anda bisa mengaktifkan Akses API untuk **"Public Certificate Authority"** milik Google melalui **"Google Cloud Console"**.
 
 ## Mengaktifkan Akses API-nya dan membuat kredensial EAB
 Setelah diterima, Anda perlu mengaktifkan Akses API-nya terlebih dahulu dan berikan izin akses untuk membuat kredensial EAB-nya.
 
 Caranya seperti berikut:
 
-**Langkah ke-1:** Masuk ke [**Google Cloud Console**-nya](https://console.cloud.google.com/)
+**Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
-**Langkah ke-2:** Setelah masuk, silahkan aktifkan **Cloud Shell**-nya dengan klik pada ikon Terminal di pojok kanan atas.
+**Langkah ke-2:** Setelah masuk, silahkan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas.
 
-**Langkah ke-3:** Di **Cloud Shell**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
+**Langkah ke-3:** Di **"Cloud Shell"**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
 
 ```shell
 gcloud config set project <PROJECT_ID>
@@ -177,7 +171,7 @@ gcloud config set project <PROJECT_ID>
 
 Ganti `<PROJECT_ID>` dengan ID Proyek Anda.
 
-**Langkah ke-4:** Berikan izin untuk membuat kredensial EAB dengan perintah berikut di dalam **Cloud Shell**-nya:
+**Langkah ke-4:** Berikan izin untuk membuat kredensial EAB dengan perintah berikut di dalam **"Cloud Shell"**-nya:
 
 ```shell
 gcloud projects add-iam-policy-binding <PROJECT_ID> \
@@ -208,8 +202,8 @@ keyId: bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
 ```
 
 Hal yang perlu diperhatikan/dicatat adalah bahwa:
-- Nilai dari `b64MacKey` adalah **EAB HMAC Key**-nya
-- Nilai dari `keyId` adalah **EAB Key ID/EAB KID**-nya
+- Nilai dari `b64MacKey` adalah **"EAB HMAC Key"**-nya
+- Nilai dari `keyId` adalah **"EAB Key ID"** atau **"EAB KID"**-nya
 
 Jangan lupa simpan hasil keluaran tersebut itu baik-baik karena akan dipakai nantinya oleh perkakas klien ACME dan pastikan bahwa tidak ada seorangpun yang mengetahui itu, kecuali Anda sendiri.
 
@@ -230,10 +224,10 @@ acme.sh  --register-account -m <ALAMAT_SUREL_KAMU> --server google \
 
 Ganti:
 - `<ALAMAT_SUREL_KAMU>` menjadi alamat surel kamu
-- `<EAB_KID_KAMU>` menjadi **EAB KID** yang telah kamu simpan sebelumnya
-- `<EAB_HMAC_KEY_KAMU>` menjadi **EAB HMAC Key** yang telah kamu simpan sebelumnya
+- `<EAB_KID_KAMU>` menjadi **"EAB KID"** yang telah kamu simpan sebelumnya
+- `<EAB_HMAC_KEY_KAMU>` menjadi **"EAB HMAC Key"** yang telah kamu simpan sebelumnya
 
-Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL dengan menggunakan **Google Public CA**, lalu bisa Anda kelola sesuka hati melalui perkakas acme.sh.
+Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL dengan menggunakan **"Google Public CA"**, lalu bisa Anda kelola sesuka hati melalui perkakas acme.sh.
 
 ## Menerbitkan sertifikat SSL dari Google
 Untuk menerbitkan sertifikat SSL dari Google melalui acme.sh, maka Anda hanya perlu pelajari contoh perintah berikut:
@@ -243,7 +237,7 @@ acme.sh --issue --server google \
    -d '*.contoh.com' -d contoh.com --dns dns_cf
 ```
 
-Perintah di atas akan menerbitkan sertifikat SSL dengan menggunakan **Google Public CA** sebagai CA-nya, sertifikat tersebut mencakup hanya untuk domain `*.contoh.com` dan `contoh.com` saja dengan menggunakan Layanan DNS dari Cloudflare sebagai Metode Verifikasinya.
+Perintah di atas akan menerbitkan sertifikat SSL dengan menggunakan **"Google Public CA"** sebagai CA-nya, sertifikat tersebut mencakup hanya untuk domain `*.contoh.com` dan `contoh.com` saja dengan menggunakan Layanan DNS dari Cloudflare sebagai Metode Verifikasinya.
 
 Jika Anda sudah lama menggunakan acme.sh sebelumnya, maka harusnya Anda sudah familiar dengan perintah di atas yang sebenarnya cuma nambahin parameter `--server google` saja. Tapi, kalau Anda belum pernah sama sekali menggunakannya, saran saya kamu pelajari itu di [artikel saya sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/#menerbitkan-sertifikat-ssl).
 
@@ -263,7 +257,7 @@ Nah, artikelnya saya cukupkan sampai sini saja. Jika Anda mempunyai pertanyaan l
 ### Pertanyaan ke-1: Apakah saya perlu memasukkan kartu kredit/debit terlebih dahulu agar dapat menggunakan Google Cloud Console? {#pertanyaan-ke1}
 **Jawab:** Seharusnya tidak perlu kamu masukkan dan semua itu bisa Anda lakukan secara gratis tanpa membayar biaya sepeserpun.
 
-Hanya saja, maksimum proyek yang bisa Anda buat adalah sebanyak 10 proyek per Akun. Jadi, jika Anda pernah memiliki/membuat proyek sebelumnya di **Google Cloud Console** atau **Google Developer Console**, maka saya sangat menyarankan agar memakai proyek yang ada saja.
+Hanya saja, maksimum proyek yang bisa Anda buat adalah sebanyak 10 proyek per Akun. Jadi, jika Anda pernah memiliki/membuat proyek sebelumnya di **"Google Cloud Console"** atau **Google Developer Console**, maka saya sangat menyarankan agar memakai proyek yang ada saja.
 
 ### Pertanyaan ke-2: Apakah semua sertifikat SSL yang diterbitkan oleh Google Public CA ini gratis? {#pertanyaan-ke2}
 **Jawab:** Untuk saat ini, jawabannya adalah **Iya**. Anda bisa menerbitkan sertifikat SSL tersebut secara gratis melalui protokol ACME-nya.
@@ -317,7 +311,7 @@ Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatn
 ### Pertanyaan ke-5: Apakah sertifikat SSL yang diterbitkan itu merupakan sertifikat langsung dari Google Trust Services? {#pertanyaan-ke5}
 **Jawab:** Iya, betul.
 
-Semua sertifikat SSL yang telah Anda terbitkan melalui **Google Public CA** itu adalah sertifikat langsung dari **Google Trust Services (GTS)**, yang di mana sertifkatnya digunakan oleh seluruh layanan Google, sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
+Semua sertifikat SSL yang telah Anda terbitkan melalui **"Google Public CA"** itu adalah sertifikat langsung dari **"Google Trust Services (GTS)"**, yang di mana sertifkatnya digunakan oleh seluruh layanan Google, sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
 
 ### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL dengan memakai ECC sebagai Algoritma Kunci Publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke6}
 **Jawab:** Sayangnya, tidak. Alasannya kurang tahu dan kapan menggunakan rantai murni ECC yang sepenuhnya juga saya kurang tahu, yang jelas bukan sekarang ini menurut klaim mereka.
@@ -345,7 +339,7 @@ Ini sebenarnya adalah sebuah alasan yang sama seperti artikel sebelumnya, sehing
 ### Pertanyaan ke-9: Apa kelebihan dan kekurangan dari Google Public CA menurut kamu? {#pertanyaan-ke9}
 **Jawab:** Mungkin lebih baik bila disebutkan "Hal yang menarik" dan "Hal yang perlu diperhatikan" daripada "kelebihan" dan "kekurangan", karena kelebihan bagi saya belum tentu itu merupakan kelebihan bagi Anda dan kekurangan bagi saya belum tentu itu merupakan kekurangan bagi Anda, atau justru malah sebaliknya.
 
-Jadi saya langsung saja bahas hal yang menarik dan yang perlu diperhatikan soal **Google Public CA** ini.
+Jadi saya langsung saja bahas hal yang menarik dan yang perlu diperhatikan soal **"Google Public CA"** ini.
 
 Hal yang menarik:
 - Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan sertifikat akan menjadi jauh lebih cepat
@@ -406,7 +400,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan
 Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
 
 ```plaintext
-https://github.com/FarrelF/Blog/tree/main/content/post/2022-05-15-cara-mendapatkan-sertifikat-ssl-dari-google
+https://github.com/FarrelF/Blog/tree/main/content/post/2022/05/15-cara-mendapatkan-sertifikat-ssl-dari-google
 ```
 
 Google dan logonya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "Google LLC", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi.

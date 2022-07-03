@@ -313,7 +313,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
 ```plaintext
-https://github.com/FarrelF/Blog/tree/main/content/post/2019-12-19-masalah-klasik-pengguna-libreoffice
+https://github.com/FarrelF/Blog/tree/main/content/post/2019/12/19-masalah-klasik-pengguna-libreoffice
 ```
 
 Logo LibreOffice (yang saya gunakan sebagai sampul artikel ini) di buat oleh ['The Document Foundation'](https://www.documentfoundation.org/) dan (mungkin) kontributor nya, serta di lisensikan dengan sebagai berikut: 

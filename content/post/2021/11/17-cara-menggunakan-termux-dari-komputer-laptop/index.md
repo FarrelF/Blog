@@ -364,5 +364,5 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
 ```plain
-https://github.com/FarrelF/Blog/tree/main/content/post/2021-11-17-cara-menggunakan-termux-dari-komputer-laptop
+https://github.com/FarrelF/Blog/tree/main/content/post/2021/11/17-cara-menggunakan-termux-dari-komputer-laptop
 ```

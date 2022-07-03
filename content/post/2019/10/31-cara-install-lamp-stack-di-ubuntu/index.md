@@ -874,7 +874,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
 ```plaintext
-https://github.com/FarrelF/Blog/tree/main/content/post/2019-10-31-cara-install-lamp-stack-di-ubuntu
+https://github.com/FarrelF/Blog/tree/main/content/post/2019/10/31-cara-install-lamp-stack-di-ubuntu
 ```
 
 Semua Gambar yang berada di situ di lisensi kan dengan [Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).

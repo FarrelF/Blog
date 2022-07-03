@@ -2378,7 +2378,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan
 Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
 
 ```plain
-https://github.com/FarrelF/Blog/tree/main/content/post/2021-08-26-cara-memasang-zerossl-dan-renew-otomatis-di-netlify-bunnycdn
+https://github.com/FarrelF/Blog/tree/main/content/post/2021/08/26-cara-memasang-zerossl-dan-renew-otomatis-di-netlify-bunnycdn
 ```
 
 ZeroSSL dan logonya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "Stack Holdings GmbH", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi, saya hanya dapatkan itu dari Situs Web Resminya dan di sana belum ada petunjuk penggunaan logonya.

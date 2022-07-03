@@ -219,7 +219,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
 ```plaintext
-https://github.com/FarrelF/Blog/tree/main/content/post/2019-09-17-cara-install-git
+https://github.com/FarrelF/Blog/tree/main/content/post/2019/09/17-cara-install-git
 ```
 
 Gambar yang terletak di paling atas dan di bawah judul artikel itu merupakan Logo Git, yang telah di buat oleh [Jason Long](https://twitter.com/jasonlong).

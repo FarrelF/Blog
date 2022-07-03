@@ -391,7 +391,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lain nya) yang di gunaka
 Jika Anda ingin menjelajahi nya, silahkan kunjungi Alamat URL berikut:
 
 ```plain
-https://github.com/FarrelF/Blog/tree/main/content/post/2021-06-25-nyobain-idcloudhost-object-storage
+https://github.com/FarrelF/Blog/tree/main/content/post/2021/06/25-nyobain-idcloudhost-object-storage
 ```
 
 IDCloudHost dan logo nya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari "PT Cloud Hosting Indonesia", sehingga nama merek dan logo tersebut bukanlah milik saya pribadi.

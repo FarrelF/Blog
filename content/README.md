@@ -15,22 +15,17 @@ content
 │   ├── server
 │   ├── tutorial
 │   └── web-dan-blog
+├── _index.md
 ├── page
-│   ├── arsip.md
-│   ├── buku-tamu.md
-│   ├── cari.md
-│   ├── ketentuan-dan-kebijakan-blog.md
-│   └── tentang.md
+│   ├── arsip
+│   ├── buku-tamu
+│   ├── cari
+│   ├── ketentuan-dan-kebijakan-blog
+│   └── tentang
 ├── post
-│   ├── 2019-08-27-halo-dunia
-│   ├── 2019-09-17-cara-install-git
-│   ├── 2019-10-31-cara-install-lamp-stack-di-ubuntu
-│   ├── 2019-12-19-masalah-klasik-pengguna-libreoffice
-│   ├── 2021-03-08-migrasi-ke-hugo
-│   ├── 2021-04-23-apa-itu-cloudflare-dan-perlukah
-│   ├── 2021-05-06-cara-menghemat-konsumsi-bandwidth-server
-│   ├── 2021-06-25-nyobain-idcloudhost-object-storage
-│   └── 2021-08-26-cara-memasang-zerossl-dan-renew-otomatis-di-netlify-bunnycdn
+│   ├── 2019
+│   ├── 2021
+│   └── 2022
 ├── README.md
 └── tags
     └── _index.md

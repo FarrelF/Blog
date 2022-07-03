@@ -246,7 +246,7 @@ Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang digunakan 
 Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
 
 ```plain
-https://github.com/FarrelF/Blog/tree/main/content/post/2021-05-06-cara-menghemat-konsumsi-bandwidth-server
+https://github.com/FarrelF/Blog/tree/main/content/post/2021/05/06-cara-menghemat-konsumsi-bandwidth-server
 ```
 
 Gambar Illustrasi yang nama berkasnya adalah {{< a-file path="NCDN_-_CDN.png" >}}`NCDN_-_CDN.png`{{< / a-file >}} itu merupakan Illustrasi yang dibuat oleh "Kanoha" bersumber dari [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NCDN_-_CDN.png) dan dilisensikan di bawah ["CC BY-SA 3.0 Unported"](https://creativecommons.org/licenses/by-sa/3.0/deed.en) oleh sang pembuat.
