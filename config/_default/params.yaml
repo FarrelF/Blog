@@ -82,17 +82,19 @@ comments:
     category: Komentar Blog
     categoryID: DIC_kwDOFAiyoc4B_M30
     mapping: pathname
-    lang: id
+    strict: 1
+    inputPosition: top
     lightTheme: light
     darkTheme: dark_dimmed
     reactionsEnabled: 1
     emitMetadata: 0
-    lazyLoad: intersectionObserver
+    lazyLoad:
+      type: intersectionObserver
 
 script:
   inlineScript: false
-  SRIHash: true
+  sriHash: true
 
 style:
   inlineStyle: false
-  SRIHash: true
+  sriHash: true

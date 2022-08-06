@@ -25,7 +25,7 @@ Description: >
     Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja variannya, setelah itu saya langsung membahas cara Install-nya.
 
 
-    Kalau Anda ingin meng-install Hugo di dalam Komputer Anda, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
+    Kalau Anda ingin meng-install Hugo di dalam Komputer, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
 ---
 
 ## Apa itu Hugo?
@@ -52,13 +52,13 @@ Meskipun secara resmi Hugo Extended hanya disediakan untuk _Platform_ di atas sa
 ## Cara Install Hugo
 Di bagian ini, saya akan membahas Cara Install-nya.
 
-Caranya sendiri akan berbeda-beda untuk setiap Sistem Operasi ataupun _Platform_ yang ada, jadi pastikan Anda mengikutinya sesuai dengan Sistem Operasi atau _Platform_ yang Anda gunakan.
+Caranya sendiri akan berbeda-beda untuk setiap Sistem Operasi ataupun _Platform_ yang ada, jadi pastikan Anda mengikutinya sesuai dengan Sistem Operasi atau _Platform_ yang digunakan.
 
 Berikut adalah cara instalasinya:
 
 ### Windows
 #### Pengelola Paket Scoop
-Jika Anda menggunakan [Scoop](https://scoop.sh) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
+Jika Anda menggunakan [Scoop](https://scoop.sh) sebagai Pengelola Paket di Windows, Anda bisa meng-install Hugo dengan perintah berikut:
 
 ```powershell
 scoop install hugo
@@ -70,7 +70,7 @@ Atau, ganti `hugo` jadi `hugo-extended` jika Anda ingin meng-install Hugo Extend
 scoop install hugo-extended
 ```
 
-Perintah di atas akan meng-install Hugo di dalam Direktori Pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di Semua Pengguna, maka Anda perlu menambahkan argumen `-g`.
+Perintah di atas akan meng-install Hugo di dalam Direktori Pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di Semua Pengguna, maka perlu menambahkan argumen `-g`.
 
 Perintahnya akan menjadi seperti berikut:
 
@@ -91,7 +91,7 @@ Dengan begini, Anda tidak perlu membuka Terminal-nya sebagai Administrator lagi.
 Untuk memperbarui versinya, silahkan ganti opsi `install` di atas menjadi `update`.
 
 #### Pengelola Paket Chocolatey
-Jika Anda menggunakan [Chocolatey](https://chocolatey.org/) sebagai Pengelola Paket Anda di Windows, maka Anda bisa meng-install Hugo dengan perintah berikut:
+Jika Anda menggunakan [Chocolatey](https://chocolatey.org/) sebagai Pengelola Paket di Windows, Anda bisa meng-install Hugo dengan perintah berikut:
 
 ```powershell
 choco install hugo
@@ -110,19 +110,19 @@ Secara baku, Chocolatey akan meng-install paket-paketnya di dalam direktori `%Pr
 
 Tapi, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
 
-Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar Anda dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
+Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
 {{< / info >}}
 
 #### Berkas Biner, tanpa Pengelola Paket (Manual)
 Hugo telah menyediakan berkas Biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.zip` (untuk Windows), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
 
-Berkas Biner adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
+Berkas Biner di sini adalah nama lain dari Berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berekstensi `.exe`.
 
 Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, maka berikut adalah langkah-langkahnya:
 
 1. Unduh Berkas Arsip yang berisi berkas biner Hugo di [Halaman Perilisannya](https://github.com/gohugoio/hugo/releases).
 
-    Di situ tersedia 4 berkas yang bisa Anda unduh salah satunya, semua itu diarsipkan dalam format Zip, sesuaikan dengan Arsitektur Sistem Operasi yang Anda gunakan.
+    Di situ tersedia 4 berkas yang bisa Anda unduh salah satunya, semua itu diarsipkan dalam format Zip, sesuaikan dengan Arsitektur Sistem Operasi yang dipakai.
 
     Tapi, jika Anda ingin meng-install Hugo Extended, unduh berkas yang namanya diawali dengan `hugo_extended`
 

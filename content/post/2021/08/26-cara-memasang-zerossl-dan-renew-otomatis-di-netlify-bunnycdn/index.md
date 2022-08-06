@@ -136,15 +136,15 @@ Selain itu, Anda bisa menghabiskan kuota "SSL Gratis" yang telah diberikan oleh 
 Tapi sayangnya, Anda tidak bisa mencabut sertifikat SSL yang telah Anda terbitkan melalui server ACME-nya di dalam Situs Web-nya, jadi Anda hanya bisa melihat dan mengunduhnya saja.
 
 ### Prakata
-Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, maka saya sarankan cari Artikel lain yang membahas ini dengan lebih sederhana, jangan paksakan diri Anda kecuali jika Anda ingin belajar.
+Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, saya sarankan cari Artikel lain yang membahas ini dengan lebih sederhana, jangan paksakan diri Anda kecuali jika ingin belajar.
 
 Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
 
-Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari Ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Desktop Mode pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah Papan ketik (_Keyboard_) untuk mengikuti artikel ini.
+Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Penggunaan fitur "Desktop Mode" pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah papan ketik (_Keyboard_) untuk mengikuti artikel ini.
 
 Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
 
-Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk tapi tidak terbatas pada Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
+Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
 
 Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua Sistem Operasi, karena saya belum mencoba di Sistem Operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
 
@@ -153,9 +153,9 @@ Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda suda
 Terima kasih dan selamat melanjutkan 😊
 
 ### Persiapan {#persiapan}
-Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis berbasis Unix/Mirip Unix (\*nix), termasuk tapi tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
+Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis berbasis Unix/Mirip Unix (\*nix), tidak terbatas pada GNU/Linux, macOS, BSD dan Android.
 
-Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari Sistem Operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengetahuan dasar seperti mengenali variabel `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan bisa mengedit berkas di Terminal.
+Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari Sistem Operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, dan bisa mengedit berkas di dalam Terminal.
 
 Kata "Terminal" di sini bukan merujuk pada "Terminal Kendaraan" atau "Terminal Bis" ya, "Terminal" yang saya maksudkan di sini adalah aplikasi Emulator Terminal (_Terminal Emulator_) seperti x-term, Konsole, GNOME Terminal, Windows Terminal, Git Bash, dll.
 
@@ -384,13 +384,13 @@ Sebelum menerbitkan sertifikat SSL, maka ada baiknya untuk membuat Kode Token un
 
 Ini akan sangat berguna untuk verifikasi DNS kedepannya dan juga memasang sertifikat SSL itu sendiri. Jadi, Anda wajib membuatnya, tapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
-Misalnya, jika Anda menggunakan Cloudflare sebagai DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, maka Anda hanya perlu membuat kode token Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat SSL.
+Misalnya, jika Anda menggunakan Cloudflare sebagai DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, Anda hanya perlu membuat kode token Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat SSL.
 
-Atau, jika Anda menggunakan Netlify sebagai DNS dan Hostingnya, maka Anda hanya cukup membuat 1 kode token Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikat SSL-nya, iya cukup 1 saja, tidak perlu membuat banyak untuk keperluan yang berbeda-beda.
+Atau, jika Anda menggunakan Netlify sebagai DNS dan Hostingnya, Anda hanya cukup membuat 1 kode token Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikat SSL-nya, iya cukup 1 saja, tidak perlu membuat banyak untuk keperluan yang berbeda-beda.
 
-Jika Anda sudah tahu caranya, maka Anda bisa langsung [lewati ini](#verifikasi-dns-di-acmesh).
+Kalau Anda sudah tahu caranya, Anda bisa langsung [lewati ini](#verifikasi-dns-di-acmesh).
 
-Jika belum, berikut di bawah ini adalah cara-caranya.
+Kalau belum, berikut di bawah ini adalah cara-caranya.
 
 #### DNS Otoritatif Cloudflare {#cloudflare-api-token}
 Untuk membuat Kode Token Akses API-nya, silahkan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat kodenya.
@@ -443,7 +443,7 @@ Untuk mendapatkan kedua itu, Anda tinggal ke [Halaman Dasbor Cloudflare](https:/
 
 !["Account ID" dan "Zone ID" di Cloudflare](Cloudflare_Zone_and_Account_ID.png)
 
-Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
+Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
 Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
@@ -471,7 +471,7 @@ Cara membuatnya sebagai berikut:
 
 Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silahkan perbesar gambarnya dengan mengkliknya)
 
-Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
+Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
 Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
@@ -480,7 +480,7 @@ Jika Anda menggunakan Bunny\.net (sebelumnya: BunnyCDN) sebagai CDN, _Reverse-pr
 
 Berikut di bawah ini adalah caranya:
 
-0. Silahkan akses ke [Dasbor Bunny.net](https://panel.bunny.net/)-nya, login jika diminta.
+0. Silahkan akses ke [Dasbor Bunny.net-nya](https://panel.bunny.net/), login jika diminta.
 1. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
 2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon Mata jika Anda ingin melihat isi sebenarnya
 3. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **"Access Key"**-nya
@@ -489,7 +489,7 @@ Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplik
 
 !["Access Key" Bunny.net](Bunny.net_Access_Key.png)
 
-Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
+Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
 Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
@@ -520,7 +520,7 @@ Cara buatnya adalah sebagai berikut:
 
     ![Setelah sukses membuat "API Token" di cPanel](cPanel_API_Token_Created.png)
 
-Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percaya.
+Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorangpun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
 Jika tidak ada lagi penyedia yang perlu Anda buatkan Kode Token-nya, silahkan langsung lanjut ke [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
@@ -553,7 +553,7 @@ Cara membuatnya sebagai berikut:
     - **Current Password:** Isikan ini dengan kata sandi Akun DirectAdmin Anda yang sekarang
 
 5. Jika sudah selesai, klik pada _Button_ **"Create"** untuk membuatkan kuncinya
-6. Setelah mengkliknya, kamu akan melihat **"Key Value"** yang kamu isi dan itu adalah **"Login Key"**-nya yang hanya bisa dilihat satu kali saja, jadi simpanlah kunci tersebut baik-baik dan pastikan tidak ada seorang pun yang dapat mengetahuinya kecuali Anda sendiri dan orang yang Anda percaya.
+6. Setelah mengkliknya, kamu akan melihat **"Key Value"** yang kamu isi dan itu adalah **"Login Key"**-nya yang hanya bisa dilihat satu kali saja, jadi simpanlah kunci tersebut baik-baik dan pastikan tidak ada seorang pun yang dapat mengetahuinya kecuali Anda sendiri dan orang yang Anda percayakan.
 
     Jika sudah, Anda tinggal menutupinya saja dengan klik pada ikon silang. Seperti cuplikan berikut:
 
@@ -2300,6 +2300,22 @@ Itu aja sih kekurangannya untuk saat ini.
 
 ### Pertanyaan ke-28: Saya memasang CAA Record pada DNS Domain saya, apa CAA yang harus saya isi biar supaya saya bisa menggunakan ZeroSSL? {#pertanyaan-ke28}
 **Jawab:** Anda bisa mengisinya dengan `sectigo.com`. Kenapa? Karena pada dasarnya ia menggunakan sertifikat SSL dari Sectigo, sehingga ZeroSSL itu sebenarnya tidak 'berdiri sendiri', melainkan menjalin kerjasama dengan Sectigo.
+
+### Pertanyaan ke-29: Saya memakai DirectAdmin dan di sana juga ada fitur untuk menerbitkan sertifikat SSL dengan ZeroSSL sebagai CA melalui antarmukanya. Begitupula dengan cPanel yang memiliki AutoSSL yang menerbitkan sertifikat SSL dengan Sectigo/Comodo sebagai CA. Lalu, apa bedanya dengan mengikuti tutorial di sini? Apa saja kelebihannya dan sebaiknya metode apa yang saya pakai? {#pertanyaan-ke29}
+**Jawab:** Saya tahu bahwa DirectAdmin dan cPanel memiliki antarmukanya sendiri dalam menerbitkan sertifikat SSL-nya, namun kelebihan dalam mengelola sertifikat SSL-nya sendiri seperti yang ditulis di artikel ini adalah sebagai berikut:
+
+- Pilihan CA yang lebih beragam ketimbang DirectAdmin yang cuma bisa menerbitkan sertifikat dari Let's Encrypt dan ZeroSSL, dan cPanel yang hanya bisa menerbitkan sertifikat dari Comodo/Sectigo melalui AutoSSL dan Let's Encrypt jika ada pengayanya
+- Anda bisa menerbitkan dan bahkan memperbarui/_me-renew_ sertifikat-sertifikat tersebut ke mana saja dengan mengatur skripnya dengan benar, tanpa harus berdiam di satu tempat saja, ini akan cocok jika Anda tidak hanya menggunakan 1 server/layanan dalam 1 domain saja dan ini membuat sertifikat SSL dalam bentuk _Wildcard_ menjadi lebih berguna 
+- Anda bisa menggunakan metode verifikasi yang Anda suka ketimbang di cPanel yang hanya bisa menerbitkan sertifikatnya jika terhubung ke dalam layanannya saja dan DirectAdmin yang hanya mendukung DNS (bisa dari luar) dan HTTP sebagai metode verifikasinya
+- Anda bisa mengelola dan mengatur sertifikat SSL beserta skrip dan konfigurasinya dengan lebih fleksibel ketimbang menggunakan antarmuka yang tersedia
+
+Kekurangannya:
+- Ribet, belum lagi galatnya
+- Koneksi Internet harus aktif setiap saat, untuk menerbitkan dan memperbarui sertifikat SSL secara otomatis
+
+Pilih yang mana? Tergantung kebutuhan, jika Anda lebih menginginkan kemudahan dan langkah yang lebih sederhana, mungkin menggunakan antarmuka yang disediakan itu cocok buat Anda dan biarkan server yang memperbaruinya secara otomatis setelah ini, namun mengorbankan fleksibilitas dan kemungkinan untuk dapat digunakan oleh server/layanan lain.
+
+Atau, jika Anda ingin sertifikatnya dapat digunakan di mana saja dan dapat diperbarui ke mana saja, dapat menggunakan metode verifikasi yang Anda suka, pilihan CA yang lebih beragam serta konfigurasi yang lebih fleksibel, mungkin mengelola sertifikatnya sendiri akan lebih cocok buat Anda, namun ini akan mengorbankan kemudahan dan kesederhanaan langkah yang ada pada antarmuka di panel.
 
 ## Referensi lain di Artikel ini
 Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang sebelumnya tidak saya sebut/bahas.

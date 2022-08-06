@@ -48,8 +48,8 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) sebagai Reseller/Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting:
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Hosting Utama
-  - [Bunny Edge Storage](https://afiliasi.farrel.franqois.id/bunnycdn/edge-storage/) dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
+  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunnycdn/storage/) sebagai Hosting Utama
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
 - Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -97,13 +97,32 @@ Berikut adalah Informasi mengenai kunci GPG saya:
 Unduh kunci:
 - [Mailvelope](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69)
 - [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
-- [Blog ini (melalui CDN)](/0xA47AE59DC94ABF69.asc)
+- [Langsung (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
 ## Donasi/Dukungan
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
-- Rekening Bank:
-  - Alamat Proksi BI-FAST: farrel(at)franqois(dot)id
-  - Nama Bank: blu/BCA Digital (PT Bank Digital BCA)
+- Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
+  - Bank Syariah Indonesia: (Rekening Utama)
+    - No. Rekening: `7203370703`
+    - Kode Bank: 451
+  - Bank Digital BCA/BCA Digital/blu:**\***
+    - No. Rekening/bluAccount: `001566549842`
+    - Kode Bank: 501
 - Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
 - Kamu bisa [memberikan tip ke saya](https://arxist.id/tip/farrelf) melalui Arxist
-- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasi, hehe 😁
+- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
+
+{{< info text="**\*Keterangan:**" >}}
+Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital saya, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA". Kenapa? Karena ini beda bank, meski grupnya sama.
+
+Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp. 2.500,00 per transaksi.
+
+**Bagaimana dengan BCA Syariah?** Sayangnya meski grupnya sama, BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi yang menjadi perantara transaksi antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
+{{< / info >}}
+
+## Akhir Kata
+Ya sudah, itu saja untuk halaman ini. Maaf kalau terlalu singkat, saya sendiri juga tidak terlalu niat-niat amat dalam mengurusi halaman ini sampai-sampai membuat kisah hidup saya di sini.
+
+Halaman ini adalah tentang blog ini dan ringkasan mengenai saya, jadi saya buat secukupnya saja.
+
+Semoga blog ini bermanfaat bagi Anda yang telah membaca artikelnya ^_^

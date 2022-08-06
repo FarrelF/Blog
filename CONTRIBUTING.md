@@ -114,9 +114,9 @@ Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silahkan lakuk
 ## Cara ke-2: Melakukan Donasi
 Jadi kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyisihkan sedikit uang Anda untuk mendonasikannya sebagai kontribusi Anda untuk Blog ini. 
 
-Jika Anda ingin mendonasikannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF) atau melalui Akun [Saweria](https://saweria.co/FarrelFranqois) saya.
+Jika Anda ingin mendonasikannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), melalui akun [Saweria](https://saweria.co/FarrelFranqois) atau akun [Arxist](https://arxist.id/tip/farrelf) saya.
 
-Selain itu, Anda juga dapat mentransfer sejumlah uang dari rekening bank Anda melalui BI-FAST ke alamat proksi saya, yakni `farrel(at)franqois(dot)id` dan bank yang saya pakai adalah blu/BCA Digital (PT Bank Digital BCA).
+Untuk lebih lengkapnya, silahkan kunjungi halaman ["Tentang"](https://farrel.franqois.id/tentang/) di blog saya.
 
 ## Cara ke-3: Memberikan Masukan atau Bertanya
 Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog ini dan kode sumbernya.
