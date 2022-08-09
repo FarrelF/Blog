@@ -16,19 +16,19 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       TZ: Asia/Jakarta
       HUGO_ENV: production
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Install and Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: '^1.17.3'
 
@@ -49,7 +49,7 @@ jobs:
         #      sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirror.b-cdn.net/ubuntu/|g' /etc/apt/sources.list
         #      sudo sed -i 's|http://ppa.launchpad.net|https://mirrorppa.b-cdn.net|g' /etc/apt/sources.list.d/*.list;;
         # esac
-        sudo sh -c 'apt update; apt install -y locales locales-all pigz'
+        sudo sh -c 'apt update; apt install -y locales-all pigz'
         sudo sed -i 's/id_ID\s.*$/id_ID id_ID.utf8/g' /usr/share/locale/locale.alias
         sudo sed -i 's/# id_ID\.UTF-8/id_ID\.UTF-8/' /etc/locale.gen
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
@@ -63,7 +63,7 @@ jobs:
         wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
         chmod +x hugo
-        sudo -- sh -c 'mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo'
+        sudo sh -c 'mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo'
         rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
         cd ${GITHUB_WORKSPACE}
         which hugo && hugo version
@@ -72,7 +72,7 @@ jobs:
         # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
     - name: Set up Hugo Resources Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ./resources
@@ -81,7 +81,7 @@ jobs:
           - v2-7-hugo
 
     - name: Set up Hugo Modules Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ./cache/modules
@@ -101,7 +101,7 @@ jobs:
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: site-outputs
         path: files.tar.gz
@@ -110,10 +110,10 @@ jobs:
   deploy_to_bunny_net:
     name: Deploy to Bunny.net Storage 
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -134,10 +134,10 @@ jobs:
   deploy_to_storj-ap1-s3:
     name: Deploy to Storj DCS AP1 S3 Storage
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -161,10 +161,10 @@ jobs:
   deploy_to_storj-us1-s3:
     name: Deploy to Storj DCS US1 S3 Storage
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -188,10 +188,10 @@ jobs:
   deploy_to_storj-eu1-s3:
     name: Deploy to Storj DCS EU1 S3 Storage
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -215,10 +215,10 @@ jobs:
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -237,12 +237,12 @@ jobs:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         S3_SERVICE: tebi-s3
       run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+        rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   submit_sitemap:
     name: Submit Sitemap
     needs: [deploy_to_bunny_net, deploy_to_storj-ap1-s3, deploy_to_storj-us1-s3, deploy_to_storj-eu1-s3, deploy_to_tebi-s3]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Submitting Sitemap to Search Engine
       env:

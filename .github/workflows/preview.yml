@@ -17,19 +17,19 @@ on:
 jobs:
   build:
     name: Build (Preview)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       TZ: Asia/Jakarta
       HUGO_ENV: staging
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Install and Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: '^1.17.3'
 
@@ -73,7 +73,7 @@ jobs:
         # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
     - name: Set up Hugo Resources Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ./resources
@@ -82,7 +82,7 @@ jobs:
           - v2-5-hugo-preview
 
     - name: Set up Hugo Modules Cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ./cache/modules
@@ -103,7 +103,7 @@ jobs:
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: site-outputs
         path: files.tar.gz
@@ -112,10 +112,10 @@ jobs:
   deploy_to_bunny_net:
     name: Deploy to Bunny.net Storage 
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -136,10 +136,10 @@ jobs:
   deploy_to_storj-ap1-s3:
     name: Deploy to Storj DCS AP1 S3 Storage (Preview)
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -163,10 +163,10 @@ jobs:
   deploy_to_storj-us1-s3:
     name: Deploy to Storj DCS US1 S3 Storage (Preview)
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -190,10 +190,10 @@ jobs:
   deploy_to_storj-eu1-s3:
     name: Deploy to Storj DCS EU1 S3 Storage (Preview)
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: site-outputs
 
@@ -211,5 +211,32 @@ jobs:
       env:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         S3_SERVICE: storj-eu1-s3
+      run: |
+        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
+
+  deploy_to_tebi-s3:
+    name: Deploy to Tebi S3 Storage
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: site-outputs
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring RClone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to S3 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: tebi-s3
       run: |
         rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
