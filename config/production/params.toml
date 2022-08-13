@@ -1,0 +1,24 @@
+#[cdn.images]
+#url = "https://cdn.statically.io/img/farrel.franqois.id/f=auto"
+#permalinks = false
+#
+#[cdn.svg]
+#url = "https://cdn.statically.io/img/farrel.franqois.id"
+#
+#[cdn.js]
+#url = "https://cdn.statically.io/js/farrel.franqois.id"
+#
+#[cdn.css]
+#url = "https://cdn.statically.io/css/farrel.franqois.id"
+#
+#[cdn.fonts]
+#url = "https://cdn.statically.io/css/farrel.franqois.id"
+
+[arcio]
+enabled = false
+widgetId = "D1Tc1z8H"
+
+[counter]
+enabled = false
+username = "FarrelF"
+utcOffset = 7

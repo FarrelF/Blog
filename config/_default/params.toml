@@ -1,0 +1,106 @@
+customFavicon = "img/favicon.png"
+mainSections = [ "post" ]
+featuredImageField = "image"
+rssFullContent = true
+
+[dateFormat]
+published = "Monday, 02 January 2006"
+lastUpdated = "Monday, 02 January 2006"
+
+[sidebar]
+subtitle = "(Bukan) Sekadar Blog Pribadi saya"
+
+[sidebar.avatar]
+local = true
+resolution = 100
+src = "img/profile/avatar.jpg"
+
+[article]
+readingTime = true
+toc = true
+math = false
+
+[article.license]
+enabled = true
+default = 'Telah saya terbitkan di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>'
+
+[footer]
+since = 2_019
+
+[[widgets.homepage]]
+type = "search"
+
+[[widgets.homepage]]
+type = "archives"
+
+[widgets.homepage.params]
+limit = 5
+
+[[widgets.homepage]]
+type = "categories"
+
+[widgets.homepage.params]
+limit = 10
+
+[[widgets.homepage]]
+type = "tag-cloud"
+
+[widgets.homepage.params]
+limit = 10
+
+[[widgets.page]]
+type = "toc"
+
+[opengraph.twitter]
+site = "FarrelFranqois"
+card = "summary_large_image"
+
+[defaultImage.opengraph]
+enabled = false
+local = false
+
+[colorScheme]
+toggle = true
+default = "auto"
+
+[imageProcessing.cover]
+enabled = true
+
+[imageProcessing.content]
+enabled = true
+
+[twemoji]
+enabled = true
+
+[twemoji.options]
+baseURL = "/twemoji/14.0.2/"
+path = "svg"
+ext = ".svg"
+
+[comments]
+enabled = true
+provider = "giscus"
+
+[comments.giscus]
+repo = "FarrelF/Blog"
+repoID = "MDEwOlJlcG9zaXRvcnkzMzYxMTQzMzc="
+category = "Komentar Blog"
+categoryID = "DIC_kwDOFAiyoc4B_M30"
+mapping = "pathname"
+strict = 1
+inputPosition = "top"
+lightTheme = "light"
+darkTheme = "dark_dimmed"
+reactionsEnabled = 1
+emitMetadata = 0
+
+[comments.giscus.lazyLoad]
+type = "intersectionObserver"
+
+[script]
+inlineScript = false
+sriHash = true
+
+[style]
+inlineStyle = false
+sriHash = true

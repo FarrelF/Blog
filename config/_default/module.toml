@@ -1,0 +1,16 @@
+[hugoVersion]
+extended = true
+min = "0.91.0"
+
+[[imports]]
+path = "github.com/FarrelF/stack-modified"
+
+[[imports]]
+path = "github.com/CaiJimmy/hugo-theme-stack/v3"
+
+[[imports]]
+path = "github.com/twitter/twemoji"
+
+[[imports.mounts]]
+source = "assets/svg"
+target = "static/twemoji/14.0.2/svg"

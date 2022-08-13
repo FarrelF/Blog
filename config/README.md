@@ -11,16 +11,16 @@ Struktur direktori dan berkas nya sebagai berikut:
 ```plain
 config
 ├── _default
-│   ├── config.yaml
-│   ├── menu.yaml
-│   ├── module.yaml
-│   └── params.yaml
+│   ├── config.toml
+│   ├── menu.toml
+│   ├── module.toml
+│   └── params.toml
 ├── development
-│   ├── module.yaml
-│   └── server.yaml
+│   ├── module.toml
+│   └── server.toml
 ├── production
-│   ├── config.yaml
-│   └── params.yaml
+│   ├── config.toml
+│   └── params.toml
 └── README.md
 ```
 
@@ -31,16 +31,16 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
     Karena merupakan konfigurasi baku, jadi berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan apapun, termasuk lingkungan produksi atau pengembangan.
 
     Di dalam direktori tersebut, ada 4 berkas konfigurasi, yakni: 
-    - [`_default/config.yaml`](_default/config.yaml): Merupakan berkas konfigurasi utama
-    - [`_default/menu.yaml`](_default/menu.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`menu`](https://gohugo.io/content-management/menus/) atau `[Menu]` pada Konfigurasi Hugo
-    - [`_default/module.yaml`](_default/module.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`module`](https://gohugo.io/hugo-modules/configuration/) atau `[Module]` pada Konfigurasi Hugo
-    - [`_default/params.yaml`](_default/params.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`params`](https://gohugo.io/variables/site/#the-siteparams-variable) atau `[Params]` pada Konfigurasi Hugo
+    - [`_default/config.toml`](_default/config.toml): Merupakan berkas konfigurasi utama
+    - [`_default/menu.toml`](_default/menu.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Server]`](https://gohugo.io/content-management/menus/) pada Konfigurasi Hugo
+    - [`_default/module.toml`](_default/module.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Module]`](https://gohugo.io/hugo-modules/configuration/) pada Konfigurasi Hugo
+    - [`_default/params.toml`](_default/params.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Params]`](https://gohugo.io/variables/site/#the-siteparams-variable) pada Konfigurasi Hugo
 
 - [`development`](development): Merupakan direktori yang menyimpan berkas-berkas konfigurasi untuk lingkungan pengembangan pada Hugo.
 
     Berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan pengembangan. Di dalam direktori tersebut, ada 2 berkas konfigurasi, yakni:
-    - [`development/module.yaml`](development/module.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`module`](https://gohugo.io/hugo-modules/configuration/) atau `[Module]` pada Konfigurasi Hugo
-    - [`development/server.yaml`](development/server.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`server`](https://gohugo.io/getting-started/configuration/#configure-server) atau `[Server]` pada Konfigurasi Hugo
+    - [`development/module.toml`](development/module.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Module]`](https://gohugo.io/hugo-modules/configuration/) pada Konfigurasi Hugo
+    - [`development/server.toml`](development/server.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Server]`](https://gohugo.io/getting-started/configuration/#configure-server) pada Konfigurasi Hugo
 
     Sekadar info saja, `development` sendiri adalah lingkungan (_environment_) baku untuk Hugo yang digunakan saat menjalankan perintah `hugo server`.
 
@@ -49,8 +49,8 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
 - [`production`](production): Merupakan direktori yang menyimpan berkas-berkas konfigurasi untuk lingkungan produksi pada Hugo.
 
     Berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan produksi. Di dalam direktori tersebut, ada 2 berkas konfigurasi, yakni: 
-    - [`production/config.yaml`](production/config.yaml): Merupakan berkas konfigurasi utama
-    - [`production/params.yaml`](production/params.yaml): Merupakan berkas konfigurasi yang mempresentasikan [`params`](https://gohugo.io/variables/site/#the-siteparams-variable) atau `[Params]` pada Konfigurasi Hugo
+    - [`production/config.toml`](production/config.toml): Merupakan berkas konfigurasi utama
+    - [`production/params.toml`](production/params.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Params]`](https://gohugo.io/variables/site/#the-siteparams-variable) atau `[Params]` pada Konfigurasi Hugo
 
     Sekadar info saja, `production` sendiri adalah lingkungan (_environment_) baku untuk Hugo yang digunakan saat menjalankan perintah `hugo` ataupun menghasilkan sebuah Blog/Situs Web yang kemudian disebar (_deploy_) ke tempat yang disebut dengan _Hosting_.
 

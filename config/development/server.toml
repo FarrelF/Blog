@@ -1,0 +1,185 @@
+[[headers]]
+for = "/*.*"
+
+[headers.values]
+X-XSS-Protection = 0
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.json"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/index.*"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/*.html"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/*.xml"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/*.txt"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/**/*.*"
+
+[headers.values]
+X-XSS-Protection = 0
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/**/index.*"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/**/*.html"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
+for = "/**/"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+X-XSS-Protection = 0
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = """
+gyroscope=(),
+usb=(),
+autoplay=(),
+microphone=("https://giscus.app"),
+vibrate=(),
+magnetometer=(),
+camera=("https://giscus.app"),
+midi=(),
+accelerometer=(),
+ambient-light-sensor=(),
+display-capture=(),
+document-domain=(),
+encrypted-media=(),
+geolocation=(),
+hid=(),
+idle-detection=(),
+interest-cohort=(),
+payment=(),
+publickey-credentials-get=(),
+screen-wake-lock=(),
+serial=(),
+sync-xhr=(),
+xr-spatial-tracking=()
+"""
+
+Feature-Policy = """
+gyroscope 'none';
+usb 'none';
+autoplay 'none';
+microphone https://giscus.app;
+vibrate 'none';
+magnetometer 'none';
+camera https://giscus.app;
+midi 'none';
+accelerometer 'none';
+ambient-light-sensor 'none';
+display-capture 'none';
+document-domain 'none';
+encrypted-media 'none';
+geolocation 'none';
+hid 'none';
+idle-detection 'none';
+interest-cohort 'none';
+payment 'none';
+publickey-credentials-get 'none';
+screen-wake-lock 'none';
+serial 'none';
+sync-xhr 'none';
+xr-spatial-tracking 'none'
+"""
+
+Content-Security-Policy-Report-Only = """
+default-src 'none';
+script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
+'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
+'sha256-HyIh5rj6bY6tl40Rx55AbY4s5AyWHYzfOBOS0pmDSSE=' 'sha256-LxePw1MNwpBBGOXU5w3Hi4eP2h84rCHQAaEODlQ6Mso='
+'sha256-1f2J/64qgbhAZYGa37arGnks3NdW5ZME5MIAQLJnlMY=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY='
+'sha256-RmRRZf2qwRixk3JA/Ei0EsEbvL5ZDyOQDx3p1VqBfu8=' 'sha256-CY5oWMzbbw1oSfTE2eRxcI/lZoIjqXxJCEbxyOfvZak=';
+style-src 'self' 'unsafe-hashes' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
+'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=' 'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ='
+'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo=' 'sha256-8r2wkNd7y5t42rwVYQq1N86jT4H+QpO/L30lmmVGGcs='
+'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI=';
+font-src 'self';
+img-src 'self' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/;
+base-uri 'self';
+connect-src 'self';
+object-src 'none';
+frame-src https://giscus.app/id/widget iframe.mediadelivery.net/embed/926/;
+child-src https://giscus.app/id/widget iframe.mediadelivery.net/embed/926/;
+media-src 'none';
+form-action 'self';
+frame-ancestors 'none';
+manifest-src 'none';
+worker-src 'none';
+prefetch-src https://cdn.jsdelivr.net/;
+sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-downloads
+"""
+
+# CSP for Main Pages
+#[[headers]]
+#for = "/**/**/"
+#
+#[headers.values]
+#Content-Security-Policy = """
+#default-src 'none';
+#script-src 'self' 'unsafe-inline'
+#'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
+#'sha256-HyIh5rj6bY6tl40Rx55AbY4s5AyWHYzfOBOS0pmDSSE=' 'sha256-LxePw1MNwpBBGOXU5w3Hi4eP2h84rCHQAaEODlQ6Mso='
+#'sha256-1f2J/64qgbhAZYGa37arGnks3NdW5ZME5MIAQLJnlMY=';
+#style-src 'self' 'unsafe-inline' 'unsafe-hashes' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=';
+#font-src 'self';
+#img-src 'self';
+#base-uri 'self';
+#connect-src 'self';
+#object-src 'none';
+#frame-src 'none';
+#child-src 'none';
+#media-src 'none';
+#form-action 'self';
+#frame-ancestors 'none';
+#manifest-src 'none';
+#worker-src 'none';
+#prefetch-src https://cdn.jsdelivr.net/;
+#sandbox allow-scripts allow-forms allow-same-origin allow-popups
+#"""

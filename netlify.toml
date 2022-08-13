@@ -1,374 +1,396 @@
+## Netlify Configuration File
+### Netlify Build Environment
 [build]
-    publish = "public"
+publish = "public"
 
 [build.environment]
-    HUGO_VERSION = "0.101.0"
-    GO_VERSION = "1.17.3"
-    TZ = "Asia/Jakarta"
+HUGO_VERSION = "0.101.0"
+GO_VERSION = "1.17.3"
+TZ = "Asia/Jakarta"
 
+### Netlify Build Context and Command
 [context.production]
-    command = "rm static/_headers; hugo --minify --gc"
-    [context.production.environment]
-        HUGO_ENV = "production"
+command = "rm static/_headers; hugo --minify --gc"
+
+[context.production.environment]
+HUGO_ENV = "production"
 
 [context.split1]
-    command = "rm static/_headers; hugo --minify --gc"
-    [context.split1.environment]
-        HUGO_ENV = "production"
+command = "rm static/_headers; hugo --minify --gc"
+
+[context.split1.environment]
+HUGO_ENV = "production"
 
 [context.deploy-preview]
-    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
-    [context.deploy-preview.environment]
-        HUGO_ENV = "staging"
+command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
+
+[context.deploy-preview.environment]
+HUGO_ENV = "staging"
 
 [context.branch-deploy]
-    command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
-    [context.branch-deploy.environment]
-        HUGO_ENV = "staging"
+command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers; hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
+
+[context.branch-deploy.environment]
+HUGO_ENV = "staging"
 
 [context.next.environment]
-    HUGO_ENABLEGITINFO = "true"
+HUGO_ENABLEGITINFO = "true"
+
+### Netlify Redirects
+[[redirects]]
+from = "http://www.farrel.franqois.id/*"
+to = "https://farrel.franqois.id/:splat"
+status = 301
+force = true
 
 [[redirects]]
-    from = "http://www.farrel.franqois.id/*"
-    to = "https://farrel.franqois.id/:splat"
-    status = 301
-    force = true
+from = "https://www.farrel.franqois.id/*"
+to = "https://farrel.franqois.id/:splat"
+status = 301
+force = true
 
 [[redirects]]
-    from = "https://www.farrel.franqois.id/*"
-    to = "https://farrel.franqois.id/:splat"
-    status = 301
-    force = true
+from = "http://farrel.franqois.id/*"
+to = "https://farrel.franqois.id/:splat"
+status = 301
+force = true
 
 [[redirects]]
-    from = "http://farrel.franqois.id/*"
-    to = "https://farrel.franqois.id/:splat"
-    status = 301
-    force = true
+from = "http://farrelf.netlify.app/*"
+to = "https://farrel.franqois.id/:splat"
+status = 301
+force = true
 
 [[redirects]]
-    from = "http://farrelf.netlify.app/*"
-    to = "https://farrel.franqois.id/:splat"
-    status = 301
-    force = true
+from = "https://farrelf.netlify.app/*"
+to = "https://farrel.franqois.id/:splat"
+status = 301
+force = true
 
 [[redirects]]
-    from = "https://farrelf.netlify.app/*"
-    to = "https://farrel.franqois.id/:splat"
-    status = 301
-    force = true
+from = "/categories/*"
+to = "/kategori/:splat"
+status = 301
+force = true
 
-[[redirects]]
-    from = "/categories/*"
-    to = "/kategori/:splat"
-    status = 301
-    force = true
-
+### Netlify Plugins
 [[plugins]]
-    package = "netlify-plugin-hugo-cache-resources"
+package = "netlify-plugin-hugo-cache-resources"
 
-    [plugin.inputs]
-        debug = true
+[plugins.inputs]
+debug = true
 
+### Netlify Headers
+#### Headers 1
 [[headers]]
-    for = "/*"
+for = "/*"
 
-    [headers.values]
-        Cache-Control = "public, max-age=180"
-        Report-To = '''{
-            "group": "default",
-            "max_age": 31536000,
-            "endpoints":[
-                {"url": "https://farrelf.report-uri.com/a/d/g"}
-            ],
-            "include_subdomains": true
-        }'''
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        Feature-Policy = "camera https://giscus.app; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Permissions-Policy = '''
-        gyroscope=(), 
-        usb=(), 
-        autoplay=(), 
-        microphone=("https://giscus.app"), 
-        vibrate=(), 
-        magnetometer=(), 
-        camera=("https://giscus.app"), 
-        midi=()'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-UA-Compatible = "IE=edge"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=180"
+Report-To = '''{
+    "group": "default",
+    "max_age": 31536000,
+    "endpoints":[
+        {"url": "https://farrelf.report-uri.com/a/d/g"}
+    ],
+    "include_subdomains": true
+}'''
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+Feature-Policy = "camera https://giscus.app; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Permissions-Policy = '''
+gyroscope=(), 
+usb=(), 
+autoplay=(), 
+microphone=("https://giscus.app"), 
+vibrate=(), 
+magnetometer=(), 
+camera=("https://giscus.app"), 
+midi=()'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-UA-Compatible = "IE=edge"
+X-XSS-Protection = "0"
 
+#### Headers 2
 [[headers]]
-    for = "/*/style.min.*.css"
+for = "/*/style.min.*.css"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Report-To = '''{
-            "group": "default",
-            "max_age": 31536000,
-            "endpoints":[
-                {"url": "https://farrelf.report-uri.com/a/d/g"}
-            ],
-            "include_subdomains": true
-        }'''
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        Feature-Policy = "camera 'none'; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Permissions-Policy = '''
-        gyroscope=(), 
-        usb=(), 
-        autoplay=(), 
-        microphone=(), 
-        vibrate=(), 
-        magnetometer=(), 
-        camera=(), 
-        midi=()'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-UA-Compatible = "IE=edge"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Report-To = '''{
+    "group": "default",
+    "max_age": 31536000,
+    "endpoints":[
+        {"url": "https://farrelf.report-uri.com/a/d/g"}
+    ],
+    "include_subdomains": true
+}'''
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+Feature-Policy = "camera 'none'; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Permissions-Policy = '''
+gyroscope=(), 
+usb=(), 
+autoplay=(), 
+microphone=(), 
+vibrate=(), 
+magnetometer=(), 
+camera=(), 
+midi=()'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-UA-Compatible = "IE=edge"
+X-XSS-Protection = "0"
 
+#### Headers 3
 [[headers]]
-    for = "/*/main.min.*.js"
+for = "/*/main.min.*.js"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Report-To = '''{
-            "group": "default",
-            "max_age": 31536000,
-            "endpoints":[
-                {"url": "https://farrelf.report-uri.com/a/d/g"}
-            ],
-            "include_subdomains": true
-        }'''
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        Feature-Policy = "camera 'none'; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Permissions-Policy = '''
-        gyroscope=(), 
-        usb=(), 
-        autoplay=(), 
-        microphone=(), 
-        vibrate=(), 
-        magnetometer=(), 
-        camera=(), 
-        midi=()'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Report-To = '''{
+    "group": "default",
+    "max_age": 31536000,
+    "endpoints":[
+        {"url": "https://farrelf.report-uri.com/a/d/g"}
+    ],
+    "include_subdomains": true
+}'''
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+Feature-Policy = "camera 'none'; autoplay 'none'; usb 'none'; gyroscope 'none'; vibrate 'none'; midi 'none'"
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Permissions-Policy = '''
+gyroscope=(), 
+usb=(), 
+autoplay=(), 
+microphone=(), 
+vibrate=(), 
+magnetometer=(), 
+camera=(), 
+midi=()'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 4
 [[headers]]
-    for = "/*.jpg"
+for = "/*.jpg"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/jpeg"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/jpeg"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 5
 [[headers]]
-    for = "/*.jpeg"
+for = "/*.jpeg"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/jpeg"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/jpeg"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 6
 [[headers]]
-    for = "/*.png"
+for = "/*.png"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/png"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/png"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 7
 [[headers]]
-    for = "/*.apng"
+for = "/*.apng"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/apng"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/apng"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 8
 [[headers]]
-    for = "/*.gif"
+for = "/*.gif"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/gif"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/gif"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 9
 [[headers]]
-    for = "/*.webp"
+for = "/*.webp"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/webp"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/webp"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 10
 [[headers]]
-    for = "/*.svg"
+for = "/*.svg"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "image/svg+xml"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "image/svg+xml"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 11
 [[headers]]
-    for = "/*.woff"
+for = "/*.woff"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "font/woff"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "font/woff"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"
 
+#### Headers 12
 [[headers]]
-    for = "/*.woff2"
+for = "/*.woff2"
 
-    [headers.values]
-        Cache-Control = "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin = "*"
-        Access-Control-Expose-Headers = "*"
-        Timing-Allow-Origin = "*"
-        Content-Type = "font/woff2"
-        Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
-        NEL = '''{
-            "report_to": "default",
-            "max_age": 31536000,
-            "include_subdomains": true
-        }'''
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options = "nosniff"
-        X-Frame-Options = "SAMEORIGIN"
-        X-XSS-Protection = "0"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Access-Control-Allow-Origin = "*"
+Access-Control-Expose-Headers = "*"
+Timing-Allow-Origin = "*"
+Content-Type = "font/woff2"
+Expect-CT = "max-age=604800, enforce, report-uri=\"https://farrelf.report-uri.com/r/d/ct/enforce\""
+NEL = '''{
+    "report_to": "default",
+    "max_age": 31536000,
+    "include_subdomains": true
+}'''
+Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "0"

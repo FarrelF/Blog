@@ -1,0 +1,54 @@
+languageCode = "id-id"
+title = "Farrel Franqois Blog"
+paginate = 5
+enableEmoji = false
+enableInlineShortcodes = true
+enableGitInfo = true
+content-dir = "content"
+timeout = 1_200_000
+timeZone = "Asia/Jakarta"
+enableRobotsTXT = true
+defaultContentLanguage = "id"
+ignoreFiles = [ "README.md" ]
+
+[permalinks]
+post = "/:slug/"
+page = "/:slug/"
+tags = "/tag/:slug/"
+categories = "/kategori/:slug/"
+
+[related]
+includeNewer = true
+threshold = 60
+toLower = false
+
+[[related.indices]]
+name = "tags"
+weight = 100
+
+[[related.indices]]
+name = "categories"
+weight = 200
+
+[markup.tableOfContents]
+start = 1
+end = 4
+ordered = true
+
+[markup.highlight]
+noClasses = false
+codeFences = true
+guessSyntax = true
+lineNoStart = 1
+lineNos = false
+lineNumbersInTable = true
+tabWidth = 4
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[minify]
+minifyOutput = true
+
+[minify.tdewolff.html]
+keepWhitespace = false

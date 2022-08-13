@@ -1,0 +1,37 @@
+main = [ ]
+
+[[social]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/FarrelF/Blog"
+weight = -100
+
+[social.params]
+icon = "brand-github"
+
+[[social]]
+identifier = "facebook"
+name = "Facebook"
+url = "https://www.facebook.com/FarrelFranqois"
+weight = -80
+
+[social.params]
+icon = "brand-facebook"
+
+[[social]]
+identifier = "twitter"
+name = "Twitter"
+url = "https://twitter.com/FarrelFranqois"
+weight = -60
+
+[social.params]
+icon = "brand-twitter"
+
+[[social]]
+identifier = "telegram"
+name = "Telegram"
+url = "https://t.me/FarrelF"
+weight = -40
+
+[social.params]
+icon = "brand-telegram"
