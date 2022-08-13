@@ -50,7 +50,7 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
 
     Berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan produksi. Di dalam direktori tersebut, ada 2 berkas konfigurasi, yakni: 
     - [`production/config.toml`](production/config.toml): Merupakan berkas konfigurasi utama
-    - [`production/params.toml`](production/params.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Params]`](https://gohugo.io/variables/site/#the-siteparams-variable) atau `[Params]` pada Konfigurasi Hugo
+    - [`production/params.toml`](production/params.toml): Merupakan berkas konfigurasi yang mempresentasikan [`[Params]`](https://gohugo.io/variables/site/#the-siteparams-variable) pada Konfigurasi Hugo
 
     Sekadar info saja, `production` sendiri adalah lingkungan (_environment_) baku untuk Hugo yang digunakan saat menjalankan perintah `hugo` ataupun menghasilkan sebuah Blog/Situs Web yang kemudian disebar (_deploy_) ke tempat yang disebut dengan _Hosting_.
 
