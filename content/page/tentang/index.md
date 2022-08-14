@@ -22,7 +22,7 @@ custom:
 ---
 
 ## Tentang Saya
-Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada Blog ini, tolong dikoreksi yah, saya juga sedang belajar menggunakan _Static-site Generator_.
+Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada blog ini, tolong dikoreksi yah, saya juga sedang belajar menggunakan _Static-site Generator_.
 
 ## Tentang Blog ini
 ### Ikhtisar
@@ -46,16 +46,16 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Domain:
   - [PT Cloud Hosting Indonesia (IDCloudHost)](https://afiliasi.farrel.franqois.id/idch/) sebagai Registrar dan Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
-- Hosting:
-  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Hosting Utama
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), dan [Netlify](https://www.netlify.com) sebagai Hosting Cadangan
-- Reverse-proxy: [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
+- Hosting/Tempat Penyimpanan:
+  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+- Pewali terbalik (bahasa Inggris: _Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
-Jika Anda menginginkan Kode Sumber Blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silahkan kunjungi alamat URL berikut:
+Jika Anda menginginkan kode sumber untuk blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silahkan kunjungi alamat URL berikut:
 
 ```plain
 https://github.com/FarrelF/Blog
@@ -69,12 +69,12 @@ https://gitlab.com/FarrelF/Blog
 
 Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
 
-Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari Luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakannya.
+Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai atribusi jika saya diizinkan untuk menggunakannya.
 
 ## Informasi Kontak
 ### Surel
 - farrel(at)franqois(dot)id (Surel Pribadi)
-- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Protonmail, lebih aman dan lebih ramah privasi)
+- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Protonmail, "katanya" lebih aman dan lebih ramah privasi)
 
 ### Media sosial/Perpesanan
 - Telegram: [@FarrelF](https://t.me/FarrelF)
