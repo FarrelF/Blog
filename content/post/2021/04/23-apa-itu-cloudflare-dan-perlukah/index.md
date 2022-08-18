@@ -7,7 +7,7 @@ Categories:
     - Web dan Blog
     - Opini
 Date: 2021-04-23 00:31:39+07:00
-image: cf-logo-v-rgb.jpg
+image: CF_logo_stacked_blktype.webp
 Tags: 
     - Cloudflare
     - CDN

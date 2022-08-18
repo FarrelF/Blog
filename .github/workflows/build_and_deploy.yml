@@ -76,9 +76,9 @@ jobs:
       with:
         path: |
           ./resources
-        key: v2-7-hugo
+        key: v2-8-hugo
         restore-keys: | 
-          - v2-7-hugo
+          - v2-8-hugo
 
     - name: Set up Hugo Modules Cache
       uses: actions/cache@v3

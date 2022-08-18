@@ -5,7 +5,7 @@ Author: Farrel Franqois
 Categories: 
     - Tutorial
     - Web dan Blog
-Image: hugo-logo-wide.png
+Image: hugo-logo-wide.webp
 Date: 2021-10-22T13:32:20+07:00
 Comments: true
 Tags:
@@ -136,11 +136,11 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, ma
 
     Saat di pencarian, ketik `env` di situ, nanti akan muncul tulisan **Edit the system environment variables** dan klik tulisan tersebut, seperti cuplikan berikut:
 
-![Hasil pencarian 'env' di Windows 10](Search-Env-in-Windows-10.png)
+![Hasil pencarian 'env' di Windows 10](Search-Env-in-Windows-10.webp)
 
 4. Nanti akan muncul dialog **System Properties**, di dalam dialog tersebut, klik pada _Button_ **Environment Variables...**, seperti cuplikan berikut:
 
-![Dialog 'System Properties' di Windows 10](System-Properties-in-Windows-10.png)
+![Dialog 'System Properties' di Windows 10](System-Properties-in-Windows-10.webp)
 
 5. Setelah itu, Anda akan memasukki dialog yang berjudul **Environment Variables**, di situ nanti ada dua kolom, yakni **User variables** yang terletak di atas dan **System variables** yang terletak di bawah.
 
@@ -148,7 +148,7 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, ma
 
     Setelah ketemu, pilih variabel tersebut dan klik pada _Button_ **Edit**, seperti cuplikan berikut:
 
-![Environment Variables di Windows 10 (beberapa bagian sengaja saya hitamkan)](Environment-Variables-in-Windows-10.png)
+![Environment Variables di Windows 10 (beberapa bagian sengaja saya hitamkan)](Environment-Variables-in-Windows-10.webp)
 
 6. Anda memasukki dialog yang berjudul **Edit environment variables**, di situ Anda akan merubah nilai dari variabel tersebut. Windows 10 dan Windows 7 mungkin memiliki penampilan yang berbeda, jadi cara mengubahnya akan berbeda-beda, berikut di bawah ini adalah caranya:
 
@@ -156,7 +156,7 @@ Jika Anda tidak ingin menggunakan Pengelola Paket apapun untuk menginstalnya, ma
 
         Jika Anda sebelumnya mengekstrak Hugo di `C:\Hugo\bin`, maka isi nilainya dengan `C:\Hugo\bin` juga. Setelah menambahkannya, klik pada _Button_ **OK**, seperti cuplikan berikut:
 
-        ![Mengubah variabel PATH di Windows 10](Edit-Environment-Variables-in-Windows-10.png)
+        ![Mengubah variabel PATH di Windows 10](Edit-Environment-Variables-in-Windows-10.webp)
 
     - Di Windows 7: Nilai dari Variabel `PATH` yang tampil di Windows 7 adalah dalam bentuk deretan. Untuk menambahkannya, cukup Anda tambahkan `C:\Hugo\bin;` saja di bagian akhir deretan (**JANGAN DIGANTI SEMUA DERETANNYA!!**).
 

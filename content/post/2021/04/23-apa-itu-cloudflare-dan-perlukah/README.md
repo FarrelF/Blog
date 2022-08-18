@@ -5,7 +5,7 @@ Folder ini merupakan folder yang menyimpan berkas-berkas gambar dan markdown yan
 Artikel ini saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ## Lisensi Gambar
-Logo Cloudflare, yang nama berkasnya adalah ["cf-logo-v-rgb.jpg"](cf-logo-v-rgb.jpg) dan ["cf"](cf-logo-h-rgb.jpg) merupakan Merek Dagang/Pakaian Dagang terdaftar dari **Cloudflare, Inc.** 
+Logo Cloudflare, yang nama berkasnya adalah ["CF_logo_stacked_blktype.webp"](CF_logo_stacked_blktype.webp) merupakan Merek Dagang/Pakaian Dagang terdaftar dari **Cloudflare, Inc.** 
 
 Jadi, logo-logo tersebut tetap milik mereka yang memiliki merek/pakaian dagang. Jika Anda ingin mengunduh dan menggunakan logo-logo tersebut, silahkan kunjungi Laman [Logo Cloudflare](https://www.cloudflare.com/logo/).
 

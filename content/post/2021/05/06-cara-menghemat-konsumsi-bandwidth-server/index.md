@@ -7,7 +7,7 @@ Categories:
     - Web dan Blog
     - Server
 Date: 2021-05-06 16:10:30+07:00
-image: micheile-henderson-SoT4-mZhyhE-unsplash.jpg
+image: micheile-henderson-SoT4-mZhyhE-unsplash.webp
 Tags: 
     - Bandwidth
     - Cara Menghemat
@@ -52,7 +52,7 @@ Selain membuang-buang kuota, hal tersebut akan membuat Konsumsi Sumber Daya di P
 
 Sudah banyak sekali Perangkat Lunak atau Situs Web yang memiliki fitur untuk mengoptimalkan berkas-berkas statik, salah satunya meng-kompresi berkas gambar tanpa harus menurunkan kualitas gambar secara kasat mata manusia, sebut saja Situs Web seperti [TinyJPG](https://tinyjpg.com/) atau [TinyPNG](https://tinypng.com/) yang dapat meng-kompresi berkas gambar PNG aau JPG, ini bisa Anda lakukan sebelum mengunggah suatu berkas gambar ke dalam Web/Blog Anda.
 
-Atau, untuk mengoptimalkan berkas-berkas gambar di Komputer/Laptop Anda tanpa harus Unggah ke Web/Blog dulu, Anda bisa gunakan perangkat lunak seperti [Caesium](https://saerasoft.com/caesium)\*, [Imagine](https://github.com/meowtec/Imagine), [FileOptimizer](https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer)\* atau [ImageOptim](https://imageoptim.com/mac) untuk pengguna Apple macOS 10.9+.
+Atau, untuk mengoptimalkan berkas-berkas gambar di Komputer/Laptop Anda tanpa harus Unggah ke Web/Blog dulu, Anda bisa gunakan perangkat lunak seperti [Caesium](https://saerasoft.com/caesium)\*, [Imagine](https://github.com/meowtec/Imagine), [Squosh](https://squosh.app), [FileOptimizer](https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer)\* atau [ImageOptim](https://imageoptim.com/mac) untuk pengguna Apple macOS 10.9+.
 
 **\*Catatan:** Dua perangkat lunak yang ditandai bintang itu hanya mendukung Sistem Operasi Windows saja.
 
@@ -62,32 +62,36 @@ Atau, jika Anda menggunakan SSG (_Static-site Generator_), terutama Hugo, maka s
 
 Selebihnya masih banyak cara lain yang bisa Anda lakukan untuk mengecilkan ukuran berkas-berkas statik, sebelum akhirnya digunakan untuk Produksi.
 
-### Solusi ke-2: Atur HTTP Header `Cache-Control` dengan benar {#solusi-ke2}
-![Contoh Header Cache-Control untuk sebuah Berkas Gambar (ada di anak panah)](Contoh_Header_Cache-Control.png)
+### Solusi ke-2: Buatlah aset web dapat di-cache dalam waktu lama {#solusi-ke2}
+Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lainnya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna.
 
-Mungkin Anda belum pernah mengenal _HTTP Header_ yang satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web.
+Solusi kali ini adalah membuat aset-aset web/blog kamu harus tersimpan di dalam _cache_ dalam waktu yang lama.
 
-Singkatnya, Peramban Web akan menyimpan sumber daya tertentu, seperti berkas-berkas Gambar, JS, CSS, HTML dan berkas Statik lainnya disuatu tempat yang disebut dengan **Cache** setelah Situs Web/Blog selesai dimuat atau dikunjungi oleh pengguna.
-
-Tentu saja _Cache_ dari Peramban Web ini tersimpan di dalam perangkat penyimpanan yang digunakan sekarang, seperti Harddisk/SSD atau bahkan Memori RAM bisa digunakan.
-
-Saat pengguna mengunjungi Situs Web-nya kembali, di sinilah _HTTP Header_ `Cache-Control` itu berperan, _Header_ tersebut menetapkan sebuah aturan untuk menentukan apakah Peramban Web yang digunakan oleh Pengguna tersebut akan memuat sumber daya yang diperlukannya melalui _Cache_ atau justru malah sebaliknya, serta dapat mengatur/menentukan durasi penyimpanan _Cache_-nya.
-
-Jika Peramban Web memuatnya melalui _Cache_ yang tersimpan, maka Peramban Web tidak akan menggunakan koneksi Internet untuk memuatnya, melainkan cukup gunakan media penyimpanan yang ada saja, hal ini tentunya akan menghemat konsumsi _Bandwidth_ baik dari segi Klien dan Server, terutama jika disimpan dalam waktu yang lama.
-
-Sedangkan jika sebaliknya, maka Peramban Web akan selalu menggunakan Koneksi Internet untuk mendapatkan sumber daya yang dibutuhkan dan Server akan menggunakan koneksinya untuk memberikan/mengirimkan sumber daya yang dibutuhkan kepada Klien, tentunya hal ini akan mengonsumsi _Bandwidth_ baik dari segi Klien dan Server, serta bisa saja malah menjadi boros jika ini terjadi terus-terusan.
+Kenapa? Biar supaya pengunjung tidak perlu lagi memuat ulang aset-aset web/blog dari server setiap kali membaca halaman lainnya.
 
 Untuk mengetahui perbedaan jika sumber daya disimpan ke dalam _Cache_ Peramban Web, serta digunakan atau tidaknya, bisa Anda lihat cuplikan berikut:
 
 ![Tanda Berkas belum _di-cache_ oleh Peramban Web saat kunjungan pertama](Sebelum_Di_Cache_Web_Browser.png) ![Tanda Berkas sudah _di-cache_ oleh Peramban Web dan digunakan setelah mengunjunginya kembali](Setelah_Di_Cache_Web_Browser.png)
 
-Dalam konteks menghemat Konsumsi _Bandwidth_ baik dari segi Server atau Klien, mungkin Anda berpikir bahwa membuat Peramban Web dapat menyimpan sumber dayanya dengan waktu yang sangat lama kedalam _Cache_ (seperti mengatur _Header_ `Cache-Control`-nya menjadi `public, max-age=31536000, immutable`) itu merupakan solusi yang saling menguntungkan, bukan?
+Namun, seringkali bahwa aset-aset web/blog tidak tersimpan ke dalam _cache_ dengan benar, bahkan ada yang sengaja tidak menyimpan aset-aset tersebut ke dalam _cache_, padahal itu adalah aset statik yang tidak diubah setiap hari.
+
+Kayak gimana contohnya? Contohnya saat pengunjung mengunjungi halaman lainnya setelah bersinggah ke halaman pertama, fon-fon eksternal pun harus dimuat agar teks bisa tampil dengan baik, tapi karena tidak _di-cache_, maka fon-fon tersebut dimuat dari servernya langsung. Hal seperti ini sebenarnya kurang bagus, karena selain bikin boros kuota server, ini juga bikin boros kuota pengunjung (kalau ada).
+
+Salah satu cara agar supaya aset-aset web dapat _di-cache_ dalam waktu lama adalah mengatur dan menyetel _HTTP Header_ `Cache-Control` dengan benar.
+
+![Contoh Header Cache-Control untuk sebuah Berkas Gambar (ada di anak panah)](Contoh_Header_Cache-Control.png)
+
+Mungkin Anda belum pernah mengenal _HTTP Header_ satu ini. Yap, `Cache-Control` merupakan sebuah _HTTP Header_ yang berfungsi untuk mendikte perilaku _cache_ yang dilakukan oleh Peramban Web.
+
+Saat pengguna mengunjungi Situs Web-nya kembali, di sinilah _HTTP Header_ `Cache-Control` itu berperan, _Header_ tersebut menetapkan sebuah aturan untuk menentukan apakah Peramban Web yang digunakan oleh Pengguna tersebut akan memuat sumber daya yang diperlukannya melalui _Cache_ atau justru malah sebaliknya, serta dapat mengatur/menentukan durasi penyimpanan _Cache_-nya.
+
+Dalam konteks menghemat konsumsi _bandwidth_ baik dari segi server atau klien, mungkin Anda berpikir bahwa membuat Peramban Web dapat menyimpan sumber dayanya dengan waktu yang sangat lama kedalam _Cache_ (seperti mengatur _Header_ `Cache-Control`-nya menjadi `public, max-age=31536000, immutable`) itu merupakan solusi yang saling menguntungkan, bukan?
 
 Kalau seperti itu, memang benar, tapi akibatnya tampilan Situs Web menjadi tidak berubah sama sekali bahkan dapat merusak penampilan sebuah Situs Web, atau lebih parahnya konten-konten pada Situs Web menjadi tidak terlihat diperbarui (alias _"outdated\"_ atau "gak _update_") bahkan setelah menerbitkannya beberapa kali.
 
-Hal ini terjadi karena Peramban Web akan tetap memuatnya melalui _Cache_ dan yang dimuat itu bukanlah Berkas yang baru, melainkan yang telah disimpan sebelumnya atau yang lama, sehingga sumber dayanya tertahan oleh _Cache_.
+Hal ini terjadi karena peramban web akan tetap memuatnya melalui _Cache_ dan yang dimuat itu bukanlah berkas yang baru, melainkan yang telah disimpan sebelumnya atau yang lama, sehingga sumber dayanya tertahan oleh _Cache_.
 
-Tapi, ini adalah hal yang cukup krusial untuk diatur agar bisa menghemat konsumsi _Bandwidth_, jadi aturlah _Header_ tersebut dengan benar dan lakukan teknik _Cache Busting_ pada berkas-berkas statik sebelum mengatur `Cache-Control`0nya, serta bedakan mana sumber daya yang harus _di-cache_ dalam waktu yang lama atau tidaknya.
+Jadi, aturlah _Header_ tersebut dengan benar dan lakukan teknik _Cache Busting_ pada berkas-berkas statik sebelum mengatur `Cache-Control`-nya, serta bedakan mana sumber daya yang harus _di-cache_ dalam waktu yang lama atau tidaknya.
 
 Untuk cara menyetel _HTTP Header_ (untuk _Response Header_)-nya, bisa Anda kunjungi referensi berikut:
 
@@ -102,8 +106,10 @@ Sedangkan untuk mengatur _Header_ `Cache-Control` dengan benar, beserta dengan t
 
 - [Cache-Control for Civilians - CSS Wizardy](https://csswizardry.com/2019/03/cache-control-for-civilians/)
 
+Selain `Cache-Control`, Anda bisa memasang dan memakai "Service Worker" di dalam web/blog Anda agar peramban tersebut dapat mengunduh, lalu memuat aset-aset yang telah tersimpan di dalam penyimpanan lokal sebelumnya tanpa harus terkoneksi dengan Internet sama sekali.
+
 ### Solusi ke-3: Memuat berkas-berkas statik (atau bahkan Web/Blog) dari Server lain {#solusi-ke3}
-Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hos kan Berkas-berkas statik lainnya di Server yang berbeda. Contohnya?
+Jika Anda ingin menghemat konsumsi _Bandwidth_ Server, maka Anda bisa meng-hoskan berkas-berkas statik lainnya di Server yang berbeda. Contohnya?
 
 Anda mempunyai Blog yang disimpan di Server A yang mempunyai kuota _Bandwidth_ sebesar 100 GB/Bulan, untuk menyiasati/mengakalinya, Anda bisa menyimpan berkas-berkas statik lainnya di Server B yang batasan _Bandwidth_-nya sangat besar (sampai dikira tidak terbatas).
 
@@ -111,11 +117,11 @@ Sehingga peramban web milik pengunjung akan memuat berkas-berkas statiknya melal
 
 Ini adalah salah satu cara yang paling ampuh untuk menghemat konsumsi _Bandwidth_ Server ketimbang solusi-solusi tersedia lainnya.
 
-Contoh lain? Sesuai contoh di atas, Anda juga bisa menggunakan [Google Fonts](https://fonts.google.com) atau [Adobe Fonts](https://fonts.adobe.com) sebagai penyedia Fon untuk Situs Web/Blog Anda ketimbang melakukan Hos Mandiri di Server Utama Anda.
+Contoh lain? Sesuai contoh di atas, Anda juga bisa menggunakan [Google Fonts](https://fonts.google.com) atau [Adobe Fonts](https://fonts.adobe.com) sebagai penyedia fon untuk Situs Web/Blog Anda ketimbang melakukan Hos Mandiri di Server Utama Anda.
 
 Atau, Anda juga bisa memakai layanan CDN untuk Publik seperti [cdnjs](https://cdnjs.com), [unpkg](https://unpkg.com), [jsDelivr](https://www.jsdelivr.com), atau [Statically](https://statically.io) untuk memuat pustaka-pustaka web yang ada, seperti jQuery, Bootstrap, Twemoji dan Pustaka lainnya ketimbang melakukan Hos Mandiri.
 
-Bahkan Anda juga bisa menggunakan Layanan CDN (_Content Delivery Network_) pihak ketiga yang dipasang pada Web/Blog Anda untuk mengakalinya, seperti menggunakan layanan CDN dari Cloudflare yang Gratisan misalnya.
+Bahkan Anda juga bisa menggunakan layanan CDN (_Content Delivery Network_) pihak ketiga yang dipasang pada Web/Blog Anda untuk mengakalinya, seperti menggunakan layanan CDN dari Cloudflare yang Gratisan misalnya.
 
 Lho, kok bisa? Karena pada dasarnya jika Anda menggunakan CDN pihak ketiga untuk Web/Blog Anda, maka pengunjung akan memuat Situs Web/Blog atau berkas-berkas statiknya dari Server CDN, meskipun perlu proses 'penarikan' berkas dari Server Aslinya.
 

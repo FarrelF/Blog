@@ -4,7 +4,7 @@ Slug: cara-menggunakan-termux-dari-komputer
 Author: Farrel Franqois
 Categories: 
     - Tutorial
-Image: Cover.png
+Image: Cover.webp
 Date: 2021-11-17T00:47:12+07:00
 License:
 Math: 
@@ -209,7 +209,7 @@ Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH
 
 **Langkah ke-3:** Jika berhasil, maka akan muncul _Prompt_ yang bisa Anda gunakan untuk mengetik baris perintah, seperti cuplikan berikut:
 
-![Setelah login Termux melalui SSH](Termux_SSH_Login.png)
+![Setelah login Termux melalui SSH](Termux_SSH_Login.webp)
 
 Di langkah ini, kamu sudah bisa mengontrol/menggunakan Termux dari Komputer/Laptop kamu, sekarang coba eksekusikan perintah yang kamu mau.
 
@@ -221,7 +221,7 @@ pkg i neofetch
 
 Setelah terinstal, saya eksekusikan perintah `neofetch` dari Komputer/Laptop, maka kira-kira hasilnya akan seperti cuplikan berikut:
 
-![Hasil dari salah satu perintah yang dieksekusikan oleh Termux secara 'Remote'](Termux_SSH_Neofetch.png)
+![Hasil dari salah satu perintah yang dieksekusikan oleh Termux secara 'Remote'](Termux_SSH_Neofetch.webp)
 
 Nah, kira-kira seperti itu.
 
@@ -250,7 +250,7 @@ Setelah memasukkan semua Informasi/Kredensial di atas, silahkan lakukan _login_,
 
 Sangat bisa, Anda sangat bisa sembarang isi _Username_ nya, untuk buktinya bisa Anda lihat 2 cuplikan berikut ini: (Saya menggunakan FileZilla)
 
-![Mengakses SFTP dengan Username 'farrel' di FileZilla](Termux_SFTP_1.png) ![Mengakses SFTP dengan Username Acak di FileZilla](Termux_SFTP_2.png)
+![Mengakses SFTP dengan Username 'farrel' di FileZilla](Termux_SFTP_1.webp) ![Mengakses SFTP dengan Username Acak di FileZilla](Termux_SFTP_2.webp)
 
 Apakah isinya sama? Sama aja, mau Anda masukkan apapun _Username_ nya, isinya akan sama saja, gak ada bedanya sama sekali. Hal ini karena OpenSSH pada Termux tidak membandingkan _Username_, jadi ia hanya fokus pada 1 _Username_ saja.
 

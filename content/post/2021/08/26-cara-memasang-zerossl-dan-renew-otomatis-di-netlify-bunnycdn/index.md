@@ -11,7 +11,7 @@ Categories:
     - Layanan Internet
     - Info Blog
     - Tutorial
-Image: ZeroSSL-Logo.png
+Image: ZeroSSL-Logo.webp
 Date: 2021-08-26 20:51:00+07:00
 Tags:
     - Sertifikat SSL
