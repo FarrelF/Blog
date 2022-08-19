@@ -15,9 +15,8 @@ slug: "cara-install-lamp-stack-di-ubuntu"
 suthor: "Farrel Franqois"
 readMore: true
 descriptionSEO: Apakah Anda ingin meng-install Git di dalam Komputer Anda? Kalau iya, silahkan Anda baca artikel ini!
-description: >
+description: |-
     Artikel ini akan membahas tentang bagaimana caranya meng-install LAMP Stack di dalam Sistem Operasi GNU/Linux, khususnya untuk pengguna Distribusi Ubuntu dan Turunan nya (seperti [Mint](https://linuxmint.com), [KDE neon](https://neon.kde.org), [Pop!_OS](https://pop.system76.com), dll) dengan 'benar'.
-
 
     Penasaran? Silahkan baca artikel ini, kalau tidak, ya tidak apa-apa 🙂
 ---

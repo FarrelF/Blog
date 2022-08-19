@@ -13,13 +13,11 @@ Tags:
     - SSG
 readMore: true
 DescriptionSEO: Artikel ini membahas tentang Alasan saya Migrasi ke Hugo dari Pelican, serta rencana untuk blog ini kedepan nya. Jika Anda penasaran, silahkan baca artikel ini.
-Description: >
+Description: |-
     Sudah lama sekali saya tidak membuat postingan di blog ini, sudah hampir 2 tahun rasanya.
 
-    
-    Sebelumnya saya lagi tidak membuat artikel karena saya habiskan waktu nya untuk memahami SSG yang saya gunakan sebelumnya, yakni Pelican. Oleh karena itu, daripada saya gabut seperti itu, saya memutuskan untuk mencari SSG yang jauh lebih baik daripada SSG yang saya pakai sebelumnya, dan pada akhirnya, saya memutuskan untuk menggunakan Hugo + Mengganti Tema.
-    
-    
+    Sebelumnya saya lagi tidak membuat artikel karena saya habiskan waktu nya untuk memahami SSG yang saya gunakan sebelumnya, yakni Pelican. Oleh karena itu, daripada saya gabut seperti itu, saya memutuskan untuk mencari SSG yang jauh lebih baik daripada SSG yang saya pakai sebelumnya, dan pada akhirnya, saya memutuskan untuk menggunakan Hugo + Mengganti Tema.    
+
     Kenapa saya gunakan Hugo daripada Pelican? Dan, apa rencana kedepan nya? Kalo penasaran silahkan baca artikel ini, kalau tidak, yah tidak apa-apa 🙂
 ---
 

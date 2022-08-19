@@ -22,12 +22,10 @@ Tags:
     - DirectAdmin
 readMore: true
 DescriptionSEO: Apakah Anda ingin memasang ZeroSSL, tapi Anda juga ingin bisa me-renew-nya secara otomatis di Netlify, BunnyCDN, cPanel dan DirectAdmin? Jika iya, Anda bisa baca artikel ini untuk mengetahuinya.
-Description: >
+Description: |-
     Blog ini telah menggunakan ZeroSSL sebagai Sertifikat TLS/SSL-nya, tapi kendalanya adalah CA ini tidak didukung oleh Penyedia Web secara luas, artinya sertifikat tersebut belum bisa _di-renew_ secara otomatis.
     
-    
     Namun akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn), cPanel dan DirectAdmin.
-    
     
     Jika Anda ingin memasang Sertifikat TLS/SSL dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN, cPanel atau DirectAdmin sebagai Panel untuk layanan Hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---

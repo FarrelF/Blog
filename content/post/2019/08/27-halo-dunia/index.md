@@ -5,13 +5,10 @@ author: Farrel Franqois
 date: 2019-08-27 03:17:45+07:00
 readMore: true
 descriptionSEO: Ini cuma artikel perkenalan blog saja, tidak usah di bacapun juga tidak masalah.
-description: >
-    <p>
+description: |-
     Ini adalah Artikel bukan uji-coba yang paling pertama di dalam blog ini. 
-    </p>
-    <p>
+
     Jadi, kalo mau baca silahkan, kalo gak yah silahkan. Tapi, di dalam artikel ini saya menjelaskan fokus saya kedepan nya untuk blog ini dan juga blog lama saya, jadi saya sarankan untuk di baca, kalo gak ya gak apa-apa, hehe 😀
-    </p>
 ---
 
 ## Pembuka

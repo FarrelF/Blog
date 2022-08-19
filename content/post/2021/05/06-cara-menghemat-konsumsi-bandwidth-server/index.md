@@ -15,10 +15,9 @@ Tags:
     - Optimalisasi
 readMore: true
 DescriptionSEO: Apakah Anda ingin menghemat konsumsi Bandwidth Server, sehingga Web/Blog Anda bisa bertahan? Kalo iya, silahkan baca artikel ini!
-Description: >
+Description: |-
     Apakah Anda menggunakan sebuah Hosting untuk Web/Blog Anda, tapi Hosting tersebut membatasi kuota _Bandwidth_-nya?
-    
-    
+
     Sehingga Anda ingin menghemat konsumsi _Bandwidth_ Server/Hosting agar Web/Blog Anda bisa tetap bertahan meski 'dihantam' oleh pengunjung/bot selama ribuan atau bahkan jutaan kali, tapi tidak tahu caranya? Jika Anda ingin tahu caranya, silahkan lanjut baca artikel ini, kalo tidak ya tidak usah 🙂
 ---
 

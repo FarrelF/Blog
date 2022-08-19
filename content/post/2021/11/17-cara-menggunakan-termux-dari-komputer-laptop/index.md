@@ -16,15 +16,12 @@ Tags:
     - SSH
 readMore: true
 DescriptionSEO: Anda meng-install Termux di dalam ponsel Android Anda, tapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari Komputer/Laptop kamu, caranya baca artikel ini
-Description: >
+Description: |-
        Artikel kali ini akan membahas cara menggunakan Termux dari Komputer/Laptop.
-
 
        Ya, Anda gak salah lihat, artikel ini benar-benar membahasnya. Ini maksudnya adalah _me-remote_ Termux yang ada di Android dari Komputer/Laptop Anda menggunakan SSH.
 
-
        Jika terbiasa menggunakan Komputer/Laptop, mungkin Anda merasa tidak nyaman jika harus mengetik baris perintah di layar ponsel, apalagi jika baris tersebut panjang kali lebar dan berjumlah banyak?
-
 
        Yap, artikel ini membahas solusinya, tapi jika Anda tidak merasa seperti itu yah kalo gak baca juga gak apa-apa.
 ---

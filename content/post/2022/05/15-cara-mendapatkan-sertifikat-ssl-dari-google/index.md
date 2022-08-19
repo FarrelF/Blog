@@ -21,12 +21,10 @@ readMore: true
 #    list: false
 #    render: true
 DescriptionSEO: Sebenarnya, saat ini Anda sudah dapat menggunakan SSL dari Google secara gratis tanpa harus memakai layanannya, lho. Mau? Silahkan baca artikel ini
-Description: >
+Description: |-
     Untuk saat ini, blog ini sudah memakai sertifikat SSL/TLS dari Google.
 
-
     Yap, Anda gak salah lihat, saya memakai sertifikat SSL/TLS dari Google atau lebih tepatnya Google Trust Services yang biasanya hanya dipakai untuk Layanan dari Google seperti Penelusuran Google, YouTube, Google Drive, Situs Google, Blogger beserta Web/Blog Pengguna yang dibuat menggunakan salah satu layanannya.
-
 
     Tapi, saya gak sedang pakai layanan dari Google buat blognya, lho. Kok bisa? Dan, bagaimana cara mendapatkannya? Kalau kamu penasaran dengan itu semua, silahkan kamu baca lebih lanjut artikel ini, kalau tidak ya tidak usah dibaca, hehe 😁
 ---

@@ -27,13 +27,11 @@ Tags:
 readMore: true
 Image: IDCloudHost_Logo.jpg
 DescriptionSEO: Blog ini menggunakan IDCloudHost Object Storage sebagai Hosting nya yang S3-compatible, bagaimana pengalaman nya? Silahkan baca artikel ini!
-Description: >
+Description: |-
     Beberapa bulan kemarin, saya sudah berencana kalau saya akan menggunakan Penyimpanan yang menggunakan Protokol S3 ini sebagai tempat penyimpanan untuk Blog ini.
-    
-    
+
     Karena sampai sekarang Bunny\.net belum juga membuat layanan penyimpanan yang menggunakan protokol S3-nya, maka saya pun menggunakan layanan dari IDCloudHost ini.
 
-    
     Bagaimana pengalaman nya? Berikut adalah pengalaman saya ketika menggunakan Layanan Penyimpanan ini 🙂
 ---
 

@@ -18,12 +18,10 @@ Tags:
     - Android
 readMore: true
 DescriptionSEO: Apakah Anda ingin meng-install Hugo, tapi tidak tahu caranya? Jika iya, Anda bisa kunjungi artikel ini
-Description: >
+Description: |-
     Artikel ini akan membahas tentang Apa itu Hugo dan Cara Install-nya, baik itu di dalam Windows, GNU/Linux, macOS, Android, dll.
 
-
     Tapi sebelum itu, mungkin saya akan sedikit berbasa-basi soal apa itu Hugo dan apa saja variannya, setelah itu saya langsung membahas cara Install-nya.
-
 
     Kalau Anda ingin meng-install Hugo di dalam Komputer, silahkan simak lebih lanjut artikel ini, kalau tidak ya lebih baik tidak usah dibaca 🙂
 ---
