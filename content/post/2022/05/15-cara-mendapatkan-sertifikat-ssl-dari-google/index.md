@@ -36,7 +36,9 @@ Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/id
 
 Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk Web, Blog atau Aplikasinya.
 
-Untuk saat ini, Anda bisa mendapatkan sertifikat SSL/TLS tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, meski sekarang masih dalam tahap Uji Coba/Pratinjau Beta (_Beta preview_).
+Untuk saat ini, Anda bisa mendapatkan sertifikat SSL/TLS tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, ~~meski sekarang masih dalam tahap Uji Coba/Pratinjau Beta (_Beta preview_)~~.
+
+**PEMBARUAN Sabtu, 10 September 2022:** Sekarang Google Public CA bukan lagi dalam tahap _Beta Preview_ atau Pratinjau Beta, melainkan sedang dalam tahap _Public Preview_.
 
 _Semoga seterusnya bisa gratis, Amiin_.
 
@@ -61,14 +63,6 @@ acme.sh --upgrade --auto-upgrade
 ```
 
 Kalau mau, Anda juga dapat membaca [artikel saya sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/), siapa tahu mau nambah ilmu (terutama tentang pemasangan sertifikat SSL/TLS ke Netlify dan Bunny CDN, serta _Renew_ secara otomatis), tetapi kalau gak dibaca juga gak apa-apa.
-
-{{< info text="**PERINGATAN!!!**" >}}
-Server Google Public CA masih dalam tahap uji coba (_Beta preview_).
-
-Jika Anda menerbitkan sertifikat SSL/TLS dari Google melalui Google Public CA, maka segala resiko seperti perubahan server, perubahan kebijakan, pencabutan sertifikat yang dilakukan secara mendadak, dan resiko lainnya, silahkan Anda tanggung sendiri.
-
-Dengan mengikuti petunjuk/instruksi dari artikel ini, maka artinya Anda telah memahami dan siap menerima segala resiko yang ada setelah Anda melakukannya.
-{{< / info >}}
 
 Setelah semuanya sudah siap, gak usah banyak _cing-cong_, mari kita langsung eksekusi!
 
@@ -120,6 +114,8 @@ Kira-kira akan seperti di atas.
 Jika semua sudah selesai, Anda tinggal langsung daftarkan proyeknya saja.
 
 ## Mendaftarkan Proyek
+**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_, maka Anda tidak perlu lagi mengisi formulir hanya untuk mengaktifkan akses API **Public CA**-nya, saran saya langsung [lewati ini aja](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab)
+
 Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan mengisi formulir permintaan akses yang tersedia.
 
 **Kenapa?** Karena Anda perlu mengaktifkan API **"Public Certificate Authority"** yang mana itu dinonaktifkan secara baku dan itu wajar karena sebenarnya server tersebut masih dalam tahap Uji Coba (_Beta preview_).
@@ -210,7 +206,7 @@ Kredensial EAB yang tidak digunakan hanya bertahan selama 7 hari, tetapi akun un
 Jadi, buruan dipakai kredensial EAB-nya setelah ini.
 
 ### Membuat Kredensial EAB untuk Mode Pementasan/Uji coba
-Yap, Anda tidak salah lihat, Server ACME dari Google Public CA itu sendiri memiliki fasilitas yang memungkinkan penggunanya untuk menguji penerbitan sertifikat dalam mode pementasan (bahasa Inggris: _Staging Mode_).
+Yap, Anda tidak salah lihat, server ACME dari Google Public CA itu sendiri memiliki fasilitas yang memungkinkan penggunanya untuk menguji penerbitan sertifikat dalam mode pementasan (_Staging Mode_).
 
 Ini sangat berguna bagi Anda yang ingin menguji coba proses penerbitan sertifikat berlangsung ataupun bagi yang sedang mempelajari klien ACME yang sedang digunakan, entah itu sekadar mengecek kredensial DNS yang dipakai, menguji coba konfigurasi yang telah ditetapkan, dll, tanpa mempengaruhi _rate limit_ aslinya.
 
@@ -405,13 +401,15 @@ Poin menarik:
 - Yang paling penting adalah semuanya bisa digunakan secara gratis, setidaknya untuk saat ini
 
 Hal yang perlu diperhatikan:
-- Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan dan keputusan bisa saja berubah dengan cepat
-- Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan
+- ~~Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan dan keputusan bisa saja berubah dengan cepat~~
+- ~~Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan~~
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tetapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode
 - Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok (bukan Hong Kong, Makau dan Taiwan, tentunya), mungkin sebaiknya jangan memakai sertifikat SSL/TLS ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
     Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Tiongkok, jadi harusnya peristiwa seperti ini bukanlah hal yang mengejutkan
+
+**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ yang mungkin saja mengugurkan status uji cobanya dan tidak perlu lagi mengisi formulir, maka kedua hal di atas tidak lagi berlaku
 
 Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah ini merupakan poin menarik atau justru merupakan hal yang perlu diperhatikan.
 

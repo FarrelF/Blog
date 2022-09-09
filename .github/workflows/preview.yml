@@ -28,7 +28,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install and Setup Locales and Other Packages
+    - name: Install All Locales and Other Packages
       run: |
         sudo sh -c 'apt update; apt install -y locales locales-all pigz'
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
@@ -54,7 +54,7 @@ jobs:
     #    # sha256sum $(cat Images.list) > Images.hash.list
     #    # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
-    - name: Set up Hugo Resources Cache
+    - name: Setup Hugo Resources Cache
       uses: actions/cache@v3
       with:
         path: ./resources
@@ -62,7 +62,7 @@ jobs:
         restore-keys: | 
           - v2-5-hugo-preview
 
-    - name: Set up Hugo Modules Cache
+    - name: Setup Hugo Modules Cache
       uses: actions/cache@v3
       with:
         path: /tmp/hugo_cache
@@ -70,7 +70,7 @@ jobs:
         restore-keys: | 
           - ${{ runner.os }}-hugo-modules-preview-${{ hashFiles('**/go.sum') }}
 
-    - name: Building the Blog HTML (Preview)
+    - name: Building the Static Web (Preview)
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
         hugo --gc --buildFuture --environment staging -b https://deploy-preview.farrel.franqois.id
@@ -84,25 +84,25 @@ jobs:
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
         path: files.tar.gz
         retention-days: 1
 
   deploy_to_bunny_net:
-    name: Deploy to Bunny.net Storage 
+    name: Deploy to Bunny Storage (Preview)
     needs: build
     runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
     
-    - name: Deploying to Bunny.net Storage
+    - name: Deploying to Bunny Storage
       uses: own3d/bunny-action@main
       env:
         BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_KEY }}
@@ -120,7 +120,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -147,7 +147,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -174,7 +174,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -194,14 +194,14 @@ jobs:
         rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
 
   deploy_to_tebi-s3:
-    name: Deploy to Tebi S3 Storage
+    name: Deploy to Tebi S3 Storage (Preview)
     needs: build
     runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
+        name: preview-build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |

@@ -27,7 +27,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install and Set up Locales and Other Packages
+    - name: Install All Locales and Other Packages
       run: |
         sudo sh -c 'apt update; apt install -y locales-all pigz'
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
@@ -54,7 +54,7 @@ jobs:
     #    # sha256sum $(cat Images.list) > Images.hash.list
     #    # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
-    - name: Set up Hugo Resources Cache
+    - name: Setup Hugo Resources Cache
       uses: actions/cache@v3
       with:
         path: |
@@ -63,7 +63,7 @@ jobs:
         restore-keys: | 
           - v2-8-hugo
 
-    - name: Set up Hugo Modules Cache
+    - name: Setup Hugo Modules Cache
       uses: actions/cache@v3
       with:
         path: /tmp/hugo_cache
@@ -71,7 +71,7 @@ jobs:
         restore-keys: | 
           - ${{ runner.os }}-hugo-modules-${{ hashFiles('**/go.sum') }}
 
-    - name: Building the Blog HTML
+    - name: Building the Static Web
       run: |
         hugo --gc
 
@@ -84,25 +84,25 @@ jobs:
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
         path: files.tar.gz
         retention-days: 1
 
-  deploy_to_bunny_net:
-    name: Deploy to Bunny.net Storage 
+  deploy_to_bunny_storage:
+    name: Deploy to Bunny Storage 
     needs: build
     runs-on: ubuntu-22.04
     steps:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
     
-    - name: Deploying to Bunny.net Storage
+    - name: Deploying to Bunny Storage
       uses: own3d/bunny-action@main
       env:
         BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_KEY }}
@@ -120,7 +120,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -147,7 +147,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -174,7 +174,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -201,7 +201,7 @@ jobs:
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.SHORT_SHA }}
+        name: build-result-${{ env.GITHUB_RUN_ID }}
 
     - name: Decompressing Files
       run: |
@@ -222,7 +222,7 @@ jobs:
 
   submit_sitemap:
     name: Submit Sitemap
-    needs: [deploy_to_bunny_net, deploy_to_storj-ap1-s3, deploy_to_storj-us1-s3, deploy_to_storj-eu1-s3, deploy_to_tebi-s3]
+    needs: [deploy_to_bunny_storage, deploy_to_storj-ap1-s3, deploy_to_storj-us1-s3, deploy_to_storj-eu1-s3, deploy_to_tebi-s3]
     runs-on: ubuntu-22.04
     steps:
     - name: Submitting Sitemap to Search Engine
