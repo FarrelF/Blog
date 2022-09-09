@@ -26,7 +26,7 @@ Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah bias
 
 ## Tentang Blog ini
 ### Ikhtisar
-Blog ini merupakan blog pribadi milik saya, tapi yang saya bahas ini bukan sekadar tentang pribadi saya saja. Di blog ini, saya membahas apa yang ingin saya bahas.
+Blog ini merupakan blog pribadi milik saya, tetapi yang saya bahas ini bukan sekadar tentang pribadi saya saja. Di blog ini, saya membahas apa yang ingin saya bahas.
 
 Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasannya, entah itu bikin tutorial, beropini, bikin catatan biar gak lupa atau sekadar bikin diari kalo niat.
 
@@ -49,7 +49,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
-- Pewali terbalik (bahasa Inggris: _Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
+- Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
@@ -67,7 +67,7 @@ Atau, alamat URL berikut untuk kode sumber cerminnya:
 https://gitlab.com/FarrelF/Blog
 ```
 
-Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
+Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tetapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
 
 Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai atribusi jika saya diizinkan untuk menggunakannya.
 
@@ -111,10 +111,10 @@ Unduh kunci:
 - Kamu bisa [memberikan tip ke saya](https://arxist.id/tip/farrelf) melalui Arxist
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
-{{< info text="**\*Keterangan:**" >}}
+{{< info title="**\*Keterangan:**" >}}
 Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital saya, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA". Kenapa? Karena ini beda bank, meski grupnya sama.
 
-Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp. 2.500,00 per transaksi.
+Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
 
 **Bagaimana dengan BCA Syariah?** Sayangnya meski grupnya sama, BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi yang menjadi perantara transaksi antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
 {{< / info >}}

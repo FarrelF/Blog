@@ -95,7 +95,7 @@ reactionsEnabled = 1
 emitMetadata = 0
 
 [comments.giscus.lazyLoad]
-type = "intersectionObserver"
+type = "native"
 
 [script]
 inlineScript = false

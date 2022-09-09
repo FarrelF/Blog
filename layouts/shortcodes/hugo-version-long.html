@@ -2,7 +2,7 @@
 {{- $Hash := default hugo.CommitHash (.Get "hash") -}}
 {{- $Version := default hugo.Version (.Get "version") -}}
 {{- $BuildDate := default hugo.BuildDate (.Get "buildDate") -}}
-{{- $IsExtended := default hugo.IsExtended (or (.Get "isExtended") (.Get "extended")) -}}
+{{- $IsExtended := default hugo.IsExtended (or (.Get "isExtended")) -}}
 {{- $VendorInfo := default "gohugoio" (.Get "vendorInfo") -}}
 {{- $IsVendorInfo := default true (.Get "isVendorInfo") -}}
 {{- $VendorInfoText := "" -}}

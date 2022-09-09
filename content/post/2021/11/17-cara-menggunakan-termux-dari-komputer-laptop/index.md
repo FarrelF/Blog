@@ -303,7 +303,7 @@ Solusi seperti ini akan sangat cocok bagi Anda yang ingin mengotomatiskan sesuat
 
 ~~Mungkin penggunaan VPN dengan Alamat IP sendiri atau melakukan **Reverse SSH Tunneling** bisa membantu Anda, tapi saya kurang paham caranya.~~
 
-{{< info text="**PEMBARUAN, Jum'at 14 Januari 2022:**" >}}
+{{< info title="**PEMBARUAN, Jum'at 14 Januari 2022:**" >}}
 Anda bisa mencoba [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/tutorials/ssh) dan Cloudflare Argo Tunnel agar dapat mengakses SSH dari jarak jauh tanpa harus terhubung di jaringan yang sama.
 
 Jadi, Anda bisa mengaksesnya melalui jaringan Internet, seperti yang saya lakukan sekarang.

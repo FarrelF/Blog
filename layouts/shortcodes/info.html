@@ -3,7 +3,7 @@
 <table {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }} class="table-info" id="{{ $id }}">
     <thead>
         <tr>
-            <th class="table-info{{ with .Get "class" }} {{ . }}{{ end }}">{{ .Get "text" | markdownify | emojify }}</th>
+            <th class="table-info{{ with .Get "class" }} {{ . }}{{ end }}">{{ .Get "title" | markdownify | emojify }}</th>
         </tr>
     </thead>
     <tbody>

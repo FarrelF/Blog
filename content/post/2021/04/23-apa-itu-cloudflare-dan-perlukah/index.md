@@ -152,7 +152,7 @@ Ketika Anda mengunjungi nya, tunggu saja sampai semua teks nya tampil dengan bai
 
 Jika ini diuji menggunakan ISP Telkom seperti IndiHome, berdasarkan pengalaman pribadi saya saat menggunakan IndiHome di Kota Cirebon (tapi belum sempat saya ambil Cuplikan nya), maka hasilnya mungkin akan sangat mirip dengan di atas.
 
-{{< info text="Catatan dan Sanggahan mengenai Cuplikan di atas" >}}
+{{< info title="Catatan dan Sanggahan mengenai Cuplikan di atas" >}}
 
 Cuplikan di atas itu merupakan hasil krop gambar, silahkan {{< a-file path="2021-04-14_22.02.15_cloudflare-test.judge.sh_55a2fedde365.jpg" >}}klik di sini{{< / a-file >}} jika Anda ingin melihat cuplikan asli nya.
 
@@ -301,7 +301,7 @@ Meskipun begitu, Layanan CDN seperti Statically mampu menghantarkan berkas-berka
 
 Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
 
-{{< info text="**\*Catatan mengenai tautan di atas**" >}}
+{{< info title="**\*Catatan mengenai tautan di atas**" >}}
 Tautan BunnyCDN di atas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
 
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.

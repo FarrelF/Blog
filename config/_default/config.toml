@@ -1,4 +1,5 @@
 languageCode = "id-id"
+baseURL = "http://localhost"
 title = "Farrel Franqois Blog"
 paginate = 5
 enableEmoji = false
