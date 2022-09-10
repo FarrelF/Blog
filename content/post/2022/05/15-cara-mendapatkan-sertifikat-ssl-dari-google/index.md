@@ -20,13 +20,13 @@ readMore: true
 #_build:
 #    list: false
 #    render: true
-DescriptionSEO: Sebenarnya, saat ini Anda sudah dapat menggunakan SSL dari Google secara gratis tanpa harus memakai layanannya, lho. Mau? Silahkan baca artikel ini
+DescriptionSEO: Sebenarnya, saat ini Anda sudah dapat menggunakan SSL dari Google secara gratis tanpa harus memakai layanannya, lho. Mau? Silakan baca artikel ini
 Description: |-
     Untuk saat ini, blog ini sudah memakai sertifikat SSL/TLS dari Google.
 
     Yap, Anda gak salah lihat, saya memakai sertifikat SSL/TLS dari Google atau lebih tepatnya Google Trust Services yang biasanya hanya dipakai untuk Layanan dari Google seperti Penelusuran Google, YouTube, Google Drive, Situs Google, Blogger beserta Web/Blog Pengguna yang dibuat menggunakan salah satu layanannya.
 
-    Namun, saya gak sedang pakai layanan dari Google buat blognya, lho. Kok bisa? Dan, bagaimana cara mendapatkannya? Kalau kamu penasaran dengan itu semua, silahkan kamu baca lebih lanjut artikel ini, kalau tidak ya tidak usah dibaca, hehe 😁
+    Namun, saya gak sedang pakai layanan dari Google buat blognya, lho. Kok bisa? Dan, bagaimana cara mendapatkannya? Kalau kamu penasaran dengan itu semua, silakan kamu baca lebih lanjut artikel ini, kalau tidak ya tidak usah dibaca, hehe 😁
 ---
 
 ## Pembuka
@@ -56,7 +56,7 @@ Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perk
 
 Namun, kalau kamu sebelumnya pernah memasang sertifikat SSL/TLS dari ZeroSSL dengan membaca artikel saya sebelumnya yang panjang kali lebar itu, pasti perkakas tersebut sangatlah familiar bagi Anda.
 
-Jika Anda menggunakan acme.sh sebagai perkakasnya, silahkan perbarui terlebih dahulu versinya dengan perintah berikut:
+Jika Anda menggunakan acme.sh sebagai perkakasnya, silakan perbarui terlebih dahulu versinya dengan perintah berikut:
 
 ```shell
 acme.sh --upgrade --auto-upgrade
@@ -77,11 +77,11 @@ Jika belum, Anda bisa membuatnya melalui **"Cloud Shell"** yang ada di **"Google
 
 **Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
-**Langkah ke-2:** Setelah masuk, silahkan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
+**Langkah ke-2:** Setelah masuk, silakan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
 
 ![Cara aktivasi Google Cloud Shell](Activate_Cloud_Shell.webp)
 
-**Langkah ke-3:** Di **"Cloud Shell"**-nya, silahkan Anda buat proyeknya dengan perintah berikut:
+**Langkah ke-3:** Di **"Cloud Shell"**-nya, silakan Anda buat proyeknya dengan perintah berikut:
 
 ```shell
 gcloud projects create <PROJECT_ID>
@@ -97,7 +97,7 @@ gcloud projects create test-project-3049113
 
 `test-project-3049113` adalah contoh ID Proyek yang saya buat.
 
-**Langkah ke-4:** Setelah menentukan ID Proyeknya, silahkan tekan **"Enter"**, nanti secara otomatis akan dibuatkan proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
+**Langkah ke-4:** Setelah menentukan ID Proyeknya, silakan tekan **"Enter"**, nanti secara otomatis akan dibuatkan proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
 
 ```shell {linenos=true}
 $ gcloud projects create test-project-3049113
@@ -122,13 +122,13 @@ Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan me
 
 **Biar apa?** Biar supaya Anda bisa meminta Kredensial EAB (_External Account Binding_) melalui panggilan API-nya, lalu Anda pakai kredensial tersebut untuk menerbitkan sertifikat SSL/TLS-nya melalui perkakas klien ACME (seperti acme.sh) nantinya.
 
-Silahkan [klik di sini](https://docs.google.com/forms/d/e/1FAIpQLSd8zUIww_ztyT9a56OPq9NXISiyw6Y9g8S7LBtRQjxPhsHz5A/viewform?ts=620a6854) untuk mengakses formulirnya.
+Silakan [klik di sini](https://docs.google.com/forms/d/e/1FAIpQLSd8zUIww_ztyT9a56OPq9NXISiyw6Y9g8S7LBtRQjxPhsHz5A/viewform?ts=620a6854) untuk mengakses formulirnya.
 
 Formulirnya akan seperti cuplikan layar berikut:
 
 ![Formulir Permintaan Akses terhadap API](Google_Request_Form.webp)
 
-Akun Google-nya bisa bebas, tetapi lebih baik gunakan akun Google yang Anda gunakan ketika membuat proyek di **"Google Cloud Console"**. Jika Anda ingin menggantikan akunnya, silahkan klik pada tautan **"Ganti akun"**.
+Akun Google-nya bisa bebas, tetapi lebih baik gunakan akun Google yang Anda gunakan ketika membuat proyek di **"Google Cloud Console"**. Jika Anda ingin menggantikan akunnya, silakan klik pada tautan **"Ganti akun"**.
 
 Setelah itu, isikan formulirnya dengan benar, berikut adalah penjelasan mengenai formulir yang Anda isikan nantinya
 
@@ -140,7 +140,7 @@ Setelah itu, isikan formulirnya dengan benar, berikut adalah penjelasan mengenai
 
 - **Optional feedback:** Anda bisa mengisi masukkan untuk Google Public CA nanti, ini tidak wajib diisi, jika Anda tidak mempunyai masukkan apapun, ya tidak usah diisi
 
-Nah, setelah semua sudah diisi, silahkan klik pada _Button_ **"Kirim"** (atau, bahasa Inggrisnya adalah **"Submit"**), lalu tinggal Anda tunggu saja hasilnya, biasanya hanya dalam beberapa jam.
+Nah, setelah semua sudah diisi, silakan klik pada _Button_ **"Kirim"** (atau, bahasa Inggrisnya adalah **"Submit"**), lalu tinggal Anda tunggu saja hasilnya, biasanya hanya dalam beberapa jam.
 
 Pastikan untuk selalu periksa pesan surel Anda baik di dalam kotak masuk ataupun di dalam folder Spam, karena jika sudah diterima, maka akan muncul pesan surel dari `public-ca-preview-access@google.com` dengan nama `Public CA Preview Access`, bersubjek `Welcome to Google Cloud Certificate Manager, Public CA`, yang isinya kira-kira seperti cuplikan berikut:
 
@@ -155,7 +155,7 @@ Caranya seperti berikut:
 
 **Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
-**Langkah ke-2:** Setelah masuk, silahkan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas.
+**Langkah ke-2:** Setelah masuk, silakan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas.
 
 **Langkah ke-3:** Di **"Cloud Shell"**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
 
@@ -303,7 +303,7 @@ acme.sh --set-default-ca --server google
 
 Dengan begini, Anda tidak perlu lagi memakai parameter `--server google` hanya sekadar untuk menerbitkan sertifikat SSL/TLS dari Google saja.
 
-Nah, artikelnya saya cukupkan sampai sini saja. Jika Anda mempunyai pertanyaan lain, silahkan tanyakan itu di kolom komentar yang tersedia, tetapi sebelum bertanya, ada baiknya bila Anda membaca dan memahami pertanyaan yang (akan) sering ditanya beserta jawabannya agar bisa menjadi referensi buat Anda.
+Nah, artikelnya saya cukupkan sampai sini saja. Jika Anda mempunyai pertanyaan lain, silakan tanyakan itu di kolom komentar yang tersedia, tetapi sebelum bertanya, ada baiknya bila Anda membaca dan memahami pertanyaan yang (akan) sering ditanya beserta jawabannya agar bisa menjadi referensi buat Anda.
 
 ## Pertanyaan yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
 ### Pertanyaan ke-1: Apakah saya perlu memasukkan kartu kredit/debit terlebih dahulu agar dapat menggunakan Google Cloud Console? {#pertanyaan-ke1}
@@ -401,7 +401,7 @@ Poin menarik:
 - Yang paling penting adalah semuanya bisa digunakan secara gratis, setidaknya untuk saat ini
 
 Hal yang perlu diperhatikan:
-- ~~Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan dan keputusan bisa saja berubah dengan cepat~~
+- Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan
 - ~~Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan~~
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tetapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode
@@ -409,7 +409,7 @@ Hal yang perlu diperhatikan:
 
     Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Tiongkok, jadi harusnya peristiwa seperti ini bukanlah hal yang mengejutkan
 
-**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ yang mungkin saja mengugurkan status uji cobanya dan tidak perlu lagi mengisi formulir, maka kedua hal di atas tidak lagi berlaku
+**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi satu hal di atas tidak lagi berlaku
 
 Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah ini merupakan poin menarik atau justru merupakan hal yang perlu diperhatikan.
 
@@ -417,11 +417,11 @@ Hal ini adalah bahwa sertifikat tersebut memiliki CRL (_Certificate Revocation L
 
 Saya tidak bisa memasukkannya sebagai hal yang "menarik" adalah karena yang pertama saya kurang mempelajari lebih dalam mengenai CRL dan OCSP ini, dan yang kedua karena menurut beberapa referensi, CRL itu termasuk _outdated_ dan OCSP diklaim lebih cepat daripada CRL karena ia tidak perlu mengunduh semua list sertifikat yang telah dicabut.
 
-Untuk mempercepatnya lagi, kita hanya perlu mengaktifkan fitur **OCSP Stapling** saja pada Server Web/Blog agar pengunjung tidak lagi mengakses Server (atau, Responder) OCSP-nya saat mengunjungi sebuah Web/Blog.
+Untuk mempercepatnya lagi, kita hanya perlu mengaktifkan fitur **OCSP Stapling** saja pada Server Web/Blog agar pengunjung tidak lagi mengakses Server (atau, Responder) OCSP-nya saat mengunjungi sebuah Web/Blog, mungkin saja adanya CRL ini untuk memperluas kompatibilitas perangkat mengingat CRL sendiri ada lebih dulu ketimbang OCSP.
 
-Namun menariknya, setiap sertifikat yang diterbitkan dari Google Trust Services memiliki alamat URL-nya sendiri untuk CRL dan OCSP-nya, mungkin saja dengan strategi seperti ini akan meminimalkan untuk mengunduh semua daftar sertifikat yang telah dicabut, sehingga pemuatan sertifikatnya/jabat tangannya akan jauh lebih cepat, ya saya kurang tahu juga sih selebihnya.
+Namun menariknya, setiap sertifikat yang diterbitkan oleh Google Trust Services memiliki alamat URL-nya sendiri untuk CRL dan OCSP-nya, mungkin saja dengan strategi seperti ini akan meminimalkan untuk mengunduh semua daftar sertifikat yang telah dicabut, sehingga pemuatan sertifikatnya/jabat tangannya akan jauh lebih cepat, ya saya kurang tahu juga sih selebihnya.
 
-Mungkin hal di atas bisa saja ada yang salah, jika ada koreksi, silahkan Anda berikan masukkannya melalui kolom komentar.
+Mungkin hal di atas bisa saja ada yang salah, jika ada koreksi, silakan Anda berikan masukkannya melalui kolom komentar.
 
 ### Pertanyaan ke-10: Apa pengalamanmu saat menggunakan Google Public CA? Apakah ada masalah sejauh ini? {#pertanyaan-ke10}
 **Jawab:** Sejauh ini belum ada masalah apapun, baik saat penerbitan sampai pemakaiannya. Penerbitannya bisa dibilang cepat, jauh lebih cepat ketimbang saat saya memakai ZeroSSL dan saya belum pernah menemukan galat 5xx saat penerbitan ataupun galat yang membuat perkakas acme.sh mengulangi proses penerbitan sertifikat.
@@ -453,7 +453,7 @@ Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainny
 ## Penggunaan Gambar dan Atribusi
 Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
 
-Jika Anda ingin menjelajahinya, silahkan kunjungi Alamat URL berikut:
+Jika Anda ingin menjelajahinya, silakan kunjungi Alamat URL berikut:
 
 ```plaintext
 https://github.com/FarrelF/Blog/tree/main/content/post/2022/05/15-cara-mendapatkan-sertifikat-ssl-dari-google
