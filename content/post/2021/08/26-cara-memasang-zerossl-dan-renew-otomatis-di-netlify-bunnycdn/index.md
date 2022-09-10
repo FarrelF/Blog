@@ -959,13 +959,13 @@ Pertama-tama, Anda perlu membuat rekaman DNS berjenis CNAME terlebih dahulu yang
 {{< info title="**Tips:**" >}}
 Jika Anda ingin menggunakan Mode Alias DNS, tetapi belum mempunyai domainnya, Anda bisa membeli/menyewa domain dengan ekstensi `.my.id` yang biayanya mulai dari Rp10.000,00 sampai Rp25.000,00 per tahunnya<sup>**\***</sup>.
 
-Anda bisa menyewa domainnya di [Rumahweb](https://afiliasi.farrel.franqois.id/rumahweb/) atau [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) dengan harga Rp13.320,00/tahun<sup>**\*\***</sup>, atau di [Biznet Gio](https://www.biznetgio.com/product/domain) dengan harga Rp11.100,00/tahun<sup>**\*\***</sup>
+Anda bisa menyewa domainnya di [Rumahweb](https://www.rumahweb.com/domain-murah/) atau [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) dengan harga Rp13.320,00/tahun<sup>**\*\***</sup>, atau di [Biznet Gio](https://www.biznetgio.com/product/domain) dengan harga Rp11.100,00/tahun<sup>**\*\***</sup>
 
 Setelah menyewa domainnya, saya sarankan agar memakai Cloudflare sebagai Penyedia DNS untuk domain Anda, karena selain gratis, dukungan akses API dan perangkat lunaknya juga sangat luas.
 
-<sup>**\***</sup>Biaya tersebut bisa saja berbeda-beda, tergantung penyedia domainnya dan itu belum termasuk PPn 11%
+<sup>**\***</sup>Biaya tersebut bisa saja berbeda-beda, tergantung penyedia domainnya dan itu belum termasuk PPN 11%
 
-<sup>**\*\***</sup>Biaya sewa domain dari ketiga penyedia yang tercantum sudah termasuk PPn 11%
+<sup>**\*\***</sup>Biaya sewa domain dari ketiga penyedia yang tercantum sudah termasuk PPN 11%
 {{< / info >}}
 
 Misalnya jika Anda ingin menerbitkan sertifikat SSL/TLS yang menjangkau `*.domain.com` dan `domain.com`, maka Anda hanya perlu membuat rekaman DNS berjenis CNAME dengan nama `_acme-challenge.contoh.com` dari domain utama Anda kemudian arahkan rekaman tersebut ke `_acme-challenge.domain-lain.com`.
