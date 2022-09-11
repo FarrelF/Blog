@@ -80,11 +80,12 @@ jobs:
         pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
         brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
         tar cvf - ./public | pigz -9 > files.tar.gz
+        printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
         path: files.tar.gz
         retention-days: 1
 
@@ -93,10 +94,12 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
 
     - name: Decompressing Files
       run: |
@@ -117,10 +120,12 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
 
     - name: Decompressing Files
       run: |
@@ -144,10 +149,12 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
 
     - name: Decompressing Files
       run: |
@@ -171,10 +178,12 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
 
     - name: Decompressing Files
       run: |
@@ -198,10 +207,12 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v3
       with:
-        name: build-result-${{ env.GITHUB_RUN_ID }}
+        name: build-result-${{ env.SHORT_SHA }}
 
     - name: Decompressing Files
       run: |

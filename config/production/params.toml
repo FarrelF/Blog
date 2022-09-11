@@ -22,7 +22,3 @@ widgetId = "D1Tc1z8H"
 enabled = false
 username = "FarrelF"
 utcOffset = 7
-
-[comments.giscus]
-lightTheme = "css/giscus-themes/light.css"
-darkTheme = "css/giscus-themes/dark.css"

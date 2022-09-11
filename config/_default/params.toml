@@ -89,8 +89,8 @@ categoryID = "DIC_kwDOFAiyoc4B_M30"
 mapping = "pathname"
 strict = 1
 inputPosition = "top"
-lightTheme = "light"
-darkTheme = "dark_dimmed"
+lightTheme = "css/giscus-themes/light.css"
+darkTheme = "css/giscus-themes/dark.css"
 reactionsEnabled = 1
 emitMetadata = 0
 

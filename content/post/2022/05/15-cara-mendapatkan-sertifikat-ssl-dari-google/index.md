@@ -114,7 +114,9 @@ Kira-kira akan seperti di atas.
 Jika semua sudah selesai, Anda tinggal langsung daftarkan proyeknya saja.
 
 ## Mendaftarkan Proyek
-**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_, maka Anda tidak perlu lagi mengisi formulir hanya untuk mengaktifkan akses API **Public CA**-nya, saran saya langsung [lewati ini aja](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab)
+{{< info title="**PEMBARUAN Sabtu, 10 September 2022:**" >}}
+Karena Google Public CA sudah bukan lagi termasuk _Beta preview_, maka Anda tidak perlu lagi mengisi formulir hanya untuk mengaktifkan akses API **Public CA**-nya, saran saya langkah ini langsung [dilewati saja](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab).
+{{< / info >}}
 
 Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan mengisi formulir permintaan akses yang tersedia.
 
