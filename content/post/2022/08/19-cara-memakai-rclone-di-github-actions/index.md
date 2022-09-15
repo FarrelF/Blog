@@ -48,7 +48,7 @@ Itu aja? Iya, cuma itu aja persiapannya. Setelah semuanya sudah siap, tinggal pe
 ## Konfigurasi GitHub Actions
 Untuk konfigurasinya, Anda bisa memakai contoh konfigurasi berikut. Konfigurasi di bawah ini adalah konfigurasi agar GitHub Actions dapat menghasilkan web statis dengan Hugo Extended dan mengunggahnya ke penyimpanan S3 dengan Rclone:
 
-```yaml
+```yaml {linenos=true}
 name: Build and Deploy
 on:
   push:

@@ -48,7 +48,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -98,12 +98,15 @@ Unduh kunci:
 - [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
 - [Langsung (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
-## Donasi/Dukungan
+## Memberi Dukungan/Menyawer
+Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
+
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
 - Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
   - Bank Syariah Indonesia: (Rekening Utama)
     - No. Rekening: `7203370703`
     - Kode Bank: 451
+    - Kode Swift: BSMDIDJA
   - Bank Digital BCA/BCA Digital/blu:**\***
     - No. Rekening/bluAccount: `001566549842`
     - Kode Bank: 501
