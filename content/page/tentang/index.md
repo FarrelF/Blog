@@ -82,8 +82,11 @@ Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah l
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 
-## Kunci PGP/GPG
-Berikut adalah Informasi mengenai kunci GPG saya:
+## Kunci Publik
+### Kunci PGP/GPG
+Kunci PGP/GPG nantinya akan berguna buat Anda yang ingin mengirimkan pesan ke saya dengan lebih aman, serta dapat mengurangi kemungkinan untuk terbaca oleh orang lain karena memerlukan kunci pribadi saya untuk membukanya.
+
+Berikut adalah informasi mengenai kunci GPG saya:
 
 |<span class="tab-center">Informasi</span>|<span class="tab-center">Nilai</span>|
 |:--------------------|:-------------------------------------------------------------|
@@ -97,6 +100,21 @@ Unduh kunci:
 - [Mailvelope](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69)
 - [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
 - [Langsung (melalui CDN)](/0xA47AE59DC94ABF69.asc)
+
+### Kunci Publik SSH
+Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apapun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
+
+Anda dapat mengunduh/melihat kunci-kunci publik tersebut melalui GitHub saya: [https://github.com/FarrelF.keys](https://github.com/FarrelF.keys)
+
+Atau, selain melalui GitHub, Anda juga dapat mengunduhnya secara manual melalui tautan di bawah ini dengan jenis kunci yang berbeda-beda:
+
+- [ed25519](/ssh/id_ed25519.pub) (disarankan)
+- [ECDSA P-256](/ssh/id_ecdsa.pub)
+- [RSA 4096-bit](/ssh/id_rsa.pub)
+
+Kalau bisa, saya sarankan agar Anda menggunakan ed25519 sebagai jenis kunci publiknya, selain karena paling kecil ukurannya ketimbang jenis kunci lainnya, kunci tersebut lebih cepat dalam memproses autentikasi SSH dan diklaim lebih aman juga.
+
+Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` di perangkat Anda.
 
 ## Memberi Dukungan/Menyawer
 Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
@@ -115,9 +133,9 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
 {{< info title="**\*Keterangan:**" >}}
-Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital saya, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA". Kenapa? Karena ini beda bank, meski grupnya sama.
+Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital saya, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski grupnya sama.
 
-Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
+Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online" atau "Realtime Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
 
 **Bagaimana dengan BCA Syariah?** Sayangnya meski grupnya sama, BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi yang menjadi perantara transaksi antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
 {{< / info >}}
