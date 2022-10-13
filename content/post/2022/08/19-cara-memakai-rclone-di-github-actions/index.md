@@ -24,7 +24,9 @@ Description: |-
 ---
 
 ## Pembuka
-[Rclone](https://rclone.org/) adalah sebuah program berbasis baris perintah yang bertujuan untuk mengelola berkas di layanan penyimpanan berbasis awan (_Cloud Storage_). Perangkat lunak ini adalah alternatif yang kaya fitur dari antarmuka penyedia penyimpanan berbasis awan, selain itu Rclone sendiri mendukung berbagai macam penyedia penyimpanan awan dan protokol transfer standar. 
+[Rclone](https://rclone.org/) adalah sebuah program berbasis baris perintah yang bertujuan untuk mengelola berkas di layanan penyimpanan berbasis awan (_Cloud Storage_).
+
+Perangkat lunak ini adalah alternatif yang kaya fitur dari antarmuka penyedia penyimpanan berbasis awan, selain itu Rclone sendiri mendukung berbagai macam penyedia penyimpanan awan dan protokol transfer standar. 
 
 Sedangkan [GitHub Actions](https://github.com/features/actions) adalah sebuah platform integrasi dan penyebaran berkelanjutan (disebut sebagai CI/CD, yang merupakan singkatan dari **_Continuous Integration and Continuous Deployment_**) dari GitHub yang memungkinkan Anda untuk mengotomatiskan alur pembangunan (_build_), pengujian, dan penyebaran Anda.
 
@@ -63,7 +65,7 @@ jobs:
       TZ: Asia/Jakarta ## Mengatur Zona Waktu menjadi Asia/Jakarta, yang merupakan sebutan lain dari WIB (Waktu Indonesia Barat)
       HUGO_ENV: production ## Mengatur lingkungan yang digunakan oleh Hugo
 
-    ## Langkah di bawah ini akan mengkloning sumber kode dari Repo kamu
+    ## Langkah di bawah ini akan mengkloning kode sumber dari Repo kamu
     steps:
     - name: Checkout the Code
       uses: actions/checkout@v3
@@ -91,13 +93,13 @@ jobs:
     ## Langkah di bawah ini akan mengunggah web statis ke penyimpanan S3 
     - name: Upload Static Web to S3 Storage
       env:
-        ## Variabel di bawah ini (RCLONE_CONFIG_PASS) adalah kata sandi untuk mengakses Konfigurasi Rclone 
-        ## jika Anda mengenkripsinya, jika tidak maka Anda tidak perlu mendeklarasikan variabel ini
-        ## Sedangkan jika iya, Anda perlu mendeklarasikan variabel itu yang isinya tersimpan di dalam "Secrets"
+        ## Variabel di bawah ini (RCLONE_CONFIG_PASS) adalah kata sandi untuk mengakses Konfigurasi Rclone
+        ## jika Anda mengenkripsinya, jika tidak maka Anda tidak perlu mendeklarasikan variabel di bawah ini
+        ## Sedangkan jika iya, maka Anda perlu mendeklarasikan variabel itu yang nilainya diambil dari "Secrets" yang bernama "RCLONE_CONFIG_PASS"
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
 
         ## Kedua variabel di bawah ini adalah menentukan nama remot dan lokasi tujuannya
-        S3_SERVICE: NAMA_REMOTE_RCLONE ## Ganti NAMA_REMOTE_RCLONE dengan nama remot yang ada di konfigurasi Rclone 
+        S3_SERVICE: NAMA_REMOTE_RCLONE ## Ganti NAMA_REMOTE_RCLONE dengan nama remot yang ada di konfigurasi Rclone
         S3_STORAGE_BUCKET_PATH: LOKASI_TUJUAN ## Ganti LOKASI_TUJUAN dengan folder/lokasi tujuan di remot yang ingin Anda isi
       run: rclone sync -v -P --stats-one-line ./public ${S3_SERVICE}:/${S3_STORAGE_BUCKET_PATH}
 ```
@@ -106,7 +108,7 @@ Konfigurasi di atas merupakan contohnya saja yang kasusnya adalah menghasilkan w
 
 Namun secara garis besar, itulah cara memakai Rclone di GitHub Actions, tetapi ada beberapa hal yang harus Anda perhatikan di atas, yakni:
 
-- `${{ secrets.RCLONE_CONFIG }}`: Ini adalah variabel "Secrets" yang bernama `RCLONE_CONFIG` dan berisikan konfigurasi Rclone itu sendiri. Karena isinya tersimpan di dalam "Secrets", maka tidak mungkin variabel tersebut dideklarasikan ke dalam berkas konfigurasi, nanti akan saya bahas cara pembuatannya.
+- `${{ secrets.RCLONE_CONFIG }}`: Ini adalah sebuah variabel "Secrets" yang bernama `RCLONE_CONFIG` dan berisikan konfigurasi Rclone itu sendiri. Karena isinya tersimpan di dalam "Secrets", maka tidak mungkin variabel tersebut dideklarasikan ke dalam berkas konfigurasi, nanti akan saya bahas cara pembuatannya.
 
     Biasanya, berkas konfigurasi Rclone berlokasi di:
     - Untuk Windows: `%USERPROFILE%\.config\rclone\rclone.conf`
@@ -117,13 +119,13 @@ Namun secara garis besar, itulah cara memakai Rclone di GitHub Actions, tetapi a
 
     Atau, Anda dapat mengetahui keberadaan berkas tersebut dengan mengeksekusi perintah `rclone config file`, nanti akan keluar lokasi berkas konfigurasi Rclone yang Anda pakai sekarang
 
-- `${{ secrets.RCLONE_CONFIG_PASS }}`: Ini adalah variabel "Secrets" yang bernama `RCLONE_CONFIG_PASS` dan berisikan kata sandi untuk konfigurasi Rclone jika Anda mengenkripsinya. Karena isinya tersimpan di dalam "Secret", jadi tidak mungkin dideklarasikan ke dalam berkas konfigurasi, nanti akan saya bahas cara pembuatannya.
+- `${{ secrets.RCLONE_CONFIG_PASS }}`: Ini adalah sebuah variabel "Secrets" yang bernama `RCLONE_CONFIG_PASS` dan berisikan kata sandi untuk konfigurasi Rclone jika Anda mengenkripsinya. Karena isinya tersimpan di dalam "Secret", jadi tidak mungkin dideklarasikan ke dalam berkas konfigurasi, nanti akan saya bahas cara pembuatannya.
 
 Bagi yang belum tahu apa itu "Secrets". "Secrets", sesuai dengan namanya, adalah sebuah variabel-variabel bersifat 'rahasia' yang nilainya disimpan di dalam server yang terenkripsi.
 
 Bukan hanya terenkripsi, bahkan isi dari variabel "Secret" pun disembunyikan dari dalam log GitHub Actions, sehingga tidak ada seorang pun yang dapat mengetahui apa isinya, kecuali jika diakali, misalnya mengunggah isi dari "Secret" tersebut ke server luar dan hal tersebut perlu izin/turun tangan langsung dari pengurus atau/dan pembuat repositorinya.
 
-Semua variabel "Secrets" pada konfigurasi di atas bisa diubah sesuka hati, contohnya: `${{ secrets.RCLONE_CONFIG }}` menjadi `${{ secrets.RCLONE_CONFIG_FILE }}`. Namun ketika Anda ingin membuatnya nanti, pastikan namanya sesuai dengan yang ada di konfigurasi.
+Semua variabel "Secrets" pada konfigurasi di atas bisa diubah sesuka hati, contohnya: `${{ secrets.RCLONE_CONFIG }}` menjadi `${{ secrets.RCLONE_CONFIG_FILE }}`. Namun ketika Anda ingin membuatnya nanti, pastikan namanya sesuai dengan yang ada di konfigurasi (Atau, konfigurasinya menyesuaikan dengan yang ada di "Secrets"-nya).
 
 Kalau sudah selesai, simpanlah berkas konfigurasi untuk GitHub Actions tersebut ke dalam direktori `.github/workflows` yang terletak di dalam repositori kamu.
 

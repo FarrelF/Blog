@@ -1,5 +1,5 @@
 ---
-Title: Cara menggunakan Termux dari komputer PC/Laptop melalui SSH
+Title: Cara menggunakan Termux dari Komputer PC/Laptop melalui SSH
 Slug: cara-menggunakan-termux-dari-komputer
 Author: Farrel Franqois
 Categories: 
@@ -65,7 +65,7 @@ Berikut adalah hal yang harus Anda lakukan:
 **Langkah ke-2:** Instal paket `openssh` dan `termux-services` di dalam Termux kamu dengan perintah berikut:
 
 ```shell
-pkg upd; pkg i -y openssh termux-services
+pkg i -y openssh termux-services
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:
@@ -77,7 +77,7 @@ apt update; apt install -y openssh termux-services
 Kalau mau, setelah ini Anda juga dapat menginstal `nmap` untuk mengecek _port_ yang aktif atau/dan `iproute2` sebagai utilitas jaringan, salah satunya adalah mengecek Alamat IP pada jaringan yang Anda gunakan sekarang, dengan perintah berikut:
 
 ```shell
-pkg upd; pkg i -y nmap iproute2
+pkg i -y nmap iproute2
 ```
 
 Atau, di bawah ini jika Anda ingin menggunakan APT:

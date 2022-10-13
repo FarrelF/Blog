@@ -51,9 +51,9 @@ FarrelF-Blog
 Setelah melihat struktur direktori dan berkasnya di atas, maka saatnya Anda mengetahui apa berkas dan direktori tersebut.
 
 Berikut adalah Informasi mengenai berkas-berkasnya yang berada di dalam direktori Akar (_Root directory_)-nya:
-- [`.gitignore`](.gitignore): Adalah berkas yang berisikan berkas-berkas atau direktori yang akan diabaikan oleh Git, sehingga direktori atau berkas di dalam daftar tersebut tidak akan dimasukkan ke dalam Kode Sumber/_Repository_ karena alasan tertentu.
+- [`.gitignore`](.gitignore): Adalah berkas yang berisikan berkas-berkas atau direktori yang akan diabaikan oleh Git, sehingga direktori atau berkas di dalam daftar tersebut tidak akan dimasukkan ke dalam kode sumber/repositori karena alasan tertentu.
 - `CONTRIBUTING.md`: Adalah berkas yang Anda akses sekarang.
-- [`LICENSE`](LICENSE): Adalah berkas Lisensi untuk Kode Sumber ini,
+- [`LICENSE`](LICENSE): Adalah berkas lisensi untuk kode sumber ini,
 - [`README.md`](README.md): Sepertinya Anda sangat tahu apa berkas ini, jadi tidak usah saya jelaskan.
 - [`netlify.toml`](netlify.toml): Adalah berkas konfigurasi untuk Netlify.
 
@@ -109,12 +109,12 @@ Caranya cukup mudah, Anda tinggal ikuti langkah di bawah ini:
 Ya udah, cuma gitu aja.
 
 ### Cara memodifikasi tema
-Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakukan itu di dalam _Repository_ [`stack-modified`](https://github.com/FarrelF/stack-modified) milik saya.
+Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakukan itu di dalam repositori [`stack-modified`](https://github.com/FarrelF/stack-modified) milik saya.
 
-## Cara ke-2: Melakukan Donasi
-Jadi kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyisihkan sedikit uang Anda untuk mendonasikannya sebagai kontribusi Anda untuk Blog ini. 
+## Cara ke-2: Menyawer
+Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyawerkan sedikit uang Anda sebagai kontribusi Anda untuk blog ini.
 
-Jika Anda ingin mendonasikannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), melalui akun [Saweria](https://saweria.co/FarrelFranqois) atau akun [Arxist](https://arxist.id/tip/farrelf) saya.
+Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Saweria](https://saweria.co/FarrelFranqois) atau akun [Arxist](https://arxist.id/tip/farrelf) saya.
 
 Untuk lebih lengkapnya, silakan kunjungi halaman ["Tentang"](https://farrel.franqois.id/tentang/) di blog saya.
 
@@ -123,11 +123,11 @@ Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog
 
 - Jika Anda mempunyai masalah saat menggunakan kode sumber ini, atau memberikan masukan tentang kode sumber ini, silakan Anda buat tiket ["Issue"](https://github.com/FarrelF/Blog/issues) di dalam repositori ini.
 
-- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai Blog ini, silakan Anda membuat Diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions).
+- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan Anda membuat Diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions).
 
 - Jika Anda ingin berkomentar atau kritik dan saran mengenai Artikel di dalam [Blog ini](https://farrel.franqois.id), silakan berkomentar melalui kolom komentar yang tersedia di akhir Artikel Blog.
 
-- Jika Anda mempunyai pertanyaan lainnya yang mana tidak mungkin Anda sebarkan ke publik, silakan hubungi saya.
+- Jika Anda mempunyai pertanyaan lainnya yang tidak mau Anda sebarkan ke publik, silakan hubungi saya.
 
 Nah, itulah cara kontribusinya, jika Anda mempunyai pertanyaan mengenai Berkas ini, silakan tanyakan itu melalui ["Discussion"](https://github.com/FarrelF/Blog/discussions) di dalam repositori ini.
 
