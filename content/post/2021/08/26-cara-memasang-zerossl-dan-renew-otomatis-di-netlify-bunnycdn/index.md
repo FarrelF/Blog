@@ -162,7 +162,7 @@ Selain itu, Anda juga harus mempersiapkan perangkat lunak yang diminta agar perk
 Berikut di bawah ini adalah persiapan perangkat lunaknya:
 
 #### Untuk Pengguna GNU/Linux, macOS, BSD dan Sistem Operasi berbasis \*nix lainnya {#persiapan-pengguna-unix-like}
-{{< spoiler text="tl;dr" >}}
+{{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebagai berikut:
 - OpenSSL (atau LibreSSL?)
 - cURL
@@ -181,7 +181,7 @@ Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal seb
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tetapi itu tidak saya bahas lebih lanjut di sini.
 
 #### Untuk Pengguna Windows {#persiapan-pengguna-windows}
-{{< spoiler text="tl;dr" >}}
+{{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 - Memiliki Akses ke Lingkungan Unix/Mirip-Unix: (Pilih salah satu caranya)
     - Mengaktifkan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) untuk Windows 10 atau di atasnya
@@ -204,7 +204,7 @@ Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengiku
 Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya bisa diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [klik di sini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
-{{< spoiler text="tl;dr" >}}
+{{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 - Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasannya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
@@ -215,7 +215,7 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
     5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
-**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_.
+**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _ter-root_.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux.
@@ -240,7 +240,7 @@ Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terko
 
 Anda bisa baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
 
-Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikitpun dan perangkat tidak perlu dalam keadaan _ter-root_, ini sama sekali tidak menghilangkan garansi pada perangkat Anda, jadi tidak usah khawatir.
+Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _ter-root_, ini sama sekali tidak menghilangkan garansi pada perangkat Anda, jadi tidak usah khawatir.
 
 ## Sebelum menerbitkan sertifikat SSL/TLS
 Sebelum menerbitkannya, Anda perlu mengikuti beberapa poin pembahasan terlebih dahulu. Poin-poin akan saya bahas dalam langkah-demi-langkah.

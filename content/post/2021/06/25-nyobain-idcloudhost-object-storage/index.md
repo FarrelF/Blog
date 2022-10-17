@@ -282,7 +282,7 @@ Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting Web
 
 **NB:** Pada praktik terbaiknya, Anda tetap harus menggunakan Layanan CDN sih, karena pada dasarnya Penyimpanan berbasis Objek memang tidak didesain untuk digunakan sebagai Hosting sekaligus Pengantaran Konten. Tapi jika Anda hanya ingin mengantarkan konten ke sesama orang Indonesia, mungkin ini bisa dicoba.
 
-{{< spoiler text="**\*Catatan mengenai tautan diatas**" >}}
+{{< spoiler title="**\*Catatan mengenai tautan diatas**" >}}
 Tautan diatas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu.
 
 Tapi tenang saja, Anda tidak akan terkena biaya tambahan apapun karena afiliasi ini, saya jamin 100%.

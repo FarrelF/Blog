@@ -62,7 +62,7 @@ Perlu Anda ketahui, bahwa di dalam Format OOXML itu di pecah menjadi 3 versi (at
 - ISO/IEC 29500 Transitional (atau di sebut versi/sub-standar "Transitional")
 - ISO/IEC 29500 Strict (atau di sebut versi/sub-standar "Strict")
 
-{{< spoiler text="Catatan bagi yang ingin melihat/membaca Spesifikasi nya" >}}
+{{< spoiler title="Catatan bagi yang ingin melihat/membaca Spesifikasi nya" >}}
 Jika Anda ingin melihat/membaca spesifikasi Format OOXML versi ECMA nya, silahkan kunjungi [halaman web resmi nya](https://www.ecma-international.org/publications/standards/Ecma-376.htm)
 
 Sedangkan, jika Anda ingin melihat/membaca Spesifikasi dari Format OOXML versi 'Transitional' dan'Strict' nya, silahkan kunjungi halaman web dari situs web Pemerintah Amerika Serikat, yakni ["Library of Congress"](https://www.loc.gov/preservation/digital/formats/fdd/fdd000395.shtml#specs) yang menyediakanspesifikasi OOXML nya disana. Mungkin disana kurang lengkap dan belum ada edisi terbaru, dan ini mungkin saja ada spesifikasi yang belum di publikasi kan disana.
@@ -215,7 +215,7 @@ Salah satu cara yang bisa Anda lakukan untuk mempelajari nya adalah dengan berik
 
 #### Cara 1: Buatlah Dokumen yang sama dengan Dokumen yang di kerjakan dengan Microsoft Office
 
-{{< spoiler text="tl;dr" >}}
+{{< spoiler title="tl;dr" >}}
 Buatlah 'versi ODF' dari Dokumen yang pernah Anda buat sebelumnya dengan Microsoft Office itu dengan Perangkat Lunak Perkantoran FLOSS seperti LibreOffice.
 {{< /spoiler >}}
 

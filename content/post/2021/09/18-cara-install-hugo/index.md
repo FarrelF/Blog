@@ -445,7 +445,7 @@ cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VER
 - Baris `HUGO_FILENAME` atau `set HUGO_FILENAME`: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_VERSION` untuk versinya dan `HUGO_ARCH` untuk Arsitektur Sistemnya
 - `cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v"$HUGO_VERSION"/"$HUGO_FILENAME""`: Untuk menavigasikan Terminal ke `/tmp`, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
-{{< spoiler text="Mengenai Instalasi Hugo" >}}
+{{< spoiler title="Mengenai Instalasi Hugo" >}}
 Setelah mengunduhnya, tentukan terlebih dahulu di mana Anda meng-install Hugo-nya, apakah di dalam direktori pengguna yang hanya dapat dijalankan oleh Anda sendiri atau di dalam direktori sistem agar dapat dijalankan oleh semua pengguna.
 
 Jika Anda ingin Hugo-nya dapat dijalankan oleh semua pengguna, silakan ikuti caranya di bawah ini. Namun, jika Anda ingin Hugo-nya diinstal di dalam direktori pengguna dan tanpa perlu perintah `sudo` ataupun hak akses `root`, silakan [klik di sini](#pertanyaan-ke4).

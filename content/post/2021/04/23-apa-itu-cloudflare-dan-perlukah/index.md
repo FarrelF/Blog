@@ -23,7 +23,7 @@ Description: |-
     Tapi, Apa itu Cloudflare? Perlukah untuk menggunakan nya? Apakah benar bahwa Cloudflare bisa membantu untuk mengoptimalkan dan mengamankan sebuah Web/Blog? Jika penasaran, silahkan baca artikel ini lebih lanjut, jika tidak ya tidak usah 🙂
 ---
 
-{{< spoiler text="tl;dr (Awas, Spoiler!)" >}}
+{{< spoiler title="tl;dr (Awas, Spoiler!)" >}}
 
 Intinya, lihat dan baca di bagian ["Kesimpulan"](#kesimpulan).
 
