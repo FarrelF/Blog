@@ -129,7 +129,7 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
     - No. Rekening/bluAccount: `001566549842`
     - Kode Bank: 501
 - Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
-- Kamu bisa [memberikan tip ke saya](https://arxist.id/tip/farrelf) melalui Arxist
+- Kamu bisa [memberikan tip ke saya](https://arxist.id/farrelf/tip) melalui Arxist
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
 {{< info title="**\*Keterangan:**" >}}

@@ -27,7 +27,7 @@ Description: |-
     
     Namun akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunny/cdn/), cPanel dan DirectAdmin.
     
-    Jika Anda ingin memasang sertifikat SSL/TLS dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN, cPanel atau DirectAdmin sebagai Panel untuk layanan Hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
+    Jika Anda ingin memasang sertifikat SSL/TLS dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN sebagai CDN, cPanel atau DirectAdmin sebagai Panel untuk layanan Hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---
 
 ## Pembuka
@@ -44,7 +44,7 @@ Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otom
 
 Kendala saat pemasangannya adalah tidak banyak penyedia yang mendukungnya, kebanyakan hanya mendukung Let's Encrypt saja.
 
-Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui sertifikat SSL/TLS, lalu saya melakukan _Request_ ke Server API-nya Netlify dan BunnyCDN untuk memasangkan sertifikat SSL/TLS-nya menggunakan cURL.
+Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui sertifikat SSL/TLS, lalu saya melakukan _Request_ ke Server API-nya Netlify, BunnyCDN, cPanel dan DirectAdmin untuk memasangkan sertifikat SSL/TLS-nya menggunakan cURL.
 
 Terlihat sederhana, bukan? Iya, tetapi sebenarnya itu tidak sesederhana dan semudah yang Anda bayangkan.
 
@@ -61,7 +61,7 @@ Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
 Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga dapat menerbitkan sertifikat SSL/TLS secara gratis dalam bentuk apapun (termasuk _Wildcard_) dengan jumlah sertifikat yang tidak terbatas, baik dengan menggunakan RSA maupun ECC sebagai Algoritma Kunci Publiknya.
 
-Namun, itu hanya berlaku jika Anda menerbitkannya melalui Server ACME-nya, bukan melalui Situs Web ataupun REST API-nya. Semua sertifikat yang diterbitkan melalui Protokol ACME akan memiliki masa berlaku selama 90 hari kedepan.
+Namun, itu hanya berlaku jika Anda menerbitkannya melalui Server ACME-nya, bukan melalui Situs Web ataupun REST API-nya. Semua sertifikat yang diterbitkan melalui Protokol ACME akan memiliki masa berlaku selama 90 hari ke depan.
 
 Serta, jika Anda membuat/menerbitkan sebuah sertifikat SSL/TLS melalui Protokol ACME dan Server ACME-nya, maka jumlah sertifikat yang telah diterbitkan yang tampil di Situs Web-nya tidak akan bertambah sama sekali, jadi kuota gratisannya tidak akan berkurang.
 
@@ -206,7 +206,7 @@ Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 {{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
-- Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
+- Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasannya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux-nya
@@ -220,7 +220,7 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux.
 
-Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini kedepan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya, jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
+Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya, jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
 
 Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid](https://f-droid.org/repository/browse/?fdid=com.termux).
 
@@ -378,7 +378,7 @@ Jika sudah, silakan lanjut ke [langkah berikutnya](#membuat-kode-token-api).
 ### Membuat Akses API
 Sebelum menerbitkan sertifikat SSL/TLS, maka ada baiknya untuk membuat Kode Token untuk Akses API-nya terlebih dahulu.
 
-Ini akan sangat berguna untuk verifikasi DNS kedepannya dan juga memasang sertifikat SSL/TLS itu sendiri. Jadi, Anda wajib membuatnya, tetapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
+Ini akan sangat berguna untuk verifikasi DNS ke depannya dan juga memasang sertifikat SSL/TLS itu sendiri. Jadi, Anda wajib membuatnya, tetapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
 Misalnya, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat SSL/TLS.
 
@@ -2888,7 +2888,7 @@ Terima kasih bagi Anda yang telah membaca serta mempelajari yang ada di artikel 
 
 Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkembangnya Informasi yang ada, karena yang saya pos ini adalah tutorial, sehingga perlu adanya penyesuaian.
 
-Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepannya nanti.
+Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk ke depannya nanti.
 
 Terima kasih atas perhatiannya 😊
 

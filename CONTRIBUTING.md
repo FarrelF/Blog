@@ -114,7 +114,7 @@ Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakuka
 ## Cara ke-2: Menyawer
 Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyawerkan sedikit uang Anda sebagai kontribusi Anda untuk blog ini.
 
-Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Saweria](https://saweria.co/FarrelFranqois) atau akun [Arxist](https://arxist.id/tip/farrelf) saya.
+Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Saweria](https://saweria.co/FarrelFranqois) atau melalui akun [Arxist](https://arxist.id/farrelf/tip) saya.
 
 Untuk lebih lengkapnya, silakan kunjungi halaman ["Tentang"](https://farrel.franqois.id/tentang/) di blog saya.
 
