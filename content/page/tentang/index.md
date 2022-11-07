@@ -76,14 +76,14 @@ Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah l
 - farrel(at)franqois(dot)id (Surel Pribadi)
 - farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Protonmail, "katanya" lebih aman dan lebih ramah privasi)
 
-### Media sosial/Perpesanan
+### Media sosial/Perpesanan {#medsos}
 - Telegram: [@FarrelF](https://t.me/FarrelF)
 - Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 
 ## Kunci Publik
-### Kunci PGP/GPG
+### Kunci PGP/GPG {#kunci-gpg}
 Kunci PGP/GPG nantinya akan berguna buat Anda yang ingin mengirimkan pesan ke saya dengan lebih aman, serta dapat mengurangi kemungkinan untuk terbaca oleh orang lain karena memerlukan kunci pribadi saya untuk membukanya.
 
 Berikut adalah informasi mengenai kunci GPG saya:
@@ -116,7 +116,7 @@ Kalau bisa, saya sarankan agar Anda menggunakan ed25519 sebagai jenis kunci publ
 
 Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` di perangkat Anda.
 
-## Memberi Dukungan/Menyawer
+## Memberi Dukungan/Menyawer {#menyawer}
 Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
 
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
@@ -133,7 +133,7 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
 {{< info title="**\*Keterangan:**" >}}
-Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital saya, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski grupnya sama.
+Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital/blu pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski grupnya sama.
 
 Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online" atau "Realtime Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
 
