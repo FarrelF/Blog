@@ -88,7 +88,7 @@ Kunci PGP/GPG nantinya akan berguna buat Anda yang ingin mengirimkan pesan ke sa
 
 Berikut adalah informasi mengenai kunci GPG saya:
 
-|<span class="tab-center">Informasi</span>|<span class="tab-center">Nilai</span>|
+|<span class="tab-center">Informasi</span>|<span class="tab-center">Isi Data</span>|
 |:--------------------|:-------------------------------------------------------------|
 | Atas Nama           | Farrel Franqois                                              |
 | Jenis Kunci         | ECC (Ed25519 dan Curve25519)                                 |
@@ -108,11 +108,11 @@ Anda dapat mengunduh/melihat kunci-kunci publik tersebut melalui GitHub saya: [h
 
 Atau, selain melalui GitHub, Anda juga dapat mengunduhnya secara manual melalui tautan di bawah ini dengan jenis kunci yang berbeda-beda:
 
-- [ed25519](/ssh/id_ed25519.pub) (disarankan)
+- [Ed25519](/ssh/id_ed25519.pub) (disarankan)
 - [ECDSA P-256](/ssh/id_ecdsa.pub)
 - [RSA 4096-bit](/ssh/id_rsa.pub)
 
-Kalau bisa, saya sarankan agar Anda menggunakan ed25519 sebagai jenis kunci publiknya, selain karena paling kecil ukurannya ketimbang jenis kunci lainnya, kunci tersebut lebih cepat dalam memproses autentikasi SSH dan diklaim lebih aman juga.
+Kalau bisa, saya sarankan agar Anda menggunakan Ed25519 sebagai jenis kunci publiknya, selain karena paling kecil ukurannya ketimbang jenis kunci lainnya, kunci tersebut lebih cepat dalam memproses autentikasi SSH dan diklaim lebih aman juga.
 
 Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` di perangkat Anda.
 
@@ -121,7 +121,7 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
 - Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
-  - Bank Syariah Indonesia: (Rekening Utama)
+  - Bank Syariah Indonesia:
     - No. Rekening: `7203370703`
     - Kode Bank: 451
     - Kode Swift: BSMDIDJA
@@ -133,11 +133,11 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 - Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
 {{< info title="**\*Keterangan:**" >}}
-Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital/blu pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski grupnya sama.
+Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital/blu, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski termasuk dalam Grup BCA.
 
 Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online" atau "Realtime Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
 
-**Bagaimana dengan BCA Syariah?** Sayangnya meski grupnya sama, BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi yang menjadi perantara transaksi antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
+**Bagaimana dengan BCA Syariah?** Sayangnya meski dalam satu grup yang sama (Grup BCA), BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi transfer antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
 {{< / info >}}
 
 ## Akhir Kata

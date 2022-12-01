@@ -32,9 +32,9 @@ Sedangkan [GitHub Actions](https://github.com/features/actions) adalah sebuah pl
 
 Platform tersebut dapat digunakan dengan berbagai tujuan, seperti menghimpun kode sumber, menguji sebuah perangkat lunak beserta fungsinya, menghasilkan sebuah web statis lalu mengunggahnya, dll.
 
-Kenapa? Karena pada dasarnya platform tersebut merupakan komputer/server virtual yang menjalani perintah apapun yang Anda perlukan, tetapi dengan kontrol yang lebih terbatas, jadi Anda hanya bisa menjalankan perintah yang sudah tertera di dalam konfigurasinya saja.
+Kenapa? Karena pada dasarnya platform tersebut merupakan komputer/server virtual yang menjalani perintah apa pun yang Anda perlukan, tetapi dengan kontrol yang lebih terbatas, jadi Anda hanya bisa menjalankan perintah yang sudah tertera di dalam konfigurasinya saja.
 
-Selain itu, data yang tersimpan di dalamnya akan terhapus secara otomatis oleh sistem setelah selesai (kecuali jika data-data tersebut diunggah ke server yang berbeda), hal seperti ini merupakan umum di platform CI/CD manapun, tidak terbatas pada GitHub Actions saja.
+Selain itu, data yang tersimpan di dalamnya akan terhapus secara otomatis oleh sistem setelah selesai (kecuali jika data-data tersebut diunggah ke server yang berbeda), hal seperti ini merupakan umum di platform CI/CD mana pun, tidak terbatas pada GitHub Actions saja.
 
 Karena batasan-batasan tersebut yang tidak seperti perangkat pada umumnya, maka cara memakai/mengimplementasikan Rclone di CI/CD seperti GitHub Actions itu sendiri akan cukup berbeda ketimbang memakainya di dalam komputer/server biasa.
 
@@ -156,7 +156,7 @@ Setelah itu, Anda perlu memeriksa dan apakah konfigurasi beserta variabelnya sud
 Setelah _di-push_, lihat lognya untuk melihat perjalanannya akan seperti apa, pastikan bahwa GitHub Actions dapat menjalankannya dengan baik tanpa mengalami masalah/galat (_error_).
 
 ## Penutup
-Terima kasih kepada Anda yang telah membaca dan memahami artikel ini. Itu saja dulu untuk artikel kali ini, ~~maaf artikelnya belum memiliki gambar ataupun cuplikan apapun untuk saat ini, sehingga terkesan sangat kurang lengkap~~.
+Terima kasih kepada Anda yang telah membaca dan memahami artikel ini. Itu saja dulu untuk artikel kali ini, ~~maaf artikelnya belum memiliki gambar ataupun cuplikan apa pun untuk saat ini, sehingga terkesan sangat kurang lengkap~~.
 
 **PEMBARUAN Selasa, 09 September 2022:** Sekarang artikel ini memiliki cuplikan dan diperbarui supaya lebih lengkap.
 
