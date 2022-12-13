@@ -55,7 +55,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
-Jika Anda menginginkan kode sumber untuk blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silahkan kunjungi alamat URL berikut:
+Jika Anda menginginkan kode sumber untuk blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silakan kunjungi alamat URL berikut:
 
 ```plain
 https://github.com/FarrelF/Blog
@@ -102,7 +102,7 @@ Unduh kunci:
 - [Langsung (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
 ### Kunci Publik SSH
-Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apapun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
+Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apa pun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
 
 Anda dapat mengunduh/melihat kunci-kunci publik tersebut melalui GitHub saya: [https://github.com/FarrelF.keys](https://github.com/FarrelF.keys)
 

@@ -17,7 +17,7 @@ Tags:
 readMore: true
 DescriptionSEO: Anda meng-install Termux di dalam ponsel/tablet Android Anda, tetapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari Komputer/Laptop kamu, caranya baca artikel ini
 Description: |-
-       Artikel kali ini akan membahas cara menggunakan Termux dari Komputer/Laptop.
+       Artikel kali ini akan membahas cara menggunakan Termux dari Komputer PC atau Laptop Anda.
 
        Ya, Anda gak salah lihat, artikel ini benar-benar membahasnya. Ini maksudnya adalah _me-remote_ Termux yang ada di Android dari komputer PC/Laptop Anda menggunakan SSH.
 
@@ -50,7 +50,7 @@ Untuk versi Android-nya sendiri, saya sarankan agar Anda menggunakan Android ver
 
 Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini dengan perintah `pkg upg -y`, tetapi kalau tidak mau ya gak apa-apa, bisa dicoba dulu.
 
-Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi dengan jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
+Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
 
 Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer PC/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
