@@ -1024,7 +1024,10 @@ Untuk menerbitkan Sertifikat SSL/TLS-nya, Anda bisa memakai perintah biasanya ya
 Contoh perintahnya ada di bawah ini:
 
 ```shell
-acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf --challenge-alias domain-lain.com
+acme.sh --issue \
+        -d '*.domain.com' \
+        -d domain.com \
+        --challenge-alias domain-lain.com --dns dns_cf
 ```
 
 Perintah di atas akan menerbitkan Sertifikat SSL/TLS yang menjangkau domain `*.domain.com` dan `domain.com` dengan menggunakan _DNS alias mode_ dan diverifikasi menggunakan Cloudflare sebagai Penyedia DNS.
@@ -1058,28 +1061,28 @@ Maka untuk menerbitkannya, Anda bisa pelajari contoh perintah berikut:
 
 ```shell
 acme.sh --issue \
-    -d domain.com \
-    -d www.domain.com \
-    -d sub.domain.com \
-    -d domain.id \
-    -d domain.net \
-    -d domain.org \
-    --challenge-alias domain-lain.com --dns dns_cf
+        -d domain.com \
+        -d www.domain.com \
+        -d sub.domain.com \
+        -d domain.id \
+        -d domain.net \
+        -d domain.org \
+        --challenge-alias domain-lain.com --dns dns_cf
 ```
 
 Atau, perintah di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' \
-    -d '*.domain.id' \
-    -d '*.domain.net' \
-    -d '*.domain.org' \
-    -d domain.com \
-    -d domain.id \
-    -d domain.net \
-    -d domain.org \
-    --challenge-alias domain-lain.com --dns dns_cf
+        -d '*.domain.com' \
+        -d '*.domain.id' \
+        -d '*.domain.net' \
+        -d '*.domain.org' \
+        -d domain.com \
+        -d domain.id \
+        -d domain.net \
+        -d domain.org \
+        --challenge-alias domain-lain.com --dns dns_cf
 ```
 
 #### 4. (Sub)Domain alias yang berbeda untuk tiap domain {#dns-alias-mode-4}
@@ -1098,19 +1101,18 @@ _acme-challenge.domain.id
 Lalu, terbitkan sertifikatnya dengan mempelajari perintah berikut:
 
 ```shell
-
 acme.sh --issue \
-    -d domain.com --challenge-alias domain-lain.com \
-    -d domain.id --challenge-alias domain-lain-2.com \
-    --dns dns_cf
+        -d domain.com --challenge-alias domain-lain.com \
+        -d domain.id --challenge-alias domain-lain-2.com \
+        --dns dns_cf
 ```
 
 Bahkan Anda juga bisa menggunakan penyedia DNS yang berbeda juga, berikut adalah contohnya:
 
 ```shell
 acme.sh --issue \
-    -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
-    -d domain.id --challenge-alias domain-lain-2.com --dns dns_netlify
+        -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
+        -d domain.id --challenge-alias domain-lain-2.com --dns dns_netlify
 ```
 
 Contoh di atas diasumsikan bahwa domain `domain-lain.com` menggunakan Cloudflare sebagai Penyedia DNS, sedangkan domain `domain-lain-2.com` menggunakan Netlify sebagai Penyedia DNS.
@@ -1119,21 +1121,21 @@ Contoh di atas diasumsikan bahwa domain `domain-lain.com` menggunakan Cloudflare
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' --challenge-alias domain-lain.com \
-    -d '*.domain.id' --challenge-alias domain-lain-2.com \
-    -d domain.com --challenge-alias domain-lain.com \
-    -d domain.id --challenge-alias domain-lain-2.com \
-    --dns dns_cf
+        -d '*.domain.com' --challenge-alias domain-lain.com \
+        -d '*.domain.id' --challenge-alias domain-lain-2.com \
+        -d domain.com --challenge-alias domain-lain.com \
+        -d domain.id --challenge-alias domain-lain-2.com \
+        --dns dns_cf
 ```
 
 Atau, di bawah ini jika Anda menggunakan Penyedia DNS yang berbeda-beda:
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' --challenge-alias domain-lain.com --dns dns_cf \
-    -d '*.domain.id' --challenge-alias domain-lain-2.com --dns dns_netlify \
-    -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
-    -d domain.id --challenge-alias domain-lain-2.com --dns dns_netlify
+        -d '*.domain.com' --challenge-alias domain-lain.com --dns dns_cf \
+        -d '*.domain.id' --challenge-alias domain-lain-2.com --dns dns_netlify \
+        -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
+        -d domain.id --challenge-alias domain-lain-2.com --dns dns_netlify
 ```
 
 Kira-kira begitu.
@@ -1154,17 +1156,17 @@ Lalu, terbitkan sertifikatnya dengan mempelajari perintah berikut:
 
 ```shell
 acme.sh --issue \
-    -d domain.com --challenge-alias domain-lain.com \
-    -d domain.id --challenge-alias no \
-    --dns dns_cf
+        -d domain.com --challenge-alias domain-lain.com \
+        -d domain.id --challenge-alias no \
+        --dns dns_cf
 ```
 
 Contoh di atas diasumsikan bahwa Anda memakai Cloudflare sebagai Penyedia DNS. Jika Anda memakai penyedia DNS yang berbeda, maka Anda bisa mempelajari perintah berikut:
 
 ```shell
 acme.sh --issue \
-    -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
-    -d domain.id --challenge-alias no --dns dns_netlify
+        -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
+        -d domain.id --challenge-alias no --dns dns_netlify
 ```
 
 Contoh di atas diasumsikan bahwa `domain-lain.com` menggunakan Cloudflare sebagai Penyedia DNS, sedangkan `domain.id` menggunakan Netlify sebagai Penyedia DNS-nya.
@@ -1173,21 +1175,21 @@ Contoh di atas diasumsikan bahwa `domain-lain.com` menggunakan Cloudflare sebaga
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' --challenge-alias domain-lain.com \
-    -d '*.domain.id' --challenge-alias no \
-    -d domain.com --challenge-alias domain-lain.com \
-    -d domain.id --challenge-alias no \
-    --dns dns_cf
+        -d '*.domain.com' --challenge-alias domain-lain.com \
+        -d '*.domain.id' --challenge-alias no \
+        -d domain.com --challenge-alias domain-lain.com \
+        -d domain.id --challenge-alias no \
+        --dns dns_cf
 ```
 
 Atau, berikut di bawah ini jika Anda ingin memakai penyedia DNS yang berbeda-beda:
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' --challenge-alias domain-lain.com --dns dns_cf \
-    -d '*.domain.id' --challenge-alias no --dns dns_netlify \
-    -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
-    -d domain.id --challenge-alias no --dns dns_netlfy
+        -d '*.domain.com' --challenge-alias domain-lain.com --dns dns_cf \
+        -d '*.domain.id' --challenge-alias no --dns dns_netlify \
+        -d domain.com --challenge-alias domain-lain.com --dns dns_cf \
+        -d domain.id --challenge-alias no --dns dns_netlfy
 ```
 
 Contoh di atas diasumsikan bahwa `domain-lain.com` menggunakan Cloudflare sebagai Penyedia DNS, sedangkan `domain.id` menggunakan Netlify sebagai Penyedia DNS-nya.
@@ -1207,7 +1209,9 @@ _acme-challenge.domain.com
 Lalu, perintah untuk menerbitkan sertifikatnya akan seperti berikut:
 
 ```shell
-acme.sh --issue -d domain.com --challenge-alias domain-lain.com --dns dns_cf
+acme.sh --issue \
+        -d domain.com \
+        --challenge-alias domain-lain.com --dns dns_cf
 ```
 
 Hal di atas berlaku jika Anda menerbitkannya dengan parameter `--challenge-alias`. Namun, ketika Anda menggunakan `--domain-alias`, maka rekaman CNAME yang perlu ditambahkan contohnya sebagai berikut:
@@ -1255,20 +1259,20 @@ Lalu, perintah untuk menerbitkan sertifikatnya akan seperti berikut:
 
 ```shell
 acme.sh --issue \
-    -d domain.com --domain-alias alias1.domain-lain.com \
-    -d domain.id --domain-alias alias2.domain-lain.com \
-    --dns dns_cf
+        -d domain.com --domain-alias alias1.domain-lain.com \
+        -d domain.id --domain-alias alias2.domain-lain.com \
+        --dns dns_cf
 ```
 
 Atau berikut di bawah ini jika Anda ingin menerbitkannya dalam bentuk _Wildcard_:
 
 ```shell
 acme.sh --issue \
-    -d '*.domain.com' --domain-alias alias1.domain-lain.com \
-    -d '*.domain.id' --domain-alias alias2.domain-lain.com \
-    -d domain.com --domain-alias alias1.domain-lain.com \
-    -d domain.id --domain-alias alias2.domain-lain.com \
-    --dns dns_cf
+        -d '*.domain.com' --domain-alias alias1.domain-lain.com \
+        -d '*.domain.id' --domain-alias alias2.domain-lain.com \
+        -d domain.com --domain-alias alias1.domain-lain.com \
+        -d domain.id --domain-alias alias2.domain-lain.com \
+        --dns dns_cf
 ```
 
 Kira-kira begitu.
@@ -1563,7 +1567,7 @@ set NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 
 Silakan ubah direktori dan nama berkas di atas sesuai dengan letak berkas sertifikat yang telah tersimpan di dalam perangkat Anda dan ubah teks `ACCESS_TOKEN_KAMU_DI_SINI` menjadi _Personal access token_ yang telah Anda buat dan simpan sebelumnya.
 
-Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `PLAIN_CERT` jadi `PLAIN_CERT_1`, atau `CERT`, atau lainnya, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `PLAIN_CERT` diubah menjadi `PLAIN_CERT_1`, atau `CERT`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1661,7 +1665,7 @@ set BUNNY_ACCESS_KEY "ACCESS_KEY_KAMU_DI_SINI"
 
 Silakan ubah direktori dan nama berkas di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda dan ubah teks `ACCESS_KEY_KAMU_DI_SINI` menjadi _Access Key_ yang telah Anda simpan sebelumnya.
 
-Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `BASE64_FULLCHAIN_CER` jadi `FULLCHAIN_CER`, atau `FULLCHAIN`, atau lainnya, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `BASE64_FULLCHAIN_CER` diubah menjadi `FULLCHAIN_CER`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1739,7 +1743,7 @@ Silakan ubah direktori dan nama berkas di atas sesuai dengan Sertifikat SSL/TLS 
 
 Ubah teks `NAMA_HOS_UNTUK_CPANEL_KAMU_DI_SINI` menjadi Nama Hos atau Alamat IP yang biasa Anda gunakan untuk login ke cPanel, `USERNAME_CPANEL_KAMU_DI_SINI` menjadi _Username_ (bahasa Indonesia: **Nama Pengguna**) cPanel kamu dan ubah teks `API_TOKEN_KAMU_DI_SINI` menjadi _API Token_ yang telah Anda simpan sebelumnya.
 
-Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `CPANEL_PLAIN_CA` jadi `PLAIN_CA`, atau `CA`, atau lainnya, asal bisa Anda kembali gunakan variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `CPANEL_PLAIN_CA` diubah menjadi `PLAIN_CA`, atau `CA`, atau apa saja, asal bisa Anda kembali gunakan variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1857,11 +1861,9 @@ set DIRECTADMIN_USERNAME "USERNAME_DIRECTADMIN_KAMU_DI_SINI"
 set DIRECTADMIN_LOGIN_KEY "LOGIN_KEY_KAMU_DI_SINI"
 ```
 
-Silakan ubah direktori dan nama berkas di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda. 
+Silakan ubah direktori, nama berkas dan nilai variabel di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda dan kredensial DirectAdmin Anda.
 
-Ubah teks `NAMA_HOS_UNTUK_DIRECTADMIN_KAMU_DI_SINI` menjadi Nama Hos atau Alamat IP yang biasa Anda gunakan untuk login ke DirectAdmin, `USERNAME_DIRECTADMIN_KAMU_DI_SINI` menjadi _Username_ DirectAdmin kamu dan ubah teks `LOGIN_KEY_KAMU_DI_SINI` menjadi **"Login Key"** yang telah Anda simpan sebelumnya.
-
-Selain direktori dan nama berkasnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya: `DIRECTADMIN_PLAIN_FULLCHAIN` jadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau lainnya, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabelnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `DIRECTADMIN_PLAIN_FULLCHAIN` diubah menjadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -2184,7 +2186,7 @@ echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ss
 
 Skrip di atas menggunakan `/usr/bin/env sh` sebagai _shebang_. Jika Anda adalah pengguna Termux dan kalau mau, Anda bisa menggantinya menjadi `/data/data/com.termux/files/usr/bin/env sh`, meskipun Termux sendiri mentoleransi penggunaan `/usr/bin/env sh` sebagai _shebang_.
 
-Silakan Anda pelajari skrip di atas dan kembangkan sendiri skripnya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
+Silakan pelajari skrip di atas dan kembangkan sendiri skripnya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
 
 Namun, saya sarankan agar Anda menyimpannya di dalam folder `$HOME` dan saya asumsikan bahwa Anda menamainya dengan `renew-ssl.sh` agar mempermudah saya dalam membahasnya, karena pastinya Anda menamainya dengan nama yang berbeda.
 
@@ -2207,7 +2209,7 @@ Saat mengedit, Anda akan menemukan sebuah Cron dengan teks yang mirip seperti be
 6 0 * * * "/home/username/.acme.sh"/acme.sh --cron --home "/home/username/.acme.sh" > /dev/null
 ```
 
-`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silakan Anda ganti parameter tersebut sesuka Anda, selama masih mengikuti aturan dari Cron.
+`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silakan ganti parameter tersebut sesuka Anda, selama masih mengikuti aturan dari Cron.
 
 Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setiap jam ke-2 dari pukul 0 hingga 23, atau setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst), maka Anda bisa menggantinya menjadi `0 */2 * * *`.
 
@@ -2215,12 +2217,10 @@ Atau, Anda bisa manfaatkan Situs Web [Crontab.guru](https://crontab.guru/) untuk
 
 `"/home/username/.acme.sh"/acme.sh` adalah perintahnya dan seterusnya adalah parameter/argumen dari perintah tersebut. Perintah pada _Crontab_ untuk acme.sh mungkin akan berbeda-beda, karena perbedaan Nama Pengguna, dll. 
 
-Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell) untuk membuat skripnya, ganti itu dengan perintah untuk mengeksekusi berkas `renew-ssl.sh`, contohnya seperti ini: `/usr/bin/env sh /lokasi/ke/berkas/renew-ssl.sh`, tetapi jika tidak ya sebaiknya tidak usah diganti.
-
-Jika Anda menyimpan skrip tersebut di dalam folder `$HOME`, maka Anda dapat menambahkan variabelnya di sana, contoh:
+Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell) untuk membuat skripnya, ganti itu dengan perintah untuk mengeksekusi berkas `renew-ssl.sh`, contohnya seperti di bawah ini:
 
 ```shell
-/usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh
+/usr/bin/env sh /lokasi/ke/berkas/renew-ssl.sh
 ```
 
 Untuk `> /dev/null`-nya biarkan saja, fungsinya itu hanya membuang keluaran, karena ini dijalankan melalui _Cron Job_, maka keluaran tidak diperlukan untuk itu, tetapi Anda bisa mengganti atau menghapusnya jika merasa tidak yakin.
@@ -2515,7 +2515,7 @@ Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tool` saja di 
 
 Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
 
-Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan Anda komentar di dalam kolom komentar yang telah disediakan.
+Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan berkomentar di dalam kolom komentar yang telah disediakan.
 
 ### Pertanyaan ke-14: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang Sertifikat SSL/TLS dengan mengikuti artikel ini, tetapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
 Jika Anda mempunyai Ponsel Pintar dengan menggunakan Sistem Operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui Ponsel saja dan Komputer PC/Laptopnya Anda gunakan untuk meremot Ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
@@ -2535,7 +2535,7 @@ Namun, jika sesi distribusi WSL tersebut diterminasi (cth. Diterminasi dengan pe
 
 Anda bisa eksekusi perintah berikut saat _Start-up_ agar layanan Cron bisa diaktifkan tanpa harus mengakses Terminal WSL:
 
-```cmd
+```powershell
 C:\Windows\System32\wsl.exe -d <Nama-Distribusi> -u root /usr/bin/env sh -c service cron start
 ```
 
@@ -2737,9 +2737,9 @@ cp "$HOME"/.acme.sh/account.conf "$HOME"/.acme.sh/account.conf.1 ## Backup dulu
 sed -i '/USER\_PATH\=/d' "$HOME"/.acme.sh/account.conf
 printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 ```
-8. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silakan Anda baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
+8. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silakan baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
-   Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis di atur setelah Anda menginstal perkakas acme.sh-nya. 
+   Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis diatur setelah Anda menginstal perkakas acme.sh-nya. 
 
    Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam perangkat baru Anda untuk memasang _Cron Job-nya_.
 
@@ -2776,16 +2776,16 @@ Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah.
 
 Sekarang ini sudah sangat banyak atau bahkan mayoritas Perangkat Lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui sertifikat tersebut secara otomatis berkat dukungan protokol ACME-nya.
 
-Untuk kasus pembaruan Sertifikat SSL/TLS dari ZeroSSL (yang telah saya bahas di artikel ini), itu juga diperbarui secara otomatis melalui perkakas acme.sh yang telah dijalankan di dalam latar belakang pada ponsel/perangkat Anda.
+Untuk kasus pembaruan Sertifikat SSL/TLS dari ZeroSSL (yang telah saya bahas di artikel ini), itu juga diperbarui secara otomatis melalui perkakas acme.sh yang telah dijalankan di dalam latar belakang pada ponsel atau perangkat Anda.
 
-Jadi, Anda hanya perlu duduk diam dan menunggu bahwa Sertifikat SSL/TLS berhasil diperbarui, tidak perlu melakukan apa pun, Anda hanya perlu pastikan bahwa koneksi Internet selalu ada pada ponsel/perangkat Anda.
+Jadi, Anda hanya perlu duduk diam dan menunggu bahwa Sertifikat SSL/TLS berhasil diperbarui, tidak perlu melakukan apa pun, Anda hanya perlu pastikan bahwa koneksi Internet selalu ada pada ponsel atau perangkat Anda.
 
 Ada beberapa manfaat yang bisa Anda dapatkan untuk masa berlaku yang pendek ini, seperti:
-1. Sertifikat yang kamu gunakan akan selalu mendapatkan algoritma tandatangan dan kunci yang tidak tertinggal, serta dapat cepat "beradaptasi" jika suatu saat para _root program_ (seperti Google, Microsoft, Apple, Mozilla dan Cisco) memutuskan untuk memblokir/"tidak lagi mempercayai" sertifikat yang ditandatangani dengan algoritma atau/dan menggunakan kunci yang telah usang, karena alasan keamanan.
+1. Sertifikat yang kamu gunakan akan selalu mendapatkan algoritma tandatangan dan kunci yang tidak tertinggal, serta dapat cepat "beradaptasi" jika suatu saat para _root program_ (seperti Google, Microsoft, Apple, Mozilla dan Cisco) memutuskan untuk memblokir atau "tidak lagi mempercayai" sertifikat yang ditandatangani dengan algoritma atau/dan menggunakan kunci yang telah usang, karena alasan keamanan.
 
     Kalau kamu tidak paham apa yang saya maksud, coba kamu bayangkan kalau di tahun 2008 yang lalu kamu menyewa sebuah [Sertifikat SSL/TLS dengan masa berlaku 10 tahun](https://search.censys.io/certificates/09d49c5857d484ca1ba26a700cb7d731967d043040f4736c6958fb41f5e5ef29) (yang artinya berlaku sampai tahun 2018), yang mana saat itu Sertifikat SSL/TLS masih ditandatangani dengan algoritma SHA1 dan menggunakan kunci RSA 1024-bit. 
 
-    Namun 3-5 tahun kemudian, perusahaan/organisasi perangkat lunak besar tersebut malah memutuskan untuk tidak lagi mempercayai/memblokir sertifikat yang ditandatangani dengan algoritma yang telah usang seperti SHA1 dan menggunakan kunci yang telah usang seperti RSA dengan ukuran 1024-bit.
+    Namun 3-5 tahun kemudian, _root program_ tersebut malah memutuskan untuk tidak lagi mempercayai atau memblokir sertifikat yang ditandatangani dengan algoritma yang telah usang seperti SHA1 dan menggunakan kunci yang telah usang seperti RSA dengan ukuran 1024-bit.
 
     Nah, kira-kira seperti itulah maksudnya, paham kan?
 
@@ -2806,11 +2806,11 @@ Tentu saja hal ini bukan berarti tanpa kekurangan, mengotomatiskan pembaruan Ser
 
 Jika Anda adalah pengguna Netlify, Bunny CDN, cPanel atau/dan DirectAdmin, mungkin Anda dapat menyelesaikannya dengan mengikuti artikel ini, tetapi ini akan menantang jika Anda tidak menggunakan salah satu dari keempat itu atau apalagi jika Anda menggunakan perangkat yang berumur tua atau jadul, maka mengimplementasikan ini akan sangat sulit atau bahkan menjadi tidak mungkin.
 
-Itu pun belum sama kendala kebijakan organisasi/perusahaan, atau kendala yang nantinya dialami jika Anda berada di dalam DMZ (Singkatan dari: **_demilitarized zone_**, bahasa Indonesia: **Zona demiliterisasi**), sehingga mungkin tidak disarankan untuk menggunakan Sertifikat SSL/TLS dengan masa berlaku yang pendek.
+Itu pun belum sama kendala kebijakan organisasi, perusahaan, atau kendala yang nantinya dialami jika Anda berada di dalam DMZ (Singkatan dari: **_demilitarized zone_**, bahasa Indonesia: **Zona demiliterisasi**), sehingga mungkin tidak disarankan untuk menggunakan Sertifikat SSL/TLS dengan masa berlaku yang pendek.
 
 Kalau Anda ingin masa aktif yang lebih dari itu, mungkin bisa Anda coba Sertifikat SSL/TLS dari Buypass, yakni "[**Buypass Go SSL**](https://www.buypass.com/products/tls-ssl-certificates/go-ssl)" yang memiliki masa aktif maksimal 180 hari atau sekitar 6 bulan saja.
 
-Namun sayangnya Anda tidak bisa menerbitkannya dalam bentuk _Wildcard_, tetapi mungkin Anda bisa menerbitkannya dalam bentuk multi-domain atau/dan multi-subdomain, meski terbatas hanya bisa 5 SAN saja.
+Namun sayangnya, Anda tidak bisa menerbitkannya dalam bentuk _Wildcard_, tetapi mungkin Anda bisa menerbitkannya dalam bentuk multi-domain atau/dan multi-subdomain, meski terbatas hanya bisa 5 SAN saja.
 
 ### Pertanyaan ke-25: Apakah Sertifikat SSL/TLS dari ZeroSSL (baik gratisan atau berbayarnya) itu boleh dipasang pada Situs Web untuk keperluan komersial (seperti Perdagangan Elektronik, dll)? {#pertanyaan-ke25}
 Saya kurang tahu secara pastinya apakah Sertifikat SSL/TLS tersebut boleh tidak digunakan oleh Situs Web yang punya keperluan komersial, seperti Perdagangan elektronik (bahasa Inggris: **_e-commerce_**).
@@ -2840,7 +2840,7 @@ Jadi, selama ZeroSSL lebih baik daripada Let's Encrypt pada beberapa aspek, kena
 #### Membantu Let's Encrypt
 Alasan ini mungkin terlihat aneh, tetapi saya jelaskan kenapa menggunakan alasan ini.
 
-Let's Encrypt itu merupakan organisasi nirlaba yang super sibuk, CA tersebut terkenal di mana-mana dan hampir semua penyedia Hosting/CDN menyediakan fitur pemasangan Sertifikat SSL/TLS tersebut dari Panelnya, salah satunya adalah Netlify, Vercel, OnRender, GitHub Pages, GitLab Pages, Bunny CDN, Akamai, Cloudflare, bahkan di layanan _Shared Hosting_ biasa pun mayoritasnya ada fitur tersebut.
+Let's Encrypt itu merupakan organisasi nirlaba yang super sibuk, CA tersebut terkenal di mana-mana dan hampir semua penyedia Hosting/CDN menyediakan fitur pemasangan Sertifikat SSL/TLS tersebut dari Panelnya, salah satunya adalah Netlify, Vercel, Render, GitHub Pages, GitLab Pages, Bunny CDN, Akamai, Cloudflare, bahkan di layanan _Shared Hosting_ biasa pun mayoritasnya ada fitur tersebut.
 
 Karena saya tidak bisa berdonasi dalam bentuk uang, sponsor atau dalam bentuk apa pun itu, maka saya tidak lagi mengekslusifkan Let's Encrypt untuk seluruh domain dan subdomain saya sebagai CA demi menghemat pengeluaran mereka serta memaksimalkan anggarannya.
 

@@ -1,6 +1,6 @@
 github.com/CaiJimmy/hugo-theme-stack/v3 v3.16.0 h1:ZWF66g7aXA840CzsT4lv65wHSojqwY0Yj7KdvOkn5NA=
 github.com/CaiJimmy/hugo-theme-stack/v3 v3.16.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
-github.com/FarrelF/stack-modified v0.0.0-20221212075904-7df8ca207e83 h1:DZ2R7qy5CssfHRUILoBbS4usFIXzAnQsnNd5nesnz20=
-github.com/FarrelF/stack-modified v0.0.0-20221212075904-7df8ca207e83/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
+github.com/FarrelF/stack-modified v0.0.0-20221216033946-986baa741b2c h1:6df3eNnW+AaE6RhN4/Lat8/4iHktg/zGetGllbpMels=
+github.com/FarrelF/stack-modified v0.0.0-20221216033946-986baa741b2c/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
 github.com/twitter/twemoji v14.0.2+incompatible h1:VeWJj1W5zCuRtv+mx+tHqWuIAb1SynMj/hvemifv1uw=
 github.com/twitter/twemoji v14.0.2+incompatible/go.mod h1:06L6PdKuWDx/Yh6s4B7yGkAeBmWZzbFZgfNnWlJPPYM=

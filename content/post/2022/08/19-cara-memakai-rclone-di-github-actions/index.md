@@ -111,8 +111,12 @@ Namun secara garis besar, itulah cara memakai Rclone di GitHub Actions, tetapi a
 - `${{ secrets.RCLONE_CONFIG }}`: Ini adalah sebuah variabel "Secrets" yang bernama `RCLONE_CONFIG` dan berisikan konfigurasi Rclone itu sendiri. Karena isinya tersimpan di dalam "Secrets", maka tidak mungkin variabel tersebut dideklarasikan ke dalam berkas konfigurasi, nanti akan saya bahas cara pembuatannya.
 
     Biasanya, berkas konfigurasi Rclone berlokasi di:
-    - Untuk Windows: `%USERPROFILE%\.config\rclone\rclone.conf`
-    - Untuk \*nix: `$HOME/.config/rclone/rclone.conf` atau `~/.config/rclone/rclone.conf`
+    - Untuk Windows: 
+      - `%APPDATA%\rclone\rclone.conf`
+      - `%USERPROFILE%\.config\rclone\rclone.conf`
+    - Untuk \*nix
+      - `$XDG_CONFIG_HOME/rclone/rclone.conf`
+      - `~/.config/rclone/rclone.conf`
     - Atau, di dalam direktori program itu sendiri
 
     Untuk lebih lanjut, silakan kunjungi [halaman dokumentasinya](https://rclone.org/docs/#config-config-file).

@@ -104,7 +104,7 @@ Unduh kunci:
 ### Kunci Publik SSH
 Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apa pun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
 
-Anda dapat mengunduh/melihat kunci-kunci publik tersebut melalui GitHub saya: [https://github.com/FarrelF.keys](https://github.com/FarrelF.keys)
+Anda dapat mengunduh ataupun melihat kunci-kunci publik tersebut melalui [Akun GitHub saya](https://github.com/FarrelF.keys).
 
 Atau, selain melalui GitHub, Anda juga dapat mengunduhnya secara manual melalui tautan di bawah ini dengan jenis kunci yang berbeda-beda:
 
@@ -126,7 +126,7 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
     - Kode Bank: 451
     - Kode Swift: BSMDIDJA
   - Bank Digital BCA/BCA Digital/blu:**\***
-    - No. Rekening/bluAccount: `001566549842`
+    - No. Rekening: `001566549842`
     - Kode Bank: 501
 - Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
 - Kamu bisa [memberikan tip ke saya](https://arxist.id/farrelf/tip) melalui Arxist
