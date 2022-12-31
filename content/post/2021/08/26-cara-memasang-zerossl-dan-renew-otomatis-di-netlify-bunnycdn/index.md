@@ -151,7 +151,7 @@ Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda suda
 Terima kasih dan selamat melanjutkan 😊
 
 ### Persiapan {#persiapan}
-Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL/TLS dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis berbasis Unix/Mirip Unix (\*nix), termasuk GNU/Linux, macOS, BSD dan Android.
+Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL/TLS dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis Unix/Mirip Unix (\*nix), termasuk GNU/Linux, macOS, BSD dan Android.
 
 Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari Sistem Operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, dan bisa mengedit berkas di dalam Terminal.
 
@@ -965,7 +965,7 @@ Selain domain utama, kamu mempunyai domain satunya lagi, yakni `domain-lain.com`
 Pertama-tama, Anda perlu membuat rekaman DNS berjenis CNAME terlebih dahulu yang diarahkan ke domain alias (cth. `domain-lain.com`).
 
 {{< info title="**Tips:**" >}}
-Jika Anda ingin menggunakan Mode Alias DNS, tetapi belum mempunyai domainnya, Anda bisa membeli/menyewa domain dengan ekstensi `.my.id` yang biayanya mulai dari Rp10.000,00 sampai Rp25.000,00 per tahunnya<sup>**\***</sup>.
+Jika Anda ingin menggunakan Mode Alias DNS, tetapi belum mempunyai domainnya, Anda bisa membeli atau menyewa domain dengan ekstensi `.my.id` yang biayanya mulai dari Rp10.000,00 sampai Rp25.000,00 per tahunnya<sup>**\***</sup>.
 
 Anda bisa menyewa domainnya di [Rumahweb](https://www.rumahweb.com/domain-murah/) atau [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) dengan harga Rp13.320,00/tahun<sup>**\*\***</sup>, atau di [Biznet Gio](https://www.biznetgio.com/product/domain) dengan harga Rp11.100,00/tahun<sup>**\*\***</sup>
 
@@ -1485,12 +1485,12 @@ drwx------ 10 user user 4096 Jul  8 08:50 ..
 -rw-r--r--  1 user user 6871 Jul  8 08:46 fullchain.cer
 ```
 
-Jika Penyedia Hosting/CDN nanti meminta kita untuk memasukkan 3 Informasi untuk mengaktifkan/memasang Sertifikat SSL/TLS-nya, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah: 
+Jika Penyedia Hosting/CDN nanti memerlukan 3 informasi agar dapat memasangkan Sertifikat SSL/TLS-nya, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah: 
 - `domain.com.cer` (Sebagai sertifikatnya)
 - `domain.com.key` (Sebagai Kuncinya)
 - `ca.cer` (Sebagai sertifikat CA/Sertifikat Penengah/"Intermediate Certificate"-nya)
 
-Atau, jika mereka cuma meminta 2 Informasi saja, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah:
+Atau, jika mereka cuma memerlukan 2 informasi saja, maka berkas yang perlu Anda gunakan/kirimkan/masukkan adalah:
 - `fullchain.cer` (Sebagai sertifikatnya)
 - `domain.com.key` (Sebagai Kuncinya)
 
@@ -1500,26 +1500,24 @@ Udah itu saja? Udah, hanya itu yang perlu kamu unggah nantinya. Berkas `.csr`, `
 
 Praktik terbaik dalam memasang Sertifikat SSL/TLS, selain sertifikat untuk domain, adalah Anda diharuskan untuk memasang/memberikan Informasi mengenai Kunci dan sertifikat Penengah (_Intermediate Certificate_) dari CA kepada penyedianya.
 
-Jika Anda hanya menggunakan berkas `domain.com.cer` daripada `fullchain.cer` sebagai Informasi sertifikat saat Penyedia hanya meminta 2 Informasi saja, maka rantai pada Sertifikat SSL/TLS yang terpasang malah tidak sempurna, karena tidak ada sertifikat Penengah dari CA-nya.
+Jika Anda hanya menggunakan berkas `domain.com.cer` daripada `fullchain.cer` sebagai Informasi sertifikat saat penyedia hanya perlu 2 informasi saja, maka rantai pada Sertifikat SSL/TLS yang terpasang malah tidak sempurna, karena tidak ada Sertifikat Penengah dari CA-nya.
 
-Selain berkas CSR dan Sertifikat, berkas `domain.com.conf` juga berguna sebagai konfigurasi acme.sh untuk domain tertentu (cth. `domain.com`), Anda bisa atur Perintah yang akan dieksekusi sebelum atau setelah sertifikat sukses diperbarui melalui berkas tersebut, akan saya bahas ini di setelah bagian pemasangan Sertifikat SSL/TLS.
+Selain berkas CSR dan Sertifikat, berkas `domain.com.conf` juga berguna sebagai konfigurasi acme.sh untuk domain tertentu (cth. `domain.com`), Anda bisa atur perintah yang akan dieksekusi sebelum atau setelah sertifikat sukses diperbarui melalui berkas tersebut, akan saya bahas ini di setelah bagian Pemasangan Sertifikat SSL/TLS.
 
 ## Memasang Sertifikat SSL/TLS {#memasang-ssl}
-Setelah menerbitkan Sertifikat SSL/TLS, Anda perlu memasangkannya supaya sertifikat yang telah Anda terbitkan bisa diaktifkan. Setiap penyedia Web mempunyai cara memasang yang berbeda-beda, kali ini saya bahas cara memasang Sertifikat SSL/TLS untuk Netlify dan Bunny CDN (+ cPanel).
+Setelah menerbitkan Sertifikat SSL/TLS, Anda perlu memasangkannya supaya sertifikat yang telah Anda terbitkan bisa diaktifkan. Setiap penyedia Web mempunyai cara memasang yang berbeda-beda, kali ini saya bahas cara memasang Sertifikat SSL/TLS untuk Netlify, Bunny CDN, cPanel dan DirectAdmin.
 
-Memasang Sertifikat SSL/TLS yang saya bahas di sini tidaklah menggunakan metode unggah manual melalui Web, melainkan kamu 'Nembak' ke API-nya.
-
-Maksudnya Anda akan memanggil Server API masing-masing penyedianya untuk melakukan _Request_ melalui cURL agar sertifikatnya bisa terpasang.
+Memasang Sertifikat SSL/TLS yang saya bahas di sini tidaklah menggunakan metode unggah manual melalui Web, melainkan kamu 'Nembak' ke API-nya atau melakukan pemanggilan ke Server API-nya melalui curl.
 
 Berikut adalah cara-caranya:
 
 ### Di Netlify {#pasang-ssl-di-netlify}
 #### Membuat "Personal Access Token" dan Mendapatkan "Site ID" {#membuat-personal-access-token-dan-site-id}
-Agar Anda bisa mengakses Server API-nya, maka Anda perlu untuk membuat kunci aksesnya, salah satunya adalah dengan membuat **"Personal Access Token"**-nya.
+Agar Anda bisa memanggil Server API-nya, maka Anda perlu membuat kunci aksesnya, salah satunya adalah dengan membuat **"Personal Access Token"**-nya.
 
 Untuk membuat **"Personal Access Token"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika Anda belum sempat membuatnya, silakan [klik di sini](#netlify-personal-access-token) untuk caranya.
 
-Setelah **"Personal Access Token"** dibuat, maka Anda perlu mendapatkan **"Site ID"**-nya. Untuk mendapatkannya, Anda bisa pergi ke **"Site settings"**, lalu klik pada **"General"** -> Terakhir, klik **"Site details"**, di situ akan muncul informasi-informasi mengenai Web Anda, seperti cuplikan berikut:
+Setelah **"Personal Access Token"** dibuat, maka Anda perlu mendapatkan **"Site ID"**-nya juga. Untuk mendapatkannya, Anda bisa pergi ke **"Site settings"**, lalu klik pada **"General"** -> Terakhir, klik **"Site details"**, di situ akan muncul informasi-informasi mengenai Web Anda, seperti cuplikan berikut:
 
 !["Site ID" di Netlify](Netlify_Site_ID.webp)
 
@@ -1614,13 +1612,13 @@ Atau, penampilannya akan seperti di bawah ini jika dipercantik:
 }
 ```
 
-Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pesan Galat (_Error_) yang pesannya berbeda-beda tergantung penyebabnya.
+Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pesan Galat (_Error_) yang isi pesannya berbeda-beda tergantung penyebabnya.
 
-Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL/TLS Anda di Netlify melalui Akses API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
+Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL/TLS di Netlify melalui pemanggilan Server API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
 
 ### Di Bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
 #### Mendapatkan "Access Key" dan "Pull Zone ID"-nya
-Sebelum Anda bisa memasang Sertifikat SSL/TLS melalui Akses API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
+Sebelum Anda bisa memasang Sertifikat SSL/TLS dengan melakukan pemanggilan Server API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
 
 Untuk mendapatkan **"Access Key"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika belum sempat mendapatkannya, silakan [klik di sini](#bunny-access-key) untuk caranya.
 
@@ -1637,7 +1635,7 @@ Karena selain **"Access Key"** dan **"Pull Zone ID"**, mempunyai **"Custom Hostn
 Setelah mendapatkan semuanya, selanjutnya adalah memasang Sertifikat SSL/TLS melalui Akses API-nya.
 
 #### Memasang Sertifikat SSL/TLS melalui API dari Bunny\.net
-Sekarang Anda tinggal memasang sertifikatnya saja melalui API dari Bunny\.net.
+Sekarang Anda tinggal memasang sertifikatnya saja dengan melakukan pemanggilan Server API dari Bunny\.net.
 
 Pertama-tama, Anda perlu menavigasikan Terminal/_Shell_ Anda ke dalam folder tempat berkas sertifikat itu disimpan dengan perintah `cd` terlebih dahulu. Contoh:
 
@@ -1694,7 +1692,7 @@ Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL/TLS 
 #### Membuat API Token dan Persiapannya
 Jika Anda merupakan pengguna cPanel sebagai Kontrol Panelnya, baik itu di dalam Server Anda ataupun pada layanan _Shared Hosting_ yang Anda gunakan, maka Anda bisa melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
 
-Tidak ada syarat khusus dalam Hosting untuk memasangkan Sertifikat SSL/TLS melalui API ini, jadi Anda bisa memasangnya dengan memakai paket Hosting termurah sekali pun, selama Hosting mendukung pemasangan Sertifikat SSL/TLS Kustom.
+Tidak ada syarat khusus dalam _hosting_ untuk memasangkan Sertifikat SSL/TLS melalui Akses API ini, jadi Anda bisa memasangnya dengan memakai paket _hosting_ termurah sekali pun, selama layanan _hosting_ mendukung pemasangan Sertifikat SSL/TLS Kustom.
 
 Namun sebelum itu, Anda diharuskan untuk membuat **"API Token"**-nya terlebih dahulu di cPanel-nya, yang tentu saja Anda perlu Akun cPanel-nya untuk ini.
 
@@ -1723,9 +1721,9 @@ Anda dapat menyimpannya dengan perintah berikut:
 CPANEL_PLAIN_CERT=$(jq -sRr @uri < domain.com.cer)
 CPANEL_PLAIN_KEY=$(jq -sRr @uri < domain.com.key)
 CPANEL_PLAIN_CA=$(jq -sRr @uri < ca.cer)
-CPANEL_HOSTNAME="NAMA_HOS_UNTUK_CPANEL_KAMU_DI_SINI"
-CPANEL_USERNAME="USERNAME_CPANEL_KAMU_DI_SINI"
-CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI"
+CPANEL_URL "https://cpanel.domain.com:2083" # Alamat URL untuk mengakses cPanel, disarankan tidak menambah garis miring di akhir Alamat URL
+CPANEL_USERNAME="USERNAME_CPANEL_KAMU_DI_SINI" # Username cPanel kamu
+CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI" # API Token cPanel kamu
 ```
 
 Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
@@ -1734,16 +1732,18 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set CPANEL_PLAIN_CERT (jq -sRr @uri < domain.com.cer)
 set CPANEL_PLAIN_KEY (jq -sRr @uri < domain.com.key)
 set CPANEL_PLAIN_CA (jq -sRr @uri < ca.cer)
-set CPANEL_HOSTNAME "NAMA_HOS_UNTUK_CPANEL_KAMU_DI_SINI"
-set CPANEL_USERNAME "USERNAME_CPANEL_KAMU_DI_SINI"
-set CPANEL_API_TOKEN "API_TOKEN_KAMU_DI_SINI"
+set CPANEL_URL "https://cpanel.domain.com:2083" # Alamat URL untuk mengakses cPanel, disarankan tidak menambah garis miring di akhir Alamat URL
+set CPANEL_USERNAME "USERNAME_CPANEL_KAMU_DI_SINI" # Username cPanel kamu
+set CPANEL_API_TOKEN "API_TOKEN_KAMU_DI_SINI" # API Token cPanel kamu
 ```
 
-Silakan ubah direktori dan nama berkas di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda. 
-
-Ubah teks `NAMA_HOS_UNTUK_CPANEL_KAMU_DI_SINI` menjadi Nama Hos atau Alamat IP yang biasa Anda gunakan untuk login ke cPanel, `USERNAME_CPANEL_KAMU_DI_SINI` menjadi _Username_ (bahasa Indonesia: **Nama Pengguna**) cPanel kamu dan ubah teks `API_TOKEN_KAMU_DI_SINI` menjadi _API Token_ yang telah Anda simpan sebelumnya.
+Silakan ubah direktori dan nama berkas di atas sesuai dengan berkas Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda, serta ubah nilai dari ketiga variabel di atas lainnya sesuai kredensial cPanel Anda dan cara Anda mengaksesnya.
 
 Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `CPANEL_PLAIN_CA` diubah menjadi `PLAIN_CA`, atau `CA`, atau apa saja, asal bisa Anda kembali gunakan variabel tersebut.
+
+Sebelum itu, usahakan agar Alamat URL yang Anda gunakan untuk mengakses cPanel sudah mendukung HTTPS sepenuhnya, tanpa adanya pesan galat apa pun saat mengaksesnya, termasuk hanya karena sertifikatnya.
+
+Biasanya pihak _hosting_ menyediakan akses ke cPanel melalui HTTPS, caranya Anda login ke akun _Billing-nya_ -> Lalu, pilih layanan _hosting_ yang aktif -> Klik pada tautan **"Log in to cPanel"** di bagian **"Actions"** -> Setelah itu Anda akan diarahkan langsung ke cPanel yang diakses melalui HTTPS di tab baru dan lihatlah Alamat URL di dalam kolom Alamat URL pada Peramban Web Anda, Anda bisa gunakan Alamat URL tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1753,13 +1753,13 @@ curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' \
      -d 'cert='$CPANEL_PLAIN_CERT'' \
      -d 'key='$CPANEL_PLAIN_KEY'' \
      -d 'cabundle='$CPANEL_PLAIN_CA'' \
-     "https://"$CPANEL_HOSTNAME":2083/execute/SSL/install_ssl"
+     "$CPANEL_URL""/execute/SSL/install_ssl"
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell {linenos=true}
-curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' -d 'cert='$CPANEL_PLAIN_CERT'' -d 'key='$CPANEL_PLAIN_KEY'' -d 'cabundle='$CPANEL_PLAIN_CA'' "https://"$CPANEL_HOSTNAME":2083/execute/SSL/install_ssl"
+curl -sGH 'Authorization: cpanel '$CPANEL_USERNAME':'$CPANEL_API_TOKEN'' -d 'domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>' -d 'cert='$CPANEL_PLAIN_CERT'' -d 'key='$CPANEL_PLAIN_KEY'' -d 'cabundle='$CPANEL_PLAIN_CA'' "$CPANEL_URL""/execute/SSL/install_ssl"
 ```
 
 Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat Domain/Subdomain di cPanel yang ingin kamu pasangkan sertifikatnya.
