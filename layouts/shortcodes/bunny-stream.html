@@ -1,29 +1,29 @@
 {{- $divStyle := "" -}}
-{{- $Style := "" -}}
+{{- $style := "" -}}
 {{- $divClass := "" -}}
 {{- $iframeClass := "" -}}
-{{- $useClass := default true (.Get "useClass") -}}
-{{- if eq $useClass true -}}
+{{- $useClasses := default true (.Get "useClasses") -}}
+{{- if eq $useClasses true -}}
     {{- $divClass = default "bunny-stream" (.Get "divClass") -}}
     {{- $iframeClass = default "bunny-stream-iframe" (.Get "iframeClass") -}}
 {{- else -}}
     {{- $divStyle = default (print "position: relative; padding-top: 56.25%;") (.Get "divStyle") -}}
     {{- $iframeStyle = default (print "border: none; position: absolute; top: 0; height: 100%; width: 100%;") (.Get "iframeStyle") -}}
 {{- end -}}
-{{- $Allow := default `accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;` (.Get "allow") -}}
-{{- $embedURI := default (print "https://iframe.mediadelivery.net/embed") (.Get "embed-uri") -}}
-{{- $libraryID := default "926" (.Get "library-id") -}}
+{{- $allow := default `accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;` (.Get "allow") -}}
+{{- $embedURI := default (print "https://iframe.mediadelivery.net/embed") (.Get "embedURI") -}}
+{{- $libraryID := default "926" (.Get "libraryID") -}}
 {{- $videoID := .Get "id" -}}
-{{- $Autoplay := default false (.Get "autoplay") -}}
-{{- $videoURL := printf "%s/%s/%s?autoplay=%s" $embedURI $libraryID $videoID (string $Autoplay) -}}
+{{- $autoplay := default false (.Get "autoplay") -}}
+{{- $videoURL := printf "%s/%s/%s?autoplay=%s" $embedURI $libraryID $videoID (string $autoplay) -}}
 
-{{- if eq $useClass true -}}
+{{- if eq $useClasses true -}}
 <div class="{{- $divClass | safeCSS -}}">
     <iframe 
         src="{{- $videoURL | safeURL -}}" 
         {{- if eq (.Get "lazyload") true -}}loading="lazy"{{- end -}} 
         class="{{- $iframeClass | safeCSS -}}" 
-        allow="{{- $Allow -}}"
+        allow="{{- $allow -}}"
         {{- if eq (.Get "allowfullscreen") true -}}allowfullscreen="true"{{- end -}}>
     </iframe>
 </div>
@@ -32,8 +32,8 @@
     <iframe 
         src="{{- $videoURL | safeURL -}}" 
         {{- if eq (.Get "lazyload") true -}}loading="lazy"{{- end -}} 
-        style="{{- $Style | safeCSS -}}" 
-        allow="{{- $Allow -}}"
+        style="{{- $style | safeCSS -}}" 
+        allow="{{- $allow -}}"
         {{- if eq (.Get "allowfullscreen") true -}}allowfullscreen="true"{{- end -}}>
     </iframe>
 </div>
