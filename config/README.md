@@ -3,7 +3,7 @@ Folder/Direktori ini merupakan tempat penyimpanan konfigurasi untuk Hugo.
 
 Yap, Anda tidak salah baca, saya tidak menggunakan berkas `config.toml`, `config.yaml` atau `config.json` sebagai konfigurasi, melainkan melalui Folder ini.
 
-Untuk lebih lanjut mengenai folder ini, silahkan Anda baca [dokumentasinya](https://gohugo.io/getting-started/configuration/#configuration-directory) (terutama di bagian "Configuration Directory").
+Untuk lebih lanjut mengenai folder ini, silakan baca halaman [dokumentasinya](https://gohugo.io/getting-started/configuration/#configuration-directory) (terutama di bagian "Configuration Directory").
 
 ## Struktur Direktori dan Berkas
 Struktur direktori dan berkas nya sebagai berikut:
@@ -28,7 +28,7 @@ Seperti yang Anda lihat di atas, di sini ada 3 folder/direktori yang masing-masi
 
 - [`_default`](_default): Merupakan direktori yang menyimpan berkas konfigurasi baku untuk Hugo.
 
-    Karena merupakan konfigurasi baku, jadi berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan apapun, termasuk lingkungan produksi atau pengembangan.
+    Karena merupakan konfigurasi baku, jadi berkas-berkas di dalamnya akan digunakan oleh Hugo ketika menghasilkan Blog dalam lingkungan apa pun, termasuk lingkungan produksi atau pengembangan.
 
     Di dalam direktori tersebut, ada 4 berkas konfigurasi, yakni: 
     - [`_default/config.toml`](_default/config.toml): Merupakan berkas konfigurasi utama

@@ -52,7 +52,7 @@ Hugo telah menyediakan _Web Server_ lokal yang akan sangat berguna untuk pengemb
 
 Cara kerjanya adalah Hugo terlebih dahulu membuat berkas-berkas statis yang diperlukan untuk membentuk Web/Blog. Setelah itu, dia akan melayani hasilnya agar bisa langsung diakses melalui Peramban Web, meskipun secara baku dalam lingkungan lokal, tetapi ini berguna untuk pengembangan.
 
-Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Diska (_Disk_), sehingga datanya tidak bisa Anda temukan di manapun ketika Anda mencarinya. Perubahan akan secara otomatis diterapkan secara langsung selama fitur tersebut aktif.
+Data yang dihasilkan akan tersimpan ke dalam Memori (RAM) daripada Perangkat Diska (_Disk_), sehingga datanya tidak bisa Anda temukan di mana pun ketika Anda mencarinya. Perubahan akan secara otomatis diterapkan secara langsung selama fitur tersebut aktif.
 
 Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah mengakses kode sumbernya:
 
@@ -62,7 +62,7 @@ hugo server -D --gc
 
 Parameter `-D` digunakan untuk membangun artikel/laman yang didraf, silakan hapus parameter tersebut jika Anda tidak menginginkannya.
 
-Setelah berhasil, silakan buka Alamat URL `http://localhost:1313` di dalam Peramban Web kamu, dan kamu akan melihat hasilnya :slightly_smiling_face: 
+Setelah berhasil, silakan buka Alamat URL `http://localhost:1313` di dalam Peramban Web kamu dan kamu akan melihat hasilnya 🙂
 
 Untuk penggunaan lebih lanjut, silakan kunjungi laman [dokumentasinya](https://gohugo.io/commands/hugo_server/) atau ketik perintah `hugo server --help`.
 
@@ -85,6 +85,6 @@ Baca berkas [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Lisensi
 Kode Sumber ini dirilis di bawah lisensi GNU Affero General Public License v3 (GNU AGPLv3) yang bisa Anda lihat/baca di dalam berkas [LICENSE](LICENSE).
 
-Sedangkan untuk Artikel dan Laman (terutama di dalam folder [`content`](content)) secara baku saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike Internasional 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (Atau, disingkat: CC BY-SA 4.0), tetapi ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll).
+Sedangkan untuk Artikel dan Halaman (terutama di dalam folder [`content`](content)) secara baku saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike Internasional 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (Atau, disingkat: CC BY-SA 4.0), tetapi ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll).
 
-Lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai Atribusi jika saya diizinkan untuk menggunakannya.
+Lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing artikel dan halaman sebagai atribusi jika saya diizinkan untuk menggunakannya.
