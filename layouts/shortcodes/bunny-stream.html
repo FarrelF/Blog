@@ -1,5 +1,5 @@
 {{- $divStyle := "" -}}
-{{- $style := "" -}}
+{{- $iframeStyle := "" -}}
 {{- $divClass := "" -}}
 {{- $iframeClass := "" -}}
 {{- $useClasses := default true (.Get "useClasses") -}}
@@ -32,7 +32,7 @@
     <iframe 
         src="{{- $videoURL | safeURL -}}" 
         {{- if eq (.Get "lazyload") true -}}loading="lazy"{{- end -}} 
-        style="{{- $style | safeCSS -}}" 
+        style="{{- $iframeStyle | safeCSS -}}" 
         allow="{{- $allow -}}"
         {{- if eq (.Get "allowfullscreen") true -}}allowfullscreen="true"{{- end -}}>
     </iframe>
