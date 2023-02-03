@@ -73,7 +73,6 @@ enabled = true
 enabled = true
 
 [twemoji.options]
-baseURL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/"
 path = "svg"
 ext = ".svg"
 

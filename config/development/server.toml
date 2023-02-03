@@ -105,44 +105,18 @@ sync-xhr=(),
 xr-spatial-tracking=()
 """
 
-Feature-Policy = """
-gyroscope 'none';
-usb 'none';
-autoplay 'none';
-microphone https://giscus.app;
-vibrate 'none';
-magnetometer 'none';
-camera https://giscus.app;
-midi 'none';
-accelerometer 'none';
-ambient-light-sensor 'none';
-display-capture 'none';
-document-domain 'none';
-encrypted-media 'none';
-geolocation 'none';
-hid 'none';
-idle-detection 'none';
-interest-cohort 'none';
-payment 'none';
-publickey-credentials-get 'none';
-screen-wake-lock 'none';
-serial 'none';
-sync-xhr 'none';
-xr-spatial-tracking 'none'
-"""
-
 Content-Security-Policy-Report-Only = """
 default-src 'none';
-script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
+script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js https://cdn.jsdelivr.net/npm/@twemoji/ https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
 'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
-'sha256-2fUKdVx0IqBIkSSqMiTkxBG8jGbNnTPFqpi8YcdgTIc=' 'sha256-xEa7e8R4lYYm6FeZyqIp2Ai/owzXZ8Ie6pB23yqi8Fg='
-'sha256-L8jNQakIJwH4Cy910RGAyWLwBl2jKoJ5NlqN7dMZ8VQ=' 'sha256-Qlu2DKjAv62OoYD/+o1648D77aar0E5YZNpQdq6PtOE=';
+'sha256-2fUKdVx0IqBIkSSqMiTkxBG8jGbNnTPFqpi8YcdgTIc=' 'sha256-8RwKSotybrJR/vRlohUZmoKmUztEeZ3opJnv5GaaVhw='
+'sha256-Qlu2DKjAv62OoYD/+o1648D77aar0E5YZNpQdq6PtOE=';
 style-src 'self' 'unsafe-hashes' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=' 'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ='
 'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo=' 'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI='
 'sha256-2ycMMPFUOnyA34Yg3+cS/BEKpCQBZ+CBs9yaEsIzN+E=';
 font-src 'self';
-img-src 'self' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/ https://cdn.jsdelivr.net/gh/twitter/;
+img-src 'self' https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/ https://cdn.jsdelivr.net/gh/jdecked/;
 base-uri 'self';
 connect-src 'self';
 object-src 'none';
@@ -153,8 +127,7 @@ form-action 'self';
 frame-ancestors 'none';
 manifest-src 'none';
 worker-src 'none';
-prefetch-src https://cdn.jsdelivr.net/;
-sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-downloads
+prefetch-src https://cdn.jsdelivr.net/
 """
 
 # CSP for Main Pages
@@ -164,10 +137,10 @@ sandbox allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to
 #[headers.values]
 #Content-Security-Policy = """
 #default-src 'none';
-#script-src 'self' 'unsafe-inline'
+#script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/@twemoji/
 #'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
-#'sha256-2fUKdVx0IqBIkSSqMiTkxBG8jGbNnTPFqpi8YcdgTIc=' 'sha256-xEa7e8R4lYYm6FeZyqIp2Ai/owzXZ8Ie6pB23yqi8Fg='
-#'sha256-1f2J/64qgbhAZYGa37arGnks3NdW5ZME5MIAQLJnlMY=';
+#'sha256-2fUKdVx0IqBIkSSqMiTkxBG8jGbNnTPFqpi8YcdgTIc=' 'sha256-8RwKSotybrJR/vRlohUZmoKmUztEeZ3opJnv5GaaVhw='
+#'sha256-Qlu2DKjAv62OoYD/+o1648D77aar0E5YZNpQdq6PtOE=';
 #style-src 'self' 'unsafe-inline' 'unsafe-hashes' 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=';
 #font-src 'self';
 #img-src 'self';
