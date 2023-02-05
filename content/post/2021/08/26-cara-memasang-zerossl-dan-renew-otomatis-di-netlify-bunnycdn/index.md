@@ -56,7 +56,7 @@ Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL/TLS yang bisa An
 
 Bagi yang belum tahu, [ZeroSSL](https://zerossl.com) adalah salah satu CA (_Certificate Authority_) atau Otoritas Sertifikat yang menerbitkan/mengelola/mencabut Sertifikat SSL/TLS untuk Internet. Ia merupakan salah satu produk dari [Stack Holdings](https://www.linkedin.com/company/stackholdings/about/).
 
-Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL/TLS. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua Sistem Operasi yang berbasis \*nix.
+Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL/TLS. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua sistem operasi berbasis \*nix.
 
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
 Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga dapat menerbitkan Sertifikat SSL/TLS secara gratis dalam bentuk apa pun (termasuk _Wildcard_) dengan jumlah sertifikat yang tidak terbatas, baik dengan menggunakan RSA maupun ECC sebagai Algoritma Kunci Publiknya.
@@ -104,7 +104,7 @@ Berdasarkan Halaman [Kompatibilitas sertifikatnya](https://letsencrypt.org/docs/
 {{< info title="**PEMBARUAN, 03 Oktober 2021:**" >}}
 Per tanggal 30 September 2021 kemarin, sertifikat akar "DST Root CA X3" telah habis masa berlakunya dan telah diganti menjadi "ISRG Root X1".
 
-Meski masa berlakunya habis, Let's Encrypt tetap kompatibel dengan Sistem Operasi Android 7.1.1 ke bawah, tetapi masih menggunakan "DST Root CA X3" sebagai akarnya (lihat cuplikan layar di atas).
+Meski masa berlakunya habis, Let's Encrypt tetap kompatibel dengan sistem operasi Android 7.1.1 ke bawah, tetapi masih menggunakan "DST Root CA X3" sebagai akarnya (lihat cuplikan layar di atas).
 
 Jadi, jika Anda menggunakan Android 7.1.1 ke bawah, maka Anda tidak perlu melakukan apa pun.
 
@@ -142,22 +142,22 @@ Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih b
 
 Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
 
-Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna Sistem Operasi, termasuk Sistem Operasi Windows dan hampir semua Sistem Operasi berbasis \*nix, seperti Sistem Operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan Sistem Operasi \*nix lainnya.
+Saya usahakan agar pembahasan di artikel ini bisa diterapkan/diikuti oleh hampir semua pengguna sistem operasi, termasuk sistem operasi Windows dan hampir semua sistem operasi berbasis \*nix, seperti sistem operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan sistem operasi \*nix lainnya.
 
-Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua Sistem Operasi, karena saya belum mencoba di Sistem Operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
+Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua sistem operasi, karena saya belum mencoba di sistem operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
 
 Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda sudah memahami semuanya.
 
 Terima kasih dan selamat melanjutkan 😊
 
 ### Persiapan {#persiapan}
-Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL/TLS dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan Sistem Operasi berbasis Unix/Mirip Unix (\*nix), termasuk GNU/Linux, macOS, BSD dan Android.
+Di artikel ini, Anda akan mempelajari menerbitkan Sertifikat SSL/TLS dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan sistem operasi berbasis Unix atau mirip Unix (\*nix), termasuk GNU/Linux, macOS, BSD dan Android.
 
-Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari Sistem Operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, dan bisa mengedit berkas di dalam Terminal.
+Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari sistem operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, dan bisa mengedit berkas di dalam Terminal.
 
 Kata "Terminal" di sini bukan merujuk pada "Terminal Kendaraan" atau "Terminal Bis" ya, "Terminal" yang saya maksudkan di sini adalah aplikasi Emulator Terminal (_Terminal Emulator_) seperti x-term, Konsole, GNOME Terminal, Windows Terminal, Git Bash, dll.
 
-Selain itu, Anda juga harus mempersiapkan perangkat lunak yang diminta agar perkakas acme.sh bisa digunakan dan Anda bisa mengikuti artikel ini secara keseluruhan, apalagi jika Anda menggunakan Sistem Operasi Windows.
+Selain itu, Anda juga harus mempersiapkan perangkat lunak yang diminta agar perkakas acme.sh bisa digunakan dan Anda bisa mengikuti artikel ini secara keseluruhan, apalagi jika Anda menggunakan sistem operasi Windows.
 
 Berikut di bawah ini adalah persiapan perangkat lunaknya:
 
@@ -176,7 +176,7 @@ Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BS
 
 Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tetapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
 
-Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://stedolan.github.io/jq/) di dalam Sistem Operasi Anda agar mempermudah dalam memasangkan Sertifikat SSL/TLS-nya.
+Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://stedolan.github.io/jq/) di dalam sistem operasi Anda agar mempermudah dalam memasangkan sertifikat SSL/TLS-nya.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tetapi itu tidak saya bahas lebih lanjut di sini.
 
@@ -187,33 +187,33 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
     - Mengaktifkan fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) untuk Windows 10 atau di atasnya
     - Menggunakan Perangkat Lunak yang dapat mengemulasikan lingkungan UNIX, seperti Git Bash, Cygwin, dll, tetapi opsi ini belum saya coba
     - Mesin Virtual atau Kontainer dengan Sistem Operasi berbasis Unix/Mirip-Unix (disarankan GNU/Linux)
-    - Mengakses server/perangkat Anda yang menggunakan Sistem Operasi \*nix dengan menggunakan Klien SSH
-- Persiapan Perangkat Lunak pada WSL, Mesin Virtual/Kontainer atau pada Server bisa mengikuti [persiapan untuk Sistem Operasi \*nix](#persiapan-pengguna-unix-like)
+    - Mengakses server atau perangkat Anda yang menggunakan sistem operasi \*nix dengan menggunakan klien SSH
+- Persiapan perangkat lunak pada WSL, mesin virtual, kontainer atau pada server bisa mengikuti [persiapan untuk sistem operasi \*nix](#persiapan-pengguna-unix-like)
 {{< / spoiler >}}
 
 Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses Lingkungan Unix/Mirip-Unix (\*nix), Anda bisa pakai cara apa pun untuk melakukannya.
 
 Anda bisa memakai salah satu cara berikut untuk melakukannya:
-- Memakai fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar bisa menggunakan Sistem Operasi GNU/Linux di dalam Windows (Jika Anda menggunakan Windows 10 atau di atasnya)
+- Memakai fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar bisa menggunakan sistem operasi GNU/Linux di dalam Windows (Jika Anda menggunakan Windows 10 atau di atasnya)
 - Memakai perangkat lunak yang dapat mengemulasikan lingkungan UNIX, seperti Git Bash, Cygwin, dan lainnya (belum saya coba)
 - Memakai mesin virtual/kontainer yang terinstal GNU/Linux
 - _Me-remote_/mengakses perangkat lain (entah itu Server, PC Desktop/Laptop biasa, bahkan Telepon Pintar/Tablet, dll) yang memakai sistem operasi berbasis \*nix dengan klien SSH
 
-Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi \*nix. Jadi pastikan kalau cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
+Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
 
 Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya bisa diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [klik di sini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 {{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
-- Menggunakan Sistem Operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
+- Menggunakan sistem operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasannya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux-nya
-    2. Perbarui semua Paket yang ada di Termux dengan perintah: `pkg upg`
+    2. Perbarui semua paket yang ada di Termux dengan perintah: `pkg upg`
     3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _ter-root_.
 {{< / spoiler >}}
@@ -224,9 +224,9 @@ Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), mak
 
 Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid](https://f-droid.org/repository/browse/?fdid=com.termux).
 
-Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan Anda baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
+Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk Sistem Operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
 
 Namun sayangnya, di dalam Termux belum terinstal OpenSSL, jq dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
@@ -236,7 +236,7 @@ pkg upg -y; pkg i -y curl wget openssl-tool jq cronie termux-services
 
 Setelah itu, mulai ulang Termux Anda dengan eksekusi perintah `exit`, lalu buka lagi Termux-nya agar perubahannya bisa diterapkan. Setelah Termux dibuka lagi, aktifkan Cron dari latar belakang dengan mengeksekusi perintah `sv-enable crond && sv up crond`.
 
-Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui Klien SSH, sehingga tidak perlu melakukan pemindahan lagi ke dalam Android.
+Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui perkakas klien SSH, sehingga tidak perlu melakukan pemindahan lagi ke dalam Android.
 
 Anda bisa baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
 
@@ -277,9 +277,9 @@ Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan La
 Setelah Kredensial EAB dibuat, ya sudah lanjut saja ke langkah berikutnya, yakni Instal acme.sh, Anda sama sekali tidak perlu menerbitkan Sertifikat SSL/TLS-nya di sana.
 
 ### Instal acme.sh {#install-acme-sh}
-Setelah mendaftar akun ZeroSSL, salah satu hal yang perlu Anda lakukan adalah menginstal acme.sh terlebih dahulu di dalam Sistem Operasi kamu.
+Setelah mendaftar akun ZeroSSL, salah satu hal yang perlu Anda lakukan adalah menginstal acme.sh terlebih dahulu di dalam sistem operasi Anda.
 
-Tidak perlu menggunakan Akun Administrator atau `root` untuk menginstalnya, atau tidak perlu dieksekusikan melalui perintah `sudo` layaknya Certbot, cukup gunakan saja akun Anda yang sekarang.
+Tidak perlu menggunakan Akun Administrator atau `root` untuk menginstalnya, atau tidak perlu dieksekusikan melalui perintah `sudo` layaknya Certbot, cukup gunakan saja akun Anda yang sekarang, seperti biasanya.
 
 Cara menginstalnya adalah dengan mengeksekusikan salah satu perintah berikut:
 
@@ -309,7 +309,7 @@ Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik deng
 
 Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, [klik di sini](#registrasi-akun-acme-sh) untuk melanjutkan ke langkah berikutnya.
 
-Jika tidak, gunakan perintah `source` untuk memperbarui _Shell_, kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh kedalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas konfigurasi _Shell_ yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
+Jika tidak, gunakan perintah `source <LETAK_KONFIGURASI_SHELL>` atau tutup Terminal lalu buka lagi untuk memperbarui _Shell_. Kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh ke dalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas konfigurasi _Shell_ yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
 
 Berikut adalah teksnya:
 
@@ -336,7 +336,7 @@ set -xU LE_WORKING_DIR "$HOME"/.acme.sh
 
 Tambahkan baris di atas ke dalam berkas `~/.config/fish/conf.d/acme.sh.fish` jika Anda menggunakan `fish` sebagai _Shell_.
 
-Setelah selesai menambahkannya, simpanlah berkas tersebut dari Editor Teks favorit Anda dan perbarui _Shell-nya_ dengan menggunakan perintah `source` atau keluar dari Terminal lalu buka lagi, setelah itu coba eksekusikan ulang perkakas acme.sh-nya.
+Setelah selesai menambahkannya, simpanlah berkas tersebut dari Editor Teks favorit Anda dan perbarui _Shell-nya_ dengan menggunakan perintah `source <LETAK_KONFIGURASI_SHELL>` atau keluar dari Terminal lalu buka lagi, setelah itu coba eksekusikan ulang perkakas acme.sh-nya.
 
 ### Registrasi Akun melalui acme.sh {#registrasi-akun-acme-sh}
 Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_)-nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silakan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME-nya menggunakan acme.sh dengan perintah berikut:
@@ -373,12 +373,12 @@ Jika Anda ingin mengelola sertifikat tersebut di Web-nya, saya sarankan agar And
 
 Anda bisa Simpan `ACCOUNT_THUMBPRINT`-nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)", tetapi Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
 
-Jika sudah, silakan lanjut ke [langkah berikutnya](#membuat-kode-token-api).
+Jika sudah, silakan lanjut ke [langkah berikutnya](#membuat-akses-api).
 
 ### Membuat Akses API
 Sebelum menerbitkan Sertifikat SSL/TLS, maka ada baiknya untuk membuat Kode Token untuk Akses API-nya terlebih dahulu.
 
-Ini akan sangat berguna untuk verifikasi DNS ke depannya dan juga memasang Sertifikat SSL/TLS itu sendiri. Jadi, Anda wajib membuatnya, tetapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
+Ini akan sangat berguna untuk verifikasi DNS ke depannya dan juga memasang sertifikat SSL/TLS itu sendiri. Jadi, Anda wajib membuatnya, tetapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
 Misalnya, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang Sertifikat SSL/TLS.
 
@@ -386,10 +386,10 @@ Atau, jika Anda menggunakan Netlify sebagai Penyedia DNS dan Hostingnya, Anda ha
 
 Kalau sudah tahu caranya dan sudah pernah Anda lakukan sebelumnya, Anda bisa langsung [lewati ini](#verifikasi-dns-di-acmesh).
 
-Kalau belum, Anda tinggal mengikuti cara-caranya berikut di bawah ini.
+Kalau belum, silakan ikuti cara-caranya berikut di bawah ini.
 
 #### Penyedia DNS Cloudflare {#cloudflare-api-token}
-Untuk membuat Kode Token Akses API-nya, silakan Anda baca [dokumentasinya](https://developers.cloudflare.com/api/tokens/create), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat kodenya.
+Untuk membuat Kode Token Akses API-nya, silakan baca [dokumentasinya](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat kodenya.
 
 Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 
@@ -411,13 +411,13 @@ Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 ![Memilih Templat untuk membuat Token](Cloudflare_Create_API_Token_2.webp)
 
 4. Setelah menentukan templatnya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
-   - **Token Name**: Itu merupakan nama Token yang ingin Anda buat. Secara baku, nama Token menggunakan nama templatnya, bisa diubah sesuka Anda dengan mengklik pada ikon Pensil di sebelah namanya
-   - **Permissions**: Itu merupakan perizinan untuk Token yang Anda buat nantinya, karena menggunakan templat **"Edit zone DNS"**, maka seharusnya informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **"Zone"**, **"DNS"** dan **"Edit"**, kalau sudah, Anda bisa lewati ini.
-   - **Zone Resources**: Itu merupakan cakupan Zona (_Zone_) untuk Token ini. Jika Anda ingin Token yang Anda buat itu dapat mencakup semua Domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
+   - **Token Name**: Itu merupakan nama token yang ingin Anda buat. Secara baku, nama token menggunakan nama templatnya, bisa diubah sesuka hati Anda dengan mengklik pada ikon pensil di sebelah namanya
+   - **Permissions**: Itu merupakan perizinan untuk token yang Anda buat nantinya, karena menggunakan templat **"Edit zone DNS"**, maka seharusnya informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **"Zone"**, **"DNS"** dan **"Edit"**, kalau sudah, Anda bisa lewati ini.
+   - **Zone Resources**: Itu merupakan cakupan zona (_Zone_) untuk token ini. Jika Anda ingin tokennya itu dapat mencakup semua domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
        - **"Include"** dan **"All zones"**
        - **"Include"**, **"All zones from an account"**, lalu pilih Akun yang ingin Anda cakup
-   - **Client IP Address Filtering**: Jika Anda ingin mengatur/menyaring Alamat IP Klien/Pengguna API, maka Anda bisa atur itu. Jika tidak, maka sebaiknya lewati saja.
-   - **TTL**: Atur itu jika Anda ingin Token yang Anda buat memiliki masa berlaku, jika tidak maka sebaiknya lewati saja
+   - **Client IP Address Filtering**: Jika Anda ingin mengatur atau menyaring alamat IP klien atau pengguna API, maka Anda bisa atur itu, ini akan cocok jika Anda ingin menggunakan API tersebut di perangkat yang alamat IP-nya tidak berubah-ubah dan bersifat publik (seperti VPS/Server). Jika tidak, maka sebaiknya lewati saja.
+   - **TTL**: Atur itu jika Anda ingin token yang Anda buat memiliki masa berlaku, jika tidak maka sebaiknya lewati saja
 
 5. Jika Anda sudah mengisi semua informasinya, klik pada _Button_ **"Continue to summary"**
 
@@ -429,7 +429,7 @@ Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
 
 ![Kesimpulan dari Token yang ingin dibuat](Cloudflare_Create_API_Token_4.webp)
 
-7. Setelah itu, kodenya akan tampil di sana. Salinkan **"API Token"** tersebut dengan mengklik pada _Button_ **"Copy"**, lalu simpan itu baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satupun orang lain yang mengetahuinya kecuali dengan seizin Anda. Selain itu, Anda juga dapat mengujinya di sana untuk memastikan apakah kode terebut bekerja atau tidak.
+7. Setelah itu, kodenya akan tampil di sana. Salinkan **"API Token"** tersebut dengan mengklik pada _button_ **"Copy"**, lalu simpan itu baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satu pun orang lain yang mengetahuinya kecuali dengan seizin Anda. Selain itu, Anda juga dapat mengujinya di sana untuk memastikan apakah kode terebut bekerja atau tidak.
 
 !["API Token" yang telah dibuat di Cloudflare](Cloudflare_Create_API_Token_5.webp)
 
@@ -478,10 +478,10 @@ Namun, jika sebelumnya sudah sudah pernah menerbitkan sertifikatnya, sudah menda
 
 Kalau belum, silakan dapatkan terlebih dahulu, caranya sebagai berikut:
 
-1. Silakan akses ke [Dasbor Bunny.net-nya](https://panel.bunny.net/), login jika diminta.
-2. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
-3. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon Mata jika Anda ingin melihat isi sebenarnya
-4. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **"Access Key"**-nya
+0. Silakan akses ke [Dasbor Bunny.net-nya](https://panel.bunny.net/), login jika diminta.
+1. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
+2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon Mata jika Anda ingin melihat isi sebenarnya
+3. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **"Access Key"**-nya
 
 Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silakan perbesar gambarnya dengan mengkliknya)
 
@@ -566,21 +566,21 @@ Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan
 ### Verifikasi DNS di acme.sh
 Agar Sertifikat SSL/TLS dapat diterbitkan melalui Protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
 
-Verifikasi DNS merupakan sebuah metode yang menggunakan rekaman DNS (_DNS Record_) pada Domain untuk memverifikasi Bukti Kepemilikan Domain sebelum sertifikat diterbitkan/diperbarui.
+Verifikasi DNS merupakan sebuah metode yang menggunakan rekaman DNS (_DNS Record_) pada Domain untuk memverifikasi bukti kepemilikan domain sebelum sertifikat diterbitkan atau diperbarui.
 
 Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ dan tidak perlu mengakses konten apa pun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer PC, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server/Perangkat terlebih dahulu, selama Anda bisa menjalankan acme.sh di dalam perangkat Anda.
 
-Ini juga sebagai syarat agar Anda dapat menerbitkan Sertifikat SSL/TLS untuk semua subdomain Anda (_Wildcard SSL_) dengan mudah.
+Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL/TLS untuk semua subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Selain itu, karena Anda ingin memasang Sertifikat SSL/TLS di Penyedia Web yang sedang saya bahas di artikel ini, yakni Netlify, BunnyCDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, karena Anda ingin memasang sertifikat SSL/TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
 
-Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL/TLS-nya, maka acme.sh harus dapat mengakses dan mengubah rekaman DNS di dalam domain milik Anda dengan mengakses Akun Penyedia DNS milik Anda.
+Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL/TLS-nya, maka acme.sh harus dapat mengakses dan mengubah rekaman DNS di dalam domain milik Anda dengan mengakses akun penyedia DNS milik Anda.
 
 Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah rekaman DNS dengan memberinya sebuah kredensial milik Anda, seperti: _API Token_, Kunci API untuk Akses API atau bahkan Nama Pengguna dan Kata Sandi.
 
-**Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara Manual, sehingga Anda menambahkan rekaman DNS-nya secara manual juga.
+**Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara manual, sehingga Anda menambahkan rekaman DNS-nya secara manual juga.
 
-Namun Sertifikat SSL/TLS tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi rekaman DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui Sertifikat SSL/TLS tersebut secara otomatis.
+Namun sertifikat SSL/TLS tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi rekaman DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui Sertifikat SSL/TLS tersebut secara otomatis.
 
 Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang otomatis saja ketimbang pake yang manual.
 
@@ -627,9 +627,9 @@ set -x CF_Account_ID "ACCOUNT_ID_KAMU_DI_SINI"
 set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
 
-Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#issue-cert) saja untuk mempelajari penerbitan sertifikat.
+Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
 Jika Anda menggunakan Netlify sebagai Penyedia DNS, Anda cuma perlu membuat **"Personal Access Token"**-nya (`NETLIFY_ACCESS_TOKEN`) saja sebagai kredensial untuk akses API-nya.
@@ -654,9 +654,9 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set -x NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
 
-Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#issue-cert) saja untuk mempelajari penerbitan sertifikat.
+Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Bunny DNS {#untuk-pengguna-bunny-dns}
 Jika Anda menggunakan Bunny DNS sebagai Penyedia DNS, Anda cuma perlu mendapatkan **"Access Key"**-nya saja sebagai kredensial untuk akses API-nya.
@@ -681,9 +681,9 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set -x BUNNY_API_KEY "ACCESS_KEY_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
 
-Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#issue-cert) saja untuk mempelajari penerbitan sertifikat.
+Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Penyedia DNS lain {#untuk-pengguna-dns-lain}
 Jika Anda menggunakan Penyedia DNS selain Cloudflare, Netlify DNS dan Bunny DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, Google Cloud DNS, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
@@ -769,7 +769,7 @@ Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin And
 
     Ganti `opsi_ca` menjadi nama pendek dari CA yang mendukung, seperti: `zerossl`, `buypass`, `buypass_test`, `letsencrypt`, `letsencrypt_test`, `sslcom`, `google`, `googletest`.
 
-    Atau, Anda juga bisa ganti `opsi_ca` dengan memasukkan Alamat URL Server ACME dari Penyedia CA Anda. Untuk lebih lengkapnya, silakan Anda pelajari dari [Halaman Wiki-nya](https://github.com/acmesh-official/acme.sh/wiki/Server)
+    Atau, Anda juga bisa ganti `opsi_ca` dengan memasukkan Alamat URL Server ACME dari Penyedia CA Anda. Untuk lebih lengkapnya, silakan pelajari itu dari [Halaman Wiki-nya](https://github.com/acmesh-official/acme.sh/wiki/Server)
 
 - `--keylength opsi` atau `-k opsi` jika Anda ingin menerbitkan Sertifikat SSL/TLS dengan ukuran kunci atau kunci yang berbeda. Ganti `opsi` dengan `2048`, `3072`, `4096`, `8192`, `ec-256`, `ec-384`, atau `ec-512` (Saya bahas di bagian terpisah)
 - `--cert-file file` untuk menyalinkan berkas sertifikat ke dalam direktori lain setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
@@ -782,9 +782,9 @@ Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin And
 
 - `--renew-hook perintah` untuk menentukan perintah yang akan dieksekusi setelah sertifikat berhasil diperbarui (_di-renew_). Ganti `perintah` menjadi perintah yang ingin Anda eksekusikan.
 
-    Karena acme.sh tidak akan langsung mengeksekusi perintahnya, melainkan nanti saat diperbarui, maka saya sarankan langsung gunakan parameter ini saat ingin menerbitkan sertifikat dan isikan parameter tersebut dengan menggantikan `perintah` menjadi `/usr/bin/env sh renew.sh` atau `/data/data/com.termux/files/usr/bin/env sh renew.sh` jika Anda menggunakan Termux (cth. `--renew-hook /data/data/com.termux/files/usr/bin/env sh renew.sh`).
+    Karena acme.sh tidak akan langsung mengeksekusi perintahnya, melainkan nanti saat diperbarui, maka saya sarankan langsung gunakan parameter ini saat ingin menerbitkan sertifikat dan isikan parameter tersebut dengan menggantikan `perintah` menjadi perintah untuk memasang sertifikatnya (cth. `--renew-hook env sh deploy.sh`).
 
-    Berkas `renew.sh` adalah berkas skrip untuk memperbarui sertifikat yang Anda buat nanti, bisa diganti dengan nama berkas yang Anda inginkan.
+    Berkas `deploy.sh` adalah berkas skrip untuk memasang sertifikat yang Anda buat nanti, bisa diganti dengan nama berkas yang Anda inginkan.
 
     Jika telanjur, maka Anda perlu mengkonfigurasinya secara manual, dan itu akan saya bahas lebih lanjut di bagian terpisah tentang konfigurasi acme.sh untuk domain
 
@@ -812,7 +812,7 @@ Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin And
 
 Udah itu saja yang saya bahas, parameter lainnya masih banyak, tetapi yang saya bahas di sini adalah kasus umumnya saja.
 
-Jika Anda ingin mempelajari parameter lainnya lebih lanjut, silakan Anda gunakan perintah `acme.sh --help` untuk menampilkan parameter apa saja yang bisa Anda gunakan.
+Jika Anda ingin mempelajari parameter lainnya lebih lanjut, silakan gunakan perintah `acme.sh --help` untuk menampilkan parameter apa saja yang bisa Anda gunakan.
 
 Jika Anda tidak ingin menambahkan parameter lain, Anda bisa menghapus `PARAMETER_TAMBAHAN`-nya.
 
@@ -914,9 +914,9 @@ acme.sh --issue \
 Dan seterusnya akan seperti itu caranya.
 
 ### Menerbitkan Sertifikat SSL/TLS yang menjangkau Seluruh Subdomain {#wildcard-ssl}
-Jika Anda ingin menerbitkan Sertifikat SSL/TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka Anda tinggal tambahkan parameter `-d '*.domain.com'` saja, tetapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai Syarat Wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
+Jika Anda ingin menerbitkan Sertifikat SSL/TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka Anda tinggal tambahkan parameter `-d '*.domain.com'` saja, tetapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai syarat wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
 
-Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL/TLS untuk 1 Domain dan Semua Subdomainnya dengan menggunakan DNS dari Cloudflare sebagai Verifikasi:
+Contoh di bawah ini adalah perintah untuk menerbitkan sertifikat SSL/TLS untuk 1 domain dan semua subdomainnya dengan menggunakan DNS dari Cloudflare sebagai verifikasi:
 
 ```shell
 acme.sh --issue -d '*.domain.com' -d domain.com --dns dns_cf
@@ -930,7 +930,7 @@ Jika Anda ingin memperbarui sertifikatnya, pastikan bahwa Anda menambahkan param
 Kalau sudah merasa yakin, Anda bisa terbitkan ulang Sertifikat SSL/TLS-nya untuk Produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`.
 {{< / info >}}
 
-Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` dan `domain.com` dengan menggunakan DNS dari Cloudflare sebagai Verifikasi.
+Sertifikat yang diterbitkan dengan perintah di atas adalah untuk `*.domain.com` dan `domain.com` dengan menggunakan DNS dari Cloudflare sebagai verifikasi.
 
 Jika Anda bukan pengguna Cloudflare, maka Anda tinggal ganti saja `dns_cf`-nya.
 
@@ -1318,11 +1318,11 @@ Ukuran Kunci RSA yang didukung oleh acme.sh beserta nilai parameter `keylength`-
 {{< info title="**PERINGATAN !**" >}}
 Saya tidak menyarankan Anda untuk menerbitkan serta menggunakan ukuran kunci yang terlalu besar. 
 
-Karena selain menghasilkan kunci dengan ukuran yang besar, terkadang proses pemuatan konten pada Perangkat Lunak (termasuk Peramban Web) akan memakan waktu saat sedang proses 'jabat tangan' TLS (_TLS handshake_), yang berakibat pada membengkaknya penggunaan CPU/Prosesor pada Perangkat tertentu untuk mengenkripsi transaksi data saat proses 'jabat tangan'.
+Karena selain menghasilkan kunci dengan ukuran yang besar, terkadang proses pemuatan konten pada perangkat lunak (termasuk peramban web) akan memakan waktu saat sedang proses 'jabat tangan' TLS (_TLS handshake_), yang berakibat pada membengkaknya penggunaan CPU atau prosesor pada perangkat tertentu untuk mengenkripsi transaksi data saat proses 'jabat tangan'.
 
-Jika Anda merupakan pemilik Web/Blog, maka kemungkinan hal ini akan mempengaruhi performa Web/Blog secara keseluruhan dan ini mungkin akan berpotensi mengurangi pengunjung pada Web/Blog Anda.
+Jika Anda merupakan pemilik situs web atau blog, maka kemungkinan hal ini akan mempengaruhi performa situs web secara keseluruhan dan ini mungkin akan berpotensi mengurangi pengunjung pada situs web Anda.
 
-Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal untuk kebanyakan kasus adalah 2048 bit atau 3072 bit, atau yang paling besar adalah 4096 bit, tidak perlu terlalu besar.
+Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal untuk kebanyakan kasus adalah 2048 bit, 3072 bit, atau yang paling besar adalah 4096 bit, tidak perlu terlalu besar.
 {{< / info >}}
 
 ### Menerbitkan Sertifikat SSL/TLS dengan kunci ECC/ECDSA {#ecdsa-ssl}
@@ -1362,16 +1362,16 @@ Ukuran Kunci ECC/ECDSA yang didukung oleh acme.sh beserta nilai dari parameter `
 {{< info title="**PERINGATAN !**" >}}
 Saya tidak menyarankan Anda untuk menerbitkan serta menggunakan ukuran kunci yang terlalu besar. 
 
-Karena selain menghasilkan kunci dengan ukuran yang besar, terkadang proses pemuatan konten pada Perangkat Lunak (termasuk Peramban Web) akan memakan waktu saat sedang proses 'jabat tangan' TLS (_TLS handshake_), yang berakibat pada membengkaknya penggunaan CPU/Prosesor pada Perangkat tertentu untuk mengenkripsi transaksi data saat proses 'jabat tangan'.
+Karena selain menghasilkan kunci dengan ukuran yang besar, terkadang proses pemuatan konten pada perangkat lunak (termasuk peramban web) akan memakan waktu saat sedang proses 'jabat tangan' TLS (_TLS handshake_), yang berakibat pada membengkaknya penggunaan CPU atau prosesor pada perangkat tertentu untuk mengenkripsi transaksi data saat proses 'jabat tangan'.
 
-Jika Anda merupakan pemilik Web/Blog, maka kemungkinan hal ini akan mempengaruhi performa Web/Blog secara keseluruhan dan ini mungkin akan berpotensi mengurangi pengunjung pada Web/Blog Anda.
+Jika Anda merupakan pemilik situs web atau blog, maka kemungkinan hal ini akan mempengaruhi performa situs web secara keseluruhan dan ini mungkin akan berpotensi mengurangi pengunjung pada situs web Anda.
 
 Saya sarankan agar Anda gunakan ukuran kunci yang ideal. Ukuran kunci yang ideal untuk kebanyakan kasus adalah P-256, atau yang paling besar adalah P-384, tidak perlu terlalu besar.
 {{< / info >}}
 
-Sekadar Informasi saja, jika Anda menerbitkan Sertifikat SSL/TLS dengan kunci ECC/ECDSA, maka berkas-berkas Sertifikat SSL/TLS akan tersimpan di dalam direktori yang berakhiran dengan `_ecc`, seperti: `/home/username/.acme.sh/domain.com_ecc`, bukan di dalam direktori `/home/username/.acme.sh/domain.com`. 
+Sekadar Informasi saja, jika Anda menerbitkan Sertifikat SSL/TLS dengan kunci ECC/ECDSA, maka berkas-berkas Sertifikat SSL/TLS akan tersimpan di dalam direktori yang berakhiran dengan `_ecc`, seperti: `/home/username/.acme.sh/domain.com_ecc`, bukan di dalam direktori yang biasanya. 
 
-Nama berkas-berkasnya akan sama saja, tidak ada yang berbeda. Satu hal lagi, jika Anda ingin mencabut, menghapus, atau memperbarui/_me-renew_ Sertifikat SSL/TLS secara manual, maka Anda perlu menambahkan parameter `--ecc` di setelahnya.
+Nama berkas-berkasnya akan sama saja, tidak ada yang berbeda. Satu hal lagi, jika Anda ingin mencabut, menghapus, atau memperbarui/_me-renew_ Sertifikat SSL/TLS secara manual, maka Anda perlu menambahkan parameter `--ecc` juga.
 
 Contoh perintahnya sebagai berikut:
 
@@ -1565,7 +1565,7 @@ set NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 
 Silakan ubah direktori dan nama berkas di atas sesuai dengan letak berkas sertifikat yang telah tersimpan di dalam perangkat Anda dan ubah teks `ACCESS_TOKEN_KAMU_DI_SINI` menjadi _Personal access token_ yang telah Anda buat dan simpan sebelumnya.
 
-Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `PLAIN_CERT` diubah menjadi `PLAIN_CERT_1`, atau `CERT`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `PLAIN_CERT` diubah menjadi `PLAIN_CERT_1`, atau `CERT`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1663,7 +1663,7 @@ set BUNNY_ACCESS_KEY "ACCESS_KEY_KAMU_DI_SINI"
 
 Silakan ubah direktori dan nama berkas di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda dan ubah teks `ACCESS_KEY_KAMU_DI_SINI` menjadi _Access Key_ yang telah Anda simpan sebelumnya.
 
-Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `BASE64_FULLCHAIN_CER` diubah menjadi `FULLCHAIN_CER`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `BASE64_FULLCHAIN_CER` diubah menjadi `FULLCHAIN_CER`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1739,7 +1739,7 @@ set CPANEL_API_TOKEN "API_TOKEN_KAMU_DI_SINI" # API Token cPanel kamu
 
 Silakan ubah direktori dan nama berkas di atas sesuai dengan berkas Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda, serta ubah nilai dari ketiga variabel di atas lainnya sesuai kredensial cPanel Anda dan cara Anda mengaksesnya.
 
-Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `CPANEL_PLAIN_CA` diubah menjadi `PLAIN_CA`, atau `CA`, atau apa saja, asal bisa Anda kembali gunakan variabel tersebut.
+Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `CPANEL_PLAIN_CA` diubah menjadi `PLAIN_CA`, atau `CA`, atau apa saja, asal bisa Anda kembali gunakan variabel tersebut.
 
 Sebelum itu, usahakan agar Alamat URL yang Anda gunakan untuk mengakses cPanel sudah mendukung HTTPS sepenuhnya, tanpa adanya pesan galat apa pun saat mengaksesnya, termasuk hanya karena sertifikatnya.
 
@@ -1863,7 +1863,7 @@ set DIRECTADMIN_LOGIN_KEY "LOGIN_KEY_KAMU_DI_SINI"
 
 Silakan ubah direktori, nama berkas dan nilai variabel di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda dan kredensial DirectAdmin Anda.
 
-Selain nilai variabelnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka Anda, misalnya variabel `DIRECTADMIN_PLAIN_FULLCHAIN` diubah menjadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
+Selain nilai variabelnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `DIRECTADMIN_PLAIN_FULLCHAIN` diubah menjadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1905,7 +1905,7 @@ Kenapa? Karena setiap penyedia dan perangkat lunak mempunyai cara yang berbeda u
 Anda bisa membaca dan mempelajari masing-masing dokumentasinya sebagai referensi Anda dalam memasang Sertifikat SSL/TLS di penyedia lain. Bila berkenan, Anda juga dapat membantu saya menambahkan penyedianya di sini dengan berkomentar di dalam kolom komentar yang tersedia.
 
 ## Konfigurasi acme.sh untuk Domain tertentu {#konfigurasi-acme-sh-untuk-domain}
-Salah satu kelebihan acme.sh selain ringan dan kompatibel di hampir semua Sistem Operasi berbasis \*nix adalah mampu memberikan fleksibilitas bagi Anda untuk mengatur perkakasnya dan mengatur apa yang dilakukan baik sebelum dan sesudah mengeksekusi perkakas tersebut melalui konfigurasinya.
+Salah satu kelebihan acme.sh selain ringan dan kompatibel di hampir semua sistem operasi berbasis \*nix adalah mampu memberikan fleksibilitas bagi Anda untuk mengatur perkakasnya dan mengatur apa yang dilakukan baik sebelum dan sesudah mengeksekusi perkakas tersebut melalui konfigurasinya.
 
 Konfigurasi tersebut bisa Anda lakukan untuk alamat domain tertentu, sehingga tidak semua domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak penyedia Hosting/CDN memperlakukan setiap domain-nya dengan berbeda-beda.
 
@@ -1962,7 +1962,9 @@ Le_PreHook='echo "Halo, Dunia!"'
 
 Namun, jika perintah yang ingin Anda jalankan itu mengandung multibaris atau lebih dari satu baris perintah, saya sarankan Anda buat saja berkas _Shell_ di dalam direktori di mana berkas `domain.com.conf` itu berada (cth. di dalam direktori `$HOME/.acme.sh/domain.com/`).
 
-Setelah itu, ubah nilai dari opsi `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya. (Disarankan: `/usr/bin/env sh renew.sh` atau `/data/data/com.termux/files/usr/bin/env sh renew.sh` jika Anda menggunakan Termux)
+Setelah itu, ubah nilai dari opsi `Le_RenewHook`, `Le_PreHook` atau `Le_PostHook` menjadi cara Anda mengeksekusikan/menjalankan berkas skripnya.
+
+Anda bisa tentukan sendiri perintah untuk menjalankan skrip pemasangan sertifikatnya, seperti `sh deploy.sh`, `bash deploy.sh`, `./deploy.sh` atau `env sh deploy.sh` atau memakai perintah yang lebih lengkap seperti `/usr/bin/env sh deploy.sh` juga tidak masalah, meski saya lebih menyarankan agar menggunakan yang lebih pendek biar gak repot.
 
 Namun perlu diingat, perintah yang dieksekusi/dijalankan melalui acme.sh akan menggunakan direktori di mana berkas `domain.com.conf` itu berada sebagai direktori kerjanya.
 
@@ -2029,7 +2031,7 @@ Selain ketiga opsi di atas, Anda dapat menambahkan opsi-opsi lain di dalam konfi
 Ya udah, itu saja dulu mengenai opsi-opsinya, di bawah ini membahas contoh kasusnya.
 
 ### Contoh Kasus: Menjalankan sebuah Berkas Skrip setelah Memperbarui Sertifikat SSL/TLS
-Contohnya Si Udin membuat sebuah berkas skrip yang bernama `renew.sh` untuk memperbarui SSL pada domain `www.si-udin.com` miliknya yang _di-hosting_ menggunakan Netlify dan dia ingin agar skrip tersebut dijalankan/dieksekusi setelah Sertifikat SSL/TLS sukses diperbarui.
+Contohnya Si Udin membuat sebuah berkas skrip yang bernama `deploy.sh` untuk memperbarui SSL pada domain `www.si-udin.com` miliknya yang _di-hosting_ menggunakan Netlify dan dia ingin agar skrip tersebut dijalankan/dieksekusi setelah Sertifikat SSL/TLS sukses diperbarui.
 
 Isi berkas skripnya sebagai berikut:
 
@@ -2062,10 +2064,10 @@ Setelah menyimpannya, ia perlu melakukan konfigurasi supaya skripnya bisa dijala
 
 Di dalam berkas tersebut ada banyak opsi yang kosong, termasuk `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook`. Karena ia mau menjalankan skrip tersebut saat Sertifikat SSL/TLS sukses diperbarui, jadi ia memilih untuk mengisi opsi `Le_RenewHook` ketimbang opsi lain.
 
-Nah, dia isi itu dengan `/usr/bin/env sh renew.sh`. Jadi, opsinya akan menjadi seperti berikut:
+Nah, dia isi itu dengan `/usr/bin/env sh deploy.sh`. Jadi, opsinya akan menjadi seperti berikut:
 
 ```shell
-Le_RenewHook='/usr/bin/env sh renew.sh'
+Le_RenewHook='/usr/bin/env sh deploy.sh'
 ```
 
 Setelah itu, ia simpan berkas tersebut dan beberapa bulan kemudian, acme.sh memperbarui Sertifikat SSL/TLS tersebut dan berhasil, lalu skrip tersebut akhirnya berhasil dijalankan dan `www.si-udin.com` telah menggunakan sertifikat yang lebih baru.
@@ -2073,10 +2075,12 @@ Setelah itu, ia simpan berkas tersebut dan beberapa bulan kemudian, acme.sh memp
 Setelah skrip tersebut berhasil dijalankan dan melihat lagi konfigurasinya, ia melihat kalau nilai dari opsi `Le_RenewHook` itu berubah menjadi seperti berikut:
 
 ```shell
-Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo__ACME_BASE64__END_'
+Le_RenewHook='__ACME_BASE64__START_L3Vzci9iaW4vZW52IHNoIGRlcGxveS5zaA==__ACME_BASE64__END_'
 ```
 
-Itu artinya, perintah tersebut telah dikonversikan menjadi Base64 secara otomatis oleh acme.sh saat perintah tersebut dieksekusi. `L3Vzci9iaW4vZW52IHNoIHJlbmV3LnNo` adalah Base64 dari perintah `/usr/bin/env sh renew.sh`.
+Itu artinya, perintah tersebut telah dikonversikan menjadi Base64 secara otomatis oleh acme.sh saat perintah tersebut dieksekusi.
+
+Teks `L3Vzci9iaW4vZW52IHNoIGRlcGxveS5zaA==` di atas adalah Base64 dari perintah `/usr/bin/env sh deploy.sh`.
 
 Nah, sekarang Anda sudah paham, kan? Jika sudah paham, silakan lanjut ke [bagian selanjutnya](#renew-ssl).
 
@@ -2184,7 +2188,7 @@ echo "Cron sukses dijalankan. Waktu: $(date +"%Y-%m-%d %H:%M:%S%z")" >> renew-ss
 
 **Catatan:** Skrip di atas juga dapat bekerja di _Shell_ yang sangat berbeda dan tidak sesuai dengan POSIX seperti `fish`, karena mengikuti _Shebang_ yang telah saya tentukan, yakni `/usr/bin/env sh`. Jadi, skrip di atas seharusnya dapat dieksekusi oleh _Shell_ apa pun selama mengikuti/'menghormati' _Shebang_ yang telah ditentukan.
 
-Skrip di atas menggunakan `/usr/bin/env sh` sebagai _shebang_. Jika Anda adalah pengguna Termux dan kalau mau, Anda bisa menggantinya menjadi `/data/data/com.termux/files/usr/bin/env sh`, meskipun Termux sendiri mentoleransi penggunaan `/usr/bin/env sh` sebagai _shebang_.
+Namun, jika Anda adalah pengguna Termux dan kalau mau, Anda bisa mengganti `/usr/bin/env` di atas menjadi `/data/data/com.termux/files/usr/bin/env`, meskipun Termux sendiri mentoleransi _shebang_ di atas.
 
 Silakan pelajari skrip di atas dan kembangkan sendiri skripnya menjadi versi Anda sendiri. Jika sudah selesai, maka simpanlah berkas tersebut, boleh Anda namakan dengan apa saja dan disimpan di mana saja asal bisa Anda gunakan kembali.
 
@@ -2209,7 +2213,7 @@ Saat mengedit, Anda akan menemukan sebuah Cron dengan teks yang mirip seperti be
 6 0 * * * "/home/username/.acme.sh"/acme.sh --cron --home "/home/username/.acme.sh" > /dev/null
 ```
 
-`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silakan ganti parameter tersebut sesuka Anda, selama masih mengikuti aturan dari Cron.
+`6 0 * * *` adalah parameter _Crontab_ yang menentukan kapan perintah tersebut dilaksanakan, `6 0 * * *` artinya kalau perintah tersebut akan dilaksanakan pada pukul 00:06 untuk setiap harinya. Parameter yang Anda temukan nanti mungkin berbeda-beda, jadi silakan ganti parameter tersebut sesuka hati Anda, selama masih mengikuti aturan dari Cron.
 
 Misalnya, jika Anda ingin perintah tersebut dieksekusi pada menit ke-0 dan setiap jam ke-2 dari pukul 0 hingga 23, atau setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst), maka Anda bisa menggantinya menjadi `0 */2 * * *`.
 
@@ -2323,7 +2327,7 @@ Le_Alt=*.domain.com
 Le_Webroot=dns_cf
 Le_PreHook=
 Le_PostHook=
-Le_RenewHook=/usr/bin/env sh renew.sh
+Le_RenewHook=/usr/bin/env sh deploy.sh
 Le_API=https://acme.zerossl.com/v2/DV90
 Le_Keylength=2048
 Le_OrderFinalize=https://acme.zerossl.com/v2/DV90/order/kyxxxxxxxxxxxxxxxxxxxx/finalize
@@ -2344,7 +2348,7 @@ acme.sh --info -d domain.com --ecc
 Nah, kira-kira begitu.
 
 ### Mencabut dan Menghapus Sertifikat
-Anda bisa mencabut dan menghapus Sertifikat SSL/TLS dari perangkat Anda (meskipun ini sudah beberapa kali dibahas di bagian sebelumnya sih), tetapi dengan catatan bahwa mencabut (_revoke_) sertifikat akan menyebabkan aplikasi, web ataupun blog yang menggunakan sertifikat tersebut menjadi tidak bisa diakses, terutama dari perangkat Desktop.
+Anda bisa mencabut dan menghapus sertifikat SSL/TLS dari perangkat Anda (meskipun ini sudah beberapa kali dibahas di bagian sebelumnya sih), tetapi dengan catatan bahwa mencabut (_revoke_) sertifikat akan menyebabkan aplikasi, web ataupun blog yang menggunakan sertifikat tersebut menjadi tidak bisa diakses, terutama dari perangkat Desktop.
 
 Jika sudah siap, Anda bisa mencabutnya dengan perintah berikut:
 
@@ -2433,9 +2437,9 @@ Contoh perintahnya akan seperti berikut:
 acme.sh --issue -d domain.com -d www.domain.com --server opsi_ca --force
 ```
 
-Anda bisa mengganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Server ACME yang dimiliki oleh CA, seperti yang telah saya bahas di pertanyaan sebelumnya, serta domain-domain tersebut menjadi alamat domain milik Anda.
+Anda bisa mengganti `opsi_ca` dengan nama pendek dari CA yang didukung oleh acme.sh atau dengan Alamat URL Direktori ACME yang dimiliki oleh CA, serta domain-domain tersebut menjadi alamat domain milik Anda.
 
-Setelah menerbitkan ulang sertifikatnya, tentu saja acme.sh tidak mengeksekusikan skrip _renewal-nya_ secara otomatis, jadi Sertifikat SSL/TLS yang terpasang pada Aplikasi/Web yang Anda miliki tidak terganti, apalagi jika Anda lebih memilih untuk membuatkan skripnya secara terpisah.
+Setelah menerbitkan ulang sertifikatnya, tentu saja acme.sh tidak mengeksekusikan skrip _renewal-nya_ secara otomatis, jadi sertifikat SSL/TLS yang terpasang pada aplikasi atau situs web yang Anda miliki tidak terganti, apalagi jika Anda lebih memilih untuk membuatkan skripnya secara terpisah.
 
 **Lalu, bagaimana caranya agar saya bisa menggantikan sertifikatnya?** Ya, Anda tinggal eksekusikan saja skrip _renewal_ tersebut secara manual untuk memasangkan Sertifikat SSL/TLS yang terbaru di Situs Web/Blog atau Aplikasi Anda.
 
@@ -2456,18 +2460,18 @@ Pilih yang mana? Tergantung kebutuhan, jika Anda lebih menginginkan kemudahan da
 Atau, jika Anda ingin sertifikatnya dapat digunakan di mana saja dan dapat diperbarui ke mana saja, dapat menggunakan metode verifikasi yang Anda suka, pilihan CA yang lebih beragam serta konfigurasi yang lebih fleksibel, mungkin mengelola sertifikatnya sendiri akan lebih cocok buat Anda, tetapi ini akan mengorbankan kemudahan dan kesederhanaan langkah yang ada pada antarmuka di panel atau mungkin keamanan juga semenjak kunci pribadi (_private key_) disebar ke server lain, tergantung bagaimana Anda mengelola sertifikatnya.
 
 ### Pertanyaan ke-8: Sertifikat SSL/TLS sudah saya hapus, tetapi pas saya jalankan acme.sh dalam Cron atau untuk memperbarui semua SSL (`--renew-all`), kok domain yang terhapus masih ada saat saya cek di Terminal? {#pertanyaan-ke8}
-Itu karena Anda belum menghapus direktorinya setelah menghapus Sertifikat SSL/TLS dari perkakas acme.sh-nya. Jadi, Anda perlu menghapus direktori tersebut secara manual.
+Itu karena Anda belum menghapus direktorinya setelah menghapus sertifikat SSL/TLS dari perkakas acme.sh-nya. Jadi, Anda perlu menghapus direktori tersebut secara manual.
 
 Solusinya adalah hapus direktori tersebut (cth. `$HOME/.acme.sh/domain.com` untuk `domain.com`) secara manual setelah menghapus sertifikatnya.
 
 ### Pertanyaan ke-9: Kenapa harus acme.sh dan kenapa tidak pakai yang lain seperti Certbot atau Lego? {#pertanyaan-ke9}
-Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui Sertifikat SSL/TLS.
+Karena acme.sh lebih sederhana dan lebih mudah dipelajari, serta fiturnya pun lumayan lengkap juga, apalagi untuk kasus umum seperti menerbitkan dan memperbarui sertifikat SSL/TLS.
 
 Perkakas tersebut bisa diakses tanpa perlu akun `root` atau perintah `sudo` sama sekali, sehingga bisa diakses seperti biasa.
 
-Saya dengar kalau Certbot memerlukan akses root atau menggunakan perintah `sudo` untuk itu, kalau itu benar maka hal itu gak banget, apalagi kalau kasusnya adalah memasangkan Sertifikat SSL/TLS di Netlify dan BunnyCDN.
+Saya dengar kalau Certbot memerlukan akses root atau menggunakan perintah `sudo` untuk itu, kalau itu benar maka hal itu gak banget, apalagi kalau kasusnya adalah memasangkan sertifikat SSL/TLS di Netlify dan BunnyCDN.
 
-Selain itu, acme.sh juga mendukung berbagai Sistem Operasi \*nix dan lebih ringan karena itu merupakan berkas skrip _Shell_, serta mendukung berbagai layanan Penyedia DNS yang ada di Internet dan berbagai CA baku selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti tanpa perlu memasukkan Alamat URL-nya lagi, mudah dipindahkan atau digandakan ke perangkat lain, dan sebagainya.
+Selain itu, acme.sh juga mendukung berbagai sistem operasi \*nix dan lebih ringan karena itu merupakan berkas skrip _Shell_, serta mendukung berbagai layanan Penyedia DNS yang ada di Internet dan berbagai CA baku selain Let's Encrypt dan ZeroSSL yang bisa Anda ganti tanpa perlu memasukkan Alamat URL-nya lagi, mudah dipindahkan atau digandakan ke perangkat lain, dan sebagainya.
 
 Mengenai alasan kenapa saya tidak menggunakan [Lego](https://github.com/go-acme/lego) sebagai perkakas klien ACME, karena jujur saja saya baru tahu perkakas tersebut dan saya sendiri sudah lama terbiasa dengan acme.sh, jadi saya perlu waktu untuk mempelajarinya.
 
@@ -2476,7 +2480,7 @@ Namun, jika Anda lebih suka atau lebih memilih untuk menggunakan Lego atau Certb
 ### Pertanyaan ke-10: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke10}
 Ada, namanya [win-acme](https://www.win-acme.com/) atau [Lego](https://github.com/go-acme/lego) yang mendukung Windows secara _native_.
 
-Selain itu, ada juga [Posh-ACME](https://poshac.me/) yang merupakan modul untuk PowerShell, sehingga bisa dijalankan oleh hampir semua Sistem Operasi termasuk Windows, GNU/Linux, dan macOS selama terinstal [PowerShell](https://microsoft.com/PowerShell) sebagai _Shell-nya_.
+Selain itu, ada juga [Posh-ACME](https://poshac.me/) yang merupakan modul untuk PowerShell, sehingga bisa dijalankan oleh hampir semua sistem operasi termasuk Windows, GNU/Linux, dan macOS selama terinstal [PowerShell](https://microsoft.com/PowerShell) sebagai _Shell-nya_.
 
 Namun sayangnya, saat ini PowerShell [belum bisa diinstal secara langsung](https://github.com/termux/termux-packages/issues/1729) di Termux, sehingga harus memakai [beberapa "trik"](https://dev.to/thementor/i-run-powershell-on-android-and-so-can-you-458k) terlebih dahulu agar bisa memakainya.
 
@@ -2491,7 +2495,7 @@ acme.sh --uninstall
 
 Lalu, hapus sebuah skrip yang berkaitan dengan acme.sh di dalam berkas konfigurasi _Shell_ yang Anda gunakan, seperti di dalam berkas `$HOME/.bashrc` atau `$HOME/.zshrc`.
 
-Setelah itu, gunakan perintah `source` untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf "$HOME"/.acme.sh` jika direktori tersebut masih ada.
+Setelah itu, gunakan perintah `source <LETAK_KONFIGURASI_SHELL>` atau menutup, lalu membuka lagi Terminal untuk menyegarkan kembali _Shell_ Anda. Kalau perlu, Anda juga dapat menghapus direktori acme.sh dengan perintah `rm -rf "$HOME"/.acme.sh` jika direktori tersebut masih ada.
 
 ### Pertanyaan ke-12: Jika Netlify hanya menerima Sertifikat SSL/TLS dalam bentuk Teks Biasa, kenapa kita pake perintah `awk`? Kenapa gak pake perintah `cat` aja? {#pertanyaan-ke12}
 Karena isi berkas sertifikat itu mengandung multibaris, sedangkan Netlify tidak menerima itu.
@@ -2503,22 +2507,22 @@ Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` meng
 ### Pertanyaan ke-13: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke13}
 Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat dan sistem operasi, seperti oleh Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
 
-Sedangkan `base64` itu belum tentu kompatibel dan belum tentu akan sama baik perintah ataupun hasil keluarannya di kebanyakan Sistem Operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
+Sedangkan `base64` itu belum tentu kompatibel dan belum tentu akan sama baik perintah ataupun hasil keluarannya di kebanyakan sistem operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
 
-Lagipula, tidak semua Sistem Operasi berbasis \*nix memakai GNU coreutils, sebut saja macOS, Alpine Linux, dan BSD yang merupakan tiga di antaranya, jadi ya wajar saja jika mereka berbeda bila dibandingkan dengan GNU/Linux.
+Lagipula, tidak semua sistem operasi berbasis \*nix memakai GNU coreutils, sebut saja macOS, Alpine Linux, dan BSD yang merupakan tiga di antaranya, jadi ya wajar saja jika mereka berbeda bila dibandingkan dengan GNU/Linux.
 
-Oleh karena itu, saya memakai OpenSSL sebagai gantinya, selain karena kompatibilitas, saya yakin OpenSSL pasti terinstal di hampir semua Sistem Operasi yang berbasis \*nix seperti GNU/Linux, BSD, macOS, dan lainnya.
+Oleh karena itu, saya memakai OpenSSL sebagai gantinya, selain karena kompatibilitas, saya yakin OpenSSL pasti terinstal di hampir semua sistem operasi yang berbasis \*nix seperti GNU/Linux, BSD, macOS, dan lainnya.
 
 Kalau di Android Anda tinggal Instal Termux, lalu instal `openssl-tool` saja di dalam Termux.
 
 **Lalu, bagaimana dengan Windows?** Untuk Pengguna Windows sudah saya bahas dari awal di bagian [Persiapan](#persiapan-pengguna-windows).
 
-Lagian, acme.sh hanya kompatibel dengan Sistem Operasi/Lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
+Lagian, acme.sh hanya kompatibel dengan sistem operasi atau lingkungan \*nix, jadi mau-gak mau harus pakai perangkat lunak yang bisa menyediakan lingkungan \*nix atau pakai WSL saja sekalian.
 
-Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan berkomentar di dalam kolom komentar yang telah disediakan.
+Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan berikan masukan di dalam kolom komentar yang telah disediakan.
 
 ### Pertanyaan ke-14: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang Sertifikat SSL/TLS dengan mengikuti artikel ini, tetapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
-Jika Anda mempunyai Ponsel Pintar dengan menggunakan Sistem Operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui Ponsel saja dan Komputer PC/Laptopnya Anda gunakan untuk meremot Ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
+Jika Anda mempunyai ponsel pintar yang menggunakan sistem operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui ponsel saja dan komputer PC atau laptopnya Anda gunakan untuk meremot ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
 
 Saya sarankan ini karena selain bisa dibawa ke mana-mana (karena berukuran kecil) dan konektivitasnya lebih luas/banyak, ponsel juga bisa diaktifkan lebih lama ketimbang Komputer/Laptop kamu, bahkan bisa diaktifkan selama 24/7 jam nonstop kalau kamu mau selama suhu perangkatnya terjaga dan arus listriknya sehat.
 
@@ -2574,15 +2578,17 @@ Mungkin ini bisa diakali jika tugas tersebut dieksekusi setelah kamu masuk/_logi
 ### Pertanyaan ke-15: Apa yang terjadi jika rantai pada Sertifikat SSL/TLS yang terpasang malah tidak sempurna/tidak lengkap? {#pertanyaan-ke15}
 Tergantung pada ketidaksempurnaannya/tidak lengkapnya seperti apa, jika Anda hanya memasang sertifikat dan kunci pribadi (_private key_)-nya saja tanpa sertifikat CA-nya, ada perangkat lunak yang mendukung dan ada yang tidak.
 
-Biasanya kebanyakan Peramban Web di Desktop dan Seluler (terutama versi terbaru) masih mendukungnya karena mereka memanfaatkan dukungan ekstensi AIA (_Authority Information Access_) yang ada pada sertifikat untuk mengunduh sertifikat penengah (_Intermediate Certificate_) yang hilang sesuai [RFC3280 bagian 4.2.2.1](https://datatracker.ietf.org/doc/html/rfc3280#section-4.2.2.1) dan ada pula yang menembolokan (_cache_) sertifikat penengah untuk melengkapi rantai sertifikat.
+Biasanya kebanyakan peramban web di desktop dan seluler (terutama versi terbaru) masih mendukungnya karena mereka memanfaatkan dukungan ekstensi AIA (_Authority Information Access_) yang ada pada sertifikat untuk mengunduh sertifikat penengah (_Intermediate Certificate_) yang hilang sesuai [RFC3280 bagian 4.2.2.1](https://datatracker.ietf.org/doc/html/rfc3280#section-4.2.2.1) dan ada pula yang menembolokan (_cache_) sertifikat penengah untuk melengkapi rantai sertifikat.
 
-Namun, ada beberapa perangkat lunak klien lainnya yang tidak mendukung ekstensi AIA ini dan ada pula yang tidak menembolokan sertifikat penengah, sehingga mereka tidak mendukung Sertifikat SSL/TLS yang rantainya tidak lengkap.
+Namun, ada beberapa perangkat lunak klien lainnya yang tidak mendukung ekstensi AIA ini dan ada pula yang tidak menembolokan sertifikat penengah, sehingga mereka tidak mendukung sertifikat SSL/TLS yang rantainya tidak lengkap.
 
-Kalau Anda ingin menguji 'reaksi' dari Peramban Web yang Anda gunakan, silakan kunjungi alamat URL [https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/) atau Situs Web [badssl.com](https://badssl.com) untuk pengujian lainnya.
+Kalau Anda ingin menguji 'reaksi' dari peramban web yang Anda gunakan, silakan kunjungi alamat URL ~~[https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/)~~ atau situs web [badssl.com](https://badssl.com) untuk pengujian lainnya.
 
-Atau, kalau Anda ingin mengecek rantai sertifikat yang terpasang di Situs Web/Blog/Aplikasi Anda, silakan kunjungi halaman [SSL Checker](https://www.sslshopper.com/ssl-checker.html) dari SSL Shopper atau [SSL Server Test](https://www.ssllabs.com/ssltest/) dari Qualys SSL Labs.
+**PEMBARUAN Senin, 06 Februari 2023:** Sertifikat SSL/TLS pada `incomplete-chain` telah kedaluwarsa, bukan cuma itu saja, ada beberapa pengujian lainnya yang mengalami kehabisan masa berlaku pada sertifikat SSL/TLS mereka, silakan lihat halaman ["Issue"](https://github.com/chromium/badssl.com/issues) di repositori mereka untuk lebih lanjut.
 
-Selain hal di atas, jika Anda tidak memasang kunci pribadi, maka sertifikat tersebut biasanya tidak bisa digunakan/tidak diterima oleh Perangkat Lunak, karena Server memerlukan kunci pribadi untuk melakukan Dekripsi Data.
+Atau, kalau Anda ingin mengecek rantai sertifikat yang terpasang di situs web ,blog atau aplikasi Anda, silakan kunjungi halaman [SSL Checker](https://www.sslshopper.com/ssl-checker.html) dari SSL Shopper atau [SSL Server Test](https://www.ssllabs.com/ssltest/) dari Qualys SSL Labs.
+
+Selain hal di atas, jika Anda tidak memasang kunci pribadi, maka sertifikat tersebut biasanya tidak bisa digunakan/tidak diterima oleh perangkat lunak, karena server memerlukan kunci pribadi untuk melakukan dekripsi data.
 
 Kalau kuncinya tidak cocok dengan sertifikatnya, maka akan ada galat seperti cuplikan di bawah ini jika Anda mengaksesnya:
 
@@ -2590,7 +2596,7 @@ Kalau kuncinya tidak cocok dengan sertifikatnya, maka akan ada galat seperti cup
 
 Atau, jika Anda tidak memasang sertifikat untuk domainnya, sepertinya Anda sudah bisa menebak apa yang akan terjadi.
 
-Kalau jawabanmu adalah "Sertifikat TLS/SSL menjadi gagal terpasang dan tidak diterima oleh Perangkat Lunak" maka jawabanmu benar, karena sama saja seperti kamu membuat sebuah Sertifikat, tetapi tidak tahu untuk siapa.
+Kalau jawabanmu adalah "Sertifikat TLS/SSL menjadi gagal terpasang dan tidak diterima oleh perangkat lunak" maka jawabanmu benar, karena sama saja seperti kamu membuat sebuah Sertifikat, tetapi tidak tahu untuk siapa.
 
 Jadi, pasanglah sertifikatnya dengan benar!
 
@@ -2605,9 +2611,9 @@ Jika Anda bingung, silakan lihat cuplikan berikut:
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk Sertifikat SSL/TLS dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
-Berbeda bila dibandingkan dengan hierarki/rantai Sertifikat SSL/TLS di Sistem Operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta perangkat lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai sertifikat akarnya.
+Berbeda bila dibandingkan dengan hierarki/rantai sertifikat SSL/TLS di sistem operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta perangkat lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai sertifikat akarnya.
 
-Jadi, sertifikat akar/rantai (atau _Chain of Trust_) yang Anda dapatkan itu bergantung pada Perangkat Lunak yang Anda gunakan.
+Jadi, sertifikat akar/rantai (atau _Chain of Trust_) yang Anda dapatkan itu bergantung pada perangkat lunak yang Anda gunakan.
 
 ### Pertanyaan ke-17: Kenapa Sertifikat Akar/Rantai yang didapat bisa berbeda-beda di tiap perangkat? {#pertanyaan-ke17}
 Salah satu alasan kenapa masih menggunakan sertifikat akar yang lama oleh perangkat lunak adalah karena perangkat lunak tersebut sudah 'berumur', tidak diperbarui ataupun tidak bisa memperbarui sertifikat yang ada, sehingga sertifikat akar alternatif belum/tidak ada.
@@ -2624,7 +2630,7 @@ Namun, jika tidak bisa diperbarui, maka perangkat lunak akan menggunakan sertifi
 
 Jika sertifikat akar tersebut habis masa berlakunya, maka skenario terburuknya adalah Aplikasi/Web yang terpasang Sertifikat SSL/TLS dengan akar tersebut akan tidak bisa diakses dari perangkat itu sebagaimana mestinya.
 
-Kalau Anda memakai Windows sebagai Sistem Operasinya, maka seharusnya Anda tidak perlu khawatir soal ini karena secara otomatis [Windows akan mengunduh sertifikat akarnya untuk Anda](https://community.letsencrypt.org/t/microsoft-windows-root-certificate-lazy-loading/160389) (dengan asumsi bahwa fitur [Pembaruan Sertifikat Akar Otomatis](https://docs.microsoft.com/en-us/answers/questions/202270/how-to-enable-the-34automatic-root-certificates-up.html) dan Windows Update tetap aktif).
+Kalau Anda memakai Windows sebagai sistem operasinya, maka seharusnya Anda tidak perlu khawatir soal ini karena secara otomatis [Windows akan mengunduh sertifikat akarnya untuk Anda](https://community.letsencrypt.org/t/microsoft-windows-root-certificate-lazy-loading/160389) (dengan asumsi bahwa fitur [Pembaruan Sertifikat Akar Otomatis](https://docs.microsoft.com/en-us/answers/questions/202270/how-to-enable-the-34automatic-root-certificates-up.html) dan Windows Update tetap aktif).
 
 Jadi, selama akar tersebut dipercaya oleh Microsoft dan Anda tetap mengaktifkan Windows Update, maka seharusnya aman dan akan lebih baik untuk selalu memperbarui sistem Windows Anda, terutama untuk pengguna Windows 7 (bukan "memperbaharuinya" atau menggantikan versi Windows ke versi terbaru).
 
@@ -2639,15 +2645,15 @@ Karena nyatanya situs web **Microsoft Update Catalog** tersebut tidak membutuhka
 ### Pertanyaan ke-18: Saya mengalami galat/_error_ selama menggunakan acme.sh, bagaimana cara mengatasinya? {#pertanyaan-ke18}
 Cara mengatasinya itu bergantung dengan galatnya. Berbeda pesan galat, maka akan beda penyebabnya, beda penyebab maka solusi pun akan berbeda pula. Sehingga, saya tidak bisa memberikan solusi yang pasti.
 
-Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untuk caranya, silakan Anda kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
+Jadi, pertama-tama Anda perlu diagnosa terlebih dahulu mengenai penyebabnya. Untuk caranya, silakan kunjungi [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh).
 
 Anda perlu melihat-lihat/membaca barisan keluarannya saat acme.sh sedang bekerja, jika ada yang menurut Anda mencurigakan, mungkin saja itu adalah penyebabnya.
 
 Jika Anda merasa kesulitan untuk mengatasi masalahnya, mungkin Anda bisa salinkan semua keluarannya terlebih dahulu, lalu tempelkan itu ke dalam layanan Pastebin seperti [Pastebin dari Teknik.io](https://paste.teknik.io/), [GitHub Gist](https://gist.github.com), [IX](http://ix.io/), dll.
 
-Setelah menempelkannya, Anda perlu mengirimkan teksnya, sebelum dikirimkan mungkin Anda perlu menutupi beberapa informasi terlebih dahulu, setelah dikirimkan maka akan muncul Alamat URL untuk mengakses teksnya, salinkan Alamat URL tersebut dan tempelkan itu ke dalam kolom komentar nantinya.
+Setelah menempelkannya, Anda perlu mengirimkan teksnya, sebelum dikirimkan mungkin Anda perlu menutupi beberapa informasi terlebih dahulu, setelah dikirimkan maka akan muncul alamat URL untuk mengakses teksnya, salinkan alamat URL tersebut dan tempelkan itu ke dalam kolom komentar nantinya.
 
-Serta, berikan pembuka dan detail seperti Informasi Sistem Operasi, versi acme.sh, kronologi, dll, selengkap mungkin di dalam kolom komentarnya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan telah tersedia.
+Serta, berikan pembuka dan detail seperti informasi mengenai sistem operasi, versi acme.sh, kronologi, dll, selengkap mungkin di dalam kolom komentarnya, agar saya dan yang lain bisa lebih cepat membantu Anda, karena Informasi yang diperlukan telah tersedia.
 
 ### Pertanyaan ke-19: Bagaimana cara menggantikan kredensial akses API untuk Penyedia DNS yang telah saya masukkan sebelumnya? Soalnya tadi saya salah memasukkannya {#pertanyaan-ke19}
 Jika Anda ingin mengganti kredensial yang telah Anda masukkan sebelumnya dengan alasan apa pun, seperti salah ketik, kredensialnya telah diganti, dll, maka ada beberapa cara yang bisa Anda tempuh untuk mengubah kredensialnya, yakni:
@@ -2681,7 +2687,7 @@ sed -i '/SAVED\_CF\_Token\=/d' "$HOME"/.acme.sh/account.conf
 printf "SAVED_CF_Token='%s'\n" "API_TOKEN_KAMU_DI_SINI" >> "$HOME"/.acme.sh/account.conf
 ```
 
-Namun jika Anda menggunakan Penyedia DNS lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, oleh karena itu Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silakan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Namun jika Anda menggunakan Penyedia DNS lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, oleh karena itu Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silakan kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Setelah itu, coba perbarui/terbitkan lagi sertifikatnya, dengan begini acme.sh akan menggunakan kredensial barunya.
 
@@ -2696,14 +2702,14 @@ Setelah menyimpannya dan menjalankan perkakas acme.sh untuk menerbitkan sertifik
 
 Nah, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan ingin menggantikan kredensialnya, entah itu ganti "API Token", "Account ID" atau/dan "Zone ID"-nya, maka cukup ganti saja nilai dari variabel `CF_Token`, `CF_Account_ID` dan `CF_Zone_ID` atau salah satunya di dalam berkas `$HOME/.acme.sh/domain.com/domain.com.conf`, bahkan Anda bisa menambahkan variabel lainnya di dalam sana.
 
-Namun jika Anda menggunakan Penyedia DNS lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, oleh karena itu Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silakan Anda kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Namun jika Anda menggunakan Penyedia DNS lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, oleh karena itu Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silakan kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
 Jangan lupa untuk menghapus kredensial yang ada di dalam berkas tersebut setelah Anda menambahkannya. Setelah itu, tunggu saja sampai waktu pembaruan sertifikat telah tiba.
 
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lainnya? {#pertanyaan-ke20}
 Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenisnya.
 
-Untuk Sistem Operasinya, saya sarankan Anda gunakan GNU/Linux yang merupakan Sistem Operasi berbasis \*nix dibandingkan dengan Windows, kalau mau yang lain seperti macOS, BSD, Solaris, dll, juga boleh. Di Android juga bisa, tetapi saya sarankan unduh, instal dan gunakan aplikasi Termux di dalamnya untuk itu.
+Untuk sistem operasinya, saya sarankan Anda gunakan GNU/Linux yang merupakan salah satu sistem operasi berbasis \*nix dibandingkan dengan Windows, kalau mau yang lain seperti macOS, BSD, Solaris, dll, juga boleh. Di Android juga bisa, tetapi saya sarankan unduh, instal dan gunakan aplikasi Termux di dalamnya untuk itu.
 
 ### Pertanyaan ke-21: Bagaimana cara memindahkan salinan acme.sh ke dalam perangkat lain? {#pertanyaan-ke21}
 Bisa sekali, cara memindahkan acme.sh ke dalam perangkat lainnya adalah sebagai berikut:
@@ -2721,31 +2727,31 @@ Anda bisa mengganti `acme.sh.tar.gz` menjadi nama berkas yang Anda inginkan, asa
 **Catatan:** Jika Anda menggunakan [Metode ke-2](#membuat-berkas-skrip-shell), maka Anda perlu kompresi berkas `renew-ssl.sh`-nya juga.
 
 3. Setelah mengkompresinya, silakan langsung menyalinkannya ke dalam perangkat yang ingin Anda tuju/perangkat baru Anda. Jika perlu, silakan lakukan enkripsi pada berkas tersebut terlebih dahulu sebelum menyalinkan/mengirimkannya
-4. (**Catatan:** Mulai sekarang/di langkah ini, gunakan perangkat yang Anda tuju/perangkat baru Anda sampai seterusnya) Setelah disalin ke dalam perangkat baru, silakan Anda pindahkan berkas tersebut ke direktori `$HOME` atau `~` yang ada di dalam perangkat baru Anda.
+4. (**Catatan:** Mulai sekarang/di langkah ini, gunakan perangkat yang Anda tuju/perangkat baru Anda sampai seterusnya) Setelah disalin ke dalam perangkat baru, pindahkan berkas tersebut ke dalam direktori `$HOME` atau `~` yang ada di dalam perangkat baru Anda.
 
 5. Setelah itu, buka Terminalnya dari perangkat baru, lalu instal terlebih dahulu acme.sh-nya dengan perintah berikut:
 ```bash
 curl https://get.acme.sh | sh -s
 ```
-6. Setelah Anda menginstalnya, dekripsi berkas `acme.sh.tar.gz` jika Anda melakukan enkripsi, lalu ekstrak berkas tersebut dengan perintah berikut:
+1. Setelah Anda menginstalnya, dekripsi berkas `acme.sh.tar.gz` jika Anda melakukan enkripsi, lalu ekstrak berkas tersebut dengan perintah berikut:
 ```bash
 tar -xvzf acme.sh.tar.gz
 ```
-7. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `$HOME/.acme.sh/account.conf` dengan perintah berikut:
+1. Setelah diekstrak, aturlah `USER_PATH` di dalam berkas `$HOME/.acme.sh/account.conf` dengan perintah berikut:
 ```bash {linenos=true}
 cp "$HOME"/.acme.sh/account.conf "$HOME"/.acme.sh/account.conf.1 ## Backup dulu
 sed -i '/USER\_PATH\=/d' "$HOME"/.acme.sh/account.conf
 printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 ```
-8. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silakan baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
+1. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar Berkas Skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silakan baca bagian [Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs) di atas. 
 
    Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis diatur setelah Anda menginstal perkakas acme.sh-nya. 
 
    Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam perangkat baru Anda untuk memasang _Cron Job-nya_.
 
-9. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
+2. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
 
-10. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan Sertifikat SSL/TLS di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikatnya hanya karena kredensialnya sama.
+3.  Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan Sertifikat SSL/TLS di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikatnya hanya karena kredensialnya sama.
 
     Caranya bisa hapus manual melalui `crontab -e`, atau gunakan perintah `acme.sh --uninstall-cronjob` untuk menghapusnya secara otomatis dari perangkat lama Anda
 
@@ -2774,7 +2780,7 @@ Jadi, harus dipertimbangkan dengan baik untuk pemilihan kuncinya ya 🙂
 ### Pertanyaan ke-24: Masa aktif Sertifikat SSL/TLS gratisan (termasuk dari ZeroSSL) rata-rata hanya 90 hari, apakah itu tidak bermasalah? {#pertanyaan-ke24}
 Selama bisa diperbarui secara otomatis, maka seharusnya tidak masalah.
 
-Sekarang ini sudah sangat banyak atau bahkan mayoritas Perangkat Lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui sertifikat tersebut secara otomatis berkat dukungan protokol ACME-nya.
+Sekarang ini sudah sangat banyak atau bahkan mayoritas perangkat lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui sertifikat tersebut secara otomatis berkat dukungan protokol ACME-nya.
 
 Untuk kasus pembaruan Sertifikat SSL/TLS dari ZeroSSL (yang telah saya bahas di artikel ini), itu juga diperbarui secara otomatis melalui perkakas acme.sh yang telah dijalankan di dalam latar belakang pada ponsel atau perangkat Anda.
 
