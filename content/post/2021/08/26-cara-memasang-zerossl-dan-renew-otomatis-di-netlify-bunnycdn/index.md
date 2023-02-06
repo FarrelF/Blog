@@ -452,8 +452,8 @@ Namun, jika sebelumnya sudah pernah menerbitkan sertifikatnya dan membuat kode t
 
 Kalau belum, silakan dibuat terlebih dahulu, caranya sebagai berikut:
 
-1. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
-2. Klik pada _Button_ **"New access token"** di Bagian **"Personal access tokens"**
+0. Anda bisa langsung masuk [ke sini](https://app.netlify.com/user/applications), lakukan login terlebih dahulu jika diminta.
+1. Klik pada _button_ **"New access token"** di Bagian **"Personal access tokens"**
 
 !["Personal access tokens" di Netlify](Netlify_Access_Token_1.webp)
 
