@@ -28,6 +28,14 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Set up APT Mirror
+      # GitHub Actions APT proxy is super unstable
+      # See: https://github.com/actions/runner-images/issues/7048
+      run: |
+        printf 'http://azure.archive.ubuntu.com/ubuntu	priority:1\n' | sudo tee /etc/apt/mirrors.txt
+        curl http://mirrors.ubuntu.com/mirrors.txt | sudo tee --append /etc/apt/mirrors.txt
+        sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/mirrors.txt/' /etc/apt/sources.list
+
     - name: Install All Locales and Other Packages
       run: |
         sudo sh -c 'apt update; apt install -y locales locales-all pigz'
