@@ -19,42 +19,39 @@
 		}
 	},
 
-    // Customizations
-    "customizations": {
+	// Customizations
+	"customizations": {
 		// Codespace Customization for Multiple Repository
 		"codespaces": {
 			"repositories": {
 				"FarrelF/stack-modified": {
-					"permissions": {
-						"contents": "write",
-						"pull_requests": "write"
-					}
+					"permissions": "read-all"
 				}
 			}
 		},
 
         // Visual Studio Code Customization
-        "vscode": {
-            // Set *default* container specific settings.json values on container create.
-            "settings": {
-                "html.format.templating": true,
-                "git.enableCommitSigning": true
-            },
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"html.format.templating": true,
+				"git.enableCommitSigning": true
+			},
 
-            // Add the IDs of extensions you want installed when the container is created.
-            "extensions": [
-                "tamasfe.even-better-toml",
-                "bierner.emojisense",
-                "formulahendry.auto-rename-tag",
-                "budparr.language-hugo-vscode",
-                "redhat.vscode-yaml",
-                "yzhang.markdown-all-in-one",
-                "oderwat.indent-rainbow",
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"tamasfe.even-better-toml",
+				"bierner.emojisense",
+				"formulahendry.auto-rename-tag",
+				"budparr.language-hugo-vscode",
+				"redhat.vscode-yaml",
+				"yzhang.markdown-all-in-one",
+				"oderwat.indent-rainbow",
 				"pranaygp.vscode-css-peek",
-                "davidanson.vscode-markdownlint"
-            ]
-        }
-    },
+				"davidanson.vscode-markdownlint"
+			]
+		}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
