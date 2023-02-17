@@ -17,15 +17,17 @@ RUN apt update && apt install -y ca-certificates openssl git curl && \
     echo ${VERSION} && \
     wget -O ${VERSION}.tar.gz https://github.com/gohugoio/hugo/releases/download/v${VERSION}/${VARIANT}_${VERSION}_Linux-64bit.tar.gz && \
     tar xf ${VERSION}.tar.gz && \
-    install -Dm755 hugo /usr/local/bin/
+    install -Dm755 hugo /usr/local/bin/ && \
+    install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
 
 # Install Hugo Manpages and Shell Completions
-RUN hugo gen man --dir '/tmp/hugo_manpages' \
-    cd /tmp/hugo_manpages && gzip -9 * \
-    install -Dm644 * -t /usr/local/man/man1 \
-    cd - && rm -rf /tmp/hugo_manpages \
-    hugo completion bash | install -Dm644 /dev/stdin "/usr/share/bash-completion/completions/hugo" \
-    hugo completion zsh | install -Dm644 /dev/stdin "/usr/share/zsh/site-functions/_hugo"
+RUN hugo gen man --dir '/tmp/hugo_manpages' && \
+    cd /tmp/hugo_manpages && gzip -9 * && \
+    install -Dm644 * -t /usr/local/man/man1 && \
+    cd - && rm -rf /tmp/hugo_manpages && \
+    hugo completion bash | install -Dm644 /dev/stdin "/usr/share/bash-completion/completions/hugo" && \
+    hugo completion zsh | install -Dm644 /dev/stdin "/usr/share/zsh/site-functions/_hugo" && \
+    hugo completion fish | install -Dm644 /dev/stdin "/usr/share/fish/vendor_completions.d/hugo.fish"
 
 # Hugo dev server port
 EXPOSE 1313
