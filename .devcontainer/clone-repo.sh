@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-script_folder="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
+script_folder="$(pwd)"
 workspaces_folder="$(cd "${script_folder}/.." && pwd)"
 
 clone-repo()
