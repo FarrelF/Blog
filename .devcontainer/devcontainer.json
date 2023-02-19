@@ -1,23 +1,17 @@
 // This file created and inspired from Development Container Template File for Hugo by Visual Studio Code.
+// But their configuration files are deprecated and no longer maintained. See: https://github.com/microsoft/vscode-dev-containers
+// So, I configured it to keep up with new Development Container Specification.
+
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/main/containers/hugo
+// Image Base: https://github.com/devcontainers/images/tree/main/src/base-ubuntu
+// Image Template: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+// Hugo Feature: https://github.com/devcontainers/features/tree/main/src/hugo
+
 {
 	"name": "Farrel Franqois Blog",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			// Update VARIANT to pick hugo variant.
-			// Example variants: hugo, hugo_extended
-			// Rebuild the container if it already exists to update.
-			"VARIANT": "hugo_extended",
-			// Update VERSION to pick a specific hugo version.
-			// Example versions: latest, 0.73.0, 0,71.1
-			// Rebuild the container if it already exists to update.
-			"VERSION": "latest",
-			// Update NODE_VERSION to pick the Node.js version: 14, 16, 18
-			"NODE_VERSION": "16"
-		}
-	},
+
+	// Using "image" option for Development Container Template instead of using template in Dockerfile that are deprecated
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 
 	// Customizations
 	"customizations": {
@@ -35,7 +29,11 @@
 			// Set *default* container specific settings.json values on container create.
 			"settings": {
 				"html.format.templating": true,
-				"git.enableCommitSigning": true
+				"git.enableCommitSigning": true,
+				"oneDarkPro.bold": true,
+				"oneDarkPro.vivid": true,
+				"workbench.colorTheme": "One Dark Pro",
+				"workbench.iconTheme": "material-icon-theme"
 			},
 
 			// Add the IDs of extensions you want installed when the container is created.
@@ -48,23 +46,34 @@
 				"yzhang.markdown-all-in-one",
 				"oderwat.indent-rainbow",
 				"pranaygp.vscode-css-peek",
-				"davidanson.vscode-markdownlint"
+				"davidanson.vscode-markdownlint",
+				"zhuangtongfa.material-theme",
+				"PKief.material-icon-theme"
 			]
+		}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "bash .devcontainer/clone-repo.sh",
+
+	// Remove the comment at "remoteUser" to connect as non-root instead.
+	// More info: https://aka.ms/vscode-remote/containers/non-root.
+	//"remoteUser": "node",
+	"features": {
+		"ghcr.io/devcontainers/features/go:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/powershell:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/hugo:1": {
+			"extended": true,
+			"version": "latest"
 		}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		1313
-	],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bash .devcontainer/clone-repo.sh",
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node",
-	"features": {
-		"golang": "latest",
-		"powershell": "latest"
-	}
+	]
 }
