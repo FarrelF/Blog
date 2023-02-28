@@ -324,46 +324,48 @@ Anda bisa mencoba [Cloudflare Access](https://developers.cloudflare.com/cloudfla
 
 Jadi, Anda bisa mengaksesnya melalui jaringan Internet, seperti yang saya lakukan sekarang.
 
-Namun, Anda perlu menghimpun kode sumber Cloudflared-nya terlebih dahulu di Termux, silakan [klik di sini](https://gist.github.com/Erisa/4015ae12211434b8f2f64ac1d731b830) untuk caranya.
+~~Namun, Anda perlu menghimpun kode sumber Cloudflared-nya terlebih dahulu di Termux, silakan [klik di sini](https://gist.github.com/Erisa/4015ae12211434b8f2f64ac1d731b830) untuk caranya.~~
 
-Setelah itu Anda perlu pastikan bahwa Termux-nya telah aktif terus di latar belakang pada Ponsel Anda, jangan dimatikan.
+**PEMBARUAN, Selasa 28 Februari 2023:** Cukup instal saja dengan perintah `pkg i -y cloudflared`
+
+Setelah itu Anda perlu pastikan bahwa Termux-nya telah aktif terus di latar belakang pada perangkat Anda, jangan dimatikan.
 
 Selebihnya nanti akan saya buatkan artikelnya.
 {{< / info >}}
 
 ### Pertanyaan ke-3: Kenapa saya tetap mendapatkan pesan "Permission Denied", padahal penyimpanan sudah saya izinkan dan `termux-setup-storage` sudah saya jalankan? {#pertanyaan-ke3}
-**Jawab:** Bisa jadi karena kutu (_bug_) yang terjadi di dalam Sistem Operasi Android yang Anda gunakan, terutama untuk pengguna Android 11.
+**Jawab:** Bisa jadi karena kutu (_bug_) yang terjadi di dalam sistem operasi Android yang Anda gunakan, terutama untuk pengguna Android 11.
 
-Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa Anda coba matikan izin "Penyimpanan" pada Aplikasi Termux, lalu nyalakan kembali setelah itu.
+Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa coba matikan izin "Penyimpanan" pada Aplikasi Termux, lalu nyalakan kembali setelah itu.
 
-Melakukannya mungkin akan mematikan Termux di Perangkat Anda, dengan kata lain Termux akan "Force Close" atau ditutup secara paksa, tetapi Anda dapat membuka aplikasinya kembali setelah itu seperti biasanya.
+Melakukannya mungkin akan mematikan Termux di perangkat Anda, dengan kata lain Termux akan "Force Close" atau ditutup secara paksa, tetapi Anda dapat membuka aplikasinya kembali setelah itu seperti biasanya.
 
-Setelah Anda membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola Penyimpanan Perangkat dari Termux tanpa terkena galat "Permission Denied" lagi.
+Setelah membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola penyimpanan perangkat dari Termux tanpa terkena galat "Permission Denied" lagi.
 
 **Bagaimana jika saya bukan pengguna Android 11?** Mungkin ini bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu cara selain ini.
 
 ### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari Komputer/Laptop saya, padahal sudah di dalam jaringan yang sama dan Alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
 **Jawab:** Banyak faktor sebenarnya mengenai hal ini, salah satunya adalah:
 
-1. _Firewall_ (Baik yang dilakukan oleh Sistem Operasi, Aplikasi pihak ketiga, Router/ONT, dll) yang memblokir Alamat IP, aplikasi ataupun akses tertentu.
-2. Alamat IP Lokal yang Anda ataupun perangkat Anda dapatkan itu sudah digunakan oleh orang lain (Alamat IP Duplikat). Ini mungkin akan terjadi jika Anda berada di tempat ramai atau Anda menggunakan MAC Acak saat terkoneksi ke jaringan yang mana Anda akan mendapatkan Alamat IP yang acak pula.
-3. Jaringan yang Anda gunakan mungkin tidak mengizinkan akses ke perangkat lain secara lokal untuk alasan keamanan, seperti jaringan [wifi.id](https://wifi.id) oleh Grup Telkom.
-4. Dan faktor-faktor lainnya.
+1. _Firewall_ (Baik yang dilakukan oleh sistem operasi, aplikasi pihak ketiga, perangkat _router_, _access point_ atau ONT, dll) yang memblokir Alamat IP, aplikasi ataupun akses tertentu
+2. Alamat IP Lokal yang Anda dapatkan itu sudah digunakan oleh orang lain (Alamat IP Duplikat). Ini mungkin akan terjadi jika Anda berada di tempat ramai atau Anda menggunakan MAC Acak saat terkoneksi ke jaringan yang mana Anda akan mendapatkan Alamat IP yang acak juga
+3. Jaringan yang Anda gunakan mungkin tidak mengizinkan akses ke perangkat lain secara lokal untuk alasan keamanan, seperti jaringan [wifi.id](https://wifi.id) oleh Grup Telkom
+4. Dan faktor-faktor lainnya
 
 Solusi yang bisa Anda coba salah satunya yaitu:
 
-1. Periksa kembali Alamat IP yang Anda tuju, pastikan bahwa Alamat IP yang Anda tuju sudah benar.
-2. Periksa setelan _Firewall_ Anda, baik dari bawaan sistem operasi, aplikasi pihak ketiga atau dari Router/ONT sekali pun, jika terblokir maka Anda harus membuka aksesnya. Kalau perlu, Anda juga dapat mematikan _Firewall-nya_ terlebih dahulu untuk sementara waktu.
-3. Coba usahakan untuk tidak menggunakan Alamat MAC yang Acak terlebih dahulu agar memperkecil kemungkinan untuk mendapatkan Alamat IP yang sama. Jika Anda tidak ingin menggunakan Alamat MAC Asli ataupun tidak bisa, Anda bisa coba ganti Alamat IP-nya.
-4. Coba koneksikan ke jaringan lokal lain, jangan gunakan jaringan Wi-Fi yang memerlukan login seperti wifi.id, Biznet Wifi, dll.
+1. Periksa kembali Alamat IP yang Anda tuju, pastikan bahwa Alamat IP-nya sudah benar
+2. Periksa setelan _Firewall_ Anda, baik dari bawaan sistem operasi, aplikasi pihak ketiga atau dari Router/ONT sekali pun, jika terblokir maka Anda harus membuka aksesnya. Kalau perlu, Anda juga dapat mematikan _Firewall-nya_ terlebih dahulu untuk sementara waktu
+3. Coba usahakan untuk tidak menggunakan Alamat MAC yang Acak terlebih dahulu agar memperkecil kemungkinan untuk mendapatkan Alamat IP yang sama. Jika Anda tidak ingin menggunakan Alamat MAC Asli ataupun tidak bisa, bisa Anda coba ganti Alamat IP-nya
+4. Coba koneksikan ke jaringan lokal lain, jangan gunakan jaringan Wi-Fi yang memerlukan login seperti wifi.id, Biznet Wifi, dll
 5. Buatlah jaringan lokal sendiri, berikut di bawah ini adalah salah satu caranya:
     - Untuk pengguna Android: Anda dapat menggunakan fitur **Penambatan Hotspot** (bahasa Inggris: **Hotspot Tethering**) untuk membuat jaringan lokal sendiri secara nirkabel.
 
-    Jika Anda sedang tersambung dengan Koneksi Wi-Fi di perangkat, pastikan perangkat Android Anda memiliki dan telah mengaktifkan fitur **Wi-Fi Sharing**, **Berbagi Wi-Fi**, dan fitur sejenis lainnya agar koneksi Wi-Fi tidak terputus saat penambatan diaktifkan.
+        Jika Anda sedang tersambung melalui koneksi Wi-Fi di perangkat, pastikan perangkat Android yang Anda miliki telah mengaktifkan fitur **Wi-Fi Sharing**, **Berbagi Wi-Fi**, dan fitur sejenis lainnya agar koneksi Wi-Fi tidak terputus saat penambatan diaktifkan
 
-    - Selain **Penambatan Hotspot**, Anda juga dapat menggunakan fitur **Penambatan USB** (bahasa Inggris: **USB Tethering**) untuk membuat jaringan lokal yang langsung terhubung ke komputer PC/Laptop dari perangkat Android Anda dengan kabel USB. 
+    - Selain **Penambatan Hotspot**, Anda juga dapat menggunakan fitur **Penambatan USB** (bahasa Inggris: **USB Tethering**) untuk membuat jaringan lokal yang langsung terhubung ke komputer PC/Laptop dari perangkat Android Anda melalui kabel USB
 
-    - Untuk pengguna Windows 10 atau di atasnya: Anda bisa menggunakan fitur **Mobile Hotspot** di dalam Windows 10 (atau di atasnya) bagi pengguna komputer PC/Laptop untuk membuat jaringan lokal secara nirkabel.
+    - Untuk pengguna Windows 10 atau di atasnya: Anda bisa menggunakan fitur **Mobile Hotspot** di dalam Windows 10 (atau di atasnya) bagi pengguna komputer PC/Laptop untuk membuat jaringan lokal secara nirkabel
 
 Nah, itu saja penyebab dari masalah ini beserta solusi yang bisa Anda coba salah satunya.
 
