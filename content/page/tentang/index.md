@@ -47,8 +47,8 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [PT Cloud Hosting Indonesia (IDCloudHost)](https://afiliasi.farrel.franqois.id/idch/) sebagai Registrar dan Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting/Tempat Penyimpanan:
-  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Tebi](https://tebi.io/) sebagai Tempat Penyimpanan Utama untuk Blog
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)

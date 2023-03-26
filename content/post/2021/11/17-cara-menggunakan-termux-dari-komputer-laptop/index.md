@@ -86,7 +86,7 @@ Atau, di bawah ini jika Anda ingin menggunakan APT:
 apt update; apt install -y nmap iproute2
 ```
 
-**Langkah ke-3:** Kamu perlu menyetel kata sandi untuk nama pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan "Enter", tanpa perlu mengingat/menyebutkan nama penggunanya secara spesifik dan tanpa perlu memasukkan argumen apapun.
+**Langkah ke-3:** Kamu perlu menyetel kata sandi untuk nama pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan "Enter", tanpa perlu mengingat/menyebutkan nama penggunanya secara spesifik dan tanpa perlu memasukkan argumen apa pun.
 
 Setelah itu, masukkan kata sandi baru yang Anda inginkan, itu akan digunakan untuk _login_ ke dalam SSH-nya nanti, kata sandi yang Anda masukkan tidak tampil di konsol, jadi jangan sampai lupa!
 
@@ -105,7 +105,7 @@ Ini serius, kamu gak perlu menyebutkan ataupun mengingat Nama Pengguna (_Usernam
 
 **Langkah ke-5:** Cek terlebih dahulu untuk memastikan server SSH aktif di Termux dengan mengetikkan `pidof sshd`, lalu tekan "Enter".
 
-Jika tidak ada hasil keluaran apapun, maka artinya server SSH tidak dalam keadaan aktif.
+Jika tidak ada hasil keluaran apa pun, maka artinya server SSH tidak dalam keadaan aktif.
 
 Jika ada hasil keluaran yang berbentuk angka, maka artinya server SSH dalam keadaan aktif.
 
@@ -265,18 +265,18 @@ Sangat bisa, Anda sangat bisa sembarang isi _Username_-nya, untuk buktinya bisa 
 
 ![Mengakses SFTP dengan Username 'farrel' di FileZilla](Termux_SFTP_1.webp) ![Mengakses SFTP dengan Username Acak di FileZilla](Termux_SFTP_2.webp)
 
-Apakah isinya sama? Sama saja, mau Anda masukkan apapun _Username_-nya, isinya akan sama saja, gak ada bedanya sama sekali. Hal ini karena OpenSSH pada Termux tidak membandingkan _Username_, jadi ia hanya fokus pada 1 _Username_ saja.
+Apakah isinya sama? Sama saja, mau Anda masukkan _username_-nya dengan apa saja, isinya akan sama saja, gak ada bedanya sama sekali. Hal ini karena OpenSSH pada Termux tidak membandingkan _username_, jadi ia hanya fokus pada 1 _username_ saja.
 
-Kenapa begitu? Karena Termux hanya memiliki 1 Pengguna Standar saja, seperti yang telah saya jelaskan di bagian "Mengakses Ponsel Android melalui SSH" pada langkah ke-1 sebelumnya.
+Kenapa begitu? Karena Termux hanya memiliki 1 pengguna standar saja, seperti yang telah saya jelaskan di bagian "Mengakses Ponsel Android melalui SSH" pada langkah ke-1 sebelumnya.
 
-Oh iya, agar Anda bisa mentransfer berkas dari dalam Ponsel ke Perangkat lain atau sebaliknya, Anda bisa gunakan perintah `termux-setup-storage` untuk membuka perizinannya/jembatan antara Termux dan Penyimpanan pada Perangkat, setelahnya Anda tinggal transfer saja melalui Aplikasi Klien FTP.
+Oh iya, agar Anda bisa mentransfer berkas dari dalam ponsel ke perangkat lain atau sebaliknya, Anda bisa gunakan perintah `termux-setup-storage` untuk membuka perizinannya/jembatan antara Termux dan penyimpanan pada perangkat, setelahnya tinggal Anda transfer saja melalui aplikasi klien FTP.
 
 Untuk lebih lanjut, silakan baca [di sini](https://wiki.termux.com/wiki/Internal_and_external_storage#Access_shared_and_external_storage) (Baca mulai dari bagian "Access shared and external storage").
 
-Dengan begini, Anda bisa mentransfer berkas dari dalam Ponsel Anda ke dalam Perangkat lain atau sebaliknya tanpa perlu meng-install Aplikasi "khusus" lagi ataupun tanpa terkena kendala kabel/lubangnya lagi.
+Dengan begini, Anda bisa mentransfer berkas dari dalam ponsel ke dalam perangkat lain atau sebaliknya tanpa perlu menginstal aplikasi "khusus" lagi ataupun tanpa terkena kendala kabel/lubangnya lagi.
 
 ## Pertanyaan dan Jawaban
-Jika Anda memiliki pertanyaan, silakan masukkan pertanyaan dari Anda ke dalam kolom komentar yang tersedia.
+Jika Anda memiliki pertanyaan, silakan tanyakan itu di dalam kolom komentar yang tersedia.
 
 Namun, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban berikut sebagai referensi buat Anda sebelum bertanya.
 
@@ -292,7 +292,7 @@ Namun, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban b
 
 Oh iya, setelah menentukan _shebang_-nya, mungkin memasukkan perintah `termux-wake-lock` akan sangat membantu agar perangkat tidak "tertidur" dan Termux bisa tetap berjalan di latar belakang.
 
-**Contoh:** Jika Anda ingin menjalankan server SSH-nya saja dengan menggunakan peritah `sshd`, maka isi dari skrip `startup-script` akan seperti berikut:
+**Contoh:** Jika Anda ingin menjalankan server SSH-nya saja dengan menggunakan perintah `sshd`, maka isi dari skrip `startup-script` akan seperti berikut:
 
 ```shell {linenos=true}
 #!/data/data/com.termux/files/usr/bin/sh
