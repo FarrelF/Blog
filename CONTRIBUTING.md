@@ -7,9 +7,9 @@ Caranya sebagai berikut:
 Jika Anda ingin berkontribusi dengan membantu konfigurasi blog ini atau ikut serta dalam mengubah kode sumbernya.
 
 ### Struktur Direktori dan Berkas pada Kode Sumber
-Namun sebelum mengubah Kode Sumber, maka Anda perlu mengetahui struktur direktori dan berkas yang ada di kode sumber ini, beserta fungsi-fungsinya.
+Namun sebelum mengubah kode sumber, maka Anda perlu mengetahui struktur direktori dan berkas yang ada di kode sumber ini, beserta fungsi-fungsinya.
 
-Berikut di bawah ini adalah Struktur Direktori dan Berkasnya:
+Berikut di bawah ini adalah struktur direktori dan berkas-berkasnya:
 
 ```plain
 FarrelF-Blog
@@ -50,15 +50,15 @@ FarrelF-Blog
 
 Setelah melihat struktur direktori dan berkasnya di atas, maka saatnya Anda mengetahui apa berkas dan direktori tersebut.
 
-Berikut adalah Informasi mengenai berkas-berkasnya yang berada di dalam direktori Akar (_Root directory_)-nya:
-- [`.gitignore`](.gitignore): Adalah berkas yang berisikan berkas-berkas atau direktori yang akan diabaikan oleh Git, sehingga direktori atau berkas di dalam daftar tersebut tidak akan dimasukkan ke dalam kode sumber/repositori karena alasan tertentu.
-- `CONTRIBUTING.md`: Adalah berkas yang Anda akses sekarang.
-- [`LICENSE`](LICENSE): Adalah berkas lisensi untuk kode sumber ini,
-- [`README.md`](README.md): Sepertinya Anda sangat tahu apa berkas ini, jadi tidak usah saya jelaskan.
-- [`netlify.toml`](netlify.toml): Adalah berkas konfigurasi untuk Netlify.
+Berikut adalah Informasi mengenai berkas-berkasnya yang berada di dalam direktori akar (_Root directory_)-nya:
+- [`.gitignore`](.gitignore): Adalah berkas yang berisikan berkas-berkas atau direktori yang akan diabaikan oleh Git, sehingga direktori atau berkas di dalam daftar tersebut tidak akan dimasukkan ke dalam kode sumber/repositori karena alasan tertentu
+- `CONTRIBUTING.md`: Adalah berkas yang Anda akses sekarang
+- [`LICENSE`](LICENSE): Adalah berkas lisensi untuk kode sumber ini
+- [`README.md`](README.md): Sepertinya Anda sangat tahu apa berkas ini, jadi tidak perlu saya jelaskan
+- [`netlify.toml`](netlify.toml): Adalah berkas konfigurasi untuk Netlify
 
 Dan berikut adalah Informasi mengenai direktori-direktorinya:
-- [`.github/workflows`](.github/workflows): Adalah direktori yang menyimpan sejumlah berkas yang akan digunakan oleh GitHub Actions untuk membangun blog ini dan menyebarkan hasilnya ke Server Hosting. Untuk hasil penggunaannya, silakan Anda [klik di sini](https://github.com/FarrelF/Blog/actions).
+- [`.github/workflows`](.github/workflows): Adalah direktori yang menyimpan sejumlah berkas yang akan digunakan oleh GitHub Actions untuk membangun blog ini dan menyebarkan hasilnya ke Server Hosting. Untuk hasil penggunaannya, silakan [klik di sini](https://github.com/FarrelF/Blog/actions).
 
     Yap, Anda gak salah mengira, saya menghosting blog ini ke banyak tempat dan Netlify bukanlah tempat Hosting yang utama, melainkan cadangannya saja.
 
@@ -81,11 +81,11 @@ Dan berikut adalah Informasi mengenai direktori-direktorinya:
 
     **PEMBARUAN Senin, 13 Juni 2022:** Sejak _commit_ [`e9fb143`](https://github.com/FarrelF/Blog/commit/e9fb1439cb3f1cd88d61d014a8d035faf7929f5c), saya memutuskan untuk memakai berkas `robots.txt` yang dihasilkan secara otomatis oleh Hugo, sehingga saya tidak lagi menyimpannya secara manual ke dalam folder tersebut.
 
-    Jika Anda menaruh berkas yang seharusnya dimodifikasi oleh Hugo saat menghasilkan Blog (seperti berkas Gambar, JS, CSS, Fon, dll) tanpa alasan yang jelas, maka dengan senang hati saya menolak mentah-mentah _Pull Request_ Anda 😊
+    Jika Anda menaruh berkas yang seharusnya dimodifikasi oleh Hugo saat menghasilkan Blog (seperti berkas Gambar, JS, CSS, Fon, dll) tanpa alasan yang jelas, maka dengan senang hati saya akan menolak mentah-mentah _pull request_ dari Anda 😊
 
     Dokumentasinya bisa Anda baca [di sini](https://gohugo.io/content-management/static-files/)
 
-Jika Anda ingin mengubah kode sumber yang berada di dalam direktori, masuklah ke dalam direktori tersebut untuk lebih lanjut dan baca berkas `README.md` yang ada di setiap direktori, tetapi tidak semua direktori.
+Jika Anda ingin mengubah kode sumber yang berada di dalam direktori, masuklah ke dalam direktori tersebut untuk lebih lanjut dan baca berkas `README.md` yang ada di setiap direktori, tetapi tidak semua direktori ada berkas tersebut
 
 ### Cara mengubah Kode Sumber
 Caranya cukup mudah, Anda tinggal ikuti langkah di bawah ini:
@@ -94,17 +94,17 @@ Caranya cukup mudah, Anda tinggal ikuti langkah di bawah ini:
 
 2. Klon Repo GitHub dari Repo yang Anda buat _fork_-nya tadi
 
-3. Penuhi terlebih dahulu semua [Persyaratannya](https://github.com/FarrelF/Blog#persyaratan). Setelah memenuhi persyaratan, barulah Anda bisa menggunakannya
+3. Penuhi terlebih dahulu semua [persyaratannya](https://github.com/FarrelF/Blog#persyaratan). Setelah memenuhi persyaratan, barulah Anda bisa menggunakannya
 
-4. Navigasikan _Shell_ yang Anda gunakan ke dalam Folder Kode Sumber yang Anda klon tadi dengan perintah `cd`
+4. Navigasikan _Shell_ yang Anda gunakan ke dalam folder kode sumber yang Anda klon tadi dengan perintah `cd`
 
-5. Lalu, buatlah sebuah _Branch_ baru dari Repo yang Anda _fork_ tadi, Anda bisa turunkan _Branch_ tersebut dari `origin/main`. Lalu, namai _branch_ tersebut sesuai dengan apa yang ingin kamu lakukan (cth. `fix-i18n-string` jika Anda ingin memperbaiki terjemahan, dll)
+5. Lalu, buatlah sebuah _Branch_ baru dari repositori yang Anda _fork_ tadi, Anda bisa turunkan _branch_ tersebut dari `origin/main`. Lalu, namai _branch_ tersebut sesuai dengan apa yang ingin kamu lakukan (cth. `fix-i18n-string` jika Anda ingin memperbaiki terjemahan, dll)
 
-6. Setelah Anda membuat _Branch_ baru, alihkan ke _Branch_ tersebut, lalu ubah Kode Sumbernya dari situ, bisa melalui Editor Teks/Kode favorit kamu
+6. Setelah Anda membuat _bBranch_ baru, alihkan ke _branch_ tersebut, lalu ubah kode sumbernya dari situ, bisa melalui editor teks/kode favorit kamu
 
-7. Lakukan _Staging_, buatlah sebuah _Commit_ dan isi pesannya dengan pesan yang jelas, lalu lakukan _Push_. Pesannya sendiri tidak perlu dalam bahasa Inggris, tetapi akan lebih bagus jika kamu menggunakannya
+7. Lakukan _Staging_, buatlah sebuah _Commit_ dan isi pesannya dengan pesan yang jelas, lalu lakukan _Push_. Pesannya sendiri tidak perlu dalam bahasa Inggris, tetapi akan lebih bagus lagi jika kamu menggunakannya
 
-8. Setelah Anda selesai, buatlah sebuah _Pull Request_ jika Anda benar-benar ingin mengubah Kode Sumber ini. Pastikan Anda membuatnya dari _Branch_ yang Anda buat tadi di dalam Repo _fork_ Anda ke tujuan `FarrelF-Blog:main`
+8. Setelah selesai, buatlah sebuah _Pull Request_ jika Anda benar-benar ingin mengubah kode sumber ini. Pastikan Anda membuatnya dari _branch_ yang Anda buat tadi di dalam repositori _fork_ Anda ke tujuan `FarrelF-Blog:main`
 
 Ya udah, cuma gitu aja.
 
@@ -114,21 +114,21 @@ Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakuka
 ## Cara ke-2: Menyawer
 Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyawerkan sedikit uang Anda sebagai kontribusi Anda untuk blog ini.
 
-Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Saweria](https://saweria.co/FarrelFranqois) atau melalui akun [Arxist](https://arxist.id/farrelf/tip) saya.
+Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Ko-fi](https://ko-fi.com/farrelf), [Saweria](https://saweria.co/FarrelFranqois) atau melalui [Trakteer](https://trakteer.id/farrelf/tip) saya.
 
 Untuk lebih lengkapnya, silakan kunjungi halaman ["Tentang"](https://farrel.franqois.id/tentang/) di blog saya.
 
 ## Cara ke-3: Memberikan Masukan atau Bertanya
 Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog ini dan kode sumbernya.
 
-- Jika Anda mempunyai masalah saat menggunakan kode sumber ini, atau memberikan masukan tentang kode sumber ini, silakan Anda buat tiket ["Issue"](https://github.com/FarrelF/Blog/issues) di dalam repositori ini.
+- Jika Anda mempunyai masalah saat menggunakan kode sumber ini, atau memberikan masukan tentang kode sumber ini, silakan Anda buat tiket ["Issue"](https://github.com/FarrelF/Blog/issues) di dalam repositori ini
 
-- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan Anda membuat Diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions).
+- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan Anda membuat diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions)
 
-- Jika Anda ingin berkomentar atau kritik dan saran mengenai Artikel di dalam [Blog ini](https://farrel.franqois.id), silakan berkomentar melalui kolom komentar yang tersedia di akhir Artikel Blog.
+- Jika Anda ingin berkomentar atau kritik dan saran mengenai artikel di dalam [blog ini](https://farrel.franqois.id), silakan berkomentar melalui kolom komentar yang tersedia di akhir artikel blog
 
-- Jika Anda mempunyai pertanyaan lainnya yang tidak mau Anda sebarkan ke publik, silakan hubungi saya.
+- Jika Anda mempunyai pertanyaan lainnya yang tidak mau Anda sebarkan ke publik, silakan hubungi saya
 
-Nah, itulah cara kontribusinya, jika Anda mempunyai pertanyaan mengenai Berkas ini, silakan tanyakan itu melalui ["Discussion"](https://github.com/FarrelF/Blog/discussions) di dalam repositori ini.
+Nah, itulah cara kontribusinya, jika Anda mempunyai pertanyaan mengenai berkas ini, silakan tanyakan itu melalui ["Discussion"](https://github.com/FarrelF/Blog/discussions) di dalam repositori ini.
 
 Terima kasih 😊

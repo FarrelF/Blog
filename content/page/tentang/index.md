@@ -47,8 +47,8 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [PT Cloud Hosting Indonesia (IDCloudHost)](https://afiliasi.farrel.franqois.id/idch/) sebagai Registrar dan Pengelola Domainnya
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting/Tempat Penyimpanan:
-  - [Tebi](https://tebi.io/) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Tempat Penyimpanan Utama untuk Blog
+  - [Tebi](https://tebi.io/), [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -74,13 +74,19 @@ Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah l
 ## Informasi Kontak
 ### Surel
 - farrel(at)franqois(dot)id (Surel Pribadi)
-- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Protonmail, "katanya" lebih aman dan lebih ramah privasi)
+- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Proton Mail, yang "katanya" lebih aman dan lebih ramah privasi)
 
 ### Media sosial/Perpesanan {#medsos}
 - Telegram: [@FarrelF](https://t.me/FarrelF)
 - Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
+
+{{< info title="**Catatan:**" >}}
+Semua informasi kontak saya urutkan berdasarkan yang paling aktif di setiap kategori. Jadi jika Anda ingin menghubungi saya, saya sarankan hubungi saya di Telegram atau kirim pesan surel Anda ke alamat surel pribadi saya, yang tentu saja bukan ke alamat Proton Mail saya.
+
+Tidak disarankan untuk berkirim pesan melalui Facebook, karena pesan yang Anda kirimkan tidak akan masuk ke dalam pesan utama, melainkan "Permintaan Pesan" (terutama jika dari profil/orang yang tidak saya kenal), sehingga pesan dari Anda tidak ternotifikasi oleh saya dan tidak bisa langsung saya baca sampai saya mengklik "Permintaan Pesan" secara manual, ditambah saya tidak terlalu sering aktif di Facebook.
+{{< / info >}}
 
 ## Kunci Publik
 ### Kunci PGP/GPG {#kunci-gpg}
@@ -120,6 +126,9 @@ Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` d
 Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
 
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
+- [Ko-fi](https://ko-fi.com/farrelf) (Internasional)
+- [Saweria](https://saweria.co/FarrelFranqois)
+- [Trakteer](https://trakteer.id/farrelf/tip)
 - Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
   - Bank Syariah Indonesia:
     - No. Rekening: `7203370703`
@@ -128,9 +137,7 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
   - Bank Digital BCA/BCA Digital/blu:**\***
     - No. Rekening: `001566549842`
     - Kode Bank: 501
-- Kamu bisa [nyawer ke saya](https://saweria.co/FarrelFranqois) melalui Saweria
-- Kamu bisa [memberikan tip ke saya](https://arxist.id/farrelf/tip) melalui Arxist
-- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apapun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
+- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apa pun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
 {{< info title="**\*Keterangan:**" >}}
 Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital/blu, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski termasuk dalam Grup BCA.
