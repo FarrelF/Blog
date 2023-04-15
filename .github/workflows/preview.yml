@@ -117,6 +117,7 @@ jobs:
       uses: own3d/bunny-action@main
       env:
         BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_KEY }}
+        BUNNY_STORAGE_HOSTNAME: storage.bunnycdn.com
         BUNNY_STORAGE_USERNAME: ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
         BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}
         BUNNY_PULL_ZONE_ID: ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
