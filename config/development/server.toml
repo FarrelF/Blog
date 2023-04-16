@@ -110,7 +110,7 @@ default-src 'none';
 script-src 'self' https://giscus.app/client.js https://giscus.app/js/iframeResizer.min.js https://cdn.jsdelivr.net/npm/@twemoji/ https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
 'sha256-jgys9Z/hlriwC/SULrqh66L7kRPJwGJ3I1TY2J3XzKk=' 'sha256-4V8WxmH+ykIlGiV2pbQGmG3szs7GDgKIdFgCddG6ex0='
 'sha256-2fUKdVx0IqBIkSSqMiTkxBG8jGbNnTPFqpi8YcdgTIc=' 'sha256-8RwKSotybrJR/vRlohUZmoKmUztEeZ3opJnv5GaaVhw='
-'sha256-Qlu2DKjAv62OoYD/+o1648D77aar0E5YZNpQdq6PtOE=';
+'sha256-Qlu2DKjAv62OoYD/+o1648D77aar0E5YZNpQdq6PtOE=' 'sha256-Jgp4ajzqIBclmPp4JeS9/1SZLS8hmgwlIdjo0jHlZSY=';
 style-src 'self' 'unsafe-hashes' https://giscus.app/default.css https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/
 'sha256-P50WYSNZB+t5bw7NvQOJjx1SOTbBTDThDWu5rHUHV8o=' 'sha256-AN/BwYzHD/GnCad3utJZUlQ8jiR4MDFg5++YjWHDnaQ='
 'sha256-MbtVhF2YYaQ+jxjj/xmHw3IdSfL/52aKP0AZyGBTmPo=' 'sha256-De7agAeYqm6ANIVvRRW6HFWi52AJW8inhFE0gSdgXnI='
