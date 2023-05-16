@@ -44,11 +44,12 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain:
-  - [PT Cloud Hosting Indonesia (IDCloudHost)](https://afiliasi.farrel.franqois.id/idch/) sebagai Registrar dan Pengelola Domainnya
+  - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
+  - [RumahWeb](https://www.rumahweb.com/) sebagai Pengelola Domain
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting/Tempat Penyimpanan:
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Tebi](https://tebi.io/), [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
@@ -129,11 +130,8 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 - [Ko-fi](https://ko-fi.com/farrelf) (Internasional)
 - [Saweria](https://saweria.co/FarrelFranqois)
 - [Trakteer](https://trakteer.id/farrelf/tip)
+- [SociaBuzz](https://sociabuzz.com/farrelf/tribe)
 - Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
-  - Bank Syariah Indonesia:
-    - No. Rekening: `7203370703`
-    - Kode Bank: 451
-    - Kode Swift: BSMDIDJA
   - Bank Digital BCA/BCA Digital/blu:**\***
     - No. Rekening: `001566549842`
     - Kode Bank: 501

@@ -44,7 +44,7 @@ Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otom
 
 Kendala saat pemasangannya adalah tidak banyak penyedia yang mendukungnya, kebanyakan hanya mendukung Let's Encrypt saja.
 
-Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui Sertifikat SSL/TLS, lalu saya melakukan _Request_ ke Server API-nya Netlify, BunnyCDN, cPanel dan DirectAdmin untuk memasangkan sertifikatnya menggunakan cURL.
+Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui Sertifikat SSL/TLS, lalu saya melakukan _Request_ ke Server API-nya Netlify, BunnyCDN, cPanel dan DirectAdmin untuk memasangkan sertifikatnya menggunakan curl.
 
 Terlihat sederhana, bukan? Iya, tetapi sebenarnya itu tidak sesederhana dan semudah yang Anda bayangkan.
 
@@ -52,7 +52,7 @@ Berkat bantuan dari beberapa referensi, akhirnya saya dapat memasangkan sertifik
 
 Nah, makanya saya buat artikel ini, siapa tahu mungkin Anda tertarik atau merasa tertantang untuk memasang Sertifikat SSL/TLS dari ZeroSSL ini ke dalam Web/Blog Anda bila dibandingkan dengan Let's Encrypt. Semoga artikel ini akan bermanfaat buat Anda 🙂
 
-Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL/TLS yang bisa Anda dapatkan dari ZeroSSL, baik jangkauannya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasangkannya dengan cara memanggil Server API milik Bunny.net dan Netlify memakai cURL.
+Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL/TLS yang bisa Anda dapatkan dari ZeroSSL, baik jangkauannya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasangkannya dengan cara memanggil Server API milik Bunny.net dan Netlify memakai curl.
 
 Bagi yang belum tahu, [ZeroSSL](https://zerossl.com) adalah salah satu CA (_Certificate Authority_) atau Otoritas Sertifikat yang menerbitkan/mengelola/mencabut Sertifikat SSL/TLS untuk Internet. Ia merupakan salah satu produk dari [Stack Holdings](https://www.linkedin.com/company/stackholdings/about/).
 
@@ -165,18 +165,18 @@ Berikut di bawah ini adalah persiapan perangkat lunaknya:
 {{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebagai berikut:
 - OpenSSL (atau LibreSSL?)
-- cURL
+- curl
 - Cron
 - [`jq`](https://stedolan.github.io/jq/) (khusus pengguna cPanel dan/atau DirectAdmin)
 
-Socat (Socket Cat) di sini bersifat Opsional jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
+Socat (Socket Cat) di sini bersifat opsional, ini hanya berlaku jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", jadi ini tidak wajib Anda instal dan artikel ini tidak membahasnya lebih lanjut.
 {{< / spoiler >}}
 
-Sistem Operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk \*nix.
+Kalau Anda adalah pengguna sistem operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk sistem operasi tersebut.
 
-Asal punya OpenSSL (atau LibreSSL?), cURL dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti Artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tetapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
+Asal punya OpenSSL (atau LibreSSL?), curl dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tetapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
 
-Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://stedolan.github.io/jq/) di dalam sistem operasi Anda agar mempermudah dalam memasangkan sertifikat SSL/TLS-nya.
+Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://stedolan.github.io/jq/) di dalam sistem operasi Anda agar pemasangan sertifikat SSL/TLS dapat dipermudah.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tetapi itu tidak saya bahas lebih lanjut di sini.
 
@@ -191,7 +191,7 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 - Persiapan perangkat lunak pada WSL, mesin virtual, kontainer atau pada server bisa mengikuti [persiapan untuk sistem operasi \*nix](#persiapan-pengguna-unix-like)
 {{< / spoiler >}}
 
-Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses Lingkungan Unix/Mirip-Unix (\*nix), Anda bisa pakai cara apa pun untuk melakukannya.
+Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses lingkungan Unix/Mirip-Unix (\*nix), Anda bisa pakai cara apa pun untuk melakukannya.
 
 Anda bisa memakai salah satu cara berikut untuk melakukannya:
 - Memakai fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar bisa menggunakan sistem operasi GNU/Linux di dalam Windows (Jika Anda menggunakan Windows 10 atau di atasnya)
@@ -199,9 +199,9 @@ Anda bisa memakai salah satu cara berikut untuk melakukannya:
 - Memakai mesin virtual/kontainer yang terinstal GNU/Linux
 - _Me-remote_/mengakses perangkat lain (entah itu Server, PC Desktop/Laptop biasa, bahkan Telepon Pintar/Tablet, dll) yang memakai sistem operasi berbasis \*nix dengan klien SSH
 
-Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau cURL, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
+Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya bisa diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [klik di sini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 {{< spoiler title="tl;dr" >}}
@@ -215,18 +215,18 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
     5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
-**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _ter-root_.
+**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux.
 
-Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya, jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
+Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya (dan jujur saya sendiri males), jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
 
 Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid](https://f-droid.org/repository/browse/?fdid=com.termux).
 
-Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan baca [di sini](https://wiki.termux.com/wiki/Termux_Google_Play).
+Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika cURL, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika curl, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
 
 Namun sayangnya, di dalam Termux belum terinstal OpenSSL, jq dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
@@ -240,7 +240,7 @@ Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terko
 
 Anda bisa baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/) untuk mengetahui caranya.
 
-Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _ter-root_, ini sama sekali tidak menghilangkan garansi pada perangkat Anda, jadi tidak usah khawatir.
+Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_, ini sama sekali tidak menghilangkan garansi pada perangkat Anda, jadi tidak usah khawatir.
 
 ## Sebelum menerbitkan Sertifikat SSL/TLS
 Sebelum menerbitkannya, Anda perlu mengikuti beberapa poin pembahasan terlebih dahulu. Poin-poin akan saya bahas dalam langkah-demi-langkah.
@@ -253,10 +253,10 @@ Atau, Anda juga bisa lewati bagian ini jika Anda sudah pernah mendaftarkan akun 
 {{< info title="**Catatan:**" >}}
 Jika Anda belum mempunyai akunnya dan ingin menggunakan acme.sh tanpa harus mendaftarkan akun ZeroSSL-nya, lewati ini dan langsung [lanjut saja](#install-acme-sh).
 
-Namun saya tetap sarankan agar Anda tidak melewati langkah ini.
+Namun, saya tetap sarankan agar Anda tidak melewati langkah ini.
 {{< / info >}}
 
-Sebelum Anda menerbitkan sertifikatnya, maka Anda disarankan untuk mendaftar akun ZeroSSL terlebih dahulu melalui [Situs Webnya](https://zerossl.com).
+Sebelum Anda menerbitkan sertifikatnya, saya sarankan untuk mendaftar akun ZeroSSL terlebih dahulu melalui [situs webnya](https://zerossl.com).
 
 Setelah mendaftar, kamu tidak perlu membuat/menerbitkan sertifikatnya di sana, melainkan hanya perlu Kredensial EAB (_External Account Binding_) yakni **"EAB KID"** dan **"EAB HMAC Key"**-nya saja.
 
@@ -274,7 +274,9 @@ Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat Cuplikan La
 
 ![1](ZeroSSL_EAB_Credential_1.webp) ![2](ZeroSSL_EAB_Credential_2.webp)
 
-Setelah Kredensial EAB dibuat, ya sudah lanjut saja ke langkah berikutnya, yakni Instal acme.sh, Anda sama sekali tidak perlu menerbitkan Sertifikat SSL/TLS-nya di sana.
+Setelah Kredensial EAB dibuat, perlu diingat bahwa sejak Maret 2022 yang lalu kredensial EAB dapat digunakan kembali, sehingga kredensial yang sama dapat digunakan berkali-kali. Jadi, simpanlah kredensial tersebut dengan baik dan jangan beritahu ke siapa pun, kecuali jika Anda mempercayai orang tersebut dan siap menanggung sendiri atas risiko yang disebabkan oleh Anda sendiri.
+
+Sekarang lanjut ke langkah berikutnya, yakni instal acme.sh, dan Anda sama sekali tidak perlu menerbitkan sertifikat SSL/TLS-nya di sana.
 
 ### Instal acme.sh {#install-acme-sh}
 Setelah mendaftar akun ZeroSSL, salah satu hal yang perlu Anda lakukan adalah menginstal acme.sh terlebih dahulu di dalam sistem operasi Anda.
@@ -283,39 +285,38 @@ Tidak perlu menggunakan Akun Administrator atau `root` untuk menginstalnya, atau
 
 Cara menginstalnya adalah dengan mengeksekusikan salah satu perintah berikut:
 
-Dengan cURL:
+Dengan curl:
 
 ```shell
-curl https://get.acme.sh | sh -s email=aku@contoh.com
+curl https://get.acme.sh | sh -s email=emailku@domain.com
 ```
 
 Atau dengan GNU Wget:
 
 ```shell
-wget -O -  https://get.acme.sh | sh -s email=aku@contoh.com
+wget -O - https://get.acme.sh | sh -s email=emailku@domain.com
 ```
 
-Ganti `aku@contoh.com` dengan Alamat Surel Anda, jangan lupa dimasukkan, tetapi jika Anda lupa memasukkan/tidak atau salah memasukkan alamat surel saat menginstalnya, Anda dapat eksekusi perintah di bawah ini setelah terinstal:
+Ganti `emailku@domain.com` dengan alamat surel Anda, jangan lupa dimasukkan, tetapi jika Anda telanjur lupa, tidak memasukkan atau salah memasukkan alamat surel saat menginstalnya, Anda dapat eksekusi perintah di bawah ini setelah terinstal:
 
 ```shell {linenos=true}
 cp "$HOME"/.acme.sh/account.conf "$HOME"/.acme.sh/account.conf.1 ## Backup dulu
 sed -i '/ACCOUNT\_EMAIL\=/d' "$HOME"/.acme.sh/account.conf ## Hapus Variabel `ACCOUNT_EMAIL` yang sudah ada
-printf "ACCOUNT_EMAIL='%s'\n" "aku@contoh.com" >> "$HOME"/.acme.sh/account.conf
+printf "ACCOUNT_EMAIL='%s'\n" "emailku@domain.com" >> "$HOME"/.acme.sh/account.conf
 ```
 
-Ganti `aku@contoh.com` dengan Alamat Surel Anda.
+Ganti `emailku@domain.com` dengan alamat surel Anda.
 
 Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
 
-Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, [klik di sini](#registrasi-akun-acme-sh) untuk melanjutkan ke langkah berikutnya.
+Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, silakan [klik di sini](#registrasi-akun-acme-sh) untuk melanjutkan ke langkah berikutnya.
 
 Jika tidak, gunakan perintah `source <LETAK_KONFIGURASI_SHELL>` atau tutup Terminal lalu buka lagi untuk memperbarui _Shell_. Kalau masih tidak bisa juga, maka Anda perlu memasukkan direktori acme.sh ke dalam variabel `PATH` dengan menambahkan teks berikut di bawah ini ke dalam berkas konfigurasi _Shell_ yang nantinya akan digunakan ketika Anda menjalankan sebuah _Shell_ secara interaktif.
 
 Berikut adalah teksnya:
 
 ```shell {linenos=true}
-PATH="$HOME/.acme.sh:$PATH" && export PATH
-LE_WORKING_DIR="$HOME/.acme.sh" && export LE_WORKING_DIR
+source ~/.acme.sh/acme.sh.env
 ```
 
 Tambahkan baris di atas ke dalam berkas `~/.bashrc` jika Anda menggunakan GNU Bash atau `~/.zshrc` jika Anda adalah pengguna Z Shell.
@@ -371,7 +372,7 @@ Dengan mengeksekusi perintah di atas (`acme.sh --register-account` saja), itu bu
 Jika Anda ingin mengelola sertifikat tersebut di Web-nya, saya sarankan agar Anda membuat akunnya terlebih dahulu melalui Situs Web-nya, caranya bisa Anda baca di [langkah pertama](#membuat-akun-zerossl), lalu kaitkan Kredensial EAB-nya di acme.sh.
 {{< / info >}}
 
-Anda bisa Simpan `ACCOUNT_THUMBPRINT`-nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)", tetapi Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
+Anda bisa simpan `ACCOUNT_THUMBPRINT`-nya dengan baik, barangkali suatu saat nanti Anda ingin menjalankan acme.sh dalam "[Stateless Mode](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)", tetapi Anda bisa dapatkan itu kembali dengan mengeksekusi perintah `acme.sh --register-account`.
 
 Jika sudah, silakan lanjut ke [langkah berikutnya](#membuat-akses-api).
 
@@ -380,7 +381,7 @@ Sebelum menerbitkan Sertifikat SSL/TLS, maka ada baiknya untuk membuat Kode Toke
 
 Ini akan sangat berguna untuk verifikasi DNS ke depannya dan juga memasang sertifikat SSL/TLS itu sendiri. Jadi, Anda wajib membuatnya, tetapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
-Misalnya, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang Sertifikat SSL/TLS.
+Misalnya, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, maka Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang Sertifikat SSL/TLS.
 
 Atau, jika Anda menggunakan Netlify sebagai Penyedia DNS dan Hostingnya, Anda hanya cukup membuat 1 Akses API dari Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikatnya, iya cukup 1 saja, tidak perlu membuat banyak untuk keperluan yang berbeda-beda.
 
@@ -1461,7 +1462,7 @@ $ cat "$HOME"/.acme.sh/account.conf
 LE_WORKING_DIR=/home/username/.acme.sh
 LE_CONFIG_HOME=/home/username/.acme.sh
 UPGRADE_HASH='8ded524236347d5a1f7a3169809cab9cf363a1c8'
-ACCOUNT_EMAIL='aku@contoh.com'
+ACCOUNT_EMAIL='emailku@domain.com'
 #AUTO_UPGRADE='1'
 USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin'
 ```
@@ -2303,7 +2304,7 @@ $ acme.sh --info
 LE_WORKING_DIR=/home/username/.acme.sh
 LE_CONFIG_HOME=/home/username/.acme.sh
 UPGRADE_HASH='8ded524236347d5a1f7a3169809cab9cf363a1c8'
-ACCOUNT_EMAIL='aku@contoh.com'
+ACCOUNT_EMAIL='emailku@domain.com'
 #AUTO_UPGRADE='1'
 USER_PATH='/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin'
 ```
@@ -2857,7 +2858,7 @@ Lagipula, memiliki lebih dari 1 CA Gratisan yang menggunakan Protokol ACME itu m
 #### Merasa tertantang dan mendapat ilmu baru
 Saat ingin menggunakan ZeroSSL, mayoritas penyedia web belum mendukung antarmuka untuk pemasangan Sertifikat SSL/TLS dari ZeroSSL secara otomatis, kebanyakan dari mereka cuma mendukung Let's Encrypt saja, seperti yang pernah saya bahas di awal.
 
-Sehingga saya merasa tertantang untuk menerbitkan, memasang dan mengotomasi pembaruan Sertifikat SSL/TLS tersebut sendirian, dengan menggunakan acme.sh untuk mengelola sertifikatnya dan cURL untuk memasang sertifikatnya dengan memanfaatkan Server API dari Penyedia Web-nya.
+Sehingga saya merasa tertantang untuk menerbitkan, memasang dan mengotomasi pembaruan Sertifikat SSL/TLS tersebut sendirian, dengan menggunakan acme.sh untuk mengelola sertifikatnya dan curl untuk memasang sertifikatnya dengan memanfaatkan Server API dari Penyedia Web-nya.
 
 Pada akhirnya, saya mendapatkan ilmu baru yang cukup berguna juga, setidaknya untuk saya sendiri.
 

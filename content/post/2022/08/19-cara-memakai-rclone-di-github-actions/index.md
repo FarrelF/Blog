@@ -155,9 +155,9 @@ Kalau Anda merasa tidak paham atau kebingungan dalam mengikuti langkah-langkah d
 ![1](Tombol_Settings_di_Repositori_GitHub.webp) ![2](Pengaturan_Repositori.webp) ![3](Tombol_buat_Rahasia_Baru.webp) ![4](Membuat_Rahasia_Baru.webp) ![5](Setelah_membuat_Rahasia.webp)
 
 ## Setelah GitHub Actions Secret dibuat
-Setelah itu, Anda perlu memeriksa dan apakah konfigurasi beserta variabelnya sudah benar sesuai dengan kebutuhan Anda, kalau merasa yakin maka Anda dapat segera buat _commit_, lalu _push_ ke dalam repositori Anda.
+Setelah itu, Anda perlu memeriksa apakah konfigurasi beserta variabelnya sudah benar-benar sesuai dengan kebutuhan Anda, kalau merasa yakin maka Anda dapat segera buat _commit_, lalu _push_ ke dalam repositori Anda.
 
-Setelah _di-push_, lihat lognya untuk melihat perjalanannya akan seperti apa, pastikan bahwa GitHub Actions dapat menjalankannya dengan baik tanpa mengalami masalah/galat (_error_).
+Setelah _di-push_, lihat log progresnya akan berjalan seperti apa, pastikan bahwa GitHub Actions dapat menjalankannya dengan baik tanpa mengalami masalah/galat (_error_).
 
 ## Penutup
 Terima kasih kepada Anda yang telah membaca dan memahami artikel ini. Itu saja dulu untuk artikel kali ini, ~~maaf artikelnya belum memiliki gambar ataupun cuplikan apa pun untuk saat ini, sehingga terkesan sangat kurang lengkap~~.

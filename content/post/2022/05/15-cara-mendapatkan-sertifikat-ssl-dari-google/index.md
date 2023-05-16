@@ -30,13 +30,13 @@ Description: |-
 ---
 
 ## Pembuka
-Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekalipun untuk Aplikasinya.
+Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekali pun untuk aplikasinya.
 
 Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
 
-Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk Web, Blog atau Aplikasinya.
+Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk web, blog atau aplikasinya.
 
-Untuk saat ini, Anda bisa mendapatkan sertifikat SSL/TLS tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, ~~meski sekarang masih dalam tahap Uji Coba/Pratinjau Beta (_Beta preview_)~~.
+Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, ~~meski sekarang masih dalam tahap Uji Coba/Pratinjau Beta (_Beta preview_)~~.
 
 **PEMBARUAN Sabtu, 10 September 2022:** Sekarang Google Public CA bukan lagi dalam tahap _Beta Preview_ atau Pratinjau Beta, melainkan sedang dalam tahap _Public Preview_.
 
@@ -49,7 +49,7 @@ Karena ini sepenuhnya menggunakan protokol ACME dan ini bersifat _Self-managed_,
 
 Jadi, persiapan yang perlu Anda lakukan adalah sebagai berikut:
 1. Punya Akun Google (Kalau kamu pengguna Android, ya gak usah ditanya lah yaa)
-2. Punya Koneksi Internet (Kalau Internet aja gak punya, gimana kamu bisa baca artikel ini?)
+2. Punya koneksi Internet (Kalau Internet aja gak punya, gimana kamu bisa baca artikel ini?)
 3. Terinstalnya perkakas klien ACME di dalam perangkat kamu, entah itu di dalam Komputer PC, Laptop, Server/VPS, Ponsel Pintar, atau lainnya.
 
 Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perkakas klien ACME yang merupakan perkakas favorit saya. Jadi, maaf yah buat pengguna Certbot, Lego, atau lainnya, saya belum bisa menjelaskannya, karena belum saya pakai.
@@ -62,14 +62,14 @@ Jika Anda menggunakan acme.sh sebagai perkakasnya, silakan perbarui terlebih dah
 acme.sh --upgrade --auto-upgrade
 ```
 
-Kalau mau, Anda juga dapat membaca [artikel saya sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/), siapa tahu mau nambah ilmu (terutama tentang pemasangan sertifikat SSL/TLS ke Netlify dan Bunny CDN, serta _Renew_ secara otomatis), tetapi kalau gak dibaca juga gak apa-apa.
+Kalau mau, Anda juga dapat membaca [artikel saya sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/), siapa tahu mau nambah ilmu (terutama tentang pemasangan sertifikat SSL/TLS ke Netlify, Bunny CDN, cPanel dan DirectAdmin, serta _me-renew_ secara otomatis), tetapi kalau gak dibaca juga gak apa-apa.
 
-Setelah semuanya sudah siap, gak usah banyak _cing-cong_, mari kita langsung eksekusi!
+Setelah semuanya sudah siap, gak usah banyak _cing-cong_, mari langsung eksekusi!
 
 ## Membuat Proyek di Google Cloud Console
-Pertama-tama, Anda perlu membuat sebuah Proyek (bahasa Inggrisnya: **Project**) di [**"Google Cloud Console"**](https://console.cloud.google.com/) (Sebelumnya bernama **"Google Developer Console"**). Ini nantinya diperlukan karena kita akan mengakses API-nya.
+Pertama-tama, Anda perlu membuat sebuah Proyek (bahasa Inggrisnya: **Project**) di [**"Google Cloud Console"**](https://console.cloud.google.com/) (Sebelumnya bernama **"Google Developer Console"**). Ini nantinya diperlukan karena kamu akan mengakses API-nya.
 
-Sebagai catatan, Anda tidak perlu memasukkan kartu kredit/debit hanya untuk menambahkan proyek di sana, jadi Anda bisa melakukan semuanya secara gratis. Namun, kuotanya terbatas untuk 10 proyek saja per Akun.
+Sebagai catatan, Anda tidak perlu memasukkan kartu kredit/debit hanya untuk menambahkan proyek di sana, jadi Anda bisa melakukan semuanya secara gratis. Namun, kuotanya terbatas untuk 10 proyek saja per akun.
 
 Jadi, jika Anda sebelumnya telah membuat proyek di sana, maka saya sarankan Anda [lewati ini](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab) dan pakai proyek yang ada saja, cukup simpan saja **"Project ID"** pada Proyek yang telah Anda buat sebelumnya, karena itu akan dipakai.
 
@@ -77,7 +77,7 @@ Jika belum, Anda bisa membuatnya melalui **"Cloud Shell"** yang ada di **"Google
 
 **Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
-**Langkah ke-2:** Setelah masuk, silakan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
+**Langkah ke-2:** Setelah masuk, aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas, seperti pada cuplikan berikut:
 
 ![Cara aktivasi Google Cloud Shell](Activate_Cloud_Shell.webp)
 
@@ -446,7 +446,7 @@ Untuk perbandingan antar CA ACME lebih lanjut, silakan kunjungi salah satu halam
 
 Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah ini merupakan poin menarik atau justru merupakan hal yang perlu diperhatikan.
 
-Hal ini adalah bahwa sertifikat tersebut memiliki CRL (_Certificate Revocation List_) dan juga OCSP (_Online Certificate Status Protocol_) untuk pencabutannya di saat sertifikat SSL/TLS gratisan yang berbasis ACME lainnya yang pernah saya coba hanya memiliki OCSP saja, tetapi tidak dengan CRL.
+Hal ini adalah bahwa sertifikat tersebut memiliki CRL (_Certificate Revocation List_) dan juga OCSP (_Online Certificate Status Protocol_) untuk pencabutannya di saat sertifikat SSL/TLS gratisan berbasis ACME lainnya yang pernah saya coba hanya memiliki OCSP saja, tetapi tidak dengan CRL.
 
 Saya tidak bisa memasukkannya sebagai hal yang "menarik" adalah karena yang pertama saya kurang mempelajari lebih dalam mengenai CRL dan OCSP ini, dan yang kedua karena menurut beberapa referensi, CRL itu termasuk _outdated_ dan OCSP diklaim lebih cepat daripada CRL karena ia tidak perlu mengunduh semua list sertifikat yang telah dicabut.
 
@@ -484,7 +484,7 @@ Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkemban
 Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepannya nanti.
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [repositori blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahinya, silakan kunjungi Alamat URL berikut:
 
