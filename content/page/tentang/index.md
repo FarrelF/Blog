@@ -45,7 +45,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
 - Domain:
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
-  - [RumahWeb](https://www.rumahweb.com/) sebagai Pengelola Domain
+  - [Rumahweb Indonesia](https://www.rumahweb.com/) sebagai Pengelola Domain
 - DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
@@ -70,7 +70,7 @@ https://gitlab.com/FarrelF/Blog
 
 Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tetapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
 
-Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Laman sebagai atribusi jika saya diizinkan untuk menggunakannya.
+Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Halaman sebagai atribusi jika saya diizinkan untuk menggunakannya.
 
 ## Informasi Kontak
 ### Surel
