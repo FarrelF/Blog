@@ -22,15 +22,19 @@ custom:
 ---
 
 ## Tentang Saya
+
 Saya adalah makhluk hidup yang biasa-biasa saja, penuh dengan salah dan yah biasa-biasa aja, gak ada istimewanya. Jika adanya kesalahan teknis pada blog ini, tolong dikoreksi yah, saya juga sedang belajar menggunakan _Static-site Generator_.
 
 ## Tentang Blog ini
+
 ### Ikhtisar
+
 Blog ini merupakan blog pribadi milik saya, tetapi yang saya bahas ini bukan sekadar tentang pribadi saya saja. Di blog ini, saya membahas apa yang ingin saya bahas.
 
 Bukan apa-apa, namun mungkin blog ini agak _nge-random_ pembahasannya, entah itu bikin tutorial, beropini, bikin catatan biar gak lupa atau sekadar bikin diari kalo niat.
 
 ### Penggunaan Blog
+
 Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu beberapa komponen yang membantunya.
 
 Berikut ini adalah apa yang saya pakai untuk blog ini:
@@ -56,6 +60,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Sistem Komentar: [giscus](https://giscus.app)
 
 ### Kode Sumber Blog
+
 Jika Anda menginginkan kode sumber untuk blog ini, entah untuk tujuan kontribusi, mempelajari blog ini atau lainnya, silakan kunjungi alamat URL berikut:
 
 ```plain
@@ -72,25 +77,32 @@ Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/Fa
 
 Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Halaman sebagai atribusi jika saya diizinkan untuk menggunakannya.
 
-## Informasi Kontak
+## Hubungi saya
+
+Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini:
+
 ### Surel
+
 - farrel(at)franqois(dot)id (Surel Pribadi)
 - farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Proton Mail, yang "katanya" lebih aman dan lebih ramah privasi)
 
 ### Media sosial/Perpesanan {#medsos}
+
 - Telegram: [@FarrelF](https://t.me/FarrelF)
 - Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 
 {{< info title="**Catatan:**" >}}
-Semua informasi kontak saya urutkan berdasarkan yang paling aktif di setiap kategori. Jadi jika Anda ingin menghubungi saya, saya sarankan hubungi saya di Telegram atau kirim pesan surel Anda ke alamat surel pribadi saya, yang tentu saja bukan ke alamat Proton Mail saya.
+Semua informasi kontak saya urutkan berdasarkan yang paling aktif di setiap kategori. Jadi jika Anda ingin menghubungi saya, saran saya hubungi di Telegram atau kirim pesan surel Anda ke alamat surel pribadi saya, yang tentu saja bukan ke alamat Proton Mail saya.
 
 Tidak disarankan untuk berkirim pesan melalui Facebook, karena pesan yang Anda kirimkan tidak akan masuk ke dalam pesan utama, melainkan "Permintaan Pesan" (terutama jika dari profil/orang yang tidak saya kenal), sehingga pesan dari Anda tidak ternotifikasi oleh saya dan tidak bisa langsung saya baca sampai saya mengklik "Permintaan Pesan" secara manual, ditambah saya tidak terlalu sering aktif di Facebook.
 {{< / info >}}
 
 ## Kunci Publik
+
 ### Kunci PGP/GPG {#kunci-gpg}
+
 Kunci PGP/GPG nantinya akan berguna buat Anda yang ingin mengirimkan pesan ke saya dengan lebih aman, serta dapat mengurangi kemungkinan untuk terbaca oleh orang lain karena memerlukan kunci pribadi saya untuk membukanya.
 
 Berikut adalah informasi mengenai kunci GPG saya:
@@ -104,12 +116,14 @@ Berikut adalah informasi mengenai kunci GPG saya:
 | ID Kunci (Panjang)  | `A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`          |
 
 Unduh kunci:
+
 - [Mailvelope](https://keys.mailvelope.com/pks/lookup?op=get&search=0xA47AE59DC94ABF69)
 - [OpenPGP\.org](https://keys.openpgp.org/search?q=A1482DE372801F1AE00F92E0A47AE59DC94ABF69)
 - [Langsung (melalui CDN)](/0xA47AE59DC94ABF69.asc)
 
 ### Kunci Publik SSH
-Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apa pun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
+
+Kunci ini akan berguna buat Anda yang ingin perangkatnya (seperti Komputer PC/Laptop, Server, Ponsel/Tablet, dll) dapat diakses oleh saya melalui SSH atas izin dari Anda untuk keperluan apa pun, seperti menggunakan jasa/layanan dari saya yang memerlukan akses perangkat Anda, dll.
 
 Anda dapat mengunduh ataupun melihat kunci-kunci publik tersebut melalui [Akun GitHub saya](https://github.com/FarrelF.keys).
 
@@ -124,6 +138,7 @@ Kalau bisa, saya sarankan agar Anda menggunakan Ed25519 sebagai jenis kunci publ
 Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` di perangkat Anda.
 
 ## Memberi Dukungan/Menyawer {#menyawer}
+
 Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
 
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
@@ -146,6 +161,7 @@ Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah
 {{< / info >}}
 
 ## Akhir Kata
+
 Ya sudah, itu saja untuk halaman ini. Maaf kalau terlalu singkat, saya sendiri juga tidak terlalu niat-niat amat dalam mengurusi halaman ini sampai-sampai membuat kisah hidup saya di sini.
 
 Halaman ini adalah tentang blog ini dan ringkasan mengenai saya, jadi saya buat secukupnya saja.
