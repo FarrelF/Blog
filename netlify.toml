@@ -4,13 +4,13 @@
 publish = "public"
 
 [build.environment]
-HUGO_VERSION = "0.112.2"
+HUGO_VERSION = "0.112.3"
 GO_VERSION = "1.20.4"
 TZ = "Asia/Jakarta"
 
 ### Netlify Build Context and Command
 [context.production]
-command = "rm static/_headers; hugo --minify --gc -e production"
+command = "rm static/_headers; hugo --minify --gc"
 
 [context.production.environment]
 HUGO_ENV = "production"
