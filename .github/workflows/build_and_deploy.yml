@@ -81,7 +81,7 @@ jobs:
 
     - name: Building the Static Web
       run: |
-        hugo --gc
+        hugo --gc -e production
 
     - name: Compressing Static Web Files
       run: |

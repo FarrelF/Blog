@@ -10,7 +10,7 @@ TZ = "Asia/Jakarta"
 
 ### Netlify Build Context and Command
 [context.production]
-command = "rm static/_headers; hugo --minify --gc"
+command = "rm static/_headers; hugo --minify --gc -e production"
 
 [context.production.environment]
 HUGO_ENV = "production"
