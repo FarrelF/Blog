@@ -584,7 +584,7 @@ Kalau belum, silakan dibuat terlebih dahulu, caranya sebagai berikut:
 
 5. Jika sudah selesai, klik pada _Button_ **"Create"** untuk membuatkan kuncinya
 
-6. Setelah mengkliknya, kamu akan melihat **"Key Value"** yang kamu isi dan itu adalah **"Login Key"**-nya yng hanya bisa dilihat satu kali saja, jadi simpanlah kunci tersebut baik-baik dan pastikan tidak ada seorang pun yang dapat mengetahuinya kecuali Anda sendiri dan orang yang Anda percayakan.
+6. Setelah mengkliknya, kamu akan melihat **"Key Value"** yang kamu isi dan itu adalah **"Login Key"**-nya yang hanya bisa dilihat satu kali saja, jadi simpanlah kunci tersebut baik-baik dan pastikan tidak ada seorang pun yang dapat mengetahuinya kecuali Anda sendiri dan orang yang Anda percayakan.
 
     Jika sudah, Anda tinggal menutupinya saja dengan klik pada ikon silang. Seperti cuplikan berikut:
 
@@ -1794,7 +1794,7 @@ Anda dapat menyimpannya dengan perintah berikut:
 CPANEL_PLAIN_CERT="$(jq -sRr @uri < domain.com.cer)"
 CPANEL_PLAIN_KEY="$(jq -sRr @uri < domain.com.key)"
 CPANEL_PLAIN_CA="$(jq -sRr @uri < ca.cer)"
-CPANEL_URL="https://cpanel.domain.com:2083" # Alamat URL untuk mengakses cPanel, disarankan tidak menambah garis miring di akhir Alamat URL
+CPANEL_HOSTNAME="cpanel.domain.com" # Alamat Domain/IP yang Anda gunakan untuk mengakses cPanel
 CPANEL_USERNAME="USERNAME_CPANEL_KAMU_DI_SINI" # Username cPanel kamu
 CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI" # API Token cPanel kamu
 ```
@@ -1805,7 +1805,7 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set CPANEL_PLAIN_CERT (jq -sRr @uri < domain.com.cer)
 set CPANEL_PLAIN_KEY (jq -sRr @uri < domain.com.key)
 set CPANEL_PLAIN_CA (jq -sRr @uri < ca.cer)
-set CPANEL_URL "https://cpanel.domain.com:2083" # Alamat URL untuk mengakses cPanel, disarankan tidak menambah garis miring di akhir Alamat URL
+set CPANEL_HOSTNAME "cpanel.domain.com" # Alamat Domain/IP yang Anda gunakan untuk mengakses cPanel
 set CPANEL_USERNAME "USERNAME_CPANEL_KAMU_DI_SINI" # Username cPanel kamu
 set CPANEL_API_TOKEN "API_TOKEN_KAMU_DI_SINI" # API Token cPanel kamu
 ```
@@ -1814,16 +1814,16 @@ Silakan ubah direktori dan nama berkas di atas sesuai dengan berkas Sertifikat S
 
 Selain nilai variabel, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `CPANEL_PLAIN_CA` diubah menjadi `PLAIN_CA`, atau `CA`, atau apa saja, asal bisa Anda kembali gunakan variabel tersebut.
 
-Variabel `CPANEL_URL` adalah alamat URL untuk mengakses cPanel, angka `2083` di atas merupakan _port_ standar cPanel ketika diakses menggunakan protokol HTTPS, sedangkan `2082` untuk HTTP. Namun, _port_ di atas bisa dihapus jika cPanel bisa diakses menggunakan subdomain 'cpanel' dari domain kamu (cth. cpanel\.domain\.com).
+Sedangkan variabel `CPANEL_HOSTNAME` adalah alamat domain/IP yang kamu gunakan untuk mengakses cPanel, biasanya bisa Anda dapatkan itu di halaman _Billing_ dari _Hosting-nya_ atau ada di pesan surel Anda mengenai informasi login-nya.
 
-Jadi, ganti `https://cpanel.domain.com:2083` di dalam variabel `CPANEL_URL` tersebut dengan Alamat URL yang Anda gunakan untuk mengakses cPanel dan jangan menambah garis miring di akhir Alamat URL-nya. Usahakan agar Alamat URL yang Anda gunakan untuk mengakses cPanel sudah mendukung HTTPS sepenuhnya, tanpa adanya pesan galat apa pun saat mengaksesnya, termasuk hanya karena sertifikatnya.
+Usahakan bahwa domain tersebut dapat diakses menggunakan HTTPS tanpa terkena galat apa pun, termasuk karena sertifikatnya.
 
-Kalau kamu tidak tahu Alamat URL-nya, biasanya pihak _hosting_ menyediakan akses langsung ke cPanel melalui HTTPS, caranya sebagai berikut:
+Kalau kamu tidak tahu alamat domainnya dan tidak tahu cara mendapatkannya, biasanya pihak _hosting_ menyediakan akses langsung ke cPanel melalui HTTPS, caranya sebagai berikut:
 
 1. Login ke akun _Billing-nya_
 2. Lalu, pilih layanan _hosting_ yang aktif
 3. Klik pada tautan **"Log in to cPanel"** di bagian **"Actions"**
-4. Setelah itu Anda akan diarahkan langsung ke cPanel yang diakses melalui HTTPS di tab baru dan lihatlah Alamat URL di dalam kolom Alamat URL pada Peramban Web Anda, Anda bisa gunakan Alamat URL tersebut dan memasukkannya ke dalam variabel `CPANEL_URL`.
+4. Setelah itu Anda akan diarahkan langsung ke cPanel yang diakses melalui HTTPS di tab baru dan lihatlah Alamat URL di dalam kolom Alamat URL pada Peramban Web Anda, Anda bisa gunakan alamat domain tersebut dan memasukkannya ke dalam variabel `CPANEL_HOSTNAME`.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -1833,13 +1833,13 @@ curl -sGH "Authorization: cpanel $CPANEL_USERNAME:$CPANEL_API_TOKEN" \
      -d "cert=$CPANEL_PLAIN_CERT" \
      -d "key=$CPANEL_PLAIN_KEY" \
      -d "cabundle=$CPANEL_PLAIN_CA" \
-     "$CPANEL_URL/execute/SSL/install_ssl"
+     "https://$CPANEL_HOSTNAME:2083/execute/SSL/install_ssl"
 ```
 
 Atau, gunakan perintah berikut ini jika Anda ingin memanggilnya dalam satu baris saja:
 
 ```shell {linenos=true}
-curl -sGH "Authorization: cpanel $CPANEL_USERNAME:$CPANEL_API_TOKEN" -d "domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>" -d "cert=$CPANEL_PLAIN_CERT" -d "key=$CPANEL_PLAIN_KEY" -d "cabundle=$CPANEL_PLAIN_CA" "$CPANEL_URL/execute/SSL/install_ssl"
+curl -sGH "Authorization: cpanel $CPANEL_USERNAME:$CPANEL_API_TOKEN" -d "domain=<ALAMAT_DOMAIN_KAMU_DI_SINI>" -d "cert=$CPANEL_PLAIN_CERT" -d "key=$CPANEL_PLAIN_KEY" -d "cabundle=$CPANEL_PLAIN_CA" "https://$CPANEL_HOSTNAME:2083/execute/SSL/install_ssl"
 ```
 
 Ganti `<ALAMAT_DOMAIN_KAMU_DI_SINI>` menjadi alamat Domain/Subdomain di cPanel yang ingin kamu pasangkan sertifikatnya.
@@ -1946,6 +1946,8 @@ set DIRECTADMIN_LOGIN_KEY "LOGIN_KEY_KAMU_DI_SINI"
 Silakan ubah direktori, nama berkas dan nilai variabel di atas sesuai dengan Sertifikat SSL/TLS yang tersimpan di dalam perangkat Anda dan kredensial DirectAdmin Anda.
 
 Selain nilai variabelnya, Anda juga bisa bebas menggantikan nama variabelnya sesuka hati Anda, misalnya variabel `DIRECTADMIN_PLAIN_FULLCHAIN` diubah menjadi `PLAIN_FULLCHAIN`, atau `FULLCHAIN`, atau apa saja, asal bisa Anda gunakan kembali variabel tersebut.
+
+Variabel `DIRECTADMIN_HOSTNAME` adalah alamat domain yang kamu gunakan untuk login ke dalam DirectAdmin, biasanya bisa Anda dapatkan itu di halaman _Billing_ dari Hosting-nya dan usahakan bahwa domain tersebut dapat diakses menggunakan HTTPS tanpa terkena galat apa pun, termasuk karena sertifikatnya.
 
 Setelah memasukkannya ke dalam variabel, Anda tinggal panggil saja API-nya dengan perintah berikut:
 
@@ -2226,13 +2228,7 @@ BASE64_KEY="$(openssl base64 -A < $CERT_DIR/domain.com.key)"
 CPANEL_PLAIN_CERT="$(jq -sRr @uri < $CERT_DIR/domain.com.cer)"
 CPANEL_PLAIN_KEY="$(jq -sRr @uri < $CERT_DIR/domain.com.key)"
 CPANEL_PLAIN_CA="$(jq -sRr @uri < $CERT_DIR/ca.cer)"
-
-#### Variabel di bawah ini ('CPANEL_URL') adalah Alamat URL untuk mengakses cPanel
-#### 2083 adalah port standar cPanel ketika diakses menggunakan protokol HTTPS, sedangkan 2082 untuk HTTP
-#### Namun, port bisa dihapus jika bisa diakses menggunakan subdomain 'cpanel' (cth. cpanel.domain.com)
-#### Silakan ganti 'https://cpanel.domain.com:2083' dengan alamat URL yang Anda gunakan untuk mengakses cPanel
-CPANEL_URL="https://cpanel.domain.com:2083"
-
+CPANEL_HOSTNAME="cpanel.domain.com" # Ini adalah alamat domain/IP yang Anda gunakan untuk mengakses cPanel, silakan ganti sesuai hosting yang Anda gunakan atau gunakan alamat domain Anda
 CPANEL_USERNAME="demo" # Ini adalah Nama Pengguna/Username cPanel yang Anda gunakan, ganti 'demo' dengan username Anda
 CPANEL_API_TOKEN="API_TOKEN_KAMU_DI_SINI" # Ini adalah Kode Token untuk mengakses API dari cPanel, ganti itu dengan kode yang Anda buat
 
@@ -2267,7 +2263,7 @@ curl -sGH "Authorization: cpanel $CPANEL_USERNAME:$CPANEL_API_TOKEN" \
      -d "cert=$CPANEL_PLAIN_CERT" \
      -d "key=$CPANEL_PLAIN_KEY" \
      -d "cabundle=$CPANEL_PLAIN_CA" \
-     "$CPANEL_URL/execute/SSL/install_ssl"
+     "https://$CPANEL_HOSTNAME:2083/execute/SSL/install_ssl"
 
 ### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di DirectAdmin
 ### Ada beberapa yang perlu diubah agar perintah bisa berjalan dengan baik, jadi silakan Anda ubah itu sendiri
