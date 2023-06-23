@@ -15,7 +15,7 @@ Tags:
     - Cara menggunakan
     - SSH
 readMore: true
-DescriptionSEO: Anda meng-install Termux di dalam ponsel/tablet Android Anda, tetapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari Komputer/Laptop kamu, caranya baca artikel ini
+DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tetapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer kamu!
 Description: |-
        Artikel kali ini akan membahas cara menggunakan Termux dari Komputer PC atau Laptop Anda.
 
@@ -23,10 +23,11 @@ Description: |-
 
        Jika terbiasa menggunakan komputer PC/Laptop, mungkin Anda merasa tidak nyaman jika harus mengetik baris perintah di layar ponsel/tablet, apalagi jika baris tersebut panjang kali lebar dan berjumlah banyak?
 
-       Yap, artikel ini membahas solusinya, tetapi jika Anda tidak merasa seperti itu yah kalau gak baca juga gak apa-apa.
+       Kalau iya, maka artikel ini membahas solusinya, tetapi jika Anda tidak merasa seperti itu yah kalau gak baca juga gak apa-apa.
 ---
 
 ## Pembuka
+
 Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, maka sama saja seperti membuang air ke laut, ya sama-sama gak berguna.
 
 Namun bagi sebagian orang, mengetik baris perintah dari layar ponsel itu sangatlah tidak nyaman, apalagi jika baris perintah itu panjang kali lebar dan berjumlah banyak.
@@ -40,6 +41,7 @@ Nah, inilah yang sedang saya bahas di artikel ini, yakni "Cara menggunakan Termu
 Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
 ## Persiapan
+
 Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel/Tablet Android Anda dan tentunya sudah terinstal Termux di dalamnya.
 
 Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di [F-Droid](https://f-droid.org/en/packages/com.termux/), bukan di Google Play Store.
@@ -55,7 +57,9 @@ Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi ke dalam
 Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer PC/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
 ## Caranya
+
 ### Konfigurasi Awal
+
 Pada bagian ini saya membahas konfigurasi awalnya, saya susun semuanya dalam langkah-demi-langkah supaya Anda bisa memahaminya dengan mudah.
 
 Berikut adalah hal yang harus Anda lakukan:
@@ -192,6 +196,7 @@ Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui klien SSH ya
 **Langkah ke-7:** Terakhir, aktifkan _service_/layanan untuk OpenSSH agar Server SSH dapat diaktifkan ketika Termux dijalankan dengan mengeksekusi perintah `sv enable sshd` di dalam Termux.
 
 ### Mengakses Ponsel Android melalui SSH
+
 Setelah melakukan konfigurasi awal, maka saatnya mengakses perangkat Android dari komputer/laptop Anda.
 
 Berikut adalah caranya:
@@ -241,7 +246,9 @@ Nah, kira-kira seperti itu.
 Bagaimana? Mudah sekali, bukan? Namun artikel ini belum selesai sampai sini saja, ada satu hal lagi yang bisa Anda lakukan melalui Termux ini, yang mungkin berguna bagi Anda yang saya bahas nanti di bagian selanjutnya.
 
 ## Lainnya
+
 ### Menggunakan SFTP
+
 Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, merubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan protokol SFTP.
 
 Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dalam Termux kamu, maka Protokol SFTP secara otomatis diaktifkan.
@@ -276,11 +283,13 @@ Untuk lebih lanjut, silakan baca [di sini](https://wiki.termux.com/wiki/Internal
 Dengan begini, Anda bisa mentransfer berkas dari dalam ponsel ke dalam perangkat lain atau sebaliknya tanpa perlu menginstal aplikasi "khusus" lagi ataupun tanpa terkena kendala kabel/lubangnya lagi.
 
 ## Pertanyaan dan Jawaban
+
 Jika Anda memiliki pertanyaan, silakan tanyakan itu di dalam kolom komentar yang tersedia.
 
 Namun, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban berikut sebagai referensi buat Anda sebelum bertanya.
 
 ### Pertanyaan ke-1: Bagaimana caranya agar Server SSH bisa diaktifkan secara otomatis setelah Perangkat _di-boot_ tanpa perlu mengaktifkannya lagi di Termux secara manual? {#pertanyaan-ke1}
+
 **Jawab:** Anda bisa melakukannya dengan cara berikut:
 
 1. Unduh dan Instal Aplikasi [**Termux:Boot**](https://f-droid.org/packages/com.termux.boot/) dari F-Droid, pastikan Anda mengunduh Termux-nya di F-Droid juga, bukan di Google Play Store, jangan dicampur-campur!
@@ -311,6 +320,7 @@ termux-wake-lock
 Solusi seperti ini akan sangat cocok bagi Anda yang ingin mengotomatiskan sesuatu, salah satunya adalah mengotomatiskan pembaruan sertifikat SSL dari ZeroSSL melalui acme.sh di Termux yang telah saya bahas [di artikel sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/).
 
 ### Pertanyaan ke-2: Apakah ada caranya agar akses SSH ini bisa dilakukan secara remot tanpa harus terhubung di jaringan yang sama? (cth. Ketika saya sedang berada di luar kota) {#pertanyaan-ke2}
+
 **Jawab:** ~~Untuk saat ini saya belum tahu caranya, jadi maaf kalau saya belum bisa memberikan caranya di sini.~~
 
 ~~Saya tahu ada layanan [ngrok](https://ngrok.com/) atau sejenisnya, tetapi itu belum saya coba buat akses SSH.~~
@@ -334,17 +344,17 @@ Selebihnya nanti akan saya buatkan artikelnya.
 {{< / info >}}
 
 ### Pertanyaan ke-3: Kenapa saya tetap mendapatkan pesan "Permission Denied", padahal penyimpanan sudah saya izinkan dan `termux-setup-storage` sudah saya jalankan? {#pertanyaan-ke3}
+
 **Jawab:** Bisa jadi karena kutu (_bug_) yang terjadi di dalam sistem operasi Android yang Anda gunakan, terutama untuk pengguna Android 11.
 
-Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa coba matikan izin "Penyimpanan" pada Aplikasi Termux, lalu nyalakan kembali setelah itu.
-
-Melakukannya mungkin akan mematikan Termux di perangkat Anda, dengan kata lain Termux akan "Force Close" atau ditutup secara paksa, tetapi Anda dapat membuka aplikasinya kembali setelah itu seperti biasanya.
+Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa coba selesaikan dan simpan semua tugas kamu di dalam Termux-nya terlebih dahulu -> Tutup Termux-nya -> Matikan izin "Penyimpanan" pada Aplikasi Termux -> Aktifkan kembali perizinannya, lalu buka lagi Termux-nya setelah itu.
 
 Setelah membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola penyimpanan perangkat dari Termux tanpa terkena galat "Permission Denied" lagi.
 
-**Bagaimana jika saya bukan pengguna Android 11?** Mungkin ini bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu cara selain ini.
+**Bagaimana jika saya bukan pengguna Android 11?** Mungkin cara di atas bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu selain itu.
 
 ### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari Komputer/Laptop saya, padahal sudah di dalam jaringan yang sama dan Alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
+
 **Jawab:** Banyak faktor sebenarnya mengenai hal ini, salah satunya adalah:
 
 1. _Firewall_ (Baik yang dilakukan oleh sistem operasi, aplikasi pihak ketiga, perangkat _router_, _access point_ atau ONT, dll) yang memblokir Alamat IP, aplikasi ataupun akses tertentu
@@ -370,6 +380,7 @@ Solusi yang bisa Anda coba salah satunya yaitu:
 Nah, itu saja penyebab dari masalah ini beserta solusi yang bisa Anda coba salah satunya.
 
 ## Penutup
+
 Pembahasan di artikel ini sudah saya cukupi di sini saja. Terima kasih buat Anda yang telah membaca dan memahami artikel ini sampai habis.
 
 Mohon maaf apabila adanya kekurangan atau kesalahan yang ada di artikel ini, seperti salah ketik, salah informasi, dll. Kesalahan-kesalahan tersebut saya usahakan untuk diperrbaiki kedepannya.
@@ -379,7 +390,8 @@ Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lainnya
 Terima kasih atas perhatiannya 😊
 
 ## Penggunaan Gambar dan Atribusi
-Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [_Repository_ Blog ini](https://github.com/FarrelF/Blog).
+
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [repositori blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahinya, silakan kunjungi Alamat URL berikut:
 
