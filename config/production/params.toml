@@ -15,7 +15,7 @@
 #url = "https://cdn.statically.io/css/farrel.franqois.id"
 
 [arcio]
-enabled = false
+enabled = true
 widgetId = "D1Tc1z8H"
 
 [counter]
