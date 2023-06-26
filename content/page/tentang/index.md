@@ -137,7 +137,9 @@ Kalau bisa, saya sarankan agar Anda menggunakan Ed25519 sebagai jenis kunci publ
 
 Lalu, masukkan isi kunci-kunci tersebut ke dalam berkas `.ssh/authorized_keys` di perangkat Anda.
 
-## Memberi Dukungan/Menyawer {#menyawer}
+## Memberi Dukungan/Menyawer {#memberi-dukungan}
+
+### Menyawer Uang {#menyawer}
 
 Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
 
@@ -146,19 +148,39 @@ Anda bisa memberikan dukungan terhadap blog ini atau menyawer sejumlah uang Anda
 - [Saweria](https://saweria.co/FarrelFranqois)
 - [Trakteer](https://trakteer.id/farrelf/tip)
 - [SociaBuzz](https://sociabuzz.com/farrelf/tribe)
-- Rekening Bank: (Atas Nama: OK Mohammad Edbert Farrel Franqois)
-  - Bank Digital BCA/BCA Digital/blu:**\***
-    - No. Rekening: `001566549842`
-    - Kode Bank: 501
-- Mendaftar sebuah layanan memakai tautan afiliasi merupakan salah satu pemberian dukungan dari Anda tanpa harus mengeluarkan biaya tambahan apa pun untuk membayar sebuah layanan. Bahkan di halaman ini juga ada tautan afiliasinya, hehe 😁
 
-{{< info title="**\*Keterangan:**" >}}
-Jika Anda ingin mentransfernya dari rekening BCA konvensional ke rekening BCA Digital/blu, pastikan pilih "Transfer Antar Bank", bukan "Transfer ke Sesama BCA" atau "Transfer Antar Rekening". Kenapa? Karena ini beda bank, meski termasuk dalam Grup BCA.
+### Menggunakan kode _referral_ {#pakai-kode-referral}
 
-Jika ingin bebas biaya transfer, pastikan metode transfer yang Anda pilih adalah "Transfer Online" atau "Realtime Online", bukan "BI-FAST", karena transfer dengan BI-FAST tetap akan dikenakan biaya sebesar Rp2.500,00/transaksi.
+Beberapa layanan yang (pernah) saya gunakan menyediakan _referral_, ketika kamu mendaftar menggunakan kode tersebut, maka saya akan memperoleh sejumlah komisi atau manfaat yang bisa saya terima, tanpa dikenai biaya tambahan apa pun, baik dari sisi Anda atau saya sendiri.
 
-**Bagaimana dengan BCA Syariah?** Sayangnya meski dalam satu grup yang sama (Grup BCA), BCA Syariah tetap dikenakan biaya seperti biasanya, baik dari BCA Syariah ke blu/BCA Digital atau sebaliknya, jadi saya sarankan untuk memakai BI-FAST sebagai metode transfernya atau memakai aplikasi transfer antar bank seperti [Flip](https://afiliasi.farrel.franqois.id/flip/) atau sejenisnya agar biayanya menjadi lebih murah.
-{{< / info >}}
+Meski ini bisa saya jadikan sebagai salah satu sumber pendapatkan, tetapi hal ini **tidak akan mempengaruhi pandangan saya terhadap produk atau layanan mereka**.
+
+Berikut adalah kode _referral_ yang bisa Anda gunakan:
+
+|<span class="tab-center">Nama Layanan</span>|<span class="tab-center">Kode _Referral_</span>|
+|:--------------------|:-------------------------------------------------------------|
+| blu by BCA Digital  | `OKMOH1TXO`                                                  |
+| [bunny.net](https://afiliasi.farrel.franqois.id/bunny/) | Klik tautannya            |
+| [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) | Klik tautannya            |
+| [Flip](https://afiliasi.farrel.franqois.id/flip/)| Klik tautannya atau pakai kode `WJRP9856`|
+| [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) | Klik tautannya            |
+| [IDCloudHost Console](https://afiliasi.farrel.franqois.id/idch-console/) | Klik tautannya atau pakai kode `m9z6qf`, cocok buat Anda yang ingin menggunakan layanan Object Storage, Cloud VPS, Networking, dll, dari mereka. Anda juga akan mendapatkan bonus saldo sebesar Rp25.000,00 setelah mendaftar menggunakan kode tersebut |
+
+### Metode Lainnya
+
+Tidak punya uang dan tidak punya layanan yang perlu di daftarkan? Tidak usah khawatir, ada cara yang paling mudah untuk mendukung blog ini.
+
+Pertama-tama, pastikan kamu melihat ikon berbentuk lingkaran dan berwarna ungu di pojok kiri bawah. Tidak ketemu? Matikan terlebih dahulu pemblokir iklannya dan kecualikan blog ini. Meski kamu bisa menggunakan pemblokir iklan, saya sarankan untuk kecualikan blog ini agar dukungannya lebih optimal.
+
+Sudah? Kalau sudah, cari lagi ikonnya, lalu kamu klik ikon tersebut, setelah itu akan muncul sebuah dialog bahwa blog ini telah menggunakan layanan dari Arc. Nah, kamu klik pada _button_ **"Enable Arc and support Franqois.id"**, contohnya seperti gambar berikut:
+
+![Mengaktifkan Arc di Situs Web, gambar diambil dari halaman resmi Arc, lalu saya ubah sedikit](Mengaktifkan_Arc_di_Situs_Web.webp)
+
+Kira-kira seperti itu. Selain kalian bisa mendukung blog ini karena saya bisa mendapatkan uang dari sana tanpa harus memasang iklan, kalian juga telah membantu pengunjung lain dalam memuat berkas-berkas statik blog ini dengan lebih cepat berkat jaringan P2P-nya.
+
+Yap, [Arc](https://arc.io) adalah sebuah layanan CDN yang menggunakan jaringan _peer-to-peer_, tidak seperti layanan CDN pada umumnya, mereka akan menggunakan _Service Worker_ untuk memulainya, lalu WebRTC akan digunakan untuk mengambil dan mengunggah aset-aset blog yang telah dimuat sebelumnya dari perangkat Anda. Untuk cara kerja yang lebih lengkap, silakan [klik di sini](https://arc.io/faq#how-does-arcs-cdn-work).
+
+Tenang saja, ini tidak akan mengunggah semua data-data kamu ke banyak orang, hanya aset-aset blog ini (atau dari web yang menggunakan Arc) saja yang diunggah dan ini aman kok, meski ada kemungkinan bahwa mereka memakai Analitik dari Google.
 
 ## Akhir Kata
 
