@@ -15,15 +15,6 @@
 
 	// Customizations
 	"customizations": {
-		// Codespace Customization for Multiple Repository
-		"codespaces": {
-			"repositories": {
-				"FarrelF/stack-modified": {
-					"permissions": "read-all"
-				}
-			}
-		},
-
 		// Visual Studio Code Customization
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.

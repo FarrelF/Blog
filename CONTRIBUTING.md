@@ -126,7 +126,7 @@ Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa meny
 
 Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Ko-fi](https://ko-fi.com/farrelf), [Saweria](https://saweria.co/FarrelFranqois), [SociaBuzz](https://sociabuzz.com/farrelf/tribe) atau melalui [Trakteer](https://trakteer.id/farrelf/tip) saya.
 
-Untuk lebih lengkapnya, silakan kunjungi halaman ["Tentang"](https://farrel.franqois.id/tentang/#hubungi-saya) di blog saya.
+Untuk lebih lengkapnya, silakan [klik di sini](https://farrel.franqois.id/dukung/).
 
 ## Cara ke-3: Memberikan Masukan atau Bertanya
 

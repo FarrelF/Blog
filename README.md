@@ -16,7 +16,6 @@ Agar dapat menggunakan kode sumber ini, adakalanya untuk memenuhi persyaratannya
 - Git (disarankan versi terbaru): [https://git-scm.com/downloads](https://git-scm.com/downloads) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
 - Hugo Extended (versi minimal: 0.91.0, disarankan terbaru): [https://gohugo.io/getting-started/installing/](https://gohugo.io/getting-started/installing/) (Untuk mengetahui Cara Instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
 - Go (versi minimal: 1.12, disarankan: 1.17 atau terbaru): [https://golang.org/](https://golang.org/)
-- Mengkloning repositori [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam folder `FarrelF/stack-modified`
 
 Di dalam sistem operasi Anda. Jika Anda ingin memakai fitur "Codespaces", maka Anda tidak perlu memenuhi persyaratan tersebut di perangkat Anda.
 
@@ -44,7 +43,7 @@ Kode Sumber akan disimpan di dalam sebuah subfolder yang bernama `Blog` yang ter
 
 ## Sebelum Instal
 
-Sebelum Instal, pastikan Anda sudah mengkloning repositori [`stack-modified`](https://github.com/FarrelF/stack-modified) di dalam Folder `FarrelF` (sesuai petunjuk yang ada di dalam repositorinya) dan memenuhi semua persyaratannya terlebih dahulu.
+Sebelum Instal, pastikan Anda telah memenuhi semua persyaratannya terlebih dahulu di atas.
 
 Atau, Anda dapat menggunakan fitur ["Codespaces"](https://github.com/features/codespaces) di GitHub yang dapat membantu Anda untuk menggunakan kode sumber blog ini, dimulai dari sekadar mencoba sampai turut ikut berkontribusi. Untuk caranya, silakan baca [halaman dokumentasinya](https://docs.github.com/en/codespaces/getting-started/quickstart), di situ sudah dijelaskan secara sederhana dan lengkap dengan gambar.
 
