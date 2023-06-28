@@ -35,7 +35,7 @@ Anda dapat memberikan dukungan terhadap blog ini dengan menyawer sejumlah uang A
 
 Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang bisa Anda coba di situ.
 
-Sedangkan layanan internasional yang saya sebut hanya mendukung pembayaran melalui Saldo PayPal, Kartu Debit dan Kredit saja.
+Sedangkan layanan internasional yang saya sebut hanya mendukung pembayaran melalui Saldo PayPal, Kartu Debit dan Kredit saja, yang jelas prinsipal yang digunakan oleh kartu debit/kredit seperti Visa dan Mastercard didukung.
 
 ## Menggunakan kode _referral_ {#pakai-kode-referral}
 
@@ -45,20 +45,20 @@ Meski ini bisa saya jadikan sebagai salah satu sumber pendapatkan, tetapi hal in
 
 Berikut adalah kode _referral_ yang bisa Anda gunakan:
 
-|<span class="tab-center">Nama Layanan</span>|<span class="tab-center">Kode _Referral_</span>|
-|:----------------------------:|:-------------------------------------------------------------:|
-| blu by BCA Digital    | `OKMOH1TXO`                                                  |
-| [bunny.net](https://afiliasi.farrel.franqois.id/bunny/)   | Klik tautannya            |
-| [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) | Klik tautannya            |
-| [Flip](https://afiliasi.farrel.franqois.id/flip/)| Klik tautannya atau pakai kode `WJRP9856`  |
-| [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) | Klik tautannya            |
-| [IDCloudHost Console](https://afiliasi.farrel.franqois.id/idch-console/)  | Klik tautannya atau pakai kode `m9z6qf`, cocok buat Anda yang ingin menggunakan layanan Object Storage, Cloud VPS, dan layanan fleksibel lainnya dari mereka. Anda juga akan mendapatkan bonus saldo sebesar Rp25.000,00 setelah mendaftar menggunakan kode tersebut |
+|<span class="tab-center">Nama Layanan</span>|<span class="tab-center">Kode _Referral_</span>|<span class="tab-center">Keterangan</span>|
+|:--------------:|:-----------------------------:|:--------------------:|
+| blu by BCA Digital    | `OKMOH1TXO`                                                  | |
+| [bunny.net](https://afiliasi.farrel.franqois.id/bunny/)   | Klik tautannya            | |
+| [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) | Klik tautannya            | |
+| [Flip](https://afiliasi.farrel.franqois.id/flip/)| Klik tautannya atau pakai kode `WJRP9856`  | |
+| [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) | Klik tautannya            | Layanan IDCloudHost biasa |
+| [IDCloudHost Console](https://afiliasi.farrel.franqois.id/idch-console/)  | Klik tautannya atau pakai kode `m9z6qf` | Layanan Fleksibel dari IDCloudHost. Dapatkan bonus saldo sebesar Rp25.000,00 setelah isi ulang  |
 
 ## Arc (Paling mudah)
 
 Tidak punya uang dan tidak punya layanan yang perlu didaftarkan? Tidak usah khawatir, ada cara yang paling mudah dan gratis untuk mendukung blog ini.
 
-Karena blog ini telah menggunakan Arc sebagai layanan CDN-nya, maka cara yang paling mudah untuk mendukung blog ini adalah dengan mengaktifkan Arc untuk blog ini saat Anda mengunjunginya, caranya seperti berikut.
+Karena blog ini telah menggunakan Arc sebagai layanan CDN-nya, maka cara yang paling mudah untuk mendukung blog ini adalah dengan mengaktifkan Arc untuk blog ini saat Anda mengunjunginya, caranya seperti berikut:
 
 ### Mengaktifkan Arc
 
