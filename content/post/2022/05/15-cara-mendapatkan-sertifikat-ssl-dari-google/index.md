@@ -30,6 +30,7 @@ Description: |-
 ---
 
 ## Pembuka
+
 Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekali pun untuk aplikasinya.
 
 Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
@@ -45,9 +46,11 @@ _Semoga seterusnya bisa gratis, Amiin_.
 Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**"Google Trust Services (GTS)"**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
 
 ## Persiapan
+
 Karena ini sepenuhnya menggunakan protokol ACME dan ini bersifat _Self-managed_, maka tentu saja tidak ada antarmuka pengguna dari Google secara langsung untuk mengelolanya.
 
 Jadi, persiapan yang perlu Anda lakukan adalah sebagai berikut:
+
 1. Punya Akun Google (Kalau kamu pengguna Android, ya gak usah ditanya lah yaa)
 2. Punya koneksi Internet (Kalau Internet aja gak punya, gimana kamu bisa baca artikel ini?)
 3. Terinstalnya perkakas klien ACME di dalam perangkat kamu, entah itu di dalam Komputer PC, Laptop, Server/VPS, Ponsel Pintar, atau lainnya.
@@ -67,6 +70,7 @@ Kalau mau, Anda juga dapat membaca [artikel saya sebelumnya](/cara-memasang-zero
 Setelah semuanya sudah siap, gak usah banyak _cing-cong_, mari langsung eksekusi!
 
 ## Membuat Proyek di Google Cloud Console
+
 Pertama-tama, Anda perlu membuat sebuah Proyek (bahasa Inggrisnya: **Project**) di [**"Google Cloud Console"**](https://console.cloud.google.com/) (Sebelumnya bernama **"Google Developer Console"**). Ini nantinya diperlukan karena kamu akan mengakses API-nya.
 
 Sebagai catatan, Anda tidak perlu memasukkan kartu kredit/debit hanya untuk menambahkan proyek di sana, jadi Anda bisa melakukan semuanya secara gratis. Namun, kuotanya terbatas untuk 10 proyek saja per akun.
@@ -114,6 +118,7 @@ Kira-kira akan seperti di atas.
 Jika semua sudah selesai, Anda tinggal langsung daftarkan proyeknya saja.
 
 ## Mendaftarkan Proyek
+
 {{< info title="**PEMBARUAN Sabtu, 10 September 2022:**" >}}
 Karena Google Public CA sudah bukan lagi termasuk _Beta preview_, maka Anda tidak perlu lagi mengisi formulir hanya untuk mengaktifkan akses API **Public CA**-nya, saran saya langkah ini langsung Anda [lewati saja](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab).
 {{< / info >}}
@@ -151,6 +156,7 @@ Pastikan untuk selalu periksa pesan surel Anda baik di dalam kotak masuk ataupun
 Jika Anda menerima pesan di atas, maka sudah dipastikan bahwa Anda bisa mengaktifkan Akses API untuk **"Public Certificate Authority"** milik Google melalui **"Google Cloud Console"**.
 
 ## Mengaktifkan Akses API-nya dan membuat kredensial EAB
+
 Setelah diterima, Anda perlu mengaktifkan Akses API-nya terlebih dahulu dan berikan izin akses untuk membuat kredensial EAB-nya.
 
 Caranya seperti berikut:
@@ -187,7 +193,7 @@ gcloud services enable publicca.googleapis.com
 **Langkah ke-6:** Setelah diaktifkan, buatlah kredensial EAB-nya dengan perintah berikut:
 
 ```shell
-gcloud beta publicca external-account-keys create
+gcloud publicca external-account-keys create
 ```
 
 Jika berhasil, nanti keluarannya akan seperti berikut:
@@ -198,6 +204,7 @@ keyId: bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
 ```
 
 Hal yang perlu diperhatikan/dicatat adalah bahwa:
+
 - Nilai dari `b64MacKey` adalah **"EAB HMAC Key"**-nya
 - Nilai dari `keyId` adalah **"EAB Key ID"** atau **"EAB KID"**-nya
 
@@ -208,6 +215,7 @@ Kredensial EAB yang tidak digunakan hanya bertahan selama 7 hari dan hanya bisa 
 Jadi, buruan dipakai kredensial EAB-nya setelah ini.
 
 ### Membuat Kredensial EAB untuk Mode Pementasan/Uji coba
+
 Yap, Anda tidak salah lihat, server ACME dari Google Public CA itu sendiri memiliki fasilitas yang memungkinkan penggunanya untuk menguji penerbitan sertifikat dalam mode pementasan (_Staging Mode_).
 
 Ini sangat berguna bagi Anda yang ingin menguji coba proses penerbitan sertifikat berlangsung ataupun bagi yang sedang mempelajari klien ACME yang sedang digunakan, entah itu sekadar mengecek kredensial DNS yang dipakai, menguji coba konfigurasi yang telah ditetapkan, dll, tanpa mempengaruhi _rate limit_ aslinya.
@@ -233,7 +241,7 @@ gcloud config set api_endpoint_overrides/publicca https://preprod-publicca.googl
 **Langkah ke-4:** Setelah menggantikan Alamat URL _Endpoint-nya_, Anda perlu membuat kredensial EAB dengan perintah yang sama seperti di bagian sebelumnya. Kalau belum yakin, lupa atau merasa malas, Anda bisa _copy-paste_ perintah berikut:
 
 ```shell
-gcloud beta publicca external-account-keys create
+gcloud publicca external-account-keys create
 ```
 
 Sama seperti sebelumnya, keluarannya akan seperti berikut jika berhasil:
@@ -244,6 +252,7 @@ keyId: bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
 ```
 
 Hal yang perlu diperhatikan/dicatat adalah bahwa:
+
 - Nilai dari `b64MacKey` adalah **"EAB HMAC Key"**-nya
 - Nilai dari `keyId` adalah **"EAB Key ID"** atau **"EAB KID"**-nya
 
@@ -262,6 +271,7 @@ Setelah ini semua, pakai kredensialnya secepat mungkin, karena kredensial terseb
 Meski begitu, akun untuk server ACME yang telah Anda daftarkan menggunakan kredensial tersebut tidak memiliki masa berlaku.
 
 ## Mengkaitkan Kredensial EAB dengan Perkakas Klien ACME
+
 Setelah membuat kredensial EAB-nya, sekarang waktunya Anda gunakan kredensial tersebut ke dalam perkakas klien ACME dalam rangka mendaftarkan sebuah "akun" untuk server ACME-nya, dalam instruksi kali ini saya memakai acme.sh sebagai perkakas klien untuk protokol ACME-nya.
 
 Untuk mendaftarkan sebuah akun dengan menggunakan Kredensial EAB yang telah dibuat sebelumnya, Anda dapat menggunakan perintah berikut:
@@ -274,6 +284,7 @@ acme.sh --register-account -m <ALAMAT_SUREL_KAMU> \
 ```
 
 Ganti:
+
 - `<ALAMAT_SUREL_KAMU>` menjadi alamat surel kamu
 - `<EAB_KID_KAMU>` menjadi **"EAB KID"** yang telah kamu simpan sebelumnya
 - `<EAB_HMAC_KEY_KAMU>` menjadi **"EAB HMAC Key"** yang telah kamu simpan sebelumnya
@@ -283,6 +294,7 @@ Jika ingin mendaftarkan sebuah akun untuk Mode Ujicoba/Pementasannya, Anda bisa 
 Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL/TLS dengan menggunakan **"Google Public CA"**, lalu bisa Anda kelola sesuka hati melalui perkakas acme.sh.
 
 ## Menerbitkan sertifikat SSL/TLS dari Google
+
 Untuk menerbitkan sertifikat SSL/TLS dari Google melalui acme.sh, maka Anda hanya perlu pelajari contoh perintah berikut:
 
 ```shell
@@ -311,12 +323,15 @@ Dengan begini, Anda tidak perlu lagi memakai parameter `--server google` hanya s
 Nah, artikelnya saya cukupkan sampai sini saja. Jika Anda mempunyai pertanyaan lain, silakan tanyakan itu di kolom komentar yang tersedia, tetapi sebelum bertanya, ada baiknya bila Anda membaca dan memahami pertanyaan yang (akan) sering ditanya beserta jawabannya agar bisa menjadi referensi buat Anda.
 
 ## Pertanyaan yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
+
 ### Pertanyaan ke-1: Apakah saya perlu memasukkan kartu kredit/debit terlebih dahulu agar dapat menggunakan Google Cloud Console? {#pertanyaan-ke1}
+
 Seharusnya tidak perlu kamu masukkan dan semua itu bisa Anda lakukan secara gratis tanpa membayar biaya sepeser pun.
 
 Hanya saja, maksimum proyek yang bisa Anda buat adalah sebanyak 10 proyek per Akun. Jadi, jika Anda pernah memiliki/membuat proyek sebelumnya di **"Google Cloud Console"** atau **Google Developer Console**, maka saya sangat menyarankan agar memakai proyek yang ada saja.
 
 ### Pertanyaan ke-2: Apakah semua sertifikat SSL/TLS yang diterbitkan oleh Google Public CA ini gratis? {#pertanyaan-ke2}
+
 Untuk saat ini, jawabannya adalah **Iya**. Anda bisa menerbitkan Sertifikat SSL/TLS tersebut secara gratis melalui protokol ACME-nya.
 
 Baik sertifikat SSL/TLS dalam bentuk biasa, _Multi-domain_ atau bahkan _Wildcard_ sekali pun bisa Anda terbitkan secara gratis dengan RSA atau ECC sebagai Algoritma Kunci Publiknya.
@@ -324,6 +339,7 @@ Baik sertifikat SSL/TLS dalam bentuk biasa, _Multi-domain_ atau bahkan _Wildcard
 Hanya saja sifatnya ini adalah _Self-managed_, sehingga semuanya Anda kelola secara mandiri tanpa bantuan ataupun dukungan dari pihak Google secara langsung.
 
 ### Pertanyaan ke-3: Berapa lama masa aktif sertifikat SSL/TLS dari Google Public CA ini? {#pertanyaan-ke3}
+
 Secara baku, semua sertifikat yang diterbitkan oleh Google Trust Services memiliki masa aktif selama 90 hari per sertifikat dan itu merupakan nilai maksimalnya.
 
 Namun, protokol ACME telah mengizinkan klien untuk meminta dengan masa aktif yang berbeda-beda yang tentunya kurang dari masa aktif maksimal.
@@ -333,6 +349,7 @@ Oleh karena itu, Google sendiri mengizinkan Anda untuk menerbitkan sertifikat SS
 Namun, mereka sendiri menyarankan Anda untuk menerbitkan sertifikatnya minimal dengan masa aktif 3 hari atau lebih untuk mencegah [ketidaktepatan pada jam](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46359.pdf) dan validitas sertifikat yang tumpang tindih, yang mengakibatkan Web, Blog atau Aplikasi menjadi tidak bisa diakses oleh karenanya.
 
 ### Pertanyaan ke-4: Bagaimana caranya agar saya bisa menerbitkan sertifikat SSL/TLS dengan masa aktif kurang dari 90 hari? {#pertanyaan-ke4}
+
 Di acme.sh, Anda bisa tambahkan parameter `--valid-to <tanggal waktu>` saat ingin menerbitkan sebuah sertifikat.
 
 Contoh:
@@ -375,14 +392,17 @@ Perintah di atas akan menerbitkan sertifikat SSL/TLS untuk domain `*.contoh.com`
 Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatnya secara otomatis, jadi saran saya pakai saja format yang relatif, sehingga bisa diperbarui secara otomatis.
 
 ### Pertanyaan ke-5: Apakah sertifikat SSL/TLS yang diterbitkan itu merupakan sertifikat langsung dari Google Trust Services? {#pertanyaan-ke5}
+
 Iya, betul.
 
 Semua sertifikat SSL/TLS yang telah Anda terbitkan melalui **"Google Public CA"** itu adalah sertifikat langsung dari **"Google Trust Services (GTS)"**, yang di mana sertifkatnya digunakan oleh seluruh layanan Google, termasuk YouTube dan Blogger, sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
 
 ### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL/TLS dengan memakai ECC sebagai Algoritma Kunci Publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke6}
+
 Sayangnya, tidak. Alasannya kurang tahu dan kapan menggunakan rantai murni ECC yang sepenuhnya juga saya kurang tahu, yang jelas bukan sekarang ini menurut klaim mereka.
 
 ### Pertanyaan ke-7: Saya memakai perkakas ACME selain acme.sh, seperti Certbot, apa Alamat URL untuk Direktori ACME-nya? {#pertanyaan-ke7}
+
 Alamat URL-nya sebagai berikut:
 
 Server Produksi (baku):
@@ -398,6 +418,7 @@ https://dv.acme-v02.test-api.pki.goog/directory
 ```
 
 ### Pertanyaan ke-8: Kenapa kamu memakai acme.sh? {#pertanyaan-ke8}
+
 Karena lebih simpel dan lebih mudah dipelajari, serta fiturnya juga lumayan lengkap, seperti dukungan layanan penyedia DNS-nya yang lengkap, pilihan CA yang cukup banyak, eksekusi skrip setelah pembaruan sertifikat, opsi penginangan sertifikat, mengatur masa berlaku sertifikat saat penerbitan, dll.
 
 Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu bisa bebas menggunakannya tanpa terkendala perizinan dan juga pastinya lebih aman ketimbang menggunakan hak akses `root`.
@@ -411,11 +432,13 @@ Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai acme.s
 Ini sebenarnya adalah sebuah alasan yang sama seperti artikel sebelumnya, sehingga kalau kamu pernah membaca artikel sebelumnya, mungkin kamu akan berpikir bahwa jawaban ini sangat familiar bagi Anda, karena pada dasarnya ya sama saja, cuma beda kasusnya.
 
 ### Pertanyaan ke-9: Apa kelebihan dan kekurangan dari Google Public CA menurut kamu? {#pertanyaan-ke9}
+
 Mungkin lebih baik bila disebutkan "Poin menarik" dan "Hal yang perlu diperhatikan" daripada "kelebihan" dan "kekurangan", karena kelebihan bagi saya belum tentu itu merupakan kelebihan bagi Anda dan kekurangan bagi saya belum tentu itu merupakan kekurangan bagi Anda, atau justru malah sebaliknya.
 
 Jadi saya langsung saja bahas hal yang menarik dan yang perlu diperhatikan soal **"Google Public CA"** ini.
 
 Poin menarik:
+
 - Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan sertifikat akan menjadi jauh lebih cepat
 - Lebih minim gangguan saat proses penerbitan atau pembaruan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan atau pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
 - Kamu bisa menerbitkan sertifikat dalam bentuk biasa, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai Algoritma Kunci Publiknya
@@ -429,6 +452,7 @@ Poin menarik:
 - Yang paling penting adalah semuanya bisa digunakan secara gratis, setidaknya untuk saat ini
 
 Hal yang perlu diperhatikan:
+
 - Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan
 - ~~Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan~~
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tetapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
@@ -457,13 +481,15 @@ Namun menariknya, setiap sertifikat yang diterbitkan oleh Google Trust Services 
 Mungkin hal di atas bisa saja ada yang salah, jika ada koreksi, silakan berikan masukkannya melalui kolom komentar.
 
 ### Pertanyaan ke-10: Apa pengalamanmu saat menggunakan Google Public CA? Apakah ada masalah sejauh ini? {#pertanyaan-ke10}
+
 Sejauh ini belum ada masalah apa pun, baik saat penerbitan sampai pemakaiannya. Penerbitannya bisa dibilang cepat, jauh lebih cepat ketimbang saat saya memakai ZeroSSL dan saya belum pernah menemukan galat 5xx saat penerbitan ataupun galat yang membuat perkakas acme.sh mengulangi proses penerbitan sertifikat.
 
-Jika ada masalah saat pemakaian ataupun pembaruan sertifikat (semoga jangan), mungkin akan saya perbarui juga di sini. 
+Jika ada masalah saat pemakaian ataupun pembaruan sertifikat (semoga jangan), mungkin akan saya perbarui juga di sini.
 
 Untuk pencabutannya belum saya coba, karena saya belum sempat dan belum ada urgensi juga untuk mencabut sertifikatnya, mungkin kedepannya akan saya coba.
 
 ### Pertanyaan ke-11: Saya memasang CAA Record di dalam pengaturan DNS pada Domain saya, apa CAA Record yang harus saya isi? {#pertanyaan-ke11}
+
 Jika Anda memasang **CAA Record**, pastikan Anda menambahkan `pki.goog` di dalamnya. Dengan ini, Anda akan mengizinkan Google Trust Services untuk menerbitkan sertifikat SSL/TLS-nya untuk domain Anda.
 
 Untuk referensinya/selebihnya, bisa Anda kunjungi server ACME-nya secara langsung melalui Peramban Web-mu, Alamat URL-nya sudah saya sebutkan di jawaban pada [pertanyaan ke-7](#pertanyaan-ke7) lalu lihat pada bagian `caaIdentities` dan di situ akan ada `pki.goog` sebagai isi dari `caaIdentities` yang merupakan **CAA Record** yang bisa Anda isi untuk mengizinkan Google Trust Services.
@@ -471,6 +497,7 @@ Untuk referensinya/selebihnya, bisa Anda kunjungi server ACME-nya secara langsun
 Hal di atas bukan hanya berlaku untuk Google Trust Services saja, tetapi berlaku juga untuk server ACME lainnya seperti Let's Encrypt, ZeroSSL, Buypass, SSL.com, dll yang bisa Anda coba sendiri.
 
 ## Penutup
+
 Yap, sekian saja artikelnya untuk kali ini, bagaimana? Mudah, bukan? Dengan begini, Anda bisa memakai sertifikat SSL/TLS dari Google secara gratis tanpa perlu memakai layanan dari mereka untuk Web/Blog-nya.
 
 Itu aja? Yah, tidaklah, selanjutnya ya pasang sertifikat SSL/TLS-nya ke dalam Situs Web/Blog kamu agar bisa digunakan, jika Anda memakai Netlify, Bunny CDN, atau/dan cPanel, saya sarankan Anda baca [artikel saya sebelumnya](/cara-memasang-zerossl-di-netlify-bunnycdn/#memasang-ssl) dan mulai bacanya dari bagian **Memasang Sertifikat SSL**.
@@ -484,6 +511,7 @@ Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkemban
 Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, bisa Anda berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk kedepannya nanti.
 
 ## Penggunaan Gambar dan Atribusi
+
 Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [repositori blog ini](https://github.com/FarrelF/Blog).
 
 Jika Anda ingin menjelajahinya, silakan kunjungi Alamat URL berikut:
