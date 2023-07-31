@@ -35,13 +35,13 @@ Anda dapat memberikan dukungan terhadap blog ini dengan menyawer sejumlah uang A
 
 Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang bisa Anda coba di situ.
 
-Sedangkan layanan internasional yang saya sebut hanya mendukung pembayaran melalui Saldo PayPal, Kartu Debit dan Kredit saja, yang jelas prinsipal yang digunakan oleh kartu debit/kredit seperti Visa dan Mastercard didukung.
+Sedangkan layanan internasional yang saya sebut hanya mendukung pembayaran melalui Saldo PayPal, Kartu Debit dan Kredit saja, prinsipal yang digunakan oleh kartu debit/kredit seperti Visa dan Mastercard jelas didukung.
 
 ## Menggunakan kode _referral_ {#pakai-kode-referral}
 
 Beberapa layanan yang (pernah) saya gunakan menyediakan _referral_, ketika kamu mendaftar menggunakan kode tersebut, maka saya akan memperoleh sejumlah komisi atau manfaat yang bisa saya terima, tanpa dikenai biaya tambahan apa pun, baik dari sisi Anda atau saya sendiri.
 
-Meski ini bisa saya jadikan sebagai salah satu sumber pendapatkan, tetapi hal ini **tidak akan mempengaruhi pandangan saya terhadap produk atau layanan mereka**.
+Meski ini bisa saya jadikan sebagai salah satu sumber pendapatan, tetapi hal ini **tidak akan mempengaruhi pandangan saya terhadap produk atau layanan mereka**.
 
 Berikut adalah kode _referral_ yang bisa Anda gunakan:
 

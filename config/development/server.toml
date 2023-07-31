@@ -39,6 +39,13 @@ Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
 Pragma = "no-cache"
 
 [[headers]]
+for = "/*.webmanifest"
+
+[headers.values]
+Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+Pragma = "no-cache"
+
+[[headers]]
 for = "/*.txt"
 
 [headers.values]

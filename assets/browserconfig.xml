@@ -1,0 +1,10 @@
+{{- $msTileImg := resources.Get "img/mstile-150x150.png" | fingerprint "md5" -}}
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="{{ $msTileImg.RelPermalink }}"/>
+            <TileColor>{{ default "#da532c" $.Site.Params.customFavicon.browserConfig.msTileColor }}</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>

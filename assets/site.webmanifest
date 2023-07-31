@@ -1,0 +1,21 @@
+{{- $Android192 := resources.Get "img/android-chrome-192x192.png" | fingerprint "md5" -}}
+{{- $Android512 := resources.Get "img/android-chrome-512x512.png" | fingerprint "md5" -}}
+{
+    "name": "Farrel Franqois Blog",
+    "short_name": "",
+    "icons": [
+        {
+            "src": "{{ $Android192.RelPermalink }}",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "{{ $Android512.RelPermalink }}",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "{{ $.Site.Params.customFavicon.webManifest.themeColor | default "#ffffff" }}",
+    "background_color": "{{ $.Site.Params.customFavicon.webManifest.backgroundColor | default "#ffffff" }}",
+    "display": "standalone"
+}
