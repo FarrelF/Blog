@@ -73,7 +73,7 @@ jobs:
     - name: Setup Hugo Modules Cache
       uses: actions/cache@v3
       with:
-        path: ${{ env.HOME }}/.cache/hugo_cache
+        path: /tmp/hugo_cache_runner
         key: ${{ runner.os }}-hugo-modules-preview-${{ hashFiles('**/go.sum') }}
         restore-keys: | 
           - ${{ runner.os }}-hugo-modules-preview-${{ hashFiles('**/go.sum') }}
