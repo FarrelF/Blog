@@ -52,11 +52,11 @@ Berkat bantuan dari beberapa referensi, akhirnya saya dapat memasangkan sertifik
 
 Nah, makanya saya buat artikel ini, siapa tahu mungkin Anda tertarik atau merasa tertantang untuk memasang Sertifikat SSL/TLS dari ZeroSSL ini ke dalam Web/Blog Anda bila dibandingkan dengan Let's Encrypt. Semoga artikel ini akan bermanfaat buat Anda 🙂
 
-Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL/TLS yang bisa Anda dapatkan dari ZeroSSL, baik jangkauannya untuk 1 Domain, Banyak Domain atau Subdomain, atau _Wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasangkannya dengan cara memanggil Server API milik Bunny.net dan Netlify memakai curl.
+Di sini, Anda akan mempelajari untuk menerbitkan Sertifikat SSL/TLS yang bisa Anda dapatkan dari ZeroSSL, baik jangkauannya untuk 1 domain, banyak domain atau subdomain, atau _wildcard_ dengan menggunakan acme.sh sebagai perkakasnya, setelah itu Anda akan memasangkannya dengan cara memanggil Server API milik bunny.net dan Netlify memakai curl.
 
 Bagi yang belum tahu, [ZeroSSL](https://zerossl.com) adalah salah satu CA (_Certificate Authority_) atau Otoritas Sertifikat yang menerbitkan/mengelola/mencabut Sertifikat SSL/TLS untuk Internet. Ia merupakan salah satu produk dari [Stack Holdings](https://www.linkedin.com/company/stackholdings/about/).
 
-Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan/memperbarui/mencabut atau mengelola Sertifikat SSL/TLS. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua sistem operasi berbasis \*nix.
+Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk Protokol ACME, yang bertujuan sebagai alat bantu untuk menerbitkan, memperbarui, mencabut atau mengelola Sertifikat SSL/TLS. Perkakas tersebut dibuat dengan menggunakan _Shell_ dan Kompatibel di hampir semua sistem operasi berbasis \*nix.
 
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
 
@@ -84,19 +84,19 @@ Sertifikat SSL/TLS dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal seba
 
 Informasi mengenai sertifikat akarnya sebagai berikut:
 
-- Akar untuk Rantai (_Chain of Trust_) Pertama: "[AAA Certificate Services](https://search.censys.io/certificates/d7a7a0fb5d7e2731d771e9484ebcdef71d5f0c3e0a2948782bc83ee0ea699ef4)" yang masa berlakunya sampai 31 Desember 2028 pukul 23:59:59 atau 01 Januari 2029 dalam waktu UTC
+- Akar untuk Rantai (_Chain of Trust_) Pertama: "[AAA Certificate Services](https://crt.sh/?id=331986)" yang masa berlakunya sampai 31 Desember 2028 pukul 23:59:59 atau 01 Januari 2029 dalam waktu UTC
 
-- Akar untuk Rantai (_Chain of Trust_) Kedua: "[USERTrust RSA Certification Authority](https://search.censys.io/certificates/e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2)" atau "[USERTrust ECC Certification Authority](https://search.censys.io/certificates/4ff460d54b9c86dabfbcfc5712e0400d2bed3fbc4d4fbdaa86e06adcd2a9ad7a)" yang masing-masing masa berlakunya sampai 18 Januari 2038 pukul 23:59:59 atau 19 Januari 2038 dalam waktu UTC
+- Akar untuk Rantai (_Chain of Trust_) Kedua: "[USERTrust RSA Certification Authority](https://crt.sh/?id=1199354)" atau "[USERTrust ECC Certification Authority](https://crt.sh/?id=2841410)" yang masing-masing masa berlakunya sampai 18 Januari 2038 pukul 23:59:59 atau 19 Januari 2038 dalam waktu UTC
 
 Ini artinya, hampir semua perangkat lunak bisa menggunakan sertifikat ini, bahkan oleh perangkat lunak versi lama sekali pun (cth. Internet Explorer 6.0+, Mozilla Firefox 1.0+, Opera 6.1+, AOL 5+, Peramban pada Blackberry 4.3.0+, Android 1.5+, dll)
 
 Untuk lebih lanjut, Anda bisa kunjungi halaman [daftar kompatibilitasnya](https://help.zerossl.com/hc/en-us/articles/360058294074-ZeroSSL-Compatibility-List).
 
-Sedangkan Akar dari _Chain of Trust-nya_ Let's Encrypt adalah "[DST Root CA X3](https://search.censys.io/certificates/0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739)" (dari "IdenTrust") yang juga mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP SP3 dan Android 7.1.1 kebawah.
+Sedangkan Akar dari _Chain of Trust-nya_ Let's Encrypt adalah "[DST Root CA X3](https://crt.sh/?id=8395)" (dari "IdenTrust") yang juga mendukung dan dipercaya oleh mayoritas perangkat lunak, termasuk Windows XP SP3 dan Android 7.1.1 kebawah.
 
-Namun, sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, akar tersebut akan habis pada tanggal 30 September 2021 dan akan digantikan dengan yang baru, yakni "[ISRG Root X1](https://search.censys.io/certificates/96bcec06264976f37460779acf28c5a7cfe8a3c0aae11a8ffcee05c0bddf08c6)" (dari "Internet Security Research Group"), sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
+Namun, sebelumnya sempat ada ["kegundahan"](https://letsencrypt.org/2020/11/06/own-two-feet.html) karena Akar yang mereka gunakan sudah mau habis masa berlakunya, akar tersebut akan habis pada tanggal 30 September 2021 dan akan digantikan dengan yang baru, yakni "[ISRG Root X1](https://crt.sh/?id=9314791)" (dari "Internet Security Research Group"), sehingga ini berimbas pada perangkat lama, terutama untuk Android 7.1.1 kebawah.
 
-Namun, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_, yang artinya sertifikat akar yang lama (DST Root CA X3) telah menerbitkan sertifikat yang 'sama dengan' sertifikat akar barunya, yakni "[ISRG Root X1](https://search.censys.io/certificates/6d99fb265eb1c5b3744765fcbc648f3cd8e1bffafdc4c2f99b9d47cf7ff1c24f)" sebagai sertifikat penengah, agar 'rantai' dapat terus digunakan meski ada bagian yang rapuh karena sudah habis masanya.
+Namun, masalah ini [selesai](https://letsencrypt.org/2020/12/21/extending-android-compatibility.html) untuk Android dengan melakukan _Cross-Signing_, yang artinya sertifikat akar yang lama (DST Root CA X3) telah menerbitkan sertifikat yang 'sama dengan' sertifikat akar barunya, yakni "[ISRG Root X1](https://crt.sh/?id=3958242236)" sebagai sertifikat penengah, agar 'rantai' dapat terus digunakan meski ada bagian yang rapuh karena sudah habis masanya.
 
 ![Cuplikan layar Rantai Kepercayaan dari Let's Encrypt di Android 6.0 (di dalam Peramban Web berbasis Chrome/Chromium), bukti bahwa Cross-sign itu bekerja](Hierarki_Sertifikat_SSL_Lets_Encrypt_di_Android_6.webp)
 
@@ -229,7 +229,7 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
     5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
-**Catatan:** Semua hal di atas bisa Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_.
+**Catatan:** Semua hal di atas dapat Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux.
@@ -361,7 +361,9 @@ Setelah selesai menambahkannya, simpanlah berkas tersebut dari Editor Teks favor
 Secara baku, acme.sh menggunakan ZeroSSL sebagai CA (_Certificate Authority_)-nya, jadi jika Anda adalah orang yang pertama kali menggunakan acme.sh, silakan registrasikan akun ZeroSSL yang telah Anda buat terlebih dahulu ke Server ACME-nya menggunakan acme.sh dengan perintah berikut:
 
 ```shell
-acme.sh --register-account --eab-kid EAB_KID_KAMU_DI_SINI --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
+acme.sh --register-account \
+        --eab-kid EAB_KID_KAMU_DI_SINI \
+        --eab-hmac-key EAB_HMAC_KEY_KAMU_DI_SINI
 ```
 
 Ganti `EAB_KID_KAMU_DI_SINI` dan `EAB_HMAC_KEY_KAMU_DI_SINI` dengan "EAB KID" dan "EAB HMAC Key" yang telah kamu simpan sebelumnya.
@@ -493,22 +495,23 @@ Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-ba
 
 Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan langsung lanjut ke bagian [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
-#### Bunny\.net (sebelumnya BunnyCDN) {#bunny-access-key}
+#### bunny\.net (sebelumnya BunnyCDN) {#bunny-access-key}
 
-Jika Anda menggunakan Bunny\.net (sebelumnya: BunnyCDN) sebagai CDN, _Reverse-proxy_, Penyedia DNS ataupun Hosting, maka Anda bisa mendapatkan **"Access Key"**-nya di sini.
+Jika Anda menggunakan bunny\.net (sebelumnya: BunnyCDN) sebagai CDN, _Reverse-proxy_, Penyedia DNS ataupun Hosting, maka Anda bisa mendapatkan **"Access Key"**-nya di sini.
 
 Namun, jika sebelumnya sudah sudah pernah menerbitkan sertifikatnya, sudah mendapatkan dan menyimpan **Access Key**-nya, serta ingin memasangkan sertifikatnya di sana melalui Akses API, silakan lewati bagian ini dan verifikasi DNS dengan [klik di sini](#pasang-ssl-di-bunnycdn) untuk langsung melompat ke caranya.
 
 Kalau belum, silakan dapatkan terlebih dahulu, caranya sebagai berikut:
 
-0. Silakan akses ke [Dasbor Bunny.net-nya](https://panel.bunny.net/), login jika diminta.
-1. Klik pada **"Account"** yang letaknya di atas dan berikon seorang raja
-2. Di bagian **"API"**, kamu akan melihat sebuah kotak teks diisikan dengan lingkaran atau tanda bintang, klik pada Ikon Mata jika Anda ingin melihat isi sebenarnya
-3. Nah, **"Access Key"** sudah tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan orang lain tidak mengetahui **"Access Key"**-nya
+0. Silakan akses ke [Dasbor bunny.net-nya](https://dash.bunny.net/), login jika diminta.
+1. Klik pada foto profilmu, lalu klik **"Edit account details"**
+2. Gulirkan tetikus (_mouse_) kamu sampai ketemu tulisan **"API"** atau tekan <key>CTRL</key>+<key>F</key> untuk mencari teks di halaman web, lalu masukkan kata `API` untuk mencari bagian tersebut
+3. Kalau ketemu, maka di bagian tersebut kamu akan melihat sebuah kotak teks yang diisikan dengan lingkaran atau tanda bintang, klik pada ikon papan klip untuk langsung menyalinkan kodenya atau ikon mata jika Anda ingin melihat isi yang sebenarnya
+4. Nah, **"Access Key"** sudah disalin atau tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan tidak ada siapa pun yang mengetahuinya
 
-Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat Cuplikan Layar berikut yang cukup menyesuaikan dengan langkah-langkah di atas: (Silakan perbesar gambarnya dengan mengkliknya)
+Jika Anda tidak memahami langkah-langkah di atas, maka Anda dapat melihat cuplikan layar berikut: (Silakan perbesar gambarnya dengan mengkliknya)
 
-!["Access Key" Bunny.net](Bunny.net_Access_Key.webp)
+![1. Langkah ke Pengaturan Akun di bunny.net](bunny.net_Dashboard_to_Edit_Account.webp) ![2. "Access Key" untuk API bunny.net](bunny.net_API_Access_Key.webp)
 
 Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorang pun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
@@ -521,10 +524,10 @@ Jika Anda merupakan pengguna cPanel, baik di Server Anda sendiri ataupun di laya
 Namun, jika sebelumnya sudah pernah menerbitkan sertifikatnya dan sudah membuat Token API di cPanel, serta ingin memasangkan sertifikatnya melalui Akses API, silakan lewati bagian ini dan verifikasi DNS dengan [klik di sini](#pasang-ssl-di-cpanel) untuk langsung melompat ke caranya.
 
 {{< info title="**Catatan:**" >}}
-Fitur ini masih dalam tahap eksperimental, sehingga segala perubahan yang terjadi dengan cepat hingga resiko yang akan Anda hadapi semuanya Anda tanggung sendiri.
+Fitur ini masih dalam tahap eksperimental, jadi silakan tanggung sendiri segala risiko yang akan Anda hadapi ke depan, seperti perubahan yang terjadi dengan cepat dan risiko lainnya.
 {{< / info >}}
 
-Kalau belum, silakan dibuat terlebih dahulu, caranya sebagai berikut:
+Kalau belum, silakan buat terlebih dahulu, caranya sebagai berikut:
 
 1. Masuk ke cPanel menggunakan Akun cPanel Anda, bukan Akun _Billing_ (Akun cPanel dan _Billing_ itu beda lho, jangan salah)
 2. Setelah masuk ke cPanel, gulirkan tetikusnya ke arah bawah sampai ke bagian **"Security"** (bahasa Indonesia: **"Keamanan"**), pada bagian tersebut kamu klik **"Manage API Tokens"**, seperti cuplikan berikut: (Atau, langsung cari aja **"Manage API Tokens"**, terus tinggal kamu klik aja hasilnya)
@@ -618,26 +621,13 @@ Jadi, kamu gak perlu takut, perkakas acme.sh ini gak bakalan ngumpulin data-data
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
 
-Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif/Penyedia DNS, Anda perlu membuat kode Token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
+Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif/Penyedia DNS untuk domain Anda, maka Anda perlu membuat kode Token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
 
 Kalau perlu, kamu juga bisa dapatkan **"Zone ID"**-nya juga, agar acme.sh dapat menargetkan domain/zona yang spesifik tanpa harus mencarinya lagi, tetapi itu tidak wajib, kalo menurutmu gak perlu ya gak usah.
 
 Untuk cara membuatnya, silakan [klik di sini](#cloudflare-api-token).
 
 Setelah semuanya berhasil didapat, tinggal Anda masukkan saja semua informasinya ke dalam variabel. Dengan cara berikut:
-
-```shell {linenos=true}
-### Di bawah ini adalah Informasi yang wajib dimasukki
-CF_Token="API_TOKEN_KAMU_DI_SINI" && export CF_Token
-CF_Account_ID="ACCOUNT_ID_KAMU_DI_SINI" && export CF_Account_ID
-
-### Anda juga dapat memasukkan "Zone ID" supaya acme.sh dapat menargetkan
-### Domain/Zona yang spesifik dengan cepat tanpa harus mencarinya lagi
-### Namun kalau gak perlu, maka sebaiknya tidak usah
-CF_Zone_ID="ZONE_ID_KAMU_DI_SINI" && export CF_Zone_ID
-```
-
-Atau, dengan cara berikut:
 
 ```shell {linenos=true}
 ### Di bawah ini adalah Informasi yang wajib dimasukki
@@ -671,12 +661,6 @@ Untuk cara membuatnya, silakan [klik di sini](#netlify-personal-access-token).
 Setelah berhasil dibuat, tinggal Anda masukkan saja informasinya ke dalam variabel. Dengan cara berikut:
 
 ```shell
-NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI" && export NETLIFY_ACCESS_TOKEN
-```
-
-Atau, dengan cara berikut:
-
-```shell
 export NETLIFY_ACCESS_TOKEN="ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
@@ -697,12 +681,6 @@ Jika Anda menggunakan Bunny DNS sebagai Penyedia DNS, Anda cuma perlu mendapatka
 Untuk cara mendapatkannya, silakan [klik di sini](#bunny-access-key).
 
 Setelah berhasil ditemukan, tinggal Anda masukkan saja informasinya ke dalam variabel. Dengan cara berikut:
-
-```shell
-BUNNY_API_KEY="ACCESS_KEY_KAMU_DI_SINI" && export BUNNY_API_KEY
-```
-
-Atau, dengan cara berikut:
 
 ```shell
 export BUNNY_API_KEY="ACCESS_KEY_KAMU_DI_SINI"
@@ -1005,7 +983,7 @@ Jika penyedia DNS Anda tidak mendukung akses API/didukung oleh acme.sh, atau kha
 
 Sebagai contoh, domain utamanya adalah `domain.com` yang mana DNS yang digunakan oleh domain tersebut tidak memiliki akses API ataupun didukung oleh acme.sh atau Anda tidak mau memberikan akses API-nya karena domain tersebut penting bagi Anda.
 
-Selain domain utama, kamu mempunyai domain satunya lagi, yakni `domain-lain.com`, yang mana DNS yang dipakai mendukung akses API dan yang paling pentingnya adalah bahwa domain tersebut tidak terlalu penting bagi Anda, sehingga Anda bisa meminimalkan resiko keamanan yang terjadi pada domain utama Anda.
+Selain domain utama, kamu mempunyai domain satunya lagi, yakni `domain-lain.com`, yang mana DNS yang dipakai mendukung akses API dan yang paling pentingnya adalah bahwa domain tersebut tidak terlalu penting bagi Anda, sehingga Anda bisa meminimalkan risiko keamanan yang terjadi pada domain utama Anda.
 
 #### 1. Membuat Rekaman DNS-nya {#dns-alias-mode-1}
 
@@ -1038,7 +1016,7 @@ Atau, di bawah ini jika Anda ingin melihatnya dalam format standar berkas zona D
 _acme-challenge.domain.com IN CNAME _acme-challenge.domain-lain.com.
 ```
 
-**Catatan:** Jika Anda sedang menggunakan Cloudflare dan Anda sedang membuat rekaman CNAME-nya di sana, pastikan bahwa `Proxy Status`-nya adalah `DNS Only` dengan mengubah warna awannya menjadi abu-abu dan **JANGAN PERNAH DIUBAH MENJADI AWAN ORANYE, INI AKAN MENYEBABKAN CA TIDAK BISA MEMBACA REKAMANNYA DENGAN BAIK UNTUK VERIFIKASI**.
+**Catatan:** Jika Anda sedang menggunakan Cloudflare dan Anda sedang membuat rekaman CNAME-nya di sana, pastikan bahwa `Proxy Status`-nya adalah `DNS Only` dan warna awannya menjadi abu-abu, serta **JANGAN PERNAH DIUBAH MENJADI AWAN ORANYE, INI AKAN MENYEBABKAN CA TIDAK BISA MEMBACA REKAMANNYA DENGAN BAIK UNTUK VERIFIKASI**.
 
 Jika Anda ingin menerbitkan Sertifikat SSL/TLS hanya untuk domain utama dan beberapa subdomain tertentu saja, seperti `domain.com`, `www.domain.com`, `sub.domain.com`, `sub2.domain.com`, dsb, maka rekaman dengan informasi di atas seharusnya sudah cukup.
 
@@ -1683,29 +1661,29 @@ Jika gagal, maka pastinya muncul pesan yang tidak seperti di atas, melainkan Pes
 
 Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang Sertifikat SSL/TLS di Netlify melalui pemanggilan Server API-nya dan tidak ada penyedia lain, maka Anda hanya perlu membuat sebuah skrip _Shell_ agar SSL bisa [diperbarui secara otomatis](#renew-ssl) atau mungkin Anda perlu mempelajari [Konfigurasi acme.sh untuk Domain tertentu](#konfigurasi-acme-sh-untuk-domain) terlebih dahulu sebelum itu.
 
-### Di Bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
+### Di bunny\.net (Sebelumnya: BunnyCDN) {#pasang-ssl-di-bunnycdn}
 
 #### Mendapatkan "Access Key" dan "Pull Zone ID"-nya
 
-Sebelum Anda bisa memasang Sertifikat SSL/TLS dengan melakukan pemanggilan Server API dari Bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
+Sebelum Anda bisa memasang Sertifikat SSL/TLS dengan melakukan pemanggilan Server API dari bunny\.net (sebelumnya: BunnyCDN), maka Anda perlu mendapatkan **"Access Key"** dan **"Pull Zone ID"**-nya terlebih dahulu.
 
 Untuk mendapatkan **"Access Key"**-nya sendiri sudah saya bahas di bagian "Membuat Kode Token API". Jika belum sempat mendapatkannya, silakan [klik di sini](#bunny-access-key) untuk caranya.
 
-Untuk **"Pull Zone ID"**-nya, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **"Pull Zones"** -> Lalu, kamu pilih _Pull Zone_ yang ingin kamu pasangkan sertifikatnya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
+Untuk **"Pull Zone ID"**-nya, Anda bisa dapatkan itu di pengaturannya. Caranya setelah login dan diarahkan ke Halaman Dasbor, klik **"Delivery"** yang letaknya di sebelah kiri halaman -> Lalu, klik pada **"CDN"** -> Setelah itu, pilih _Pull Zone_ yang ingin kamu pasangkan sertifikatnya -> Setelah dipilih dan diklik, maka alamat URL pada Peramban Web akan menjadi seperti format di bawah ini:
 
 ```plain
-https://panel.bunny.net/pullzones/edit/ANGKA_YANG_MUNCUL
+https://dash.bunny.net/cdn/ANGKA_YANG_MUNCUL
 ```
 
 Angka yang muncul di akhir alamat URL (`ANGKA_YANG_MUNCUL`) itu adalah **"Pull Zone ID"** kamu, jadi simpan itu baik-baik jika Anda ingin memasangkan sertifikatnya dan pastikan kamu telah membuat **"Custom Hostname"** sebelumnya di sana.
 
-Karena selain **"Access Key"** dan **"Pull Zone ID"**, mempunyai **"Custom Hostname"** merupakan hal yang wajib hukumnya, karena Anda tidak bisa menggunakan Subdomain dari Bunny\.net (`b-cdn.net`) untuk dipasangkan sertifikatnya.
+Karena selain **"Access Key"** dan **"Pull Zone ID"**, mempunyai **"Custom Hostname"** merupakan hal yang wajib hukumnya, karena Anda tidak bisa menggunakan Subdomain dari bunny\.net (`b-cdn.net`) untuk dipasangkan sertifikatnya.
 
 Setelah mendapatkan semuanya, selanjutnya adalah memasang Sertifikat SSL/TLS melalui Akses API-nya.
 
-#### Memasang Sertifikat SSL/TLS melalui API dari Bunny\.net
+#### Memasang Sertifikat SSL/TLS melalui API dari bunny\.net
 
-Sekarang Anda tinggal memasang sertifikatnya saja dengan melakukan pemanggilan Server API dari Bunny\.net.
+Sekarang Anda tinggal memasang sertifikatnya saja dengan melakukan pemanggilan Server API dari bunny\.net.
 
 Pertama-tama, Anda perlu menavigasikan Terminal/_Shell_ Anda ke dalam folder tempat berkas sertifikat itu disimpan dengan perintah `cd` terlebih dahulu. Contoh:
 
@@ -1993,11 +1971,11 @@ Anda bisa membaca dan mempelajari masing-masing dokumentasinya sebagai referensi
 
 Salah satu kelebihan acme.sh selain ringan dan kompatibel di hampir semua sistem operasi berbasis \*nix adalah mampu memberikan fleksibilitas bagi Anda untuk mengatur perkakasnya dan mengatur apa yang dilakukan baik sebelum dan sesudah mengeksekusi perkakas tersebut melalui konfigurasinya.
 
-Konfigurasi tersebut bisa Anda lakukan untuk alamat domain tertentu, sehingga tidak semua domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak penyedia Hosting/CDN memperlakukan setiap domain-nya dengan berbeda-beda.
+Konfigurasi tersebut dapat Anda lakukan untuk alamat domain tertentu, sehingga tidak semua domain yang menggunakan acme.sh terkena efeknya. Hal ini akan menjadi kelebihan tersendiri sejak domain dan subdomainnya dapat menggunakan Hosting/CDN yang berbeda-beda.
 
 Jadi, sebelum membuat/menentukan skrip untuk _me-renew_/memperbarui Sertifikat SSL/TLS, mungkin ada baiknya Anda pelajari terlebih dahulu cara mengkonfigurasi acme.sh untuk alamat domain tertentu di sini, meskipun ini bisa langsung Anda [lewati](#renew-ssl) kalau mau.
 
-Pertama-tama, lihat isi dari berkas `domain.com.conf` terlebih dahulu, seperti biasa, ganti `domain.com` dengan alamat domain Anda.
+Pertama-tama, lihatlah isi dari berkas `domain.com.conf` terlebih dahulu, seperti biasa, ganti `domain.com` dengan alamat domain Anda.
 
 Contoh isi dari berkas `domain.com.conf` adalah sebagai berikut:
 
@@ -2024,7 +2002,7 @@ Jika Anda ingin mengubahnya, silakan ubah/edit isi dari berkas tersebut dengan E
 
 Dari semua opsi, yang boleh diubah adalah nilai dari opsi `Le_PreHook`, `Le_PostHook`, dan `Le_RenewHook` saja.
 
-**Bagaimana dengan lainnya?** Untuk lainnya saya sarankan agar Anda tidak mengubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima resikonya.
+**Bagaimana dengan lainnya?** Untuk lainnya saya sarankan agar Anda tidak mengubahnya, apalagi `Le_Domain`, `Le_Alt`, `Le_API`, `Le_OrderFinalize`, `Le_LinkOrder`, dan `Le_LinkCert`, kecuali jika Anda memahami apa yang sedang Anda lakukan dan siap menerima risikonya.
 
 Jadi, saya bahas yang boleh diubah saja. Berikut adalah penjelasan mengenai nilai dari opsi di atas:
 
@@ -2219,8 +2197,8 @@ PLAIN_CERT="$(awk '{printf "%s\\n", $0}' < $CERT_DIR/domain.com.cer)"
 PLAIN_KEY="$(awk '{printf "%s\\n", $0}' < $CERT_DIR/domain.com.key)"
 PLAIN_CA="$(awk '{printf "%s\\n", $0}' < $CERT_DIR/ca.cer)"
 
-### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di Bunny.net ke dalam variabel
-BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI" # Ini adalah kunci akses ke API Bunny.net, dapatkan kunci tersebut di pengaturan akun, lalu ganti nilai dari variabel ini
+### Di bawah ini adalah memasukkan berkas-berkas yang diperlukan untuk memasang SSL di bunny.net ke dalam variabel
+BUNNY_ACCESS_KEY="ACCESS_KEY_KAMU_DI_SINI" # Ini adalah kunci akses ke API bunny.net, dapatkan kunci tersebut di pengaturan akun, lalu ganti nilai dari variabel ini
 BASE64_FULLCHAIN_CER="$(openssl base64 -A < $CERT_DIR/fullchain.cer)"
 BASE64_KEY="$(openssl base64 -A < $CERT_DIR/domain.com.key)"
 
@@ -2247,7 +2225,7 @@ curl -s \
      -d "{\"certificate\": \"$PLAIN_CERT\", \"key\": \"$PLAIN_KEY\", \"ca_certificates\": \"$PLAIN_CA\"}" \
      "https://api.netlify.com/api/v1/sites/SITE_ID_KAMU_DI_SINI/ssl"
 
-### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di Bunny.net
+### Di bawah ini adalah perintah untuk memasang/memperbarui SSL di bunny.net
 ### Ada beberapa yang perlu diubah agar perintah bisa berjalan dengan baik, jadi silakan Anda ubah itu sendiri
 curl -s \
      -H "Accept: application/json" \
@@ -2327,15 +2305,15 @@ Setelah semuanya selesai, simpan berkas tersebut dan keluar dari editor teks yan
 
 Ya udah, itu aja langkah-langkahnya.
 
-## Hal-hal lain yang bisa Anda lakukan dengan acme.sh {#hal-lainnya}
+## Hal-hal lain yang dapat Anda lakukan dengan acme.sh {#hal-lainnya}
 
-Di sini Anda akan menjelajahi hal-hal lain yang bisa Anda lakukan melalui acme.sh, ini bukan hal yang wajib, sehingga bisa Anda lewati/akhiri saja karena ini sudah akhir artikel sebenarnya.
+Di sini Anda akan menjelajahi hal-hal lain yang dapat Anda lakukan melalui acme.sh, ini bukan hal yang wajib, sehingga Anda dapat lewati/akhiri saja karena ini sudah akhir artikel sebenarnya.
 
-Berikut di bawah ini adalah hal lain yang bisa Anda lakukan.
+Berikut di bawah ini adalah hal lain yang dapat Anda lakukan.
 
 ### Melihat Daftar Sertifikat SSL/TLS yang ada {#melihat-dafat-sertifikat}
 
-Anda bisa melihat daftar sertifikat yang ada di acme.sh dengan perintah berikut:
+Anda dapat melihat daftar sertifikat yang ada di acme.sh dengan perintah berikut:
 
 ```shell
 acme.sh --list
@@ -2362,7 +2340,7 @@ Nah, kira-kira begitu.
 
 ### Mengganti CA Baku {#mengganti-ca-baku}
 
-Secara baku, perkakas acme.sh menggunakan ZeroSSL sebagai CA Baku. Jika Anda ingin menggantikan CA baku pada acme.sh, maka Anda tinggal jalankan perkakas acme.sh dengan parameter `--set-default-ca --server opsi_ca`.
+Secara baku, perkakas acme.sh menggunakan ZeroSSL sebagai CA-nya. Jika Anda ingin menggantikan CA baku pada acme.sh, maka Anda tinggal jalankan perkakas acme.sh dengan parameter `--set-default-ca --server opsi_ca`.
 
 Contoh perintahnya akan seperti berikut:
 
@@ -2378,11 +2356,11 @@ Contoh perintah di bawah ini adalah menggantikan CA baku menjadi Let's Encrypt:
 acme.sh --set-default-ca --server letsencrypt
 ```
 
-Selain menggunakan nama pendek, Anda juga bisa menggunakan Alamat URL Direktori ACME, cukup ganti saja `letsencrypt` di atas menjadi Alamat URL lengkap Direktori ACME dari CA Anda.
+Selain menggunakan nama pendek, Anda juga dapat menggunakan Alamat URL Direktori ACME, cukup ganti saja `letsencrypt` di atas menjadi Alamat URL lengkap Direktori ACME dari CA Anda.
 
-Penggantian ini harusnya dilakukan sebelum Anda menerbitkan Sertifikat SSL/TLS apa pun, karena ini hanya berefek jika Anda menerbitkan sertifikat terbaru.
+Penggantian CA Baku ini harusnya dilakukan sebelum Anda menerbitkan Sertifikat SSL/TLS apa pun, karena ini hanya berefek jika Anda menerbitkan sertifikat terbaru.
 
-Namun, jika Anda melakukan itu setelah menerbitkan sertifikatnya, maka Anda perlu menggantikan sertifikat tersebut dengan menerbitkannya lagi secara paksa oleh CA yang berbeda.
+Namun, kalau Anda melakukan itu setelah menerbitkan sertifikatnya, maka Anda perlu menggantikan sertifikat tersebut dengan menerbitkannya lagi secara paksa oleh CA yang berbeda.
 
 ### Melihat konfigurasi utama acme.sh atau konfigurasi domain {#melihat-konfigurasi}
 
@@ -2549,9 +2527,9 @@ Setelah menerbitkan ulang sertifikatnya, tentu saja acme.sh tidak mengeksekusika
 
 **Lalu, bagaimana caranya agar saya bisa menggantikan sertifikatnya?** Ya, Anda tinggal eksekusikan saja skrip _renewal_ tersebut secara manual untuk memasangkan Sertifikat SSL/TLS yang terbaru di Situs Web/Blog atau Aplikasi Anda.
 
-### Pertanyaan ke-7: Saya memakai DirectAdmin dan di sana juga ada fitur untuk menerbitkan Sertifikat SSL/TLS dengan ZeroSSL sebagai CA melalui antarmukanya. Begitupula dengan cPanel yang memiliki AutoSSL yang menerbitkan Sertifikat SSL/TLS dengan Sectigo/Comodo sebagai CA. Lalu, apa bedanya dengan mengikuti tutorial di sini? Apa saja kelebihannya dan sebaiknya metode apa yang saya pakai? {#pertanyaan-ke7}
+### Pertanyaan ke-7: Apa bedanya dengan mengikuti tutorial di sini kalau dari panel saja ada? Apa saja kelebihannya dan sebaiknya metode apa yang saya pakai? {#pertanyaan-ke7}
 
-Saya tahu bahwa DirectAdmin dan cPanel memiliki antarmukanya sendiri dalam menerbitkan Sertifikat SSL/TLS-nya, tetapi kelebihan dalam mengelola Sertifikat SSL/TLS-nya sendiri seperti yang ditulis di artikel ini adalah sebagai berikut:
+Saya tahu bahwa DirectAdmin dan cPanel memiliki antarmukanya sendiri dalam menerbitkan sertifikat SSL/TLS-nya, tetapi kelebihan dalam mengelola sertifikat SSL/TLS-nya sendiri seperti yang ditulis di artikel ini adalah sebagai berikut:
 
 - Pilihan CA yang lebih beragam ketimbang DirectAdmin yang cuma bisa menerbitkan sertifikat dari Let's Encrypt dan ZeroSSL, dan cPanel yang hanya bisa menerbitkan sertifikat dari Comodo/Sectigo melalui AutoSSL dan Let's Encrypt jika ada pengayanya
 - Anda bisa menerbitkan dan bahkan memperbarui/_me-renew_ sertifikat-sertifikat tersebut ke mana saja dengan mengatur skripnya dengan benar, tanpa harus berdiam di satu tempat saja, ini akan cocok bagi Anda yang tidak hanya menggunakan 1 server/layanan dalam 1 domain saja dan ini membuat Sertifikat SSL/TLS dalam bentuk _Wildcard_ menjadi lebih berguna
@@ -2561,7 +2539,7 @@ Saya tahu bahwa DirectAdmin dan cPanel memiliki antarmukanya sendiri dalam mener
 Kekurangannya:
 
 - Ribet, belum lagi galatnya
-- Koneksi Internet harus aktif setiap saat dengan tujuan menerbitkan dan memperbarui Sertifikat SSL/TLS secara otomatis
+- Koneksi Internet harus aktif setiap saat agar dapat menerbitkan dan memperbarui sertifikat SSL/TLS secara otomatis
 
 Pilih yang mana? Tergantung kebutuhan, jika Anda lebih menginginkan kemudahan dan langkah yang lebih sederhana, mungkin menggunakan antarmuka yang disediakan itu cocok buat Anda dan biarkan server yang memperbaruinya secara otomatis setelah ini, tetapi mengorbankan fleksibilitas dan kemungkinan untuk dapat digunakan oleh server/layanan lain.
 
@@ -2924,9 +2902,9 @@ Jadi, Anda hanya perlu duduk diam dan menunggu bahwa Sertifikat SSL/TLS berhasil
 
 Ada beberapa manfaat yang bisa Anda dapatkan untuk masa berlaku yang pendek ini, seperti:
 
-1. Sertifikat yang kamu gunakan akan selalu mendapatkan algoritma tandatangan dan kunci yang tidak tertinggal, serta dapat cepat "beradaptasi" jika suatu saat para _root program_ (seperti Google, Microsoft, Apple, Mozilla dan Cisco) memutuskan untuk memblokir atau "tidak lagi mempercayai" sertifikat yang ditandatangani dengan algoritma atau/dan menggunakan kunci yang telah usang, karena alasan keamanan.
+1. Sertifikat yang kamu gunakan akan selalu mendapatkan algoritma tandatangan dan kunci yang tidak tertinggal, serta dapat cepat "beradaptasi" jika suatu saat para _root program_ (seperti Google, Microsoft, Apple, Mozilla dan Cisco) memutuskan untuk memblokir atau "tidak lagi mempercayai" sertifikat yang ditandatangani dengan algoritma atau/dan menggunakan kunci tertentu yang telah usang, karena alasan keamanan.
 
-    Kalau kamu tidak paham apa yang saya maksud, coba kamu bayangkan kalau di tahun 2008 yang lalu kamu menyewa sebuah [Sertifikat SSL/TLS dengan masa berlaku 10 tahun](https://search.censys.io/certificates/09d49c5857d484ca1ba26a700cb7d731967d043040f4736c6958fb41f5e5ef29) (yang artinya berlaku sampai tahun 2018), yang mana saat itu Sertifikat SSL/TLS masih ditandatangani dengan algoritma SHA1 dan menggunakan kunci RSA 1024-bit.
+    Kalau kamu tidak paham apa yang saya maksud, coba kamu bayangkan kalau di tahun 2008 yang lalu kamu menyewa sebuah [Sertifikat SSL/TLS dengan masa berlaku 10 tahun](https://crt.sh/?id=35520072) (yang artinya berlaku sampai tahun 2018), yang mana saat itu Sertifikat SSL/TLS masih ditandatangani dengan algoritma SHA1 dan menggunakan kunci RSA 1024-bit.
 
     Namun 3-5 tahun kemudian, _root program_ tersebut malah memutuskan untuk tidak lagi mempercayai atau memblokir sertifikat yang ditandatangani dengan algoritma yang telah usang seperti SHA1 dan menggunakan kunci yang telah usang seperti RSA dengan ukuran 1024-bit.
 
@@ -3018,12 +2996,12 @@ Di bawah ini adalah referensi-referensi yang saya gunakan untuk Artikel ini yang
 
 Berikut adalah referensinya:
 
-### Referensi Penggunaan API Bunny.net
+### Referensi Penggunaan API bunny.net
 
-- Halaman [Dokumentasi API Bunny.net](https://docs.bunny.net/reference/pullzonepublic_addcertificate)
+- Halaman [Dokumentasi API bunny.net](https://docs.bunny.net/reference/pullzonepublic_addcertificate)
 - Cuplikan berikut adalah Obrolan di Dukungan Tiket yang menyatakan jika ingin memasangkan Sertifikat SSL/TLS menggunakan panggilan API-nya, maka berkas-berkas tersebut harus dikirimkan dalam bentuk Base64:
 
-![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan](Bunny.net_API_Support_Ticket.webp)
+![Percakapan saya di Tiket Dukungan, pesan awalnya sengaja tidak saya perlihatkan](bunny.net_API_Support_Ticket.webp)
 
 Ngomong-ngomong, saya tanya di Tiket Dukungan itu karena saat artikel ini ditulis sampai pertama kali diterbitkan belum ada dokumentasi resmi yang menyatakan bahwa itu dikirimkan dalam bentuk Base64, kalau sekarang sih sudah ada.
 

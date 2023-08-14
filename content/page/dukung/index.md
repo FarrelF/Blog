@@ -33,7 +33,7 @@ Anda dapat memberikan dukungan terhadap blog ini dengan menyawer sejumlah uang A
 - [Saweria](https://saweria.co/FarrelFranqois)
 - [Trakteer](https://trakteer.id/farrelf/tip)
 
-Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang bisa Anda coba di situ.
+Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang dapat Anda coba di situ.
 
 Sedangkan layanan internasional yang saya sebut hanya mendukung pembayaran melalui Saldo PayPal, Kartu Debit dan Kredit saja, prinsipal yang digunakan oleh kartu debit/kredit seperti Visa dan Mastercard jelas didukung.
 
@@ -66,7 +66,7 @@ Pertama-tama, pastikan kamu melihat ikon berbentuk lingkaran dan berwarna ungu d
 
 Sudah? Kalau sudah, cari lagi ikonnya, lalu kamu klik ikon tersebut, setelah itu akan muncul sebuah dialog bahwa blog ini telah menggunakan layanan dari Arc. Nah, kamu klik pada _button_ **"Enable Arc and support Franqois.id"**, contohnya seperti gambar berikut:
 
-![Mengaktifkan Arc di Situs Web, gambar diambil dari halaman resmi Arc, lalu saya ubah sedikit](Mengaktifkan_Arc_di_Situs_Web.webp)
+![Mengaktifkan Arc di Blog](Mengaktifkan_Arc_di_Blog.webp)
 
 Kira-kira seperti itu. Kalau _button_ tersebut tidak muncul dan yang muncul malah _button_ **"Get Arc for your site"**, itu artinya Arc telah aktif, sehingga kamu tidak perlu mengikutinya lagi.
 
