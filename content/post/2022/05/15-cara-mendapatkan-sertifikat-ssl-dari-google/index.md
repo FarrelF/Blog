@@ -43,6 +43,14 @@ Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, menduku
 
 _Semoga seterusnya bisa gratis, Amiin_.
 
+{{< info title="**PEMBARUAN Kamis, 17 Agustus 2023:**" >}}
+
+Sejak tanggal 25 Mei 2023, menurut [artikel di blog resmi mereka](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), Google Public CA sudah dapat dinikmati oleh semua pengguna secara cuma-cuma alias gratis, cuma perlu akun Google saja.
+
+Dengan ini, maka artinya status "Uji Coba" telah resmi gugur dan server ACME mereka stabil sejauh ini, tidak ada perubahan yang terlalu cepat dan terlalu banyak.
+
+{{< / info >}}
+
 Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**"Google Trust Services (GTS)"**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
 
 ## Persiapan
@@ -85,7 +93,7 @@ Jika belum, Anda bisa membuatnya melalui **"Cloud Shell"** yang ada di **"Google
 
 ![Cara aktivasi Google Cloud Shell](Activate_Cloud_Shell.webp)
 
-**Langkah ke-3:** Di **"Cloud Shell"**-nya, silakan Anda buat proyeknya dengan perintah berikut:
+**Langkah ke-3:** Di **"Cloud Shell"**-nya, silakan buat proyeknya dengan perintah berikut:
 
 ```shell
 gcloud projects create <PROJECT_ID>
@@ -340,13 +348,13 @@ Hanya saja sifatnya ini adalah _Self-managed_, sehingga semuanya Anda kelola sec
 
 ### Pertanyaan ke-3: Berapa lama masa aktif sertifikat SSL/TLS dari Google Public CA ini? {#pertanyaan-ke3}
 
-Secara baku, semua sertifikat yang diterbitkan oleh Google Trust Services memiliki masa aktif selama 90 hari per sertifikat dan itu merupakan nilai maksimalnya.
+Secara baku, semua sertifikat yang diterbitkan oleh Google Trust Services memiliki masa aktif selama 90 hari per sertifikat dan itu merupakan nilai maksimumnya.
 
-Namun, protokol ACME telah mengizinkan klien untuk meminta dengan masa aktif yang berbeda-beda yang tentunya kurang dari masa aktif maksimal.
+Namun, protokol ACME telah mengizinkan klien untuk meminta dengan masa aktif yang berbeda-beda yang tentunya kurang dari masa aktif maksimumnya.
 
-Oleh karena itu, Google sendiri mengizinkan Anda untuk menerbitkan sertifikat SSL/TLS-nya dengan masa aktif yang seminimal-minimalnya selama 1 hari.
+Oleh karena itu, Google sendiri mengizinkan Anda untuk menerbitkan sertifikat SSL/TLS-nya dengan masa aktif yang minimum selama 1 hari.
 
-Namun, mereka sendiri menyarankan Anda untuk menerbitkan sertifikatnya minimal dengan masa aktif 3 hari atau lebih untuk mencegah [ketidaktepatan pada jam](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46359.pdf) dan validitas sertifikat yang tumpang tindih, yang mengakibatkan Web, Blog atau Aplikasi menjadi tidak bisa diakses oleh karenanya.
+Namun, mereka sendiri menyarankan Anda untuk menerbitkan sertifikatnya dengan masa aktif minimal selama 3 hari atau lebih untuk mencegah [ketidaktepatan pada jam](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46359.pdf) dan validitas sertifikat yang tumpang tindih, yang mengakibatkan Web, Blog atau Aplikasi menjadi tidak bisa diakses oleh karenanya.
 
 ### Pertanyaan ke-4: Bagaimana caranya agar saya bisa menerbitkan sertifikat SSL/TLS dengan masa aktif kurang dari 90 hari? {#pertanyaan-ke4}
 
@@ -376,7 +384,7 @@ Sama seperti perintah sebelumnya, bedanya hanya masa aktifnya selama 30 jam saja
 
 Format yang diterima oleh parameter di atas adalah `+*d` dan `+*h` saja, selain itu akan ditolak.
 
-Selain menggunakan format yang relatif, Anda juga bisa menggunakan format yang absolut dengan menentukan tanggal dan waktunya secara lengkap. Penulisan tanggal dan waktunya harus memenuhi standar ISO 8601 dan harus ditulis dalam format UTC, sehingga ditulis seperti ini: `2022-04-01T08:10:33Z`
+Selain menggunakan format yang relatif, Anda juga dapat menggunakan format yang absolut dengan menentukan tanggal dan waktunya secara lengkap. Penulisan tanggal dan waktunya harus memenuhi standar ISO 8601 dan harus ditulis dalam format UTC, sehingga ditulis seperti ini: `2022-04-01T08:10:33Z`
 
 Contoh:
 
@@ -389,13 +397,17 @@ acme.sh --issue \
 
 Perintah di atas akan menerbitkan sertifikat SSL/TLS untuk domain `*.contoh.com` dan `contoh.com` dengan masa berlaku pada tanggal 01 April 2022 dengan pukul 08:10:33 dalam waktu UTC.
 
-Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatnya secara otomatis, jadi saran saya pakai saja format yang relatif, sehingga bisa diperbarui secara otomatis.
+Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatnya secara otomatis, jadi saran saya pakai saja format yang relatif, sehingga dapat diperbarui secara otomatis.
 
-### Pertanyaan ke-5: Apakah sertifikat SSL/TLS yang diterbitkan itu merupakan sertifikat langsung dari Google Trust Services? {#pertanyaan-ke5}
+### Pertanyaan ke-5: Apakah sertifikat SSL/TLS yang diterbitkan itu merupakan sertifikat langsung dari Google Trust Services? Dan, bagaimana kompatibilitasnya? {#pertanyaan-ke5}
 
 Iya, betul.
 
-Semua sertifikat SSL/TLS yang telah Anda terbitkan melalui **"Google Public CA"** itu adalah sertifikat langsung dari **"Google Trust Services (GTS)"**, yang di mana sertifkatnya digunakan oleh seluruh layanan Google, termasuk YouTube dan Blogger, sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
+Semua sertifikat SSL/TLS yang telah Anda terbitkan melalui **"Google Public CA"** itu adalah sertifikat langsung dari **"Google Trust Services (GTS)"**.
+
+Untuk kompatibilitasnya sendiri, ia telah _cross-sign_ dengan [GlobalSign Root CA - R1](https://crt.sh/?id=88) (Halaman demonya [di sini](https://valid.r1.roots.globalsign.com/)) yang merupakan sertifikat akar tertua dari GlobalSign yang berlaku dari tahun 1998 sampai 2028 dan digunakan secara luas pada tahun 1999.
+
+Selain itu, sertifikatnya digunakan oleh hampir seluruh layanan Google, termasuk Penelusuran Google, YouTube, Blogger, dan Google Drive sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
 
 ### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL/TLS dengan memakai ECC sebagai Algoritma Kunci Publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke6}
 
@@ -419,13 +431,13 @@ https://dv.acme-v02.test-api.pki.goog/directory
 
 ### Pertanyaan ke-8: Kenapa kamu memakai acme.sh? {#pertanyaan-ke8}
 
-Karena lebih simpel dan lebih mudah dipelajari, serta fiturnya juga lumayan lengkap, seperti dukungan layanan penyedia DNS-nya yang lengkap, pilihan CA yang cukup banyak, eksekusi skrip setelah pembaruan sertifikat, opsi penginangan sertifikat, mengatur masa berlaku sertifikat saat penerbitan, dll.
+Karena lebih simpel dan lebih mudah dipelajari, serta fiturnya juga lumayan lengkap, seperti dukungan layanan penyedia DNS-nya yang lengkap, pilihan CA baku yang cukup banyak, eksekusi skrip setelah pembaruan sertifikat, opsi penginangan sertifikat, mengatur masa berlaku sertifikat saat penerbitan, dll.
 
-Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu bisa bebas menggunakannya tanpa terkendala perizinan dan juga pastinya lebih aman ketimbang menggunakan hak akses `root`.
+Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu dapat bebas menggunakannya tanpa terkendala perizinan dan juga pastinya lebih aman ketimbang menggunakan hak akses `root`.
 
 Perkakas acme.sh juga berbasis _Shell_ dan diklaim memenuhi standar POSIX juga, jadi selain menjadi lebih ringan dan fleksibel, perkakas tersebut juga dapat dijalankan di hampir semua Sistem Operasi berbasis \*nix.
 
-Selain itu, karena sifat perkakas tersebut yang diinstal di dalam direktori pengguna dan secara baku semua konfigurasinya diletakkan ke dalam 1 folder, yakni `~/.acme.sh`, maka semua salinannya juga bisa dipindahkan ke perangkat lain dengan lebih mudah tanpa harus melakukan langkah yang lebih sulit.
+Selain itu, karena sifat perkakas tersebut yang diinstal di dalam direktori pengguna dan secara baku semua konfigurasinya diletakkan ke dalam 1 folder, yakni `~/.acme.sh`, maka semua salinannya juga dapat dipindahkan ke perangkat lain dengan lebih mudah tanpa harus melakukan langkah yang lebih sulit.
 
 Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai acme.sh ketimbang perkakas klien ACME lain, seperti Certbot misalnya.
 
@@ -443,28 +455,29 @@ Poin menarik:
 - Lebih minim gangguan saat proses penerbitan atau pembaruan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan atau pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
 - Kamu bisa menerbitkan sertifikat dalam bentuk biasa, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai Algoritma Kunci Publiknya
 - Masa berlaku sertifikat bisa bervariasi, bisa dimulai dari yang hanya berlaku 1 hari saja sampai 90 hari ke depan, walaupun disarankan minimal 3 hari
-- Sertifikat yang diterbitkannya bisa digunakan oleh hampir semua perangkat.
-
-    Hal ini dikarenakan ia menggunakan [GlobalSign Root CA - R1](https://crt.sh/?id=88) (Halaman demonya [di sini](https://valid.r1.roots.globalsign.com/)) sebagai sertifikat akar, yang merupakan sertifikat akar tertua dari GlobalSign yang berlaku dari tahun 1998 sampai 2028 dan digunakan secara luas pada tahun 1999.
-
-    Selain itu, sertifikatnya digunakan oleh hampir semua layanan Google, termasuk YouTube, Blogger, Pencarian Google dan Google Drive, sehingga kompatibilitasnya tidak perlu diragukan lagi
-
-- Yang paling penting adalah semuanya bisa digunakan secara gratis, setidaknya untuk saat ini
+- Sertifikat yang diterbitkannya bisa digunakan oleh hampir semua perangkat. Untuk alasannya, silakan lihat jawaban untuk [pertanyaan ke-5](#pertanyaan-ke5)
+- Yang paling penting adalah semuanya bisa digunakan secara cuma-cuma alias gratis, setidaknya untuk saat ini
 
 Hal yang perlu diperhatikan:
 
-- Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan
+- ~~Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan~~
+
+    **PEMBARUAN Kamis, 17 Agustus 2023:** Sejak tanggal 25 Mei 2023, Google Public CA sudah tidak lagi dalam status "Uji Coba", sehingga pengguna bisa dengan bebas menggunakannya dan tentunya stabil sejauh ini, jadi poin di atas sudah tidak berlaku
+
 - ~~Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan~~
+
+    **PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi poin di atas sudah tidak berlaku
+
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tetapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.
 
-    Sehingga kemungkinan bahwa tidak adanya dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan Huruf lain selain Alfabet, termasuk Emoji itu memang benar adanya
+    Sehingga kemungkinan bahwa tidak adanya dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji itu memang benar adanya
 
-- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok (bukan Hong Kong, Makau dan Taiwan, tentunya), mungkin sebaiknya jangan memakai sertifikat SSL/TLS ini karena seluruh layanannya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
+- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
-    Saya tidak terkejut dengan hal seperti ini karena hampir seluruh layanan Google diblokir oleh pemerintah Tiongkok, jadi harusnya peristiwa seperti ini bukanlah hal yang mengejutkan
+    Perlu diingat juga, bahwa poin ini hanyalah secara teoritis saja, saya tidak tahu bagaimana pada prakteknya yang mungkin saja berbeda. Kalau memang berbeda, mohon beri masukkan melalui kolom komentar.
 
-**PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi satu hal di atas tidak lagi berlaku
+    Kalau pun ini beneran terjadi, maka saya tidak terkejut karena hampir seluruh layanan Google diblokir oleh pemerintah Tiongkok
 
 Untuk perbandingan antar CA ACME lebih lanjut, silakan kunjungi salah satu halaman dokumentasi Posh-ACME dengan [klik di sini](https://poshac.me/docs/v4/Guides/ACME-CA-Comparison/).
 

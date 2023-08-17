@@ -142,15 +142,15 @@ Namun sayangnya, Anda tidak bisa mencabut Sertifikat SSL/TLS yang telah Anda ter
 
 Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sangatlah "Panjang x Lebar", jika Anda tidak sanggup membaca Artikel yang terlalu panjang, saran saya cari artikel lain yang membahas ini dengan lebih sederhana, jangan paksakan diri Anda kecuali jika ingin belajar.
 
-Meskipun artikel ini Panjang x Lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
+Meskipun artikel ini panjang kali lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
 
 Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Penggunaan fitur "Desktop Mode" pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah papan ketik (_Keyboard_) untuk mengikuti artikel ini.
 
-Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <key>CTRL</key>+<key>F</key>, lalu isi dengan bagian atau teks yang ingin Anda cari.
+Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <kbd>Ctrl</kbd> + <kbd>F</kbd>, lalu isi dengan bagian atau teks yang ingin Anda cari.
 
 Saya usahakan agar pembahasan di artikel ini dapat diterapkan atau diikuti oleh hampir semua pengguna sistem operasi, termasuk sistem operasi Windows dan hampir semua sistem operasi berbasis \*nix, seperti sistem operasi yang berbasis Linux (cth. GNU/Linux, Android, Alpine Linux, dll), macOS, BSD, dan sistem operasi \*nix lainnya.
 
-Namun, bukan berarti Anda bisa mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua sistem operasi, karena saya belum mencoba di sistem operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
+Namun, bukan berarti Anda dapat mengikuti semuanya meskipun saya berusaha agar ini bisa diikuti oleh hampir semua sistem operasi, karena saya belum mencoba di sistem operasi selain GNU/Linux, Windows dan Android, sehingga saya tidak berani menjaminnya.
 
 Jadi, mohon perhatian dan pengertiannya, jika Anda melanjutkan berarti Anda sudah memahami semuanya.
 
@@ -189,6 +189,10 @@ Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal seb
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tetapi itu tidak saya bahas lebih lanjut di sini.
 
+Untuk perangkatnya sih terserah kamu saja, saya lebih menyarankan perangkat komputer yang dapat dioperasikan selayaknya Server (diam di satu tempat, tanpa monitor dan tidak pernah sengaja dimatikan) atau pakai komputer kecil seperti Raspberry Pi atau perangkat sejenis kalau punya.
+
+Walau bisa saja pakai PC Desktop atau Laptop yang kamu pakai sekarang, tetapi sumber dayanya akan berebutan dengan lainnya dan mungkin kamu akan perlu mengoperasikannya dengan lebih lama untuk keperluan pembaruan sertifikat, kalau menurutmu itu tidak masalah maka dipakai saja.
+
 #### Untuk Pengguna Windows {#persiapan-pengguna-windows}
 
 {{< spoiler title="tl;dr" >}}
@@ -211,23 +215,23 @@ Anda bisa memakai salah satu cara berikut untuk melakukannya:
 - Memakai mesin virtual/kontainer yang terinstal GNU/Linux
 - _Me-remote_/mengakses perangkat lain (entah itu Server, PC Desktop/Laptop biasa, bahkan Telepon Pintar/Tablet, dll) yang memakai sistem operasi berbasis \*nix dengan klien SSH
 
-Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
+Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda dapat mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari Komputer/Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya bisa diaktifkan setelah perangkat dinyalakan dan bisa terus aktif di latar belakang, caranya bisa [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari komputer PC atau Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 
 {{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 
-- Menggunakan sistem operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
+- Menggunakan sistem operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda dapat gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak dapat menjamin bahwa Anda akan dapat mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
 - Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasannya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux-nya
     2. Perbarui semua paket yang ada di Termux dengan perintah: `pkg upg`
     3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer/laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer/laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer PC atau Laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer PC atau Laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas dapat Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_.
 {{< / spoiler >}}
@@ -324,7 +328,7 @@ printf "ACCOUNT_EMAIL='%s'\n" "emailku@domain.com" >> "$HOME"/.acme.sh/account.c
 
 Ganti `emailku@domain.com` dengan alamat surel Anda.
 
-Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol "<key>Enter</key>".
+Setelah selesai instal, pastikan bahwa acme.sh dapat dieksekusi dengan baik dengan mengetikkan `acme.sh --version` di dalam Terminal, lalu tekan tombol <kbd>&#8629; Enter</kbd>.
 
 Jika dapat dieksekusi dengan baik, maka akan tampil versi dari acme.sh dan selamat Anda telah menginstalnya dengan benar, silakan [klik di sini](#registrasi-akun-acme-sh) untuk melanjutkan ke langkah berikutnya.
 
@@ -505,7 +509,7 @@ Kalau belum, silakan dapatkan terlebih dahulu, caranya sebagai berikut:
 
 0. Silakan akses ke [Dasbor bunny.net-nya](https://dash.bunny.net/), login jika diminta.
 1. Klik pada foto profilmu, lalu klik **"Edit account details"**
-2. Gulirkan tetikus (_mouse_) kamu sampai ketemu tulisan **"API"** atau tekan <key>CTRL</key>+<key>F</key> untuk mencari teks di halaman web, lalu masukkan kata `API` untuk mencari bagian tersebut
+2. Gulirkan tetikus (_mouse_) kamu sampai ketemu tulisan **"API"** atau tekan <kbd>Ctrl</kbd> + <kbd>F</kbd> untuk mencari teks di halaman web, lalu masukkan kata `API` untuk mencari bagian tersebut
 3. Kalau ketemu, maka di bagian tersebut kamu akan melihat sebuah kotak teks yang diisikan dengan lingkaran atau tanda bintang, klik pada ikon papan klip untuk langsung menyalinkan kodenya atau ikon mata jika Anda ingin melihat isi yang sebenarnya
 4. Nah, **"Access Key"** sudah disalin atau tampil, simpan itu baik-baik untuk digunakan nanti dan pastikan tidak ada siapa pun yang mengetahuinya
 
@@ -2811,7 +2815,7 @@ Jangan lupa untuk menghapus kredensial yang ada di dalam berkas tersebut setelah
 
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lainnya? {#pertanyaan-ke20}
 
-Sangat bisa, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau sejenisnya.
+Sangat bisa, saya bahkan menyarankan agar Anda memakai perangkat seperti ini kalau punya, Anda sangat bisa untuk mengikuti semua tutorial yang ada di sini menggunakan perangkat komputer kecil Anda, seperti Raspberry Pi atau perangkat sejenisnya.
 
 Untuk sistem operasinya, saya sarankan Anda gunakan GNU/Linux yang merupakan salah satu sistem operasi berbasis \*nix dibandingkan dengan Windows, kalau mau yang lain seperti macOS, BSD, Solaris, dll, juga boleh. Di Android juga bisa, tetapi saya sarankan unduh, instal dan gunakan aplikasi Termux di dalamnya untuk itu.
 
@@ -2856,13 +2860,13 @@ printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 
 8. Jika Anda membuat berkas skrip terpisah (mengikuti [Metode ke-2](#membuat-berkas-skrip-shell)), maka aturlah _Crontab_ melalui Terminal agar berkas skrip `renew-ssl.sh` bisa dieksekusi secara terjadwal oleh _Cron Job_. Bila masih belum paham/lupa, silakan baca bagian "[Otomatisasi dengan _Cron Job_](#otomatisasi-skrip-dengan-cron-jobs)" di atas.
 
-   Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda bisa lewati langkah ini, karena biasanya _Crontab_ secara otomatis diatur setelah Anda menginstal perkakas acme.sh-nya.
+   Jika Anda mengikuti [Metode Pertama](#memanfaatkan-konfigurasi-acme-sh), maka harusnya Anda dapat lewati langkah ini, karena biasanya _Crontab_ secara otomatis diatur setelah Anda menginstal perkakas acme.sh-nya.
 
    Kalau tidak yakin, Anda bisa mengaturnya secara manual atau eksekusikan perintah `acme.sh --install-cronjob` di dalam perangkat baru Anda untuk memasang _Cron Job-nya_.
 
-9. Jika sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
+9. Kalau sudah selesai, pastikan agar layanan Cron selalu aktif di dalam perangkat baru Anda, baik saat perangkat dijalankan, bahkan saat perangkat dalam posisi _start-up_/setelah dinyalakan.
 
-10. Jika ini berhasil, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan Sertifikat SSL/TLS di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikatnya hanya karena kredensialnya sama.
+10. Setelah ini semua berhasil dan selesai, maka sebaiknya Anda hapus _Cron Job_ yang berkaitan dengan acme.sh atau pembaruan Sertifikat SSL/TLS di dalam perangkat lama Anda, hal ini dilakukan supaya tidak menimbulkan konflik saat memperbarui sertifikatnya hanya karena kredensialnya sama.
 
     Caranya bisa hapus manual melalui `crontab -e`, atau gunakan perintah `acme.sh --uninstall-cronjob` untuk menghapusnya secara otomatis dari perangkat lama Anda
 
@@ -2873,6 +2877,8 @@ printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, koneksi dari Server/Proksi yang melambat, dll.
 
 Jadi, sabarlah menunggu sampai beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti permasalahan pada servernya bisa terselesaikan, sehingga bisa digunakan kembali.
+
+Namun, kalau Anda mau agar sertifikatnya dapat diperbarui dengan lebih cepat di saat sertifikatnya sudah mencapai beberapa hari (biasanya 30 hari) sebelum habis masa berlaku, maka aturlah _Cron Job-nya_ agar acme.sh dapat dieksekusi setiap 2 jam dalam seharian penuh, dengan begini Anda dapat mengurangi keterlambatan pembaruan sertifikat karena masalah seperti ini.
 
 ### Pertanyaan ke-23: Apakah benar bahwa SSL Gratisan itu memiliki Enkripsi yang lemah? {#pertanyaan-ke23}
 
@@ -3014,8 +3020,8 @@ Ngomong-ngomong, saya tanya di Tiket Dukungan itu karena saat artikel ini dituli
 - Melakukan Inspeksi Jaringan di Peramban Web saat memasang Sertifikat SSL/TLS secara manual di dalam Situs Web-nya, dengan bertujuan untuk mengetahui bagaimana Netlify mengirimkan datanya ke dalam Server dan hasilnya itulah yang dijadikan referensi.
 
   Anda bisa lakukan itu sendiri dengan cara berikut:
-  1. Tekan tombol <key>CTRL</key>+<key>SHIFT</key>+<key>I</key> sebelum memasang Sertifikat SSL/TLS di Netlify
-  2. Klik pada tab "Network", nanti di situ akan tampil sebuah panel kosong dan hanya berpesan kalau kamu perlu menyegarkan (_refresh_) halamannya atau menekan tombol CTRL+R terlebih dahulu, tetapi jangan Anda lakukan itu.
+  1. Tekan tombol <kbd>Ctrl</kbd> + <kbd>&#8679; Shift</kbd> + <kbd>I</kbd> sebelum memasang Sertifikat SSL/TLS di Netlify
+  2. Klik pada tab "Network", nanti di situ akan tampil sebuah panel kosong dan hanya berpesan kalau kamu perlu menyegarkan (_refresh_) halamannya atau menekan tombol <kbd>Ctrl</kbd> + <kbd>R</kbd> terlebih dahulu, tetapi jangan Anda lakukan itu.
   3. Pasang Sertifikat SSL/TLS kamu secara manual di Halaman Web-nya
   4. Jika kamu sudah selesai mengisi semua informasi yang diperlukan, klik pada _button_ **"Install certificate"**
   5. Setelah kamu mengklik _button_ tersebut, maka di dalam Panel Inspeksi Jaringan akan muncul sebuah permintaan (_request_) dari `api.netlify.com`, klik pada permintaan tersebut, nanti akan muncul sebuah Informasi mengenai permintaan tersebut di sebelah kanan Panelnya.
