@@ -22,3 +22,8 @@ widgetId = "D1Tc1z8H"
 enabled = false
 username = "FarrelF"
 utcOffset = 7
+
+[umami]
+enabled = true
+hostURL = "https://analitik.franqois.id"
+websiteID= "b4aac942-29c5-4f5e-8403-77d9c7eeda23"
