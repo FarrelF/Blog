@@ -47,7 +47,7 @@ Sebelum Instal, pastikan Anda telah memenuhi semua persyaratannya terlebih dahul
 
 Atau, Anda dapat menggunakan fitur ["Codespaces"](https://github.com/features/codespaces) di GitHub yang dapat membantu Anda untuk menggunakan kode sumber blog ini, dimulai dari sekadar mencoba sampai turut ikut berkontribusi. Untuk caranya, silakan baca [halaman dokumentasinya](https://docs.github.com/en/codespaces/getting-started/quickstart), di situ sudah dijelaskan secara sederhana dan lengkap dengan gambar.
 
-Saya sudah persiapkan semua yang dibutuhkan untuk ini yang konfigurasinya dapat Anda lihat di dalam folder [`.devcontainer`](.devcontainer) dan tinggal Anda pakai jadi saja, konfigurasinya belum sempurna sih, jadi masukkan dari Anda mengenai konfigurasi tersebut akan saya apresiasi.
+Saya sudah persiapkan semua yang dibutuhkan untuk ini yang konfigurasinya dapat Anda lihat di dalam folder [`.devcontainer`](.devcontainer) dan tinggal Anda pakai jadi saja, konfigurasinya belum sempurna sih, jadi masukkan dari Anda mengenai konfigurasi tersebut sangat saya apresiasi.
 
 Codespaces ini gratis 60 jam setiap bulannya untuk penggunaan mesin virtual dari GitHub dengan prosesor berinti dua (_dual-core_) + Memori RAM sebesar 4 GB, untuk biaya kelebihannya silakan Anda tanggung sendiri dan ini bisa saja berubah sewaktu-waktu.
 

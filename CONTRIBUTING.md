@@ -124,7 +124,7 @@ Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakuka
 
 Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyawerkan sedikit uang Anda sebagai kontribusi Anda untuk blog ini.
 
-Jika Anda ingin menyawerkannya, Anda bisa melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Ko-fi](https://ko-fi.com/farrelf), [Saweria](https://saweria.co/FarrelFranqois), [SociaBuzz](https://sociabuzz.com/farrelf/tribe) atau melalui [Trakteer](https://trakteer.id/farrelf/tip) saya.
+Jika Anda ingin menyawerkannya, Anda dapat melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Ko-fi](https://ko-fi.com/farrelf), [NihBuatJajan](https://www.nihbuatjajan.com/farrelf) atau [SociaBuzz](https://sociabuzz.com/farrelf/tribe) saya.
 
 Untuk lebih lengkapnya, silakan [klik di sini](https://farrel.franqois.id/dukung/).
 
@@ -132,9 +132,9 @@ Untuk lebih lengkapnya, silakan [klik di sini](https://farrel.franqois.id/dukung
 
 Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog ini dan kode sumbernya.
 
-- Jika Anda mempunyai masalah saat menggunakan kode sumber ini, atau memberikan masukan tentang kode sumber ini, silakan Anda buat tiket ["Issue"](https://github.com/FarrelF/Blog/issues) di dalam repositori ini
+- Jika Anda mempunyai masalah saat menggunakan kode sumber ini, atau memberikan masukan tentang kode sumber ini, silakan buat tiket ["Issue"](https://github.com/FarrelF/Blog/issues) di dalam repositori ini
 
-- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan Anda membuat diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions)
+- Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan buat diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions)
 
 - Jika Anda ingin berkomentar atau kritik dan saran mengenai artikel di dalam [blog ini](https://farrel.franqois.id), silakan berkomentar melalui kolom komentar yang tersedia di akhir artikel blog
 

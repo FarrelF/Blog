@@ -30,8 +30,7 @@ Anda dapat memberikan dukungan terhadap blog ini dengan menyawer sejumlah uang A
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
 - [Ko-fi](https://ko-fi.com/farrelf) (Internasional)
 - [SociaBuzz](https://sociabuzz.com/farrelf/tribe)
-- [Saweria](https://saweria.co/FarrelFranqois)
-- [Trakteer](https://trakteer.id/farrelf/tip)
+- [NihBuatJajan](https://www.nihbuatjajan.com/farrelf)
 
 Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang dapat Anda coba di situ.
 
