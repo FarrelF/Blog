@@ -2275,7 +2275,7 @@ Setelah itu, Anda bisa tes skrip tersebut dengan perintah `sh /lokasi/ke/berkas/
 
 ## Otomatisasi Skrip dengan _Cron Job_ {#otomatisasi-skrip-dengan-cron-jobs}
 
-Biasanya, setelah perkakas acme.sh diinstal, maka _Cron Job_ akan otomatis terpasang untuk keperluan pembaruan sertifikat kalau ada. Jadi, sebenarnya Anda tidak perlu membuatnya lagi secara manual.
+Setelah perkakas acme.sh diinstal, biasanya _cron job_ akan otomatis terpasang untuk keperluan pembaruan sertifikat kalau ada. Jadi, sebenarnya Anda tidak perlu membuatnya lagi secara manual.
 
 Namun, Anda dapat mengubah jadwal dan waktu eksekusi perkakas acme.sh-nya kalau mau. Selain itu, kalau Anda menggunakan berkas `renew-ssl.sh` untuk pembaruan sertifikat, maka Anda perlu membuat atau mengubah _Cron Job-nya_ secara manual juga agar skrip tersebut dapat berjalan secara otomatis/terjadwal.
 
