@@ -42,7 +42,7 @@ jobs:
         sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
     - name: Setup Hugo Extended
-      uses: peaceiris/actions-hugo@v2
+      uses: peaceiris/actions-hugo@v3
       with:
         hugo-version: latest
         extended: true
@@ -63,7 +63,7 @@ jobs:
     #    # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
 
     - name: Setup Hugo Resources Cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ./resources
@@ -72,7 +72,7 @@ jobs:
           - v2-8-hugo
 
     - name: Setup Hugo Modules Cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /tmp/hugo_cache_runner
         key: ${{ runner.os }}-hugo-modules-${{ hashFiles('**/go.sum') }}
@@ -91,7 +91,7 @@ jobs:
         printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
         path: files.tar.gz
@@ -105,7 +105,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
@@ -132,7 +132,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
@@ -161,7 +161,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
@@ -190,7 +190,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
@@ -219,7 +219,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
