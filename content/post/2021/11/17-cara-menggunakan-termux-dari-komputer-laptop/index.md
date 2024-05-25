@@ -14,6 +14,8 @@ Tags:
     - Termux
     - Cara menggunakan
     - SSH
+_build:
+    publishResources: false
 readMore: true
 DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tetapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer kamu!
 Description: |-
@@ -32,9 +34,9 @@ Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, 
 
 Namun bagi sebagian orang, mengetik baris perintah dari layar ponsel itu sangatlah tidak nyaman, apalagi jika baris perintah itu panjang kali lebar dan berjumlah banyak.
 
-Jika Anda memiliki perangkat seperti komputer PC/Laptop, selain ponsel Android, mungkin Anda akan lebih nyaman jika mengetik baris perintah tersebut di komputer PC/Laptop, ketimbang di layar ponsel?
+Jika Anda memiliki perangkat seperti komputer PC/Laptop, selain ponsel Android, mungkin Anda akan lebih nyaman jika mengetik baris perintah tersebut di komputer PC/Laptop ketimbang di layar ponsel?
 
-Kalau begitu, kenapa gak kamu pakai Termux dari komputer PC/Laptopmu saja?
+Kalau begitu, kenapa gak kamu pakai Termux dari komputer PC/Laptop-mu saja?
 
 Nah, inilah yang sedang saya bahas di artikel ini, yakni "Cara menggunakan Termux dari komputer PC/Laptop".
 
@@ -52,7 +54,7 @@ Untuk versi Android-nya sendiri, saya sarankan agar Anda menggunakan Android ver
 
 Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini dengan perintah `pkg upg -y`, tetapi kalau tidak mau ya gak apa-apa, bisa dicoba dulu.
 
-Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah Layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
+Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
 
 Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer PC/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
@@ -249,7 +251,7 @@ Bagaimana? Mudah sekali, bukan? Namun artikel ini belum selesai sampai sini saja
 
 ### Menggunakan SFTP
 
-Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, merubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan protokol SFTP.
+Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, mengubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan protokol SFTP.
 
 Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dalam Termux kamu, maka Protokol SFTP secara otomatis diaktifkan.
 
@@ -264,7 +266,7 @@ Setelah terinstal, buka Aplikasi tersebut, lalu Anda harus mengisi kredensialnya
 - Kata Sandi (_Password_): Isi ini dengan kata sandi Termux Anda
 - _Port_: Isi dengan _Port_ yang digunakan oleh server SSH kamu, _Port_ bakunya adalah `8022`, jadi isi itu dengan `8022` (sebaiknya jangan diisi jika Anda sudah mengisi _port_-nya saat mengisikan Alamat URL Hos)
 
-Setelah memasukkan semua Informasi/Kredensial di atas, silakan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau terjemahan bahasa Indonesia-nya adalah **Koneksi Cepat**).
+Setelah memasukkan semua informasi/kredensial di atas, silakan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau terjemahan bahasa Indonesia-nya adalah **Koneksi Cepat**).
 
 > Namun, _Username_-nya diisi bebas, apa artinya bisa diisi sembarangan?
 
