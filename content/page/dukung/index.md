@@ -53,7 +53,15 @@ Berikut adalah kode _referral_ yang bisa Anda gunakan:
 | [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) | Klik tautannya            | Layanan IDCloudHost biasa |
 | [IDCloudHost Console](https://afiliasi.farrel.franqois.id/idch-console/)  | Klik tautannya atau pakai kode `m9z6qf` | Layanan Fleksibel dari IDCloudHost. Dapatkan bonus saldo sebesar Rp25.000,00 setelah isi ulang  |
 
-## Arc (Paling mudah)
+## Arc (Paling mudah) (Sudah tidak berlaku)
+
+{{< info title="**PEMBARUAN Sabtu, 25 Mei 2024:**" >}}
+
+Arc resmi mengakhiri dan mematikan layanan CDN P2P-nya (entah sejak kapan, mungkin sejak tanggal 16-17 Mei 2024 yang lalu), sehingga saya pun memutuskan untuk menonaktifkannya.
+
+Jadi, kalau Anda ingin memberikan dukungan terhadap blog ini, maka cara di bawah ini sudah tidak lagi berlaku.
+
+{{< / info >}}
 
 Tidak punya uang dan tidak punya layanan yang perlu didaftarkan? Tidak usah khawatir, ada cara yang paling mudah dan gratis untuk mendukung blog ini.
 
