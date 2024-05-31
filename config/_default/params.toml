@@ -1,6 +1,6 @@
 mainSections = [ "post" ]
 featuredImageField = "image"
-rssFullContent = true
+rssFullContent = false
 
 [customFavicon]
 enabled = true
