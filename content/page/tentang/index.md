@@ -50,7 +50,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Domain:
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
   - [Rumahweb Indonesia](https://www.rumahweb.com/) sebagai Pengelola Domain
-- DNS Otoritatif: [Cloudflare DNS](https://www.cloudflare.com/dns/)
+- DNS Otoritatif: [Bunny DNS](https://afiliasi.farrel.franqois.id/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
   - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
