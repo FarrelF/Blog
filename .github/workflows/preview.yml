@@ -82,13 +82,13 @@ jobs:
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
         hugo --gc --buildFuture --environment staging -b https://deploy-preview.farrel.franqois.id
+        printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Compressing Static Web Files
       run: |
-        pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
-        brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
+        # pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
+        # brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
         tar cvf - ./public | pigz -9 > files.tar.gz
-        printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Upload Output File to Artifact
       uses: actions/upload-artifact@v4
@@ -112,17 +112,19 @@ jobs:
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
-    
+
     - name: Deploying to Bunny Storage
-      uses: own3d/bunny-action@main
-      env:
-        BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_KEY }}
-        BUNNY_STORAGE_HOSTNAME: storage.bunnycdn.com
-        BUNNY_STORAGE_USERNAME: ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}
-        BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}
-        BUNNY_PULL_ZONE_ID: ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
+      uses: ayeressian/bunnycdn-storage-deploy@v2.2.3
       with:
-        args: deploy --dir=./public
+        source: 'public'
+        destination: ''
+        storageZoneName: "${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}"
+        storagePassword: "${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}"
+        accessKey: "${{ secrets.BUNNY_API_KEY }}"
+        pullZoneId: "${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}"
+        upload: "true"
+        remove: "true"
+        purgePullZone: "true"
 
   deploy_to_storj-ap1-s3:
     name: Deploy to Storj DCS AP1 S3 Storage (Preview)
