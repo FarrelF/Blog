@@ -25,7 +25,7 @@ subtitle = "(Bukan) Sekadar Blog Pribadi saya"
 
 [sidebar.avatar]
 local = true
-resolution = 100
+resolution = 150
 src = "img/profile/avatar.jpg"
 
 [article]
@@ -83,6 +83,9 @@ enabled = true
 enabled = true
 
 [twemoji]
+enabled = true
+
+[lazySizes]
 enabled = true
 
 [twemoji.options]
