@@ -89,7 +89,7 @@ Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini
 ### Media sosial/Perpesanan {#medsos}
 
 - Telegram: [@FarrelF](https://t.me/FarrelF)
-- Twitter: [@FarrelFranqois](https://twitter.com/FarrelFranqois)
+- X (sebelumnya Twitter): [@FarrelFranqois](https://x.com/FarrelFranqois)
 - Facebook: [Farrel Franqois](https://www.facebook.com/FarrelFranqois)
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 

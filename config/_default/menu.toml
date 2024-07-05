@@ -19,13 +19,13 @@ weight = -80
 icon = "brand-facebook"
 
 [[social]]
-identifier = "twitter"
-name = "Twitter"
-url = "https://twitter.com/FarrelFranqois"
+identifier = "x"
+name = "X (sebelumnya Twitter)"
+url = "https://x.com/FarrelFranqois"
 weight = -60
 
 [social.params]
-icon = "brand-twitter"
+icon = "brand-x"
 
 [[social]]
 identifier = "telegram"
