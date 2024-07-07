@@ -1593,7 +1593,7 @@ Langkah selanjutnya adalah memasang Sertifikat SSL/TLS melalui API-nya.
 #### Memasang Sertifikat SSL/TLS melalui API dari Netlify
 
 {{< info title="**PEMBARUAN Minggu, 07 Juli 2024:**" >}}
-Saya melihat ada orang yang mengajukan _Pull Request_ agar _Deploy Hook_ untuk Netlify, DirectAdmin, CacheFly, Edgio, dan KeyHelp Control Panel. Anda dapat melihat _Pull Request-nya_ [di sini](https://github.com/acmesh-official/acme.sh/pull/5061).
+Saya melihat ada orang yang mengajukan _Pull Request_ agar _Deploy Hook_ untuk Netlify, DirectAdmin, CacheFly, Edgio, dan KeyHelp Control Panel ada di dalam acme.sh, Anda dapat melihat _Pull Request-nya_ [di sini](https://github.com/acmesh-official/acme.sh/pull/5061).
 
 Jika itu digabung (_merge_) dan bekerja dengan baik ketika dicoba, maka saya akan menyederhanakan tutorial di bawah ini dengan memakai _Deploy Hook_ saja untuk memasangkan sertifikat SSL/TLS-nya ketimbang cara manual seperti di bawah ini.
 {{< / info >}}
@@ -1906,7 +1906,7 @@ Jika sudah dibuat, silakan lanjut ke langkah berikutnya.
 #### Memasang Sertifikat SSL/TLS melalui API dari DirectAdmin
 
 {{< info title="**PEMBARUAN Minggu, 07 Juli 2024:**" >}}
-Saya melihat ada orang yang mengajukan _Pull Request_ agar _Deploy Hook_ untuk Netlify, DirectAdmin, CacheFly, Edgio, dan KeyHelp Control Panel. Anda dapat melihat _Pull Request-nya_ [di sini](https://github.com/acmesh-official/acme.sh/pull/5061).
+Saya melihat ada orang yang mengajukan _Pull Request_ agar _Deploy Hook_ untuk Netlify, DirectAdmin, CacheFly, Edgio, dan KeyHelp Control Panel ada di dalam acme.sh, Anda dapat melihat _Pull Request-nya_ [di sini](https://github.com/acmesh-official/acme.sh/pull/5061).
 
 Jika itu digabung (_merge_) dan bekerja dengan baik ketika dicoba, maka saya akan menyederhanakan tutorial di bawah ini dengan memakai _Deploy Hook_ saja untuk memasangkan sertifikat SSL/TLS-nya ketimbang cara manual seperti di bawah ini.
 {{< / info >}}
