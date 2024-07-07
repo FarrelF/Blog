@@ -2676,7 +2676,7 @@ Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada sertif
 
 Jika Anda bingung, silakan lihat cuplikan berikut:
 
-![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chrome 103)](Hierarki_Sertifikat_SSL.webp) ![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium setelah versi 103](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
+![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chrome 105)](Hierarki_Sertifikat_SSL.webp) ![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium di GNU/Linux atau setelah versi 105](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk sertifikat SSL/TLS dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
