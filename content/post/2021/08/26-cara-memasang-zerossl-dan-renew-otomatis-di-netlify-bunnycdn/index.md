@@ -23,11 +23,11 @@ Tags:
 readMore: true
 DescriptionSEO: Apakah Anda ingin memasang ZeroSSL, tetapi Anda juga ingin bisa me-renew-nya secara otomatis di Netlify, BunnyCDN, cPanel dan DirectAdmin? Jika iya, Anda bisa baca artikel ini untuk mengetahuinya.
 Description: |-
-    Blog ini telah menggunakan ZeroSSL sebagai Sertifikat SSL/TLS-nya, tetapi kendalanya adalah CA ini tidak didukung oleh Penyedia Web secara luas, artinya sertifikat tersebut belum bisa _di-renew_ secara otomatis.
+    Blog ini pernah menggunakan ZeroSSL sebagai sertifikat SSL/TLS-nya setelah lama menggunakan Let's Encrypt, tapi kendalanya adalah CA ini tidak didukung oleh penyedia web secara luas, artinya sertifikat tersebut belum bisa _di-renew_ secara otomatis.
     
     Namun akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunny/cdn/), cPanel dan DirectAdmin.
     
-    Jika Anda ingin memasang Sertifikat SSL/TLS dari ZeroSSL pada Web Statis Anda yang menggunakan Netlify sebagai Hosting atau menggunakan BunnyCDN sebagai CDN, cPanel atau DirectAdmin sebagai Panel untuk layanan Hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
+    Jika Anda ingin memasang sertifikat SSL/TLS dari ZeroSSL pada web statis Anda yang menggunakan Netlify sebagai hosting atau menggunakan BunnyCDN sebagai CDN, cPanel atau DirectAdmin sebagai panel untuk layanan hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---
 
 ## Pembuka
@@ -185,7 +185,7 @@ Kalau Anda adalah pengguna sistem operasi berbasis Unix/Mirip-Unix (\*nix) seper
 
 Asal punya OpenSSL (atau LibreSSL?), curl dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tetapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
 
-Jika Anda adalah pengguna cPanel atau/dan DirectAdmin, Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://jqlang.github.io/jq/) di dalam sistem operasi Anda agar pemasangan sertifikat SSL/TLS dapat dipermudah.
+Jika Anda adalah pengguna cPanel, maka Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://jqlang.github.io/jq/) di dalam sistem operasi Anda agar pemasangan sertifikat SSL/TLS dapat dipermudah.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tetapi itu tidak saya bahas lebih lanjut di sini.
 
@@ -244,9 +244,9 @@ Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://p
 
 Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Termux_Google_Play).
 
-Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika curl, OpenSSL, jq (untuk pengguna cPanel atau/dan DirectAdmin) dan Cron sudah ada di dalam Termux Anda.
+Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika curl, OpenSSL, jq (untuk pengguna cPanel) dan Cron sudah ada di dalam Termux Anda.
 
-Namun sayangnya, di dalam Termux belum terinstal OpenSSL, jq dan Cron secara bawaan. Jadi setelah Anda Instal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
+Namun sayangnya, di dalam Termux belum terinstal OpenSSL, jq dan Cron secara bawaan. Jadi setelah Anda menginstal Termux, maka hal yang perlu Anda lakukan adalah perbarui semua paket-paket yang ada, lalu instal semua paket yang diperlukan dengan perintah berikut:
 
 ```bash
 pkg upg -y; pkg i -y curl wget openssl-tool jq cronie termux-services
@@ -302,7 +302,7 @@ Sekarang lanjut ke langkah berikutnya, yakni instal acme.sh, dan Anda sama sekal
 
 Setelah mendaftar akun ZeroSSL, salah satu hal yang perlu Anda lakukan adalah menginstal acme.sh terlebih dahulu di dalam sistem operasi Anda.
 
-Tidak perlu menggunakan Akun Administrator atau `root` untuk menginstalnya, atau tidak perlu dieksekusikan melalui perintah `sudo` layaknya Certbot, cukup gunakan saja akun Anda yang sekarang, seperti biasanya.
+Tidak perlu menggunakan akun administrator atau `root` untuk menginstalnya, atau tidak perlu dieksekusikan melalui perintah `sudo` layaknya Certbot, cukup gunakan saja akun Anda yang sekarang, seperti biasanya.
 
 Cara menginstalnya adalah dengan mengeksekusikan salah satu perintah berikut:
 
@@ -1767,7 +1767,7 @@ Nah, gimana? Cukup mudah, bukan? Jika Anda berhasil memasang sertifikat SSL/TLS 
 
 Jika Anda merupakan pengguna cPanel sebagai kontrol panelnya, baik itu di dalam server ataupun pada layanan _Shared Hosting_ yang Anda gunakan, maka Anda dapat melakukannya tanpa harus mengakses SSH-nya terlebih dahulu.
 
-Tidak ada syarat khusus dalam _hosting_ untuk memasangkan sertifikat SSL/TLS melalui Akses API ini, jadi Anda dapat memasangnya dengan memakai paket _hosting_ termurah sekali pun, selama layanan _hosting_ mendukung pemasangan sertifikat SSL/TLS kustom dan mendukung cPanel API yang sepertinya mayoritas layanan hosting mendukungnya, kecuali Domainesia dengan paket termurahnya.
+Tidak ada syarat khusus dalam _hosting_ untuk memasangkan sertifikat SSL/TLS melalui akses API ini, jadi Anda dapat memasangnya dengan memakai paket _hosting_ termurah sekali pun, selama layanan _hosting_ mendukung pemasangan sertifikat SSL/TLS kustom dan mendukung cPanel API yang sepertinya mayoritas layanan hosting mendukungnya, kecuali Domainesia dengan paket termurahnya.
 
 Namun sebelum itu, Anda harus membuat **"API Token"**-nya terlebih dahulu di cPanel-nya, yang tentu saja Anda perlu masuk ke dalam cPanel-nya untuk ini.
 
@@ -1779,9 +1779,9 @@ Jika sudah diinstal, silakan lanjut ke langkah berikutnya.
 
 #### Memasang Sertifikat SSL/TLS melalui API dari cPanel
 
-Pada langkah ini Anda akan memasangkan sertifikat SSL/TLS-nya melalui panggilan API dari cPanel. Pemasangannya sendiri agak beda dari yang lain, kedua penyedia di atas menggunakan metode POST, sedangkan yang ini menggunakan metode GET.
+Pada langkah ini Anda akan memasangkan sertifikat SSL/TLS-nya melalui pemanggilan API cPanel. Pemasangannya sendiri agak beda dari yang lain, kedua penyedia di atas menggunakan metode POST, sedangkan yang ini menggunakan metode GET.
 
-Kedua metode ini memiliki perbedaan dalam mengirimkan datanya, tetapi dengan tujuan yang sama.
+Kedua metode ini memiliki perbedaan dalam mengirimkan datanya, tapi dengan tujuan yang sama.
 
 Tanpa basa-basi lagi, pertama-tama, Anda perlu menavigasikan Terminal/_Shell_ Anda ke dalam folder tempat berkas sertifikat itu disimpan dengan perintah `cd` terlebih dahulu. Contoh:
 
@@ -2474,7 +2474,7 @@ IKP diperlukan untuk aktivitas di mana kata sandi sederhana merupakan metode ote
 
 Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl), [SSL.com](https://www.ssl.com/certificates/free/) dan Google Public CA yang saya bahas di [artikel ini](https://farrel.franqois.id/cara-mendapatkan-sertifikat-ssl-dari-google/).
 
-Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Entrust](https://www.entrust.com/digital-security/certificate-solutions/products/digital-certificates/tls-ssl-certificates/entrust-certificate-services), [GlobalSign Atlas](https://www.globalsign.com/atlas) dan mungkin SSL\.com ada versi berbayarnya juga.
+Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Entrust](https://www.entrust.com/digital-security/certificate-solutions/products/digital-certificates/tls-ssl-certificates/entrust-certificate-services), [GlobalSign](https://www.globalsign.com/en/acme-automated-certificate-management) dan mungkin SSL\.com ada versi berbayarnya juga.
 
 ### Pertanyaan ke-5: Saya memasang CAA Record pada DNS Domain saya, apa CAA yang harus saya isi biar supaya saya bisa menggunakan ZeroSSL? {#pertanyaan-ke5}
 
