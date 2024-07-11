@@ -718,40 +718,40 @@ Berikut adalah cara-caranya:
 
 ### Menerbitkan Sertifikat SSL/TLS (Wajib dipelajari) {#issue-cert}
 
-Jika Anda ingin menerbitkan Sertifikat SSL/TLS dengan acme.sh (cth. hanya untuk 1 Domain dan 1 Subdomain), maka format perintahnya akan menjadi seperti berikut:
+Jika Anda ingin menerbitkan sertifikat SSL/TLS dengan acme.sh (cth. hanya untuk 1 Domain dan 1 Subdomain), maka format perintahnya akan menjadi seperti berikut:
 
 ```shell
 acme.sh --issue -d www.domain.com -d domain.com METODE_VERIFIKASI PARAMETER_TAMBAHAN
 ```
 
-Perintah di atas akan menerbitkan Sertifikat SSL/TLS yang hanya menjangkau 1 Domain dan 1 Subdomain saja, yakni `www.domain.com` dan `domain.com`.
+Perintah di atas akan menerbitkan sertifikat SSL/TLS yang hanya menjangkau 1 Domain dan 1 Subdomain saja, yakni `www.domain.com` dan `domain.com`.
 
-Parameter `-d` berfungsi untuk menentukan domain yang dijangkau oleh Sertifikat SSL/TLS tersebut saat diterbitkan, isikan itu dengan domain Anda.
+Parameter `-d` berfungsi untuk menentukan domain yang dijangkau oleh sertifikat SSL/TLS tersebut saat diterbitkan, isikan itu dengan domain Anda.
 
-Sebenarnya, Anda juga dapat menambahkan perameter `-d` agar Sertifikat SSL/TLS menjangkau setiap domain yang Anda masukkan, sebanyak yang Anda mau.
+Sebenarnya, Anda juga dapat menambahkan perameter `-d` agar sertifikat SSL/TLS menjangkau setiap domain yang Anda masukkan, sebanyak yang Anda mau.
 
-Domain pertama yang Anda masukkan itu merupakan Domain Utama dan akan menjadi **"Common Name"**, **"Subject"** atau **"Issued to"** pada Sertifikat SSL/TLS, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya atau selain itu hanya dimasukkan kedalam SAN saja.
+Domain pertama yang Anda masukkan itu merupakan Domain Utama dan akan menjadi **"Common Name"**, **"Subject"** atau **"Issued to"** pada sertifikat SSL/TLS, selain SAN (_Subject Alternative Name_), sedangkan domain kedua dan seterusnya atau selain itu hanya dimasukkan ke dalam SAN saja.
 
-Selain itu, nama direktori untuk Sertifikat SSL/TLS-nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
+Selain itu, nama direktori untuk sertifikat SSL/TLS-nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
 
-Contohnya seperti cuplikan berikut di Windows:
+Contohnya seperti cuplikan berikut di Windows pada Chrome sebelum versi 105:
 
 ![“Issued to” pada Sertifikat SSL/TLS saya](Windows_Certificate_Viewer_1.webp) ![SAN pada Sertifikat SSL/TLS saya](Windows_Certificate_Viewer_2.webp)
 
-Atau, di bawah ini untuk GNU/Linux: (Lebih tepatnya di Peramban Web berbasis Chromium/Google Chrome untuk GNU/Linux)
+Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di versi 105 atau setelahnya:
 
 !["Common Name" pada Sertifikat SSL/TLS saya](Certificate_Viewer_1.webp) ![SAN pada Sertifikat SSL/TLS saya](Certificate_Viewer_2.webp)
 
-Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah Sertifikat SSL/TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
+Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah sertifikat SSL/TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
 
 **Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah Sertifikat SSL/TLS adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
 
-Parameter `--issue` berfungsi agar acme.sh menerbitkan Sertifikat SSL/TLS Anda. Parameter selain `--issue` adalah sebagai berikut:
+Parameter `--issue` berfungsi agar acme.sh menerbitkan sertifikat SSL/TLS Anda. Parameter selain `--issue` adalah sebagai berikut:
 
-- `--renew` untuk memperbarui Sertifikat SSL/TLS yang ada
-- `--revoke` untuk mencabut salah satu Sertifikat SSL/TLS yang ada di dalam perangkat Anda
-- `--remove` untuk menghapus salah satu Sertifikat SSL/TLS dari perangkat Anda
-- `--renew-all` untuk memperbarui semua Sertifikat SSL/TLS yang ada (**Catatan:** Anda tidak perlu menambahkan parameter `-d` jika menggunakan parameter ini)
+- `--renew` untuk memperbarui sertifikat SSL/TLS yang ada
+- `--revoke` untuk mencabut salah satu sertifikat SSL/TLS yang ada di dalam perangkat Anda
+- `--remove` untuk menghapus salah satu sertifikat SSL/TLS dari perangkat Anda
+- `--renew-all` untuk memperbarui semua sertifikat SSL/TLS yang ada (**Catatan:** Anda tidak perlu menambahkan parameter `-d` jika menggunakan parameter ini)
 - Dan lain-lainnya
 
 #### Metode Verifikasi (`METODE_VERIFIKASI`)
@@ -773,33 +773,33 @@ Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen men
 
 - `--standalone` jika Anda tidak mempunyai Aplikasi _Web Server_ atau sedang tidak berada di dalam Server Web (cth. Sedang berada di dalam Server FTP atau SMTP).
 
-Dengan adanya verifikasi seperti ini, artinya Anda tidak bisa sembarangan membuat Sertifikat SSL/TLS untuk domain lain, berhasil atau gagal akan menambahkan _Rate Limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass.
+Dengan adanya verifikasi seperti ini, artinya Anda tidak bisa sembarangan membuat sertifikat SSL/TLS untuk domain lain, berhasil atau gagal akan menambahkan _Rate Limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass.
 
-Jadi, berhati-hatilah ketika Anda ingin menerbitkan Sertifikat SSL/TLS dengan menggunakan Protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
+Jadi, berhati-hatilah ketika Anda ingin menerbitkan sertifikat SSL/TLS dengan menggunakan Protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
 
 #### Parameter Tambahan (`PARAMETER_TAMBAHAN`)
 
-Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin Anda tambahkan saat menerbitkan Sertifikat SSL/TLS, parameter lainnya sebagai berikut:
+Anda bisa menggantikan `PARAMETER_TAMBAHAN` dengan parameter lain yang ingin Anda tambahkan saat menerbitkan sertifikat SSL/TLS, parameter lainnya sebagai berikut:
 
 - `--force` jika Anda ingin melakukannya dengan cara paksa. Ini cocok bagi Anda yang ingin menerbitkan ulang sertifikat, memperbarui masa berlaku sertifikat meski belum mau habis/belum waktunya, dll
-- `--test` atau `--staging` jika Anda ingin menjalankannya dalam mode pengujian. Ini cocok bagi Anda yang sedang belajar menggunakan acme.sh atau menguji penerbitan Sertifikat SSL/TLS dengan metode verifikasi yang berbeda tanpa mempengaruhi _Rate Limit_ aslinya.
+- `--test` atau `--staging` jika Anda ingin menjalankannya dalam mode pengujian. Ini cocok bagi Anda yang sedang belajar menggunakan acme.sh atau menguji penerbitan sertifikat SSL/TLS dengan metode verifikasi yang berbeda tanpa mempengaruhi _Rate Limit_ aslinya.
 
-    Jadi, saya sarankan agar Anda selalu memakai parameter ini jika Anda sedang mempelajari penggunaan acme.sh atau memastikan apakah Sertifikat SSL/TLS bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
+    Jadi, saya sarankan agar Anda selalu memakai parameter ini jika Anda sedang mempelajari penggunaan acme.sh atau memastikan apakah sertifikat SSL/TLS bisa diterbitkan dengan benar atau tidaknya tanpa mempengaruhi _Rate Limit_ dari suatu CA.
 
-    Kalau sudah merasa yakin, Anda dapat terbitkan ulang Sertifikat SSL/TLS-nya untuk produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`
+    Kalau sudah merasa yakin, Anda dapat terbitkan ulang sertifikat SSL/TLS-nya untuk produksi dengan menggunakan parameter `--issue --force`, tanpa parameter `--test` atau `--staging`
 
-- `--server opsi_ca` jika Anda ingin menerbitkan Sertifikat SSL/TLS oleh CA lain, yang secara baku diterbitkan oleh ZeroSSL sebagai CA.
+- `--server opsi_ca` jika Anda ingin menerbitkan sertifikat SSL/TLS oleh CA lain, yang secara baku diterbitkan oleh ZeroSSL sebagai CA.
 
     Ganti `opsi_ca` menjadi nama pendek dari CA yang mendukung, seperti: `zerossl`, `buypass`, `buypass_test`, `letsencrypt`, `letsencrypt_test`, `sslcom`, `google`, `googletest`.
 
     Atau, Anda juga bisa ganti `opsi_ca` dengan memasukkan Alamat URL Server ACME dari Penyedia CA Anda. Untuk lebih lengkapnya, silakan pelajari itu dari [Halaman Wiki-nya](https://github.com/acmesh-official/acme.sh/wiki/Server)
 
-- `--keylength opsi` atau `-k opsi` jika Anda ingin menerbitkan Sertifikat SSL/TLS dengan ukuran kunci atau kunci yang berbeda. Ganti `opsi` dengan `2048`, `3072`, `4096`, `8192`, `ec-256`, `ec-384`, atau `ec-512` (Saya bahas di bagian terpisah)
-- `--cert-file file` untuk menyalinkan berkas sertifikat ke dalam direktori lain setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
-- `--key-file file` untuk menyalinkan berkas Kunci ke dalam direktori lain setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
-- `--ca-file file` untuk menyalinkan berkas sertifikat CA/Sertifikat Penengah ke dalam direktori lain setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
-- `--fullchain-file file` untuk menyalinkan berkas sertifikat _Fullchain_ ke dalam direktori lain setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan.
-- `--reloadcmd perintah` untuk mengeksekusikan perintah _reload_ Server setelah menerbitkan/memperbarui Sertifikat SSL/TLS-nya. Ganti `perintah` menjadi perintahnya.
+- `--keylength opsi` atau `-k opsi` jika Anda ingin menerbitkan sertifikat SSL/TLS dengan ukuran kunci atau kunci yang berbeda. Ganti `opsi` dengan `2048`, `3072`, `4096`, `8192`, `ec-256`, `ec-384`, atau `ec-512` (Saya bahas di bagian terpisah)
+- `--cert-file file` untuk menyalinkan berkas sertifikat ke dalam direktori lain setelah menerbitkan/memperbarui sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
+- `--key-file file` untuk menyalinkan berkas Kunci ke dalam direktori lain setelah menerbitkan/memperbarui sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
+- `--ca-file file` untuk menyalinkan berkas sertifikat CA/Penengah ke dalam direktori lain setelah menerbitkan/memperbarui sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan
+- `--fullchain-file file` untuk menyalinkan berkas sertifikat _Fullchain_ ke dalam direktori lain setelah menerbitkan/memperbarui sertifikat SSL/TLS-nya. Ganti `file` menjadi lokasi atau/dan nama berkas yang Anda inginkan.
+- `--reloadcmd perintah` untuk mengeksekusikan perintah _reload_ server setelah menerbitkan/memperbarui sertifikat SSL/TLS-nya. Ganti `perintah` menjadi perintahnya.
 
     Jika Anda tidak mempunyai _web server_ di dalam perangkat kamu, dan ingin memasangkannya ke luar perangkat kamu, maka saya sarankan agar memakai parameter `--renew-hook` saja
 
@@ -842,7 +842,7 @@ Jika Anda tidak ingin menambahkan parameter lain, Anda bisa menghapus `PARAMETER
 
 #### Setelah menerbitkan Sertifikat SSL/TLS
 
-Jika Anda menerbitkan Sertifikat SSL/TLS memakai acme.sh dan dinyatakan berhasil, maka akhir dari keluarannya kira-kira akan seperti berikut:
+Jika Anda menerbitkan sertifikat SSL/TLS memakai acme.sh dan dinyatakan berhasil, maka akhir dari keluarannya kira-kira akan seperti berikut:
 
 ```plain
 [Kam 12 Agu 2021 02:14:50  WIB] Cert success.
@@ -873,9 +873,9 @@ Nah, sekarang sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi m
 
 ### Menerbitkan Sertifikat SSL/TLS dengan menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
 
-Jika Anda ingin menerbitkan Sertifikat SSL/TLS yang menggunakan DNS sebagai Metode verifikasinya, maka tinggal tambahkan saja parameter `--dns nama_dns`.
+Jika Anda ingin menerbitkan sertifikat SSL/TLS yang menggunakan DNS sebagai Metode verifikasinya, maka tinggal tambahkan saja parameter `--dns nama_dns`.
 
-Contoh di bawah ini adalah perintah untuk menerbitkan Sertifikat SSL/TLS untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai Metode Verifikasi:
+Contoh di bawah ini adalah perintah untuk menerbitkan sertifikat SSL/TLS untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai metode verifikasi:
 
 ```shell
 acme.sh --issue -d www.domain.com -d domain.com --dns dns_cf
@@ -952,7 +952,7 @@ Dan seterusnya akan seperti itu caranya.
 
 ### Menerbitkan Sertifikat SSL/TLS yang menjangkau Seluruh Subdomain {#wildcard-ssl}
 
-Jika Anda ingin menerbitkan Sertifikat SSL/TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka tambahkan parameter `-d '*.domain.com'` saja, tetapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai syarat wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
+Jika Anda ingin menerbitkan sertifikat SSL/TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka tambahkan parameter `-d '*.domain.com'` saja, tetapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai syarat wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
 
 Contoh di bawah ini adalah perintah untuk menerbitkan sertifikat SSL/TLS untuk 1 domain dan semua subdomainnya dengan menggunakan DNS dari Cloudflare sebagai verifikasi:
 
@@ -976,7 +976,7 @@ Jika Anda bukan pengguna Cloudflare, maka tinggal Anda ganti saja `dns_cf`-nya.
 
 **Kenapa _Wildcard-nya_ diletakkan di awal?** Agar Domain _Wildcard-nya_ tampil sebagai "Common Name"/"Subject"/"Issued to" pada Sertifikat SSL/TLS.
 
-**Kenapa seperti itu?** Karena Sertifikat SSL/TLS _Wildcard_ yang saya lihat menampilkan Domain _Wildcard_ sebagai "Issued to"/"Common Name"-nya. Sebenarnya terserah kamu saja sih maunya kayak gimana, toh di atas cuma contoh aja.
+**Kenapa seperti itu?** Karena Sertifikat SSL/TLS _Wildcard_ yang saya lihat menampilkan domain _Wildcard_ sebagai "Issued to"/"Common Name"-nya. Sebenarnya terserah kamu saja sih maunya kayak gimana, toh di atas cuma contoh aja.
 
 **Apa itu "Issued to"/"Common Name"?** Itu sudah saya jelaskan [di bagian awal](#issue-cert).
 
