@@ -734,11 +734,11 @@ Domain pertama yang Anda masukkan itu merupakan Domain Utama dan akan menjadi **
 
 Selain itu, nama direktori untuk sertifikat SSL/TLS-nya sendiri akan ditentukan berdasarkan domain pertama yang Anda masukkan.
 
-Contohnya seperti cuplikan berikut di Windows pada Chrome sebelum versi 105:
+Contohnya seperti cuplikan berikut di Windows pada Chromium/Google Chrome sebelum versi 105:
 
 ![“Issued to” pada Sertifikat SSL/TLS saya](Windows_Certificate_Viewer_1.webp) ![SAN pada Sertifikat SSL/TLS saya](Windows_Certificate_Viewer_2.webp)
 
-Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di versi 105 atau setelahnya:
+Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di platform selain Windows atau versi 105 dan setelahnya:
 
 !["Common Name" pada Sertifikat SSL/TLS saya](Certificate_Viewer_1.webp) ![SAN pada Sertifikat SSL/TLS saya](Certificate_Viewer_2.webp)
 
@@ -857,11 +857,11 @@ ISI SERTIFIKAT
 
 Ini artinya, bahwa Sertifikat SSL/TLS telah berhasil dibuat/diterbitkan oleh CA dan berkas-berkas yang diperlukan telah tersimpan di dalam direktori `/home/username/.acme.sh/domain.com` atau di `$HOME/.acme.sh/domain.com`.
 
-Berkas-berkas seperti `domain.com.cer`, `domain.com.key` dan `ca.cer` atau `fullchain.cer` dan `domain.com.key` akan diperlukan untuk pemasangan Sertifikat SSL/TLS di Layanan Hosting/CDN, untuk lebih lanjut akan saya bahas di bagian terpisah.
+Berkas-berkas seperti `domain.com.cer`, `domain.com.key` dan `ca.cer` atau `fullchain.cer` dan `domain.com.key` akan diperlukan untuk pemasangan sertifikat SSL/TLS di Hosting atau CDN, untuk lebih lanjut akan saya bahas di bagian terpisah.
 
-Namun, nama direktori untuk menyimpan dan bahkan nama dari berkas-berkas tersebut biasanya bergantung pada domain pertama yang dimasukkan saat ingin menerbitkan sebuah Sertifikat SSL/TLS.
+Namun, nama direktori untuk menyimpan dan bahkan nama dari berkas-berkas tersebut biasanya bergantung pada domain pertama yang dimasukkan saat ingin menerbitkan sebuah sertifikat SSL/TLS.
 
-Sebagai contoh, Anda ingin menerbitkan Sertifikat SSL/TLS dengan perintah berikut:
+Sebagai contoh, Anda ingin menerbitkan sertifikat SSL/TLS dengan perintah berikut:
 
 ```shell
 acme.sh --issue -d www.domain.com -d domain.com -w $HOME/public_html
@@ -1056,7 +1056,7 @@ Setelah membuat catatan DNS-nya, Anda perlu menyiapkan kode akses API ke pengatu
 
 Yap, Anda tidak salah baca, untuk domain alias, karena Anda memakai _DNS alias mode_, maka catatan DNS yang akan dibuat oleh acme.sh secara otomatis adalah untuk domain alias, bukan domain utama Anda.
 
-Setelah semyua telah dipersiapkan, Anda dapat lanjut menerbitkan sertifikatnya.
+Setelah semua telah dipersiapkan, Anda dapat lanjut menerbitkan sertifikatnya.
 
 #### 2. Menerbitkan Sertifikat SSL/TLS {#dns-alias-mode-2}
 
@@ -2676,7 +2676,7 @@ Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada sertif
 
 Jika Anda bingung, silakan lihat cuplikan berikut:
 
-![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chrome 105)](Hierarki_Sertifikat_SSL.webp) ![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium di GNU/Linux atau setelah versi 105](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
+![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chromium/Chrome 105)](Hierarki_Sertifikat_SSL.webp) ![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium di GNU/Linux atau setelah versi 105](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
 
 Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk sertifikat SSL/TLS dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
