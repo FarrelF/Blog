@@ -2474,7 +2474,7 @@ IKP diperlukan untuk aktivitas di mana kata sandi sederhana merupakan metode ote
 
 Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl), [SSL.com](https://www.ssl.com/certificates/free/) dan Google Public CA yang saya bahas di [artikel ini](https://farrel.franqois.id/cara-mendapatkan-sertifikat-ssl-dari-google/).
 
-Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Entrust](https://www.entrust.com/digital-security/certificate-solutions/products/digital-certificates/tls-ssl-certificates/entrust-certificate-services), [GlobalSign](https://www.globalsign.com/en/acme-automated-certificate-management) dan mungkin SSL\.com ada versi berbayarnya juga.
+Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Sectigo](https://www.sectigo.com/enterprise-solutions/certificate-manager/ssl-automation), [GlobalSign](https://www.globalsign.com/en/acme-automated-certificate-management) dan mungkin SSL\.com versi berbayarnya mendukung protokol ACME juga.
 
 ### Pertanyaan ke-5: Saya memasang CAA Record pada DNS Domain saya, apa CAA yang harus saya isi biar supaya saya bisa menggunakan ZeroSSL? {#pertanyaan-ke5}
 
