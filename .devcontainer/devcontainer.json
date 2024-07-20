@@ -11,7 +11,7 @@
 	"name": "Farrel Franqois Blog",
 
 	// Using "image" option for Development Container Template instead of using template in Dockerfile that are deprecated
-	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
 
 	// Customizations
 	"customizations": {
@@ -45,7 +45,7 @@
 	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bash .devcontainer/clone-repo.sh",
+	//"postCreateCommand": "bash .devcontainer/clone-repo.sh",
 
 	// Remove the comment at "remoteUser" to connect as non-root instead.
 	// More info: https://aka.ms/vscode-remote/containers/non-root.
