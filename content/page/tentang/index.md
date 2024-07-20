@@ -52,8 +52,8 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
   - [Rumahweb Indonesia](https://www.rumahweb.com/) sebagai Pengelola Domain
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrel.franqois.id/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
+  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)

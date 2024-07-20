@@ -144,7 +144,7 @@ Sebelum Anda lanjut, saya peringati bahwa Artikel/Tutorial yang dibahas ini sang
 
 Meskipun artikel ini panjang kali lebar, saya usahakan agar semuanya saya bahas dalam langkah-demi-langkah, sehingga lebih mudah dipahami oleh Anda.
 
-Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari ponsel yang Anda pakai sekarang (cth. PC/Laptop, Monitor, Tablet/Televisi Pintar, Penggunaan fitur "Desktop Mode" pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah papan ketik (_Keyboard_) untuk mengikuti artikel ini.
+Oleh karena itu, saya sarankan untuk memakai perangkat dengan layar yang lebih besar ketimbang layar dari ponsel yang Anda pakai sekarang (cth. PC Desktop/Laptop, Monitor, Tablet/Televisi Pintar, Penggunaan fitur "Desktop Mode" pada Ponsel/Tablet Pintar, dll) dan memiliki sebuah papan ketik (_Keyboard_) untuk mengikuti artikel ini.
 
 Jika Anda mengalami kesulitan dalam bernavigasi, gunakan fitur "Cari di Halaman" di Peramban Web Anda dengan menekan tombol <kbd>Ctrl</kbd> + <kbd>F</kbd>, lalu isi dengan bagian atau teks yang ingin Anda cari.
 
@@ -191,7 +191,7 @@ Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dala
 
 Untuk perangkatnya sih terserah kamu saja, saya lebih menyarankan perangkat komputer yang dapat dioperasikan selayaknya Server (diam di satu tempat, tanpa monitor dan tidak pernah sengaja dimatikan) atau pakai komputer kecil seperti Raspberry Pi atau perangkat sejenis kalau punya.
 
-Walau bisa saja pakai PC Desktop atau Laptop yang kamu pakai sekarang, tetapi sumber dayanya akan berebutan dengan lainnya dan mungkin kamu akan perlu mengoperasikannya dengan lebih lama untuk keperluan pembaruan sertifikat, kalau menurutmu itu tidak masalah maka dipakai saja.
+Walau bisa saja pakai komputer desktop atau laptop yang kamu pakai sekarang, tetapi sumber dayanya akan berebutan dengan lainnya dan mungkin kamu akan perlu mengoperasikannya dengan lebih lama untuk keperluan pembaruan sertifikat, kalau menurutmu itu tidak masalah maka dipakai saja.
 
 #### Untuk Pengguna Windows {#persiapan-pengguna-windows}
 
@@ -206,43 +206,41 @@ Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai beriku
 - Persiapan perangkat lunak pada WSL, mesin virtual, kontainer atau pada server bisa mengikuti [persiapan untuk sistem operasi \*nix](#persiapan-pengguna-unix-like)
 {{< / spoiler >}}
 
-Jika Anda menggunakan Windows, maka Anda perlu untuk mengakses lingkungan Unix/Mirip-Unix (\*nix), Anda bisa pakai cara apa pun untuk melakukannya.
+Jika Anda menggunakan Windows, maka Anda perlu mengakses lingkungan Unix/Mirip-Unix (\*nix), Anda bisa pakai cara apa pun untuk melakukannya.
 
 Anda bisa memakai salah satu cara berikut untuk melakukannya:
 
 - Memakai fitur [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) agar bisa menggunakan sistem operasi GNU/Linux di dalam Windows (Jika Anda menggunakan Windows 10 atau di atasnya)
 - Memakai perangkat lunak yang dapat mengemulasikan lingkungan UNIX, seperti Git Bash, Cygwin, dan lainnya (belum saya coba)
 - Memakai mesin virtual/kontainer yang terinstal GNU/Linux
-- _Me-remote_/mengakses perangkat lain (entah itu Server, PC Desktop/Laptop biasa, bahkan Telepon Pintar/Tablet, dll) yang memakai sistem operasi berbasis \*nix dengan klien SSH
+- _Me-remote_/mengakses perangkat lain (entah itu Server, PC Desktop/Laptop, bahkan Telepon Pintar/Tablet, dll) yang memakai sistem operasi berbasis \*nix dengan klien SSH
 
-Ketika Anda sedang mengemulasikan lingkungan \*nix di Windows, Anda dapat mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
+Ketika Anda mengemulasikan lingkungan \*nix di Windows, Anda dapat mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari komputer PC atau Laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 
 {{< spoiler title="tl;dr" >}}
 Jika terlalu panjang, maka hal-hal yang harus Anda siapkan adalah sebagai berikut:
 
-- Menggunakan sistem operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda dapat gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak dapat menjamin bahwa Anda akan dapat mengikuti artikel ini ke depannya, karena saya belum mengujinya, mungkin saja caranya akan berbeda dibandingkan dengan yang saya bahas di sini
-- Terinstalnya Termux di dalam Perangkat Android Anda. Bisa Anda unduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), jangan unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux)! (Alasannya [di sini](https://wiki.termux.com/wiki/Termux_Google_Play))
+- Menggunakan sistem operasi Android versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux. Jika di bawah 7.0, maka Anda dapat [mengikuti petunjuknya](https://github.com/termux/termux-app/wiki/Termux-on-android-5-or-6), tapi saya tidak dapat menjamin bahwa Anda akan dapat mengikuti artikel ini ke depannya walau kemungkinan besar bisa-bisa saja
+- Terinstalnya Termux di dalam perangkat Android Anda. Bisa diunduh di [F-Droid resminya](https://f-droid.org/repository/browse/?fdid=com.termux), bisa juga unduh di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan lewat F-Droid karena Termux di Google Play Store masih bersifat eksperimental
 - Persiapan yang harus Anda lakukan pada Termux setelah di-instal adalah sebagai berikut:
     1. Buka Termux-nya
     2. Perbarui semua paket yang ada di Termux dengan perintah: `pkg upg`
     3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di Latar Belakang dengan Perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer PC atau Laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer PC atau Laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer desktop atau laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer desktop atau laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas dapat Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_.
 {{< / spoiler >}}
 
 Jika Anda menggunakan Android, maka Anda bisa gunakan Termux untuk itu, selalu gunakan versi terbaru untuk pengalaman yang lebih nyaman dan lebih baik. Sebelum mengunduh, pastikan bahwa Android yang Anda gunakan sudah versi 7.0 atau di atasnya, sebagai syarat untuk menggunakan Termux.
 
-Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa gunakan [versi lamanya](https://archive.org/details/termux-repositories-legacy), tetapi saya tidak bisa menjamin bahwa Anda akan bisa mengikuti artikel ini ke depan karena versi pustaka yang digunakan masih lama dan saya belum mengujinya (dan jujur saya sendiri males), jadi mungkin caranya akan berbeda dibandingkan dengan yang akan saya bahas di sini.
+Namun jika versi Android Anda berada di bawah 7.0 (terutama versi 5 atau 6), maka Anda bisa [ikuti petunjuknya](https://github.com/termux/termux-app/wiki/Termux-on-android-5-or-6), tapi tidak ada dukungan untuk memperbarui paket di dalam Termux ke versi terbaru, sehingga saya tidak menjamin kalau kamu dapat mengikuti artikel ini walau kemungkinan besar bisa saja.
 
-Setelah itu, pastikan Termux tidak diunduh melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), melainkan melalui [F-Droid](https://f-droid.org/repository/browse/?fdid=com.termux).
-
-Kenapa? Karena Termux sudah tidak lagi diperbarui di Google Play Store sejak 02 November 2020 yang lalu, untuk alasannya silakan baca [halaman dokumentasinya](https://wiki.termux.com/wiki/Termux_Google_Play).
+Setelah itu, Anda dapat mengunduhnya di [F-Droid](https://f-droid.org/repository/browse/?fdid=com.termux) atau melalui [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan di F-Droid karena Termux di Google Play Store masih dalam tahap eksperimen, sehingga rilisan tersebut belumlah stabil ketimbang rilisan di F-Droid.
 
 Ketika Anda sedang menggunakan Termux, maka Anda bisa mengikuti persiapan perangkat lunak untuk sistem operasi berbasis \*nix. Jadi pastikan jika curl, OpenSSL, jq (untuk pengguna cPanel) dan Cron sudah ada di dalam Termux Anda.
 
@@ -605,19 +603,19 @@ Agar Sertifikat SSL/TLS dapat diterbitkan melalui Protokol ACME, maka pengguna d
 
 Verifikasi DNS merupakan sebuah metode yang menggunakan catatan DNS (_DNS Record_) pada Domain untuk memverifikasi bukti kepemilikan domain sebelum sertifikat diterbitkan atau diperbarui.
 
-Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ dan tidak perlu mengakses konten apa pun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer PC, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server/Perangkat terlebih dahulu, selama Anda bisa menjalankan acme.sh di dalam perangkat Anda.
+Verifikasi seperti ini tidak memerlukan keberadaan _Web Server_ dan tidak perlu mengakses konten apa pun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer Desktop, Laptop, dll), tanpa harus mempunyai/menyewa sebuah Server/Perangkat terlebih dahulu, selama Anda bisa menjalankan acme.sh di dalam perangkat Anda.
 
 Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat SSL/TLS untuk semua subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Selain itu, karena Anda ingin memasang sertifikat SSL/TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti Komputer PC, Laptop, Ponsel Pintar Anda atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, karena Anda ingin memasang sertifikat SSL/TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti komputer desktop, laptop, ponsel pintar atau perangkat lain yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
 
-Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui Sertifikat SSL/TLS-nya, maka acme.sh harus dapat mengakses dan mengubah catatan DNS di dalam domain milik Anda dengan mengakses akun penyedia DNS milik Anda.
+Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat SSL/TLS-nya, maka acme.sh harus dapat mengakses dan mengubah catatan DNS di dalam domain milik Anda dengan mengakses akun penyedia DNS milik Anda.
 
 Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah catatan DNS dengan memberinya sebuah kredensial milik Anda, seperti: _API Token_, Kunci API untuk Akses API atau bahkan Nama Pengguna dan Kata Sandi.
 
 **Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara manual, sehingga Anda menambahkan catatan DNS-nya secara manual juga.
 
-Namun sertifikat SSL/TLS tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi catatan DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui Sertifikat SSL/TLS tersebut secara otomatis.
+Namun sertifikat SSL/TLS tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimal 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi catatan DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat tersebut secara otomatis.
 
 Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang otomatis saja ketimbang pake yang manual.
 
@@ -625,7 +623,7 @@ Jadi, kamu gak perlu takut, perkakas acme.sh ini gak bakalan ngumpulin data-data
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
 
-Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif/Penyedia DNS untuk domain Anda, maka Anda perlu membuat kode Token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
+Jika Anda menggunakan Cloudflare sebagai DNS Otoritatif atau penyedia DNS untuk domain Anda, maka Anda perlu membuat kode Token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
 
 Kalau perlu, kamu juga bisa dapatkan **"Zone ID"**-nya juga, agar acme.sh dapat menargetkan domain/zona yang spesifik tanpa harus mencarinya lagi, tetapi itu tidak wajib, kalo menurutmu gak perlu ya gak usah.
 
@@ -869,7 +867,7 @@ acme.sh --issue -d www.domain.com -d domain.com -w $HOME/public_html
 
 Karena domain pertama yang dimasukkan adalah `www.domain.com`, bukan `domain.com` sesuai perintah di atas, maka berkas-berkas yang diperlukan akan tersimpan di dalam direktori `/home/username/.acme.sh/www.domain.com`, bukan di dalam direktori `/home/username/.acme.sh/domain.com`.
 
-Nah, sekarang sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi menggunakan DNS dan tentukan cara menerbitkan Sertifikat SSL/TLS-nya dengan sesuka kamu.
+Nah, sekarang sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi menggunakan DNS dan tentukan cara menerbitkan sertifikat SSL/TLS-nya dengan sesuka kamu.
 
 ### Menerbitkan Sertifikat SSL/TLS dengan menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
 
@@ -909,7 +907,7 @@ Dengan begini, verifikasi dari CA akan berjalan dengan lancar dan sertifikat bis
 
 Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan sertifikat SSL/TLS [dalam bentuk _Wildcard_](#wildcard-ssl), karena verifikasi melalui DNS merupakan salah satu syarat yang wajib.
 
-Selain itu, jika Anda ingin memasang sertifikat SSL/TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti komputer PC, laptop dan ponsel pintar Anda atau di dalam perangkat yang sepenuhnya milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, jika Anda ingin memasang sertifikat SSL/TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti komputer desktop, laptop dan ponsel pintar Anda atau di dalam perangkat yang sepenuhnya milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
 
 Sekadar informasi saja, sebelum menggunakan DNS sebagai metode verifikasinya, saya sarankan agar Anda membaca dan pahami terlebih dahulu bagaimana cara menambahkan kredensial untuk akses API-nya, silakan [klik di sini](#verifikasi-dns-di-acmesh).
 
@@ -2586,7 +2584,7 @@ Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan be
 
 ### Pertanyaan ke-14: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang sertifikat SSL/TLS dengan mengikuti artikel ini, tapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
 
-Jika Anda mempunyai ponsel pintar yang menggunakan sistem operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui ponsel saja dan komputer PC atau laptopnya Anda gunakan untuk meremot ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
+Jika Anda mempunyai ponsel pintar yang menggunakan sistem operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui ponsel saja dan komputer desktop atau laptopnya Anda gunakan untuk meremot ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
 
 Saya sarankan ini karena selain bisa dibawa ke mana-mana (karena berukuran kecil) dan konektivitasnya lebih luas/banyak, ponsel juga bisa diaktifkan lebih lama ketimbang komputer atau laptop kamu, bahkan bisa diaktifkan selama 24/7 jam nonstop kalau kamu mau selama suhu perangkatnya terjaga dan arus listriknya sehat.
 
@@ -2600,7 +2598,7 @@ Untuk saat ini ada dua cara, yakni dengan menggunakan _Cron Job_ yang ada di sal
 
 Di salah satu distribusi WSL, seperti Ubuntu 20.04, Anda dapat menggunakan Cron dengan mengaktifkan layanannya terlebih dahulu dengan perintah `sudo service cron start`, lalu atur _Crontab-nya_ seperti biasa.
 
-Namun, jika sesi distribusi WSL tersebut diterminasi (cth. Diterminasi dengan perintah `wsl -t Nama-Distribusi`, Komputer PC/Laptop dimatikan/_di-shutdown_ atau dimulai ulang/_di-restart_, dll), maka semua proses WSL termasuk proses layanan Cron akan dinonaktifkan, sehingga Anda perlu pakai WSL, lalu aktifkan layanannya dan membiarkan WSL tetap berjalan.
+Namun, jika sesi distribusi WSL tersebut diterminasi (cth. Diterminasi dengan perintah `wsl -t Nama-Distribusi`, komputer desktop/laptop kamu _di-shutdown_ atau _di-restart_, dll), maka semua proses WSL termasuk proses layanan Cron akan dinonaktifkan, sehingga Anda perlu pakai WSL, lalu aktifkan layanannya dan membiarkan WSL tetap berjalan.
 
 Anda bisa eksekusi perintah berikut saat _Start-up_ agar layanan Cron bisa diaktifkan tanpa harus mengakses Terminal WSL:
 
@@ -2612,14 +2610,14 @@ Silakan ganti `<Nama-Distribusi>` dengan Nama Distribusi WSL yang Anda gunakan s
 
 #### Cara ke-2: Menggunakan _Task Scheduler_
 
-Anda juga dapat menggunakan "Task Scheduler" untuk memperbarui SSL secara otomatis, ini lebih cocok jika Anda membuat skripnya dengan terpisah (menjadi Berkas Skrip tersendiri), tetapi Anda juga bisa menjalankan Layanan Cron di WSL saat _Start-up_ dengan "Task Scheduler" juga, kok.
+Anda juga dapat menggunakan "Task Scheduler" untuk memperbarui sertifikat TLS secara otomatis, ini lebih cocok jika Anda membuat skripnya dengan terpisah (menjadi Berkas Skrip tersendiri), tetapi Anda juga bisa menjalankan Layanan Cron di WSL saat _Start-up_ dengan "Task Scheduler" juga, kok.
 
 Caranya sebagai berikut:
 
 1. Buka "**Task Scheduler**"
 2. Di dalam folder "**Task Scheduler Library**", klik "**Create Basic Task**" untuk membuat sebuah "Tugas" baru
-3. Nanti akan muncul dialog Wisaya atau _Wizard_ yang menuntun kamu dalam membuat sebuah Tugas. Pertama-tama, tulis Nama dan Deskripsi tugasnya, lalu klik "**Next >**"
-4. Pada langkah "**Trigger**", nanti kamu menentukan kapan Tugas tersebut dieksekusi/SSL akan diperbarui, di situ ada salah satu opsi berikut yang bisa Anda pilih: (Klik "**Next >**" jika sudah selesai)
+3. Nanti akan muncul dialog Wisaya atau _Wizard_ yang menuntun kamu dalam membuat sebuah tugas. Pertama-tama, tulis nama dan deskripsi tugasnya, lalu klik "**Next >**"
+4. Pada langkah "**Trigger**", nanti kamu menentukan kapan tugas tersebut dieksekusi atau sertifikat akan diperbarui, di situ ada salah satu opsi berikut yang dapat Anda pilih: (Klik "**Next >**" jika sudah selesai)
     - "**Daily**" yang artinya setiap hari
     - "**Weekly**" yang artinya setiap minggu
     - "**Monthly**" yang artinya setiap bulan
@@ -2627,18 +2625,18 @@ Caranya sebagai berikut:
     - "**When the computer starts**" yang artinya setiap kali komputer dinyalakan dan sistem sudah siap, tidak peduli apakah sudah login atau belum
     - "**When I log on**" yang artinya setiap kamu login
 
-5. Jika ada sub-langkah setelah "**Trigger**", maka tentukan kapan Tugas tersebut dieksekusi dengan memilih opsi-opsi yang ada. Klik "**Next >**" jika sudah selesai.
+5. Jika ada sub-langkah setelah "**Trigger**", maka tentukan kapan tugas tersebut dieksekusi dengan memilih opsi-opsi yang ada. Klik "**Next >**" jika sudah selesai.
 6. Pada langkah "**Action**", nanti akan ada 3 pilihan, maka Anda pilih "**Start a program**"
 7. Pada sub-langkah "**Start a program**", nanti akan ada kotak teks yang harus Anda isi, berikut adalah Informasinya: (Klik "**Next >**" jika sudah selesai)
    - Isikan **Program/script** dengan `C:\Windows\System32\wsl.exe`
    - Isikan **Add arguments (optional)** dengan `-d Nama-Distribusi -u nama-pengguna /usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh &`
         - Ganti `Nama-Distribusi` dengan Nama Distribusi WSL yang kamu gunakan
         - Ganti `nama-pengguna` dengan Nama Pengguna/_Username_ di WSL kamu
-        - Ganti `$HOME/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya atau ganti itu dengan `$HOME/.acme.sh/acme.sh --cron` jika Anda menggunakan Metode Pertama dalam membuat skrip.
+        - Ganti `$HOME/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya atau ganti itu dengan `$HOME/.acme.sh/acme.sh --cron` jika Anda menggunakan metode pertama dalam membuat skrip.
 
 8. Pada langkah "**Finish**", kamu akan diperlihatkan tugas yang ingin kamu buat. Periksa terlebih dahulu tugas yang ingin kamu buat sebelum diinangkan, jika merasa yakin, silakan klik "**Finish**".
 
-Cuma kekurangan dari cara "Task Scheduler" adalah jika tugas tersebut dieksekusi, maka akan muncul Jendela/_Window_ yang akibatnya cukup menganggu aktivitas yang sedang Anda lakukan saat menggunakan Aplikasi di Windows (cth. Saat bermain sebuah Gim/Gim Daring, dll)
+Cuma kekurangan dari cara "Task Scheduler" adalah jika tugas tersebut dieksekusi, maka akan muncul Jendela/_Window_ yang akibatnya cukup menganggu aktivitas yang sedang Anda lakukan saat menggunakan aplikasi di Windows (cth. Saat bermain sebuah Gim/Gim Daring, dll)
 
 Mungkin ini bisa diakali jika tugas tersebut dieksekusi setelah kamu masuk/_login_ saja, siapa tahu bisa.
 
@@ -2646,7 +2644,7 @@ Mungkin ini bisa diakali jika tugas tersebut dieksekusi setelah kamu masuk/_logi
 
 Tergantung pada ketidaksempurnaannya/tidak lengkapnya seperti apa, jika Anda hanya memasang sertifikat dan kunci pribadi (_private key_)-nya saja tanpa sertifikat CA-nya, ada perangkat lunak yang mendukung dan ada yang tidak.
 
-Biasanya kebanyakan peramban web di desktop dan seluler (terutama versi terbaru) masih mendukungnya karena mereka memanfaatkan dukungan ekstensi AIA (_Authority Information Access_) yang ada pada sertifikat untuk mengunduh sertifikat penengah (_Intermediate Certificate_) yang hilang sesuai [RFC3280 bagian 4.2.2.1](https://datatracker.ietf.org/doc/html/rfc3280#section-4.2.2.1) dan ada pula yang menembolokan (_cache_) sertifikat penengah untuk melengkapi rantai sertifikat.
+Biasanya kebanyakan peramban web di desktop dan seluler (terutama versi terbaru) masih mendukungnya karena mereka memanfaatkan dukungan ekstensi AIA (_Authority Information Access_) yang tertera di dalam sertifikat untuk mengunduh sertifikat penengah yang hilang sesuai [RFC3280 bagian 4.2.2.1](https://datatracker.ietf.org/doc/html/rfc3280#section-4.2.2.1) dan ada pula yang menembolokan (_cache_) sertifikat penengah untuk melengkapi rantai sertifikat.
 
 Namun, ada beberapa perangkat lunak klien lainnya yang tidak mendukung ekstensi AIA ini dan ada pula yang tidak menembolokan sertifikat penengah, sehingga mereka tidak mendukung sertifikat SSL/TLS yang rantainya tidak lengkap.
 
@@ -2664,7 +2662,7 @@ Kalau kuncinya tidak cocok dengan sertifikatnya, maka akan ada galat seperti cup
 
 Atau, jika Anda tidak memasang sertifikat untuk domainnya, sepertinya Anda sudah bisa menebak apa yang akan terjadi.
 
-Kalau jawabanmu adalah "Sertifikat TLS/SSL menjadi gagal terpasang dan tidak diterima oleh perangkat lunak" maka jawabanmu benar, karena sama saja seperti kamu membuat sebuah Sertifikat, tetapi tidak tahu untuk siapa.
+Kalau jawabanmu adalah "Sertifikat TLS/SSL menjadi gagal terpasang dan tidak diterima oleh perangkat lunak" maka jawabanmu benar, ya karena itu artinya Anda tidak memasang sertifikatnya.
 
 Jadi, pasanglah sertifikatnya dengan benar!
 
@@ -2672,17 +2670,17 @@ Jadi, pasanglah sertifikatnya dengan benar!
 
 USERTrust yang Anda lihat itu bukanlah sertifikat akarnya. Kenapa? Karena ia masih bergantung pada sertifikat "AAA Certificate Services" sebagai sertifikat akar.
 
-Syarat agar menjadi "Sertifikat Akar" adalah bahwa ia tidak mengakar pada sertifikat apa pun, melainkan mengakari sertifikat lain dan dalam hierarki sertifikat SSL/TLS atau rantai kepercayaan, posisi sertifikat akar itu merupakan yang paling tinggi dibandingkan dengan bawahannya.
+Seharusnya "Sertifikat Akar" itu tidak mengakar pada sertifikat apa pun, melainkan mengakari sertifikat lain dan dalam hierarki sertifikat SSL/TLS atau rantai kepercayaan, posisi sertifikat akar itu merupakan yang paling tinggi dibandingkan dengan bawahannya.
 
 Jika Anda bingung, silakan lihat cuplikan berikut:
 
-![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chromium/Chrome 105)](Hierarki_Sertifikat_SSL.webp) ![Hierarki/Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium di GNU/Linux atau setelah versi 105](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
+![Rantai Sertifikat SSL/TLS dari ZeroSSL di Windows 10 (sebelum Chromium/Chrome 105)](Hierarki_Sertifikat_SSL.webp) ![Rantai Sertifikat SSL/TLS dari ZeroSSL di Peramban berbasis Chromium di GNU/Linux atau setelah versi 105](Hierarki_Sertifikat_SSL_di_Chromium_GNU+Linux.webp)
 
-Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk sertifikat SSL/TLS dari ZeroSSL di Windows 10 adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
+Seperti yang Anda lihat pada cuplikan di atas, hierarki tertinggi untuk sertifikat SSL/TLS dari ZeroSSL di Windows 10 (lebih tepatnya di Chrome/Chromium sebelum versi 105) adalah "Sectigo (AAA)" (sebutan lain dari "AAA Certificate Service"), bukan "USERTrust ECC Certification Authority".
 
-Berbeda bila dibandingkan dengan hierarki/rantai sertifikat SSL/TLS di sistem operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta perangkat lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai sertifikat akarnya.
+Berbeda bila dibandingkan dengan rantai sertifikat SSL/TLS di sistem operasi berbasis \*nix seperti GNU/Linux dan Android (terutama versi terbaru), serta perangkat lunak lain seperti Mozilla Firefox yang malah menempatkan "USERTrust ECC Certification Authority" sebagai sertifikat akarnya.
 
-Jadi, sertifikat akar/rantai (atau _Chain of Trust_) yang Anda dapatkan itu bergantung pada perangkat lunak yang Anda gunakan.
+Jadi, sertifikat akar atau rantai (_Chain of Trust_) yang Anda dapatkan itu bergantung pada perangkat lunak yang Anda gunakan.
 
 ### Pertanyaan ke-17: Kenapa Sertifikat Akar/Rantai yang didapat bisa berbeda-beda di tiap perangkat? {#pertanyaan-ke17}
 
@@ -2700,9 +2698,9 @@ Memperbarui perangkat lunak adalah salah satu cara untuk memperbarui masa berlak
 
 Namun, jika tidak bisa diperbarui, maka perangkat lunak akan menggunakan sertifikat akar lama yang tersimpan di dalam tempat penyimpanan sertifikatnya.
 
-Jika sertifikat akar tersebut habis masa berlakunya, maka skenario terburuknya adalah Aplikasi/Web yang terpasang Sertifikat SSL/TLS dengan akar tersebut akan tidak bisa diakses dari perangkat itu sebagaimana mestinya.
+Jika sertifikat akar tersebut habis masa berlakunya, maka skenario terburuknya adalah aplikasi atau web yang terpasang sertifikat dengan akar tersebut akan tidak bisa diakses dari perangkat itu sebagaimana mestinya.
 
-Kalau Anda memakai Windows sebagai sistem operasinya, maka seharusnya Anda tidak perlu khawatir soal ini karena secara otomatis [Windows akan mengunduh sertifikat akarnya untuk Anda](https://community.letsencrypt.org/t/microsoft-windows-root-certificate-lazy-loading/160389) (dengan asumsi bahwa fitur [Pembaruan Sertifikat Akar Otomatis](https://docs.microsoft.com/en-us/answers/questions/202270/how-to-enable-the-34automatic-root-certificates-up.html) dan Windows Update tetap aktif).
+Kalau Anda memakai Windows sebagai sistem operasinya, maka seharusnya Anda tidak perlu khawatir soal ini karena secara otomatis [Windows akan mengunduh sertifikat akarnya untuk Anda](https://community.letsencrypt.org/t/microsoft-windows-root-certificate-lazy-loading/160389) (dengan asumsi bahwa fitur [Pembaruan Sertifikat Akar Otomatis](https://docs.microsoft.com/en-us/answers/questions/202270/how-to-enable-the-34automatic-root-certificates-up.html) yang secara baku sudah aktif dan Windows Update tetap aktif).
 
 Jadi, selama akar tersebut dipercaya oleh Microsoft dan Anda tetap mengaktifkan Windows Update, maka seharusnya aman dan akan lebih baik untuk selalu memperbarui sistem Windows Anda, terutama untuk pengguna Windows 7 (bukan "memperbaharuinya" atau menggantikan versi Windows ke versi terbaru).
 

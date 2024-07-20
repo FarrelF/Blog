@@ -21,9 +21,9 @@ DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tetapi m
 Description: |-
        Artikel kali ini akan membahas cara menggunakan Termux dari Komputer PC atau Laptop Anda.
 
-       Ya, Anda gak salah lihat, artikel ini benar-benar membahasnya. Ini maksudnya adalah _me-remote_ Termux yang ada di Android dari komputer PC/Laptop Anda menggunakan SSH.
+       Ya, Anda gak salah lihat, artikel ini benar-benar membahasnya. Ini maksudnya adalah _me-remote_ Termux yang ada di Android dari komputer desktop/laptop Anda menggunakan SSH.
 
-       Jika terbiasa menggunakan komputer PC/Laptop, mungkin Anda merasa tidak nyaman jika harus mengetik baris perintah di layar ponsel/tablet, apalagi jika baris tersebut panjang kali lebar dan berjumlah banyak?
+       Jika terbiasa menggunakan komputer desktop/laptop, mungkin Anda merasa tidak nyaman jika harus mengetik baris perintah di layar ponsel/tablet, apalagi jika baris tersebut panjang kali lebar dan berjumlah banyak?
 
        Kalau iya, maka artikel ini membahas solusinya, tetapi jika Anda tidak merasa seperti itu yah kalau gak baca juga gak apa-apa.
 ---
@@ -34,11 +34,11 @@ Menggunakan Termux itu bisa menyenangkan jika kamu memiliki tujuan. Jika tidak, 
 
 Namun bagi sebagian orang, mengetik baris perintah dari layar ponsel itu sangatlah tidak nyaman, apalagi jika baris perintah itu panjang kali lebar dan berjumlah banyak.
 
-Jika Anda memiliki perangkat seperti komputer PC/Laptop, selain ponsel Android, mungkin Anda akan lebih nyaman jika mengetik baris perintah tersebut di komputer PC/Laptop ketimbang di layar ponsel?
+Jika Anda memiliki perangkat seperti komputer desktop/laptop, selain ponsel Android, mungkin Anda akan lebih nyaman jika mengetik baris perintah tersebut di komputer desktop/laptop ketimbang di layar ponsel?
 
-Kalau begitu, kenapa gak kamu pakai Termux dari komputer PC/Laptop-mu saja?
+Kalau begitu, kenapa gak kamu pakai Termux dari komputer desktop/laptop-mu saja?
 
-Nah, inilah yang sedang saya bahas di artikel ini, yakni "Cara menggunakan Termux dari komputer PC/Laptop".
+Nah, inilah yang sedang saya bahas di artikel ini, yakni "Cara menggunakan Termux dari komputer desktop/laptop".
 
 Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
@@ -46,17 +46,15 @@ Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
 Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel/Tablet Android Anda dan tentunya sudah terinstal Termux di dalamnya.
 
-Saya sarankan agar selalu gunakan Termux versi terbaru untuk pengalaman yang lebih nyaman dan pastikan Anda mengunduhnya di [F-Droid](https://f-droid.org/en/packages/com.termux/), bukan di Google Play Store.
-
-Kalau kamu telanjur mengunduhnya di Google Play Store, kamu perlu [mencadangkan (_backup_) datanya](https://wiki.termux.com/wiki/Backing_up_Termux) terlebih dahulu, setelah itu hapus Termux-nya, lalu kamu unduh Termux-nya dari F-Droid dan instal lagi, kemudian kembalikan (_restore_) data yang telah kamu cadangkan sebelumnya.
+Termux dapat Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan agar mengunduhnya di F-Droid saja, karena rilisan Google Play Store masih dalam tahap eksperimen, sehingga belum stabil.
 
 Untuk versi Android-nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya agar dapat menggunakan Termux versi terbaru.
 
 Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini dengan perintah `pkg upg -y`, tetapi kalau tidak mau ya gak apa-apa, bisa dicoba dulu.
 
-Pastikan agar komputer/laptop dan ponsel/tablet Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah layanan Internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
+Pastikan agar komputer desktop/laptop dan perangkat Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah layanan internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
 
-Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer PC/Laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
+Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer desktop/laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
 ## Caranya
 
@@ -179,11 +177,11 @@ Ganti `wlan0` yang di atas menjadi antarmuka yang ingin Anda lihat alamat IP-nya
 
 Jika masih bingung, silakan gunakan perintah `ip addr list up` untuk melihat menampilkan semua antarmuka jaringan yang sedang aktif.
 
-Selain menggunakan `ifconfig` dan `ip addr` di Termux, jika komputer/laptop Anda terkoneksi dengan jaringan dari perangkat Android Anda melalui fitur _tethering_ (entah itu melalui Hotspot atau USB), Anda bisa mengetahui Alamat IP lokal dari perangkat Android Anda dengan mengetahui Alamat _Default Gateway_ dari jaringan yang digunakan oleh komputer/laptop Anda.
+Selain menggunakan `ifconfig` dan `ip addr` di Termux, jika komputer desktop/laptop Anda terkoneksi dengan jaringan dari perangkat Android Anda melalui fitur _tethering_ (entah itu melalui Hotspot atau USB), Anda bisa mengetahui Alamat IP lokal dari perangkat Android Anda dengan mengetahui Alamat _Default Gateway_ dari jaringan yang digunakan oleh komputer desktop/laptop Anda.
 
 Kalau bingung, Anda bisa menganggap bahwa Alamat _Default Gateway_ adalah Alamat IP lokal dari perangkat Android Anda.
 
-Jika Anda menggunakan sistem operasi Windows, caranya bisa buka Command Prompt, Windows PowerShell atau PowerShell dari komputer/laptop Anda, terserah mau buka yang mana. Lalu, jalankan perintah berikut:
+Jika Anda menggunakan sistem operasi Windows, caranya bisa buka Command Prompt, Windows PowerShell atau PowerShell dari komputer desktop/laptop Anda, terserah mau buka yang mana. Lalu, jalankan perintah berikut:
 
 ```batch
 ipconfig /all
@@ -193,33 +191,33 @@ Hasilnya akan menampilkan semua antarmuka jaringan yang tersedia di Windows. Car
 
 ![Melihat _Default Gateway_ melalui ipconfig](Default_Gateway_melalui_ipconfig.webp)
 
-Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui klien SSH yang ada di komputer/laptop kamu, jadi jangan sampai lupa!
+Alamat IP yang tampil nantinya akan digunakan untuk _login_ melalui klien SSH yang ada di komputer desktop/laptop kamu, jadi jangan sampai lupa!
 
 **Langkah ke-7:** Terakhir, aktifkan _service_/layanan untuk OpenSSH agar Server SSH dapat diaktifkan ketika Termux dijalankan dengan mengeksekusi perintah `sv enable sshd` di dalam Termux.
 
 ### Mengakses Ponsel Android melalui SSH
 
-Setelah melakukan konfigurasi awal, maka saatnya mengakses perangkat Android dari komputer/laptop Anda.
+Setelah melakukan konfigurasi awal, maka saatnya mengakses perangkat Android dari komputer desktop/laptop Anda.
 
 Berikut adalah caranya:
 
-**Langkah ke-1:** Sekarang gunakan komputer PC/Laptopmu dan jangan akhiri sesi Termux-nya. Coba akses perangkat Android kamu dari komputer PC/Laptopmu melalui SSH dengan melakukan _login_ terlebih dahulu.
+**Langkah ke-1:** Sekarang gunakan komputer desktop/laptopmu dan jangan akhiri sesi Termux-nya. Coba akses perangkat Android kamu dari komputer desktop/laptopmu melalui SSH dengan melakukan _login_ terlebih dahulu.
 
-Anda bisa lakukan ini melalui klien SSH yang ada di komputer PC/Laptop kamu, termasuk PuTTY.
+Anda bisa lakukan ini melalui klien SSH yang ada di komputer desktop/laptop kamu, termasuk PuTTY.
 
 Untuk kredensialnya, cukup masukkan Alamat IP, _Port_ dan kata sandinya saja, tidak perlu kamu masukkan _Username_ atau Nama Penggunanya. Kalaupun kamu ingin memasukkannya, kamu bisa memasukkan _Username_-nya dengan bebas.
 
-Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di komputer/laptop kamu, maka perintah untuk _login_-nya sebagai berikut:
+Jika Anda menggunakan OpenSSH/Dropbear sebagai klien SSH di komputer desktop/laptop kamu, maka perintah untuk _login-nya_ sebagai berikut:
 
 ```shell
 ssh 192.168.100.81 -p 8022
 ```
 
-Silakan ganti `192.168.100.81` menjadi Alamat IP lokal perangkat Android Anda.
+Silakan ganti `192.168.100.81` menjadi alamat IP lokal pada perangkat Android Anda.
 
-Setelah menentukan Alamat IP-nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silakan ganti `8022` di atas dengan _port_ yang digunakan oleh server SSH Anda.
+Setelah menentukan alamat IP-nya, ada parameter `-p` yang menentukan _port_ yang digunakan oleh server, secara baku ia menggunakan _port_ `8022`, jika selain itu, silakan ganti `8022` di atas dengan _port_ yang digunakan oleh server SSH Anda.
 
-Mengenai _Username_-nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena Pengguna/_Username_ Standar di Termux itu cuma satu saja, selain itu hanya ada `root` saja.
+Mengenai _Username_-nya, Anda gak salah lihat, di sini saya tidak memakai _Username_, karena pengguna standar di Termux itu cuma satu, selain itu hanya ada `root` saja.
 
 Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_ satu sama lain sama sekali, semuanya mengarah pada satu _Username_ yang sama, bahkan ketika Anda mengisinya dengan bebas sekalipun.
 
@@ -231,7 +229,7 @@ Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH
 
 ![Setelah login Termux melalui SSH](Termux_SSH_Login.webp)
 
-Di langkah ini, kamu sudah bisa mengontrol/menggunakan Termux dari Komputer/Laptop kamu, sekarang coba eksekusikan perintah yang kamu mau.
+Di langkah ini, kamu sudah bisa mengontrol/menggunakan Termux dari komputer desktop/laptop kamu, sekarang coba eksekusikan perintah yang kamu mau.
 
 Sebagai contoh, di sini saya ingin menginstal Neofetch di Termux, maka perintahnya adalah sebagai berikut:
 
@@ -239,7 +237,7 @@ Sebagai contoh, di sini saya ingin menginstal Neofetch di Termux, maka perintahn
 pkg i neofetch
 ```
 
-Setelah terinstal, saya eksekusikan perintah `neofetch` dari komputer/laptop, maka kira-kira hasilnya akan seperti cuplikan berikut:
+Setelah terinstal, saya eksekusikan perintah `neofetch` dari komputer desktop/laptop, maka kira-kira hasilnya akan seperti cuplikan berikut:
 
 ![Hasil dari salah satu perintah yang dieksekusikan oleh Termux secara 'Remote'](Termux_SSH_Neofetch.webp)
 
@@ -355,29 +353,29 @@ Setelah membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola p
 
 **Bagaimana jika saya bukan pengguna Android 11?** Mungkin cara di atas bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu selain itu.
 
-### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari Komputer/Laptop saya, padahal sudah di dalam jaringan yang sama dan Alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
+### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari komputer desktop/laptop saya, padahal sudah di dalam jaringan yang sama dan alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
 
 **Jawab:** Banyak faktor sebenarnya mengenai hal ini, salah satunya adalah:
 
-1. _Firewall_ (Baik yang dilakukan oleh sistem operasi, aplikasi pihak ketiga, perangkat _router_, _access point_ atau ONT, dll) yang memblokir Alamat IP, aplikasi ataupun akses tertentu
+1. _Firewall_ (Baik yang dilakukan oleh sistem operasi, aplikasi pihak ketiga, perangkat _router_, _access point_ atau modem ONT, dll) yang memblokir alamat IP, aplikasi ataupun akses tertentu
 2. Alamat IP Lokal yang Anda dapatkan itu sudah digunakan oleh orang lain (Alamat IP Duplikat). Ini mungkin akan terjadi jika Anda berada di tempat ramai atau Anda menggunakan MAC Acak saat terkoneksi ke jaringan yang mana Anda akan mendapatkan Alamat IP yang acak juga
 3. Jaringan yang Anda gunakan mungkin tidak mengizinkan akses ke perangkat lain secara lokal untuk alasan keamanan, seperti jaringan [wifi.id](https://wifi.id) oleh Grup Telkom
 4. Dan faktor-faktor lainnya
 
 Solusi yang bisa Anda coba salah satunya yaitu:
 
-1. Periksa kembali Alamat IP yang Anda tuju, pastikan bahwa Alamat IP-nya sudah benar
+1. Periksa kembali alamat IP yang Anda tuju, pastikan bahwa alamat IP-nya sudah benar
 2. Periksa setelan _Firewall_ Anda, baik dari bawaan sistem operasi, aplikasi pihak ketiga atau dari Router/ONT sekali pun, jika terblokir maka Anda harus membuka aksesnya. Kalau perlu, Anda juga dapat mematikan _Firewall-nya_ terlebih dahulu untuk sementara waktu
-3. Coba usahakan untuk tidak menggunakan Alamat MAC yang Acak terlebih dahulu agar memperkecil kemungkinan untuk mendapatkan Alamat IP yang sama. Jika Anda tidak ingin menggunakan Alamat MAC Asli ataupun tidak bisa, bisa Anda coba ganti Alamat IP-nya
+3. Coba usahakan untuk tidak menggunakan alamat MAC yang Acak terlebih dahulu agar memperkecil kemungkinan untuk mendapatkan alamat IP yang sama. Jika Anda tidak ingin menggunakan alamat MAC asli ataupun tidak bisa, bisa Anda coba ganti Alamat IP-nya
 4. Coba koneksikan ke jaringan lokal lain, jangan gunakan jaringan Wi-Fi yang memerlukan login seperti wifi.id, Biznet Wifi, dll
 5. Buatlah jaringan lokal sendiri, berikut di bawah ini adalah salah satu caranya:
     - Untuk pengguna Android: Anda dapat menggunakan fitur **Penambatan Hotspot** (bahasa Inggris: **Hotspot Tethering**) untuk membuat jaringan lokal sendiri secara nirkabel.
 
         Jika Anda sedang tersambung melalui koneksi Wi-Fi di perangkat, pastikan perangkat Android yang Anda miliki telah mengaktifkan fitur **Wi-Fi Sharing**, **Berbagi Wi-Fi**, dan fitur sejenis lainnya agar koneksi Wi-Fi tidak terputus saat penambatan diaktifkan
 
-    - Selain **Penambatan Hotspot**, Anda juga dapat menggunakan fitur **Penambatan USB** (bahasa Inggris: **USB Tethering**) untuk membuat jaringan lokal yang langsung terhubung ke komputer PC/Laptop dari perangkat Android Anda melalui kabel USB
+    - Selain **Penambatan Hotspot**, Anda juga dapat menggunakan fitur **Penambatan USB** (bahasa Inggris: **USB Tethering**) untuk membuat jaringan lokal yang langsung terhubung ke komputer desktop/laptop dari perangkat Android Anda melalui kabel USB
 
-    - Untuk pengguna Windows 10 atau di atasnya: Anda bisa menggunakan fitur **Mobile Hotspot** di dalam Windows 10 (atau di atasnya) bagi pengguna komputer PC/Laptop untuk membuat jaringan lokal secara nirkabel
+    - Untuk pengguna Windows 10 atau di atasnya: Anda bisa menggunakan fitur **Mobile Hotspot** di dalam Windows 10 (atau di atasnya) bagi pengguna komputer desktop/laptop untuk membuat jaringan lokal secara nirkabel
 
 Nah, itu saja penyebab dari masalah ini beserta solusi yang bisa Anda coba salah satunya.
 
