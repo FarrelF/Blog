@@ -1,5 +1,5 @@
 ---
-Title: Cara menggunakan Termux dari Komputer PC/Laptop melalui SSH
+Title: Cara menggunakan Termux dari Komputer Desktop/Laptop melalui SSH
 Slug: cara-menggunakan-termux-dari-komputer
 Author: Farrel Franqois
 Categories: 
@@ -17,15 +17,15 @@ Tags:
 _build:
     publishResources: false
 readMore: true
-DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tetapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer kamu!
+DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer desktop/laptop kamu!
 Description: |-
-       Artikel kali ini akan membahas cara menggunakan Termux dari Komputer PC atau Laptop Anda.
+       Artikel kali ini akan membahas cara menggunakan Termux dari Komputer Desktop atau Laptop Anda.
 
        Ya, Anda gak salah lihat, artikel ini benar-benar membahasnya. Ini maksudnya adalah _me-remote_ Termux yang ada di Android dari komputer desktop/laptop Anda menggunakan SSH.
 
        Jika terbiasa menggunakan komputer desktop/laptop, mungkin Anda merasa tidak nyaman jika harus mengetik baris perintah di layar ponsel/tablet, apalagi jika baris tersebut panjang kali lebar dan berjumlah banyak?
 
-       Kalau iya, maka artikel ini membahas solusinya, tetapi jika Anda tidak merasa seperti itu yah kalau gak baca juga gak apa-apa.
+       Kalau iya, maka artikel ini membahas solusinya, tapi jika Anda tidak merasa seperti itu yah kalau gak baca juga gak apa-apa.
 ---
 
 ## Pembuka
@@ -46,11 +46,11 @@ Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
 Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel/Tablet Android Anda dan tentunya sudah terinstal Termux di dalamnya.
 
-Termux dapat Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan agar mengunduhnya di F-Droid saja, karena rilisan Google Play Store masih dalam tahap eksperimen, sehingga belum stabil.
+Termux dapat Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan agar mengunduhnya di F-Droid saja, karena rilisan Google Play Store masih dalam tahap eksperimen, sehingga belum stabil dan aplikasi _add-on_ Termux (seperti "Termux:Boot") di Google Play Store berbayar ketimbang kamu mengunduhnya di F-Droid.
 
 Untuk versi Android-nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya agar dapat menggunakan Termux versi terbaru.
 
-Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini dengan perintah `pkg upg -y`, tetapi kalau tidak mau ya gak apa-apa, bisa dicoba dulu.
+Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikuti ini dengan perintah `pkg upg -y`, tapi kalau tidak mau ya gak apa-apa, bisa dicoba dulu.
 
 Pastikan agar komputer desktop/laptop dan perangkat Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah layanan internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
 
@@ -90,7 +90,7 @@ Atau, di bawah ini jika Anda ingin menggunakan APT:
 apt update; apt install -y nmap iproute2
 ```
 
-**Langkah ke-3:** Kamu perlu menyetel kata sandi untuk nama pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan "Enter", tanpa perlu mengingat/menyebutkan nama penggunanya secara spesifik dan tanpa perlu memasukkan argumen apa pun.
+**Langkah ke-3:** Kamu perlu menyetel kata sandi untuk nama pengguna yang kamu gunakan dengan mengetikkan `passwd` di dalam Termux, lalu tekan <kbd>&#8629; Enter</kbd>, tanpa perlu mengingat/menyebutkan nama penggunanya secara spesifik dan tanpa perlu memasukkan argumen apa pun.
 
 Setelah itu, masukkan kata sandi baru yang Anda inginkan, itu akan digunakan untuk _login_ ke dalam SSH-nya nanti, kata sandi yang Anda masukkan tidak tampil di konsol, jadi jangan sampai lupa!
 
@@ -105,9 +105,9 @@ New password was successfully set.
 
 Ini serius, kamu gak perlu menyebutkan ataupun mengingat Nama Pengguna (_Username_)-nya.
 
-**Langkah ke-4:** Aktifkan server SSH-nya dengan mengetik `sshd` di dalam Termux, lalu tekan "Enter"
+**Langkah ke-4:** Aktifkan server SSH-nya dengan mengetik `sshd` di dalam Termux, lalu tekan <kbd>&#8629; Enter</kbd>
 
-**Langkah ke-5:** Cek terlebih dahulu untuk memastikan server SSH aktif di Termux dengan mengetikkan `pidof sshd`, lalu tekan "Enter".
+**Langkah ke-5:** Cek terlebih dahulu untuk memastikan server SSH aktif di Termux dengan mengetikkan `pidof sshd`, lalu tekan <kbd>&#8629; Enter</kbd>.
 
 Jika tidak ada hasil keluaran apa pun, maka artinya server SSH tidak dalam keadaan aktif.
 
@@ -133,7 +133,7 @@ Jika ada tulisan seperti `8022/tcp open oa-system` di atas, maka artinya Server 
 
 Oh iya, jangan lupa bahwa `8022` adalah _port_ yang digunakan oleh server SSH, jadi ketika Anda login untuk akses SSH, pastikan agar menggunakan _port_ `8022` nantinya.
 
-**Langkah ke-6:** Perlu Anda ketahui terlebih dahulu Alamat IP jaringan yang ada pada perangkat Anda atau Alamat IP lokalnya dengan mengetikkan `ifconfig` di Termux, lalu tekan "Enter".
+**Langkah ke-6:** Perlu Anda ketahui terlebih dahulu alamat IP jaringan yang ada pada perangkat Anda atau alamat IP lokalnya dengan mengetikkan `ifconfig` di Termux, lalu tekan <kbd>&#8629; Enter</kbd>.
 
 Contoh keluarannya akan seperti berikut:
 
@@ -153,11 +153,11 @@ wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1460
          unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 3000  (UNSPEC)
 ```
 
-Seperti yang Anda lihat di atas, bahwa Alamat IP lokal untuk antarmuka sambungan Wi-Fi (`wlan0`) yang saya dapatkan adalah `192.168.100.81` yang letaknya berada di paling bawah.
+Seperti yang Anda lihat di atas, bahwa alamat IP lokal untuk antarmuka sambungan Wi-Fi (`wlan0`) yang saya dapatkan adalah `192.168.100.81` yang letaknya berada di paling bawah.
 
-Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari Alamat IP-nya.
+Mungkin hasilnya akan berbeda di perangkat Anda, jadi pastikan Anda lebih teliti dalam mencari alamat IP-nya.
 
-Jika Anda menggunakan **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**), maka cari Alamat IP Anda di antarmuka `ap0` atau `swlan0`, bukan `wlan0`. Sedangkan jika menggunakan fitur **USB Tethering** (bahasa Indonesia: **Penambatan USB**), maka Anda bisa menggantinya dengan `usb0` atau `rndis0`.
+Jika Anda menggunakan **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**), maka cari alamat IP Anda di antarmuka `ap0` atau `swlan0`, bukan `wlan0`. Sedangkan jika menggunakan fitur **USB Tethering** (bahasa Indonesia: **Penambatan USB**), maka Anda bisa menggantinya dengan `usb0` atau `rndis0`.
 
 Mungkin nama antarmukanya akan berbeda di perangkat-perangkat tertentu, jadi sesuaikan itu dengan yang ada di perangkat Android Anda.
 
@@ -223,7 +223,7 @@ Oleh karena itu, OpenSSH yang ada pada Termux itu tidak membandingkan _Username_
 
 Sehingga OpenSSH pada Termux ini sangat berbeda bila dibandingkan dengan OpenSSH yang ada di Sistem lain, berdasarkan [tambalan](https://github.com/termux/termux-packages/blob/6499dede84dae2ecfbb1c1a2914526b78d4ff24a/packages/openssh/auth.c.patch) yang dilakukan oleh mereka.
 
-**Langkah ke-2:** Jika ada pesan yang menyatakan **"Are you sure you want to continue connecting?"**, ketik saja `yes`, lalu tekan "Enter". Setelah itu, masukkan kata sandinya.
+**Langkah ke-2:** Jika ada pesan yang menyatakan **"Are you sure you want to continue connecting?"**, ketik saja `yes`, lalu tekan <kbd>&#8629; Enter</kbd>. Setelah itu, masukkan kata sandinya.
 
 **Langkah ke-3:** Jika berhasil, maka akan muncul _Prompt_ yang bisa Anda gunakan untuk mengetik baris perintah, seperti cuplikan berikut:
 
@@ -249,20 +249,20 @@ Bagaimana? Mudah sekali, bukan? Namun artikel ini belum selesai sampai sini saja
 
 ### Menggunakan SFTP
 
-Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, mengubah dan menghapus berkas-berkas yang ada di dalam Ponsel Android Anda berkat dukungan protokol SFTP.
+Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, mengubah dan menghapus berkas-berkas yang ada di dalam ponsel Android Anda berkat dukungan protokol SFTP.
 
-Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai Server SSH di dalam Termux kamu, maka Protokol SFTP secara otomatis diaktifkan.
+Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai server SSH di dalam Termux kamu, maka protokol SFTP secara otomatis diaktifkan.
 
-Agar bisa mengakses SFTP-nya, Anda perlu sebuah Aplikasi FTP untuk itu, untuk kasus ini saya memakai [FileZilla](https://filezilla-project.org/).
+Agar bisa mengakses SFTP-nya, Anda perlu sebuah aplikasi FTP untuk itu, dalam kasus ini saya memakai [FileZilla](https://filezilla-project.org/).
 
-Selain FileZilla, Anda juga dapat menggunakan aplikasi lain seperti [WinSCP](https://winscp.net/), [CyberDuck](https://cyberduck.io/), dll. Hanya saja, dalam kasus ini saya memakai FileZilla.
+Selain FileZilla, Anda juga dapat menggunakan aplikasi lain seperti [WinSCP](https://winscp.net/), [CyberDuck](https://cyberduck.io/), dll.
 
-Setelah terinstal, buka Aplikasi tersebut, lalu Anda harus mengisi kredensialnya berikut di bawah ini di dalam Aplikasinya untuk menggunakan SFTP:
+Setelah terinstal, buka aplikasi tersebut, lalu Anda harus mengisi kredensialnya berikut di bawah ini di dalam aplikasinya untuk menggunakan SFTP:
 
 - Hos (_Host_): `sftp://ALAMAT_IP_KAMU` (cth. `sftp://192.168.100.81`) atau `sftp://ALAMAT_IP_KAMU:PORT` (cth. `sftp://192.168.100.81:8022`)
-- Nama Pengguna (_Username_): Wajib diisi, tidak boleh kosong, tetapi bisa Anda isi bebas
+- Nama Pengguna (_Username_): Wajib diisi, tidak boleh kosong, tapi bisa Anda isi bebas
 - Kata Sandi (_Password_): Isi ini dengan kata sandi Termux Anda
-- _Port_: Isi dengan _Port_ yang digunakan oleh server SSH kamu, _Port_ bakunya adalah `8022`, jadi isi itu dengan `8022` (sebaiknya jangan diisi jika Anda sudah mengisi _port_-nya saat mengisikan Alamat URL Hos)
+- _Port_: Isi dengan _port_ yang digunakan oleh server SSH kamu, _port_ bakunya adalah `8022`, jadi isi itu dengan `8022` (sebaiknya jangan diisi jika Anda sudah mengisi _port_-nya saat mengisikan Alamat URL Hos)
 
 Setelah memasukkan semua informasi/kredensial di atas, silakan lakukan _login_, jika Anda menggunakan FileZilla, Anda bisa klik pada _Button_ **Quickconnect** (atau terjemahan bahasa Indonesia-nya adalah **Koneksi Cepat**).
 
@@ -288,16 +288,19 @@ Jika Anda memiliki pertanyaan, silakan tanyakan itu di dalam kolom komentar yang
 
 Namun, tidak ada salahnya untuk membaca terlebih dahulu pertanyaan dan jawaban berikut sebagai referensi buat Anda sebelum bertanya.
 
-### Pertanyaan ke-1: Bagaimana caranya agar Server SSH bisa diaktifkan secara otomatis setelah Perangkat _di-boot_ tanpa perlu mengaktifkannya lagi di Termux secara manual? {#pertanyaan-ke1}
+### Pertanyaan ke-1: Bagaimana caranya agar server SSH bisa diaktifkan secara otomatis setelah perangkat _di-boot_ tanpa perlu mengaktifkannya lagi di Termux secara manual? {#pertanyaan-ke1}
 
 **Jawab:** Anda bisa melakukannya dengan cara berikut:
 
-1. Unduh dan Instal Aplikasi [**Termux:Boot**](https://f-droid.org/packages/com.termux.boot/) dari F-Droid, pastikan Anda mengunduh Termux-nya di F-Droid juga, bukan di Google Play Store, jangan dicampur-campur!
-2. Pergi ke Setelan Android Anda, lalu nonaktifkan fitur "Pengoptimalan Baterai" untuk Aplikasi **Termux** dan **Termux:Boot**.
+1. Unduh dan Instal Aplikasi **Termux:Boot** di salah satu tempat berikut: (Pilih salah satu, sesuaikan dengan tempat unduh Termux Anda, jangan dicampur-campur!)
+    - Di [F-Droid](https://f-droid.org/packages/com.termux.boot/) jika Anda mengunduh Termux-nya di F-Droid (Gratis)
+    - Di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux.boot) jika Anda mengunduh Termux-nya di Google Play Store (Perlu bayar sebesar Rp29.000,00 dan itu belum termasuk PPN)
+2. Pergi ke setelan Android Anda, lalu nonaktifkan fitur "Pengoptimalan Baterai" untuk Aplikasi **Termux** dan **Termux:Boot**
 3. Buka Aplikasi **Termux:Boot** dengan mengklik ikon aplikasi di _Launcher_/Peluncur Anda. Ini mengizinkan agar Termux bisa dijalankan secara otomatis setelah perangkat _di-boot_
 4. Buka Aplikasi **Termux**-nya, lalu buatlah direktori `~/.termux/boot/` di sana dengan perintah: `mkdir -p ~/.termux/boot/`
 5. Buatlah berkas skripnya di sana (`~/.termux/boot/`), nama berkasnya bisa bebas, tetapi contoh kali ini saya menamainya dengan `startup-script`
-6. Isilah berkas `startup-script` dengan skrip yang ingin Anda jalankan saat perangkat sudah _di-boot_ dan awali terlebih dahulu dengan `/data/data/com.termux/files/usr/bin/sh` sebagai _shebang_
+6. Isikan berkas `startup-script` dengan skrip yang ingin Anda jalankan saat perangkat sudah _di-boot_ dan awali terlebih dahulu dengan `/data/data/com.termux/files/usr/bin/sh` sebagai _shebang_
+7. Jika sudah selesai, simpan berkas tersebut dan izinkan agar berkas tersebut dapat dieksekusi dengan mengeksekusi perintah `chmod +x startup-script`
 
 Oh iya, setelah menentukan _shebang_-nya, mungkin memasukkan perintah `termux-wake-lock` akan sangat membantu agar perangkat tidak "tertidur" dan Termux bisa tetap berjalan di latar belakang.
 
@@ -351,7 +354,7 @@ Jika Anda mengalami ini dan merupakan pengguna Android 11, mungkin bisa coba sel
 
 Setelah membukanya kembali, maka seharusnya Anda dapat mengakses dan mengelola penyimpanan perangkat dari Termux tanpa terkena galat "Permission Denied" lagi.
 
-**Bagaimana jika saya bukan pengguna Android 11?** Mungkin cara di atas bisa Anda coba terlebih dahulu, selebihnya saya kurang tahu selain itu.
+**Bagaimana jika saya bukan pengguna Android 11?** Mungkin cara di atas dapat Anda coba terlebih dahulu, selebihnya saya kurang tahu selain itu.
 
 ### Pertanyaan ke-4: Mengapa saya masih tidak bisa mengakses Termux dari komputer desktop/laptop saya, padahal sudah di dalam jaringan yang sama dan alamat IP yang saya masukkan benar? {#pertanyaan-ke4}
 
