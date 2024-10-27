@@ -17,7 +17,7 @@ Tags:
     - macOS
     - Android
 readMore: true
-DescriptionSEO: Apakah Anda ingin menginstal Hugo, tetapi tidak tahu caranya? Jika iya, Anda bisa kunjungi artikel ini
+DescriptionSEO: Apakah Anda ingin menginstal Hugo, tapi tidak tahu caranya? Jika iya, Anda bisa kunjungi artikel ini
 Description: |-
     Artikel ini akan membahas tentang apa itu Hugo dan cara install-nya, baik itu di dalam Windows, GNU/Linux, macOS, Android, dll.
 
@@ -48,7 +48,7 @@ Namun, secara resmi Hugo Extended memiliki dukungan yang lebih sedikit dibanding
 - Sistem Operasi berbasiskan Linux yang berarsitektur x64 dan ARM64, serta perlu "GNU C Library" (glibc)
 - macOS yang berarsitektur x64 dan ARM64 (itu pun dicampur jadi satu berkas biner)
 
-Meskipun secara resmi Hugo Extended hanya disediakan untuk _platform_ di atas saja, akan tetapi Anda juga bisa menginstalnya di _platform_ lain, salah satunya adalah Void Linux dan Termux di Android walau bukan resmi dari pengembang, nanti akan saya bahas cara instalnya.
+Meskipun secara resmi Hugo Extended hanya disediakan untuk _platform_ di atas saja, akan tapi Anda juga bisa menginstalnya di _platform_ lain, salah satunya adalah Void Linux dan Termux di Android walau bukan resmi dari pengembang, nanti akan saya bahas cara instalnya.
 
 ## Cara Install Hugo
 
@@ -62,19 +62,19 @@ Berikut adalah cara instalasinya:
 
 #### Pengelola Paket Scoop
 
-Jika Anda menggunakan [Scoop](https://scoop.sh) sebagai Pengelola Paket di Windows, Anda bisa menginstal Hugo dengan perintah berikut:
+Anda dapat menginstal Hugo melalui [Scoop](https://scoop.sh) sebagai pengelola paket di Windows dengan perintah berikut:
 
 ```powershell
 scoop install hugo
 ```
 
-Atau, ganti `hugo` jadi `hugo-extended` jika Anda ingin menginstal Hugo Extended, seperti berikut:
+Perintah di atas akan menginstal Hugo dalam varian biasa, jika Anda ingin menginstal Hugo Extended, ganti `hugo` jadi `hugo-extended`, seperti berikut:
 
 ```powershell
 scoop install hugo-extended
 ```
 
-Perintah di atas akan menginstal Hugo di dalam Direktori Pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di Semua Pengguna, maka perlu menambahkan argumen `-g`.
+Perintah di atas akan menginstal Hugo di dalam direktori pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `-g`.
 
 Perintahnya akan menjadi seperti berikut:
 
@@ -82,7 +82,7 @@ Perintahnya akan menjadi seperti berikut:
 scoop install hugo-extended -g
 ```
 
-Namun, Anda perlu membuka Command Prompt, Windows Terminal, atau PowerShell-nya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
+Namun, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell-nya, atau aplikasi terminal lainnya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
 
 Jika Anda sudah menginstal `sudo` melalui Scoop atau [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
 
@@ -96,7 +96,7 @@ Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `update
 
 #### Pengelola Paket Chocolatey
 
-Jika Anda menggunakan [Chocolatey](https://chocolatey.org/) sebagai Pengelola Paket di Windows, Anda bisa menginstal Hugo dengan perintah berikut:
+Anda dapat menginstal Hugo melalui [Chocolatey](https://chocolatey.org/) sebagai pengelola paket di Windows dengan perintah berikut:
 
 ```powershell
 choco install hugo
@@ -113,10 +113,28 @@ Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrad
 {{< info title="**Catatan:**" >}}
 Secara baku, Chocolatey akan menginstal paket-paketnya di dalam direktori `%ProgramData%\chocolatey`, sehingga paket yang terinstal dapat diakses oleh semua pengguna di dalam 1 sistem.
 
-Namun, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
+Namun, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau aplikasi terminal lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
 
 Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
 {{< / info >}}
+
+#### Pengelola Paket WinGet
+
+Anda dapat menginstal Hugo Extended melalui WinGet sebagai pengelola paket di Windows dengan perintah berikut:
+
+```powershell
+winget install --name "Hugo (Extended)"
+```
+
+Secara baku, perintah di atas akan menginstal Hugo Extended di dalam direktori pengguna, jika Anda ingin Hugo-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `--scope machine`, contohnya seperti berikut:
+
+```powershell
+winget install --name "Hugo (Extended)" --scope machine
+```
+
+Namun, perlu diingat bahwa Anda perlu membuka Windows Terminal, Command Prompt, PowerShell, atau aplikasi terminal lainnya sebagai Administrator agar dapat menjalankan perintah dengan argumen di atas.
+
+Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrade`.
 
 #### Berkas Biner, tanpa Pengelola Paket (Manual)
 
@@ -176,7 +194,7 @@ Jika Anda tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, m
 
     Biasanya, perubahan pada variabel `PATH` tidak akan berefek jika sesinya masih ada. Jika Anda tidak membuka Terminalnya, silakan Anda membukanya terlebih dahulu, entah itu Command Prompt, Windows Terminal, PowerShell, dll.
 
-8. Setelah Anda membuka Terminalnya, silakan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
+8. Setelah Anda membuka Terminal-nya, silakan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
 ```plain
 {{< hugo-version-long isExtended=true platform="windows/amd64" >}}
@@ -185,8 +203,6 @@ Jika Anda tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, m
 9. Selamat! Anda telah berhasil menginstal Hugo. Jika Anda ingin memperbarui versi Hugo-nya, cukup unduh lagi berkas binernya, lalu tinggal timpakan berkas lamanya.
 
 Nah, untuk Windows-nya saya cukupkan di sini dulu, berikutnya saya bahas Cara Install Hugo untuk Sistem Operasi GNU/Linux.
-
-WinGet? Sayang sekali, itu masih belum ada hingga saat ini, jadi Anda harus menggunakan metode lain selain WinGet tentunya.
 
 ### GNU/Linux {#gnu-linux}
 
@@ -263,7 +279,7 @@ Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di
 
 #### Fedora, CentOS, RHEL dan Keluarganya (Tidak Resmi)
 
-Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat memasangnya melalui repositori dari luar (dari [`daftaupe`](https://copr.fedorainfracloud.org/coprs/daftaupe/)). Walau itu bukan resmi, tetapi disarankan oleh komunitas, jadi bisa Anda percayakan.
+Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat memasangnya melalui repositori dari luar (dari [`daftaupe`](https://copr.fedorainfracloud.org/coprs/daftaupe/)). Walau itu bukan resmi, tapi disarankan oleh komunitas, jadi bisa Anda percayakan.
 
 Untuk menambahkan repositori sekaligus menginstalnya, Anda dapat mengeksekusi perintah berikut:
 
@@ -274,15 +290,18 @@ sudo dnf install hugo
 
 Untuk lebih lanjut, silakan kunjungi [halaman unduh repositorinya](https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/).
 
-**Catatan:** Saya tidak memakai Fedora, CentOS, RHEL dan keluarganya, tetapi berdasarkan [spesifikasinya](https://gitlab.com/daftaupe/hugo-rpm/-/blob/master/SPECS/hugo.spec), varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
+**Catatan:** Saya tidak memakai Fedora, CentOS, RHEL dan keluarganya, tapi berdasarkan [spesifikasinya](https://gitlab.com/daftaupe/hugo-rpm/-/blob/master/SPECS/hugo.spec), varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
 
 #### openSUSE Leap/Tumbleweed dan Keluarganya (Tidak Resmi)
 
 Jika Anda adalah pengguna openSUSE Leap/Tumbleweed atau keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps), jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
 
 ```shell {linenos=true}
-### Untuk Pengguna openSUSE Leap 15.4
-sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/15.4/home:darix:apps.repo
+### Untuk Pengguna openSUSE Leap 15.5
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/15.5/home:darix:apps.repo
+
+### Untuk Pengguna openSUSE Leap 15.6
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/15.6/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Tumbleweed
 sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
@@ -296,7 +315,7 @@ sudo sh -c 'zypper ref; zypper in hugo'
 
 Untuk lebih lanjut. silakan kunjungi [halaman unduh repositorinya](https://software.opensuse.org/download/package?package=hugo&project=home%3Adarix%3Aapps).
 
-**Catatan:** Saya tidak memakai SUSE Linux Enterprise, openSUSE dan Keluarganya, tetapi berdasarkan [konfigurasinya](https://build.opensuse.org/package/view_file/home:darix:apps/hugo/hugo.spec?expand=1), kemungkinan varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Namun, arsitektur sistem yang didukung hanyalah `x86_64` saja.
+**Catatan:** Saya tidak memakai SUSE Linux Enterprise, openSUSE dan keluarganya, tapi berdasarkan [konfigurasinya](https://build.opensuse.org/package/view_file/home:darix:apps/hugo/hugo.spec?expand=1), kemungkinan varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Namun, arsitektur sistem yang didukung hanyalah `x86_64` saja.
 
 #### Arch Linux, Manjaro dan Keluarganya
 
@@ -328,7 +347,7 @@ Jika Anda menggunakan Solus atau keluarganya, maka Anda dapat menginstalnya deng
 sudo eopkg install hugo
 ```
 
-**Catatan:** Saya tidak memakai Solus dan Keluarganya, tetapi berdasarkan [konfigurasinya](https://dev.getsol.us/source/hugo/browse/master/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan keluarganya adalah varian Extended.
+**Catatan:** Saya tidak memakai Solus dan keluarganya, tapi berdasarkan [konfigurasinya](https://github.com/getsolus/packages/blob/main/packages/h/hugo/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan keluarganya adalah varian Extended.
 
 #### Void Linux dan Keluarganya
 
@@ -338,7 +357,7 @@ Jika Anda adalah pengguna Void Linux atau keluarganya, Anda dapat menginstal Hug
 sudo xbps-install -S hugo
 ```
 
-**Catatan:** Saya tidak memakai Void Linux dan keluarganya, tetapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan keluarganya adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x86_64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
+**Catatan:** Saya tidak memakai Void Linux dan keluarganya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan keluarganya adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x86_64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
 
 #### Homebrew (Lebih Universal)
 
@@ -348,7 +367,7 @@ Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Unive
 brew install hugo
 ```
 
-**Catatan:** Saya tidak memakai Pengelola Paket Homebrew, tetapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Pengelola Paket Homebrew adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
+**Catatan:** Saya tidak memakai Homebrew sebagai pengelola paket, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/master/Formula/h/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Homebrew adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
 
 #### Snap (Lebih Universal)
 
@@ -361,11 +380,11 @@ sudo snap install hugo
 Perintah di atas akan menginstal Hugo Extended.
 
 {{< info title="Catatan:" >}}
-Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan Systemd sebagai ketergantungan, sehingga Distribusi yang Anda gunakan harus memakai Systemd sebagai Init agar Snap bisa digunakan.
+Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan Systemd sebagai ketergantungan, sehingga distribusi yang Anda gunakan harus memakai Systemd sebagai Init agar Snap bisa digunakan.
 
-Jika Anda menggunakan Distribusi non-systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, GUIX dan Keluarganya dan lainnya, maka kemungkinan besar Anda tidak dapat menggunakan Pengelola Paket Snap.
+Jika Anda menggunakan distribusi yang tidak memakai systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, GUIX dan keluarganya dan lainnya, maka kemungkinan besar Anda tidak dapat menggunakan pengelola paket Snap.
 
-Makanya di awal saya bilang "lebih Universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan Pengelola Paket bawaan.
+Makanya di awal saya bilang "lebih universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan pengelola paket bawaan.
 {{< / info >}}
 
 #### Pengelola Paket Nix (Lebih Universal)
@@ -376,7 +395,7 @@ Jika Anda ingin menggunakan [Pengelola Paket Nix](https://nixos.org/) yang lebih
 nix-shell -p hugo
 ```
 
-Perintah di atas akan tetap menginstal Hugo, tetapi di dalam nix-shell yang dikhususkan untuk Hugo, setelah diinstal Anda akan masuk ke dalam nix-shell dan Hugo hanya bisa dijalankan dari sana.
+Perintah di atas akan tetap menginstal Hugo, tapi di dalam nix-shell yang dikhususkan untuk Hugo, setelah diinstal Anda akan masuk ke dalam nix-shell dan Hugo hanya bisa dijalankan dari sana.
 
 Jadi, jika Anda menginstalnya dengan perintah di atas, agar Hugo dapat dijalankan sewaktu-waktu, maka Anda harus masuk ke dalam nix-shell terlebih dahulu dengan mengeksekusi perintah di atas.
 
@@ -390,7 +409,7 @@ nix-env -iA nixpkgs.hugo
 
 Perintah di atas berlaku bagi yang bukan pengguna NixOS, jika Anda menggunakannya, cukup ganti `nixpkgs` di atas menjadi `nixos`.
 
-Berdasarkan [berkas konfigurasinya](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hugo/default.nix), varian Hugo yang digunakan adalah Hugo Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, versi yang digunakan itu merupakan versi baru, tetapi tidak untuk pengguna NixOS dengan kanal selain tidak stabil (_Unstable_) yang mendapatkan versi lebih lama.
+Berdasarkan [berkas konfigurasinya](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hugo/default.nix), varian Hugo yang digunakan adalah Hugo Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, versi yang digunakan itu merupakan versi baru, tapi tidak untuk pengguna NixOS dengan kanal selain tidak stabil (_Unstable_) yang mendapatkan versi lebih lama.
 
 Namun, jika Anda tidak menggunakan NixOS dan menggunakan Nix sebagai pengelola paket, maka versi paket yang Anda dapatkan biasanya akan mengikuti kanal tidak stabil dari NixOS/Nixpkgs.
 
@@ -411,7 +430,7 @@ Cara sederhananya:
 5. Pastikan bahwa `/usr/local/bin/hugo` itu milik pengguna `root` (dengan mengeksekusi perintah `sudo chown root:root /usr/local/bin/hugo`)
 6. Selesai!
 
-**Catatan:** Bisa saja Anda memindahkan berkas tersebut ke dalam direktori lain yang termasuk dalam variabel `PATH`, seperti `/home/username/.local/bin` misalnya dan tidak perlu melakukan peralihan kepemilikan ke `root`, tetapi saya rekomendasikan agar diletakkan ke dalam direktori `/usr/local/bin` supaya Hugo bisa dieksekusi oleh seluruh pengguna di satu sistem.
+**Catatan:** Bisa saja Anda memindahkan berkas tersebut ke dalam direktori lain yang termasuk dalam variabel `PATH`, seperti `/home/username/.local/bin` misalnya dan tidak perlu melakukan peralihan kepemilikan ke `root`, tapi saya rekomendasikan agar diletakkan ke dalam direktori `/usr/local/bin` supaya Hugo bisa dieksekusi oleh seluruh pengguna di satu sistem.
 
 Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`, atau `sudo -s`, kecuali jika Anda ingin menginstalnya di dalam direktori pengguna.
 
@@ -489,7 +508,7 @@ Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 Keluaran di atas itu terjadi karena saya menggunakan Hugo Extended, jika Anda menggunakan varian biasa, harusnya sih sama aja, bedanya cuma gak ada tulisan `extended`-nya aja.
 
-Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat Halaman Panduan (manpages) untuk Hugo dengan skrip berikut:
+Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat halaman panduan (manpages) untuk Hugo dengan skrip berikut:
 
 ```shell {linenos=true}
 hugo gen man --dir '/tmp/hugo_manpages'
@@ -505,21 +524,20 @@ cd -; rm -rf /tmp/hugo_manpages
 - Baris ke-3: Untuk menyalinkan semua berkas di dalamnya ke `/usr/local/man/man1` dan menyetel nilai chmod-nya ke `644`
 - Baris ke-4: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `/tmp/hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
-Kalau sudah, Anda bisa tes Halaman Panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
+Kalau sudah, Anda bisa tes halaman panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
 
-Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di Sistem Anda)
+Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di sistem Anda)
 
 ```shell {linenos=true}
+### Untuk pengguna Bash
 hugo completion bash | install -Dm644 /dev/stdin "/usr/share/bash-completion/completions/hugo"
+
+### Untuk pengguna Zsh
 hugo completion zsh | install -Dm644 /dev/stdin "/usr/share/zsh/site-functions/_hugo"
+
+### Untuk pengguna fish
 hugo completion fish | install -Dm644 /dev/stdin "/usr/share/fish/vendor_completions.d/hugo.fish"
 ```
-
-**Penjelasan:**
-
-- Baris ke-1: Untuk membuat _Autocomplete_ untuk GNU Bash dan meletakkannya ke dalam direktori `/usr/share/bash-completion/completions` sebagai berkas yang bernama `hugo` (Untuk pengguna GNU Bash/`bash`)
-- Baris ke-2: Untuk membuat _Autocomplete_ untuk Z Shell dan meletakkannya ke dalam direktori `/usr/share/zsh/site-functions/completions` sebagai berkas yang bernama `_hugo` (Untuk pengguna Z Shell/`zsh`)
-- Baris ke-3: Untuk membuat _Autocomplete_ untuk `fish` dan meletakkannya ke dalam direktori `/usr/share/fish/vendor_completions.d` sebagai berkas yang bernama `hugo.fish` (Untuk pengguna `fish`)
 
 Silakan coba fitur _Completion_ di dalam Terminal Anda setelah itu.
 
@@ -559,7 +577,7 @@ Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Pake
 brew install hugo
 ```
 
-**Catatan:** Saya tidak memakai Homebrew sebagai pengelola paket, tetapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/hugo.rb), kemungkinan varian Hugo yang digunakan oleh pengelola paket tersebut adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
+**Catatan:** Saya tidak memakai Homebrew sebagai pengelola paket, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/master/Formula/h/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Homebrew adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
 
 ### Android
 
@@ -573,7 +591,9 @@ pkg i hugo
 
 Perintah di atas akan menginstal Hugo Extended, bukan Hugo varian standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
 
-Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda, tetapi saya sarankan agar Anda menggunakan [Termux versi terbarunya](https://f-droid.org/en/packages/com.termux/) (tidak diunduh dari Google Play Store) untuk pengalaman yang lebih nyaman dan versi Android-nya minimal 7.0 agar Termux versi terbaru bisa digunakan.
+Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda.
+
+Saya sarankan agar Anda menggunakan Termux versi terbaru untuk pengalaman yang lebih nyaman, bisa Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau [Google Play Store (eksperimental)](https://play.google.com/store/apps/details?id=com.termux). Perlu versi Android minimal 7.0 agar Termux versi terbaru dapat digunakan.
 
 ### BSD
 
@@ -581,7 +601,7 @@ Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android And
 
 **Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti OpenBSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna OpenBSD, mohon berikan masukkan/koreksi dari Anda melalui kolom komentar.
 
-Jika Anda adalah pengguna OpenBSD dan Keluarganya, maka Anda dapat menginstal Hugo dengan perintah berikut:
+Jika Anda adalah pengguna OpenBSD dan keluarganya, maka Anda dapat menginstal Hugo dengan perintah berikut:
 
 ```shell
 doas pkg_add hugo
@@ -593,15 +613,15 @@ Jika versi yang didapat adalah versi lama dan Anda sangat ingin mendapatkan vers
 
 ### Docker
 
-Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`hugomods/hugo`](https://hub.docker.com/r/hugomods/hugo) untuk itu. Ini memang bukan resmi dari pengembang, tetapi ini yang paling aktif.
+Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`hugomods/hugo`](https://hub.docker.com/r/hugomods/hugo) untuk itu. Ini memang bukan resmi dari pengembang, tapi ini yang paling aktif.
 
-Untuk penjelasan lebih lanjut, silakan kunjungi [halaman dokumentasinya](https://hugomods.com/en/docs/docker/).
+Untuk penjelasan lebih lanjut, silakan kunjungi [situs web resminya](https://docker.hugomods.com).
 
 ## Pertanyaan dan Jawaban
 
 ### Pertanyaan ke-1: Varian Hugo mana yang harus dipakai? {#pertanyaan-ke1}
 
-**Jawab:** Usahakan untuk selalu gunakan Hugo Extended ketimbang Hugo dengan varian standar.
+**Jawab:** Usahakan untuk selalu gunakan Hugo Extended ketimbang Hugo varian standar.
 
 Saya menyarankan seperti ini karena dukungan tema akan lebih beragam jika Anda menggunakan Hugo Extended dan ada beberapa tema yang menggunakan SCSS ketimbang CSS untuk mengatur penampilannya.
 
@@ -623,13 +643,13 @@ Lagipula, sudah banyak _platform_ yang mendukung Hugo Extended ini, walaupun sec
 
 Letak perbedaannya nanti di paket ketergantungannya, mulai dari nama paketnya sampai versi dari paket-paket tersebut yang didapat akan berbeda satu sama lain.
 
-Jika Anda ingin mencobanya ya silakan saja, tetapi segala risiko yang ada atau yang telah terjadi, silakan Anda tanggung sendiri.
+Jika Anda ingin mencobanya ya silakan saja, tapi segala risiko yang ada atau yang telah terjadi, silakan Anda tanggung sendiri.
 
-### Pertanyaan ke-4: Saya ingin menginstal Hugo dengan mengunduh Berkas Biner di GNU/Linux, tetapi apakah ada cara agar saya dapat menginstalnya di direktori pengguna tanpa perlu hak akses `root` ataupun menggunakan `sudo` lagi? {#pertanyaan-ke4}
+### Pertanyaan ke-4: Saya ingin menginstal Hugo dengan mengunduh Berkas Biner di GNU/Linux, tapi apakah ada cara agar saya dapat menginstalnya di direktori pengguna tanpa perlu hak akses `root` ataupun menggunakan `sudo` lagi? {#pertanyaan-ke4}
 
-**Jawab**: Ada, pada dasarnya Anda dapat mengikuti cara di atas, tetapi Anda perlu mengubah beberapa direktori tujuan pada skrip di atas, seperti `/usr/local/bin` menjadi `$HOME/.local/bin`, `/usr/local/man/man1` menjadi `$HOME/.local/share/man/man1` untuk Halaman Manual, dll.
+**Jawab**: Ada, pada dasarnya Anda dapat mengikuti cara di atas, tapi Anda perlu mengubah beberapa direktori tujuan pada skrip di atas, seperti `/usr/local/bin` menjadi `$HOME/.local/bin`, `/usr/local/man/man1` menjadi `$HOME/.local/share/man/man1` untuk Halaman Manual, dll.
 
-**Catatan**: Saya belum pernah coba instal Hugo di dalam direktori pengguna, sehingga akan terjadi ketidakakuratan dalam pembahasan, namun saya berani jamin bahwa perintah-perintah di bawah ini tidak akan membahayakan sedikitpun baik untuk Sistem Operasi dan data-data pribadi Anda.
+**Catatan**: Saya belum pernah coba instal Hugo di dalam direktori pengguna, sehingga akan terjadi ketidakakuratan dalam pembahasan. Namun saya berani jamin, bahwa perintah-perintah di bawah ini tidak akan membahayakan sedikitpun baik untuk sistem operasi dan data-data pribadi Anda, kalau kamu benar-benar mengikutinya.
 
 #### Install Hugo
 
@@ -736,7 +756,7 @@ Contohnya jika Anda menggunakan `oh-my-zsh`, maka Anda perlu meletakkannya di da
 hugo completion zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
 ```
 
-Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my-zsh/completions/_hugo` di atas menjadi direktori lain, tetapi termasuk dalam variabel `FPATH`.
+Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my-zsh/completions/_hugo` di atas menjadi direktori lain, tapi termasuk dalam variabel `FPATH`.
 
 Jika Anda ingin meletakkannya di dalam direktori kustom yang mana itu tidak termasuk dalam variabel `FPATH`, maka Anda perlu memasukkan direktori tersebut ke dalam variabelnya secara manual dengan perintah/skrip berikut:
 
