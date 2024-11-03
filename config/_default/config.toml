@@ -1,7 +1,6 @@
 languageCode = "id-id"
 baseURL = "http://localhost"
 title = "Farrel Franqois Blog"
-paginate = 5
 enableEmoji = false
 enableInlineShortcodes = true
 enableGitInfo = true
@@ -11,6 +10,9 @@ timeZone = "Asia/Jakarta"
 enableRobotsTXT = true
 defaultContentLanguage = "id"
 ignoreFiles = [ "README.md" ]
+
+[pagination]
+pagerSize = 5
 
 [permalinks]
 post = "/:slug/"

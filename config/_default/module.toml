@@ -1,6 +1,6 @@
 [hugoVersion]
 extended = true
-min = "0.123.0"
+min = "0.128.0"
 
 [[imports]]
 path = "github.com/FarrelF/stack-modified"

@@ -14,7 +14,7 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 Agar dapat menggunakan kode sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): [https://git-scm.com/downloads](https://git-scm.com/downloads) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended (versi minimal: 0.123.0, disarankan terbaru): [https://gohugo.io/getting-started/installing/](https://gohugo.io/getting-started/installing/) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
+- Hugo Extended (versi minimal: 0.128.0, disarankan terbaru): [https://gohugo.io/getting-started/installing/](https://gohugo.io/getting-started/installing/) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
 - Go (versi minimal: 1.12, disarankan: 1.17 atau terbaru): [https://golang.org/](https://golang.org/)
 
 Di dalam sistem operasi Anda. Jika Anda ingin memakai fitur "Codespaces", maka Anda tidak perlu memenuhi persyaratan tersebut di perangkat Anda.
