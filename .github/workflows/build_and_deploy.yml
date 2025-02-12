@@ -114,7 +114,7 @@ jobs:
         tar -xvzf files.tar.gz
     
     - name: Deploying to Bunny Storage
-      uses: ayeressian/bunnycdn-storage-deploy@v2.2.3
+      uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
       with:
         source: 'public'
         destination: ''
