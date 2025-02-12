@@ -17,7 +17,7 @@ on:
 jobs:
   build:
     name: Build (Preview)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       TZ: Asia/Jakarta
       HUGO_ENV: staging
@@ -100,7 +100,7 @@ jobs:
   deploy_to_bunny_net:
     name: Deploy to Bunny Storage (Preview)
     needs: build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
@@ -129,7 +129,7 @@ jobs:
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage (Preview)
     needs: build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
