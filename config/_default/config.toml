@@ -20,6 +20,12 @@ page = "/:slug/"
 tags = "/tag/:slug/"
 categories = "/kategori/:slug/"
 
+[privacy]
+[privacy.x]
+disable = false
+enableDNT = true
+simple = true
+
 [related]
 includeNewer = true
 threshold = 60

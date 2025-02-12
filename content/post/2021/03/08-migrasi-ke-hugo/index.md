@@ -143,7 +143,7 @@ Jumlah seperti ini tentu saja sangatlah sedikit, tapi memang ini masih jauh lebi
 
 Pada awal tahun ini, [bunny.net](https://bunny.net) (sebelumnya BunnyCDN) berencana ingin memperkenalkan sebuah Produk Penyimpanan berbasiskan S3 nya, berdasarkan cuitan di bawah ini:
 
-{{< twitter_simple user="BunnyCDN" id="1333016696089526273" >}}
+{{< x user="BunnyCDN" id="1333016696089526273" >}}
 
 Jika itu benar-benar terjadi, maka saya akan berencana untuk pindah Hosting ke bunny.net dengan memanfaatkan Penyimpanan S3 nya + CDN nya selama Saldo saya masih banyak, daripada saya harus tinggal lama di Netlify.
 
