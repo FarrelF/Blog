@@ -126,93 +126,6 @@ jobs:
         remove: "true"
         purgePullZone: "true"
 
-  deploy_to_storj-ap1-s3:
-    name: Deploy to Storj DCS AP1 S3 Storage
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring RClone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to S3 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: storj-ap1-s3
-      run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
-
-  deploy_to_storj-us1-s3:
-    name: Deploy to Storj DCS US1 S3 Storage
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring RClone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to S3 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: storj-us1-s3
-      run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
-
-  deploy_to_storj-eu1-s3:
-    name: Deploy to Storj DCS EU1 S3 Storage
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring RClone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to S3 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: storj-eu1-s3
-      run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
-
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage
     needs: build
@@ -244,7 +157,7 @@ jobs:
 
   submit_sitemap:
     name: Submit Sitemap
-    needs: [deploy_to_bunny_storage, deploy_to_storj-ap1-s3, deploy_to_storj-us1-s3, deploy_to_storj-eu1-s3, deploy_to_tebi-s3]
+    needs: [deploy_to_bunny_storage, deploy_to_tebi-s3]
     runs-on: ubuntu-22.04
     steps:
     - name: Submitting Sitemap to Search Engine
