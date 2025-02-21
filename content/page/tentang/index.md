@@ -1,7 +1,7 @@
 ---
 title: Tentang
 description: Laman ini berisikan Informasi Tentang Saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
-license: Laman ini telah saya buat dibawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
+license: Laman ini telah saya buat di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
 slug: tentang
 comments: false
 aliases: 
@@ -53,7 +53,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrel.franqois.id/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Storj DCS (Decentralized Cloud Storage)](https://www.storj.io), [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
 - Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
