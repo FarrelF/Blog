@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -102,6 +102,8 @@ jobs:
     needs: build
     runs-on: ubuntu-24.04
     steps:
+    - name: Checkout the Code
+      uses: actions/checkout@v4
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
@@ -109,22 +111,26 @@ jobs:
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
+    - name: Setup Mise and Thumper
+      uses: jdx/mise-action@v2
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
-    
-    - name: Deploying to Bunny Storage
-      uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
-      with:
-        source: 'public'
-        destination: ''
-        storageZoneName: "${{ secrets.BUNNY_STORAGE_USERNAME }}"
-        storagePassword: "${{ secrets.BUNNY_STORAGE_PASSWORD }}"
-        accessKey: "${{ secrets.BUNNY_API_KEY }}"
-        pullZoneId: "${{ secrets.BUNNY_PULLZONE_ID }}"
-        upload: "true"
-        remove: "true"
-        purgePullZone: "true"
+
+    - name: Deploy to Bunny Storage using Thumper
+      run: thumper sync public ${{ secrets.BUNNY_STORAGE_USERNAME }} --concurrency 8 --verbose
+      env:
+        THUMPER_KEY: "${{ secrets.BUNNY_STORAGE_PASSWORD }}"
+
+    - name: Purge page caches
+      run: |
+        thumper purge-url https://farrel.franqois.id/
+        thumper purge-url https://farrel.franqois.id/index.xml
+        thumper purge-url https://farrel.franqois.id/*/index.html
+        thumper purge-url https://farrel.franqois.id/*/index.xml
+        thumper purge-url https://farrel.franqois.id/*/index.json
+      env:
+          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage

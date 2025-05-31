@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -102,6 +102,8 @@ jobs:
     needs: build
     runs-on: ubuntu-24.04
     steps:
+    - name: Checkout the Code
+      uses: actions/checkout@v4
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
@@ -113,18 +115,16 @@ jobs:
       run: |
         tar -xvzf files.tar.gz
 
-    - name: Deploying to Bunny Storage
-      uses: ayeressian/bunnycdn-storage-deploy@v2.2.3
-      with:
-        source: 'public'
-        destination: ''
-        storageZoneName: "${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }}"
-        storagePassword: "${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}"
-        accessKey: "${{ secrets.BUNNY_API_KEY }}"
-        pullZoneId: "${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}"
-        upload: "true"
-        remove: "true"
-        purgePullZone: "true"
+    - name: Deploy to Bunny Storage using Thumper
+      run: thumper sync public ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }} --concurrency 8 --verbose
+      env:
+        THUMPER_KEY: "${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}"
+
+    - name: Purge page caches
+      run: |
+        thumper purge-zone ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
+      env:
+          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage (Preview)
