@@ -340,21 +340,13 @@ Hanya saja, maksimum proyek yang bisa Anda buat adalah sebanyak 10 proyek per Ak
 
 ### Pertanyaan ke-2: Apakah semua sertifikat SSL/TLS yang diterbitkan oleh Google Public CA ini gratis? {#pertanyaan-ke2}
 
-Untuk saat ini, jawabannya adalah **Iya**. Anda bisa menerbitkan Sertifikat SSL/TLS tersebut secara gratis melalui protokol ACME-nya.
-
-Baik sertifikat SSL/TLS dalam bentuk biasa, _Multi-domain_ atau bahkan _Wildcard_ sekali pun bisa Anda terbitkan secara gratis dengan RSA atau ECC sebagai Algoritma Kunci Publiknya.
-
-Hanya saja sifatnya ini adalah _Self-managed_, sehingga semuanya Anda kelola secara mandiri tanpa bantuan ataupun dukungan dari pihak Google secara langsung.
+**Ya, sepenuhnya gratis**. Semua jenis sertifikat TLS (Standar, _Multi-domain_, dan _Wildcard_) dengan algoritma RSA atau ECC dapat diterbitkan secara gratis via protokol ACME. Namun, ini bersifat _self-managed_, artinya Anda bertanggung jawab penuh atas pengelolaannya tanpa dukungan langsung dari Google.
 
 ### Pertanyaan ke-3: Berapa lama masa aktif sertifikat SSL/TLS dari Google Public CA ini? {#pertanyaan-ke3}
 
-Secara baku, semua sertifikat yang diterbitkan oleh Google Trust Services memiliki masa aktif selama 90 hari per sertifikat dan itu merupakan nilai maksimumnya.
+Sertifikat Google Trust Services berdurasi maksimal 90 hari. Standar ACME memungkinkan permintaan masa aktif lebih singkat, bahkan hingga 1 hari dan Google mengikutinya.
 
-Namun, protokol ACME telah mengizinkan klien untuk meminta dengan masa aktif yang berbeda-beda yang tentunya kurang dari masa aktif maksimumnya.
-
-Oleh karena itu, Google sendiri mengizinkan Anda untuk menerbitkan sertifikat SSL/TLS-nya dengan masa aktif yang minimum selama 1 hari.
-
-Namun, mereka sendiri menyarankan Anda untuk menerbitkan sertifikatnya dengan masa aktif minimal selama 3 hari atau lebih untuk mencegah [ketidaktepatan pada jam](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46359.pdf) dan validitas sertifikat yang tumpang tindih, yang mengakibatkan Web, Blog atau Aplikasi menjadi tidak bisa diakses oleh karenanya.
+Namun, Google menyarankan minimal 3 hari untuk menghindari [masalah ketidaksesuaian waktu sistem](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46359.pdf) atau tumpang tindih validitas yang dapat mengakibatkan gangguan akses.
 
 ### Pertanyaan ke-4: Bagaimana caranya agar saya bisa menerbitkan sertifikat SSL/TLS dengan masa aktif kurang dari 90 hari? {#pertanyaan-ke4}
 
@@ -397,17 +389,16 @@ acme.sh --issue \
 
 Perintah di atas akan menerbitkan sertifikat SSL/TLS untuk domain `*.contoh.com` dan `contoh.com` dengan masa berlaku pada tanggal 01 April 2022 dengan pukul 08:10:33 dalam waktu UTC.
 
-Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatnya secara otomatis, jadi saran saya pakai saja format yang relatif, sehingga dapat diperbarui secara otomatis.
+Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatnya secara otomatis, jadi disarankan pakai format yang relatif.
 
-### Pertanyaan ke-5: Apakah sertifikat SSL/TLS yang diterbitkan itu merupakan sertifikat langsung dari Google Trust Services? Dan, bagaimana kompatibilitasnya? {#pertanyaan-ke5}
+### Pertanyaan ke-5: Apakah sertifikat SSL/TLS Google Public CA merupakan sertifikat langsung Google Trust Services (GTS)? Bagaimana kompatibilitasnya? {#pertanyaan-ke5}
 
-Iya, betul.
+**Ya, langsung dari GTS**. Kompatibilitas bisa dijamin melalui karena dua hal berikut:
 
-Semua sertifikat SSL/TLS yang telah Anda terbitkan melalui **"Google Public CA"** itu adalah sertifikat langsung dari **"Google Trust Services (GTS)"**.
+1. _Cross-sign_ dengan [GlobalSign Root CA - R1](https://crt.sh/?id=88) dan halaman demonya [di sini](https://valid.r1.roots.globalsign.com/) yang telah tersedia secara luas sejak 1999 dan berlaku dari tahun 1998.
+2. Penggunaan aktif di seluruh layanan Google termasuk Penelusuran, YouTube, dan Google Drive — membuktikan kompatibilitas perangkat yang sangat baik.
 
-Untuk kompatibilitasnya sendiri, ia telah _cross-sign_ dengan [GlobalSign Root CA - R1](https://crt.sh/?id=88) (Halaman demonya [di sini](https://valid.r1.roots.globalsign.com/)) yang merupakan sertifikat akar tertua dari GlobalSign yang berlaku dari tahun 1998 sampai 2028 dan digunakan secara luas pada tahun 1999.
-
-Selain itu, sertifikatnya digunakan oleh hampir seluruh layanan Google, termasuk Penelusuran Google, YouTube, Blogger, dan Google Drive sehingga kompatibilitas perangkatnya tidak perlu Anda ragukan lagi.
+Sehingga Anda tidak perlu khawatir tentang masalah kompatibilitas, ada halaman demo yang dapat Anda coba juga.
 
 ### Pertanyaan ke-6: Kalau saya menerbitkan sertifikat SSL/TLS dengan memakai ECC sebagai Algoritma Kunci Publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke6}
 
@@ -433,11 +424,9 @@ https://dv.acme-v02.test-api.pki.goog/directory
 
 Karena lebih simpel dan lebih mudah dipelajari, serta fiturnya juga lumayan lengkap, seperti dukungan layanan penyedia DNS-nya yang lengkap, pilihan CA baku yang cukup banyak, eksekusi skrip setelah pembaruan sertifikat, opsi penginangan sertifikat, mengatur masa berlaku sertifikat saat penerbitan, dll.
 
-Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu dapat bebas menggunakannya tanpa terkendala perizinan dan juga pastinya lebih aman ketimbang menggunakan hak akses `root`.
+Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu dapat bebas menggunakannya tanpa terkendala perizinan, pastinya lebih aman ketimbang menggunakan hak akses `root` dan juga ini berbasis _Shell_, serta diklaim memenuhi standar POSIX, jadi selain menjadi lebih ringan dan fleksibel, perkakas ini dapat dijalankan di hampir semua sistem operasi berbasis \*nix.
 
-Perkakas acme.sh juga berbasis _Shell_ dan diklaim memenuhi standar POSIX juga, jadi selain menjadi lebih ringan dan fleksibel, perkakas tersebut juga dapat dijalankan di hampir semua Sistem Operasi berbasis \*nix.
-
-Selain itu, karena sifat perkakas tersebut yang diinstal di dalam direktori pengguna dan secara baku semua konfigurasinya diletakkan ke dalam 1 folder, yakni `~/.acme.sh`, maka semua salinannya juga dapat dipindahkan ke perangkat lain dengan lebih mudah tanpa harus melakukan langkah yang lebih sulit.
+Selain itu, karena sifatnya yang bisa diinstal di dalam direktori pengguna dan secara baku semua konfigurasinya diletakkan ke dalam 1 folder, yakni `~/.acme.sh`, maka semua salinannya juga dapat dipindahkan ke perangkat lain dengan lebih mudah tanpa harus melakukan langkah yang lebih sulit.
 
 Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai acme.sh ketimbang perkakas klien ACME lain, seperti Certbot misalnya.
 
@@ -445,20 +434,16 @@ Ini sebenarnya adalah sebuah alasan yang sama seperti artikel sebelumnya, sehing
 
 ### Pertanyaan ke-9: Apa kelebihan dan kekurangan dari Google Public CA menurut kamu? {#pertanyaan-ke9}
 
-Mungkin lebih baik bila disebutkan "Poin menarik" dan "Hal yang perlu diperhatikan" daripada "kelebihan" dan "kekurangan", karena kelebihan bagi saya belum tentu itu merupakan kelebihan bagi Anda dan kekurangan bagi saya belum tentu itu merupakan kekurangan bagi Anda, atau justru malah sebaliknya.
+Kelebihan:
 
-Jadi saya langsung saja bahas hal yang menarik dan yang perlu diperhatikan soal **"Google Public CA"** ini.
+- Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan akan menjadi jauh lebih cepat
+- Lebih minim gangguan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan atau pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
+- Kamu bisa menerbitkan sertifikat dalam bentuk standar, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai algoritma kunci publiknya
+- Masa berlaku sertifikat bervariasi, bisa dimulai dari 1 hari sampai 90 hari ke depan, walaupun disarankan minimal 3 hari
+- Sertifikat yang diterbitkannya dapat digunakan oleh hampir semua perangkat. Untuk alasannya, silakan lihat jawaban untuk [pertanyaan ke-5](#pertanyaan-ke5)
+- Yang paling penting adalah semuanya bisa digunakan secara cuma-cuma alias gratis
 
-Poin menarik:
-
-- Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan sertifikat akan menjadi jauh lebih cepat
-- Lebih minim gangguan saat proses penerbitan atau pembaruan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan atau pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
-- Kamu bisa menerbitkan sertifikat dalam bentuk biasa, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai Algoritma Kunci Publiknya
-- Masa berlaku sertifikat bisa bervariasi, bisa dimulai dari yang hanya berlaku 1 hari saja sampai 90 hari ke depan, walaupun disarankan minimal 3 hari
-- Sertifikat yang diterbitkannya bisa digunakan oleh hampir semua perangkat. Untuk alasannya, silakan lihat jawaban untuk [pertanyaan ke-5](#pertanyaan-ke5)
-- Yang paling penting adalah semuanya bisa digunakan secara cuma-cuma alias gratis, setidaknya untuk saat ini
-
-Hal yang perlu diperhatikan:
+Kekurangan:
 
 - ~~Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan~~
 
@@ -468,12 +453,12 @@ Hal yang perlu diperhatikan:
 
     **PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi poin di atas sudah tidak berlaku
 
-- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tetapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt
+- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt. Tapi, Cloudflare sepenuhnya menggunakan rantai dengan murni ECC, entah bagaimana caranya silakan tulis di komentar jika ada
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.
 
-    Sehingga kemungkinan bahwa tidak adanya dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji itu memang benar adanya
+    Sehingga kemungkinan besar tidak ada dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji
 
-- Jika Anda ingin Situs Web/Blog-nya diakses oleh pengguna di Tiongkok (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan Situs Web/Blog Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
+- Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
     Perlu diingat juga, bahwa poin ini hanyalah secara teoritis saja, saya tidak tahu bagaimana pada prakteknya yang mungkin saja berbeda. Kalau memang berbeda, mohon beri masukkan melalui kolom komentar.
 
@@ -481,13 +466,13 @@ Hal yang perlu diperhatikan:
 
 Untuk perbandingan antar CA ACME lebih lanjut, silakan kunjungi salah satu halaman dokumentasi Posh-ACME dengan [klik di sini](https://poshac.me/docs/v4/Guides/ACME-CA-Comparison/).
 
-Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah ini merupakan poin menarik atau justru merupakan hal yang perlu diperhatikan.
+Ada satu hal lagi yang ingin saya bahas, hanya saja saya tidak tahu apakah ini merupakan kelebihan atau justru kekurangan.
 
-Hal ini adalah bahwa sertifikat tersebut memiliki CRL (_Certificate Revocation List_) dan juga OCSP (_Online Certificate Status Protocol_) untuk pencabutannya di saat sertifikat SSL/TLS gratisan berbasis ACME lainnya yang pernah saya coba hanya memiliki OCSP saja, tetapi tidak dengan CRL.
+Hal ini adalah bahwa sertifikat tersebut memiliki CRL (_Certificate Revocation List_) dan juga OCSP (_Online Certificate Status Protocol_) untuk pencabutannya di saat sertifikat SSL/TLS gratisan berbasis ACME lainnya yang pernah saya coba hanya memiliki OCSP saja, tapi tidak dengan CRL.
 
-Saya tidak bisa memasukkannya sebagai hal yang "menarik" adalah karena yang pertama saya kurang mempelajari lebih dalam mengenai CRL dan OCSP ini, dan yang kedua karena menurut beberapa referensi, CRL itu termasuk _outdated_ dan OCSP diklaim lebih cepat daripada CRL karena ia tidak perlu mengunduh semua list sertifikat yang telah dicabut.
+Saya tidak bisa memasukkannya sebagai 'kelebihan' adalah karena yang pertama saya kurang mempelajari lebih dalam mengenai CRL dan OCSP ini dan yang kedua karena menurut beberapa referensi, CRL itu termasuk _outdated_ serta OCSP diklaim lebih cepat daripada CRL karena ia tidak perlu mengunduh semua list sertifikat yang telah dicabut.
 
-Untuk mempercepatnya lagi, kita hanya perlu mengaktifkan fitur **OCSP Stapling** saja pada Server Web/Blog agar pengunjung tidak lagi mengakses Server (atau, Responder) OCSP-nya saat mengunjungi sebuah Web/Blog, mungkin saja adanya CRL ini untuk memperluas kompatibilitas perangkat mengingat CRL sendiri ada lebih dulu ketimbang OCSP.
+Untuk mempercepatnya lagi, kita hanya perlu mengaktifkan fitur **OCSP Stapling** saja pada server agar pengunjung tidak lagi mengakses Server (atau, "Responder") OCSP-nya saat mengunjungi sebuah web atau blog, mungkin saja adanya CRL ini untuk memperluas kompatibilitas perangkat mengingat CRL sendiri ada lebih dulu ketimbang OCSP.
 
 Namun menariknya, setiap sertifikat yang diterbitkan oleh Google Trust Services memiliki alamat URL-nya sendiri untuk CRL dan OCSP-nya, mungkin saja dengan strategi seperti ini akan meminimalkan untuk mengunduh semua daftar sertifikat yang telah dicabut, sehingga pemuatan sertifikatnya/jabat tangannya akan jauh lebih cepat, ya saya kurang tahu juga sih selebihnya.
 
@@ -495,19 +480,19 @@ Mungkin hal di atas bisa saja ada yang salah, jika ada koreksi, silakan berikan 
 
 ### Pertanyaan ke-10: Apa pengalamanmu saat menggunakan Google Public CA? Apakah ada masalah sejauh ini? {#pertanyaan-ke10}
 
-Sejauh ini belum ada masalah apa pun, baik saat penerbitan sampai pemakaiannya. Penerbitannya bisa dibilang cepat, jauh lebih cepat ketimbang saat saya memakai ZeroSSL dan saya belum pernah menemukan galat 5xx saat penerbitan ataupun galat yang membuat perkakas acme.sh mengulangi proses penerbitan sertifikat.
+Sejauh ini belum ada masalah apa pun, baik saat penerbitan sampai pemakaiannya. Penerbitannya bisa dibilang cepat, jauh lebih cepat ketimbang saat saya memakai ZeroSSL dan saya belum pernah menemukan galat 5xx yang membuat perkakas acme.sh mengulangi proses penerbitan sertifikat.
 
 Jika ada masalah saat pemakaian ataupun pembaruan sertifikat (semoga jangan), mungkin akan saya perbarui juga di sini.
 
-Untuk pencabutannya belum saya coba, karena saya belum sempat dan belum ada urgensi juga untuk mencabut sertifikatnya, mungkin kedepannya akan saya coba.
+Untuk pencabutannya belum saya coba, karena saya belum sempat dan belum ada urgensi juga untuk mencabut sertifikatnya, mungkin ke depannya akan saya coba.
 
 ### Pertanyaan ke-11: Saya memasang CAA Record di dalam pengaturan DNS pada Domain saya, apa CAA Record yang harus saya isi? {#pertanyaan-ke11}
 
-Jika Anda memasang **CAA Record**, pastikan Anda menambahkan `pki.goog` di dalamnya. Dengan ini, Anda akan mengizinkan Google Trust Services untuk menerbitkan sertifikat SSL/TLS-nya untuk domain Anda.
+Pastikan Anda menambahkan `pki.goog` di dalamnya. Dengan ini, Anda akan mengizinkan GTS untuk menerbitkan sertifikat SSL/TLS-nya untuk domain Anda.
 
-Untuk referensinya/selebihnya, bisa Anda kunjungi server ACME-nya secara langsung melalui Peramban Web-mu, Alamat URL-nya sudah saya sebutkan di jawaban pada [pertanyaan ke-7](#pertanyaan-ke7) lalu lihat pada bagian `caaIdentities` dan di situ akan ada `pki.goog` sebagai isi dari `caaIdentities` yang merupakan **CAA Record** yang bisa Anda isi untuk mengizinkan Google Trust Services.
+Untuk referensinya/selebihnya, bisa kunjungi URL direktori ACME-nya secara langsung melalui Peramban Web-mu, Alamat URL-nya sudah saya sebutkan di jawaban pada [pertanyaan ke-7](#pertanyaan-ke7) lalu lihat pada bagian `caaIdentities` dan di situ akan ada `pki.goog` sebagai isi dari `caaIdentities` yang merupakan **CAA Record** yang bisa Anda isi untuk mengizinkannya.
 
-Hal di atas bukan hanya berlaku untuk Google Trust Services saja, tetapi berlaku juga untuk server ACME lainnya seperti Let's Encrypt, ZeroSSL, Buypass, SSL.com, dll yang bisa Anda coba sendiri.
+Hal di atas bukan hanya berlaku untuk GTS saja, tapi berlaku juga untuk URL direktori ACME lainnya seperti Let's Encrypt, ZeroSSL, Buypass, SSL.com, dll yang bisa Anda coba sendiri.
 
 ## Penutup
 
