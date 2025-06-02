@@ -395,7 +395,7 @@ Menggunakan Format Absolut membuat acme.sh tidak sanggup memperbarui sertifikatn
 
 **Ya, langsung dari GTS**. Kompatibilitas bisa dijamin melalui karena dua hal berikut:
 
-1. _Cross-sign_ dengan [GlobalSign Root CA - R1](https://crt.sh/?id=88) dan halaman demonya [di sini](https://valid.r1.roots.globalsign.com/) yang telah tersedia secara luas sejak 1999 dan berlaku dari tahun 1998.
+1. _Cross-sign_ dengan [GlobalSign Root CA - R1](https://crt.sh/?id=88) (Halaman demonya [di sini](https://valid.r1.roots.globalsign.com/)) yang telah tersedia secara luas sejak 1999 dan berlaku dari tahun 1998.
 2. Penggunaan aktif di seluruh layanan Google termasuk Penelusuran, YouTube, dan Google Drive — membuktikan kompatibilitas perangkat yang sangat baik.
 
 Sehingga Anda tidak perlu khawatir tentang masalah kompatibilitas, ada halaman demo yang dapat Anda coba juga.
@@ -422,22 +422,28 @@ https://dv.acme-v02.test-api.pki.goog/directory
 
 ### Pertanyaan ke-8: Kenapa kamu memakai acme.sh? {#pertanyaan-ke8}
 
-Karena lebih simpel dan lebih mudah dipelajari, serta fiturnya juga lumayan lengkap, seperti dukungan layanan penyedia DNS-nya yang lengkap, pilihan CA baku yang cukup banyak, eksekusi skrip setelah pembaruan sertifikat, opsi penginangan sertifikat, mengatur masa berlaku sertifikat saat penerbitan, dll.
+Perkakas acme.sh dipilih karena alasan berikut:
 
-Perkakas tersebut juga tidak memerlukan hak akses `root` ataupun menggunakan `sudo`, sehingga kamu dapat bebas menggunakannya tanpa terkendala perizinan, pastinya lebih aman ketimbang menggunakan hak akses `root` dan juga ini berbasis _Shell_, serta diklaim memenuhi standar POSIX, jadi selain menjadi lebih ringan dan fleksibel, perkakas ini dapat dijalankan di hampir semua sistem operasi berbasis \*nix.
+- Simpel dan mudah dipelajari
+- Fiturnya lengkap, seperti:
+  - Dukungan penyedia DNS yang banyak (termasuk Cloudflare DNS, Netlify DNS, Bunny DNS, dll)
+  - Pilihan CA yang cukup banyak (Let's Encrypt, ZeroSSL, SSL\.com, Buypass Go SSL dan Google Trust Services)
+  - Bisa menggunakan CA kustom
+  - Pengelolaan sertifikat (meliputi penerbitan, pencabutan, penghapusan, konfigurasi, penginangan, dan pembaruan sertifikat)
+  - Menggunakan _Cron job_ untuk memperbarui sertifikat secara otomatis
+  - Dan lain-lain
+- Tidak memerlukan akses _root_ sehingga lebih aman
+- Berbasis _Shell_ yang portabel dan kompatibel di hampir semua sistem operasi
+- Semuanya (termasuk konfigurasinya) terpusat di satu folder, yakni `~/.acme.sh` sehingga mudah dipindahkan
 
-Selain itu, karena sifatnya yang bisa diinstal di dalam direktori pengguna dan secara baku semua konfigurasinya diletakkan ke dalam 1 folder, yakni `~/.acme.sh`, maka semua salinannya juga dapat dipindahkan ke perangkat lain dengan lebih mudah tanpa harus melakukan langkah yang lebih sulit.
-
-Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai acme.sh ketimbang perkakas klien ACME lain, seperti Certbot misalnya.
-
-Ini sebenarnya adalah sebuah alasan yang sama seperti artikel sebelumnya, sehingga kalau kamu pernah membaca artikel sebelumnya, mungkin kamu akan berpikir bahwa jawaban ini sangat familiar bagi Anda, karena pada dasarnya ya sama saja, cuma beda kasusnya.
+Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai ini ketimbang perkakas klien ACME lain, seperti Certbot misalnya.
 
 ### Pertanyaan ke-9: Apa kelebihan dan kekurangan dari Google Public CA menurut kamu? {#pertanyaan-ke9}
 
 Kelebihan:
 
 - Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan akan menjadi jauh lebih cepat
-- Lebih minim gangguan, sehingga kamu lebih jarang menemukan galat 5xx saat penerbitan atau pembaruan sertifikat, karena infrastruktur jaringan dari Google itu tadi
+- Lebih minim gangguan, sehingga kamu lebih jarang menemukan galat 5xx karena infrastruktur jaringan dari Google itu tadi
 - Kamu bisa menerbitkan sertifikat dalam bentuk standar, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai algoritma kunci publiknya
 - Masa berlaku sertifikat bervariasi, bisa dimulai dari 1 hari sampai 90 hari ke depan, walaupun disarankan minimal 3 hari
 - Sertifikat yang diterbitkannya dapat digunakan oleh hampir semua perangkat. Untuk alasannya, silakan lihat jawaban untuk [pertanyaan ke-5](#pertanyaan-ke5)
@@ -453,12 +459,12 @@ Kekurangan:
 
     **PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi poin di atas sudah tidak berlaku
 
-- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt. Tapi, Cloudflare sepenuhnya menggunakan rantai dengan murni ECC, entah bagaimana caranya silakan tulis di komentar jika ada
+- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat SSL/TLS-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt. Tapi, Cloudflare sepenuhnya menggunakan rantai murni ECC, entah bagaimana caranya silakan tulis di komentar jika ada
 - Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.
 
     Sehingga kemungkinan besar tidak ada dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji
 
-- Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_)-nya yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
+- Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_) yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
     Perlu diingat juga, bahwa poin ini hanyalah secara teoritis saja, saya tidak tahu bagaimana pada prakteknya yang mungkin saja berbeda. Kalau memang berbeda, mohon beri masukkan melalui kolom komentar.
 
