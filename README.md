@@ -1,6 +1,6 @@
 # Farrel Franqois Blog
 
-[![GitHub Actions](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/FarrelF/Blog/build_and_deploy.yml?style=flat-square&logo=github&label=Build%20and%20Deploy)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 [![Ditenagai oleh Hugo](https://img.shields.io/badge/Hugo-ff4088?logo=hugo&style=flat-square&label=Ditenagai%20oleh)](https://gohugo.io)
@@ -11,11 +11,11 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 
 ## Persyaratan
 
-Agar dapat menggunakan kode sumber ini, adakalanya untuk memenuhi persyaratannya terlebih dahulu, yakni terinstalnya:
+Agar dapat menggunakan kode sumber ini, silakan penuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): [https://git-scm.com/downloads](https://git-scm.com/downloads) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-git))
-- Hugo Extended (versi minimal: 0.141.0, disarankan terbaru): [https://gohugo.io/getting-started/installing/](https://gohugo.io/getting-started/installing/) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo))
-- Go (versi minimal: 1.12, disarankan: 1.17 atau terbaru): [https://golang.org/](https://golang.org/)
+- Hugo Extended (versi minimum: 0.141.0, disarankan terbaru): Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrel.franqois.id/cara-install-hugo) atau kunjungi [dokumentasi resminya](https://gohugo.io/installation/)
+- Go (versi minimum: 1.12, disarankan: 1.17 atau terbaru): [https://golang.org/](https://golang.org/)
 
 Di dalam sistem operasi Anda. Jika Anda ingin memakai fitur "Codespaces", maka Anda tidak perlu memenuhi persyaratan tersebut di perangkat Anda.
 
@@ -39,23 +39,23 @@ Atau, jika Anda menggunakan [GitHub CLI](https://cli.github.com), maka perintah 
 gh repo clone FarrelF/Blog FarrelF/Blog
 ```
 
-Kode Sumber akan disimpan di dalam sebuah subfolder yang bernama `Blog` yang terletak di dalam folder `FarrelF`, jadi untuk mengaksesnya bisa pakai perintah `cd FarrelF/Blog`.
+Kode sumber akan disimpan di dalam sebuah subfolder yang bernama `Blog` yang terletak di dalam folder `FarrelF`, jadi untuk mengaksesnya bisa pakai perintah `cd FarrelF/Blog`.
 
 ## Sebelum Instal
 
 Sebelum instal, pastikan Anda telah memenuhi semua persyaratannya terlebih dahulu di atas.
 
-Atau, Anda dapat menggunakan fitur ["Codespaces"](https://github.com/features/codespaces) di GitHub yang dapat membantu Anda untuk menggunakan kode sumber blog ini, dimulai dari sekadar mencoba sampai turut ikut berkontribusi. Untuk caranya, silakan baca [halaman dokumentasinya](https://docs.github.com/en/codespaces/getting-started/quickstart), di situ sudah dijelaskan secara sederhana dan lengkap dengan gambar.
+Atau, Anda dapat menggunakan fitur ["Codespaces"](https://github.com/features/codespaces) di GitHub yang dapat membantumu untuk menggunakan kode sumber blog ini, dimulai dari sekadar mencoba sampai turut ikut berkontribusi. Untuk caranya, silakan baca [halaman dokumentasinya](https://docs.github.com/en/codespaces/getting-started/quickstart), di situ sudah dijelaskan secara sederhana dan lengkap dengan gambar.
 
-Saya sudah persiapkan semua yang dibutuhkan untuk ini yang konfigurasinya dapat Anda lihat di dalam folder [`.devcontainer`](.devcontainer) dan tinggal Anda pakai jadi saja, konfigurasinya belum sempurna sih, jadi masukkan dari Anda mengenai konfigurasi tersebut sangat saya apresiasi.
+Saya sudah persiapkan semua yang dibutuhkan untuk ini yang konfigurasinya dapat kamu lihat di dalam folder [`.devcontainer`](.devcontainer) dan tinggal pakai jadi saja, konfigurasinya belum sempurna sih, jadi masukkan dari Anda mengenai konfigurasi tersebut sangat saya apresiasi.
 
-Codespaces ini gratis 60 jam setiap bulannya untuk penggunaan mesin virtual dari GitHub dengan prosesor berinti dua (_dual-core_) + Memori RAM sebesar 4 GB, untuk biaya kelebihannya silakan Anda tanggung sendiri dan ini bisa saja berubah sewaktu-waktu.
+Codespaces ini gratis 60 jam setiap bulannya untuk penggunaan mesin virtual dari GitHub dengan prosesor berinti dua (_dual-core_) + Memori RAM sebesar 4 GB, untuk biaya kelebihannya silakan tanggung sendiri dan ini bisa saja berubah sewaktu-waktu.
 
 Jika sudah, Anda dapat lanjut ke langkah berikutnya.
 
 ## Cara Instal dan Menggunakannya
 
-Agar Kode Sumber ini dapat digunakan, maka Anda perlu menghasilkan HTML untuk Blog ini. Ada dua cara untuk menghasilkan HTML-nya, salah satunya berikut di bawah ini:
+Agar kode sumber ini dapat digunakan, maka Anda perlu menghasilkan HTML untuk blog ini. Ada dua cara untuk menghasilkan HTML-nya, salah satunya berikut di bawah ini:
 
 ### Cara Pertama: Menggunakan Fitur _Web Server_
 
@@ -81,7 +81,7 @@ Untuk penggunaan lebih lanjut, silakan kunjungi halaman [dokumentasinya](https:/
 
 ### Cara Kedua: Membangun Blog/Web Statis tanpa _Web Server_
 
-Selain di atas, Hugo telah menyediakan cara untuk membangun Web/Blog Statis tanpa harus menggunakan fitur _Web Server_-nya, data-data yang dihasilkan akan tersimpan di dalam perangkat diska (_Disk_), ini akan sangat berguna untuk produksi atau sekadar memeriksa Kode dari berkas skrip atau HTML, sampai berkas-berkas media (Seperti: Gambar) sebelum disebar ke lingkungan produksi.
+Selain di atas, Hugo telah menyediakan cara untuk membangun blog atau web statis tanpa harus menggunakan fitur _Web Server_-nya, data-data yang dihasilkan akan tersimpan di dalam perangkat diska (_Disk_), ini akan sangat berguna untuk produksi atau sekadar memeriksa Kode dari berkas skrip atau HTML, sampai berkas-berkas media (Seperti: Gambar) sebelum disebar ke lingkungan produksi.
 
 Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah mengakses kode sumbernya:
 
@@ -89,9 +89,9 @@ Untuk caranya, Anda bisa eksekusi perintah berikut di dalam Terminal setelah men
 hugo --gc
 ```
 
-Perintah di atas akan menghasilkan Blog Statis yang siap digunakan untuk produksi, dan hasilnya akan tersimpan di dalam folder `public`.
+Perintah di atas akan menghasilkan blog statis yang siap digunakan untuk produksi, dan hasilnya akan tersimpan di dalam folder `public`.
 
-Opsi di atas bukanlah opsi terbaik untuk membangun sebuah Web/Blog Statis dengan Hugo, jadi untuk penggunaan lebih lanjut, silakan kunjungi halaman [dokumentasinya](https://gohugo.io/commands/hugo/) atau ketik `hugo --help`.
+Opsi di atas bukanlah opsi terbaik untuk membangun sebuah blog statis dengan Hugo, jadi untuk penggunaan lebih lanjut, silakan kunjungi halaman [dokumentasinya](https://gohugo.io/commands/hugo/) atau ketik `hugo --help`.
 
 ## Cara Kontribusi
 
