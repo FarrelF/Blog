@@ -117,7 +117,7 @@ jobs:
       run: |
         tar -xvzf files.tar.gz
 
-    - name: Deploy to Bunny Storage using Thumper
+    - name: Deploying to Bunny Storage
       run: thumper sync public ${{ secrets.BUNNY_STORAGE_USERNAME }} --concurrency 8 --verbose
       env:
         THUMPER_KEY: "${{ secrets.BUNNY_STORAGE_PASSWORD }}"

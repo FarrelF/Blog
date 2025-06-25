@@ -111,11 +111,13 @@ jobs:
       with:
         name: preview-build-result-${{ env.SHORT_SHA }}
 
+    - name: Setup Mise and Thumper
+      uses: jdx/mise-action@v2
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
 
-    - name: Deploy to Bunny Storage using Thumper
+    - name: Deploying to Bunny Storage
       run: thumper sync public ${{ secrets.BUNNY_PREVIEW_STORAGE_USERNAME }} --concurrency 8 --verbose
       env:
         THUMPER_KEY: "${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}"
