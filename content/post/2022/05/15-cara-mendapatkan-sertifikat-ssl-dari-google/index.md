@@ -471,7 +471,7 @@ Kekurangan:
 
     Tapi, kebanyakan peramban web secara baku tidak lagi mengecek pencabutan sertifikat lebih lanjut jika server-nya tidak bisa diakses, sehingga web/aplikasi dengan sertifikat TLS tersebut tetap dapat dimuat seperti biasanya dan sertifikat tetap dianggap masih valid setelah dicabut, atau bahkan bisa jadi mereka tidak mengeceknya sama sekali.
 
-    Jadi selama sertifikat dan _private key-nya_ dipasang dengan lengkap dan benar, mungkin poin ini harusnya sudah tidak lagi berlaku. Mungkin saja saya bisa salah mengenai ini, kalau memang berbeda, mohon beri masukkan melalui kolom komentar.
+    Jadi selama sertifikat dan _private key-nya_ dipasang dengan lengkap dan benar, mungkin poin ini harusnya sudah tidak lagi berlaku. Mungkin saja saya bisa salah mengenai ini, jadi mohon beri masukkan melalui kolom komentar.
 
 Untuk perbandingan antar CA ACME lebih lanjut, silakan kunjungi salah satu halaman dokumentasi Posh-ACME dengan [klik di sini](https://poshac.me/docs/v4/Guides/ACME-CA-Comparison/).
 
