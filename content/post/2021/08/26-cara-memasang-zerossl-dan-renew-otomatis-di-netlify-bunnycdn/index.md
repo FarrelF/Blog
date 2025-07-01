@@ -175,7 +175,7 @@ Jika terlalu panjang, maka perangkat lunak yang harus Anda siapkan adalah sebaga
 
 - OpenSSL (atau LibreSSL?)
 - curl
-- Cron
+- Cron (atau Systemd Timer untuk pengguna Systemd)
 - [`jq`](https://jqlang.github.io/jq/) (khusus pengguna cPanel dan/atau DirectAdmin)
 
 Socat (Socket Cat) di sini bersifat opsional, ini hanya berlaku jika Anda ingin menjalankan acme.sh dalam "Standalone Mode", jadi tidak wajib diinstal dan artikel ini tidak membahasnya lebih lanjut.
@@ -183,13 +183,13 @@ Socat (Socket Cat) di sini bersifat opsional, ini hanya berlaku jika Anda ingin 
 
 Kalau Anda adalah pengguna sistem operasi berbasis Unix/Mirip-Unix (\*nix) seperti GNU/Linux, macOS, dan BSD, sebetulnya tidak usah ditanya, mereka sudah pasti kompatibel dengan acme.sh karena perkakas tersebut memang dirancang untuk sistem operasi tersebut.
 
-Asal punya OpenSSL (atau LibreSSL?), curl dan Cron, maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
+Asal punya OpenSSL (atau LibreSSL?), curl dan Cron (atau Systemd Timer untuk pengguna Systemd), maka acme.sh dapat dijalankan sebagaimana mestinya, serta Anda dapat mengikuti artikel ini secara keseluruhan. Wget juga bisa Anda gunakan, tapi di artikel ini saya bahas Wget hanya untuk mengunduh dan menginstal acme.sh saja.
 
 Jika Anda adalah pengguna cPanel, maka Anda perlu menginstal sebuah perangkat lunak yang bernama [`jq`](https://jqlang.github.io/jq/) di dalam sistem operasi Anda agar pemasangan sertifikat TLS dapat dipermudah.
 
 Anda juga dapat menginstal Socat (Socket Cat) agar acme.sh dapat dijalankan dalam "Standalone Mode", tapi itu tidak saya bahas lebih lanjut di sini.
 
-Untuk perangkatnya sih terserah kamu saja, saya lebih menyarankan perangkat komputer yang dapat dioperasikan selayaknya Server (diam di satu tempat, tanpa monitor dan tidak pernah sengaja dimatikan) atau pakai komputer kecil seperti Raspberry Pi atau perangkat sejenis kalau punya.
+Untuk perangkatnya sih terserah kamu saja, saya lebih menyarankan perangkat komputer yang dapat dioperasikan selayaknya server (diam di satu tempat, tanpa monitor dan tidak pernah sengaja dimatikan) atau pakai komputer kecil seperti Raspberry Pi atau perangkat sejenis kalau punya.
 
 Walau bisa saja pakai komputer desktop atau laptop yang kamu pakai sekarang, tapi sumber dayanya akan berebutan dengan lainnya dan mungkin kamu akan perlu mengoperasikannya dengan lebih lama untuk keperluan pembaruan sertifikat, kalau menurutmu itu tidak masalah maka dipakai saja.
 
@@ -217,7 +217,7 @@ Anda bisa memakai salah satu cara berikut untuk melakukannya:
 
 Kalau sudah mengemulasikan lingkungan \*nix di Windows, Anda dapat mengikuti persiapan perangkat lunak untuk sistem operasi \*nix. Jadi pastikan kalau curl, OpenSSL (atau LibreSSL?) dan Cron sudah ada di dalam sistem kamu.
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, daripada repot-repot memakai WSL, Docker, Server, dsb, lebih baik instal Termux di ponselmu saja dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop kamu melalui SSH, dan kamu pakai itu di sana, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya [kunjungi artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, disarankan instal Termux di ponselmu dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop kamu melalui SSH, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya kunjungi [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 
@@ -314,6 +314,12 @@ Atau dengan GNU Wget:
 
 ```shell
 wget -O - https://get.acme.sh | sh -s email=emailku@domain.com
+```
+
+Atau, Anda dapat menambah parameter `--force` jika Anda tidak ingin menggunakan Cron, contohnya seperti berikut:
+
+```shell
+curl https://get.acme.sh | sh -s email=emailku@domain.com --force
 ```
 
 Ganti `emailku@domain.com` dengan alamat surel Anda, jangan lupa dimasukkan, tapi jika Anda lupa atau telanjur salah memasukkan alamat surel saat menginstalnya, Anda dapat eksekusi perintah di bawah ini setelah terinstal:
@@ -2254,7 +2260,195 @@ Mohon maaf, untuk saat ini metode ke-2, yakni membuat berkas skrip terpisah/kust
 Jadi, silakan gunakan metode lainnya seperti metode ke-1 yang memanfaatkan konfigurasi acme.sh untuk domain/_Common Name_ tertentu yang mana itu saya sarankan, atau Anda dapat membuat skripnya sendiri, toh skrip yang saya hapus itu juga sebenarnya gabungan dari perintah `acme.sh --cron --home $HOME/.acme.sh`, perintah pemasangan sertifikat, dan tanggal & waktu buat pencatatan log saja.
 {{< / info >}}
 
-## Otomatisasi Skrip dengan _Cron Job_ {#otomatisasi-skrip-dengan-cron-jobs}
+## Otomatiskan pembaruan sertifikat {#otomatiskan-pembaruan-sertifikat}
+
+Mengotomatiskan pembaruan sertifikat adalah wajib hukumnya karena masa berlaku sertifikat hanya 90 hari dan [akan terus berkurang](https://digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days), kalau Anda tidak mampu mengotomatiskannya ya berarti Anda harus siap capek memperbarui itu semua secara manual setiap 90 hari sekali atau bahkan kurang dari itu.
+
+Cara mengotomatiskannya yang bisa Anda pilih ada 2, yakni sebagai berikut
+
+### Menggunakan _Systemd Timer_ {#otomatisasi-dengan-systemd-timer}
+
+Bagi pengguna yang sistemnya tidak terinstal _Cron job_ atau sesimpel gak mau menggunakannya, maka _Systemd Timer_ bisa menjadi pilihan alternatif, atau bahkan pengganti dari _Cron job_ itu sendiri.
+
+Selain itu, cara ini lebih saya rekomendasikan jika Anda adalah pengguna Systemd di dalam sistem operasi Anda ketimbang lainnya, seperti karena tiap tugas itu memiliki berkasnya tersendiri yang bisa disebut unit timer (gak kayak _Cron Jobs_ yang semuanya di dalam satu berkas), setiap tugas itu ada catatannya tersendiri sehinga mempermudah _debugging_, tercatat juga ke dalam jurnal Systemd, tiap tugas bisa dijalankan di lingkungan tertentu, dll.
+
+**Langkah ke-1:** Untuk memulainya, Anda perlu membuat terlebih dahulu layanan Systemd-nya. Pertama-tama, buatlah terlebih dahulu folder-nya dengan perintah berikut:
+
+```bash
+mkdir -p ~/.config/systemd/user
+```
+
+Loh, kok "user"? Karena di artikel ini membahas acme.sh yang terinstal di dalam lingkungan pengguna, 'kan tidak memakai `sudo` pas instal ataupun di `root`, jadi layanannya harus dibuat di lingkungan pengguna biasa. Kalau ternyata kamu instalnya di lingkungan `root` dan mau jalan di lingkungan itu, ya berarti kamu langsung ke direktori `/etc/systemd/system/` aja.
+
+Setelah itu buatlah berkas layanannya di dalam folder tersebut, sebut saja namanya `acme.sh.service` dan isi berkasnya sebagai berikut:
+
+```systemd
+[Unit]
+Description=acme.sh service
+After=network-online.target nss-lookup.target
+
+[Service]
+Type=oneshot
+SyslogIdentifier=acme.sh
+ExecStart=/lokasi/ke/acme.sh --cron --home /lokasi/ke/acme.sh
+```
+
+Ganti `/lokasi/ke/acme.sh` dengan lokasi ke berkas `acme.sh` itu berada, biasanya di `/home/username/.acme.sh/acme.sh` ya seperti yang kamu tahu sendiri.
+
+Simpan berkas tersebut, lalu silakan ke langkah selanjutnya.
+
+**Langkah ke-2 (Opsional):** Kamu bisa nonaktifkan _timestamp_ di dalam acme.sh, supaya pas _debugging_ tidak muncul waktunya secara ganda. Caranya kamu tinggal tambahkan barisan berikut di dalam berkas `account.conf` yang terletak di direktori acme.sh:
+
+```text
+NO_TIMESTAMP='1'
+```
+
+Simpan konfigurasinya, lalu maju ke langkah selanjutnya.
+
+**Langkah ke-3:** Muat ulang _daemon_ Systemd terlebih dahulu dengan perintah berikut:
+
+```bash
+systemctl --user daemon-reload
+```
+
+Setelah itu, lakukan uji coba terlebih dahulu layanan Systemd yang sudah dibuat tadi dengan perintah berikut:
+
+```bash
+systemctl --user start acme.sh
+```
+
+Lalu, lihat hasilnya dengan perintah berikut:
+
+```bash
+journalctl --user -u acme.sh.service
+
+# Atau (salah satu, dua-duanya juga gak masalah)
+
+systemctl --user status acme.sh
+```
+
+Kalau di lingkungan `root` gimana? Ya tinggal hapus aja parameter `--user`-nya.
+
+Ekspektasi keluaran yang muncul adalah keluaran dari acme.sh itu sendiri dengan berbagai macam tambahan dari Systemd dan jangan kaget kalau ternyata muncul tulisan `Active: inactive (dead)` pas lihat statusnya, ya artinya layanan tersebut memang sudah tidak aktif.
+
+Kenapa kok begitu? Ya karena memang jenisnya _oneshot_, yakni cuma sekali jalan aja, 'kan nanti mau dijalanin sama _timer-nya_ jadinya masih sesuai ekspektasi.
+
+Kalau sudah seperti itu, ayo langsung ke langkah selanjutnya.
+
+Gak perlu _di-enable_ ini? Ya gak perlulah, pake nanya 🙄
+
+**Langkah ke-4** Buatlah sebuah berkas _timer_ di dalam direktori yang sama kayak tadi, yakni `~/.config/systemd/user` yang bernama sama cuma beda ekstensi aja, yakni `acme.sh.timer`. Isinya seperti berikut:
+
+```systemd
+[Unit]
+Description=acme.sh timer unit
+
+[Timer]
+OnCalendar=00/2:00
+AccuracySec=1h
+#RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+Simpan terlebih dahulu berkas tersebut.
+
+Seperti yang kamu lihat di atas, bahwa dengan setelan di atas, maka acme.sh akan berjalan pada setiap 2 jam sekali pada pukul dengan kelipatan 2 di menit ke-0 (seperti pukul 00:00, 02:00, 04:00, 06:00, 08:00, 10:00, 12:00, 14:00, dst).
+
+Kenapa bisa seperti itu? Di kata kunci atau opsi `OnCalendar` itu saya isikan `00/2:00` yang artinya menggunakan format `hh/r:mm`, arti dari formatnya sebagai berikut:
+
+- `hh` artinya waktu pukul berapa, saya isi `00`
+- `r` itu artinya pengulangan yang nilainya adalah 2, yang berarti nilai `hh` ditambah semua kelipatan dari nilai pengulangan yang cocok (cth. 00, 02, 04, 06, 08, 10, 12, 14, 16, dan seterusnya)
+- `mm` artinya berapa menit tiap jam itu, kalau misalnya diisi `30` maka _timer_ akan dijalankan mulai dari pukul 00:30, 02:30, dst
+
+Anda bisa menggantikan `00/2:00` di atas menjadi `hourly` agar dapat dijalankan setiap jam, `daily` agar dijalankan setiap hari atau `weekly` agar dijalankan setiap minggu.
+
+Kamu bisa menganalisa ekspektasi bahwa layanan tersebut dijalankan pada pukul berapa aja dengan perintah berikut:
+
+```bash
+$ systemd-analyze calendar 00/2:00
+  Original form: 00/2:00
+Normalized form: *-*-* 00/2:00:00
+    Next elapse: Wed 2025-07-02 00:00:00 +07
+       (in UTC): Tue 2025-07-01 17:00:00 UTC
+       From now: 10min left
+```
+
+Kamu juga bisa tambahkan parameter `--iterations=<angka>` untuk perulangan dengan contoh seperti berikut beserta keluarannya:
+
+```bash
+$ systemd-analyze calendar --iterations=5 00/2:00
+  Original form: 00/2:00
+Normalized form: *-*-* 00/2:00:00
+    Next elapse: Wed 2025-07-02 00:00:00 +07
+       (in UTC): Tue 2025-07-01 17:00:00 UTC
+       From now: 9min left
+   Iteration #2: Wed 2025-07-02 02:00:00 +07
+       (in UTC): Tue 2025-07-01 19:00:00 UTC
+       From now: 2h 9min left
+   Iteration #3: Wed 2025-07-02 04:00:00 +07
+       (in UTC): Tue 2025-07-01 21:00:00 UTC
+       From now: 4h 9min left
+   Iteration #4: Wed 2025-07-02 06:00:00 +07
+       (in UTC): Tue 2025-07-01 23:00:00 UTC
+       From now: 6h left
+   Iteration #5: Wed 2025-07-02 08:00:00 +07
+       (in UTC): Wed 2025-07-02 01:00:00 UTC
+       From now: 8h left
+```
+
+Terus apa itu `AccuracySec`, `RandomizedDelaySec` sama `Persistent`? Opsi-opsi tersebut memiliki fungsi yang berbeda-beda, fungsinya sebagai berikut:
+
+- `AccuracySec` itu digunakan untuk menetapkan batas waktu penundaan maksimum di mana layanan dapat diluncurkan, untuk di kasus ini saya isi dengan `1h` yang artinya maksimum penundaan hanya sampai 1 jam saja.
+
+    Kenapa seperti itu? Biar supaya layanan tersebut dapat berjalan dengan optimal, tapi biasanya gak sampai 10 menit kok penundaannya, palingan 1-2 menit saja
+
+- `RandomizedDelaySec` itu fungsinya agar menambah waktu penundaan secara acak dengan batas waktu maksimum sebelum akhirnya layanan dapat diluncurkan, untuk di kasus ini saya isi `30m` yang berarti maksimum 30 menit dan saya komentari supaya gak aktif.
+
+    Berbeda dengan opsi lain di atas, opsi ini memang disengaja untuk menambah waktu tunda berjalannya layanan, sehingga nambah waktu lagi sampai 30 menit sesuai kasus ini.
+
+    Misalnya kamu berekspektasi kalau layanan tersebut akan berjalan di pukul 02:00, kalau kamu mengaktifkan opsi ini, maka ekspektasikan kalau layanan tersebut bakal jalan di pukul 02:26 atau sekian, asal gak sampai dan melebihi 30 menit, sesuai ketentuan.
+
+- `Persistent` itu menerima nilai _boolean_, hanya bisa diisi dengan `true` atau `false`. Jika diisi `true`, seperti di kasus ini, maka waktu terakhir layanan dipicu oleh timer disimpan ke dalam disk.
+
+    Jika karena alasan apa pun jadwal eksekusi terlewatkan, saat timer diaktifkan kembali, layanan akan dijalankan segera, asalkan dalam waktu yang telah berlalu layanan tersebut seharusnya telah dipicu setidaknya sekali.
+
+    Tentu opsi ini dapat berguna, misalnya untuk menjalankan jadwal yang terlewatkan akibat sistem dimatikan pada kali berikutnya mesin dinyalakan kembali.
+
+Sudah mengaturnya? Kalau sudah, simpan berkas tersebut dan silakan ke langkah selanjutnya.
+
+**Langkah ke-5:** Aktifkan dan jalankan _timer_ tersebut dengan perintah berikut:
+
+```bash
+systemctl --user enable acme.sh.timer
+systemctl --user start acme.sh.timer
+```
+
+Gunakan perintah berikut untuk memastikan bahwa _timer_ berhasil dijalankan:
+
+```bash
+systemctl --user status acme.sh.timer
+```
+
+Pastikan statusnya adalah `Active: active (waiting)` yang artinya _timer_ tersebut aktif sedang menunggu.
+
+Kalau kamu mau melihat keluaran dari acme.sh di situ, ya gak bakalan muncul, karena di situ cuma _timer-nya_ saja buat pemicu, jadi pakai perintah berikut untuk melihatnya:
+
+```bash
+systemctl --user status acme.sh
+```
+
+Silakan gunakan perintah berikut untuk melihat _timer_ yang aktif dan ekspektasi waktu layanan di jalankan:
+
+```bash
+systemctl --user list-timers
+```
+
+Nah, itu saja pembahasan mengenai mengotomatiskan pembaruan sertifikat menggunakan _Systemd Timer_ ini.
+
+### Menggunakan _Cron Job_ {#otomatisasi-dengan-cron-job}
 
 Setelah perkakas acme.sh diinstal, biasanya _cron job_ akan otomatis terpasang untuk keperluan pembaruan sertifikat kalau ada. Jadi, sebenarnya Anda tidak perlu membuatnya lagi secara manual.
 
@@ -2602,63 +2796,33 @@ Lagian, acme.sh hanya kompatibel dengan sistem operasi atau lingkungan \*nix, ja
 
 Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan berikan masukan di dalam kolom komentar yang telah disediakan.
 
-### Pertanyaan ke-14: Saya menggunakan Windows 10 dan WSL, saya berhasil memasang sertifikat TLS dengan mengikuti artikel ini, tapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
+### Pertanyaan ke-14: Saya menggunakan Windows 10/11 dan WSL, saya berhasil memasang sertifikat TLS dengan mengikuti artikel ini, tapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
 
-Jika Anda mempunyai ponsel pintar yang menggunakan sistem operasi Android, saya lebih menyarankan Anda untuk memperbaruinya secara otomatis melalui ponsel saja dan komputer desktop atau laptopnya Anda gunakan untuk meremot ponselnya menggunakan klien SSH dan menerbitkan serta mengelola sertifikatnya di sana memakai acme.sh.
+Kalau kamu menggunakan WSL 2, maka harusnya kamu menggunakan `systemd-timer` untuk mengotomatiskan pembaruan sertifikat, karena WSL 2 sudah mendukung Systemd secara penuh dan di beberapa distribusi WSL 2 juga sudah mengaktifkannya secara baku (seperti Arch Linux WSL yang saya pakai misalnya).
 
-Saya sarankan ini karena selain bisa dibawa ke mana-mana (karena berukuran kecil) dan konektivitasnya lebih luas/banyak, ponsel juga bisa diaktifkan lebih lama ketimbang komputer atau laptop kamu, bahkan bisa diaktifkan selama 24/7 jam nonstop kalau kamu mau selama suhu perangkatnya terjaga dan arus listriknya sehat.
+Kalau kurang yakin, silakan buka Terminal WSL dan cek dengan perintah berikut:
 
-Caranya sudah saya bahas secara lengkap di artikel ini.
-
-Namun, jika Anda terpaksa tidak menggunakannya dengan alasan apa pun, Anda bisa melakukannya di Windows 10 atau di atasnya melalui WSL.
-
-Untuk saat ini ada dua cara, yakni dengan menggunakan _Cron Job_ yang ada di salah satu distribusi WSL atau menggunakan "Task Scheduler". Cara-caranya sebagai berikut:
-
-#### Cara ke-1: Menggunakan _Cron Job_ yang ada di salah satu distribusi WSL
-
-Di salah satu distribusi WSL, seperti Ubuntu 20.04, Anda dapat menggunakan Cron dengan mengaktifkan layanannya terlebih dahulu dengan perintah `sudo service cron start`, lalu atur _Crontab-nya_ seperti biasa.
-
-Namun, jika sesi distribusi WSL tersebut diterminasi (cth. Diterminasi dengan perintah `wsl -t Nama-Distribusi`, komputer desktop/laptop kamu _di-shutdown_ atau _di-restart_, dll), maka semua proses WSL termasuk proses layanan Cron akan dinonaktifkan, sehingga Anda perlu pakai WSL, lalu aktifkan layanannya dan membiarkan WSL tetap berjalan.
-
-Anda bisa eksekusi perintah berikut saat _Start-up_ agar layanan Cron bisa diaktifkan tanpa harus mengakses Terminal WSL:
-
-```powershell
-C:\Windows\System32\wsl.exe -d <Nama-Distribusi> -u root /usr/bin/env sh -c service cron start
+```bash
+systemctl status
+systemctl --type=service --state=running 
 ```
 
-Silakan ganti `<Nama-Distribusi>` dengan Nama Distribusi WSL yang Anda gunakan sekarang.
+Kalau Systemd-nya aktif, maka harusnya ada tulisan `State: Active` dan layanan yang berkaitan dengan `systemd` aktif semua.
 
-#### Cara ke-2: Menggunakan _Task Scheduler_
+Tapi kalau kamu masih tidak yakin juga, maka kamu bisa mengaktifkannya secara manual dengan menambahkan barisan berikut ke dalam berkas `/etc/wsl.conf`:
 
-Anda juga dapat menggunakan "Task Scheduler" untuk memperbarui sertifikat TLS secara otomatis, ini lebih cocok jika Anda membuat skripnya dengan terpisah (menjadi Berkas Skrip tersendiri), tapi Anda juga bisa menjalankan Layanan Cron di WSL saat _Start-up_ dengan "Task Scheduler" juga, kok.
+```toml
+[boot]
+systemd=true
+```
 
-Caranya sebagai berikut:
+Kalau sudah ada gimana? Ya gak usah ditambahin lagi dan gak usah diapa-apain, artinya Systemd udah aktif. Kalau belum ada, silakan tambahkan, setelah itu simpan dan tutup semua yang berkaitan dengan WSL, lalu buka terminal PowerShell dan eksekusikan perintah berikut untuk mematikan WSL:
 
-1. Buka "**Task Scheduler**"
-2. Di dalam folder "**Task Scheduler Library**", klik "**Create Basic Task**" untuk membuat sebuah "Tugas" baru
-3. Nanti akan muncul dialog Wisaya atau _Wizard_ yang menuntun kamu dalam membuat sebuah tugas. Pertama-tama, tulis nama dan deskripsi tugasnya, lalu klik "**Next >**"
-4. Pada langkah "**Trigger**", nanti kamu menentukan kapan tugas tersebut dieksekusi atau sertifikat akan diperbarui, di situ ada salah satu opsi berikut yang dapat Anda pilih: (Klik "**Next >**" jika sudah selesai)
-    - "**Daily**" yang artinya setiap hari
-    - "**Weekly**" yang artinya setiap minggu
-    - "**Monthly**" yang artinya setiap bulan
-    - "**One time**" yang artinya satu kali saja
-    - "**When the computer starts**" yang artinya setiap kali komputer dinyalakan dan sistem sudah siap, tidak peduli apakah sudah login atau belum
-    - "**When I log on**" yang artinya setiap kamu login
+```bash
+wsl --shutdown
+```
 
-5. Jika ada sub-langkah setelah "**Trigger**", maka tentukan kapan tugas tersebut dieksekusi dengan memilih opsi-opsi yang ada. Klik "**Next >**" jika sudah selesai.
-6. Pada langkah "**Action**", nanti akan ada 3 pilihan, maka Anda pilih "**Start a program**"
-7. Pada sub-langkah "**Start a program**", nanti akan ada kotak teks yang harus Anda isi, berikut adalah Informasinya: (Klik "**Next >**" jika sudah selesai)
-   - Isikan **Program/script** dengan `C:\Windows\System32\wsl.exe`
-   - Isikan **Add arguments (optional)** dengan `-d Nama-Distribusi -u nama-pengguna /usr/bin/env sh "$HOME"/lokasi/ke/berkas/renew-ssl.sh &`
-        - Ganti `Nama-Distribusi` dengan Nama Distribusi WSL yang kamu gunakan
-        - Ganti `nama-pengguna` dengan Nama Pengguna/_Username_ di WSL kamu
-        - Ganti `$HOME/lokasi/ke/berkas/renew-ssl.sh` dengan lokasi berkas skrip `renew-ssl.sh` yang telah kamu buat sebelumnya atau ganti itu dengan `$HOME/.acme.sh/acme.sh --cron` jika Anda menggunakan metode pertama dalam membuat skrip.
-
-8. Pada langkah "**Finish**", kamu akan diperlihatkan tugas yang ingin kamu buat. Periksa terlebih dahulu tugas yang ingin kamu buat sebelum diinangkan, jika merasa yakin, silakan klik "**Finish**".
-
-Cuma kekurangan dari cara "Task Scheduler" adalah jika tugas tersebut dieksekusi, maka akan muncul Jendela/_Window_ yang akibatnya cukup menganggu aktivitas yang sedang Anda lakukan saat menggunakan aplikasi di Windows (cth. Saat bermain sebuah Gim/Gim Daring, dll)
-
-Mungkin ini bisa diakali jika tugas tersebut dieksekusi setelah kamu masuk/_login_ saja, siapa tahu bisa.
+Setelah itu buka lagi WSL-nya, maka Systemd sudah aktif dan kamu bisa pastikan itu lagi.
 
 ### Pertanyaan ke-15: Apa yang terjadi jika rantai pada Sertifikat TLS yang terpasang malah tidak sempurna/tidak lengkap? {#pertanyaan-ke15}
 
@@ -2786,7 +2950,7 @@ Setelah itu, coba perbarui/terbitkan lagi sertifikatnya, dengan begini acme.sh a
 
 #### Metode 2: Mengubah kredensial di dalam konfigurasi domainnya
 
-Selain menggunakan `account.conf`, Anda juga dapat mengubah kredensial bahkan menambahkan kredensial akses API dari Penyedia DNS Anda melalui konfigurasi domainnya.
+Selain menggunakan `account.conf`, Anda juga dapat mengubah kredensial bahkan menambahkan kredensial akses API dari penyedia DNS Anda melalui konfigurasi domainnya.
 
 Berkas Konfigurasi Domainnya berada di `$HOME/.acme.sh/domain.com/domain.com.conf`. Berkas tersebut dapat diubah menggunakan editor teks apa pun, termasuk editor teks favorit Anda, serta Anda dapat mengubah ataupun menambahkan variabelnya di situ.
 
@@ -2798,7 +2962,7 @@ Nah, jika Anda menggunakan Cloudflare sebagai penyedia DNS dan ingin menggantika
 
 Namun jika Anda menggunakan penyedia DNS lain, maka variabel yang digunakan akan berbeda-beda untuk setiap penyedia, oleh karena itu Anda perlu mengetahui dan menyesuaikan variabel-variabel tersebut, untuk mengetahui variabel yang mereka gunakan, silakan kunjungi terlebih dahulu [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
-Jangan lupa untuk menghapus kredensial yang ada di dalam berkas tersebut setelah Anda menambahkannya. Setelah itu, tunggu saja sampai waktu pembaruan sertifikat telah tiba.
+Setelah itu, tunggu saja sampai waktu pembaruan sertifikat telah tiba.
 
 ### Pertanyaan ke-20: Apakah ini juga bisa diikuti oleh pengguna perangkat komputer kecil seperti Raspberry Pi dan perangkat sejenis lainnya? {#pertanyaan-ke20}
 
@@ -2861,7 +3025,7 @@ printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 
 ### Pertanyaan ke-22: Saat saya menerbitkan/memperbarui Sertifikat TLS melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke22}
 
-Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa Server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, koneksi dari Server/Proksi yang melambat, dll.
+Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, koneksi dari server atau proksi yang melambat, dll.
 
 Jadi, sabarlah menunggu sampai beberapa waktu kemudian, entah itu beberapa menit, jam atau beberapa hari, siapa tahu nanti permasalahan pada servernya bisa terselesaikan, sehingga bisa digunakan kembali.
 
@@ -2875,7 +3039,7 @@ Makanya saya sarankan kamu perlu menunggu sampai DNS benar-benar terpropagasi se
 
 Ganti `durasi` di atas dengan waktu durasi menunggu selama beberapa detik, misalnya jika kamu setel ke angka `200` maka kamu perlu menunggu 200 detik setelah catatan DNS berhasil ditambahkan atau diubah dan sebelum verifikasi dari CA.
 
-Perlu diingat bahwa 200 itu adalah yang paling minimal, nilai minimal yang disarankan adalah 300 detik, kalau masih terkendala verifikasi kamu perlu naikkan lagi ke 600, 900 detik, dst, sampai bisa terpropagasi.
+Perlu diingat bahwa 200 itu adalah yang paling minimum, nilai minimum yang disarankan adalah 300 detik, kalau masih terkendala verifikasi kamu perlu naikkan lagi ke 600, 900 detik, dst, sampai bisa terpropagasi.
 
 ### Pertanyaan ke-24: Apakah benar bahwa SSL gratisan itu memiliki enkripsi yang lemah? {#pertanyaan-ke24}
 
@@ -2883,7 +3047,7 @@ Itu tidak benar, jika ada artikel yang menyatakan demikian, itu bisa dipastikan 
 
 Sertifikatnya memang punya andil yang sangat penting dalam keamanan, karena ia membawa kunci publik di dalamnya, tapi yang melakukan enkripsi dan dekripsi tetap saja oleh server dan kliennya, bukan oleh sertifikat atau pun pihak CA-nya.
 
-Lagipula, algoritma dan ukuran kunci publik yang bisa Anda dapatkan baik dari sertifikat TLS berbayar atau bahkan gratisan itu sama aja, kok, dan yang pasti Anda tidak akan mendapatkan kunci yang sudah 'tertinggal' (cth. RSA dengan ukuran 1024-bit).
+Lagipula, algoritma dan ukuran kunci publik yang bisa Anda dapatkan baik dari sertifikat TLS berbayar atau bahkan gratisan itu sama aja kok, dan yang pasti Anda tidak akan mendapatkan kunci yang sudah 'tertinggal' (cth. RSA dengan ukuran 1024-bit).
 
 Bahkan algoritma kunci publik yang digunakan pada sertifikat TLS berbayar yang terpasang di dalam situs web/blog yang saya lihat kebanyakan pada memakai algoritma kunci RSA dengan ukuran 2048-bit saja, yang merupakan kunci yang cukup ideal untuk saat ini, walaupun saat ini ada yang memakai algoritma yang lebih baru (seperti ECC/ECDSA), empat di antaranya adalah Facebook, Twitter, Cloudflare dan Google (meski rantainya tidak sepenuhnya ECC).
 
@@ -2922,7 +3086,7 @@ Ada beberapa manfaat yang bisa Anda dapatkan untuk masa berlaku yang pendek ini,
 
 4. Anda selalu bisa mendapatkan kunci terbaru (dengan merotasi kunci pribadi) ketika memperbarui sertifikatnya secara otomatis.
 
-    **Catatan:** Ini tergantung dari Perkakas Klien ACME yang Anda gunakan, perkakas acme.sh secara baku tidak merotasi kunci pribadi, dengan kata lain tidak membuat kunci pribadi baru ketika memperbarui sertifikatnya, sehingga ia tetap menggunakan kunci yang ada sebelumnya.
+    **Catatan:** Ini tergantung dari perkakas klien ACME yang Anda gunakan, acme.sh secara baku tidak merotasi kunci pribadi, dengan kata lain tidak membuat kunci pribadi baru ketika memperbarui sertifikatnya, sehingga ia tetap menggunakan kunci yang ada sebelumnya.
 
     Ketika Anda ingin menerbitkan sertifikatnya, Anda dapat menambahkan parameter `--always-force-new-domain-key` atau jika telanjur, Anda dapat menambahkan `Le_ForceNewDomainKey=1` di dalam berkas `domain.com.conf` agar acme.sh selalu membuat kunci baru setiap pembaruan sertifikat
 
