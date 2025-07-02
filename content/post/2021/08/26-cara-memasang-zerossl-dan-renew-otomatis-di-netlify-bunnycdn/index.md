@@ -3046,7 +3046,7 @@ Validitas sertifikat yang diperkecil ini jelas bukan untuk menghasilkan banyak k
 
 Jika tidak, mereka akan kehilangan pelanggan karena pelanggan bakal beralih ke CA pesaing yang lebih mampu atau bahkan ke CA gratisan seperti ZeroSSL, Google Trust Services dan Let’s Encrypt.
 
-Nah, itulah jawaban dari pertanyan ini, jadi tinggal adaptasi saja sebenarnya.
+Nah, itulah jawaban dari pertanyaan ini, jadi tinggal adaptasi saja sebenarnya.
 
 ### Pertanyaan ke-26: Apakah Sertifikat TLS dari ZeroSSL (baik gratisan atau berbayarnya) itu boleh dipasang pada situs web untuk keperluan komersial (seperti Perdagangan Elektronik, dll)? {#pertanyaan-ke26}
 
