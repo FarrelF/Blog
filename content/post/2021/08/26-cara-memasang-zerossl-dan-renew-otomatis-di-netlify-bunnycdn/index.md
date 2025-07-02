@@ -2264,7 +2264,7 @@ Jadi, silakan gunakan metode lainnya seperti metode ke-1 yang memanfaatkan konfi
 
 Mengotomatiskan pembaruan sertifikat adalah wajib hukumnya karena masa berlaku sertifikat hanya 90 hari dan [akan terus berkurang](https://digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days), kalau Anda tidak mampu mengotomatiskannya ya berarti Anda harus siap capek memperbarui itu semua secara manual setiap 90 hari sekali atau bahkan kurang dari itu.
 
-Cara mengotomatiskannya yang bisa Anda pilih ada 2, yakni sebagai berikut
+Cara mengotomatiskan yang bisa Anda pilih ada 2, yakni sebagai berikut
 
 ### Menggunakan _Systemd Timer_ {#otomatisasi-dengan-systemd-timer}
 
@@ -2345,8 +2345,8 @@ Description=acme.sh timer unit
 
 [Timer]
 OnCalendar=00/2:00
-AccuracySec=1h
-#RandomizedDelaySec=30m
+RandomizedDelaySec=30m
+#AccuracySec=30m
 Persistent=true
 
 [Install]
@@ -2363,17 +2363,17 @@ Kenapa bisa seperti itu? Di kata kunci atau opsi `OnCalendar` itu saya isikan `0
 - `r` itu artinya pengulangan yang nilainya adalah 2, yang berarti nilai `hh` ditambah semua kelipatan dari nilai pengulangan yang cocok (cth. 00, 02, 04, 06, 08, 10, 12, 14, 16, dan seterusnya)
 - `mm` artinya berapa menit tiap jam itu, kalau misalnya diisi `30` maka _timer_ akan dijalankan mulai dari pukul 00:30, 02:30, dst
 
-Anda bisa menggantikan `00/2:00` di atas menjadi `hourly` agar dapat dijalankan setiap jam, `daily` agar dijalankan setiap hari atau `weekly` agar dijalankan setiap minggu.
+Kamu bisa menggantikan `00/2:00` di atas menjadi `hourly` agar dapat dijalankan setiap jam, `daily` agar dijalankan setiap hari atau `weekly` agar dijalankan setiap minggu.
 
-Kamu bisa menganalisa ekspektasi bahwa layanan tersebut dijalankan pada pukul berapa aja dengan perintah berikut:
+Kamu juga bisa menganalisa ekspektasi bahwa layanan tersebut akan dijalankan pada pukul berapa aja dengan perintah berikut:
 
 ```bash
 $ systemd-analyze calendar 00/2:00
   Original form: 00/2:00
 Normalized form: *-*-* 00/2:00:00
-    Next elapse: Wed 2025-07-02 00:00:00 +07
-       (in UTC): Tue 2025-07-01 17:00:00 UTC
-       From now: 10min left
+    Next elapse: Wed 2025-07-02 16:00:00 WIB
+       (in UTC): Wed 2025-07-02 09:00:00 UTC
+       From now: 1h 6min left
 ```
 
 Kamu juga bisa tambahkan parameter `--iterations=<angka>` untuk perulangan dengan contoh seperti berikut beserta keluarannya:
@@ -2382,40 +2382,40 @@ Kamu juga bisa tambahkan parameter `--iterations=<angka>` untuk perulangan denga
 $ systemd-analyze calendar --iterations=5 00/2:00
   Original form: 00/2:00
 Normalized form: *-*-* 00/2:00:00
-    Next elapse: Wed 2025-07-02 00:00:00 +07
-       (in UTC): Tue 2025-07-01 17:00:00 UTC
-       From now: 9min left
-   Iteration #2: Wed 2025-07-02 02:00:00 +07
-       (in UTC): Tue 2025-07-01 19:00:00 UTC
-       From now: 2h 9min left
-   Iteration #3: Wed 2025-07-02 04:00:00 +07
-       (in UTC): Tue 2025-07-01 21:00:00 UTC
-       From now: 4h 9min left
-   Iteration #4: Wed 2025-07-02 06:00:00 +07
-       (in UTC): Tue 2025-07-01 23:00:00 UTC
-       From now: 6h left
-   Iteration #5: Wed 2025-07-02 08:00:00 +07
-       (in UTC): Wed 2025-07-02 01:00:00 UTC
-       From now: 8h left
+    Next elapse: Wed 2025-07-02 16:00:00 WIB
+       (in UTC): Wed 2025-07-02 09:00:00 UTC
+       From now: 1h 7min left
+   Iteration #2: Wed 2025-07-02 18:00:00 WIB
+       (in UTC): Wed 2025-07-02 11:00:00 UTC
+       From now: 3h 7min left
+   Iteration #3: Wed 2025-07-02 20:00:00 WIB
+       (in UTC): Wed 2025-07-02 13:00:00 UTC
+       From now: 5h 7min left
+   Iteration #4: Wed 2025-07-02 22:00:00 WIB
+       (in UTC): Wed 2025-07-02 15:00:00 UTC
+       From now: 7h left
+   Iteration #5: Thu 2025-07-03 00:00:00 WIB
+       (in UTC): Wed 2025-07-02 17:00:00 UTC
+       From now: 9h left
 ```
 
-Terus apa itu `AccuracySec`, `RandomizedDelaySec` sama `Persistent`? Opsi-opsi tersebut memiliki fungsi yang berbeda-beda, fungsinya sebagai berikut:
+Terus apa itu `RandomizedDelaySec`, `AccuracySec` sama `Persistent`? Opsi-opsi tersebut memiliki fungsi yang berbeda-beda, fungsinya sebagai berikut:
 
-- `AccuracySec` itu digunakan untuk menetapkan batas waktu penundaan maksimum di mana layanan dapat diluncurkan, untuk di kasus ini saya isi dengan `1h` yang artinya maksimum penundaan hanya sampai 1 jam saja.
+- `RandomizedDelaySec` itu fungsinya agar menambah waktu secara acak dengan batas waktu maksimum sebelum akhirnya layanan dapat diluncurkan, untuk di kasus ini saya isi `30m` yang berarti maksimum 30 menit.
 
-    Kenapa seperti itu? Biar supaya layanan tersebut dapat berjalan dengan optimal, tapi biasanya gak sampai 10 menit kok penundaannya, palingan 1-2 menit saja
+    Misalnya kamu berekspektasi kalau layanan tersebut akan berjalan di pukul 02:00, kalau kamu mengaktifkan opsi ini, maka ekspektasikan kalau layanan tersebut bakal jalan di pukul 02:26:13 atau sekian, asal gak melebihi 30 menit, sesuai ketentuan
 
-- `RandomizedDelaySec` itu fungsinya agar menambah waktu penundaan secara acak dengan batas waktu maksimum sebelum akhirnya layanan dapat diluncurkan, untuk di kasus ini saya isi `30m` yang berarti maksimum 30 menit dan saya komentari supaya gak aktif.
+- `AccuracySec` itu digunakan untuk menetapkan batas waktu penundaan maksimum di mana layanan dapat diluncurkan, untuk di kasus ini saya isi dengan `30m` yang artinya maksimum penundaan hanya sampai 30 menit saja dan saya komentari supaya gak aktif.
 
-    Berbeda dengan opsi lain di atas, opsi ini memang disengaja untuk menambah waktu tunda berjalannya layanan, sehingga nambah waktu lagi sampai 30 menit sesuai kasus ini.
+    Ini tidak sama dengan opsi di atas, opsi ini tidak menambah waktu ekspektasi mengenai kapan layanan akan dijalankan, tapi justru opsi ini menambah penundaan sampai batas waktu yang ditentukan
 
-    Misalnya kamu berekspektasi kalau layanan tersebut akan berjalan di pukul 02:00, kalau kamu mengaktifkan opsi ini, maka ekspektasikan kalau layanan tersebut bakal jalan di pukul 02:26 atau sekian, asal gak sampai dan melebihi 30 menit, sesuai ketentuan.
+- `Persistent` itu menerima nilai _boolean_, hanya bisa diisi dengan `true` atau `false`. Jika diisi `true`, seperti di kasus ini, maka waktu terakhir layanan dipicu oleh _timer_ disimpan ke dalam disk.
 
-- `Persistent` itu menerima nilai _boolean_, hanya bisa diisi dengan `true` atau `false`. Jika diisi `true`, seperti di kasus ini, maka waktu terakhir layanan dipicu oleh timer disimpan ke dalam disk.
-
-    Jika karena alasan apa pun jadwal eksekusi terlewatkan, saat timer diaktifkan kembali, layanan akan dijalankan segera, asalkan dalam waktu yang telah berlalu layanan tersebut seharusnya telah dipicu setidaknya sekali.
+    Jika karena alasan apa pun jadwal eksekusi terlewatkan, layanan akan dijalankan segera saat _timer_ diaktifkan kembali, asalkan dalam waktu yang telah berlalu layanan tersebut seharusnya telah dipicu setidaknya sekali.
 
     Tentu opsi ini dapat berguna, misalnya untuk menjalankan jadwal yang terlewatkan akibat sistem dimatikan pada kali berikutnya mesin dinyalakan kembali.
+
+Kenapa kok ditunda seperti itu? Agar layanan bisa berjalan dengan optimal dan tidak bentrok dengan tugas/layanan lainnya, kalau kamu mau lebih tepat waktu ya tinggal hapus aja opsinya, itu tidak masalah karena dua itu bukan opsi wajib.
 
 Sudah mengaturnya? Kalau sudah, simpan berkas tersebut dan silakan ke langkah selanjutnya.
 
@@ -2445,6 +2445,20 @@ Silakan gunakan perintah berikut untuk melihat _timer_ yang aktif dan ekspektasi
 ```bash
 systemctl --user list-timers
 ```
+
+Maka keluarannya akan seperti di bawah ini:
+
+```text
+NEXT                            LEFT LAST                           PASSED UNIT          ACTIVATES
+Wed 2025-07-02 16:15:21 WIB 1h 35min Wed 2025-07-02 14:29:01 WIB 10min ago acme.sh.timer acme.sh.service
+
+1 timers listed.
+Pass --all to see loaded but inactive timers, too.
+```
+
+Seperti yang kalian lihat pada keluaran tabel di atas, `NEXT` di atas itu menunjukkan kapan layanan itu akan dijalankan berikutnya. Kenapa waktunya acak? Karena tadi menggunakan `RandomizedDelaySec` sehingga menambah waktu jalannya layanan.
+
+Kalau pakai `AccuracySec` memang tidak akan nambah, tapi layanan akan mengalami penundaan terlebih dahulu untuk dijalankan setelah waktunya dijalankan.
 
 Nah, itu saja pembahasan mengenai mengotomatiskan pembaruan sertifikat menggunakan _Systemd Timer_ ini.
 
@@ -2798,7 +2812,7 @@ Namun, jika Anda bisa menawarkan solusi yang lebih baik daripada ini, silakan be
 
 ### Pertanyaan ke-14: Saya menggunakan Windows 10/11 dan WSL, saya berhasil memasang sertifikat TLS dengan mengikuti artikel ini, tapi bagaimana caranya agar saya bisa memperbaruinya secara otomatis? {#pertanyaan-ke14}
 
-Kalau kamu menggunakan WSL 2, maka harusnya kamu menggunakan `systemd-timer` untuk mengotomatiskan pembaruan sertifikat, karena WSL 2 sudah mendukung Systemd secara penuh dan di beberapa distribusi WSL 2 juga sudah mengaktifkannya secara baku (seperti Arch Linux WSL yang saya pakai misalnya).
+Kalau kamu menggunakan WSL 2 (Windows Subsystem Linux 2), maka harusnya kamu menggunakan `systemd-timer` untuk mengotomatiskan pembaruan sertifikat, karena WSL 2 sudah mendukung Systemd secara penuh dan di beberapa distribusi WSL 2 juga sudah mengaktifkannya secara baku (seperti Arch Linux WSL yang saya pakai misalnya).
 
 Kalau kurang yakin, silakan buka Terminal WSL dan cek dengan perintah berikut:
 
@@ -2824,7 +2838,13 @@ wsl --shutdown
 
 Setelah itu buka lagi WSL-nya, maka Systemd sudah aktif dan kamu bisa pastikan itu lagi.
 
-### Pertanyaan ke-15: Apa yang terjadi jika rantai pada Sertifikat TLS yang terpasang malah tidak sempurna/tidak lengkap? {#pertanyaan-ke15}
+Tapi pastikan bahwa kamu tidak mematikan WSL 2, entah itu dengan _terminate_ distribusi WSL, mematikan WSL, mematikan atau memulai ulang komputer (yang mana ini mematikan WSL juga) agar otomatisasi pembaruan sertifikat bisa berjalan dengan lancar.
+
+Kalau WSL-nya mati karena alasan apa pun itu, termasuk mematikan dan menyalakan ulang komputer desktopmu, maka kamu perlu menyalakan WSL-nya cukup dengan membuka Terminal WSL saja, bisa saat _start-up_ atau pas buka Windows Terminal atau terserah kamu caranya bagaimana.
+
+Gak mau repot dengan hal seperti ini? Ya disarankan pakai komputer kecil seperti Raspberry Pi atau kalau gak punya bisa pakai aplikasi Termux di Ponsel Android kamu, seperti yang saya jelaskan di awal. Toh, ponsel 'kan bisa dinyalakan jauh lebih lama dan konektivitasnya lebih banyak ketimbang komputer desktop.
+
+### Pertanyaan ke-15: Apa yang terjadi jika rantai pada sertifikat TLS yang terpasang malah tidak sempurna/tidak lengkap? {#pertanyaan-ke15}
 
 Tergantung pada ketidaksempurnaannya/tidak lengkapnya seperti apa, jika Anda hanya memasang sertifikat dan kunci pribadi (_private key_)-nya saja tanpa sertifikat CA-nya, ada perangkat lunak yang mendukung dan ada yang tidak.
 
@@ -2832,9 +2852,7 @@ Biasanya kebanyakan peramban web di desktop dan seluler (terutama versi terbaru)
 
 Namun, ada beberapa perangkat lunak klien lainnya yang tidak mendukung ekstensi AIA ini dan ada pula yang tidak menembolokan sertifikat penengah, sehingga mereka tidak mendukung sertifikat TLS yang rantainya tidak lengkap.
 
-Kalau Anda ingin menguji 'reaksi' dari peramban web yang Anda gunakan, silakan kunjungi alamat URL ~~[https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/)~~ atau situs web [badssl.com](https://badssl.com) untuk pengujian lainnya.
-
-**PEMBARUAN Senin, 06 Februari 2023:** Sertifikat TLS pada `incomplete-chain` telah kedaluwarsa, bukan cuma itu saja, ada beberapa pengujian lainnya yang mengalami kehabisan masa berlaku pada sertifikat TLS mereka, silakan lihat halaman ["Issue"](https://github.com/chromium/badssl.com/issues) di repositori mereka untuk lebih lanjut.
+Kalau Anda ingin menguji 'reaksi' dari peramban web yang Anda gunakan, silakan kunjungi alamat URL [https://incomplete-chain.badssl.com/](https://incomplete-chain.badssl.com/) atau situs web [badssl.com](https://badssl.com) untuk pengujian lainnya.
 
 Atau, kalau Anda ingin mengecek rantai sertifikat yang terpasang di situs web, blog atau aplikasi Anda, silakan kunjungi halaman [SSL Checker](https://www.sslshopper.com/ssl-checker.html) dari SSL Shopper atau [SSL Server Test](https://www.ssllabs.com/ssltest/) dari Qualys SSL Labs.
 
@@ -3023,7 +3041,7 @@ printf "USER_PATH='%s'\n" "$PATH" >> "$HOME"/.acme.sh/account.conf
 
     Kalau perlu, Anda juga dapat menghapus acme.sh sepenuhnya dari perangkat lama Anda dengan perintah `acme.sh --uninstall; rm -rf ~/.acme.sh`
 
-### Pertanyaan ke-22: Saat saya menerbitkan/memperbarui Sertifikat TLS melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke22}
+### Pertanyaan ke-22: Saat saya menerbitkan/memperbarui sertifikat TLS melalui acme.sh, kok malah muncul error 5xx yah? (cth. "504 Gateway Time-Out") {#pertanyaan-ke22}
 
 Penyebab dari masalah ini kemungkinan terbesarnya adalah bahwa server tersebut sedang mengalami gangguan, kendala atau ketidaktersediaan (_downtime_) karena suatu masalah, seperti banyaknya pengguna, koneksi dari server atau proksi yang melambat, dll.
 
