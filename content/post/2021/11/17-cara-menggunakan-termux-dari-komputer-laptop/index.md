@@ -14,7 +14,7 @@ Tags:
     - Termux
     - Cara menggunakan
     - SSH
-_build:
+build:
     publishResources: false
 readMore: true
 DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer desktop/laptop kamu!
