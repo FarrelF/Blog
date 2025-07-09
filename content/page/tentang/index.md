@@ -1,6 +1,6 @@
 ---
 title: Tentang
-description: Laman ini berisikan Informasi Tentang Saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
+description: Laman ini berisikan informasi tentang saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
 license: Laman ini telah saya buat di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
 slug: tentang
 comments: false
@@ -45,17 +45,21 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Favicon: Ikon [Papan Klip](https://pixabay.com/images/id-1294565/) oleh [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) dari Pixabay, dilisensikan di bawah [Lisensi Pixabay](https://pixabay.com/service/license/)
 - VCS: [GitHub](https://github.com)
 - CI/CD:
-  - [GitHub Actions](https://github.com/features/actions) sebagai CI/CD Utama
-  - Netlify sebagai CI/CD Cadangan dan untuk pratinjau
+  - [GitHub Actions](https://github.com/features/actions) (Utama)
+  - Netlify dan Cloudflare Pages (Cadangan dan untuk pratinjau)
 - Domain:
   - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
   - [Rumahweb Indonesia](https://www.rumahweb.com/) sebagai Pengelola Domain
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrel.franqois.id/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
-  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) sebagai Tempat Penyimpanan Utama untuk Blog
-  - [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) sebagai Tempat Penyimpanan dan Hosting Cadangan
+  - [Bunny Storage](https://afiliasi.farrel.franqois.id/bunny/storage/) (Penyimpanan Utama)
+  - [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) (Penyimpanan dan Hosting Cadangan)
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrel.franqois.id/bunny/cdn/)
-- Sertifikat TLS/SSL: [Google Trust Services (GTS)](https://pki.goog)
+- Sertifikat TLS/SSL:
+  - Otoritas Sertifikat (CA atau _Certificate Authority_):
+    - [Google Trust Services (GTS)](https://pki.goog) (CA Utama)
+    - [ZeroSSL](https://zerossl.com) (CA Cadangan)
+  - Pengelola Sertifikat: [Certimate](https://docs.certimate.me/en/)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 
