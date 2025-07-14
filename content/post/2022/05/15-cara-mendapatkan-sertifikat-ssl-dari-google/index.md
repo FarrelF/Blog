@@ -35,7 +35,7 @@ Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka 
 
 Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
 
-Tapi sejak tanggal 25 Mei 2025 berdasarkan [halaman ini](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), layanan tersebut mulai dapat dinikmati oleh semua pengguna, baik yang menggunakan layanan dari Google atau pun yang tidak sama sekali.
+Tapi sejak tanggal 25 Mei 2023 berdasarkan [halaman ini](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), layanan tersebut mulai dapat dinikmati oleh semua pengguna, baik yang menggunakan layanan dari Google atau pun yang tidak sama sekali.
 
 Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk web, blog atau aplikasinya.
 
