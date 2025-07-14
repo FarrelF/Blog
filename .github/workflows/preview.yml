@@ -122,11 +122,46 @@ jobs:
       env:
         THUMPER_KEY: "${{ secrets.BUNNY_PREVIEW_STORAGE_PASSWORD }}"
 
-    - name: Purge page caches
+    - name: Activate Staging Environment
       run: |
-        thumper purge-zone ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
-      env:
-          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
+        curl  -so /dev/null -w '%{http_code}\n' -H 'AccessKey: ${{ secrets.BUNNY_API_KEY }}' \
+              -H 'content-type: application/json' \
+              --data '{
+                "ActionType": 4,
+                "TriggerMatchingType": 1,
+                "Enabled": true,
+                "Guid": "${{ secrets.BUNNY_PREVIEW_EDGE_RULES_GUID }}",
+                "OrderIndex": 7,
+                "Description": "Block Request for Another Staging URL",
+                "Triggers": [
+                  {
+                    "Type": 0,
+                    "PatternMatchingType": 0,
+                    "PatternMatches": [
+                      "*://*-staging.farrel.franqois.id*"
+                    ]
+                  },
+                  {
+                    "Type": 0,
+                    "PatternMatchingType": 2,
+                    "PatternMatches": [
+                      "*://${{ env.GITHUB_SHA }}-staging.farrel.franqois.id*",
+                      "*://${{ env.SHORT_SHA }}-staging.farrel.franqois.id*"
+                    ]
+                  }
+                ]
+              }' \
+              https://api.bunny.net/pullzone/${{ secrets.BUNNY_PULLZONE_ID }}/edgerules/addOrUpdate > http_output
+
+        HTTP_CODE=$(cat http_output)
+        if [[ $HTTP_CODE -ge 200 && $HTTP_CODE -lt 300 ]]; then
+            echo "Staging Environment has been successfully activated, you can visit one of following URL for preview changes"
+            echo "- https://${{ env.SHORT_SHA }}-staging.farrel.franqois.id"
+            echo "- https://${{ env.GITHUB_SHA }}-staging.farrel.franqois.id"
+        else
+            echo "Staging Environment activation failed, the error code: $HTTP_CODE"
+        fi
+        rm http_output
 
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage (Preview)
