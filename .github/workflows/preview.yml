@@ -81,7 +81,7 @@ jobs:
     - name: Building the Static Web (Preview)
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
-        hugo --gc --buildFuture --environment staging -b https://deploy-preview.farrel.franqois.id
+        hugo --gc --buildFuture --environment staging -b https://$GITHUB_SHA-staging.farrel.franqois.id
         printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Compressing Static Web Files
