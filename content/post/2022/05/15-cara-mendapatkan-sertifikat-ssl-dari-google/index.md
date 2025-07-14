@@ -35,21 +35,11 @@ Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka 
 
 Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
 
+Tapi sejak tanggal 25 Mei 2025 berdasarkan [halaman ini](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), layanan tersebut mulai dapat dinikmati oleh semua pengguna, baik yang menggunakan layanan dari Google atau pun yang tidak sama sekali.
+
 Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk web, blog atau aplikasinya.
 
-Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, ~~meski sekarang masih dalam tahap Uji Coba/Pratinjau Beta (_Beta preview_)~~.
-
-**PEMBARUAN Sabtu, 10 September 2022:** Sekarang Google Public CA bukan lagi dalam tahap _Beta Preview_ atau Pratinjau Beta, melainkan sedang dalam tahap _Public Preview_.
-
-_Semoga seterusnya bisa gratis, Amiin_.
-
-{{< info title="**PEMBARUAN Kamis, 17 Agustus 2023:**" >}}
-
-Sejak tanggal 25 Mei 2023, menurut [artikel di blog resmi mereka](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), Google Public CA sudah dapat dinikmati oleh semua pengguna secara cuma-cuma alias gratis, cuma perlu akun Google saja.
-
-Dengan ini, maka artinya status "Uji Coba" telah resmi gugur dan server ACME mereka stabil sejauh ini, tidak ada perubahan yang terlalu cepat dan terlalu banyak.
-
-{{< / info >}}
+Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga.
 
 Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**"Google Trust Services (GTS)"**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
 
@@ -125,49 +115,11 @@ Kira-kira akan seperti di atas.
 
 **Langkah ke-5:** Jika berhasil, maka sebaiknya kamu simpan ID dari proyek tersebut dengan baik di dalam perangkat kamu.
 
-Jika semua sudah selesai, Anda tinggal langsung daftarkan proyeknya saja.
-
-## Mendaftarkan Proyek
-
-{{< info title="**PEMBARUAN Sabtu, 10 September 2022:**" >}}
-Karena Google Public CA sudah bukan lagi termasuk _Beta preview_, maka Anda tidak perlu lagi mengisi formulir hanya untuk mengaktifkan akses API **Public CA**-nya, saran saya langkah ini langsung Anda [lewati saja](#mengaktifkan-akses-api-nya-dan-membuat-kredensial-eab).
-{{< / info >}}
-
-Berikutnya adalah daftarkan proyek yang Anda buat tadi terlebih dahulu dengan mengisi formulir permintaan akses yang tersedia.
-
-**Kenapa?** Karena Anda perlu mengaktifkan API **"Public Certificate Authority"** yang mana itu dinonaktifkan secara baku dan itu wajar karena sebenarnya server tersebut masih dalam tahap Uji Coba (_Beta preview_).
-
-**Biar apa?** Biar supaya Anda bisa meminta Kredensial EAB (_External Account Binding_) melalui panggilan API-nya, lalu Anda pakai kredensial tersebut untuk menerbitkan sertifikat SSL/TLS-nya melalui perkakas klien ACME (seperti acme.sh) nantinya.
-
-Silakan [klik di sini](https://docs.google.com/forms/d/e/1FAIpQLSd8zUIww_ztyT9a56OPq9NXISiyw6Y9g8S7LBtRQjxPhsHz5A/viewform?ts=620a6854) untuk mengakses formulirnya.
-
-Formulirnya akan seperti cuplikan layar berikut:
-
-![Formulir Permintaan Akses terhadap API](Google_Request_Form.webp)
-
-Akun Google-nya bisa bebas, tapi lebih baik gunakan akun Google yang Anda gunakan ketika membuat proyek di **"Google Cloud Console"**. Jika Anda ingin menggantikan akunnya, silakan klik pada tautan **"Ganti akun"**.
-
-Setelah itu, isikan formulirnya dengan benar, berikut adalah penjelasan mengenai formulir yang Anda isikan nantinya
-
-- **Email:** Isikan Alamat Surel Anda, alamat ini nantinya digunakan untuk mengirimkan sebuah pemberitahuan bahwa Proyek tersebut telah diterima oleh Google
-- **Google Cloud Project ID:** Isikan itu dengan ID dari Proyek (bahasa Inggrisnya: **"Project ID"**) yang telah Anda buat sebelumnya di **"Google Cloud Console"**
-- **Estimated usage:** Perkirakan berapa sertifikat SSL/TLS yang Anda terbitkan/perbarui setiap 3 bulan sekali, sebaiknya kalau bisa isi itu dengan benar dan jujur, serta isi itu sesuai dengan kebutuhan Anda, ini kemungkinan bisa jadi penentu persiapan yang dilakukan oleh pihak mereka nantinya.
-
-    Tips: Untuk meminimalkan jumlah sertifikat SSL/TLS per 3 bulan, saran saya pikirkanlah untuk memakai sertifikat SSL/TLS dalam bentuk _Wildcard_ dan manfaatkan _Multi-domain_ dalam 1 sertifikat jika perlu
-
-- **Optional feedback:** Anda bisa mengisi masukkan untuk Google Public CA nanti, ini tidak wajib diisi, jika Anda tidak mempunyai masukkan apa pun, ya tidak usah diisi
-
-Nah, setelah semua sudah diisi, silakan klik pada _Button_ **"Kirim"** (atau, bahasa Inggrisnya adalah **"Submit"**), lalu tinggal Anda tunggu saja hasilnya, biasanya hanya dalam beberapa jam.
-
-Pastikan untuk selalu periksa pesan surel Anda baik di dalam kotak masuk ataupun di dalam folder Spam, karena jika sudah diterima, maka akan muncul pesan surel dari `public-ca-preview-access@google.com` dengan nama `Public CA Preview Access`, bersubjek `Welcome to Google Cloud Certificate Manager, Public CA`, yang isinya kira-kira seperti cuplikan berikut:
-
-![Isi Pesan Surel dari Google Public CA](Google_Public_CA_Email_Message.webp)
-
-Jika Anda menerima pesan di atas, maka sudah dipastikan bahwa Anda bisa mengaktifkan Akses API untuk **"Public Certificate Authority"** milik Google melalui **"Google Cloud Console"**.
+Jika semua sudah selesai, tinggal langsung aktifkan saja.
 
 ## Mengaktifkan Akses API-nya dan membuat kredensial EAB
 
-Setelah diterima, Anda perlu mengaktifkan Akses API-nya terlebih dahulu dan berikan izin akses untuk membuat kredensial EAB-nya.
+Setelah dibuat, Anda perlu mengaktifkan Akses API-nya terlebih dahulu dan berikan izin akses untuk membuat kredensial EAB-nya.
 
 Caranya seperti berikut:
 
@@ -454,18 +406,12 @@ Kelebihan:
 
 Kekurangan:
 
-- ~~Masih dalam tahap uji coba, sehingga bisa saja nantinya terjadi hal-hal yang tidak kamu inginkan~~
-
-    **PEMBARUAN Kamis, 17 Agustus 2023:** Sejak tanggal 25 Mei 2023, Google Public CA sudah tidak lagi dalam status "Uji Coba", sehingga pengguna bisa dengan bebas menggunakannya dan tentunya stabil sejauh ini, jadi poin di atas sudah tidak berlaku
-
-- ~~Karena masih dalam tahap uji coba, maka partisipasinya jadi jauh lebih sulit dan diharuskan untuk mengisi sebuah formulir agar Akses API-nya bisa diaktifkan~~
-
-    **PEMBARUAN Sabtu, 10 September 2022:** Karena Google Public CA sudah bukan lagi termasuk _Beta preview_ dan tidak perlu lagi mengisi sebuah formulir agar dapat mengaktifkan akses API-nya, jadi poin di atas sudah tidak berlaku
-
 - Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat TLS-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt. Tapi, Cloudflare sepenuhnya menggunakan rantai murni ECC, entah bagaimana caranya silakan tulis di komentar jika ada
-- Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.
+- ~~Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.~~
 
-    Sehingga kemungkinan besar tidak ada dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji
+    ~~Sehingga kemungkinan besar tidak ada dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji~~
+
+    **PEMBARUAN Senin, 14 Juli 2025:** Sepertinya CA ini sudah bisa menerbitkan sertifikat untuk nama domain/subdomain terinternasionalisasikan, termasuk emoji, berdasarkan [halaman web ini](https://acmeprotocol.dev/getting-started/) entah benar tapi tidak terdokumentasikan atau tidak. Silakan kunjungi [演示测试.farrelf.my.id](https://演示测试.farrelf.my.id) untuk mengujinya
 
 - Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP, CRL dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_) yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 

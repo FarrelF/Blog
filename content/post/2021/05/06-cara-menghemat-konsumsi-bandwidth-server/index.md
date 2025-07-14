@@ -35,9 +35,9 @@ Nah, saya berikan solusi bagi yang ingin menghemat konsumsi _bandwidth_ ketika w
 
 Perlu Anda pahami bahwa artikel ini hanyalah membahas bagaimana caranya untuk menghemat kuota _bandwidth_ server, bukan cara mengoptimalkan sebuah web/blog ataupun cara menghemat kuota internet pengunjung, karena itu merupakan dua hal yang sangat berbeda.
 
-Namun dengan ini, Anda juga bisa mengoptimalkan web/blog Anda dan bahkan menghemat kuota internet pengunjung Anda (terutama jika pengunjung tersebut setia terhadap web Anda), atau malah justru sebaliknya.
+Namun dengan ini, Anda juga bisa mengoptimalkan web/blog dan bahkan menghemat kuota internet pengunjung Anda (terutama jika pengunjung tersebut setia terhadap web Anda), atau malah justru sebaliknya.
 
-Segala risiko yang ada setelah menerapkan salah satu atau lebih dari satu solusi pada web Anda, silakan Anda tanggung sendiri. Serta dengan menerapkan solusi-solusi di bawah ini, maka saya anggap bahwa Anda telah memahami solusi yang saya bahas serta risiko yang Anda terima nantinya.
+Segala risiko yang ada setelah menerapkan salah satu atau lebih dari satu solusi pada web Anda, silakan tanggung sendiri. Serta dengan menerapkan solusi-solusi di bawah ini, maka saya anggap bahwa Anda telah memahami solusi yang saya bahas serta risiko yang Anda terima nantinya.
 
 Jadi, mohon perhatian dan pengertiannya dari pembaca sekalian 🙂
 
@@ -254,7 +254,7 @@ Sedangkan untuk mengoptimalkan sebuah web/blog agar cepat diakses dan dimuat ole
 
 Bahkan bisa terjadi sebaliknya, yakni web/blog menjadi lambat ketika diakses, atau malah sampai menjadi tidak tersedia (_nge-down_) setelah melakukan solusi-solusi di atas.
 
-Jadi, jika Anda ingin menerapkan salah satu atau lebih dari solusi di atas, maka segala resiko harus Anda tanggung sendiri.
+Jadi, jika Anda ingin menerapkan salah satu atau lebih dari solusi di atas, maka segala risiko harus ditanggung sendiri.
 
 ### Pertanyaan ke-8: Saya gak mau ribet kayak solusi-solusi di atas dan gak mau bayar juga, terus gimana solusi gratis yang paling mudah dan paling instannya, tentunya bebas ribet? {#pertanyaan-ke8}
 

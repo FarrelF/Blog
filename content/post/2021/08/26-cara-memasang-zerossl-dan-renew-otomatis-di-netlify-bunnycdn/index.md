@@ -879,7 +879,7 @@ Dan seterusnya akan seperti itu caranya.
 
 ### Menerbitkan Sertifikat TLS yang menjangkau Seluruh Subdomain {#wildcard-ssl}
 
-Jika Anda ingin menerbitkan sertifikat TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka tambahkan parameter `-d '*.domain.com'` saja, tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan [verifikasi melalui Metode DNS](#verifikasi-dns) sebagai syarat wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
+Jika Anda ingin menerbitkan sertifikat TLS yang menjangkau seluruh subdomain atau dalam bentuk _Wildcard_, maka tambahkan parameter `-d '*.domain.com'` saja, tapi Anda juga harus menambahkan parameter `--dns nama_dns`, karena dibutuhkan verifikasi melalui Metode DNS sebagai syarat wajib agar bisa menerbitkannya dalam bentuk _Wildcard_.
 
 Contoh di bawah ini adalah perintah untuk menerbitkan sertifikat TLS untuk 1 domain dan semua subdomainnya dengan menggunakan DNS dari Cloudflare sebagai verifikasi:
 
@@ -942,7 +942,7 @@ Setelah menyewa domainnya, saya sarankan agar memakai Cloudflare sebagai Penyedi
 
 <sup>**\*\***</sup>Biaya sewa domain dari penyedia yang disebutkan sudah termasuk PPN 11%
 
-**Catatam:** Semua biaya di atas hanyalah perkiraan saja, sehingga belum termasuk biaya-biaya lain yang bisa saja dikenakan seperti biaya _add-on_ proteksi WHOIS, Hosting, Surel dan lainnya.
+**Catatan:** Semua biaya di atas hanyalah perkiraan saja, sehingga belum termasuk biaya-biaya lain yang bisa saja dikenakan seperti biaya _add-on_ proteksi WHOIS, Hosting, Surel dan lainnya.
 {{< / info >}}
 
 Misalnya jika Anda ingin menerbitkan sertifikat TLS yang menjangkau `*.domain.com` dan `domain.com`, maka Anda hanya perlu membuat catatan DNS berjenis CNAME dengan nama `_acme-challenge.contoh.com` dari domain utama Anda kemudian arahkan catatan tersebut ke `_acme-challenge.domain-lain.com`.
@@ -2214,10 +2214,12 @@ After=network-online.target nss-lookup.target
 [Service]
 Type=oneshot
 SyslogIdentifier=acme.sh
-ExecStart=/lokasi/ke/acme.sh --cron --home /lokasi/ke/acme.sh
+ExecStart=/lokasi/ke/acme.sh --cron --home /lokasi/ke/folder/acme.sh
 ```
 
-Ganti `/lokasi/ke/acme.sh` dengan lokasi ke berkas `acme.sh` itu berada, biasanya di `/home/username/.acme.sh/acme.sh` ya seperti yang kamu tahu sendiri.
+Ganti `/lokasi/ke/acme.sh` dengan lokasi ke berkas `acme.sh` itu berada, biasanya di `/home/username/.acme.sh/acme.sh`.
+
+Sedangkan `/lokasi/ke/folder/acme.sh` dengan lokasi perkakas acme.sh itu berada, contoh: `/home/username/.acme.sh` atau seperti yang kamu tahu sendiri.
 
 Simpan berkas tersebut, lalu silakan ke langkah selanjutnya.
 
@@ -2331,7 +2333,9 @@ Terus apa itu `RandomizedDelaySec`, `AccuracySec` sama `Persistent`? Opsi-opsi t
 
 - `AccuracySec` itu digunakan untuk menetapkan batas waktu penundaan maksimum di mana layanan dapat diluncurkan, untuk di kasus ini saya isi dengan `30m` yang artinya maksimum penundaan hanya sampai 30 menit saja dan saya komentari supaya gak aktif.
 
-    Ini tidak sama dengan opsi di atas, opsi ini tidak menambah waktu ekspektasi mengenai kapan layanan akan dijalankan, tapi justru opsi ini menambah penundaan sampai batas waktu yang ditentukan
+    Ini tidak sama dengan opsi di atas, opsi ini tidak menambah waktu ekspektasi mengenai kapan layanan akan dijalankan, tapi justru opsi ini menambah penundaan sampai batas waktu yang ditentukan.
+
+    Nilai baku dari opsi ini adalah `1m` yang artinya opsi ini tetap aktif meski tidak disetel, tapi penundaan maksimum hanya sampai 1 menit saja
 
 - `Persistent` itu menerima nilai _boolean_, hanya bisa diisi dengan `true` atau `false`. Jika diisi `true`, seperti di kasus ini, maka waktu terakhir layanan dipicu oleh _timer_ disimpan ke dalam disk.
 

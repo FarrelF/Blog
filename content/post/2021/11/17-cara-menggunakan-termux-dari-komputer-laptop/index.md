@@ -17,7 +17,7 @@ Tags:
 build:
     publishResources: false
 readMore: true
-DescriptionSEO: Anda menginstal Termux di dalam perangkat Android Anda, tapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer desktop/laptop kamu!
+DescriptionSEO: Menginstal Termux di dalam perangkat Android Anda, tapi merasa tidak nyaman saat mengetik baris perintah? Solusinya pakai Termux dari komputer desktop/laptop kamu!
 Description: |-
        Artikel kali ini akan membahas cara menggunakan Termux dari Komputer Desktop atau Laptop Anda.
 
@@ -44,9 +44,9 @@ Dah, gak usah banyak _cingcong_, mari saya bahas langsung persiapan dan caranya.
 
 ## Persiapan
 
-Gak ada persiapan khusus, cuma perlu koneksi Internet, Ponsel/Tablet Android Anda dan tentunya sudah terinstal Termux di dalamnya.
+Gak ada persiapan khusus, cuma perlu koneksi internet, ponsel atau tablet Android Anda dan tentunya sudah terinstal Termux di dalamnya.
 
-Termux dapat Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan agar mengunduhnya di F-Droid saja, karena rilisan Google Play Store masih dalam tahap eksperimen, sehingga belum stabil dan aplikasi _add-on_ Termux (seperti "Termux:Boot") di Google Play Store berbayar ketimbang kamu mengunduhnya di F-Droid.
+Termux dapat Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau di [Google Play Store](https://play.google.com/store/apps/details?id=com.termux), tapi saya sarankan agar mengunduhnya di F-Droid saja, karena rilisan Google Play Store masih dalam tahap eksperimen, sehingga belum stabil.
 
 Untuk versi Android-nya sendiri, saya sarankan agar Anda menggunakan Android versi 7.0 atau di atasnya agar dapat menggunakan Termux versi terbaru.
 
@@ -54,7 +54,7 @@ Sebaiknya kamu _meng-update_ semua paket yang terinstal di Termux untuk mengikut
 
 Pastikan agar komputer desktop/laptop dan perangkat Android kamu terkoneksi ke dalam jaringan yang sama, jika Anda tidak menyewa sebuah layanan internet _Fixed Broadband_ seperti IndiHome, First Media, Biznet Home, dll atau tidak memiliki perangkat khusus yang memancarkan sinyal Wi-Fi di rumah (seperti: Modem ONT, Router Wi-Fi, Access Point, dll), Anda bisa gunakan fitur **Hotspot Tethering** (bahasa Indonesia: **Penambatan Hotspot**) atau **USB Tethering** (bahasa Indonesia: **Penambatan USB**) yang ada di ponsel/tablet kamu.
 
-Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer desktop/laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tetapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
+Serta pastikan juga bahwa perangkat lunak klien SSH ada terinstal di dalam komputer desktop/laptop kamu. Anda bisa gunakan [PuTTY](https://www.putty.org) atau [Bitvise](https://www.bitvise.com) untuk itu, tapi jika Anda menggunakan Windows 10 atau di atasnya atau sistem operasi berbasis Linux/Unix, maka Anda bisa menggunakan OpenSSH sebagai Klien SSH yang sudah terinstal di dalam sistem Anda.
 
 ## Caranya
 
@@ -251,7 +251,7 @@ Bagaimana? Mudah sekali, bukan? Namun artikel ini belum selesai sampai sini saja
 
 Selain menggunakan Termux secara _Remote_, Anda juga dapat mengirimkan (mengunggah), mengambil (mengunduh), menambahkan, mengubah dan menghapus berkas-berkas yang ada di dalam ponsel Android Anda berkat dukungan protokol SFTP.
 
-Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai server SSH di dalam Termux kamu, maka protokol SFTP secara otomatis diaktifkan.
+Karena Anda membuka akses SSH dan menggunakan OpenSSH sebagai server SSH di dalam Termux, maka protokol SFTP secara otomatis diaktifkan.
 
 Agar bisa mengakses SFTP-nya, Anda perlu sebuah aplikasi FTP untuk itu, dalam kasus ini saya memakai [FileZilla](https://filezilla-project.org/).
 
