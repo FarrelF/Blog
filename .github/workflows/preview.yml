@@ -105,7 +105,10 @@ jobs:
     - name: Checkout the Code
       uses: actions/checkout@v4
     - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+      run: |
+        printf "GITHUB_SHA=%s\n" ${GITHUB_SHA} >> $GITHUB_ENV
+        printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+
     - name: Download Output File from Artifact
       uses: actions/download-artifact@v4
       with:
@@ -160,6 +163,7 @@ jobs:
             echo "- https://${{ env.GITHUB_SHA }}-staging.farrel.franqois.id"
         else
             echo "Staging Environment activation failed, the error code: $HTTP_CODE"
+            exit 1
         fi
         rm http_output
 
