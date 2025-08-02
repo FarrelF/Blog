@@ -157,6 +157,7 @@ jobs:
               https://api.bunny.net/pullzone/${{ secrets.BUNNY_PULLZONE_ID }}/edgerules/addOrUpdate > http_output
 
         HTTP_CODE=$(cat http_output)
+        rm http_output
         if [[ $HTTP_CODE -ge 200 && $HTTP_CODE -lt 300 ]]; then
             echo "Staging Environment has been successfully activated, you can visit one of following URL for preview changes"
             echo "- https://${{ env.SHORT_SHA }}-staging.farrel.franqois.id"
@@ -165,7 +166,6 @@ jobs:
             echo "Staging Environment activation failed, the error code: $HTTP_CODE"
             exit 1
         fi
-        rm http_output
 
   deploy_to_tebi-s3:
     name: Deploy to Tebi S3 Storage (Preview)
