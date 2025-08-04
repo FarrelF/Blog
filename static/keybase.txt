@@ -4,9 +4,9 @@ https://keybase.io/farrelf
 
 I hereby claim:
 
-  * I am an admin of https://farrel.franqois.id
+  * I am an admin of https://farrelf.blog
   * I am farrelf (https://keybase.io/farrelf) on keybase.
-  * I have a public key with fingerprint 709B 5E09 D836 0C6D 75D5  9DA0 8272 1CE4 9D1B 3EB4
+  * I have a public key ASD4rUj91X691lhzKctBrjjOR1euGD4V1Rn1LZUoL8aHFwo
 
 To do so, I am signing this object:
 
@@ -14,46 +14,39 @@ To do so, I am signing this object:
   "body": {
     "key": {
       "eldest_kid": "011680eae47b51932ffa4e9017d982776d625f35f3d38bb588c96c70882b7aead1b20a",
-      "fingerprint": "709b5e09d8360c6d75d59da082721ce49d1b3eb4",
       "host": "keybase.io",
-      "key_id": "82721ce49d1b3eb4",
-      "kid": "011680eae47b51932ffa4e9017d982776d625f35f3d38bb588c96c70882b7aead1b20a",
+      "kid": "0120f8ad48fdd57ebdd6587329cb41ae38ce4757ae183e15d519f52d95282fc687170a",
       "uid": "21ae497681e53281440399cfdedf0119",
       "username": "farrelf"
     },
+    "merkle_root": {
+      "ctime": 1754316500,
+      "hash": "3584146e2f39d3cd701d15cd04f74222cdb2d5a6cfad192f8c33cf908df9cfea1843a5d18e9ffbb160e3e9e09af09d4b7d2586ba2e7a1ab5c163e949abb11744",
+      "hash_meta": "2382f31d4488076d26b3114289d56a40b611e4a344d6035bd51c45a50d430876",
+      "seqno": 26994940
+    },
     "service": {
-      "hostname": "farrel.franqois.id",
+      "entropy": "eydCDptVNqQfK318N01Hi7LD",
+      "hostname": "farrelf.blog",
       "protocol": "https:"
     },
     "type": "web_service_binding",
-    "version": 1
+    "version": 2
   },
-  "ctime": 1571394381,
-  "expire_in": 157680000,
-  "prev": "0f11ae9d260928dd35640dd65a946a2ed8c8460f4f5d1bfcb3e1d0a38ada0be3",
-  "seqno": 4,
+  "client": {
+    "name": "keybase.io go client",
+    "version": "6.5.1"
+  },
+  "ctime": 1754316545,
+  "expire_in": 504576000,
+  "prev": "676e34ef07e4e01d34c4c8ca9ddde7c433bba5adad28a0e432d88f3e95ab4dfe",
+  "seqno": 25,
   "tag": "signature"
 }
 
 which yields the signature:
 
------BEGIN PGP MESSAGE-----
-Version: Keybase OpenPGP v2.1.3
-Comment: https://keybase.io/crypto
-
-yMFJAnicrVK/axRBFN7zR8CDgCBGSGwcMKAex8zO7O7MFSmEFAas0tjEY2bnTTIk
-7t7N7p3GcM011pLSH70/Sv8BxSaKlYKCYKWNYFq18+2hhWDpMDDMm+/73nvfvJfz
-R6P2wjSc/fxgaeVZ6/Xz+6No49H+1T1iSrtLentkG2YH7Fio6v62t6RHKGOppKBB
-ZCZhisfOaQGKsswqGWdZatM4cRy35dKYRMpcpXlGpYxNpkFbZmKqSYc4X2xCGARf
-1CibUWUSoMpKntI8tVliE2U1RcmY5SAU8jgYgcStsmoYWJzRFXR9iTG89Gfl/QP/
-n+sezeRihkoqSyWDhMeSCUG5UrmzYB2mUg2wglDoG4Bop0OAHUcmHYLBsc+h8bVp
-5C9A1wVdDEtfdTFHhwxCWZd5uYPvW3U9qHoNv94dNISbYPq/pfrGFxbNRMYYQuXL
-gvQYIvPaN9osyRhXgkvWIXBr4AP0fTELox+4mjwwbhxyDJtSNk6piqW1PEkFtTZN
-tBKpjsHKXIqUOuESNMPl6C+zVHOp8Z8McNI0NyxK0hNYpt5EycpvFroeBSCTF9eP
-RQvtaO74kWbGovaJk38m787pVrS+Vn3Xd/OV2+fDxbdL9w6/zMVPVp+2Dr5tvLmW
-PF5db0UX3j98tXz53aXJh48/lw+nw3Nm8cf+mVNrXw/2p+WVT/O/AFzD4Nc=
-=IFz2
------END PGP MESSAGE-----
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg+K1I/dV+vdZYcynLQa44zkdXrhg+FdUZ9S2VKC/GhxcKp3BheWxvYWTESpcCGcQgZ2407wfk4B00xMjKnd3nxDO7pa2tKKDkMtiPPpWrTf7EIBwu05hpJYsY+PzW4h7VfFgtPddvIFjXfE2I9+c6PugvAgHCo3NpZ8RA9vESyspp2mVUdu8fDxxatSeqXvxQxjiOqSiyXB+3u8qje9iJHQkbeBxBbC7ExJe+abRvv2hQvowo+qgcIiJUCqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIDltbW9EDadIfz/e83+v9vdSz7LPNDJkqvWCSoq1PZiCo3RhZ80CAqd2ZXJzaW9uAQ==
 
 And finally, I am proving ownership of this host by posting or
 appending to this document.

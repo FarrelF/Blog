@@ -278,7 +278,7 @@ Namun jika Anda ingin belajar dengan menggunakan S3 dari IDCloudHost, ya silakan
 ### Untuk Hosting Web Statis
 Untuk Hosting Web Statis, saya belum terlalu sarankan juga karena fiturnya memang belum ada hingga saat ini, sehingga berkas `index.html` tidak terbaca dengan baik, kecuali jika kamu sanggup mengakali nya saat menggunakan CDN (seperti yang saya lakukan) atau kamu rela kalau ada `index.html` di URL setiap mengakses Blog/Web kamu, ya bolehlah dicoba.
 
-Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting web statis Anda ke dalam bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrel.franqois.id/bunny/cdn/).
+Selain itu, di sana tidak ada fitur CNAME, jadi jika Anda ingin meng-hosting web statis Anda ke dalam bucket S3, maka Anda harus mempunyai/menyewa sebuah layanan CDN terlebih dahulu, paling murah bisa gunakan [Bunny CDN*](https://afiliasi.farrelf.blog/bunny/cdn/).
 
 **NB:** Pada praktik terbaiknya, Anda tetap harus menggunakan layanan CDN sih, karena pada dasarnya penyimpanan berbasis objek memang tidak didesain untuk digunakan sebagai hosting sekaligus pengantaran konten. Namun, jika Anda hanya ingin mengantarkan konten ke sesama orang Indonesia, mungkin ini bisa dicoba.
 

@@ -25,7 +25,7 @@ DescriptionSEO: Apakah Anda ingin memasang ZeroSSL, tapi Anda juga ingin bisa me
 Description: |-
     Blog ini pernah menggunakan ZeroSSL sebagai sertifikat SSL/TLS-nya setelah lama menggunakan Let's Encrypt, tapi kendalanya adalah CA ini tidak didukung oleh penyedia web secara luas, artinya sertifikat tersebut belum bisa _di-renew_ secara otomatis.
     
-    Namun akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunny/cdn/), cPanel dan DirectAdmin.
+    Namun akhirnya, kendala tersebut bisa saya atasi berkat bantuan dari beberapa referensi yang ada dan saya ingin membagikannya pada Anda, terutama untuk pengguna [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrelf.blog/bunny/cdn/), cPanel dan DirectAdmin.
     
     Jika Anda ingin memasang sertifikat SSL/TLS dari ZeroSSL pada web statis Anda yang menggunakan Netlify sebagai hosting atau menggunakan BunnyCDN sebagai CDN, cPanel atau DirectAdmin sebagai panel untuk layanan hosting Anda, serta _me-renew-nya_ secara otomatis atau sekadar ingin tahu saja, mungkin Anda bisa baca artikel ini.
 ---
@@ -36,7 +36,7 @@ Description: |-
 Jika Anda tidak ingin membaca basa-basinya, Anda bisa langsung lanjut ke subbagian [**"Prakata"**](#prakata) sebelum ke subbagian [**"Persiapan"**](#persiapan).
 {{< / info >}}
 
-Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrel.franqois.id/bunnycdn), cPanel dan DirectAdmin.
+Artikel kali ini akan membahas tentang Cara memasang ZeroSSL + Renew secara Otomatis di [Netlify](https://www.netlify.com), [BunnyCDN](https://afiliasi.farrelf.blog/bunnycdn), cPanel dan DirectAdmin.
 
 ~~Blog ini telah menggunakan ZeroSSL sebagai sertifikat SSL/TLS-nya dalam bentuk _Wildcard_. Gak percaya? Silakan Anda lihat sendiri.~~
 
@@ -191,7 +191,7 @@ Hal-hal yang harus Anda siapkan untuk pengguna Windows adalah sebagai berikut:
   - Mengakses server atau perangkat Anda yang menggunakan sistem operasi \*nix dengan menggunakan klien SSH
 - Persiapan perangkat lunak pada WSL, mesin virtual, kontainer atau pada server bisa mengikuti [persiapan untuk sistem operasi \*nix](#persiapan-pengguna-unix-like)
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, disarankan instal Termux di ponselmu dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop kamu melalui SSH, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya kunjungi [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, disarankan instal Termux di ponselmu dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop kamu melalui SSH, lalu kamu atur agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya kunjungi [artikel ini](https://farrelf.blog/cara-menggunakan-termux-dari-komputer/).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 
@@ -204,7 +204,7 @@ Hal-hal yang harus Anda siapkan untuk pengguna Android adalah sebagai berikut:
     2. Perbarui semua paket yang ada di Termux dengan perintah: `pkg upg -y`
     3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di latar belakang dengan perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer desktop atau laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer desktop atau laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrel.franqois.id/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer desktop atau laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya kamu instal `openssh` (atau sejenisnya) di dalam Termux, lalu kamu lakukan semua itu secara remot dari komputer desktop atau laptop kamu melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrelf.blog/cara-menggunakan-termux-dari-komputer/)
 
 **Catatan:** Semua hal di atas dapat Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu dalam keadaan _rooted_, sehingga Anda tidak perlu khawatir soal garansi perangkat.
 
@@ -669,9 +669,9 @@ Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di platfor
 
 !["Common Name" pada Sertifikat TLS saya](Certificate_Viewer_1.webp) ![SAN pada Sertifikat TLS saya](Certificate_Viewer_2.webp)
 
-Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
+Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrelf.blog` bukan `*.farrelf.blog`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrelf.blog` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
 
-**Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah sertifikat TLS adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
+**Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah sertifikat TLS adalah `farrelf.blog`, bukan `*.farrelf.blog`. Nah, sekarang sudah paham, kan?
 
 Parameter `--issue` berfungsi agar acme.sh menerbitkan sertifikat TLS Anda. Parameter selain `--issue` adalah sebagai berikut:
 
@@ -934,7 +934,7 @@ Pertama-tama, Anda perlu membuat catatan DNS berjenis CNAME terlebih dahulu yang
 {{< info title="**Tips:**" >}}
 Jika Anda ingin menggunakan Mode Alias DNS, tapi belum mempunyai domainnya, Anda bisa membeli atau menyewa domain dengan ekstensi `.my.id` yang biayanya mulai dari Rp9.000,00 sampai Rp50.000,00<sup>**\***</sup>, baik untuk tahun pertama atau per tahunnya.
 
-Anda bisa menyewa domainnya di [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) dengan harga Rp13.320,00<sup>**\*\***</sup> untuk tahun pertama, selanjutnya akan dikenai Rp27.750,00/tahun<sup>**\*\***</sup> untuk perpanjangan, atau di [Exabytes](https://afiliasi.farrel.franqois.id/exabytes/) dengan harga Rp9.990,00<sup>**\*\***</sup> untuk tahun pertama, selanjutnya akan dikenai Rp33.300,00/tahun<sup>**\*\***</sup> untuk perpanjangan.
+Anda bisa menyewa domainnya di [Dewaweb](https://afiliasi.farrelf.blog/dewaweb/) dengan harga Rp13.320,00<sup>**\*\***</sup> untuk tahun pertama, selanjutnya akan dikenai Rp27.750,00/tahun<sup>**\*\***</sup> untuk perpanjangan, atau di [Exabytes](https://afiliasi.farrelf.blog/exabytes/) dengan harga Rp9.990,00<sup>**\*\***</sup> untuk tahun pertama, selanjutnya akan dikenai Rp33.300,00/tahun<sup>**\*\***</sup> untuk perpanjangan.
 
 Setelah menyewa domainnya, saya sarankan agar memakai Cloudflare sebagai Penyedia DNS untuk domain Anda, karena selain gratis, dukungan akses API dan perangkat lunaknya juga sangat luas.
 
@@ -2620,7 +2620,7 @@ IKP diperlukan untuk aktivitas di mana kata sandi sederhana merupakan metode ote
 
 ### Pertanyaan ke-4: Apa saja CA selain ZeroSSL dan Let's Encrypt yang bisa menggunakan Protokol ACME? {#pertanyaan-ke4}
 
-Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl), [SSL.com](https://www.ssl.com/certificates/free/) dan Google Public CA yang saya bahas di [artikel ini](https://farrel.franqois.id/cara-mendapatkan-sertifikat-ssl-dari-google/).
+Untuk yang gratisan, ada [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl), [SSL.com](https://www.ssl.com/certificates/free/) dan Google Public CA yang saya bahas di [artikel ini](https://farrelf.blog/cara-mendapatkan-sertifikat-ssl-dari-google/).
 
 Sedangkan yang berbayar ada [DigiCert](https://www.digicert.com/tls-ssl/certcentral-tls-ssl-manager), [Sectigo](https://www.sectigo.com/enterprise-solutions/certificate-manager/ssl-automation), [GlobalSign](https://www.globalsign.com/en/acme-automated-certificate-management) dan mungkin SSL\.com versi berbayarnya mendukung protokol ACME juga.
 

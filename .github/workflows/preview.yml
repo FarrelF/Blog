@@ -81,7 +81,7 @@ jobs:
     - name: Building the Static Web (Preview)
       run: |
         rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
-        hugo --gc --buildFuture --environment staging -b https://$GITHUB_SHA-staging.farrel.franqois.id
+        hugo --gc --buildFuture --environment staging -b https://$GITHUB_SHA-staging.farrelf.blog
         printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Compressing Static Web Files
@@ -141,15 +141,15 @@ jobs:
                     "Type": 0,
                     "PatternMatchingType": 0,
                     "PatternMatches": [
-                      "*://*-staging.farrel.franqois.id*"
+                      "*://*-staging.farrelf.blog*"
                     ]
                   },
                   {
                     "Type": 0,
                     "PatternMatchingType": 2,
                     "PatternMatches": [
-                      "*://${{ env.GITHUB_SHA }}-staging.farrel.franqois.id*",
-                      "*://${{ env.SHORT_SHA }}-staging.farrel.franqois.id*"
+                      "*://${{ env.GITHUB_SHA }}-staging.farrelf.blog*",
+                      "*://${{ env.SHORT_SHA }}-staging.farrelf.blog*"
                     ]
                   }
                 ]
@@ -160,8 +160,8 @@ jobs:
         rm http_output
         if [[ $HTTP_CODE -ge 200 && $HTTP_CODE -lt 300 ]]; then
             echo "Staging Environment has been successfully activated, you can visit one of following URL for preview changes"
-            echo "- https://${{ env.SHORT_SHA }}-staging.farrel.franqois.id"
-            echo "- https://${{ env.GITHUB_SHA }}-staging.farrel.franqois.id"
+            echo "- https://${{ env.SHORT_SHA }}-staging.farrelf.blog"
+            echo "- https://${{ env.GITHUB_SHA }}-staging.farrelf.blog"
         else
             echo "Staging Environment activation failed, the error code: $HTTP_CODE"
             exit 1

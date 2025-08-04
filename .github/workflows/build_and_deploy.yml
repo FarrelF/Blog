@@ -124,11 +124,11 @@ jobs:
 
     - name: Purge page caches
       run: |
-        thumper purge-url https://farrel.franqois.id/
-        thumper purge-url https://farrel.franqois.id/index.xml
-        thumper purge-url https://farrel.franqois.id/*/index.html
-        thumper purge-url https://farrel.franqois.id/*/index.xml
-        thumper purge-url https://farrel.franqois.id/*/index.json
+        thumper purge-url https://farrelf.blog/
+        thumper purge-url https://farrelf.blog/index.xml
+        thumper purge-url https://farrelf.blog/*/index.html
+        thumper purge-url https://farrelf.blog/*/index.xml
+        thumper purge-url https://farrelf.blog/*/index.json
       env:
           THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
@@ -168,7 +168,7 @@ jobs:
     steps:
     - name: Submitting Sitemap to Search Engine
       env:
-        SITEMAP_URL: https://farrel.franqois.id/sitemap.xml
+        SITEMAP_URL: https://farrelf.blog/sitemap.xml
       run: |
         set -o errexit
         set -o pipefail

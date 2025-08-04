@@ -7,7 +7,7 @@ menu:
   main:
     identifier: guestbook
     name: Buku Tamu
-    weight: -75
+    weight: -70
     params:
       icon: messages
 ---

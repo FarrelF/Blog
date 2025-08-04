@@ -1,18 +1,18 @@
 #[cdn.images]
-#url = "https://cdn.statically.io/img/farrel.franqois.id/f=auto"
+#url = "https://cdn.statically.io/img/farrelf.blog/f=auto"
 #permalinks = false
 #
 #[cdn.svg]
-#url = "https://cdn.statically.io/img/farrel.franqois.id"
+#url = "https://cdn.statically.io/img/farrelf.blog"
 #
 #[cdn.js]
-#url = "https://cdn.statically.io/js/farrel.franqois.id"
+#url = "https://cdn.statically.io/js/farrelf.blog"
 #
 #[cdn.css]
-#url = "https://cdn.statically.io/css/farrel.franqois.id"
+#url = "https://cdn.statically.io/css/farrelf.blog"
 #
 #[cdn.fonts]
-#url = "https://cdn.statically.io/css/farrel.franqois.id"
+#url = "https://cdn.statically.io/css/farrelf.blog"
 
 [arcio]
 enabled = false
@@ -25,5 +25,5 @@ utcOffset = 7
 
 [umami]
 enabled = false
-hostURL = "https://analitik.franqois.id"
+hostURL = "https://analitik.farrelf.blog"
 websiteID= "b4aac942-29c5-4f5e-8403-77d9c7eeda23"

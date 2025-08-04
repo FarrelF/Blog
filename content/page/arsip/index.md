@@ -6,7 +6,7 @@ menu:
   main:
     identifier: archives
     name: Arsip
-    weight: -70
+    weight: -65
     params:
       icon: archives
 ---

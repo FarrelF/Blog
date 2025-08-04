@@ -299,7 +299,7 @@ Jika Anda ingin Layanan CDN yang gratis, Anda bisa pertimbangkan [jsDelivr](http
 
 Meskipun begitu, Layanan CDN seperti Statically mampu menghantarkan berkas-berkas gambar, JS, dan CSS yang tersimpan di dalam Web/Blog kamu, bukan hanya di dalam sebuah _Repository_ saja. Bahkan Statically memiliki [_Plugin_ WordPress](https://wordpress.org/plugins/statically/) nya secara resmi yang berguna untuk meng-integrasikan Statically dengan Web/Blog yang menggunakan WordPress (Hos-mandiri).
 
-Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrel.franqois.id/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
+Sedangkan jika Anda ingin Layanan CDN yang murah, namun dengan kualitas yang tidak kalah dengan yang mahal yang tentunya memiliki penggunaan yang mudah, mungkin Anda bisa pertimbangkan [Bunny CDN](https://afiliasi.farrelf.blog/bunnycdn)\*, Anda bisa coba terlebih dahulu selama 14 Hari tanpa pengurangan fitur apapun sebelum membayar nya.
 
 {{< info title="**\*Catatan mengenai tautan di atas**" >}}
 Tautan BunnyCDN di atas merupakan tautan afiliasi, jika Anda mendaftar dan membayar sebuah layanan melalui tautan tersebut, maka Anda telah memberikan dukungan terhadap saya agar saya lebih bersemangat dalam menulis artikel, karena menulis itu menguras tenaga, pikiran dan waktu. 
