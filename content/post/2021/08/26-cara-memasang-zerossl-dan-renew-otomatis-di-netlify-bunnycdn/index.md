@@ -669,9 +669,9 @@ Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di platfor
 
 !["Common Name" pada Sertifikat TLS saya](Certificate_Viewer_1.webp) ![SAN pada Sertifikat TLS saya](Certificate_Viewer_2.webp)
 
-Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrelf.blog` bukan `*.farrelf.blog`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrelf.blog` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
+Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
 
-**Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah sertifikat TLS adalah `farrelf.blog`, bukan `*.farrelf.blog`. Nah, sekarang sudah paham, kan?
+**Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah sertifikat TLS adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
 
 Parameter `--issue` berfungsi agar acme.sh menerbitkan sertifikat TLS Anda. Parameter selain `--issue` adalah sebagai berikut:
 
