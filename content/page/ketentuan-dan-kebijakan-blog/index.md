@@ -72,7 +72,7 @@ Ketika Anda mengakses situs web atau blog lain, bahkan situs web atau blog lain 
 
 Saya tidak bermaksud melanggar hak cipta orang lain, dan saya meminta pembaca untuk melakukan hal yang sama dengan apa yang saya lakukan.
 
-Jika Anda yakin bahwa pekerjaan Anda telah disalin dengan cara yang merupakan pelanggaran pada blog ini, silakan [hubungi saya](/tentang#hubungi-saya).
+Jika Anda yakin bahwa pekerjaan Anda telah disalin dengan cara yang merupakan pelanggaran pada blog ini, silakan [hubungi saya](/tentang/#hubungi-saya).
 
 Saya berhak untuk mencari semua solusi yang tersedia, termasuk, tetapi tidak terbatas pada, pengubahan atau penghapusan konten atau materi yang dinilai bermasalah dengan hak cipta dan syarat penggunaan.
 
@@ -110,7 +110,7 @@ Bila Anda tidak menyantumkannya dengan benar, seperti tidak melakukan izin terle
 
 Begitupula dengan hak paten, Anda pun tidak bisa langsung menggunakannya tanpa seizin dari pemegang hak patennya, jika Anda melakukan hal tersebut di dalam kolom komentar, maka komentar Anda bisa saja dinyatakan melanggar hak paten.
 
-Jika Anda sebagai pemilik hak cipta/paten ingin melapor adanya pelanggaran yang dilakukan oleh orang lain terhadap properti Anda di sini, silakan [hubungi saya](/tentang#hubungi-saya), laporan Anda akan saya periksa terlebih dahulu, lalu akan saya proses jika laporan itu terbukti benar atau valid.
+Jika Anda sebagai pemilik hak cipta/paten ingin melapor adanya pelanggaran yang dilakukan oleh orang lain terhadap properti Anda di sini, silakan [hubungi saya](/tentang/#hubungi-saya), laporan Anda akan saya periksa terlebih dahulu, lalu akan saya proses jika laporan itu terbukti benar atau valid.
 
 ### Pornografi, Pelecehan Seksual dan Tindakan Asusila
 
@@ -174,7 +174,7 @@ Serta saya berhak untuk mengubah kebijakan ini di mana pun dan kapan pun, tanpa 
 
 Mengenai halaman ketentuan dan kebijakan blog ini:
 
-- Diperbarui/diubah pada Hari/Tanggal: **Senin, 04 Agustus 2025**
+- Diperbarui/diubah pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
 - Diberlakukan pada Hari/Tanggal: **Senin, 04 Agustus 2025**
 
 ## Penutup

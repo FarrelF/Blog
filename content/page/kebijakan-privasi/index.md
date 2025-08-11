@@ -53,7 +53,11 @@ Saya tidak memasang analitik dan iklan apa pun di blog ini, jadi saya maupun pih
 
 Kecuali pengukuran RUM (_Real user monitoring_) terbatas yang dilakukan oleh Bunny Stream untuk mengukur pengalaman pengunjung dalam memutar video, mengoptimalkannya, dan membantu membuat _heatmap_ pada video, pengukuran tersebut hanya aktif kalau artikel dan halaman terdapat sebuah video dari Bunny Stream dan memuatnya.
 
-Pengukuran tersebut tidak dimaksudkan untuk melacak pengunjung blog secara keseluruhan, baik kebiasaan pribadi maupun preferensi pengguna, serta tidak ada data pribadi dikumpulkan maupun dibagikan, Anda dapat memblokirnya menggunakan pemblokir iklan sebelum mengakses sebuah artikel tertentu kalau mau.
+Halaman/Artikel yang menggunakan Bunny Stream adalah sebagai berikut:
+
+- [Nyobain Object Storage dari IDCloudHost (IS3)](/nyobain-object-storage-dari-idcloudhost/)
+
+Pengukuran tersebut tidak dimaksudkan untuk melacak pengunjung blog secara keseluruhan, baik kebiasaan pribadi maupun preferensi pengguna, serta tidak ada data pribadi dikumpulkan maupun dibagikan, Anda dapat memblokirnya menggunakan pemblokir iklan sebelum mengakses artikel atau halaman tersebut kalau mau.
 
 Untuk lebih lanjut, silakan kunjungi [halaman GDPR-nya](https://bunny.net/gdpr/).
 
@@ -91,7 +95,7 @@ Penyimpanan lokal ini diperlukan untuk menyimpan data skema warna (mode gelap da
 
 Tidak ada data pribadi apa pun di dalamnya, semua data yang disimpan tidak akan disebar ke mana pun dan juga tidak dimaksudkan untuk melacak pengunjung. Semua yang berada di dalam penyimpanan lokal ditujukan untuk fungsionalitas blog ini.
 
-## Keamanan Data
+## Keamanan Transmisi Data
 
 Blog ini menggunakan protokol TLS untuk mengenkripsi transmisi data dan diakses menggunakan protokol HTTPS, serta semua aset dan skrip yang ada di blog ini dimuat sepenuhnya menggunakan HTTPS, tidak ada satu pun pemuatan yang bercampur dengan protokol HTTP.
 
@@ -99,13 +103,15 @@ Selain itu, blog ini juga menerapkan _HSTS Preloading_ agar blog ini selalu diak
 
 Otoritas sertifikat/CA (_Certificate Authority_) yang saya gunakan untuk menerbitkan sertifikat TLS blog ini adalah [Google Trust Services](https://pki.goog) sebagai CA utama dan [ZeroSSL](https://zerossl.com) sebagai CA cadangan.
 
-Sehingga jika sertifikat TLS yang ditampilkan itu berbeda, kemungkinan ada suatu perangkat lunak yang dapat mencegat dan memodifikasi permintaan HTTPS, entah itu dengan tujuan keamanan, pemblokiran iklan, sampai melacak pengguna. Jika itu terjadi, maka hal itu sudah berada di luar kendali saya.
+Sehingga harusnya transmisi data, baik saat Anda berkomentar, memuat sebuah berkas, artikel, dll, di blog ini bisa dilakukan dengan aman tanpa dicegat oleh pihak lain.
+
+Namun jika sertifikat TLS yang ditampilkan itu berbeda, maka kemungkinan ada suatu perangkat lunak yang dapat mencegat dan memodifikasi permintaan HTTPS, entah itu dengan tujuan keamanan, memblokir permintaan tertentu (termasuk pemblokiran iklan), memodifikasi/menginjeksi aset/elemen web sampai melacak pengguna. Jika itu terjadi, maka hal itu sudah berada di luar kendali saya.
 
 Untuk keamanan data yang tersimpan di dalam layanan Bunny\.net yang saya gunakan (seperti Bunny CDN, Bunny Storage, dll), silakan kunjungi [kebijakan privasinya](https://bunny.net/privacy/).
 
 ## Kontak
 
-Jika Anda memiliki pertanyaan seputar kebijakan privasi ini, silakan [hubungi saya](/tentang#hubungi-saya) untuk lebih lanjut.
+Jika Anda memiliki pertanyaan seputar kebijakan privasi ini, silakan [hubungi saya](/tentang/#hubungi-saya) untuk lebih lanjut.
 
 ## Persetujuan dan Perubahan Kebijakan
 
@@ -117,8 +123,8 @@ Selain itu, saya berhak untuk mengubah kebijakan ini kapan pun dan di mana pun, 
 
 Mengenai halaman kebijakan privasi di blog ini:
 
-- Diperbarui/diubah pada Hari/Tanggal: **Senin, 04 Agustus 2025**
-- Diberlakukan pada Hari/Tanggal: **Senin, 04 Agustus 2025**
+- Diperbarui/diubah pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
+- Diberlakukan pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
 
 ## Penutup
 

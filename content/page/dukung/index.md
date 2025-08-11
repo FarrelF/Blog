@@ -47,11 +47,11 @@ Berikut adalah kode _referral_ yang bisa Anda gunakan:
 |<span class="tab-center">Nama Layanan</span>|<span class="tab-center">Kode _Referral_</span>|<span class="tab-center">Keterangan</span>|
 |:--------------:|:-----------------------------:|:--------------------:|
 | blu by BCA Digital    | `OKMOH1TXO`                                                  | |
-| [bunny.net](https://afiliasi.farrel.franqois.id/bunny/)   | Klik tautannya            | |
-| [Dewaweb](https://afiliasi.farrel.franqois.id/dewaweb/) | Klik tautannya            | |
-| [Flip](https://afiliasi.farrel.franqois.id/flip/)| Klik tautannya atau pakai kode `WJRP9856`  | |
-| [IDCloudHost](https://afiliasi.farrel.franqois.id/idch/) | Klik tautannya            | Layanan IDCloudHost biasa |
-| [IDCloudHost Console](https://afiliasi.farrel.franqois.id/idch-console/)  | Klik tautannya atau pakai kode `m9z6qf` | Layanan Fleksibel dari IDCloudHost. Dapatkan bonus saldo sebesar Rp25.000,00 setelah isi ulang  |
+| [bunny.net](https://afiliasi.farrelf.blog/bunny/)   | Klik tautannya            | |
+| [Dewaweb](https://afiliasi.farrelf.blog/dewaweb/) | Klik tautannya            | |
+| [Flip](https://afiliasi.farrelf.blog/flip/)| Klik tautannya atau pakai kode `WJRP9856`  | |
+| [IDCloudHost](https://afiliasi.farrelf.blog/idch/) | Klik tautannya            | Layanan IDCloudHost biasa |
+| [IDCloudHost Console](https://afiliasi.farrelf.blog/idch-console/)  | Klik tautannya atau pakai kode `m9z6qf` | Layanan Fleksibel dari IDCloudHost. Dapatkan bonus saldo sebesar Rp25.000,00 setelah isi ulang  |
 
 ## Arc (Paling mudah) (Sudah tidak berlaku)
 

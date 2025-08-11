@@ -47,9 +47,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) (Utama)
   - Netlify dan Cloudflare Pages (Cadangan dan untuk pratinjau)
-- Domain:
-  - [Digital Registra](https://www.digitalregistra.co.id/) sebagai Registrar Domain
-  - [Rumahweb Indonesia](https://www.rumahweb.com/) sebagai Pengelola Domain
+- Domain: [Spaceship](https://www.spaceship.com) sebagai Registrar dan Pengelola Domain
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrelf.blog/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrelf.blog/bunny/storage/) (Penyimpanan Utama)
@@ -77,6 +75,12 @@ Atau, alamat URL berikut untuk kode sumber cerminnya:
 https://gitlab.com/FarrelF/Blog
 ```
 
+Atau, berikut adalah alamat URL kode sumber cermin dari Codeberg:
+
+```plain
+https://codeberg.org/FarrelF/Blog
+```
+
 Kode Sumber tersebut saya lisensikan di bawah [GNU AGPLv3](https://github.com/FarrelF/Blog/blob/main/LICENSE), tetapi artikel di blog ini secara baku saya lisensikan di bawah [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), kecuali jika ada yang [dinyatakan sebaliknya](/ketentuan-dan-kebijakan-blog/).
 
 Jadi, mungkin ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll) dan lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing Artikel dan Halaman sebagai atribusi jika saya diizinkan untuk menggunakannya.
@@ -87,7 +91,7 @@ Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini
 
 ### Surel
 
-- farrel(at)franqois(dot)id (Surel Pribadi)
+- farrel(at)franqois(dot)id (Surel Pribadi, disarankan)
 - farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Proton Mail, yang "katanya" lebih aman dan lebih ramah privasi)
 
 ### Media sosial/Perpesanan {#medsos}
