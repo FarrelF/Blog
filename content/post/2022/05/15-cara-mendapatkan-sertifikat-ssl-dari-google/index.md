@@ -452,6 +452,20 @@ Untuk mempercantik tampilan/keluaran JSON, silakan gunakan ekstensi berikut di p
 - Google Chrome, Chromium dan keluarga: [JSON Lite](https://chromewebstore.google.com/detail/json-lite/acacmjcicejlmjcheoklfdchempahoag), [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), [JSON Formatter oleh Arnav Kumar](https://chromewebstore.google.com/detail/json-formatter/gpmodmeblccallcadopbcoeoejepgpnb) atau [JSON-handle](https://chromewebstore.google.com/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj)
 - Mozilla Firefox, Zen Browser dan keluarga: [JSON Lite](https://addons.mozilla.org/firefox/addon/json-lite/) atau [JSON Formatter oleh Arnav Kumar](https://addons.mozilla.org/firefox/addon/json_formatter/)
 
+Selain di peramban web, Anda juga dapat melihat keluarannya di dalam aplikasi Terminal Emulator. Berikut di bawah ini jika Anda ingin menggunakan `curl` dan `jq`:
+
+```shell
+curl -s https://dv.acme-v02.api.pki.goog/directory | jq
+```
+
+Atau, di bawah ini jika Anda menggunakan PowerShell (versi terbaru) atau Windows PowerShell (versi lama):
+
+```powershell
+iwr https://dv.acme-v02.api.pki.goog/directory | ConvertFrom-Json | ConvertTo-Json
+```
+
+Anda bisa mengganti alamat URL di atas dengan alamat URL direktori ACME lainnya, selain itu Anda juga dapat menggantikan perintah `iwr` di atas dengan `Invoke-WebRequest` kalau mau, karena `iwr` merupakan kependekan dari itu.
+
 ## Penutup
 
 Yap, sekian saja artikelnya untuk kali ini, bagaimana? Mudah, bukan? Dengan begini, Anda bisa memakai sertifikat SSL/TLS dari Google secara gratis tanpa perlu memakai layanan dari mereka untuk Web/Blog-nya.
