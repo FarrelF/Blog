@@ -31,11 +31,11 @@ Description: |-
 
 ## Pembuka
 
-Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana bisa digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekali pun untuk aplikasinya.
+Pada tanggal 29 Maret 2022 kemarin, pihaknya baru saja mengumumkan bahwa mereka sudah meluncurkan layanan CA mereka dan server ACME-nya secara publik, yakni **"Google Public CA"**, yang mana dapat digunakan oleh siapa saja, termasuk orang yang tidak menggunakan layanan dari Google sekali pun untuk aplikasinya, tapi saat itu masih dalam uji coba terbatas dan itu tidak publik.
 
-Pengumumannya bisa Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
+Pengumumannya dapat Anda baca [di sini](https://cloud.google.com/blog/products/identity-security/automate-public-certificate-lifecycle-management-via--acme-client-api).
 
-Tapi sejak tanggal 25 Mei 2023 berdasarkan [halaman ini](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), layanan tersebut mulai dapat dinikmati oleh semua pengguna, baik yang menggunakan layanan dari Google atau pun yang tidak sama sekali.
+Tapi sejak tanggal 25 Mei 2023 berdasarkan [halaman ini](https://security.googleblog.com/2023/05/google-trust-services-acme-api_0503894189.html), layanan tersebut mulai dapat dinikmati oleh semua pengguna umum, baik yang menggunakan layanan dari Google atau pun yang tidak sama sekali.
 
 Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk web, blog atau aplikasinya.
 
@@ -53,7 +53,9 @@ Jadi, persiapan yang perlu Anda lakukan adalah sebagai berikut:
 2. Punya koneksi Internet (Kalau Internet aja gak punya, gimana kamu bisa baca artikel ini?)
 3. Terinstalnya perkakas klien ACME di dalam perangkat kamu, entah itu di dalam Komputer PC, Laptop, Server/VPS, Ponsel Pintar, atau lainnya.
 
-Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perkakas klien ACME yang merupakan perkakas favorit saya. Jadi, maaf yah buat pengguna Certbot, Lego, atau lainnya, saya belum bisa menjelaskannya, karena belum saya pakai.
+Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perkakas klien ACME yang merupakan perkakas favorit saya. Untuk pengguna Certbot, Anda dapat membaca tutorial resminya [di sini](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial), di tutorialnya memakai perkakas Certbot juga.
+
+Jadi, maaf yah buat pengguna Lego dan lainnya, saya belum bisa menjelaskannya, karena saya belum pernah pakai.
 
 Namun, kalau kamu sebelumnya pernah memasang sertifikat SSL/TLS dari ZeroSSL dengan membaca artikel saya sebelumnya yang panjang kali lebar itu, pasti perkakas tersebut sangatlah familiar bagi Anda.
 
@@ -84,6 +86,8 @@ Jika belum, Anda bisa membuatnya melalui **"Cloud Shell"** yang ada di **"Google
 ![Cara aktivasi Google Cloud Shell](Activate_Cloud_Shell.webp)
 
 Kalau ada konfirmasi **"Authorize Cloud Shell"**, klik **"Authorize"** dan gunakan akun Anda jika disuruh memilih.
+
+**Catatan:** Sebenarnya kamu dapat menggunakan [**Google Cloud CLI**](https://cloud.google.com/sdk/docs/install) sebagai gantinya, cuma ya artikel ini juga menyasar kalangan yang belum pernah pake layanan **Google Cloud Console** atau kalangan yang tidak ingin menginstalnya (termasuk saya sendiri), jadi ya saya cuma bahas pakai **Cloud Shell**-nya aja.
 
 **Langkah ke-3:** Di **"Cloud Shell"**-nya, silakan buat proyeknya dengan perintah berikut:
 
@@ -126,6 +130,8 @@ Caranya seperti berikut:
 **Langkah ke-1:** Masuk ke [**"Google Cloud Console"**-nya](https://console.cloud.google.com/)
 
 **Langkah ke-2:** Setelah masuk, silakan aktifkan **"Cloud Shell"**-nya dengan klik pada ikon Terminal di pojok kanan atas. Kalau ada konfirmasi **"Authorize Cloud Shell"**, klik **"Authorize"** dan gunakan akun Anda jika disuruh memilih.
+
+**Catatan:** Sebenarnya kamu dapat menggunakan [**Google Cloud CLI**](https://cloud.google.com/sdk/docs/install) sebagai gantinya, cuma ya artikel ini juga menyasar kalangan yang belum pernah pake layanan **Google Cloud Console** atau kalangan yang tidak ingin menginstalnya (termasuk saya sendiri), jadi ya saya cuma bahas pakai **Cloud Shell**-nya aja.
 
 **Langkah ke-3:** Di **"Cloud Shell"**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
 
@@ -435,9 +441,16 @@ Untuk pencabutannya belum saya coba, karena saya belum sempat dan belum ada urge
 
 Pastikan Anda menambahkan `pki.goog` di dalamnya. Dengan ini, Anda akan mengizinkan GTS untuk menerbitkan sertifikat SSL/TLS-nya untuk domain Anda.
 
-Untuk referensinya/selebihnya, bisa kunjungi URL direktori ACME-nya secara langsung melalui Peramban Web-mu, Alamat URL-nya sudah saya sebutkan di jawaban pada [pertanyaan ke-7](#pertanyaan-ke7) lalu lihat pada bagian `caaIdentities` dan di situ akan ada `pki.goog` sebagai isi dari `caaIdentities` yang merupakan **CAA Record** yang bisa Anda isi untuk mengizinkannya.
+Untuk referensinya/selebihnya, bisa kunjungi URL direktori ACME-nya secara langsung melalui peramban web-mu, alamat URL-nya sudah saya sebutkan di jawaban pada [pertanyaan ke-7](#pertanyaan-ke7) lalu lihat pada bagian `caaIdentities` dan di situ akan ada `pki.goog` sebagai isi dari `caaIdentities` yang merupakan **CAA Record** yang bisa Anda isi untuk mengizinkannya.
 
 Hal di atas bukan hanya berlaku untuk GTS saja, tapi berlaku juga untuk URL direktori ACME lainnya seperti Let's Encrypt, ZeroSSL, Buypass, SSL.com, dll yang bisa Anda coba sendiri.
+
+Namun untuk GTS ini, ketika alamat URL-nya dibuka, maka keluarannya berupa teks JSON yang sudah diminimalkan (_minified_), sehingga tampilannya tidak enak dilihat dan dibaca oleh kebanyakan orang pada umumnya.
+
+Untuk mempercantik tampilan/keluaran JSON, silakan gunakan ekstensi berikut di peramban web Anda:
+
+- Google Chrome, Chromium dan keluarga: [JSON Lite](https://chromewebstore.google.com/detail/json-lite/acacmjcicejlmjcheoklfdchempahoag), [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa), [JSON Formatter oleh Arnav Kumar](https://chromewebstore.google.com/detail/json-formatter/gpmodmeblccallcadopbcoeoejepgpnb) atau [JSON-handle](https://chromewebstore.google.com/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj)
+- Mozilla Firefox, Zen Browser dan keluarga: [JSON Lite](https://addons.mozilla.org/firefox/addon/json-lite/) atau [JSON Formatter oleh Arnav Kumar](https://addons.mozilla.org/firefox/addon/json_formatter/)
 
 ## Penutup
 
