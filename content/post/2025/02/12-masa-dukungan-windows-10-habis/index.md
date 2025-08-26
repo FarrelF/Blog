@@ -27,7 +27,7 @@ Description: |-
 
 ## Pembuka
 
-Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 53,2%, yang artinya mayoritas pengguna komputer masih menggunakan Windows 10.
+Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 42,99%, yang artinya masih banyak yang memakai Windows 10.
 
 Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM +4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025.
 
