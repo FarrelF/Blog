@@ -29,7 +29,7 @@ Description: |-
 
 Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 42,99%, yang artinya masih banyak yang memakai Windows 10.
 
-Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM +4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025.
+Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM >= 4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025, yang mana itu sebentar lagi.
 
 Maka dari itu, di artikel ini saya akan membahas opsi apa saja yang bisa Anda lakukan, beserta apa kelebihan dan kekurangannya dari opsi yang ada. Opsi-opsi yang tersedia terbagi menjadi dua, yakni "Tidak paksa pakai Windows 11" dan "Paksa pakai Windows 11" yang keduanya memiliki konsekuensinya masing-masing jika Anda melakukan salah satunya.
 
@@ -81,7 +81,7 @@ Tapi jika kamu bermigrasi ke sistem operasi lain, termasuk GNU/Linux, maka kamu 
 
 Kalau pun kamu mau menelepon di komputer menggunakan WhatsApp mungkin masih bisa kalau di GNU/Linux, tapi kamu harus menginstal [Waydroid](https://waydro.id) (yang hanya kompatibel kalau kamu pake Wayland sebagai kompositornya) dan menginstal WhatsApp di dalam kontainernya, lalu tautkan perangkatmu seperti biasa.
 
-Itu baru urusan WhatsApp, belum lainnya seperti _driver_ dari sistem operasi lain yang sangat berbeda, sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
+Itu baru urusan WhatsApp, belum lainnya seperti Microsoft Office yang sehari-hari kamu pakai, _driver_ dari sistem operasi lain yang sangat berbeda, dll, sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
 
 Ini artinya, kamu harus siap beradaptasi dengan sistem operasi baru kamu dan segala perangkat lunaknya, antarmuka dan pengalamannya yang berbeda ketimbang saat kamu menggunakan Windows 10. Jika kamu tidak sanggup beradaptasi dengan sistem operasi lain, maka solusi ini tidak cocok untuk kamu.
 
@@ -214,7 +214,11 @@ Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri
 
 Kamu bisa saja memakainya dengan melakukan instal ulang atau instal bersih (_clean install_), tapi di sini saya akan bahas tentang caranya melakukan _in-place upgrade_ ke Windows 10 IoT Enterprise LTSC 2021, yang mana ini tidak akan menghilangkan atau menghapus data dan aplikasi apa pun, karena kalau cuma instal bersih semua orang pasti tahu caranya.
 
-Caranya berikut di bawah ini:
+Tapi kalau kamu mau melakukan _in-place upgrade_ ke edisi ini, maka saran saya aktifkan ESU terlebih dahulu untuk Windows 10 sampai 3 tahun di [solusi ke-4](#solusi-ke4), baru setelah masanya habis kamu lakukan _upgrade_ ke Windows 10 IoT Enterprise 2021 jika mau tetap menggunakan Windows 10.
+
+Kenapa seperti itu? Ya karena untuk melakukan _in-place upgrade_ kamu membutuhkan usaha yang cukup ketimbang mengaktifkan ESU saja, serta kalau _di-upgrade_ pun gak ada perbedaan yang signifikan dari aplikasi yang terinstal, kecuali kalau kamu mau instal bersih, belum lagi masalah kompatibilitas perangkat lunak tertentu yang tidak menerima edisi ini.
+
+Cara _in-place upgrade-nya_ berikut di bawah ini:
 
 1. Unduh berkas ISO Windows 10 Enterprise LTSC dengan **arsitektur dan bahasa Windows yang sesuai dengan yang terinstal di sistem kamu** yang tautannya berada di atas, silakan cek terlebih dahulu menggunakan cara berikut sebelum mengunduh:
     - Untuk mengecek bahasa Windows yang terinstal, kamu perlu buka PowerShell sebagai Administrator, lalu eksekusi perintah: `dism /english /online /get-intl | find /i "Default system UI language"`
@@ -233,13 +237,13 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v EditionID /d IoTE
 
 Sepertinya itu saja cara melakukan _in-place upgrade-nya_, Windows akan _me-restart_ komputermu secara otomatis selama beberapa kali dalam prosesnya, tunggu saja sampai selesai.
 
-Tapi, kalau kamu mau instal bersih Windows 10 IoT Enterprise LTSC 2021 dengan bahasa yang berbeda, karena berkas ISO-nya cuma tersedia dalam bahasa Inggris AS maka gunakan berkas ISO Windows 10 Enterprise LTSC dengan bahasa yang kamu pilih untuk instal.
+Tapi kalau kamu mau instal bersih Windows 10 IoT Enterprise LTSC 2021 dengan bahasa yang berbeda, karena berkas ISO-nya cuma tersedia dalam bahasa Inggris AS maka gunakan berkas ISO Windows 10 Enterprise LTSC dengan bahasa yang kamu pilih untuk instal.
 
 Lalu setelah instalasi selesai, masukkan kunci produk `QPM6N-7J2WJ-P88HH-P3YRH-YY74H` untuk beralih ke Windows 10 IoT Enterprise LTSC 2021, tapi itu tidak akan mengaktifkan Windows-nya, karena itu merupakan kunci produk generik yang bukan ditujukan untuk aktivasi, bagian itu akan saya bahas di bagian selanjutnya.
 
 #### Aktivasi Windows {#aktivasi-windows-10-iot}
 
-Setelah sukses melakukan _in-place upgrade_, habis instal bersih atau mengganti edisinya menjadi Windows 10 IoT Enterprise LTSC 2021, maka Windows-nya belum aktif, ya itu wajar saja karena kamu melakukan peralihan ke Windows 10 IoT Enterprise LTSC yang mana itu jauh sekali perbedaan lisensinya, maka dari itu kamu perlu melakukan aktivasi.
+Setelah sukses melakukan _in-place upgrade_, habis instal bersih atau mengganti edisinya menjadi Windows 10 IoT Enterprise LTSC 2021, maka Windows-nya belum aktif, ya itu wajar saja karena kamu melakukan peralihan ke Windows 10 IoT Enterprise LTSC yang mana itu beda lisensinya, maka dari itu kamu perlu melakukan aktivasi.
 
 Untuk melakukan itu secara gratis, Anda perlu menggunakan [Microsoft Activation Scripts (MAS) dari Massgrave](https://massgrave.dev) untuk itu, caranya sebagai berikut:
 
@@ -274,13 +278,13 @@ Ada beberapa solusi yang bisa ditawarkan untuk paksa pakai Windows 11, yakni seb
 
 ### Solusi ke-6: _Bypass_ (hampir) semua persyaratan minimal Windows 11 {#solusi-ke6}
 
-Kamu bisa menginstal/maksa pakai Windows 11 dengan _mem-bypass_ hampir semua persyaratan minimal Windows 11, termasuk TPM 2.0, RAM >= 4 GB, Secure Boot dan UEFI.
+Kamu dapat menginstal/maksa pakai Windows 11 dengan _mem-bypass_ hampir semua persyaratan minimal Windows 11, termasuk TPM 2.0, RAM >= 4 GB, Secure Boot dan UEFI.
 
 Ada beberapa opsi yang bisa dilakukan, seperti membuat _bootable_ dengan [Rufus](https://rufus.ie) yang memiliki fitur tersebut atau menggunakan [penghasil berkas `autounattended.xml`](https://schneegans.de/windows/unattend-generator/) yang berkas tersebut diletakkan ke dalam _root drive_ dari media _bootable_ (misalnya: `E:\`) atau ke dalam ISO Windows.
 
-Selain itu, ada juga beberapa cara lainnya dari Windows 11 Forum yang bisa Anda coba baca [di sini](https://www.elevenforum.com/t/bypass-windows-11-system-requirements-on-unsupported-pc.1989/).
+Selain itu, ada juga beberapa cara lainnya dari Windows 11 Forum yang dapat Anda baca [di sini](https://www.elevenforum.com/t/bypass-windows-11-system-requirements-on-unsupported-pc.1989/).
 
-Dengan ini, kamu tetap bisa _meng-upgrade_ sistem operasimu ke Windows 11 tanpa harus memenuhi syarat minimal, tapi bukan berarti tanpa konsekuensi apa pun. Selain kompatibilitas dengan perangkat lunak dan gim tertentu, konsekuensinya adalah bahwa bisa jadi ke depan kamu tidak akan mendapatkan pembaruan fitur (_Feature update_) atau malah pembaruannya diblokir oleh Microsoft ke depannya karena perangkatmu tidak memenuhi syarat untuk menginstal Windows 11 itu sendiri.
+Dengan ini, kamu tetap dapat _meng-upgrade_ sistem operasimu ke Windows 11 tanpa harus memenuhi syarat minimal, tapi bukan berarti tanpa konsekuensi apa pun. Selain kompatibilitas dengan perangkat lunak dan gim tertentu, konsekuensinya adalah bisa jadi ke depannya kamu tidak akan mendapatkan pembaruan fitur (_Feature update_) karena perangkatmu tidak memenuhi syarat untuk menginstal Windows 11 itu sendiri.
 
 ### Solusi ke-7: Pakai Windows 11 IoT Enterprise 24H2/LTSC 2024 {#solusi-ke7}
 
@@ -360,8 +364,6 @@ Microsoft merilis Windows dengan 2 kanal layanan yang berbeda, yakni sebagai ber
 
 Yang jelas, IoT Enterprise LTSC ini memiliki masa dukungan yang paling panjang ketimbang LTSC biasa, yakni sampai 10 Oktober 2034. Selain itu, untuk versi LTSC-nya ini memiliki persyaratan RAM minimum yang tergolong ringan, yakni sebesar 2 GB, sedangkan kanal GAC-nya minimum 4 GB.
 
-Sehingga ini yang menjadikan IoT Enterprise merupakan edisi Windows terbaik buat Anda, terutama yang ingin masa dukungan yang panjang ataupun sekadar menginstalnya di perangkat yang secara resmi tidak didukung tanpa harus _bypass_ ini-itu.
-
 #### Mengunduh dan melakukan _in-place upgrade_ {#in-place-upgrade-ke-windows11-iot}
 
 {{< spoiler title="**Tautan untuk mengunduh berkas ISO (Kanal GAC)**" >}}
@@ -390,7 +392,11 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - SHA256: `a931b791cadd12e0d38aac2d765d389a06bcba3154a4164afeacc839a3bdbc0d`
   - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_24h2_arm64_dvd_e9155a10.iso)
 
-- Windows 11 24H2 (26100.1742): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+- Windows 11 24H2 - Pembaruan Agustus 2025 (26100.4946): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/0ca629a0-0693-a376-6d80-20f37934ea9e), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
+  - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
+
+- Windows 11 24H2 RTM (26100.1742): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/ca54ae62-3240-1a66-0cbe-a00ee6dce489), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Gravesoft MSDL](https://msdl.gravesoft.dev) | [Microsoft Software Download](https://www.microsoft.com/software-download/windows11) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:Multi-Edition)
 
@@ -515,7 +521,19 @@ Jika Windows-nya sudah aktif dengan cara di atas, maka kamu bisa menautkan lisen
 
 Seperti inilah cara melakukan _in-place upgrade_ ke Windows 11 IoT Enterprise dan cara mengaktifkannya. Tentu saja solusi ini jelas illegal, jadi kalau kamu merasa tidak sanggup menghadapi risiko legalitas, maka solusi ini jelas bukan buat kamu.
 
+Ya sudah, semua pembahasan di artikel ini sudah selesai, kamu bisa akhiri saja sampai sini jika Anda tidak mempunyai keluhan/pertanyaan apa pun.
+
+Namun, jika Anda memiliki pertanyaan, maka ada baiknya baca terlebih dahulu bagian berikutnya sebelum bertanya, barangkali saja pertanyaan dari pikiran kamu bisa terjawab di sini.
+
 ## Pertanyaan yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
+
+### Pertanyaan ke-1:  {#pertanyaan-ke1}
+
+### Pertanyaan ke-2:  {#pertanyaan-ke2}
+
+### Pertanyaan ke-3:  {#pertanyaan-ke3}
+
+### Pertanyaan ke-4:  {#pertanyaan-ke4}
 
 ### Pertanyaan ke-: Kalau ISO di sini merupakan original dari Microsoft, kenapa link download-nya bukan dari Microsoft juga?
 
@@ -530,3 +548,17 @@ Makanya orang-orang (termasuk saya) mengunggah ulang berkas ISO yang didapat dar
 Edisi perusahaan dari Windows memang tersedia untuk diunduh langsung melalui situs web Microsoft-nya tanpa perlu MVS, tapi itu hanya evaluasi semata dan kamu tidak bisa sama sekali mengaktifkannya bahkan setelah 90 hari, sehingga sangat tidak disarankan untuk menggunakannya.
 
 ### Pertanyaan ke
+
+## Penutup
+
+Ya begitu saja artikelnya, bagaimana menurutmu? Mudah bukan? Di sini ada 7 cara untuk mempersiapkannya dengan risiko dan manfaatnya masing-masing, tinggal pilih salah satunya saja mana yang menurut Anda cocok.
+
+Persiapkan hal itu sedini mungkin jika Anda masih ingin menggunakan komputernya, lebih cepat lebih baik. Semoga dengan artikel ini, Anda dapat mempersiapkan semuanya.
+
+Terima kasih bagi yang telah membaca serta mempelajari yang ada di artikel ini, mohon maaf jika artikel ini memiliki beberapa kekeliruan dan kesalahan, seperti salah ketik, kurang jelas, salah informasi, kurang rapi, dll, karena artikel ini jauh dari sempurna.
+
+Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkembangnya informasi yang ada, karena yang saya pos ini adalah tutorial, sehingga perlu adanya penyesuaian.
+
+Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, silakan berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk ke depannya nanti.
+
+Terima kasih atas perhatiannya 😊
