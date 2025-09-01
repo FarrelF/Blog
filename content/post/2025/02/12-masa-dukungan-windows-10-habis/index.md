@@ -214,10 +214,6 @@ Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri
 
 Kamu bisa saja memakainya dengan melakukan instal ulang atau instal bersih (_clean install_), tapi di sini saya akan bahas tentang caranya melakukan _in-place upgrade_ ke Windows 10 IoT Enterprise LTSC 2021, yang mana ini tidak akan menghilangkan atau menghapus data dan aplikasi apa pun, karena kalau cuma instal bersih semua orang pasti tahu caranya.
 
-Tapi kalau kamu mau melakukan _in-place upgrade_ ke edisi ini, maka saran saya aktifkan ESU terlebih dahulu untuk Windows 10 sampai 3 tahun di [solusi ke-4](#solusi-ke4), baru setelah masanya habis kamu lakukan _upgrade_ ke Windows 10 IoT Enterprise 2021 jika mau tetap menggunakan Windows 10.
-
-Kenapa seperti itu? Ya karena untuk melakukan _in-place upgrade_ kamu membutuhkan usaha yang cukup ketimbang mengaktifkan ESU saja, serta kalau _di-upgrade_ pun gak ada perbedaan yang signifikan dari aplikasi yang terinstal, kecuali kalau kamu mau instal bersih, belum lagi masalah kompatibilitas perangkat lunak tertentu yang tidak menerima edisi ini.
-
 Cara _in-place upgrade-nya_ berikut di bawah ini:
 
 1. Unduh berkas ISO Windows 10 Enterprise LTSC dengan **arsitektur dan bahasa Windows yang sesuai dengan yang terinstal di sistem kamu** yang tautannya berada di atas, silakan cek terlebih dahulu menggunakan cara berikut sebelum mengunduh:
@@ -453,7 +449,7 @@ Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri
 
 Kamu bisa saja memakainya dengan melakukan instal ulang atau instal bersih (_clean install_), tapi di sini saya akan bahas tentang caranya melakukan _in-place upgrade_ ke Windows 11 IoT Enterprise, yang mana ini tidak akan menghilangkan atau menghapus data dan aplikasi apa pun, karena kalau cuma instal bersih semua orang pasti tahu caranya.
 
-Caranya berikut di bawah ini:
+Cara _in-place upgrade-nya_ berikut di bawah ini:
 
 1. Unduh berkas ISO Windows 11 biasa (untuk ke Windows 11 IoT Enterprise 24H2) atau Windows 11 Enterprise LTSC (untuk ke Windows 11 IoT Enterprise LTSC 2024) dengan **arsitektur dan bahasa Windows yang sesuai dengan yang terinstal di sistem kamu** yang tautannya berada di atas, silakan cek terlebih dahulu menggunakan cara berikut sebelum mengunduh:
     - Untuk mengecek bahasa Windows yang terinstal, kamu perlu buka PowerShell sebagai Administrator, lalu eksekusi perintah: `dism /english /online /get-intl | find /i "Default system UI language"`
@@ -527,9 +523,21 @@ Namun, jika Anda memiliki pertanyaan, maka ada baiknya baca terlebih dahulu bagi
 
 ## Pertanyaan yang (akan) sering ditanya {#pertanyaan-dan-jawaban}
 
-### Pertanyaan ke-1:  {#pertanyaan-ke1}
+### Pertanyaan ke-1: Bagaimana jika solusi ke-1 mengenai transfer lisensi ini gagal? {#pertanyaan-ke1}
 
-### Pertanyaan ke-2:  {#pertanyaan-ke2}
+Pastikan bahwa perangkat lamamu tidak dipindahtangankan terlebih dahulu ke orang lain ataupun menghapus data-data di perangkat lamanya, termasuk memutuskan hubungan (_unlink_) akun Microsoft kamu dari perangkat lamamu agar transfer lisensinya berjalan dengan lancar.
+
+Selain itu, gunakan akun Microsoft yang sama dengan akun yang berada di perangkat lamamu, jika akunnya berbeda jelas tidak bisa.
+
+Meski begitu, itu semua bukan jaminan kalau transfer lisensi bakalan berhasil, jadi cara ini tidak terlalu dapat diandalkan meski fitur tersebut didokumentasikan secara resmi, tapi bisa dicoba.
+
+**Kalau gagal gimana?** Kalau tidak membeli lisensi Windows aslinya, ya kamu bisa aktivasi secara permanen dengan memakai [Microsoft Activation Scripts dari Massgrave](https://massgrave.dev).
+
+Tidak disarankan untuk membeli lisensi dengan harga miring di situs lokapasar (cth. Shopee, Tokopedia, dll) sedangkan harga aslinya mulai dari 2,6jt-an atau lebih untuk edisi yang lebih tinggi.
+
+### Pertanyaan ke-2: Apa yang terjadi pada lisensi Windows di perangkat yang lama setelah saya berhasil transfer lisensi ke perangkat baru? {#pertanyaan-ke2}
+
+Kemungkinan besar tidak terjadi apa-apa, lisensi digital Windows masih tetap aktif di perangkat lama.
 
 ### Pertanyaan ke-3:  {#pertanyaan-ke3}
 
