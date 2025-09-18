@@ -7,7 +7,7 @@ Categories:
     - Tutorial
 Image:
 Date: 2025-02-12T15:14:01+07:00
-Draft: true
+Draft: false
 License:
 Math: 
 Comments: true
@@ -109,7 +109,7 @@ Tapi bedanya dengan program ESU ini, kamu masih bisa mendapatkan pembaruan dari 
 
 Program ESU ini secara resmi berbayar dan kalau kamu mau membelinya, maka kamu harus menunggu sampai pihak Microsoft merilis program ESU tersebut untuk konsumen umum, yang biasanya akan dirilis mendekati berakhirnya masa dukungan atau malah setelahnya.
 
-Kamu bisa dapatkan itu secara gratis dan legal dengan [menautkan akun Microsoft Anda](https://winpoin.com/hot-jika-kamu-penuhi-persyaratan-kamu-bisa-dapatkan-extra-update-windows-10/) atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin ditautkan ke akun Microsoft, tapi itu hanya menambah dukungan selama 1 tahun saja, belum tentu dapat ditambah lagi.
+Kamu bisa dapatkan itu secara gratis dan legal dengan menautkan akun Microsoft Anda, setelah itu [sinkronisasikan pengaturan PC Anda](https://support.microsoft.com/windows/deebcba2-5bc0-4e63-279a-329926955708#id0ebd=windows_10) atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin menautkan akun dan mensinkronisasikan pengaturan PC-nya, tapi itu hanya menambah dukungan selama 1 tahun saja, belum tentu dapat ditambah lagi.
 
 Bagaimana kalau ingin menambahkan masa dukungan selama 3 tahun secara gratis? Ya bisa saja, tapi dengan menjalankan 'aplikasi' tambahan. Apakah cara ini aman? Kalau 'aman' yang dimaksud adalah aman dari malware dan virus, ya tentu saja ini aman. Tapi, apakah ini legal? **Oh, tentu saja tidak!** Makanya saya letakkan ini di akhir-akhir.
 
@@ -201,14 +201,6 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
 - Windows 10 Enterprise LTSC 2021: (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [My Visual Studio](https://my.visualstudio.com/Downloads) atau [MVS Dump](https://awuctl.github.io/mvs/) untuk mengetahuinya
   - Tautan: [Massgrave (disarankan)](https://massgrave.dev/windows_ltsc_links) | [os.click](https://os.click/en/Windows:Windows_10:2021_LTSC:19044.1288:Enterprise)
-
-Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri dengan mengambil Hash SHA256 ISO-nya secara gratis dan resmi dengan cara berikut:
-
-1. Kunjungi [My Visual Studio (MVS)](https://my.visualstudio.com/Downloads), login menggunakan akun Microsoft kamu dan daftarkan diri sebagai "Dev Essentials" kalau belum pernah
-2. Cari Windows yang ingin kamu unduh (Pastikan kamu pilih "All Downloads" alih-alih "Available for my subscription(s)")
-3. Pilih bahasa dan arsitektur sistem
-4. Klik pada ikon di bawah kolom tabel "Info"
-5. Informasi mengenai berkas ISO dan Hash SHA256-nya muncul di situ, silakan cocokan dengan yang ada di sini dan di [Files RG-Adguard](https://files.rg-adguard.net). Serta kamu dapat verifikasi sendiri hasil unduhannya, bisa pakai [OpenHashTab](https://github.com/namazso/OpenHashTab), [NanaZip](https://apps.microsoft.com/detail/9n8g7tscl18r), [7-Zip](https://www.7-zip.org) atau melalui [perintah `Get-FileHash`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7) di PowerShell 7
 
 {{< / spoiler >}}
 
@@ -354,7 +346,7 @@ Microsoft merilis Windows dengan 2 kanal layanan yang berbeda, yakni sebagai ber
 
 - LTSC itu mengutamakan privasi
 
-    Sayangnya, sama saja dengan edisi Windows lain. Hanya saja untuk edisi perusahaan (_Enterprise_) dari Windows (termasuk LTSC), kamu benar-benar bisa menonaktifkan telemetrinya cukup [menggunakan Group Policy Editor](https://gist.github.com/ave9858/a2153957afb053f7d0e7ffdd6c3dcb89) saja
+    Sayangnya tidak juga, sama saja dengan edisi Windows lain. Hanya saja untuk edisi perusahaan (_Enterprise_) dari Windows (termasuk LTSC), kamu benar-benar sepenuhnya bisa menonaktifkan telemetrinya cukup [menggunakan Group Policy Editor](https://gist.github.com/ave9858/a2153957afb053f7d0e7ffdd6c3dcb89) saja
 
 {{< / spoiler >}}
 
@@ -388,21 +380,13 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - SHA256: `a931b791cadd12e0d38aac2d765d389a06bcba3154a4164afeacc839a3bdbc0d`
   - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_24h2_arm64_dvd_e9155a10.iso)
 
-- Windows 11 24H2 - Pembaruan Agustus 2025 (26100.4946): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+- Windows 11 24H2 - Pembaruan September 2025 (26100.6584): (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/0ca629a0-0693-a376-6d80-20f37934ea9e), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
 - Windows 11 24H2 RTM (26100.1742): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/ca54ae62-3240-1a66-0cbe-a00ee6dce489), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Gravesoft MSDL](https://msdl.gravesoft.dev) | [Microsoft Software Download](https://www.microsoft.com/software-download/windows11) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:Multi-Edition)
-
-Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri dengan mengambil Hash SHA256 ISO-nya secara gratis dan resmi dengan cara berikut:
-
-1. Kunjungi [My Visual Studio (MVS)](https://my.visualstudio.com/Downloads), login menggunakan akun Microsoft kamu dan daftarkan diri sebagai "Dev Essentials" kalau belum pernah
-2. Cari Windows yang ingin kamu unduh (Pastikan kamu pilih "All Downloads" alih-alih "Available for my subscription(s)")
-3. Pilih bahasa dan arsitektur sistem
-4. Klik pada ikon di bawah kolom tabel "Info"
-5. Informasi mengenai berkas ISO dan Hash SHA256-nya muncul di situ, silakan cocokan dengan yang ada di sini dan di [Files RG-Adguard](https://files.rg-adguard.net). Serta kamu dapat verifikasi sendiri hasil unduhannya, bisa pakai [OpenHashTab](https://github.com/namazso/OpenHashTab), [NanaZip](https://apps.microsoft.com/detail/9n8g7tscl18r), [7-Zip](https://www.7-zip.org) atau melalui [perintah `Get-FileHash`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7) di PowerShell 7
 
 {{< / spoiler >}}
 
@@ -436,14 +420,6 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal LTSC dengan tautan 
 - Windows 11 Enterprise LTSC 2024: (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [My Visual Studio](https://my.visualstudio.com/Downloads) atau [MVS Dump](https://awuctl.github.io/mvs/) untuk mengetahuinya
   - Tautan: [Massgrave (disarankan)](https://massgrave.dev/windows_ltsc_links) | [os.click](https://os.click/en/Windows:Windows_11:2024_LTSC:26100.1742:Enterprise)
-
-Kalau kamu setidak yakin itu dengan berkas ISO di atas, silakan pastikan sendiri dengan mengambil Hash SHA256 ISO-nya secara gratis dan resmi dengan cara berikut:
-
-1. Kunjungi [My Visual Studio (MVS)](https://my.visualstudio.com/Downloads), login menggunakan akun Microsoft kamu dan daftarkan diri sebagai "Dev Essentials" kalau belum pernah
-2. Cari Windows yang ingin kamu unduh (Pastikan kamu pilih "All Downloads" alih-alih "Available for my subscription(s)")
-3. Pilih bahasa dan arsitektur sistem
-4. Klik pada ikon di bawah kolom tabel "Info"
-5. Informasi mengenai berkas ISO dan Hash SHA256-nya muncul di situ, silakan cocokan dengan yang ada di sini dan di [Files RG-Adguard](https://files.rg-adguard.net). Serta kamu dapat verifikasi sendiri hasil unduhannya, bisa pakai [OpenHashTab](https://github.com/namazso/OpenHashTab), [NanaZip](https://apps.microsoft.com/detail/9n8g7tscl18r), [7-Zip](https://www.7-zip.org) atau melalui [perintah `Get-FileHash`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7) di PowerShell 7
 
 {{< / spoiler >}}
 
@@ -525,7 +501,7 @@ Namun, jika Anda memiliki pertanyaan, maka ada baiknya baca terlebih dahulu bagi
 
 ### Pertanyaan ke-1: Bagaimana jika solusi ke-1 mengenai transfer lisensi ini gagal? {#pertanyaan-ke1}
 
-Pastikan bahwa perangkat lamamu tidak dipindahtangankan terlebih dahulu ke orang lain ataupun menghapus data-data di perangkat lamanya, termasuk memutuskan hubungan (_unlink_) akun Microsoft kamu dari perangkat lamamu agar transfer lisensinya berjalan dengan lancar.
+**Jawab:** Pastikan bahwa perangkat lamamu tidak dipindahtangankan terlebih dahulu ke orang lain ataupun menghapus data-data di perangkat lamanya, termasuk memutuskan hubungan (_unlink_) akun Microsoft kamu dari perangkat lamamu agar transfer lisensinya berjalan dengan lancar.
 
 Selain itu, gunakan akun Microsoft yang sama dengan akun yang berada di perangkat lamamu, jika akunnya berbeda jelas tidak bisa.
 
@@ -537,13 +513,92 @@ Tidak disarankan untuk membeli lisensi dengan harga miring di situs lokapasar (c
 
 ### Pertanyaan ke-2: Apa yang terjadi pada lisensi Windows di perangkat yang lama setelah saya berhasil transfer lisensi ke perangkat baru? {#pertanyaan-ke2}
 
-Kemungkinan besar tidak terjadi apa-apa, lisensi digital Windows masih tetap aktif di perangkat lama.
+**Jawab:** Kemungkinan besar tidak terjadi apa-apa, lisensi digital Windows masih tetap aktif di perangkat lama.
 
-### Pertanyaan ke-3:  {#pertanyaan-ke3}
+### Pertanyaan ke-3: Mengapa kamu sarankan untuk menggunakan aktivator untuk aktivasi Windows? Padahal lisensi Windows di situs lokapasar (cth. Shopee) sangat murah {#pertanyaan-ke3}
 
-### Pertanyaan ke-4:  {#pertanyaan-ke4}
+**Jawab:** Karena dengan kamu membeli lisensi tersebut, maka sebagian besar uang yang kamu bayar belum tentu sampai ke Microsoft sepenuhnya, terlebih jenis lisensi yang dijual itu adalah **Volume** yang mana ini digunakan oleh perusahaan, tidak diperbolehkan digunakan untuk pribadi kalau kamu adalah orang yang menghargai pengembang perangkat lunak.
 
-### Pertanyaan ke-: Kalau ISO di sini merupakan original dari Microsoft, kenapa link download-nya bukan dari Microsoft juga?
+Biasanya kunci produk yang dijual tersebut didapatkan dari MVS (My Visual Studio) yang sebenarnya untuk tujuan pengujian semata, "impor" kunci produk dari lokapasar luar negeri, atau melakukan pencucian uang dengan membuat perusahaan fiktif, lalu mendaftarkan perusahaan tersebut agar bisa mendapatkan lisensi "Volume" yang jauh lebih murah. Selain itu, ada juga lisensi yang beneran asli, tapi didapatkan dengan cara yang haram, contohnya _carding_.
+
+Kalau kamu membeli itu, maka artinya kamu telah menyumbangkan sebagian besar uang kamu ke penjual dan uangnya menjadi penggerak buat penjual untuk menipu banyak orang dan kejahatan lainnya, jatuhnya yang kamu lakukan malah jauh lebih parah ketimbang orang yang membajak perangkat lunak itu sendiri.
+
+Jadi kalau kamu gak punya uang buat beli lisensi aslinya, daripada uangnya beli sesuatu yang gak ada manfaatnya seperti itu, lebih baik bajak saja sekalian. Sayangilah uangmu dengan menggunakannya untuk hal-hal yang bermanfaat, walaupun harganya di bawah Rp10.000,00 juga tetaplah uang.
+
+**Okelah, tapi bukannya Windows itu gratis ya? Gak perlu diaktifkan juga bisa dipake meski fiturnya ada yang gak bisa, kenapa harus bajak?** Kalau Windows itu gratis, kenapa Microsoft menjual Windows itu sendiri di toko daringnya? Bisa diunduh secara gratis dan dipake gratis seterusnya bukan berarti Windows itu beneran OS gratisan, terlihat dari bagaimana Windows membatasi beberapa fitur karena tidak diaktivasi.
+
+Bahkan di EULA-nya sendiri, di dalam bagian `5. Authorized Software and Activation`, pihaknya jelas-jelas mengatakan:
+
+> You are authorized to use this software only if you are properly licensed and the software has been properly activated with a genuine product key or by other authorized method.
+
+Artinya kamu diijinkan menggunakan Windows HANYA kalau kamu mengaktifkannya dengan benar dengan kunci produk asli. Kalau gak diaktifkan, ya artinya kamu melanggar EULA ini, terlepas dari apakah Windows-nya bisa digunakan seterusnya atau tidak, itu tidak mengubah fakta yang terjadi.
+
+Sehingga hal tersebut menjadikan 11-12 dengan pengguna bajakan, bedanya kamu diberikan rasa aman bahwa kamu telah menghargai mereka dan tidak melanggar apa pun hanya karena fiturnya lebih sedikit, padahal sebenarnya tidak demikian.
+
+Jadi kalau kamu masih menggunakan Windows dan kamu gak mau membeli perangkat baru, maka pilihanmu hanya ada dua, yaitu:
+
+1. Membeli lisensi asli dan legal di toko resmi Microsoft atau di mitra resminya, tapi mahal. Atau,
+2. Bajak sekalian Windows-nya, gratis, tapi risiko legalitas ditanggung sendiri karena illegal, apalagi kalau kalian dari pihak korporat
+
+Itu saja pilihannya. Kalau mau komputermu pakai OS yang legal dan gratis sepenuhnya ya pakai sistem operasi lain lah! Ada itu GNU/Linux dan sistem operasi lain yang bisa kamu coba.
+
+**Tapi kenapa kok Windows-nya masih bisa dipake?** Ya karena untuk memperbesar pangsa pasar (_marketshare_) agar Windows dan ekosistem Microsoft dikenal oleh banyak orang, dengan memakai Windows saja kamu telah menyumbang pangsa pasar ke korporat besar agar mereka melirik Windows dan ekosistem Microsoft-nya, terlepas dari apakah Windows-nya diaktifkan atau tidak, diaktifkan pakai apa, lisensi yang digunakan legal atau tidak, dll.
+
+Mayoritas keuntungan Microsoft itu dari pihak korporat, seperti Azure, OEM, layanan Microsoft 365 dan Windows untuk korporat, Visual Studio, dll, ada pun dari pengguna individual ya dari langganan itu, misalnya layanan Xbox (Xbox Game Pass, Xbox Cloud Gaming, dll), Microsoft 365, dll.
+
+Memang ada keuntungan dari penjualan lisensi Windows untuk individual, tapi itu bukan prioritas utama dan jauh lebih sedikit ketimbang lainnya, itulah mengapa Microsoft juga tidak terlalu peduli dengan pembajakan yang dilakukan oleh pengguna individual.
+
+Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya hanya karena mereka melanggar EULA kayak yang pernah dilakukan waktu dulu, yang rugi malah mereka itu sendiri selain karena rugi waktu, tenaga dan uang untuk merazia dan menuntut sana-sini, hal ini membuat penggunanya berkurang dan pangsa pasar pun ikut berkurang, walau bisa saja semua itu dilakukan kalau mereka mau.
+
+### Pertanyaan ke-4: Apakah akan aman jika saya tetap menggunakan Windows 10? Seberapa amankah untuk ke depannya? {#pertanyaan-ke4}
+
+**Jawab:** Kalau kamu merupakan pengguna kasual yang setiap hari cuma menjelajah internet, menikmati hiburan yang disediakan di komputer (entah itu menonton film, bermain gim, dll) atau mengerjakan tugas di PC mungkin bakalan aman, selama kamu:
+
+- Tidak menonaktifkan _Antivirus_ dan _Firewall_
+- Versi definisi antivirus-mu selalu yang terbaru atau selalu diperbarui
+- Perangkat lunak (termasuk peramban web) yang kamu gunakan selalu yang terbaru, meski itu adalah pembaruan keamanan
+- Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan kamu memperbarui daftarnya
+- Menonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
+- Selektif dalam mencolok penyimpanan eksternal dan jaringan
+- Selektif dalam menginstal perangkat lunak dan membuka sebuah aplikasi
+
+Seberapa amannya untuk ke depan saya tidak tahu secara pasti, tapi mengingat Windows-mu tidak mendapatkan pembaruan setelah masa dukungannya berakhir, maka saya tidak dapat menjamin bahwa ke depan akan aman walau kamu sudah melakukan semua hal di atas, karena eksploitasi celah keamanan di Windows selalu berkembang.
+
+Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatkan pembaruan dengan minimum 1 tahun yang bisa kamu dapatkan secara gratis.
+
+### Pertanyaan ke-5: Untuk memperpanjang masa dukungan Windows 10, lebih baik pakai ESU atau langsung _upgrade_ ke edisi IoT LTSC aja? {#pertanyaan-ke5}
+
+**Jawab:** Sebaiknya aktifkan saja ESU terlebih dahulu, _meng-upgrade_ Windows-mu ke edisi IoT Enterprise LTSC itu selain membutuhkan usaha yang lebih, perangkat lunak tertentu belum tentu kompatibel dengan edisi ini.
+
+Kalau masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT Enterprise LTSC.
+
+### Pertanyaan ke-6: Jadi, menurutmu sebaiknya saya tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11?
+
+**Jawab:** Ya tergantung kenyamanan, kebutuhan dan kesanggupan perangkat kamu. Tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11 itu mempunyai manfaat dan risikonya masing-masing.
+
+Kalau kamu merasa nyaman dengan Windows 11, perangkat lunakmu ingin versi terbaru, dan perangkatmu sanggup tapi terkendala dengan versi TPM yang masih lama, ya sebaiknya paksa _upgrade_ saja ke Windows 11, terutama ke Windows 11 IoT Enterprise 24H2.
+
+Atau kalau perangkatmu gak sanggup, mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya udah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut dengan versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
+
+Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi kamu mendapatkan perangkat lunak lain yang kamu gunakan masih bisa mendapatkan versi terbaru.
+
+Sedangkan kalau kamu tetap menggunakan Windows 10, mungkin perangkat lunak atau gim tidak akan meminta syarat macam TPM 2.0 agar dapat dijalankan, tapi kebanyakan dari perangkat lunak akan meninggalkan dukungan/tidak mendapatkan versi terbaru setelah masa dukungan Windows 10 berakhir, kalaupun dapat ya itu pembaruan keamanan, bukan pembaruan fitur.
+
+Untuk kasus Steam mungkin akan bisa mendukung Windows 10 dengan lebih lama mengingat rekam jejaknya yang pernah mendukung Windows 7, 8 dan 8.1 sampai 01 Januari 2024 kemarin, tapi tidak tahu mengenai gim-gim di dalamnya.
+
+### Pertanyaan ke-7: Apakah berkas ISO itu sendiri merupakan asli dari Microsoft? {#pertanyaan-ke7}
+
+**Jawab:** Tentu saja itu asli dari Microsoft yang diunduh melalui MVS, lalu diunggah lagi oleh mereka agar bisa diunduh oleh banyak orang. Kamu bisa mengecek keaslian berkas ISO dengan mencocokkan _Hash_ yang ada di link Files RG-Adguard atau MVS Dump dengan yang ada di komputermu setelah diunduh.
+
+Kalau kamu setidak yakin itu dengan berkas ISO yang disediakan, silakan pastikan sendiri dengan mengambil Hash SHA256 ISO-nya secara gratis dan resmi dengan cara berikut:
+
+1. Kunjungi [My Visual Studio (MVS)](https://my.visualstudio.com/Downloads), login menggunakan akun Microsoft kamu dan daftarkan diri sebagai "Dev Essentials" kalau belum pernah
+2. Cari Windows yang ingin kamu unduh (Pastikan kamu pilih "All Downloads" alih-alih "Available for my subscription(s)")
+3. Pilih bahasa dan arsitektur sistem
+4. Klik pada ikon di bawah kolom tabel "Info"
+5. Informasi mengenai berkas ISO dan Hash SHA256-nya muncul di situ, silakan cocokan dengan yang ada di sana dan di [Files RG-Adguard](https://files.rg-adguard.net). Serta kamu dapat verifikasi sendiri hasil unduhannya, bisa pakai [OpenHashTab](https://github.com/namazso/OpenHashTab), [NanaZip](https://apps.microsoft.com/detail/9n8g7tscl18r), [7-Zip](https://www.7-zip.org) atau melalui [perintah `Get-FileHash`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7) di PowerShell 7
+
+### Pertanyaan ke-8: Kalau ISO di sini merupakan asli dari Microsoft, kenapa link download-nya bukan dari Microsoft juga? {#pertanyaan-ke8}
 
 Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Visual Studio yang minimalnya paket Professional (atau Enterprise biar lengkap sekalian) dan itu semua perlu bayar tahunan (yang harga 1 tahun pertamanya dari puluhan juta sampai hampir ratusan juta rupiah), bukan bulanan. Selain itu, tautan unduhan yang dihasilkan dari MVS (My Visual Studio) itu tidak bertahan lama, biasanya hanya berlaku sampai 10 jam saja.
 
@@ -551,7 +606,7 @@ Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Vi
 
 Belum lagi kalau kamu mau mengunduh ISO edisi perusahaan (_Enterprise/Business Edition_) dari Windows, ISO Windows jadul (seperti Windows 7), dll, itu semua perlu diunduh di MVS dan itu perlu berlangganan Visual Studio dengan sistem tahunan.
 
-Makanya orang-orang (termasuk saya) mengunggah ulang berkas ISO yang didapat dari sana, agar orang lain dapat mengunduhnya walau masa berlaku tautan dari sana sudah habis.
+Makanya orang-orang mengunggah ulang berkas ISO yang didapat dari sana, agar orang lain dapat mengunduhnya walau masa berlaku tautan dari sana sudah habis.
 
 Edisi perusahaan dari Windows memang tersedia untuk diunduh langsung melalui situs web Microsoft-nya tanpa perlu MVS, tapi itu hanya evaluasi semata dan kamu tidak bisa sama sekali mengaktifkannya bahkan setelah 90 hari, sehingga sangat tidak disarankan untuk menggunakannya.
 
