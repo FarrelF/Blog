@@ -5,7 +5,7 @@ Author: Farrel Franqois
 Categories: 
     - Opini
     - Tutorial
-Image:
+Image: windows-10-end-of-support-warning.webp
 Date: 2025-02-12T15:14:01+07:00
 Draft: false
 License:
@@ -91,17 +91,17 @@ Kamu tetap bisa menggunakan Windows 10, bahkan setelah masa dukungan telah berak
 
 Tapi kamu tidak akan mendapatkan pembaruan apa pun setelah masa dukungan telah berakhir (Mungkin Windows Defender dan Microsoft Edge dikecualikan, entahlah).
 
-Selain itu, mungkin beberapa atau banyak perangkat lunak lain seperti peramban web (atau gim komputer) akan meninggalkan dukungannya terhadap Windows 10 tidak jauh setelah masa dukungannya telah berakhir, sehingga kamu tidak akan mendapatkan pembaruan dari perangkat lunak tersebut, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjangnya.
+Selain itu, mungkin beberapa perangkat lunak lain akan meninggalkan dukungan utamanya terhadap Windows 10 jauh atau tidak jauh setelah masa dukungannya telah berakhir, sehingga kamu tidak akan mendapatkan pembaruan dari perangkat lunak tersebut, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjangnya.
 
-Jadi, kamu harus siap dengan segala ketertinggalan yang ada, termasuk celah keamanan yang menanti dan juga kamu mungkin perlu mempersiapkan perangkat lunak Antivirus pihak ketiga sebagai keamanan tambahan untuk perangkat kamu kalo sewaktu-waktu Windows Defender tidak mendapatkan pembaruan lagi.
+Jadi, kamu harus siap dengan segala ketertinggalan yang ada, termasuk celah keamanan yang menanti dan juga kamu mungkin perlu mempersiapkan perangkat lunak Antivirus pihak ketiga sebagai keamanan tambahan untuk perangkat kamu kalau sewaktu-waktu Windows Defender tidak mendapatkan pembaruan lagi.
 
-Selain itu, jangan lupa untuk selalu gunakan pemblokir iklan atau ekstensi uBlock Origin di peramban web kamu agar kamu bisa berselancar dengan aman, tapi nonaktifkan pemblokirnya jika kamu ingin mendukung para pembuat konten di internet tersebut.
+Selain itu, jangan lupa untuk selalu gunakan pemblokir iklan atau ekstensi uBlock Origin di peramban web kamu agar kamu bisa berselancar dengan aman, tapi nonaktifkan pemblokirnya jika kamu ingin mendukung para pembuat konten tersebut di internet.
 
 ### Solusi ke-4: Tetap pakai Windows 10, tapi aktifkan ESU {#solusi-ke4}
 
 Sama seperti [solusi ke-3](#solusi-ke3), kamu tetap bisa gunakan Windows 10, tapi kamu harus mengaktifkan program ESU (Extended Security Updates) di Windows kamu.
 
-Konsekuensinya mirip dengan [solusi ke-3](#solusi-ke3), yakni beberapa perangkat lunak lain seperti peramban web mungkin akan meninggalkan dukungan utamanya terhadap Windows 10 tidak jauh setelah masa dukungan Windows 10-nya berakhir.
+Konsekuensinya mirip dengan [solusi ke-3](#solusi-ke3), yakni beberapa perangkat lunak lain mungkin akan meninggalkan dukungan utamanya terhadap Windows 10 jauh atau tidak jauh setelah masa dukungan Windows 10-nya berakhir.
 
 Sehingga perangkat lunak tersebut tidak lagi mendapatkan pembaruan, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjang dari perangkat lunak tersebut, yang itu pun pembaruan yang ada hanya pembaruan keamanan dan perbaikan kutu saja.
 
@@ -121,20 +121,9 @@ Meski Microsoft tidak terlalu peduli dengan hal ini, terutama untuk pengguna rum
 Jadi, segala risiko apa pun yang akan Anda hadapi ke depan setelah mengikuti cara di bawah ini, silakan tanggung sendiri.
 {{< / info >}}
 
-Untuk mengaktifkan program ESU 3 tahun secara gratis, maka kamu perlu menggunakan [Microsoft Activation Scripts (MAS) dari Massgrave](https://massgrave.dev) untuk itu. Caranya ada di bawah ini:
+Untuk mengaktifkan program ESU 3 tahun secara gratis, maka kamu perlu menggunakan Microsoft Activation Scripts (MAS) dari [Massgrave](https://massgrave.dev) untuk itu, silakan ikuti instruksi yang ada di sana untuk membuka skripnya.
 
-1. Buka PowerShell atau Windows PowerShell, tidak perlu buka sebagai administrator
-2. Jalankan perintah berikut di bawah ini:
-
-```powershell
-irm https://get.activated.win | iex
-```
-
-3. Nanti MAS akan muncul sebagai skrip Command Prompt, jika ada UAC, klik pada _button_ "Yes"
-4. Lalu setelah munculnya MAS, nanti akan ada pilihan antara HWID, Ohook, TSforge, KMS38 dan Online KMS. Maka dari itu, pilihlah "TSforge" dengan menekan tombol <kbd>3</kbd> di _keyboard_
-5. Setelah itu, pilih "Activate - Windows \[ESU\]" dengan menekan tombol <kbd>2</kbd> di _keyboard_
-6. MAS akan memproses untuk aktivasi ESU, tunggu sampai selesai
-7. Jika sukses, maka akan muncul pesan "\[Client-ESU-Year3\] is permanently activated with ZeroCID" dan sebagainya, dengan begini program ESU sudah aktif
+Setelah skripnya berhasil dibuka, pastikan kamu pilih `TSforge`, lalu pilih `Activate - ESU` agar dapat mengaktifkan ESU.
 
 Seperti inilah caranya mengaktifkan program ESU di dalam Windows 10. Tentu saja cara tersebut merupakan cara yang illegal, jadi jika kamu merasa tidak sanggup menghadapi risiko legalitas, maka kamu harus menunggu sampai ESU dirilis secara resmi oleh Microsoft dan kamu bersedia untuk membayarnya jika ingin memakai jalur legal.
 
@@ -233,20 +222,9 @@ Lalu setelah instalasi selesai, masukkan kunci produk `QPM6N-7J2WJ-P88HH-P3YRH-Y
 
 Setelah sukses melakukan _in-place upgrade_, habis instal bersih atau mengganti edisinya menjadi Windows 10 IoT Enterprise LTSC 2021, maka Windows-nya belum aktif, ya itu wajar saja karena kamu melakukan peralihan ke Windows 10 IoT Enterprise LTSC yang mana itu beda lisensinya, maka dari itu kamu perlu melakukan aktivasi.
 
-Untuk melakukan itu secara gratis, Anda perlu menggunakan [Microsoft Activation Scripts (MAS) dari Massgrave](https://massgrave.dev) untuk itu, caranya sebagai berikut:
+Untuk melakukan itu secara gratis, Anda perlu menggunakan Microsoft Activation Scripts (MAS) dari [Massgrave](https://massgrave.dev) untuk itu, silakan ikuti instruksi yang ada di sana untuk membuka skripnya.
 
-1. Buka PowerShell atau Windows PowerShell, tidak perlu buka sebagai administrator
-2. Jalankan perintah berikut di bawah ini:
-
-```powershell
-irm https://get.activated.win | iex
-```
-
-3. Nanti MAS akan muncul sebagai skrip Command Prompt, jika ada UAC, klik pada _button_ "Yes"
-4. Lalu setelah munculnya MAS, nanti akan ada pilihan antara HWID, Ohook, TSforge, KMS38 dan Online KMS. Maka dari itu, pilihlah "HWID" dengan menekan tombol <kbd>1</kbd> di _keyboard_ untuk mengaktifkan Windows 10/11
-5. Ikuti instruksinya jika ada
-6. Tunggu sampai aktivasinya selesai
-7. Jika sukses, maka akan muncul pesan "Activation successfully" dan sebagainya, dengan begini Windows sudah aktif
+Setelah skripnya berhasil dibuka, pastikan kamu pilih `HWID` agar dapat mengaktifkan Windows.
 
 Jika Windows-nya sudah aktif dengan cara di atas, maka kamu bisa menautkan lisensi Windows tersebut dengan akun Microsoft kamu, artinya kamu punya lisensi digital atas Windows 10 IoT Enterprise LTSC 2021 kamu.
 
@@ -474,20 +452,9 @@ Simpan berkasnya, lalu mulai instal bersih Windows-nya, maka secara otomatis Set
 
 Setelah sukses melakukan _in-place upgrade_ atau habis instal bersih, maka Windows-nya belum aktif, ya itu wajar saja karena kamu melakukan peralihan yang mana itu jauh sekali perbedaan lisensinya, maka dari itu kamu perlu melakukan aktivasi.
 
-Untuk melakukan itu secara gratis, Anda perlu menggunakan [Microsoft Activation Scripts (MAS) dari Massgrave](https://massgrave.dev) untuk itu, caranya sebagai berikut:
+Untuk melakukan itu secara gratis, Anda perlu menggunakan Microsoft Activation Scripts (MAS) dari [Massgrave](https://massgrave.dev) untuk itu, silakan ikuti instruksi yang ada di sana untuk membuka skripnya.
 
-1. Buka PowerShell atau Windows PowerShell, tidak perlu buka sebagai administrator
-2. Jalankan perintah berikut di bawah ini:
-
-```powershell
-irm https://get.activated.win | iex
-```
-
-3. Nanti MAS akan muncul sebagai skrip Command Prompt, jika ada UAC, klik pada _button_ "Yes"
-4. Lalu setelah munculnya MAS, nanti akan ada pilihan antara HWID, Ohook, TSforge, KMS38 dan Online KMS. Maka dari itu, pilihlah "HWID" dengan menekan tombol <kbd>1</kbd> di _keyboard_ untuk mengaktifkan Windows 10/11
-5. Ikuti instruksinya jika ada
-6. Tunggu sampai aktivasinya selesai
-7. Jika sukses, maka akan muncul pesan "Activation successfully" dan sebagainya, dengan begini Windows sudah aktif
+Setelah skripnya berhasil dibuka, pastikan kamu pilih `HWID` agar dapat mengaktifkan Windows.
 
 Jika Windows-nya sudah aktif dengan cara di atas, maka kamu bisa menautkan lisensi Windows tersebut dengan akun Microsoft kamu, artinya kamu punya lisensi digital atas Windows 11 kamu.
 
@@ -564,13 +531,13 @@ Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya 
 
 Seberapa amannya untuk ke depan saya tidak tahu secara pasti, tapi mengingat Windows-mu tidak mendapatkan pembaruan setelah masa dukungannya berakhir, maka saya tidak dapat menjamin bahwa ke depan akan aman walau kamu sudah melakukan semua hal di atas, karena eksploitasi celah keamanan di Windows selalu berkembang.
 
-Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatkan pembaruan dengan minimum 1 tahun yang bisa kamu dapatkan secara gratis.
+Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatkan pembaruan dengan minimum 1 tahun yang bisa kamu dapatkan secara gratis. Tapi, kamu masih bisa mengabaikan ini dengan menganggap kalau sistemnya dirasa aman.
 
 ### Pertanyaan ke-5: Untuk memperpanjang masa dukungan Windows 10, lebih baik pakai ESU atau langsung _upgrade_ ke edisi IoT LTSC aja? {#pertanyaan-ke5}
 
 **Jawab:** Sebaiknya aktifkan saja ESU terlebih dahulu, _meng-upgrade_ Windows-mu ke edisi IoT Enterprise LTSC itu selain membutuhkan usaha yang lebih, perangkat lunak tertentu belum tentu kompatibel dengan edisi ini.
 
-Kalau masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT Enterprise LTSC.
+Setelah masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT Enterprise LTSC.
 
 ### Pertanyaan ke-6: Jadi, menurutmu sebaiknya saya tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11?
 
@@ -578,15 +545,53 @@ Kalau masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT Ent
 
 Kalau kamu merasa nyaman dengan Windows 11, perangkat lunakmu ingin versi terbaru, dan perangkatmu sanggup tapi terkendala dengan versi TPM yang masih lama, ya sebaiknya paksa _upgrade_ saja ke Windows 11, terutama ke Windows 11 IoT Enterprise 24H2.
 
-Atau kalau perangkatmu gak sanggup, mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya udah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut dengan versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
+Atau, mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya sudah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut dengan versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
 
-Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi kamu mendapatkan perangkat lunak lain yang kamu gunakan masih bisa mendapatkan versi terbaru.
+Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim tertentu yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi perangkat lunak lain yang kamu gunakan masih bisa mendapatkan versi terbaru ke depannya.
 
-Sedangkan kalau kamu tetap menggunakan Windows 10, mungkin perangkat lunak atau gim tidak akan meminta syarat macam TPM 2.0 agar dapat dijalankan, tapi kebanyakan dari perangkat lunak akan meninggalkan dukungan/tidak mendapatkan versi terbaru setelah masa dukungan Windows 10 berakhir, kalaupun dapat ya itu pembaruan keamanan, bukan pembaruan fitur.
+Sedangkan kalau kamu tetap menggunakan Windows 10, mungkin perangkat lunak atau gim tertentu tidak akan meminta syarat macam TPM 2.0 agar dapat dijalankan, tapi beberapa atau banyak perangkat lunak akan meninggalkan dukungan utamanya jauh atau tidak jauh setelah masa dukungan Windows 10 berakhir, kalaupun dapat ya itu pembaruan keamanan dan perbaikan kutu, bukan pembaruan fitur.
 
-Untuk kasus Steam mungkin akan bisa mendukung Windows 10 dengan lebih lama mengingat rekam jejaknya yang pernah mendukung Windows 7, 8 dan 8.1 sampai 01 Januari 2024 kemarin, tapi tidak tahu mengenai gim-gim di dalamnya.
+Untuk kasus penggunaan Steam dan peramban web seperti Google Chrome/Chromium dan Mozilla Firefox, mungkin saja mereka bisa memperpanjang dukungannya terhadap Windows 10, mengingat rekam jejak mereka yang pernah memberikan dukungan panjang terhadap Windows 7, baik pembaruan keamanan dan kutu maupun pembaruan fitur, jadi harusnya mereka juga bisa tetap mendukung Windows 10 dengan lebih lama.
 
-### Pertanyaan ke-7: Apakah berkas ISO itu sendiri merupakan asli dari Microsoft? {#pertanyaan-ke7}
+### Pertanyaan ke-7: Saya ingin instal bersih Windows dan ingin Windows-nya bebas dari _bloatware_ yang mengganggu, sebaiknya apa saja yang saya lakukan? {#pertanyaan-ke7}
+
+**Jawab:** Cukup instal ulang saja dengan Windows 10/11 IoT Enterprise LTSC, dengan begini kamu akan mendapatkan pengalaman Windows yang jauh lebih bersih ketimbang saat kamu menggunakan Windows biasanya dengan masa dukungan yang panjang.
+
+Tentunya ini tanpa perlu melakukan modifikasi dari pihak ketiga macam AtlasOS, ReviOS, Ghost Spectre, dll, serta edisi tersebut merupakan edisi resmi dari Microsoft, sehingga kamu tidak perlu mempertaruhkan kestabilan dan keamanan dalam menggunakannya.
+
+Saking bersihnya LTSC ini, sampai-sampai aplikasi UWP itu gak ada, contohnya Xbox, Photos, Phone Link, dan bahkan Microsoft Store itu sendiri, kalkulator yang ada pun hanyalah kalkulator dari zaman Windows 7.
+
+Atau, kamu juga dapat menggunakan Windows edisi biasa, tapi kamu perlu [_debloat_ sendiri](https://www.notion.so/Debloating-Windows-259d8028b33580d9b076ccfe0237f756), saya gak perlu kasih tahu caranya untuk ini.
+
+### Pertanyaan ke-8: Kenapa kamu menyarankan penggunaan LTSC ketimbang menggunakan modifikasi macam AtlasOS, ReviOS, Ghost Spectre, dll? {#pertanyaan-ke8}
+
+**Jawab:** Karena biasanya mereka menonaktifkan komponen-komponen yang mereka anggap 'tidak penting' untuk meningkatkan performa, padahal komponen Windows itu saling berhubungan satu sama lain, kalau saja satu dimatikan dan kamu kurang beruntung maka sistemmu akan terkena efek domino.
+
+Efek dominonya ini disebabkan oleh fitur-fitur ada yang bergantung pada komponen yang dinonaktifkan itu yang pada akhirnya merambat ke aplikasi-aplikasi atau bahkan sistem yang berperilaku aneh, aplikasi yang tiba-tiba suka _crash_ sendiri atau bahkan aplikasi tertentu tidak dapat dijalankan.
+
+**Efek dominonya ini bagaimana maksudnya?** Salah satu contoh efek dominonya kalau kamu mensuspensi atau bahkan menonaktifkan **Microsoft Software Protection Platform** (SppSvc) hanya karena komponen tersebut memakan penggunaan CPU yang besar.
+
+Iya, penggunaan CPU pasti turun drastis, tapi dengan kamu menonaktifkan komponen tersebut selain bikin Windows dan Microsoft Office menjadi gak aktif, Windows Update, Microsoft Office dan Microsoft Store bakalan tidak bekerja dengan baik karena mereka bergantung pada komponen tersebut untuk memvalidasi lisensi, tidak menutup kemungkinan bahwa kamu juga bakalan berhadapan dengan masalah ketika kamu menggunakan aplikasi UWP lainnya, apalagi kalau ada pembelian dalam aplikasi.
+
+Untuk jangka panjangnya, tidak menutup kemungkinan bahwa registri yang berkaitan dengan WPA (**Windows Product Activation**) akan dipenuhi dengan data-data yang korup karena kegagalan mereka dalam memvalidasi lisensi, sehingga ini akan berefek ke _boot_ Windows yang memakan waktu sangat lama dan _stuck_ di logo Windows selama beberapa menit (pengalaman saya malah sampai 15 menit), tergantung jumlah registrinya.
+
+Untungnya semua masalah SppSvc ini bisa diperbaiki dengan [memperbaiki registri WPA](https://gravesoft.dev/fix-wpa-registry) dan aktifkan kembali SppSvc-nya, palingan setelahnya kamu perlu alihkan dulu akun di komputer kamu ke akun lokal, lalu alihkan lagi ke akun Microsoft lagi aja kalau kamu dari awal memakai akun Microsoft untuk _login_.
+
+Satu komponen itu dimatikan saja bisa kena masalah di sistem ke depannya, apalagi kalau banyak? Kalau kamu cukup beruntung ya kamu bakalan bisa menggunakannya dengan biasa saja, tapi kalau sedikit tidak beruntung saja, seperti kena masalah di sistem dan suka berperilaku aneh, ya harusnya kamu lapor ke pembuat mod-nya agar diperbaiki oleh mereka, kalau gak ya ujung-ujungnya apa? Ya betul, **instal ulang**.
+
+Kamu bawa ke teknisi yang jago sekali pun, ya palingan ujung-ujungnya disarankan instal ulang ke Windows edisi resmi tanpa modifikasi juga, karena mereka tidak mau ambil pusing oleh masalah yang disebabkan oleh modifikasi Windows itu sendiri.
+
+Itu juga belum kalau ternyata kamu menghapus Windows Defender tanpa menginstal antivirus pihak ketiga hanya karena ingin meringankan sistem, ya kalau itu sih siap-siap aja virus/malware bakalan datang dengan sendirinya, dan jangan salah, mereka juga bisa menyebar lewat jaringan dan media penyimpanan eksternal, kamu pikir mereka ada hanya karena aktivitas internet dan instal software bajakan saja?
+
+Jadi jangan salahkan sistem kalau komputermu tiba-tiba terkena virus, malware atau bahkan ransomware yang menyerang dan menyandera data-data pentingmu, toh menonaktifkannya itu adalah 100% hasil dari keputusanmu sendiri.
+
+Di sisi lain, Windows dengan kanal LTSC (termasuk IoT Enterprise LTSC) itu resmi dari Microsoft yang jauh lebih bersih ketimbang edisi biasanya, tapi tentu saja itu sangat stabil dengan masa dukungan yang sangat panjang tanpa perlu melakukan _feature update_, menggunakannya juga tidak menimbulkan masalah yang berarti, tidak seperti ketika kamu menggunakan modifikasi untuk Windows.
+
+Itulah mengapa saya lebih menyarankan menggunakan LTSC sekalian ketimbang menggunakan modifikasi macam AtlasOS, ReviOS, Ghost Spectre, Tiny11, dll, tapi itu adalah hak kamu kalau kamu masih ingin memakainya.
+
+Kamu juga bisa melakukan _debloating_ di Windows edisi biasa secara mandiri (lihak di [pertanyaan ke-7](#pertanyaan-ke7)), itu akan jauh lebih baik ketimbang kamu memakai modifikasi macam AtlasOS, dll, karena kamu sendiri yang menentukan mana komponen yang layak dipakai dan mana yang tidak, bukan mereka.
+
+### Pertanyaan ke-9: Apakah berkas ISO itu sendiri merupakan asli dari Microsoft? {#pertanyaan-ke9}
 
 **Jawab:** Tentu saja itu asli dari Microsoft yang diunduh melalui MVS, lalu diunggah lagi oleh mereka agar bisa diunduh oleh banyak orang. Kamu bisa mengecek keaslian berkas ISO dengan mencocokkan _Hash_ yang ada di link Files RG-Adguard atau MVS Dump dengan yang ada di komputermu setelah diunduh.
 
@@ -598,9 +603,11 @@ Kalau kamu setidak yakin itu dengan berkas ISO yang disediakan, silakan pastikan
 4. Klik pada ikon di bawah kolom tabel "Info"
 5. Informasi mengenai berkas ISO dan Hash SHA256-nya muncul di situ, silakan cocokan dengan yang ada di sana dan di [Files RG-Adguard](https://files.rg-adguard.net). Serta kamu dapat verifikasi sendiri hasil unduhannya, bisa pakai [OpenHashTab](https://github.com/namazso/OpenHashTab), [NanaZip](https://apps.microsoft.com/detail/9n8g7tscl18r), [7-Zip](https://www.7-zip.org) atau melalui [perintah `Get-FileHash`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7) di PowerShell 7
 
-### Pertanyaan ke-8: Kalau ISO di sini merupakan asli dari Microsoft, kenapa link download-nya bukan dari Microsoft juga? {#pertanyaan-ke8}
+Itulah cara mengecek keaslian berkas ISO Windows yang tersedia tautannya di sini.
 
-Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Visual Studio yang minimalnya paket Professional (atau Enterprise biar lengkap sekalian) dan itu semua perlu bayar tahunan (yang harga 1 tahun pertamanya dari puluhan juta sampai hampir ratusan juta rupiah), bukan bulanan. Selain itu, tautan unduhan yang dihasilkan dari MVS (My Visual Studio) itu tidak bertahan lama, biasanya hanya berlaku sampai 10 jam saja.
+### Pertanyaan ke-10: Kalau ISO di sini merupakan asli dari Microsoft, kenapa link download-nya bukan dari Microsoft juga? {#pertanyaan-ke10}
+
+Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Visual Studio yang minimalnya paket "Professional" (atau "Enterprise" biar lengkap sekalian) dan itu semua perlu bayar tahunan (yang harga 1 tahun pertamanya dari puluhan juta sampai hampir ratusan juta rupiah), bukan bulanan. Selain itu, tautan unduhan yang dihasilkan dari MVS (My Visual Studio) itu tidak bertahan lama, biasanya hanya berlaku sampai 10 jam saja.
 
 **Tapi kan ISO Windows itu gratis diunduh di situs resmi Microsoft-nya langsung?** Betul, tapi hanya untuk edisi biasa dan itu pun versinya lebih lama walau _build-nya_ terbaru, sehingga kamu perlu menginstal _Cumulative Update_ melalui Windows Update biar sistem kamu pakai versi terbaru.
 
@@ -610,7 +617,21 @@ Makanya orang-orang mengunggah ulang berkas ISO yang didapat dari sana, agar ora
 
 Edisi perusahaan dari Windows memang tersedia untuk diunduh langsung melalui situs web Microsoft-nya tanpa perlu MVS, tapi itu hanya evaluasi semata dan kamu tidak bisa sama sekali mengaktifkannya bahkan setelah 90 hari, sehingga sangat tidak disarankan untuk menggunakannya.
 
-### Pertanyaan ke
+### Pertanyaan ke-11: Apakah aktivator seperti itu aman? {#pertanyaan=ke11}
+
+**Jawab:** Kalau aman yang dimaksud adalah bebas dari virus dan _malware_, jawabannya adalah **Iya**. Keterbukaan kode dan kepopuleran aktivator tersebut di luaran sana cukup jadi bukti bahwa aktivator tersebut aman, selain itu skrip tersebut tidak menyisipkan kode apa pun yang dapat membahayakan komputer kamu.
+
+Skrip tersebut cuma membantu proses aktivasi Windows dan Microsoft Office. Maka dari itu, kamu bisa lakukan semua itu dengan manual kalau mau, silakan kunjungi halaman dokumentasi pada masing-masing metode aktivasi: [HWID](https://massgrave.dev/manual_hwid_activation) untuk aktivasi Windows, [Ohook](https://massgrave.dev/manual_ohook_activation) untuk aktivasi Microsoft Office atau [TSforge](https://massgrave.dev/tsforge#manual-activation) untuk aktivasi Windows/ESU di Windows.
+
+Ngomong-ngomong selain membantu proses aktivasi, skrip tersebut dapat digunakan sebagai 'alat' untuk melakukan _troubleshooting_ sistem Windows dan Microsoft Office baik sebelum masuk ke dalam skripnya maupun sebelum mengaktivasi sampai sistemnya dalam keadaaan 'sempurna' untuk diaktivasi, ada juga fitur perbaikan yang bisa dicoba. Karena jika adanya kesalahan di sistem kamu, maka skrip tersebut tidak akan bisa mengaktifkannya, melainkan hanya memberikan solusi yang bisa kalian coba untuk perbaiki terlebih dahulu.
+
+Saking komprehensifnya cara skrip tersebut dalam melakukan _troubleshooting_, tidak terlalu mengherankan bila pada Maret 2023 "CS" Microsoft [pernah memakai skrip ini untuk mengaktifkan Windows di komputer konsumennya](https://www.bleepingcomputer.com/news/security/microsoft-support-cracks-windows-for-customer-after-activation-fails/) tapi untungnya viral dan orang-orang jadi tahu, pada awal bulan Maret 2025 [hal yang sama terjadi lagi](https://www.youtube.com/watch?v=aMOBGl-hBSE), tapi gak viral.
+
+Kemungkinan besar mereka berpikir bahwa skrip tersebut dapat membantu mereka dalam melakukan _troubleshooting_ di komputer konsumennya, karena mereka tidak diberikan alat dan pengetahuan tentang _troubleshooting_ Windows yang memadai.
+
+### Pertanyaan ke-12: Kalau aktivator tersebut 'aman', maka dari mana mereka mendapatkan keuntungan? {#pertanyaan-ke12}
+
+**Jawab:** Tidak ada.
 
 ## Penutup
 
