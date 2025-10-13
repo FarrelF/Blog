@@ -134,7 +134,7 @@ jobs:
                 "TriggerMatchingType": 1,
                 "Enabled": true,
                 "Guid": "${{ secrets.BUNNY_PREVIEW_EDGE_RULES_GUID }}",
-                "OrderIndex": 7,
+                "OrderIndex": 8,
                 "Description": "Block Request for Another Staging URL",
                 "Triggers": [
                   {
