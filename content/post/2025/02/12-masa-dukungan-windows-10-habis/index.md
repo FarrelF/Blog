@@ -6,7 +6,7 @@ Categories:
     - Opini
     - Tutorial
 Image: windows-10-end-of-support-warning.webp
-Date: 2025-02-12T15:14:01+07:00
+Date: 2025-10-13T22:34:05+07:00
 Draft: false
 License:
 Math: 
@@ -628,10 +628,6 @@ Ngomong-ngomong selain membantu proses aktivasi, skrip tersebut dapat digunakan 
 Saking komprehensifnya cara skrip tersebut dalam melakukan _troubleshooting_, tidak terlalu mengherankan bila pada Maret 2023 "CS" Microsoft [pernah memakai skrip ini untuk mengaktifkan Windows di komputer konsumennya](https://www.bleepingcomputer.com/news/security/microsoft-support-cracks-windows-for-customer-after-activation-fails/) tapi untungnya viral dan orang-orang jadi tahu, pada awal bulan Maret 2025 [hal yang sama terjadi lagi](https://www.youtube.com/watch?v=aMOBGl-hBSE), tapi gak viral.
 
 Kemungkinan besar mereka berpikir bahwa skrip tersebut dapat membantu mereka dalam melakukan _troubleshooting_ di komputer konsumennya, karena mereka tidak diberikan alat dan pengetahuan tentang _troubleshooting_ Windows yang memadai.
-
-### Pertanyaan ke-12: Kalau aktivator tersebut 'aman', maka dari mana mereka mendapatkan keuntungan? {#pertanyaan-ke12}
-
-**Jawab:** Tidak ada.
 
 ## Penutup
 
