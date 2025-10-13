@@ -18,7 +18,7 @@ Tags:
 readMore: true
 DescriptionSEO: Masa dukungan Windows 10 sebentar lagi akan berakhir, apa yang harus kita lakukan? Artikel ini akan membahas opsi-opsi yang ada, maka dari itu simaklah artikel ini
 Description: |-
-    Masa Dukungan Windows 10 akan habis sebentar lagi, yakni pada tanggal 14 Oktober 2025, yang mana itu hanya tinggal beberapa bulan lagi. Lalu, apa yang bisa Anda lakukan sebelum itu atau malah setelah masa dukungannya berakhir? Setelah masa dukungannya berakhir, maka Windows 10 tidak lagi mendapatkan pembaruan, perbaikan kutu, dan dukungan teknis dari Microsoft sama sekali.
+    Masa Dukungan Windows 10 akan habis sebentar lagi, yakni besok pada tanggal 14 Oktober 2025. Lalu, apa yang bisa Anda lakukan sebelum itu atau malah setelah masa dukungannya berakhir? Setelah masa dukungannya berakhir, maka Windows 10 tidak lagi mendapatkan pembaruan, perbaikan kutu, dan dukungan teknis dari Microsoft sama sekali.
 
     Maka dari itu, artikel ini akan membahasnya lebih lanjut mengenai opsi yang bisa Anda lakukan untuk menghadapinya atau tidak sama sekali, kelebihan dan kekurangan setiap opsi yang Anda lakukan, dll, baik dengan cara yang legal sampai illegal sekalipun.
 
@@ -27,9 +27,9 @@ Description: |-
 
 ## Pembuka
 
-Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 42,99%, yang artinya masih banyak yang memakai Windows 10.
+Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 40,84%, yang artinya masih banyak yang memakai Windows 10, walau Windows 11 sekarang sudah dominan.
 
-Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM >= 4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025, yang mana itu sebentar lagi.
+Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM >= 4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025, yang mana itu sebentar lagi (atau bahkan mungkin sekarang sudah berakhir).
 
 Maka dari itu, di artikel ini saya akan membahas opsi apa saja yang bisa Anda lakukan, beserta apa kelebihan dan kekurangannya dari opsi yang ada. Opsi-opsi yang tersedia terbagi menjadi dua, yakni "Tidak paksa pakai Windows 11" dan "Paksa pakai Windows 11" yang keduanya memiliki konsekuensinya masing-masing jika Anda melakukan salah satunya.
 
@@ -109,7 +109,7 @@ Tapi bedanya dengan program ESU ini, kamu masih bisa mendapatkan pembaruan dari 
 
 Program ESU ini secara resmi berbayar dan kalau kamu mau membelinya, maka kamu harus menunggu sampai pihak Microsoft merilis program ESU tersebut untuk konsumen umum, yang biasanya akan dirilis mendekati berakhirnya masa dukungan atau malah setelahnya.
 
-Kamu bisa dapatkan itu secara gratis dan legal dengan menautkan akun Microsoft Anda, setelah itu [sinkronisasikan pengaturan PC Anda](https://support.microsoft.com/windows/deebcba2-5bc0-4e63-279a-329926955708#id0ebd=windows_10) atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin menautkan akun dan mensinkronisasikan pengaturan PC-nya, tapi itu hanya menambah dukungan selama 1 tahun saja, belum tentu dapat ditambah lagi.
+Kamu bisa dapatkan itu secara gratis dan legal dengan menautkan akun Microsoft Anda, setelah itu [sinkronisasikan pengaturan PC Anda](https://support.microsoft.com/windows/deebcba2-5bc0-4e63-279a-329926955708#id0ebd=windows_10) atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin menautkan akun dan mensinkronisasikan pengaturan PC-nya, tapi itu semua hanya menambah dukungan selama 1 tahun saja, belum tentu dapat ditambah lagi.
 
 Bagaimana kalau ingin menambahkan masa dukungan selama 3 tahun secara gratis? Ya bisa saja, tapi dengan menjalankan 'aplikasi' tambahan. Apakah cara ini aman? Kalau 'aman' yang dimaksud adalah aman dari malware dan virus, ya tentu saja ini aman. Tapi, apakah ini legal? **Oh, tentu saja tidak!** Makanya saya letakkan ini di akhir-akhir.
 
@@ -252,7 +252,7 @@ Selain itu, ada juga beberapa cara lainnya dari Windows 11 Forum yang dapat Anda
 
 Dengan ini, kamu tetap dapat _meng-upgrade_ sistem operasimu ke Windows 11 tanpa harus memenuhi syarat minimal, tapi bukan berarti tanpa konsekuensi apa pun. Selain kompatibilitas dengan perangkat lunak dan gim tertentu, konsekuensinya adalah bisa jadi ke depannya kamu tidak akan mendapatkan pembaruan fitur (_Feature update_) karena perangkatmu tidak memenuhi syarat untuk menginstal Windows 11 itu sendiri.
 
-### Solusi ke-7: Pakai Windows 11 IoT Enterprise 24H2/LTSC 2024 {#solusi-ke7}
+### Solusi ke-7: Pakai Windows 11 IoT Enterprise 25H2/LTSC 2024 {#solusi-ke7}
 
 {{< info title="**Sanggahan dan Peringatan:**" >}}
 Solusi yang saya lontarkan di bawah ini merupakan sepenuhnya illegal, karena:
@@ -338,33 +338,33 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
 
 - Windows 11 IoT Enterprise 24H2 x64: (cocok bagi yang ingin instal ulang)
   - Nama Berkas:
-    - `en-us_windows_11_iot_enterprise_version_24h2_x64_dvd_3a99b72b.iso` (Utama)
-    - `X23-81952_26100.1742.240906-0331.ge_release_svc_refresh_CLIENTENTERPRISE_OEM_x64FRE_en-us.iso`
-  - Ukuran Berkas: 5205,73 MB
+    - `en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso` (Utama)
+    - `X24-12902_26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISE_OEM_x64FRE_en-us.iso`
+  - Ukuran Berkas: 7318,01 MB
   - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/d8ee9445-b9eb-5f45-f75e-e92a057820bf), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
-    - MD5: `6437def7cdf34af346bfffa1e6634b91`
-    - SHA1: `7eac64ac85e6492611e6a1e3fb09b70685c6469b`
-    - SHA256: `eceb8dc167077e07f9a9bd04e472ea542944974b81b2ebc25477772a71bdbb69`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_24h2_x64_dvd_3a99b72b.iso) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:IoT_Enterprise:en-us:x64)
+    - MD5: `7ee34c0eaa7dc81c502de12d4a4a0345`
+    - SHA1: `0324d02aa88df64c159e6479f30cbc0a18952e14`
+    - SHA256: `2717211095e362c8005ae1ed36be771f27f2031545b065be1718b6fe717b6b12`
+  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:IoT_Enterprise:en-us:x64)
 
-- Windows 11 IoT Enterprise 24H2 x64 ARM64: (cocok buat pengguna ARM64)
+- Windows 11 IoT Enterprise 25H2 x64 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas
-    - `en-us_windows_11_iot_enterprise_version_24h2_arm64_dvd_e9155a10.iso` (Utama)
-    - `X23-81976_26100.1742.240906-0331.ge_release_svc_refresh_CLIENTENTERPRISE_OEM_A64FRE_en-us.iso`
-  - Ukuran Berkas: 5163,98 MB
+    - `en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso` (Utama)
+    - `X24-12903_26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISE_OEM_A64FRE_en-us.iso`
+  - Ukuran Berkas: 7241,80 MB
   - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/bacf17e5-a307-5a01-1a35-71268dc0c2e3), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
-    - MD5: `c50dae1eec6b82e8ee1907448a739619`
-    - SHA1: `7fed7812095d3dea00e2c35614eecacfc21eb912`
-    - SHA256: `a931b791cadd12e0d38aac2d765d389a06bcba3154a4164afeacc839a3bdbc0d`
+    - MD5: `67936bd7e33134d2f87b7861ceb3e898`
+    - SHA1: `15f42dab2135b60649b21e4baa4e0719b899d2a0`
+    - SHA256: `de28a746bad8879b680aaf6a2e2993bf80aaad23904e0acc449815ada5c90107`
   - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_24h2_arm64_dvd_e9155a10.iso)
 
-- Windows 11 24H2 - Pembaruan September 2025 (26100.6584): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+- Windows 11 25H2 - Pembaruan September 2025 (26200.6584): (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/0ca629a0-0693-a376-6d80-20f37934ea9e), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
-- Windows 11 24H2 RTM (26100.1742): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
+- Windows 11 25H2 RTM (26200.6584): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/ca54ae62-3240-1a66-0cbe-a00ee6dce489), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
-  - Tautan: [Gravesoft MSDL](https://msdl.gravesoft.dev) | [Microsoft Software Download](https://www.microsoft.com/software-download/windows11) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:Multi-Edition)
+  - Tautan: [Gravesoft MSDL](https://msdl.gravesoft.dev) | [Microsoft Software Download](https://www.microsoft.com/software-download/windows11)
 
 {{< / spoiler >}}
 
