@@ -1,12 +1,12 @@
 ---
-Title: "Masa Dukungan Windows 10 habis pada tanggal 14 Oktober 2025: Kita harus apa?"
-Slug: masa-dukungan-windows-10-habis
+Title: "Masa Dukungan Windows 10 sudah habis pada tanggal 14 Oktober 2025: Kita harus apa?"
+Slug: masa-dukungan-windows-10-sudah-habis
 Author: Farrel Franqois
 Categories: 
     - Opini
     - Tutorial
 Image: windows-10-end-of-support-warning.webp
-Date: 2025-10-13T22:34:05+07:00
+Date: 2025-10-13T22:52:05+07:00
 Draft: false
 License:
 Math: 
@@ -642,3 +642,15 @@ Saya akan berusaha untuk terus-terusan memperbarui artikel ini seiring berkemban
 Jika adanya kesalahan dan kekeliruan, atau kalau Anda memiliki pertanyaan lainnya, silakan berikan masukkan melalui kolom komentar yang tersedia. Masukkan dari Anda akan sangat berarti bagi saya dan artikel ini untuk ke depannya nanti.
 
 Terima kasih atas perhatiannya 😊
+
+## Penggunaan Gambar dan Atribusi
+
+Berkas-berkas Gambar (seperti Cuplikan layar dan Gambar lainnya) yang di gunakan di dalam artikel ini, disediakan di dalam [repositori blog ini](https://github.com/FarrelF/Blog).
+
+Jika Anda ingin menjelajahinya, silakan kunjungi alamat URL berikut:
+
+```plain
+https://github.com/FarrelF/Blog/tree/main/content/post/2025/10/13-masa-dukungan-windows-10-sudah-habis
+```
+
+Gambar unggulan yang digunakan pada artikel ini merupakan foto dari sebuah [trit dari Reddit](https://www.reddit.com/r/mildlyinfuriating/comments/1h24eht/windows_10_end_of_support/), foto tersebut dimiliki oleh seorang pengguna Reddit yakni [r/mildlyinfuriating/](https://www.reddit.com/r/mildlyinfuriating/).
