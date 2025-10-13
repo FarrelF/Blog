@@ -617,7 +617,7 @@ Makanya orang-orang mengunggah ulang berkas ISO yang didapat dari sana, agar ora
 
 Edisi perusahaan dari Windows memang tersedia untuk diunduh langsung melalui situs web Microsoft-nya tanpa perlu MVS, tapi itu hanya evaluasi semata dan kamu tidak bisa sama sekali mengaktifkannya bahkan setelah 90 hari, sehingga sangat tidak disarankan untuk menggunakannya.
 
-### Pertanyaan ke-11: Apakah aktivator seperti itu aman? {#pertanyaan=ke11}
+### Pertanyaan ke-11: Apakah aktivator seperti itu aman? {#pertanyaan-ke11}
 
 **Jawab:** Kalau aman yang dimaksud adalah bebas dari virus dan _malware_, jawabannya adalah **Iya**. Keterbukaan kode dan kepopuleran aktivator tersebut di luaran sana cukup jadi bukti bahwa aktivator tersebut aman, selain itu skrip tersebut tidak menyisipkan kode apa pun yang dapat membahayakan komputer kamu.
 
