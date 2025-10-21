@@ -686,9 +686,9 @@ Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya 
 - Tidak sembarangan memberikan akses Administrator ke orang lain (cth. Selalu gunakan tipe "Standard" saat membuat pengguna/_User_ di Windows, bukan "Administrator")
 - Versi definisi antivirus-mu selalu yang terbaru atau selalu diperbarui
 - Jika kamu menggunakan Windows Defender, pertebal perlindungannya dengan cara berikut:
-  - Minimalnya aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari malware dengan memblokir segala perubahan dari aplikasi tidak terpecaya
+  - Minimalnya aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari malware dengan memblokir segala perubahan dari aplikasi tidak terpercaya
   - Bila memungkinkan, aktifkan semua fitur proteksi di dalam "Core isolation" untuk melindungi kernel Windows di perangkatmu
-  - Untuk penebalan lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com)
+  - Untuk penebalan (_hardening_) lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com)
 - Perangkat lunak (termasuk peramban web) yang kamu gunakan selalu yang terbaru, meski itu adalah pembaruan keamanan
 - Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan kamu memperbarui daftarnya
 - Nonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
@@ -711,7 +711,7 @@ Setelah masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT E
 
 Kalau kamu merasa nyaman dengan Windows 11, perangkat lunakmu ingin versi terbaru, dan perangkatmu sanggup tapi terkendala dengan versi TPM yang masih lama, ya sebaiknya paksa _upgrade_ saja ke Windows 11, terutama ke Windows 11 IoT Enterprise 24H2.
 
-Atau, mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya sudah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut dengan versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
+Tapi mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya sudah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut di versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
 
 Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim tertentu yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi perangkat lunak lain yang kamu gunakan masih bisa mendapatkan versi terbaru ke depannya.
 
