@@ -705,7 +705,7 @@ Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatka
 
 Setelah masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT Enterprise LTSC.
 
-### Pertanyaan ke-6: Jadi, menurutmu sebaiknya saya tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11?
+### Pertanyaan ke-6: Jadi, menurutmu sebaiknya saya tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11? {#pertanyaan-ke6}
 
 **Jawab:** Ya tergantung kenyamanan, kebutuhan dan kesanggupan perangkat kamu. Tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11 itu mempunyai manfaat dan risikonya masing-masing.
 
