@@ -2,14 +2,14 @@
 Title: "Masa Dukungan Windows 10 sudah habis pada tanggal 14 Oktober 2025: Kita harus apa?"
 Slug: masa-dukungan-windows-10-sudah-habis
 Author: Farrel Franqois
-Categories: 
+Categories:
     - Opini
     - Tutorial
 Image: windows-10-end-of-support-warning.webp
 Date: 2025-10-13T22:52:05+07:00
 Draft: false
 License:
-Math: 
+Math:
 Comments: true
 Tags:
     - Windows
@@ -27,152 +27,311 @@ Description: |-
 
 ## Pembuka
 
-Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran, termasuk Windows 10 yang menurut [GS Statcounter](https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide) itu menguasai pangsa pasar sebesar 40,84%, yang artinya masih banyak yang memakai Windows 10, walau Windows 11 sekarang sudah dominan.
+Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran,
+termasuk Windows 10 yang menurut [GS Statcounter][1] itu menguasai pangsa pasar
+sebesar 40,84%, yang artinya masih banyak yang memakai Windows 10,
+walau Windows 11 sekarang sudah dominan.
 
-Tapi sayangnya, persyaratan minimal Windows 11 ini menjadi "tembok besar" untuk sebagian orang, yakni Secure Boot, RAM >= 4 GB, UEFI dan yang paling penting adalah TPM 2.0, serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal 14 Oktober 2025, yang mana itu sebentar lagi (atau bahkan mungkin sekarang sudah berakhir).
+Sayangnya, persyaratan Windows 11 ini menjadi "tembok api" untuk sebagian orang,
+yakni Secure Boot, RAM >= 4 GB, UEFI dan yang paling penting adalah TPM 2.0,
+serta mereka ingin mengakhiri masa dukungan Windows 10 pada tanggal
+14 Oktober 2025, yang mana itu sebentar lagi
+(atau bahkan mungkin sekarang sudah berakhir).
 
-Maka dari itu, di artikel ini saya akan membahas opsi apa saja yang bisa Anda lakukan, beserta apa kelebihan dan kekurangannya dari opsi yang ada. Opsi-opsi yang tersedia terbagi menjadi dua, yakni "Tidak paksa pakai Windows 11" dan "Paksa pakai Windows 11" yang keduanya memiliki konsekuensinya masing-masing jika Anda melakukan salah satunya.
+Maka dari itu, di artikel ini saya akan membahas opsi apa saja yang bisa Anda
+lakukan, beserta apa kelebihan dan kekurangannya dari opsi yang ada.
+Opsi-opsi yang tersedia terbagi menjadi dua,
+yakni "Tidak paksa pakai Windows 11" dan "Paksa pakai Windows 11"
+yang keduanya memiliki konsekuensinya masing-masing jika Anda melakukan salah satunya.
 
 ## Tidak paksa pakai Windows 11
 
-Sebuah opsi yang memungkinkan untuk tidak memaksakan diri untuk menggunakan Windows 11 di perangkat yang tidak memenuhi syarat untuk menggunakan Windows 11, tapi ingin komputernya bisa digunakan sebagaimana mestinya.
+Sebuah opsi yang memungkinkan untuk tidak memaksakan diri untuk menggunakan
+Windows 11 di perangkat yang tidak memenuhi syarat,
+tapi ingin komputernya bisa digunakan sebagaimana mestinya.
 
 Ada beberapa solusi yang bisa ditawarkan, yakni sebagai berikut:
 
 ### Solusi ke-1: _Upgrade_ Perangkat untuk menggunakan Windows 11 {#solusi-ke1}
 
-Ini adalah solusi paling realistis tanpa memaksakannya di perangkat yang tidak memenuhi syarat, yakni _upgrade_ perangkatmu baik laptop dan komputer desktop agar dapat memenuhi syarat untuk menggunakan Windows 11.
+Ini adalah solusi paling realistis tanpa memaksakannya di perangkat yang
+tidak memenuhi syarat, yakni _upgrade_ perangkatmu baik laptop dan
+komputer desktop agar dapat memenuhi syarat untuk menggunakan Windows 11.
 
-Jika kamu adalah pengguna laptop, maka sudah saatnya kamu membeli laptop baru yang sistem operasinya sudah memakai Windows 11 dan itu biasanya gratis.
+Jika kamu adalah pengguna laptop, maka sudah saatnya kamu membeli laptop baru
+yang sistem operasinya sudah memakai Windows 11 dan itu biasanya gratis.
 
-Sedangkan jika kamu adalah pengguna komputer desktop (PC Desktop), maka sudah saatnya kamu merakit PC dengan menjual komponen lama kamu, lalu membeli dan memasang komponen baru lagi, pastikan komponen yang digunakan sudah terbaru agar bisa mendapatkan dukungan jangka panjang dan kinerja yang lebih baik.
+Sedangkan jika kamu adalah pengguna komputer desktop (PC Desktop), maka sudah
+saatnya kamu merakit PC dengan menjual komponen lama kamu, lalu membeli
+dan memasang komponen baru lagi, pastikan komponen yang digunakan sudah terbaru
+agar bisa mendapatkan dukungan jangka panjang dan kinerja yang lebih baik.
 
-Sebelum merakit PC, pastikan bahwa kamu terhubung dengan akun Microsoft terlebih dahulu agar lisensinya bisa ditautkan secara otomatis, agar lisensi bisa diaktivasi ulang ketika kamu mengganti perangkatmu secara signifikan, termasuk setelah kamu merakit PC barumu. **Jangan pernah menonaktifkan lisensi digital Windows kamu dan menghapus kunci produknya dengan alasan apa pun!**
+Sebelum merakit PC, pastikan bahwa kamu terhubung dengan akun Microsoft
+terlebih dahulu agar lisensinya bisa ditautkan secara otomatis,
+agar lisensi bisa diaktivasi ulang ketika kamu
+mengganti perangkatmu secara signifikan,
+termasuk setelah kamu merakit PC barumu.
+**Jangan pernah menonaktifkan lisensi digital Windows kamu dan
+menghapus kunci produknya dengan alasan apa pun!**
 
 #### Lalu, bagaimana dengan aktivasinya?
 
-Jika kamu membeli laptop baru dengan Windows 11 sebagai sistem operasi bawaan, biasanya kamu tidak perlu aktivasi lagi agar Windows 11 digunakan sebagaimana mestinya, artinya kamu mendapatkan lisensi tersebut secara gratis.
+Jika kamu membeli laptop baru dengan Windows 11 sebagai sistem operasi bawaan,
+biasanya kamu tidak perlu aktivasi lagi,
+yang artinya kamu mendapatkan lisensi tersebut secara gratis.
 
-Sedangkan jika kamu adalah pengguna komputer desktop, maka kamu perlu mentransfer dan mengaktivasi ulang Windows 10 di perangkat barumu dengan mengikuti [halaman ini](https://support.microsoft.com/en-us/windows/reactivating-windows-after-a-hardware-change-2c0e962a-f04c-145b-6ead-fb3fc72b6665#id0ebd=windows_10), baca di dalam bagian **"Reactivate Windows 10 after a hardware change"** dan klik pada **"If you have a digital license, run the Activation troubleshooter."** untuk mengetahui caranya.
+Sedangkan jika kamu adalah pengguna komputer desktop, maka kamu perlu mentransfer
+dan mengaktivasi ulang Windows 10 di perangkat barumu dengan mengikuti
+[halaman ini][2],
+baca di dalam bagian **"Reactivate Windows 10 after a hardware change"** dan
+klik pada **"If you have a digital license,
+run the Activation troubleshooter."** untuk mengetahui caranya.
 
-Pastikan kamu menggunakan akun Microsoft yang sama dengan yang ada di perangkat lamamu sebelum aktivasi ulang, terutama jika kamu habis instal ulang Windows dan pastikan juga perangkat lama kamu masih aktif dan belum dihapus, serta belum diberikan kepada orang lain karena transfer lisensi terkadang tidak akan bekerja kalau data-data di perangkat lama kamu terhapus.
+Pastikan kamu menggunakan akun Microsoft yang sama dengan yang ada
+di perangkat lamamu sebelum aktivasi ulang,
+terutama jika kamu habis instal ulang Windows dan
+kalau bisa pastikan kalau perangkat lama kamu masih aktif dan belum dihapus,
+karena transfer lisensi terkadang tidak akan bekerja
+kalau data-data di perangkat lama kamu terhapus.
 
 Setelah berhasil diaktivasi ulang, baru kamu _upgrade_ ke Windows 11.
 
 ### Solusi ke-2: Gunakan sistem operasi lain {#solusi-ke2}
 
-Ini adalah solusi yang paling realistis jika perangkat kamu tidak memenuhi syarat untuk menggunakan Windows 11, tapi gak mau keamanan perangkatmu berkurang dan kamu tidak mau perangkat lunak sehari-harimu (terutama peramban web) tertinggal karena masa dukungan Windows 10 yang sudah habis, yakni dengan menggunakan sistem operasi lain.
+Ini adalah solusi yang paling realistis jika perangkat kamu tidak memenuhi syarat
+untuk menggunakannya, tapi gak mau keamanan perangkatmu berkurang
+dan kamu tidak mau perangkat lunak sehari-harimu (terutama peramban web)
+tertinggal karena masa dukungan Windows 10 yang sudah habis,
+yakni dengan menggunakan sistem operasi lain.
 
-Sistem operasi lain yang dapat Anda coba adalah GNU/Linux, [ChromeOS Flex](https://chromeos.google/products/chromeos-flex/) atau [FydeOS](https://fydeos.io). Sistem operasi GNU/Linux memiliki banyak sekali distribusi, salah satu contoh yang paling terkenal adalah Ubuntu, Linux Mint, Zorin OS, elementaryOS, dll.
+Sistem operasi lain yang dapat Anda coba adalah
+GNU/Linux, [ChromeOS Flex][3] atau [FydeOS][4].
+Sistem operasi GNU/Linux memiliki banyak sekali distribusi,salah satu
+contoh yang paling terkenal adalah Ubuntu, Linux Mint, Zorin OS, elementaryOS, dll.
 
-Distribusi GNU/Linux yang saya rekomendasikan adalah [Linux Mint](https://linuxmint.com), kenapa? Karena selain mudah digunakan, pengalaman yang baik karena mirip dengan Windows dan banyak fitur, Linux Mint itu merupakan salah satu distribusi yang stabil dan semuanya sudah _Out Of The Box_.
+Distribusi GNU/Linux yang saya rekomendasikan adalah [Linux Mint][5], kenapa?
+Karena selain mudah digunakan, pengalaman yang baik karena mirip dengan Windows
+dan banyak fitur, Linux Mint itu merupakan salah satu distribusi yang stabil
+dan semuanya sudah _Out Of The Box_.
 
-Karena Linux Mint berbasis Ubuntu LTS yang populer, maka kamu bisa menggunakan komunitas Ubuntu juga kalau kamu perlu bantuan, tapi komunitas Linux Mint terutama forum internasionalnya itu juga sangat aktif.
+Karena Linux Mint berbasis Ubuntu LTS yang populer,
+maka kamu bisa menggunakan komunitas Ubuntu juga kalau kamu perlu bantuan,
+tapi komunitas Linux Mint terutama forum internasionalnya itu juga sangat aktif.
 
-Gak mau pake GNU/Linux? Kamu bisa pakai ChromeOS Flex dari Google, FydeOS atau pakai Apple macOS sekalian yang perlu beli perangkat baru juga ujung-ujungnya kalau mau aman.
+Gak mau pake GNU/Linux? Kamu bisa pakai ChromeOS Flex dari Google, FydeOS
+atau pakai Apple macOS sekalian yang perlu beli perangkat baru juga ujung-ujungnya kalau mau aman.
 
 #### Risiko menggunakan sistem operasi lain
 
-Menggunakan sistem operasi lain bukanlah tanpa kekurangan dan risiko, dengan menggunakan sistem operasi lain artinya kamu harus siap dengan perbedaan antarmuka, pengalaman penggunaan, dukungan _driver_ dan dukungan perangkat lunak yang berbeda ketimbang saat kamu menggunakan Windows untuk sehari-hari.
+Menggunakan sistem operasi lain bukanlah tanpa kekurangan dan risiko,
+dengan menggunakan sistem operasi lain artinya kamu harus siap
+dengan perbedaan antarmuka, pengalaman penggunaan, dukungan _driver_
+dan dukungan perangkat lunak yang berbeda
+ketimbang saat kamu menggunakan Windows untuk sehari-hari.
 
-Sebagai contoh, kamu adalah pengguna WhatsApp Desktop di Windows 10 yang bisa kamu gunakan untuk menelepon secara langsung di laptop atau komputer desktop-mu tanpa perlu perangkat gawai seperti HP.
+Sebagai contoh, kamu adalah pengguna WhatsApp Desktop di Windows 10 yang bisa
+kamu gunakan untuk menelepon secara langsung di laptop atau komputer desktop-mu
+tanpa perlu perangkat gawai seperti HP.
 
-Tapi jika kamu bermigrasi ke sistem operasi lain, termasuk GNU/Linux, maka kamu harus siap bahwa kamu hanya bisa menggunakan WhatsApp Web yang tidak mungkin secara resmi bisa menelepon secara langsung di laptop atau komputer desktop-mu, kecuali jika sistem operasi lain tersebut didukung oleh WhatsApp secara resmi, seperti Apple macOS 11 atau di atasnya.
+Tapi jika kamu bermigrasi ke sistem operasi lain, termasuk GNU/Linux,
+maka kamu harus siap bahwa kamu hanya bisa menggunakan WhatsApp Web yang
+tidak mungkin secara resmi bisa menelepon secara langsung di
+laptop atau komputer desktop-mu, kecuali jika sistem operasi lain tersebut
+didukung oleh WhatsApp secara resmi, seperti Apple macOS 11 atau di atasnya.
 
-Kalau pun kamu mau menelepon di komputer menggunakan WhatsApp mungkin masih bisa kalau di GNU/Linux, tapi kamu harus menginstal [Waydroid](https://waydro.id) (yang hanya kompatibel kalau kamu pake Wayland sebagai kompositornya) dan menginstal WhatsApp di dalam kontainernya, lalu tautkan perangkatmu seperti biasa.
+Kalau pun kamu mau menelepon di komputer menggunakan WhatsApp mungkin
+masih bisa kalau di GNU/Linux, tapi kamu harus menginstal [Waydroid][6]
+(yang hanya kompatibel kalau kamu pake Wayland sebagai kompositornya) dan
+menginstal WhatsApp di dalam kontainernya, lalu tautkan perangkatmu seperti biasa.
 
-Itu baru urusan WhatsApp, belum lainnya seperti Microsoft Office yang sehari-hari kamu pakai, _driver_ dari sistem operasi lain yang sangat berbeda, dll, sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
+Itu baru urusan WhatsApp,
+belum lainnya seperti Microsoft Office yang sehari-hari kamu pakai,
+_driver_ dari sistem operasi lain yang sangat berbeda, dll,
+sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan
+perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
 
-Ini artinya, kamu harus siap beradaptasi dengan sistem operasi baru kamu dan segala perangkat lunaknya, antarmuka dan pengalamannya yang berbeda ketimbang saat kamu menggunakan Windows 10. Jika kamu tidak sanggup beradaptasi dengan sistem operasi lain, maka solusi ini tidak cocok untuk kamu.
+Ini artinya,
+kamu harus siap beradaptasi dengan sistem operasi baru kamu
+dan segala perangkat lunaknya,
+antarmuka dan pengalamannya yang berbeda ketimbang
+saat kamu menggunakan Windows 10.
+Jika kamu tidak sanggup beradaptasi dengan sistem operasi lain,
+maka solusi ini tidak cocok untuk kamu.
 
 ### Solusi ke-3: Tetap pakai Windows 10 {#solusi-ke3}
 
-Kamu tetap bisa menggunakan Windows 10, bahkan setelah masa dukungan telah berakhir. Secara kompatibilitas perangkat lunak dan gim tertentu, ini lebih baik, seperti Valorant yang masih tidak meminta TPM 2.0 dan Secure Boot agar dapat dimainkan ketika penggunanya tetap menggunakan Windows 10.
+Kamu tetap bisa memakai Windows 10, bahkan setelah masa dukungan telah berakhir.
+Secara kompatibilitas perangkat lunak dan gim tertentu, ini lebih baik,
+seperti Valorant yang masih tidak meminta TPM 2.0 dan Secure Boot
+agar dapat dimainkan ketika penggunanya tetap menggunakan Windows 10.
 
-Tapi kamu tidak akan mendapatkan pembaruan apa pun setelah masa dukungan telah berakhir (Mungkin Windows Defender dan Microsoft Edge dikecualikan, entahlah).
+Tapi kamu tidak akan mendapatkan pembaruan apa pun setelah masa dukungan telah berakhir
+(Mungkin Windows Defender dan Microsoft Edge dikecualikan, entahlah).
 
-Selain itu, mungkin beberapa perangkat lunak lain akan meninggalkan dukungan utamanya terhadap Windows 10 jauh atau tidak jauh setelah masa dukungannya telah berakhir, sehingga kamu tidak akan mendapatkan pembaruan dari perangkat lunak tersebut, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjangnya.
+Selain itu, mungkin beberapa perangkat lunak lain akan
+meninggalkan dukungan utamanya terhadap Windows 10 jauh atau tidak jauh
+setelah masa dukungannya telah berakhir,
+sehingga kamu tidak akan mendapatkan pembaruan dari perangkat lunak tersebut,
+kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjangnya.
 
-Jadi, kamu harus siap dengan segala ketertinggalan yang ada, termasuk celah keamanan yang menanti dan juga kamu mungkin perlu mempersiapkan perangkat lunak Antivirus pihak ketiga sebagai keamanan tambahan untuk perangkat kamu kalau sewaktu-waktu Windows Defender tidak mendapatkan pembaruan lagi.
+Jadi, kamu harus siap dengan segala ketertinggalan yang ada,
+termasuk celah keamanan yang menanti dan
+juga kamu mungkin perlu mempersiapkan perangkat lunak Antivirus pihak ketiga
+sebagai keamanan tambahan untuk perangkat kamu kalau sewaktu-waktu
+Windows Defender tidak mendapatkan pembaruan lagi.
 
-Selain itu, jangan lupa untuk selalu gunakan pemblokir iklan atau ekstensi uBlock Origin di peramban web kamu agar kamu bisa berselancar dengan aman, tapi nonaktifkan pemblokirnya jika kamu ingin mendukung para pembuat konten tersebut di internet.
+Selain itu, jangan lupa untuk selalu gunakan pemblokir iklan atau
+ekstensi uBlock Origin di peramban web kamu agar kamu bisa berselancar
+dengan aman, tapi nonaktifkan pemblokirnya jika kamu ingin mendukung
+para pembuat konten tersebut di internet.
 
 ### Solusi ke-4: Tetap pakai Windows 10, tapi aktifkan ESU {#solusi-ke4}
 
-Sama seperti [solusi ke-3](#solusi-ke3), kamu tetap bisa gunakan Windows 10, tapi kamu harus mengaktifkan program ESU (Extended Security Updates) di Windows kamu.
+Sama seperti [solusi ke-3][7], kamu tetap bisa gunakan Windows 10,
+tapi kamu harus mengaktifkan program ESU (Extended Security Updates) di Windows kamu.
 
-Konsekuensinya mirip dengan [solusi ke-3](#solusi-ke3), yakni beberapa perangkat lunak lain mungkin akan meninggalkan dukungan utamanya terhadap Windows 10 jauh atau tidak jauh setelah masa dukungan Windows 10-nya berakhir.
+Konsekuensinya mirip dengan [solusi ke-3][7],
+yakni beberapa perangkat lunak lain mungkin akan meninggalkan dukungan utamanya
+terhadap Windows 10 jauh atau tidak jauh setelah masa dukungan Windows 10-nya berakhir.
 
-Sehingga perangkat lunak tersebut tidak lagi mendapatkan pembaruan, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjang dari perangkat lunak tersebut, yang itu pun pembaruan yang ada hanya pembaruan keamanan dan perbaikan kutu saja.
+Sehingga perangkat lunak tersebut tidak lagi mendapatkan pembaruan,
+kecuali kalau kamu menggunakan kanal jangka panjang dari perangkat lunak tersebut
+, yang itu pun pembaruan yang ada hanya pembaruan keamanan dan perbaikan kutu saja.
 
-Tapi bedanya dengan program ESU ini, kamu masih bisa mendapatkan pembaruan dari Microsoft sampai 3 tahun setelah masa dukungannya berakhir, yakni sampai tahun 2028, sehingga jika masa dukungan Windows 10 kamu abis maka kamu tetap mendapatkan pembaruan dari Microsoft melalui Windows Update, mungkin termasuk pembaruan Windows Defender juga.
+Tapi bedanya dengan program ESU ini,
+kamu masih bisa mendapatkan pembaruan dari Microsoft sampai 3 tahun
+setelah masa dukungannya berakhir, yakni sampai tahun 2028,
+sehingga jika masa dukungan Windows 10 kamu habis
+maka kamu tetap mendapatkan pembaruan dari Microsoft melalui Windows Update, termasuk pembaruan Windows Defender juga.
 
-Program ESU ini secara resmi berbayar dan kalau kamu mau membelinya, maka kamu harus menunggu sampai pihak Microsoft merilis program ESU tersebut untuk konsumen umum, yang biasanya akan dirilis mendekati berakhirnya masa dukungan atau malah setelahnya.
+Program ESU ini secara resmi berbayar dan kalau kamu mau membelinya,
+silakan pelajari [di sini][8] untuk pengguna rumahan
+atau [di sini][9] untuk pengguna korporat.
 
-Kamu bisa dapatkan itu secara gratis dan legal dengan menautkan akun Microsoft Anda, setelah itu [sinkronisasikan pengaturan PC Anda](https://support.microsoft.com/windows/deebcba2-5bc0-4e63-279a-329926955708#id0ebd=windows_10) atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin menautkan akun dan mensinkronisasikan pengaturan PC-nya, tapi itu semua hanya menambah dukungan selama 1 tahun saja, belum tentu dapat ditambah lagi.
+Tapi kamu bisa dapatkan itu secara gratis dan legal
+dengan menautkan akun Microsoft Anda, lalu [sinkronisasikan pengaturan PC Anda][10]
+atau tukarkan 1.000 poin Microsoft Rewards Anda jika tidak ingin
+mensinkronisasikan pengaturan PC-nya,
+tapi itu semua hanya menambah dukungan selama 1 tahun saja,
+belum tentu dapat ditambah lagi.
 
-Bagaimana kalau ingin menambahkan masa dukungan selama 3 tahun secara gratis? Ya bisa saja, tapi dengan menjalankan 'aplikasi' tambahan. Apakah cara ini aman? Kalau 'aman' yang dimaksud adalah aman dari malware dan virus, ya tentu saja ini aman. Tapi, apakah ini legal? **Oh, tentu saja tidak!** Makanya saya letakkan ini di akhir-akhir.
+Bagaimana kalau ingin menambahkan masa dukungan selama 3 tahun secara gratis?
+Ya bisa saja, tapi dengan menjalankan 'aplikasi' tambahan.
+Apakah cara ini aman?
+Kalau 'aman' yang dimaksud adalah aman dari malware dan virus,
+ya tentu saja ini aman.
+Tapi, apakah ini legal? **Oh, tentu saja tidak!**,
+makanya saya letakkan ini di akhir-akhir.
 
 {{< info title="**Sanggahan dan Peringatan:**" >}}
-Cara yang saya lontarkan di bawah ini merupakan sepenuhnya illegal, sehingga jika kamu melakukannya, maka kamu bisa saja berisiko melanggar aturan hukum yang berlaku.
+Cara yang saya lontarkan di bawah ini merupakan sepenuhnya illegal,
+sehingga jika kamu melakukannya,
+maka kamu bisa saja berisiko melanggar aturan hukum yang berlaku.
 
-Meski Microsoft tidak terlalu peduli dengan hal ini, terutama untuk pengguna rumahan dan usaha kecil. Tapi risiko seperti tuntutan hukum atau terkena razia dari pihak auditor akan tetap ada, apalagi jika Anda melakukan itu di lingkungan perusahaan atau kelembagaan (seperti lembaga pemerintah, dll).
+Meski Microsoft tidak terlalu peduli dengan hal ini,
+terutama untuk pengguna rumahan dan usaha kecil.
+Tapi risiko seperti tuntutan hukum atau terkena razia dari pihak auditor
+akan tetap ada, apalagi jika Anda melakukan itu di
+lingkungan perusahaan atau kelembagaan (seperti lembaga pemerintah, dll).
 
-Jadi, segala risiko apa pun yang akan Anda hadapi ke depan setelah mengikuti cara di bawah ini, silakan tanggung sendiri.
+Jadi, segala risiko apa pun yang akan Anda hadapi ke depan setelah
+mengikuti cara di bawah ini, silakan tanggung sendiri.
 {{< / info >}}
 
-Untuk mengaktifkan program ESU 3 tahun secara gratis, maka kamu perlu menggunakan Microsoft Activation Scripts (MAS) dari [Massgrave](https://massgrave.dev) untuk itu, silakan ikuti instruksi yang ada di sana untuk membuka skripnya.
+Untuk mengaktifkan program ESU 3 tahun secara gratis, maka kamu perlu menggunakan
+Microsoft Activation Scripts (MAS) dari [Massgrave][11] untuk itu,
+silakan ikuti instruksi yang ada di sana untuk membuka skripnya.
 
-Setelah skripnya berhasil dibuka, pastikan kamu pilih `TSforge`, lalu pilih `Activate - ESU` agar dapat mengaktifkan ESU.
+Setelah skripnya berhasil dibuka, pastikan kamu pilih `TSforge`,
+lalu pilih `Activate - ESU` agar dapat mengaktifkan ESU.
 
-Seperti inilah caranya mengaktifkan program ESU di dalam Windows 10. Tentu saja cara tersebut merupakan cara yang illegal, jadi jika kamu merasa tidak sanggup menghadapi risiko legalitas, maka kamu harus menunggu sampai ESU dirilis secara resmi oleh Microsoft dan kamu bersedia untuk membayarnya jika ingin memakai jalur legal.
+Seperti inilah caranya mengaktifkan program ESU di dalam Windows 10.
+Tentu saja cara tersebut merupakan cara yang illegal,
+jadi jika kamu merasa tidak sanggup menghadapi risiko legalitas,
+maka kamu harus bersedia untuk membayar program ESU jika ingin memakai jalur legal.
 
 ### Solusi ke-5: Pakai Windows 10 (IoT) Enterprise LTSC 2021 {#solusi-ke5}
 
 {{< info title="**Sanggahan dan Peringatan:**" >}}
 Solusi yang saya lontarkan di bawah ini merupakan sepenuhnya illegal, karena:
 
-- Anda pengguna rumahan yang menggunakan edisi yang tidak peruntukkannya, seperti Enterprise
-- Solusi ini menggunakan aktivator untuk aktivasi, yang mana ini merupakan cara aktivasi yang tidak resmi dan illegal
+- Anda pengguna rumahan yang menggunakan edisi yang tidak peruntukkannya,
+seperti Enterprise
+- Solusi ini menggunakan aktivator untuk aktivasi, yang mana ini merupakan
+cara aktivasi yang tidak resmi dan illegal
 
-Sehingga jika kamu melakukannya, maka kamu bisa saja berisiko melanggar aturan hukum yang berlaku, kecuali jika Anda membelinya menggunakan jalur yang resmi.
+Sehingga jika kamu melakukannya,
+maka kamu bisa saja berisiko melanggar aturan hukum yang berlaku,
+kecuali jika Anda membelinya menggunakan jalur yang resmi.
 
-Meski Microsoft tidak terlalu peduli soal ini, terutama untuk pengguna rumahan dan usaha kecil. Tapi risiko seperti tuntutan hukum atau terkena razia dari pihak auditor akan tetap ada, terutama jika Anda melakukan itu di lingkungan perusahaan atau kelembagaan (seperti lembaga pemerintah, dll).
+Meski Microsoft tidak terlalu peduli soal ini,
+terutama untuk pengguna rumahan dan usaha kecil.
+Tapi risiko seperti tuntutan hukum atau terkena razia dari pihak auditor
+akan tetap ada, terutama jika Anda melakukan itu
+di lingkungan perusahaan atau kelembagaan (seperti lembaga pemerintah, dll).
 
-Jadi, segala risiko apa pun yang akan Anda hadapi ke depan setelah mengikuti cara di bawah ini, silakan tanggung sendiri.
+Jadi, segala risiko apa pun yang akan Anda hadapi ke depan setelah
+mengikuti cara di bawah ini, silakan tanggung sendiri.
 {{< / info >}}
 
-Kamu bisa pakai Windows 10 (IoT) Enterprise LTSC 2021 untuk tetap menggunakan Windows 10, tapi dengan masa dukungan yang jauh lebih panjang, masing-masing masa dukungannya sebagai berikut:
+Kamu bisa pakai Windows 10 (IoT) Enterprise LTSC 2021 untuk tetap menggunakan
+Windows 10, tapi dengan masa dukungan yang jauh lebih panjang,
+masing-masing masa dukungannya sebagai berikut:
 
 - Windows 10 Enterprise LTSC 2021 sampai 12 Januari 2027
 - Windows 10 IoT Enterprise LTSC 2021 sampai 13 Januari 2032
 
-Sebenarnya ini adalah solusi bagi pihak perusahaan yang masih ingin menggunakan Windows 10 karena alasan kompatibilitas dan stabilitas sistem mereka, tentunya mereka harus membeli lisensinya secara resmi dari Microsoft (atau melalui distributor resminya).
+Sebenarnya ini adalah solusi bagi pihak perusahaan yang masih ingin menggunakan
+Windows 10 karena alasan kompatibilitas dan stabilitas sistem mereka,
+tentunya mereka harus membeli lisensinya secara resmi dari Microsoft
+(atau melalui distributor resminya).
 
-Sedangkan jika kamu pengguna rumahan ingin menggunakan ini, ya bisa, karena secara biner sama seperti Windows 10 pada umumnya, bahkan kalau kamu pakai IoT sekali pun. Jadi, kalau kamu mau, gunakan Windows 10 IoT Enterprise LTSC saja sekalian yang masa dukungannya paling panjang ketimbang Windows 10 Enterprise LTSC.
+Sedangkan jika kamu pengguna rumahan ingin menggunakan ini, ya bisa,
+karena secara biner sama seperti Windows 10 pada umumnya,
+bahkan kalau kamu pakai IoT sekali pun.
+Jadi, kalau kamu mau, gunakan Windows 10 IoT Enterprise LTSC saja sekalian
+yang masa dukungannya paling panjang ketimbang Windows 10 Enterprise LTSC.
 
 #### Konsekuensi dan risiko
 
-Konsekuensi dan risiko kamu menggunakan ini sama seperti yang ada pada [solusi ke-3](#solusi-ke3), bedanya versi LTSC ini masih tetap dapat pembaruan dari Microsoft, mungkin termasuk pembaruan Windows Defender dengan masa dukungan yang sangat panjang.
+Konsekuensi dan risiko kamu menggunakan ini sama seperti yang ada pada
+[solusi ke-3][7],
+bedanya versi LTSC ini masih tetap dapat pembaruan dari Microsoft,
+mungkin termasuk pembaruan Windows Defender dengan masa dukungan yang sangat panjang.
 
-Hanya saja ini bukan jaminan bahwa beberapa perangkat lunak lain tidak akan meninggalkan dukungannya terhadap Windows 10 setelah masa dukungan versi biasanya/GAC (_General Availbility Channel_) berakhir, karena kebanyakan dari mereka tidak mengikuti kanal LTSC ini dalam pengembangannya.
+Hanya saja ini bukan jaminan bahwa beberapa perangkat lunak lain tidak akan
+meninggalkan dukungannya terhadap Windows 10 setelah masa dukungan
+versi biasanya/GAC (_General Availbility Channel_) berakhir,
+karena kebanyakan dari mereka tidak mengikuti kanal LTSC ini dalam pengembangannya.
 
-Jadi kalau kamu menggunakan LTSC, tapi masa dukungan Windows 10 versi biasa/GAC-nya berakhir, maka besar kemungkinan dukungan perangkat lunak lainnya akan berakhir (gak dapat pembaruan lagi).
+Jadi kalau kamu menggunakan LTSC, tapi masa dukungan Windows 10 versi
+biasa/GAC-nya berakhir, maka besar kemungkinan dukungan perangkat lunak lainnya
+akan berakhir (gak dapat pembaruan lagi).
 
-Ujung-ujungnya tetap saja kamu harus siap dengan segala ketertinggalan yang ada, termasuk celah keamanan yang menanti, kecuali kalau kamu menggunakan versi perusahaan atau kanal jangka panjang dari perangkat lunak tersebut, yang itu pun pembaruan yang ada hanya pembaruan keamanan dan perbaikan kutu saja.
+Ujung-ujungnya tetap saja kamu harus siap dengan segala ketertinggalan yang ada,
+termasuk celah keamanan yang menanti, kecuali kalau kamu menggunakan
+versi perusahaan atau kanal jangka panjang dari perangkat lunak tersebut,
+yang itu pun pembaruan yang ada hanya pembaruan keamanan dan perbaikan kutu saja.
 
-Itu belum lagi sama kemungkinan perangkat lunak tertentu yang tidak mendukung versi LTSC dari Windows 10 ini. Jadi jika Anda ingin menetap di Windows 10 tanpa terkena masalah kompatibilitas perangkat lunak, maka saran saya gunakan [solusi ke-4](#solusi-ke4) terlebih dahulu, baru ikuti solusi ini jika masa dukungannya benar-benar berakhir, yakni tahun 2028.
+Itu belum lagi sama kemungkinan perangkat lunak tertentu yang tidak mendukung
+versi LTSC dari Windows 10 ini.
+Jadi jika Anda ingin menetap di Windows 10 tanpa terkena masalah kompatibilitas
+perangkat lunak, maka saran saya gunakan [solusi ke-4][12]
+terlebih dahulu,
+baru ikuti solusi ini jika masa dukungannya benar-benar berakhir, yakni tahun 2028.
 
 #### Mengunduh dan melakukan _in-place upgrade_ {#in-place-upgrade-ke-windows10-iot}
 
 {{< spoiler title="**Tautan untuk mengunduh berkas ISO**" >}}
 
-Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO di sini resmi dari Microsoft yang diunduh dari My Visual Studio (MVS).
+Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
+di sini resmi dari Microsoft yang diunduh dari My Visual Studio (MVS).
 
 - Windows 10 IoT Enterprise LTSC 2021 x64: (cocok bagi yang ingin instal ulang)
   - Nama Berkas: en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso
   - Ukuran Berkas: 4626,91 MB
-  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/d4af271c-9bfb-7457-fba3-b600a921d9cc), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
+  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/d4af271c-9bfb-7457-fba3-b600a921d9cc),
+  [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
     - MD5: `2463b19beac328290e6a8adcedb7533a`
     - SHA1: `76c3c10e38307d29fd8b4748522ed144dba35829`
     - SHA256: `a0334f31ea7a3e6932b9ad7206608248f0bd40698bfb8fc65f14fc5e4976c160`
@@ -181,7 +340,8 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
 - Windows 10 IoT Enterprise LTSC 2021 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas: en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso
   - Ukuran Berkas: 4225,23 MB
-  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/a9e8ed40-8540-f309-0065-b9060cbd47ac), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
+  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/a9e8ed40-8540-f309-0065-b9060cbd47ac),
+  [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
     - MD5: `4fb9dc5b4b872110f2be17c35fbd843b`
     - SHA1: `54822de5035ed87c1982db9dcd924083de599ca1`
     - SHA256: `d265df49b30a1477d010c79185a7bc88591a1be4b3eb690c994bed828ea17c00`
@@ -519,14 +679,20 @@ Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya 
 
 ### Pertanyaan ke-4: Apakah akan aman jika saya tetap menggunakan Windows 10? Seberapa amankah untuk ke depannya? {#pertanyaan-ke4}
 
-**Jawab:** Kalau kamu merupakan pengguna kasual yang setiap hari cuma menjelajah internet, menikmati hiburan yang disediakan di komputer (entah itu menonton film, bermain gim, dll) atau mengerjakan tugas di PC mungkin bakalan aman, selama kamu:
+**Jawab:** Kalau kamu merupakan pengguna kasual yang setiap hari cuma menjelajah internet, menikmati hiburan yang disediakan di komputer (entah itu menonton film, bermain gim, dll) atau mengerjakan tugas di PC mungkin bakalan aman untuk saat ini, selama kamu:
 
 - Tidak menonaktifkan _Antivirus_ dan _Firewall_
+- Tidak mematikan fitur UAC (_User Account Control_)
+- Tidak sembarangan memberikan akses Administrator ke orang lain (cth. Selalu gunakan tipe "Standard" saat membuat pengguna/_User_ di Windows, bukan "Administrator")
 - Versi definisi antivirus-mu selalu yang terbaru atau selalu diperbarui
+- Jika kamu menggunakan Windows Defender, pertebal perlindungannya dengan cara berikut:
+  - Minimalnya aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari malware dengan memblokir segala perubahan dari aplikasi tidak terpecaya
+  - Bila memungkinkan, aktifkan semua fitur proteksi di dalam "Core isolation" untuk melindungi kernel Windows di perangkatmu
+  - Untuk penebalan lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com)
 - Perangkat lunak (termasuk peramban web) yang kamu gunakan selalu yang terbaru, meski itu adalah pembaruan keamanan
 - Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan kamu memperbarui daftarnya
-- Menonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
-- Selektif dalam mencolok penyimpanan eksternal dan jaringan
+- Nonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
+- Selektif dalam mencolok penyimpanan eksternal dan menggunakan jaringan lokal
 - Selektif dalam menginstal perangkat lunak dan membuka sebuah aplikasi
 
 Seberapa amannya untuk ke depan saya tidak tahu secara pasti, tapi mengingat Windows-mu tidak mendapatkan pembaruan setelah masa dukungannya berakhir, maka saya tidak dapat menjamin bahwa ke depan akan aman walau kamu sudah melakukan semua hal di atas, karena eksploitasi celah keamanan di Windows selalu berkembang.
@@ -589,7 +755,7 @@ Di sisi lain, Windows dengan kanal LTSC (termasuk IoT Enterprise LTSC) itu resmi
 
 Itulah mengapa saya lebih menyarankan menggunakan LTSC sekalian ketimbang menggunakan modifikasi macam AtlasOS, ReviOS, Ghost Spectre, Tiny11, dll, tapi itu adalah hak kamu kalau kamu masih ingin memakainya.
 
-Kamu juga bisa melakukan _debloating_ di Windows edisi biasa secara mandiri (lihak di [pertanyaan ke-7](#pertanyaan-ke7)), itu akan jauh lebih baik ketimbang kamu memakai modifikasi macam AtlasOS, dll, karena kamu sendiri yang menentukan mana komponen yang layak dipakai dan mana yang tidak, bukan mereka.
+Kamu juga bisa melakukan _debloating_ di Windows edisi biasa secara mandiri (lihat di [pertanyaan ke-7](#pertanyaan-ke7)), itu akan jauh lebih baik ketimbang kamu memakai modifikasi macam AtlasOS, dll, karena kamu sendiri yang menentukan mana komponen yang layak dipakai dan mana yang tidak, bukan mereka.
 
 ### Pertanyaan ke-9: Apakah berkas ISO itu sendiri merupakan asli dari Microsoft? {#pertanyaan-ke9}
 
@@ -607,7 +773,7 @@ Itulah cara mengecek keaslian berkas ISO Windows yang tersedia tautannya di sini
 
 ### Pertanyaan ke-10: Kalau ISO di sini merupakan asli dari Microsoft, kenapa link download-nya bukan dari Microsoft juga? {#pertanyaan-ke10}
 
-Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Visual Studio yang minimalnya paket "Professional" (atau "Enterprise" biar lengkap sekalian) dan itu semua perlu bayar tahunan (yang harga 1 tahun pertamanya dari puluhan juta sampai hampir ratusan juta rupiah), bukan bulanan. Selain itu, tautan unduhan yang dihasilkan dari MVS (My Visual Studio) itu tidak bertahan lama, biasanya hanya berlaku sampai 10 jam saja.
+**Jawab:** Karena agar dapat mengunduh berkas ISO-nya dari sana, kamu harus berlangganan Visual Studio yang minimalnya paket "Professional" (atau "Enterprise" biar lengkap sekalian) dan itu semua perlu bayar tahunan (yang harga 1 tahun pertamanya dari puluhan juta sampai hampir ratusan juta rupiah), bukan bulanan. Selain itu, tautan unduhan yang dihasilkan dari MVS (My Visual Studio) itu tidak bertahan lama, biasanya hanya berlaku sampai 10 jam saja.
 
 **Tapi kan ISO Windows itu gratis diunduh di situs resmi Microsoft-nya langsung?** Betul, tapi hanya untuk edisi biasa dan itu pun versinya lebih lama walau _build-nya_ terbaru, sehingga kamu perlu menginstal _Cumulative Update_ melalui Windows Update biar sistem kamu pakai versi terbaru.
 
@@ -654,3 +820,16 @@ https://github.com/FarrelF/Blog/tree/main/content/post/2025/10/13-masa-dukungan-
 ```
 
 Gambar unggulan yang digunakan pada artikel ini merupakan foto dari sebuah [trit dari Reddit](https://www.reddit.com/r/mildlyinfuriating/comments/1h24eht/windows_10_end_of_support/), foto tersebut dimiliki oleh seorang pengguna Reddit yakni [r/mildlyinfuriating/](https://www.reddit.com/r/mildlyinfuriating/).
+
+[1]: https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide
+[2]: https://support.microsoft.com/en-us/windows/reactivating-windows-after-a-hardware-change-2c0e962a-f04c-145b-6ead-fb3fc72b6665#id0ebd=windows_10
+[3]: https://chromeos.google/products/chromeos-flex/
+[4]: https://fydeos.io
+[5]: https://linuxmint.com
+[6]: https://waydro.id
+[7]: #solusi-ke3
+[8]: https://www.microsoft.com/windows/extended-security-updates
+[9]: https://learn.microsoft.com/windows/whats-new/extended-security-updates
+[10]: https://support.microsoft.com/windows/deebcba2-5bc0-4e63-279a-329926955708#id0ebd=windows_10
+[11]: https://massgrave.dev
+[12]: #solusi-ke4
