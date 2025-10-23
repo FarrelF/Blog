@@ -722,7 +722,7 @@ Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perang
 
 Sedangkan kalau kamu tetap menggunakan Windows 10, mungkin perangkat lunak atau gim tertentu tidak akan meminta syarat macam TPM 2.0 agar dapat dijalankan, tapi beberapa atau banyak perangkat lunak akan meninggalkan dukungan utamanya jauh atau tidak jauh setelah masa dukungan Windows 10 berakhir, kalaupun dapat ya itu pembaruan keamanan dan perbaikan kutu, bukan pembaruan fitur.
 
-Untuk kasus penggunaan Steam dan peramban web seperti Google Chrome/Chromium dan Mozilla Firefox, mungkin saja mereka bisa memperpanjang dukungannya terhadap Windows 10, mengingat rekam jejak mereka yang pernah melakuka hal serupa terhadap Windows 7, baik pembaruan keamanan dan kutu maupun pembaruan fitur, jadi harusnya mereka juga bisa mendukung Windows 10 dengan lebih lama.
+Untuk kasus penggunaan Steam dan peramban web seperti Google Chrome/Chromium dan Mozilla Firefox, mungkin saja mereka bisa memperpanjang dukungannya terhadap Windows 10, mengingat rekam jejak mereka yang pernah melakukan hal serupa terhadap Windows 7, baik pembaruan keamanan dan kutu maupun pembaruan fitur, jadi harusnya mereka juga bisa mendukung Windows 10 dengan lebih lama.
 
 ### Pertanyaan ke-7: Saya ingin instal bersih Windows dan ingin Windows-nya bebas dari _bloatware_ yang mengganggu, sebaiknya apa saja yang perlu saya lakukan? {#pertanyaan-ke7}
 
