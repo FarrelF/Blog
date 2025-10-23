@@ -25,6 +25,8 @@ Description: |-
     Jadi Anda tidak perlu panik, masa dukungan yang habis bukan berarti Windows 10 tidak bisa digunakan sama sekali. Jika Anda ingin tahu opsi apa yang bisa Anda lakukan, silakan simak artikel ini
 ---
 
+<!-- markdownlint-disable MD029 -->
+
 ## Pembuka
 
 Tidak dipungkiri bahwa Windows adalah sebuah sistem operasi yang paling populer dipasaran,
@@ -634,13 +636,15 @@ Selain itu, gunakan akun Microsoft yang sama dengan akun yang berada di perangka
 
 Meski begitu, itu semua bukan jaminan kalau transfer lisensi bakalan berhasil, jadi cara ini tidak terlalu dapat diandalkan meski fitur tersebut didokumentasikan secara resmi, tapi bisa dicoba.
 
-**Kalau gagal gimana?** Kalau tidak membeli lisensi Windows aslinya, ya kamu bisa aktivasi secara permanen dengan memakai [Microsoft Activation Scripts dari Massgrave](https://massgrave.dev).
+Terkadang fitur transfer lisensi ini sifatnya untung-untungan, kadang bisa kadang tidak. Kalau kamu cukup beruntung, transfer lisensi bisa berhasil dan Windows bisa aktif, bahkan walau data-data di perangkat lama sudah terhapus sepenuhnya.
+
+**Kalau masih gagal gimana?** Kalau tidak membeli lisensi Windows aslinya, ya kamu bisa aktivasi secara permanen dengan memakai [Microsoft Activation Scripts dari Massgrave](https://massgrave.dev). Bila sebelumnya kamu pernah membeli lisensi Windows asli, simpan saja bukti pembayaran dan kotak produk Windows-nya bila ada, barangkali suatu saat hal itu sangat diperlukan untuk pembuktian kalau kamu pernah membeli lisensi Windows asli.
 
 Tidak disarankan untuk membeli lisensi dengan harga miring di situs lokapasar (cth. Shopee, Tokopedia, dll) sedangkan harga aslinya mulai dari 2,6jt-an atau lebih untuk edisi yang lebih tinggi.
 
 ### Pertanyaan ke-2: Apa yang terjadi pada lisensi Windows di perangkat yang lama setelah saya berhasil transfer lisensi ke perangkat baru? {#pertanyaan-ke2}
 
-**Jawab:** Kemungkinan besar tidak terjadi apa-apa, lisensi digital Windows masih tetap aktif di perangkat lama.
+**Jawab:** Kemungkinan besar tidak terjadi apa-apa, lisensi digital Windows masih tetap aktif di perangkat lama, jadi transfer lisensi di sini tidak memindahkan lisensi Windows, melainkan cuma menyalinkan lisensinya ke perangkat baru.
 
 ### Pertanyaan ke-3: Mengapa kamu sarankan untuk menggunakan aktivator untuk aktivasi Windows? Padahal lisensi Windows di situs lokapasar (cth. Shopee) sangat murah {#pertanyaan-ke3}
 
@@ -686,13 +690,14 @@ Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya 
 - Tidak sembarangan memberikan akses Administrator ke orang lain (cth. Selalu gunakan tipe "Standard" saat membuat pengguna/_User_ di Windows, bukan "Administrator")
 - Versi definisi antivirus-mu selalu yang terbaru atau selalu diperbarui
 - Jika kamu menggunakan Windows Defender, pertebal perlindungannya dengan cara berikut:
-  - Minimalnya aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari malware dengan memblokir segala perubahan dari aplikasi tidak terpercaya
-  - Bila memungkinkan, aktifkan semua fitur proteksi di dalam "Core isolation" untuk melindungi kernel Windows di perangkatmu
-  - Untuk penebalan (_hardening_) lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com)
+  - Minimal aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari _malware_ dengan memblokir segala perubahan dari aplikasi yang tidak terpercaya
+  - Bila memungkinkan, aktifkan semua fitur proteksi di dalam "Core isolation" untuk melindungi perangkatmu dengan melindungi kernel Windows
+  - Untuk penebalan (_hardening_) lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com), yang gratis cukup saja untuk pengguna rumahan
 - Perangkat lunak (termasuk peramban web) yang kamu gunakan selalu yang terbaru, meski itu adalah pembaruan keamanan
-- Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan kamu memperbarui daftarnya
+- Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan perbarui daftar-daftarnya
 - Nonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
 - Selektif dalam mencolok penyimpanan eksternal dan menggunakan jaringan lokal
+- Selektif dalam memilih jenis jaringan yang terkoneksi (antara jaringan publik atau privat). Kalau kamu menggunakan laptop, pastikan _Public network_ (Jaringan publik) terpilih, terutama setiap kali terkoneksi dengan jaringan yang bukan berasal dari tempat tinggal sendiri/rumah
 - Selektif dalam menginstal perangkat lunak dan membuka sebuah aplikasi
 
 Seberapa amannya untuk ke depan saya tidak tahu secara pasti, tapi mengingat Windows-mu tidak mendapatkan pembaruan setelah masa dukungannya berakhir, maka saya tidak dapat menjamin bahwa ke depan akan aman walau kamu sudah melakukan semua hal di atas, karena eksploitasi celah keamanan di Windows selalu berkembang.
@@ -713,13 +718,13 @@ Kalau kamu merasa nyaman dengan Windows 11, perangkat lunakmu ingin versi terbar
 
 Tapi mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya sudah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut di versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
 
-Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim tertentu yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi perangkat lunak lain yang kamu gunakan masih bisa mendapatkan versi terbaru ke depannya.
+Perlu diingat bahwa dengan memaksa untuk _upgrade_ ke Windows 11, artinya perangkat lunak atau gim tertentu yang meminta syarat Windows 11 umum seperti TPM 2.0 tidak akan bisa berjalan, tapi perangkat lunak lain mungkin masih bisa.
 
 Sedangkan kalau kamu tetap menggunakan Windows 10, mungkin perangkat lunak atau gim tertentu tidak akan meminta syarat macam TPM 2.0 agar dapat dijalankan, tapi beberapa atau banyak perangkat lunak akan meninggalkan dukungan utamanya jauh atau tidak jauh setelah masa dukungan Windows 10 berakhir, kalaupun dapat ya itu pembaruan keamanan dan perbaikan kutu, bukan pembaruan fitur.
 
-Untuk kasus penggunaan Steam dan peramban web seperti Google Chrome/Chromium dan Mozilla Firefox, mungkin saja mereka bisa memperpanjang dukungannya terhadap Windows 10, mengingat rekam jejak mereka yang pernah memberikan dukungan panjang terhadap Windows 7, baik pembaruan keamanan dan kutu maupun pembaruan fitur, jadi harusnya mereka juga bisa tetap mendukung Windows 10 dengan lebih lama.
+Untuk kasus penggunaan Steam dan peramban web seperti Google Chrome/Chromium dan Mozilla Firefox, mungkin saja mereka bisa memperpanjang dukungannya terhadap Windows 10, mengingat rekam jejak mereka yang pernah melakuka hal serupa terhadap Windows 7, baik pembaruan keamanan dan kutu maupun pembaruan fitur, jadi harusnya mereka juga bisa mendukung Windows 10 dengan lebih lama.
 
-### Pertanyaan ke-7: Saya ingin instal bersih Windows dan ingin Windows-nya bebas dari _bloatware_ yang mengganggu, sebaiknya apa saja yang saya lakukan? {#pertanyaan-ke7}
+### Pertanyaan ke-7: Saya ingin instal bersih Windows dan ingin Windows-nya bebas dari _bloatware_ yang mengganggu, sebaiknya apa saja yang perlu saya lakukan? {#pertanyaan-ke7}
 
 **Jawab:** Cukup instal ulang saja dengan Windows 10/11 IoT Enterprise LTSC, dengan begini kamu akan mendapatkan pengalaman Windows yang jauh lebih bersih ketimbang saat kamu menggunakan Windows biasanya dengan masa dukungan yang panjang.
 
@@ -729,7 +734,7 @@ Saking bersihnya LTSC ini, sampai-sampai aplikasi UWP itu gak ada, contohnya Xbo
 
 Atau, kamu juga dapat menggunakan Windows edisi biasa, tapi kamu perlu [_debloat_ sendiri](https://www.notion.so/Debloating-Windows-259d8028b33580d9b076ccfe0237f756), saya gak perlu kasih tahu caranya untuk ini.
 
-### Pertanyaan ke-8: Kenapa kamu menyarankan penggunaan LTSC ketimbang menggunakan modifikasi macam AtlasOS, ReviOS, Ghost Spectre, dll? {#pertanyaan-ke8}
+### Pertanyaan ke-8: Kenapa kamu menyarankan penggunaan LTSC ketimbang menggunakan modifikasi macam AtlasOS, ReviOS, Ghost Spectre, dll, untuk pengalaman Windows yang lebih bersih? {#pertanyaan-ke8}
 
 **Jawab:** Karena biasanya mereka menonaktifkan komponen-komponen yang mereka anggap 'tidak penting' untuk meningkatkan performa, padahal komponen Windows itu saling berhubungan satu sama lain, kalau saja satu dimatikan dan kamu kurang beruntung maka sistemmu akan terkena efek domino.
 
