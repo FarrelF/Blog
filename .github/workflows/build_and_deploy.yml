@@ -12,6 +12,7 @@ on:
       - "**/netlify.toml"
       - "config/development/**"
       - "**/archetypes/**"
+      - "**/.markdownlint.*"
 
 jobs:
   build:
