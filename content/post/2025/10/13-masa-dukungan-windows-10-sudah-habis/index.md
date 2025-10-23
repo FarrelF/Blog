@@ -396,11 +396,11 @@ Seperti inilah cara melakukan _in-place upgrade_ ke Windows 10 IoT Enterprise LT
 
 ## Paksa pakai Windows 11
 
-Sebuah opsi yang memungkinkan untuk memaksakan diri menggunakan Windows 11 di perangkat yang tidak memenuhi syarat dalam menggunakan Windows 11 biasa. Dengan begini, Anda dapat menghindari ketertinggalan versi perangkat lunak lain yang tidak jauh setelah masa dukungan Windows 10 telah berakhir.
+Sebuah opsi yang memungkinkan untuk memaksakan diri menggunakan Windows 11 di perangkat yang tidak memenuhi syarat dalam menggunakan Windows 11 biasa. Dengan begini, Anda dapat menghindari ketertinggalan versi perangkat lunak lain yang jauh atau tidak jauh setelah masa dukungan Windows 10 telah berakhir.
 
-Namun, dengan ini juga, maka perangkat lunak dan gim tertentu, terutama yang mewajibkan syarat minimum Windows 11 biasa seperti TPM 2.0 dan Secure Boot itu tidak bisa dijalankan. Contohnya Valorant yang mensyaratkan TPM 2.0 dan Secure Boot agar dapat dimainkan oleh pengguna Windows 11, sedangkan pengguna Windows 10 masih bisa memainkannya tanpa perlu memenuhi kedua syarat itu.
+Namun, dengan ini juga, maka perangkat lunak dan gim tertentu, terutama yang mewajibkan syarat minimum Windows 11 biasa seperti TPM 2.0 dan Secure Boot itu tidak dapat dijalankan. Contohnya Valorant yang mensyaratkan TPM 2.0 dan Secure Boot agar dapat dimainkan oleh pengguna Windows 11, sedangkan pengguna Windows 10 masih bisa memainkannya tanpa perlu memenuhi kedua syarat itu.
 
-Jadi, kalau memaksa pakai Windows 11, maka Anda harus siap dengan konsekuensi yang akan dihadapi ke depannya, seperti kompatibilitas perangkat lunak dan _driver_ perangkat keras.
+Jadi kalau memaksa pakai Windows 11, maka Anda harus siap dengan konsekuensi yang akan dihadapi ke depannya, seperti masalah kompatibilitas perangkat lunak dan _driver_ perangkat keras yang akan Anda hadapi ke depannya.
 
 Ada beberapa solusi yang bisa ditawarkan untuk paksa pakai Windows 11, yakni sebagai berikut:
 
@@ -412,7 +412,7 @@ Ada beberapa opsi yang bisa dilakukan, seperti membuat _bootable_ dengan [Rufus]
 
 Selain itu, ada juga beberapa cara lainnya dari Windows 11 Forum yang dapat Anda baca [di sini](https://www.elevenforum.com/t/bypass-windows-11-system-requirements-on-unsupported-pc.1989/).
 
-Dengan ini, kamu tetap dapat _meng-upgrade_ sistem operasimu ke Windows 11 tanpa harus memenuhi syarat minimal, tapi bukan berarti tanpa konsekuensi apa pun. Selain kompatibilitas dengan perangkat lunak dan gim tertentu, konsekuensinya adalah bisa jadi ke depannya kamu tidak akan mendapatkan pembaruan fitur (_Feature update_) karena perangkatmu tidak memenuhi syarat untuk menginstal Windows 11 itu sendiri.
+Dengan ini, kamu tetap dapat _meng-upgrade_ sistem operasimu ke Windows 11 tanpa harus memenuhi syarat minimal, tapi bukan berarti tanpa konsekuensi apa pun. Selain kompatibilitas dengan perangkat lunak dan gim tertentu, konsekuensinya adalah bisa jadi ke depannya kamu tidak akan mendapatkan pembaruan fitur (_Feature update_) karena perangkatmu tidak memenuhi syarat untuk menginstal Windows 11 itu sendiri, tapi pembaruan kumulatif (_Cumulative update_) masih bisa kamu dapatkan setiap bulannya.
 
 ### Solusi ke-7: Pakai Windows 11 IoT Enterprise 25H2/LTSC 2024 {#solusi-ke7}
 
@@ -435,7 +435,7 @@ Sebenarnya ini adalah sebuah edisi sistem operasi yang ditujukan untuk perusahaa
 
 Jadi, kalau kamu adalah pengguna rumahan yang ingin menggunakannya, maka bisa-bisa saja dan kamu tetap bisa menjalankan aplikasi kamu sehari-hari seperti biasanya kalau kamu menggunakan sistem operasi tersebut.
 
-Ada 2 jenis edisi yang dapat Anda coba salah satunya, yakni Windows 11 IoT Enterprise 24H2 (GAC) dan Windows 11 IoT Enterprise LTSC 2024 yang masing-masing dari mereka memiliki perbedaan.
+Ada 2 jenis edisi yang dapat Anda coba salah satunya, yakni Windows 11 IoT Enterprise 25H2 (GAC) dan Windows 11 IoT Enterprise LTSC 2024 yang masing-masing dari mereka memiliki perbedaan.
 
 {{< spoiler title="**Apa itu LTSC? Apa bedanya? Dan, apakah cocok untuk saya?**" >}}
 
@@ -498,34 +498,34 @@ Yang jelas, IoT Enterprise LTSC ini memiliki masa dukungan yang paling panjang k
 
 Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan di bawah ini, semua berkas ISO di sini resmi dari Microsoft yang diunduh dari My Visual Studio (MVS).
 
-- Windows 11 IoT Enterprise 24H2 x64: (cocok bagi yang ingin instal ulang)
+- Windows 11 IoT Enterprise 25H2 x64: (cocok bagi yang ingin instal ulang)
   - Nama Berkas:
     - `en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso` (Utama)
     - `X24-12902_26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISE_OEM_x64FRE_en-us.iso`
   - Ukuran Berkas: 7318,01 MB
-  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/d8ee9445-b9eb-5f45-f75e-e92a057820bf), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
+  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/fce4ab0f-1033-19b9-42e7-860501a6d3a1), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
     - MD5: `7ee34c0eaa7dc81c502de12d4a4a0345`
     - SHA1: `0324d02aa88df64c159e6479f30cbc0a18952e14`
     - SHA256: `2717211095e362c8005ae1ed36be771f27f2031545b065be1718b6fe717b6b12`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso) | [os.click](https://os.click/en/Windows:Windows_11:24H2:26100.1742:IoT_Enterprise:en-us:x64)
+  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso)
 
 - Windows 11 IoT Enterprise 25H2 x64 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas
     - `en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso` (Utama)
     - `X24-12903_26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISE_OEM_A64FRE_en-us.iso`
   - Ukuran Berkas: 7241,80 MB
-  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/bacf17e5-a307-5a01-1a35-71268dc0c2e3), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
+  - Hash: (Untuk lebih lanjut, silakan kunjungi: [Files RG-Adguard](https://files.rg-adguard.net/file/c1600ec1-ccf1-c08d-bb46-d9daca25c10c), [MVS Dump](https://awuctl.github.io/mvs/) atau [MVS](https://my.visualstudio.com/Downloads))
     - MD5: `67936bd7e33134d2f87b7861ceb3e898`
     - SHA1: `15f42dab2135b60649b21e4baa4e0719b899d2a0`
     - SHA256: `de28a746bad8879b680aaf6a2e2993bf80aaad23904e0acc449815ada5c90107`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_24h2_arm64_dvd_e9155a10.iso)
+  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso)
 
 - Windows 11 25H2 - Pembaruan September 2025 (26200.6584): (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/0ca629a0-0693-a376-6d80-20f37934ea9e), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
 - Windows 11 25H2 RTM (26200.6584): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
-  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/ca54ae62-3240-1a66-0cbe-a00ee6dce489), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
+  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/4a6851f0-5170-1d80-41c5-27b604bd64a5), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Gravesoft MSDL](https://msdl.gravesoft.dev) | [Microsoft Software Download](https://www.microsoft.com/software-download/windows11)
 
 {{< / spoiler >}}
@@ -567,13 +567,13 @@ Kamu bisa saja memakainya dengan melakukan instal ulang atau instal bersih (_cle
 
 Cara _in-place upgrade-nya_ berikut di bawah ini:
 
-1. Unduh berkas ISO Windows 11 biasa (untuk ke Windows 11 IoT Enterprise 24H2) atau Windows 11 Enterprise LTSC (untuk ke Windows 11 IoT Enterprise LTSC 2024) dengan **arsitektur dan bahasa Windows yang sesuai dengan yang terinstal di sistem kamu** yang tautannya berada di atas, silakan cek terlebih dahulu menggunakan cara berikut sebelum mengunduh:
+1. Unduh berkas ISO Windows 11 biasa (untuk ke Windows 11 IoT Enterprise 25H2) atau Windows 11 Enterprise LTSC (untuk ke Windows 11 IoT Enterprise LTSC 2024) dengan **arsitektur dan bahasa Windows yang sesuai dengan yang terinstal di sistem kamu** yang tautannya berada di atas, silakan cek terlebih dahulu menggunakan cara berikut sebelum mengunduh:
     - Untuk mengecek bahasa Windows yang terinstal, kamu perlu buka PowerShell sebagai Administrator, lalu eksekusi perintah: `dism /english /online /get-intl | find /i "Default system UI language"`
     - Masih di dalam PowerShell, untuk mengecek arsitektur yang terinstal, eksekusi perintah: `Get-CimInstance -Class Win32_OperatingSystem | select OSArchitecture | Format-List`
 
 2. Klik kanan pada berkas ISO yang diunduh, lalu ke "Open With" -> Windows Explorer
 3. _Drive_ DVD baru akan muncul di Windows Explorer, yang berarti _image_ instalasi telah berhasil dipasang.
-4. Buka Command Prompt sebagai Administrator, lalu eksekusikan perintah berikut untuk melakukan _in-place upgrade_ ke Windows 11 IoT Enterprise 24H2:
+4. Buka Command Prompt sebagai Administrator, lalu eksekusikan perintah berikut untuk melakukan _in-place upgrade_ ke Windows 11 IoT Enterprise 25H2:
 
 ```cmd
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v EditionID /d IoTEnterprise /f
@@ -594,7 +594,7 @@ Tapi, kalau kamu mau instal bersih Windows 11 IoT Enterprise dengan bahasa yang 
 
 Saat membuat media _bootable_ dengan Rufus, pastikan kamu tidak mencentang atau menggunakan _bypass_ apa pun, karena itu tidak berguna. Setelah dibuatkan _bootable-nya_ dengan Rufus, navigasikan ke folder `sources` di dalam media _bootable_ yang Anda buat, lalu buatlah sebuah berkas yang bernama `PID.txt` dengan isi berikut:
 
-Untuk kanal GAC (Windows 11 IoT Enterprise 24H2):
+Untuk kanal GAC (Windows 11 IoT Enterprise 25H2):
 
 ```plain
 [PID]
@@ -687,22 +687,23 @@ Kalau mereka membatasi hampir semua fiturnya dan melakukan razia ke penggunanya 
 
 - Tidak menonaktifkan _Antivirus_ dan _Firewall_
 - Tidak mematikan fitur UAC (_User Account Control_)
-- Tidak sembarangan memberikan akses Administrator ke orang lain (cth. Selalu gunakan tipe "Standard" saat membuat pengguna/_User_ di Windows, bukan "Administrator")
+- Tidak sembarangan memberikan akses Administrator ke orang lain (cth. Selalu gunakan tipe "Standard" saat membuat pengguna/_User_ di Windows, bukan "Administrator", terutama untuk orang lain selain dirimu)
 - Versi definisi antivirus-mu selalu yang terbaru atau selalu diperbarui
-- Jika kamu menggunakan Windows Defender, pertebal perlindungannya dengan cara berikut:
+- Mempertebal perlindungannya jika menggunakan Windows Defender, dengan cara berikut:
   - Minimal aktifkan fitur "Controlled folder access" agar melindungi berkas-berkas penting kamu dari _malware_ dengan memblokir segala perubahan dari aplikasi yang tidak terpercaya
   - Bila memungkinkan, aktifkan semua fitur proteksi di dalam "Core isolation" untuk melindungi perangkatmu dengan melindungi kernel Windows
-  - Untuk penebalan (_hardening_) lebih lanjut, bisa pakai [DefenderUI](https://www.defenderui.com), yang gratis cukup saja untuk pengguna rumahan
+  - Untuk penebalan (_hardening_) lebih lanjut, kamu bisa pakai [DefenderUI](https://www.defenderui.com), versi gratisnya cukup untuk pengguna rumahan
 - Perangkat lunak (termasuk peramban web) yang kamu gunakan selalu yang terbaru, meski itu adalah pembaruan keamanan
-- Kamu memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan perbarui daftar-daftarnya
-- Nonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
+- Memasang pemblokir iklan di peramban web (seperti uBlock Origin) dan memperbarui daftar-daftarnya
+- Menonaktifkan protokol jaringan yang usang di Windows kamu, seperti NetBIOS dan SMBv1
 - Selektif dalam mencolok penyimpanan eksternal dan menggunakan jaringan lokal
+- Selektif dalam menentukan folder yang akan dibagikan ke jaringan lokal beserta hak aksesnya
 - Selektif dalam memilih jenis jaringan yang terkoneksi (antara jaringan publik atau privat). Kalau kamu menggunakan laptop, pastikan _Public network_ (Jaringan publik) terpilih, terutama setiap kali terkoneksi dengan jaringan yang bukan berasal dari tempat tinggal sendiri/rumah
 - Selektif dalam menginstal perangkat lunak dan membuka sebuah aplikasi
 
 Seberapa amannya untuk ke depan saya tidak tahu secara pasti, tapi mengingat Windows-mu tidak mendapatkan pembaruan setelah masa dukungannya berakhir, maka saya tidak dapat menjamin bahwa ke depan akan aman walau kamu sudah melakukan semua hal di atas, karena eksploitasi celah keamanan di Windows selalu berkembang.
 
-Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatkan pembaruan dengan minimum 1 tahun yang bisa kamu dapatkan secara gratis. Tapi, kamu masih bisa mengabaikan ini dengan menganggap kalau sistemnya dirasa aman.
+Jadi, disarankan untuk mengaktifkan ESU di Windows 10 kamu agar tetap mendapatkan pembaruan dengan minimum 1 tahun yang bisa kamu dapatkan secara gratis. Tapi, kamu masih bisa mengabaikan ini dengan menganggap kalau sistemnya aman-aman saja.
 
 ### Pertanyaan ke-5: Untuk memperpanjang masa dukungan Windows 10, lebih baik pakai ESU atau langsung _upgrade_ ke edisi IoT LTSC aja? {#pertanyaan-ke5}
 
@@ -713,8 +714,6 @@ Setelah masa dukungan ESU-nya sudah habis, barulah kamu _upgrade_ ke edisi IoT E
 ### Pertanyaan ke-6: Jadi, menurutmu sebaiknya saya tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11? {#pertanyaan-ke6}
 
 **Jawab:** Ya tergantung kenyamanan, kebutuhan dan kesanggupan perangkat kamu. Tetap memakai Windows 10 atau paksa _upgrade_ ke Windows 11 itu mempunyai manfaat dan risikonya masing-masing.
-
-Kalau kamu merasa nyaman dengan Windows 11, perangkat lunakmu ingin versi terbaru, dan perangkatmu sanggup tapi terkendala dengan versi TPM yang masih lama, ya sebaiknya paksa _upgrade_ saja ke Windows 11, terutama ke Windows 11 IoT Enterprise 24H2.
 
 Tapi mungkin akan lebih baik kalau kamu menetap terlebih dahulu di Windows 10, lihat perkembangan perangkat lunaknya bagaimana, kalau perangkat lunaknya sudah meninggalkan dukungan setelah masa dukungan Windows 10 berakhir, sedangkan kamu butuh perangkat lunak tersebut di versi terbaru, mungkin kamu perlu paksa _upgrade_ ke Windows 11.
 
