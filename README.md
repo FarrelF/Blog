@@ -101,6 +101,6 @@ Silakan baca berkas [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Kode Sumber ini dirilis di bawah lisensi GNU Affero General Public License v3 (GNU AGPLv3) yang bisa Anda lihat/baca di dalam berkas [LICENSE](LICENSE).
 
-Sedangkan untuk Artikel dan Halaman (terutama di dalam folder [`content`](content)) secara baku saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike Internasional 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (Atau, disingkat: CC BY-SA 4.0), tetapi ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll).
+Sedangkan untuk artikel dan halaman (terutama di dalam folder [`content`](content)) secara baku saya terbitkan di bawah lisensi [Creative Commons Attribution-ShareAlike International 4.0](LICENSE-CC-BY-SA-4.0) (Atau, disingkat: CC BY-SA 4.0), tapi ada beberapa materi tertentu yang bisa saja diterbitkan di bawah lisensi yang berbeda (Contoh: Gambar/Media yang bersumber dari luar, dll).
 
 Lisensi untuk materi-materi tersebut akan saya sebutkan di masing-masing artikel dan halaman sebagai atribusi jika saya diizinkan untuk menggunakannya.
