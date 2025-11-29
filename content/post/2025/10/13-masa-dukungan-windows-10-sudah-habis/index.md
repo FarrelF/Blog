@@ -377,8 +377,8 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - SHA256: `de28a746bad8879b680aaf6a2e2993bf80aaad23904e0acc449815ada5c90107`
   - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso)
 
-- Windows 11 25H2 - Pembaruan September 2025 (26200.6584): (disarankan bagi yang ingin melakukan _in-place upgrade_)
-  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/0ca629a0-0693-a376-6d80-20f37934ea9e), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
+- Windows 11 25H2 - Pembaruan November 2025 (26200.7171): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/c658670b-cee4-c065-ad1f-acf8227051f8), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
 - Windows 11 25H2 RTM (26200.6584): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)

@@ -91,8 +91,12 @@ Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini
 
 ### Surel
 
-- farrel(at)franqois(dot)id (Surel Pribadi, disarankan)
-- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Proton Mail, yang "katanya" lebih aman dan lebih ramah privasi)
+- farrel(at)franqois(dot)id
+- farrelf(at)pm(dot)me
+- farrelf(at)proton(dot)me
+- farrelf(at)protonmail(dot)com
+
+**Catatan:** Semua alamat surel saya berada di tempat yang sama, yakni di Proton Mail. Ya benar, untuk saat ini saya menggunakan Proton Mail sebagai hosting untuk surel saya. Silakan pilih alamat surel tujuan yang Anda suka, karena semuanya sama saja.
 
 ### Media sosial/Perpesanan {#medsos}
 
@@ -102,9 +106,9 @@ Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini
 - Keybase: [FarrelF](https://keybase.io/farrelf) (~~Jarang Aktif~~ Mungkin gak akan aktif)
 
 {{< info title="**Catatan:**" >}}
-Semua informasi kontak saya urutkan berdasarkan yang paling aktif di setiap kategori. Jadi jika Anda ingin menghubungi saya, saran saya hubungi di Telegram atau kirim pesan surel Anda ke alamat surel pribadi saya, yang tentu saja bukan ke alamat Proton Mail saya.
+Semua informasi kontak saya urutkan berdasarkan yang paling aktif di setiap kategori. Jadi jika Anda ingin menghubungi saya, saran saya hubungi melalui kirim pesan surel atau melalui Telegram.
 
-Tidak disarankan untuk berkirim pesan melalui Facebook, karena pesan yang Anda kirimkan tidak akan masuk ke dalam pesan utama, melainkan "Permintaan Pesan" (terutama jika dari profil/orang yang tidak saya kenal), sehingga pesan dari Anda tidak ternotifikasi oleh saya dan tidak bisa langsung saya baca sampai saya mengklik "Permintaan Pesan" secara manual, ditambah saya tidak terlalu sering aktif di Facebook.
+Tidak disarankan untuk berkirim pesan melalui Facebook, karena pesan yang Anda kirimkan tidak akan masuk ke dalam pesan utama, melainkan ke dalam "Permintaan Pesan" (terutama jika dari profil/orang yang tidak saya kenal), sehingga pesan dari Anda tidak ternotifikasi oleh saya dan tidak bisa langsung saya baca sampai saya mengklik "Permintaan Pesan" secara manual, ditambah saya tidak terlalu sering aktif di Facebook.
 {{< / info >}}
 
 ## Kunci Publik
@@ -118,8 +122,9 @@ Berikut adalah informasi mengenai kunci GPG saya:
 |<span class="tab-center">Informasi</span>|<span class="tab-center">Isi Data</span>|
 |:--------------------|:-------------------------------------------------------------|
 | Atas Nama           | Farrel Franqois                                              |
+| Alamat Surel        | farrel(at)franqois(dot)id                                    |
 | Jenis Kunci         | ECC (Ed25519 dan Curve25519)                                 |
-| Masa Berlaku        | 21 Januari 2026                                              |
+| Masa Berlaku        | Tidak ada                                                    |
 | ID Kunci (Pendek)   | `0xA47AE59DC94ABF69` atau `A47AE59DC94ABF69`                 |
 | ID Kunci (Panjang)  | `A148 2DE3 7280 1F1A E00F 92E0 A47A E59D C94A BF69`          |
 
