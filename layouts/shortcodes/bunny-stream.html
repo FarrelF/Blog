@@ -10,12 +10,23 @@
     {{- $divStyle = default (print "position: relative; padding-top: 56.25%;") (.Get "divStyle") -}}
     {{- $iframeStyle = default (print "border: none; position: absolute; top: 0; height: 100%; width: 100%;") (.Get "iframeStyle") -}}
 {{- end -}}
+{{- $newPlayer := default true (.Get "newPlayer") -}}
+{{- $embedURI := "" -}}
+{{- if eq $newPlayer true -}}
+    {{- $embedURI = "https://player.mediadelivery.net/embed" -}}
+{{- else -}}
+    {{- $embedURI = "https://iframe.mediadelivery.net/embed" -}}
+{{- end -}}
+{{- $embedURI = default (print $embedURI) (.Get "embedURI") -}}
 {{- $allow := default `accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;` (.Get "allow") -}}
-{{- $embedURI := default (print "https://iframe.mediadelivery.net/embed") (.Get "embedURI") -}}
 {{- $libraryID := default "926" (.Get "libraryID") -}}
 {{- $videoID := .Get "id" -}}
 {{- $autoplay := default false (.Get "autoplay") -}}
-{{- $videoURL := printf "%s/%s/%s?autoplay=%s" $embedURI $libraryID $videoID (string $autoplay) -}}
+{{- $preload := default true (.Get "preload") -}}
+{{- $muted := default false (.Get "muted") -}}
+{{- $loop := default false (.Get "loop") -}}
+{{- $responsive := default true (.Get "responsive") -}}
+{{- $videoURL := printf "%s/%s/%s?autoplay=%s&preload=%s&muted=%s&loop=%s&responsive=%s" $embedURI $libraryID $videoID (string $autoplay) (string $preload) (string $muted) (string $loop) (string $responsive) -}}
 
 {{- if eq $useClasses true -}}
 <div class="{{- $divClass | safeCSS -}}">
