@@ -1,4 +1,4 @@
-github.com/CaiJimmy/hugo-theme-stack/v3 v3.30.0 h1:uITC7EKGyfPjyi3C5At++E0Uu1qQXtqiwMV4pd7LkLs=
-github.com/CaiJimmy/hugo-theme-stack/v3 v3.30.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
-github.com/FarrelF/stack-modified v0.0.0-20250803135143-a8d9cad55b99 h1:Cncsh1qW1iZGLFm8JPwW6S+BqpYtc30kD/XcB5g8qJg=
-github.com/FarrelF/stack-modified v0.0.0-20250803135143-a8d9cad55b99/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
+github.com/CaiJimmy/hugo-theme-stack/v3 v3.32.0 h1:C5qZXm/XSc6TUHmLJerocpmQz/bWm+ODj0iQ1kRpOkE=
+github.com/CaiJimmy/hugo-theme-stack/v3 v3.32.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
+github.com/FarrelF/stack-modified v0.0.0-20251220101236-f9bf5b84a12b h1:IcaEW6zT2uEu8nqOvtk36soEaBUM3xqDYCDd6/LAjbM=
+github.com/FarrelF/stack-modified v0.0.0-20251220101236-f9bf5b84a12b/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
