@@ -1,6 +1,13 @@
-{{- $Resource := .Page.Resources.GetMatch (printf "%s" (.Get "path")) | resources.Fingerprint (default "md5" (.Get "hash")) -}}
+{{- $resourceLink := .Page.Resources.GetMatch (printf "%s" (.Get "path")) | resources.Fingerprint (default "md5" (.Get "hash")) -}}
+{{- $downloadFile := default true (.Get "download") -}}
+{{- if eq $downloadFile true -}}
+    {{- $downloadFile = "?download=1" -}}
+{{- else -}}
+    {{- $downloadFile = "" -}}
+{{- end -}}
+{{- $hrefLink := printf "%s%s" $resourceLink.RelPermalink $downloadFile -}}
 <a class="link" 
-    href="{{- $Resource.RelPermalink -}}"
+    href="{{- $hrefLink -}}"
     rel="{{- default `noopener` (.Get "rel") -}}"
     target="{{- default `_blank` (.Get "target") -}}">
     {{- .Inner | $.Page.RenderString -}}
