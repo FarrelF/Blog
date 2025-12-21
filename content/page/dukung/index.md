@@ -27,10 +27,36 @@ Silakan pilih yang Anda suka, saya sangat mengapresiasi jika Anda melakukan seti
 
 Anda dapat memberikan dukungan terhadap blog ini dengan menyawer sejumlah uang Anda melalui beberapa cara berikut di bawah ini:
 
+### Menggunakan QRIS (disarankan)
+
+Anda dapat menggunakan QRIS untuk menyawerkan sejumlah uang dengan cepat dan sederhana sebagai bentuk dukungan Anda terhadap blog ini, serta tentu saja kamu tidak perlu membuka situs web lain untuk sekadar menyawer.
+
+Caranya cukup pindai kode QR berikut di bawah ini dari aplikasi pembayaran digital Anda, seperti aplikasi perbankan seluler (_Mobile Banking_) atau dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS.
+
+![Kode QRIS Blog ini](Farrel_Franqois_Blog_QRIS_Dark.webp)
+
+Jika Anda mengakses ini melalui perangkat seluler, silakan unduh gambarnya [di sini](Farrel_Franqois_Blog_QRIS_Dark.png?download=1) (walau bisa saja kamu mengunduhnya dengan menyimpan gambar di atas), lalu pindai gambar tersebut dengan mengunggahnya dari galeri di aplikasi pembayaran digital Anda.
+
+Saya tidak tahu apakah QRIS di atas dapat digunakan oleh aplikasi pembayaran dari luar negeri atau tidak, tapi bisa dicoba terlebih dahulu dengan memindainya.
+
+Berikut adalah negara-negara yang seharusnya dapat memindai kode QR di atas:
+
+- Malaysia
+- Singapura
+- Thailand
+- Jepang
+- Tiongkok
+- Korea Selatan (mulai 2026)
+
+### Menggunakan platform monetisasi
+
+Anda dapat menggunakan platform monetisasi digital untuk menyawerkan uang Anda sebagai bentuk dukungan terhadap blog ini, berikut adalah platform yang bisa digunakan:
+
 - [PayPal](https://paypal.me/FarrelF) (Internasional)
 - [Ko-fi](https://ko-fi.com/farrelf) (Internasional)
 - [SociaBuzz](https://sociabuzz.com/farrelf/tribe)
-- [NihBuatJajan](https://www.nihbuatjajan.com/farrelf)
+- [Trakteer](https://trakteer.id/farrelf)
+- [Saweria](https://saweria.co/farrelfranqois)
 
 Semua layanan penyaweran dari Indonesia yang saya sebut di atas itu mendukung pembayaran melalui QRIS, sehingga kamu dapat menggunakan aplikasi perbankan seluler (_Mobile Banking_) dan dompet elektronik (_E-wallet_) apa pun selama mendukung QRIS, meski ada metode pembayaran lain yang dapat Anda coba di situ.
 

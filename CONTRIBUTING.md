@@ -124,9 +124,7 @@ Jika Anda ingin memodifikasi tema sebagai bentuk kontribusi Anda, silakan lakuka
 
 Kalau Anda suka atau merasa informasi dari blog saya ini berguna, Anda bisa menyawerkan sedikit uang Anda sebagai kontribusi Anda untuk blog ini.
 
-Jika Anda ingin menyawerkannya, Anda dapat melakukannya melalui [PayPal](https://paypal.me/FarrelF), [Ko-fi](https://ko-fi.com/farrelf), [NihBuatJajan](https://www.nihbuatjajan.com/farrelf) atau [SociaBuzz](https://sociabuzz.com/farrelf/tribe) saya.
-
-Untuk lebih lengkapnya, silakan [klik di sini](https://farrel.franqois.id/dukung/).
+Jika Anda ingin menyawerkannya, silakan [klik di sini](https://farrelf.blog/dukung/).
 
 ## Cara ke-3: Memberikan Masukan atau Bertanya
 
@@ -136,7 +134,7 @@ Anda bisa bertanya, memberikan kritik dan saran, serta berkomentar di dalam blog
 
 - Jika Anda mempunyai pertanyaan atau hal lain yang ingin didiskusikan mengenai blog ini, silakan buat diskusinya di bagian ["Discussion"](https://github.com/FarrelF/Blog/discussions)
 
-- Jika Anda ingin berkomentar atau kritik dan saran mengenai artikel di dalam [blog ini](https://farrel.franqois.id), silakan berkomentar melalui kolom komentar yang tersedia di akhir artikel blog
+- Jika Anda ingin berkomentar atau kritik dan saran mengenai artikel di dalam [blog ini](https://farrelf.blog), silakan berkomentar melalui kolom komentar yang tersedia di akhir artikel blog
 
 - Jika Anda mempunyai pertanyaan lainnya yang tidak mau Anda sebarkan ke publik, silakan hubungi saya
 
