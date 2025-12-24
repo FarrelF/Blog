@@ -84,14 +84,20 @@ jobs:
         echo "/usr/local/bin/dart-sass" >> ${GITHUB_PATH}
         # which sass && sass --version
 
+    - name: Verify Installations
+      run: |
+        echo "Go: $(go version)"
+        echo "Hugo: $(hugo version)"
+        echo "Dart Sass: $(sass --version)"
+
     - name: Setup Hugo Resources Cache
       uses: actions/cache@v5
       with:
         path: |
           ./resources
-        key: hugo-${{ github.run_id }}
+        key: v2-9-hugo
         restore-keys: | 
-          - hugo-
+          - v2-9-hugo
 
     - name: Setup Hugo Modules Cache
       uses: actions/cache@v5
