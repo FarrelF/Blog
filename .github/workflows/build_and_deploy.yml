@@ -76,11 +76,12 @@ jobs:
         if [ "$DART_SASS_VERSION" = 'latest' ]; then
           DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f4)"
         fi
+        cd /tmp/
         wget https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
-        mkdir -p ${HOME}/.local
-        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -xzf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        cp -r dart-sass/ /usr/local/bin/
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+        echo "/usr/local/bin/dart-sass" >> "${GITHUB_PATH}"
         which sass && sass --version
 
     - name: Setup Hugo Resources Cache
