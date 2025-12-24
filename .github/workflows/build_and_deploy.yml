@@ -79,7 +79,7 @@ jobs:
         cd /tmp/
         wget https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
         tar -xzf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        cp -r dart-sass/ /usr/local/bin/
+        mv dart-sass /usr/local/bin/
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "/usr/local/bin/dart-sass" >> "${GITHUB_PATH}"
         which sass && sass --version
