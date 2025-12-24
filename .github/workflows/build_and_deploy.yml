@@ -81,7 +81,7 @@ jobs:
         tar -xzf dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
         mv dart-sass /usr/local/bin/
         rm dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
-        # echo /usr/local/bin/dart-sass >> ${GITHUB_PATH}
+        echo "/usr/local/bin/dart-sass" >> ${GITHUB_PATH}
         # which sass && sass --version
 
     - name: Setup Hugo Resources Cache
