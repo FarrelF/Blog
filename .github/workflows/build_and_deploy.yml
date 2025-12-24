@@ -77,6 +77,7 @@ jobs:
           DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f4)"
         fi
         wget https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
+        mkdir -p ${HOME}/.local
         tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
