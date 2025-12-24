@@ -22,10 +22,13 @@ jobs:
     env:
       TZ: Asia/Jakarta
       HUGO_ENV: staging
+      GO_VERSION: stable
+      HUGO_VERSION: latest
+      DART_SASS_VERSION: latest
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
@@ -43,28 +46,47 @@ jobs:
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
         sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
-    - name: Setup Hugo Extended
-      uses: peaceiris/actions-hugo@v3
+    - name: Setup Go
+      uses: actions/setup-go@v6
       with:
-        hugo-version: latest
-        extended: true
-    #- name: Install and Set up Hugo Extended
-    #  run: |
-    #    HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
-    #    cd /tmp/
-    #    wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
-    #    tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
-    #    chmod +x hugo
-    #    sudo -- sh -c 'mv hugo /usr/local/bin/; chown root:root /usr/local/bin/hugo'
-    #    rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
-    #    cd ${GITHUB_WORKSPACE}
-    #    which hugo && hugo version
-    #    # find ./content -type f -exec file {} \; | awk -F: '{ if ($2 ~/[Ii]mage|EPS/) print $1}' > Images.list
-    #    # sha256sum $(cat Images.list) > Images.hash.list
-    #    # git ls-tree -rtl HEAD:layouts --full-tree > layouts-tree.hash
+        go-version: ${{ env.GO_VERSION }}
+        cache: false
+
+    - name: Setup Hugo Extended
+      run: |
+        if [ "$HUGO_VERSION" = 'latest' ]; then
+          HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
+        fi
+        cd /tmp/
+        wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
+        tar -xzf hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
+        install -Dm755 hugo /usr/local/bin/hugo
+        install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
+        rm hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz LICENSE README.md
+        cd ${GITHUB_WORKSPACE}
+        which hugo && hugo version
+    
+    - name: Setup Dart Sass
+      run: |
+        if [ "$DART_SASS_VERSION" = 'latest' ]; then
+          DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f4)"
+        fi
+        cd /tmp/
+        wget https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
+        tar -xzf dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
+        mv dart-sass /usr/local/bin/
+        rm dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
+        echo "/usr/local/bin/dart-sass" >> ${GITHUB_PATH}
+        # which sass && sass --version
+
+    - name: Verify Installations
+      run: |
+        echo "Go: $(go version)"
+        echo "Hugo: $(hugo version)"
+        echo "Dart Sass: $(sass --version)"
 
     - name: Setup Hugo Resources Cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ./resources
         key: v2-5-hugo-preview
@@ -72,7 +94,7 @@ jobs:
           - v2-5-hugo-preview
 
     - name: Setup Hugo Modules Cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: /tmp/hugo_cache_runner
         key: ${{ runner.os }}-hugo-modules-preview-${{ hashFiles('**/go.sum') }}
@@ -92,7 +114,7 @@ jobs:
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: preview-build-result-${{ env.SHORT_SHA }}
         path: files.tar.gz
@@ -104,19 +126,19 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Setup Environment Variable
       run: |
         printf "GITHUB_SHA=%s\n" ${GITHUB_SHA} >> $GITHUB_ENV
         printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
 
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: preview-build-result-${{ env.SHORT_SHA }}
 
     - name: Setup Mise and Thumper
-      uses: jdx/mise-action@v2
+      uses: jdx/mise-action@v3
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
@@ -176,7 +198,7 @@ jobs:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: preview-build-result-${{ env.SHORT_SHA }}
 
