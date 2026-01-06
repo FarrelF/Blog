@@ -46,7 +46,7 @@ Kendala saat pemasangannya adalah tidak banyak penyedia yang mendukungnya, keban
 
 Sehingga saya perlu menggunakan acme.sh untuk menerbitkan/memperbarui sertifikat SSL/TLS, lalu saya melakukan _Request_ ke Server API-nya Netlify, BunnyCDN, cPanel dan DirectAdmin untuk memasangkan sertifikatnya menggunakan curl.
 
-Terlihat sederhana, bukan? Iya, tapi sebenarnya itu tidak sesederhana dan semudah yang Anda bayangkan.
+Terlihat sederhana, bukan? Iya memang sederhana, tapi sebenarnya itu tidak semudah yang Anda bayangkan.
 
 Berkat bantuan dari beberapa referensi, akhirnya saya dapat memasangkan sertifikat tersebut dan membuatnya dapat diperbarui secara otomatis.
 
@@ -60,27 +60,21 @@ Sedangkan [acme.sh](https://acme.sh) adalah sebuah perkakas klien untuk protokol
 
 ### Tunggu, ZeroSSL Gratis? Bukannya bayar? {#zerossl-gratis}
 
-Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga dapat menerbitkan sertifikat SSL/TLS secara gratis dalam bentuk apa pun (termasuk _Wildcard_) dengan jumlah sertifikat yang tidak terbatas, baik dengan menggunakan RSA maupun ECC sebagai Algoritma Kunci Publiknya.
+Iya, untuk saat ini ZeroSSL memanglah gratis, bahkan Anda juga dapat menerbitkan sertifikat SSL/TLS secara gratis dalam bentuk apa pun (termasuk _Wildcard_) dengan jumlah sertifikat yang tidak terbatas, baik dengan menggunakan RSA maupun ECC sebagai algoritma kunci publiknya.
 
-Namun, itu hanya berlaku jika Anda menerbitkannya melalui Server ACME-nya, bukan melalui Situs Web ataupun REST API-nya. Semua sertifikat yang diterbitkan melalui Protokol ACME akan memiliki masa berlaku selama 90 hari ke depan.
-
-Serta, jika Anda membuat/menerbitkan sebuah sertifikat SSL/TLS melalui protokol ACME dan server ACME-nya, maka jumlah sertifikat yang telah diterbitkan yang tampil di situs web-nya tidak akan bertambah sama sekali, jadi kuota gratisannya tidak akan berkurang.
+Namun, itu hanya berlaku jika Anda menerbitkannya melalui server ACME-nya, bukan melalui situs web ataupun REST API-nya. Semua sertifikat yang diterbitkan melalui protokol ACME akan memiliki masa berlaku maksimum 90 hari ke depan.
 
 Infonya dari mana? Salah satu infonya berasal dari [dokumentasinya](https://zerossl.com/documentation/acme/).
 
-~~Namun, sebetulnya jika kamu lebih teliti lagi, di Halaman "[Pricing](https://zerossl.com/pricing/)"-nya pun kamu akan menemukan tulisan "90-Day ACME Certs" yang bersebelahan dengan Simbol "tidak terbatas", yang artinya kamu dapat menerbitkan sertifikat SSL/TLS dari server ACME-nya dalam bentuk apa pun secara gratis tanpa batasan jumlah.~~
-
-**PEMBARUAN, 16 Oktober 2021:** Simbol tersebut sekarang sudah tidak ada lagi di halaman tersebut, mungkin tujuannya memang untuk _marketing_ biar ZeroSSL tidak dianggap gratis.
-
 ![Halaman "Pricing" di ZeroSSL, per tanggal: 16 Oktober 2021](ZeroSSL_Pricing.webp)
 
-Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan sertifikat SSL/TLS dari ZeroSSL, kecuali jika Anda ingin layanan dukungan, akses ke REST API-nya, serta sertifikat SSL/TLS dengan masa berlaku selama 1 Tahun, Anda bisa berlangganan yang berbayar.
+Nah, sekarang sudah paham, kan? Jadi, Anda tidak perlu jadi orang kaya atau berduit banyak dulu biar bisa menerbitkan sertifikat SSL/TLS dari ZeroSSL, kecuali jika Anda ingin layanan dukungan, serta akses ke REST API-nya, Anda bisa berlangganan yang berbayar.
 
 ### Kenapa ZeroSSL? Dan, kenapa gak pakai Let's Encrypt aja? {#zerossl-vs-lets-encrypt}
 
 #### Kompatibilitas Perangkat
 
-Sertifikat TLS dari ZeroSSL bergantung pada Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja) sebagai sertifikat akar dari rantai sertifikatnya (yang bisa disebut dengan "Rantai Kepercayaan", bahasa Inggrisnya: _Chain of Trust_), yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama.
+Sertifikat TLS dari ZeroSSL menggunakan Sectigo (sebelumnya dikenal sebagai "COMODO CA"/"COMODO" saja) sebagai sertifikat akar dari rantai sertifikatnya (yang bisa disebut dengan "Rantai Kepercayaan", bahasa Inggrisnya: _Chain of Trust_), yang telah didukung dan dipercaya oleh mayoritas perangkat lunak sejak lama.
 
 Informasi mengenai sertifikat akarnya sebagai berikut:
 
@@ -162,7 +156,7 @@ Terima kasih dan selamat melanjutkan 😊
 
 Di artikel ini, Anda akan mempelajari menerbitkan sertifikat SSL/TLS (selanjutnya akan saya sebut sebagai "sertifikat TLS") dengan menggunakan [acme.sh](https://acme.sh) yang (harusnya) hanya kompatibel dengan sistem operasi berbasis Unix atau mirip Unix (\*nix), termasuk GNU/Linux, macOS, BSD dan Android.
 
-Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari sistem operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, dan bisa mengedit berkas di dalam Terminal.
+Dengan ini, tentu saja salah satu hal yang harus Anda siapkan adalah pengetahuan tentang perintah-perintah dasar dari sistem operasi berbasis \*nix, seperti `ls`, `cd`, dan dibarengi dengan pengenalan variabel dasar seperti `$HOME` dan `$PATH` serta fitur `~` di dalam _Shell_, menambahkan variabel, penavigasian, bisa _copy-paste_ dari luar ke dalam Terminal dan sebaliknya, mengetahui _Shell_ yang digunakan dan bisa mengedit berkas di dalam Terminal.
 
 Kata "Terminal" di sini bukan merujuk pada "Terminal Kendaraan" atau "Terminal Bis" ya, "Terminal" yang saya maksudkan di sini adalah aplikasi Emulator Terminal (_Terminal Emulator_) seperti x-term, Konsole, GNOME Terminal, Windows Terminal, Git Bash, dll.
 
@@ -177,7 +171,6 @@ Hal-hal yang harus Anda siapkan untuk pengguna sistem operasi berbasis \*nix ada
 - OpenSSL (atau LibreSSL?)
 - curl
 - Cron (atau Systemd Timer untuk pengguna Systemd)
-- [`jq`](https://jqlang.github.io/jq/) (khusus pengguna cPanel dan/atau DirectAdmin)
 - Socat (Socket Cat) (Opsional, hanya berlaku buat yang ingin menjalankan acme.sh dalam "Standalone Mode", artikel ini tidak membahasnya lebih lanjut)
 
 #### Untuk Pengguna Windows {#persiapan-pengguna-windows}
@@ -236,7 +229,7 @@ Jika Anda tidak memahami langkah-langkah di atas, Anda dapat melihat cuplikan la
 
 ![1](ZeroSSL_EAB_Credential_1.webp) ![2](ZeroSSL_EAB_Credential_2.webp)
 
-Setelah Kredensial EAB dibuat, perlu diingat bahwa sejak Maret 2022 yang lalu kredensial EAB dapat digunakan kembali, sehingga kredensial yang sama dapat digunakan berkali-kali. Jadi, simpanlah kredensial tersebut dengan baik dan jangan beritahu ke siapa pun, kecuali jika Anda mempercayai orang tersebut dan siap menanggung sendiri atas risiko yang disebabkan oleh Anda sendiri.
+Setelah Kredensial EAB dibuat, perlu diingat bahwa kredensial EAB dapat digunakan kembali, sehingga kredensial yang sama dapat digunakan berkali-kali. Jadi, simpanlah kredensial tersebut dengan baik dan jangan beritahu ke siapa pun, kecuali jika Anda mempercayai orang tersebut dan siap menanggung sendiri atas risiko yang disebabkan oleh Anda sendiri.
 
 Sekarang lanjut ke langkah berikutnya, yakni instal acme.sh, dan Anda sama sekali tidak perlu menerbitkan sertifikat TLS-nya di sana.
 
@@ -332,9 +325,9 @@ Sebelum menerbitkan sertifikat TLS, maka ada baiknya untuk membuat kode token un
 
 Ini akan sangat berguna untuk verifikasi DNS ke depannya dan juga memasang sertifikat TLS itu sendiri. Jadi, Anda wajib membuatnya, tapi Anda tidak perlu membuat semuanya, melainkan sesuai dengan layanan yang Anda gunakan.
 
-Misalnya, jika Anda menggunakan Cloudflare sebagai Penyedia DNS dan Netlify sebagai Hosting atau cPanel/DirectAdmin sebagai Kontrol Panel Hosting, maka Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat TLS.
+Misalnya, jika Anda menggunakan Cloudflare sebagai penyedia DNS dan Netlify sebagai hosting atau cPanel/DirectAdmin sebagai kontrol panel hosting, maka Anda hanya perlu membuat akses API dari Cloudflare untuk keperluan verifikasi DNS dan Netlify/cPanel/DirectAdmin untuk keperluan memasang sertifikat TLS.
 
-Atau, jika Anda menggunakan Netlify sebagai Penyedia DNS dan Hostingnya, Anda hanya cukup membuat 1 kode token dari Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikatnya, iya cukup 1 saja, tidak perlu membuat banyak untuk keperluan yang berbeda-beda.
+Atau, jika Anda menggunakan Netlify sebagai penyedia DNS dan hostingnya, Anda hanya cukup membuat 1 kode token dari Netlify saja untuk keperluan verifikasi DNS dan memasang sertifikatnya.
 
 Kalau sudah tahu caranya dan sudah pernah Anda lakukan sebelumnya, Anda bisa langsung [lewati ini](#verifikasi-dns-di-acmesh).
 
@@ -344,57 +337,13 @@ Kalau belum, silakan ikuti cara-caranya berikut di bawah ini.
 
 Untuk membuat Kode Token Akses API-nya, silakan baca [dokumentasinya](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/), di sana sudah dijelaskan secara lengkap tentang bagaimana cara membuat kodenya.
 
-Jika belum jelas, saya bahas saja caranya di sini. Caranya sebagai berikut:
+Pastikan kamu pilih templat **"Edit zone DNS"** atau pada **Permissions** pilih **"Zone"**, **"DNS"** dan **"Edit"** agar acme.sh dapat mengubah dan membuat catatan DNS-nya untuk keperluan verifikasi.
 
-0. Pastikan Anda sudah login terlebih dahulu menggunakan akun Cloudflare Anda dengan mengunjungi [Halaman Dasbornya](https://dash.cloudflare.com/login). Udah? Kalau begitu, Anda bisa lanjut
-1. Jika Anda sudah sampai di halaman dasbornya:
-   - a. Klik pada Ikon Orang di pojok kanan atas
-   - b. Lalu, klik **"My Profile"**
-   - c. Setelah itu, klik pada tab **"API Tokens"**
+Kalau sudah selesai, nanti kode token-nya akan muncul dan hanya bisa dilihat satu kali saja.
 
-    Atau sederhananya, silakan [klik di sini](https://dash.cloudflare.com/profile/api-tokens)
-2. Setelah Anda memasukki bagian **"API Token"**, klik pada _Button_ **"Create Token"**
+Maka dari itu, simpanlah kode tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorang pun yang dapat mengetahui kode tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
 
-    Kira-kira untuk no. 1 dan 2 cuplikannya akan seperti berikut:
-
-![Menuju ke bagian "API Token"](Cloudflare_Create_API_Token_1.webp)
-
-3. Saat proses membuat Token, Anda akan memilih templat yang dipakai untuk membuat Akses API-nya. Maka dari itu, pakai saja templat **"Edit zone DNS"** dengan mengklik _Button_ **"Use this template"** di sebelahnya (Seperti pada cuplikan berikut)
-
-![Memilih Templat untuk membuat Token](Cloudflare_Create_API_Token_2.webp)
-
-4. Setelah menentukan templatnya, nanti Anda akan diminta untuk melengkapi informasi yang ada di sana. Lengkapi informasi berikut ini:
-   - **Token Name**: Itu merupakan nama token yang ingin Anda buat. Secara baku, nama token menggunakan nama templatnya, bisa diubah sesuka hati Anda dengan mengklik pada ikon pensil di sebelah namanya
-   - **Permissions**: Itu merupakan perizinan untuk token yang Anda buat nantinya, karena menggunakan templat **"Edit zone DNS"**, maka seharusnya informasi tersebut sudah dilengkapi. Pastikan itu sudah diisi dengan **"Zone"**, **"DNS"** dan **"Edit"**, kalau sudah, Anda bisa lewati ini.
-   - **Zone Resources**: Itu merupakan cakupan zona (_Zone_) untuk token ini. Jika Anda ingin tokennya itu dapat mencakup semua domain yang telah Anda tambahkan di Cloudflare, maka pastikan pilih: (salah satu)
-       - **"Include"** dan **"All zones"**
-       - **"Include"**, **"All zones from an account"**, lalu pilih Akun yang ingin Anda cakup
-   - **Client IP Address Filtering**: Jika Anda ingin mengatur atau menyaring alamat IP klien atau pengguna API, maka Anda bisa atur itu, ini akan cocok jika Anda ingin menggunakan API tersebut di perangkat yang alamat IP-nya tidak berubah-ubah dan bersifat publik (seperti VPS/Server). Jika tidak, maka sebaiknya lewati saja.
-   - **TTL**: Atur itu jika Anda ingin token yang Anda buat memiliki masa berlaku, jika tidak maka sebaiknya lewati saja
-
-5. Jika Anda sudah mengisi semua informasinya, klik pada _Button_ **"Continue to summary"**
-
-    Kira-kira untuk no. 4 dan 5, cuplikannya akan menjadi seperti berikut:
-
-![Melengkapi Informasi untuk Token](Cloudflare_Create_API_Token_3.webp)
-
-6. Di sana Anda akan melihat kesimpulan dari Token yang ingin Anda buat, jika merasa yakin, silakan klik pada _Button_ **"Create Token"** (Seperti pada cuplikan berikut)
-
-![Kesimpulan dari Token yang ingin dibuat](Cloudflare_Create_API_Token_4.webp)
-
-7. Setelah itu, kodenya akan tampil di sana. Salinkan **"API Token"** tersebut dengan mengklik pada _button_ **"Copy"**, lalu simpan itu baik-baik karena kode tersebut tidak akan tampil lagi, serta pastikan bahwa tidak ada satu pun orang lain yang mengetahuinya kecuali dengan seizin Anda. Selain itu, Anda juga dapat mengujinya di sana untuk memastikan apakah kode terebut bekerja atau tidak.
-
-!["API Token" yang telah dibuat di Cloudflare](Cloudflare_Create_API_Token_5.webp)
-
-Nah, setelah **"API Token"** dibuat, Anda harus mendapatkan **"Account ID"**-nya, kalau kamu perlu bisa dapatkan **"Zone ID"**-nya juga.
-
-Untuk mendapatkan kedua itu, pergi ke [Halaman Dasbor Cloudflare](https://dash.cloudflare.com), pilih domainnya, lalu gulirkan kebawah, nanti akan ketemu Informasi mengenai **"Account ID"** dan **"Zone ID"**, seperti di bawah ini:
-
-!["Account ID" dan "Zone ID" di Cloudflare](Cloudflare_Zone_and_Account_ID.webp)
-
-Setelah mendapatkan semua itu, sekali lagi, simpanlah informasi tersebut baik-baik karena akan digunakan kembali, pastikan juga bahwa tidak ada seorang pun yang dapat mengetahui informasi tersebut kecuali Anda sendiri atau orang yang dapat Anda percayakan.
-
-Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan langsung lanjut ke bagian [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
+Jika tidak ada lagi penyedia lain yang perlu Anda buatkan akses API-nya, silakan langsung lanjut ke bagian [Verifikasi DNS di acme.sh](#verifikasi-dns-di-acmesh)
 
 #### Netlify {#netlify-personal-access-token}
 
@@ -429,7 +378,7 @@ Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan
 
 Jika Anda menggunakan bunny\.net (sebelumnya: BunnyCDN) sebagai CDN, _Reverse-proxy_, Penyedia DNS ataupun Hosting, maka Anda bisa mendapatkan **"Access Key"**-nya di sini.
 
-Namun, jika sebelumnya sudah sudah pernah menerbitkan sertifikatnya, sudah mendapatkan dan menyimpan **Access Key**-nya, serta ingin memasangkan sertifikatnya di sana melalui Akses API, silakan lewati bagian ini dan verifikasi DNS dengan [klik di sini](#pasang-ssl-di-bunnycdn) untuk langsung melompat ke caranya.
+Namun, jika sebelumnya sudah sudah pernah menerbitkan sertifikatnya, sudah mendapatkan dan menyimpan **Access Key**-nya, serta ingin memasangkan sertifikatnya di sana melalui akses API, silakan lewati bagian ini dan verifikasi DNS dengan [klik di sini](#pasang-ssl-di-bunnycdn) untuk langsung melompat ke caranya.
 
 Kalau belum, silakan dapatkan terlebih dahulu, caranya sebagai berikut:
 
@@ -485,7 +434,7 @@ Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan
 
 #### DirectAdmin {#directadmin-login-key}
 
-Jika Anda merupakan pengguna DirectAdmin, baik di server sendiri maupun di layanan hosting yang Anda gunakan, sebaiknya Anda membuat **"Login Key"** (bahasa Indonesia: Kunci Masuk) terlebih dahulu agar dapat memasangkan sertifikat TLS secara otomatis melalui API-nya.
+Jika Anda merupakan pengguna DirectAdmin, baik di server sendiri maupun di layanan hosting yang Anda gunakan, sebaiknya Anda membuat **"Login Key"** terlebih dahulu agar dapat memasangkan sertifikat TLS secara otomatis melalui API-nya.
 
 Namun, jika sebelumnya sudah pernah menerbitkan sertifikatnya dan sudah membuat **"Login Key"**-nya di DirectAdmin, serta ingin memasangkan sertifikatnya melalui API-nya, silakan lewati bagian ini dan verifikasi DNS dengan [klik di sini](#pasang-ssl-di-directadmin) untuk langsung melompat ke caranya.
 
@@ -527,23 +476,23 @@ Jika tidak ada lagi penyedia lain yang perlu Anda buatkan Akses API-nya, silakan
 
 ### Verifikasi DNS di acme.sh
 
-Agar sertifikat TLS dapat diterbitkan melalui protokol ACME, maka pengguna diperlukan melakukan verifikasi. Salah satunya adalah dengan verifikasi DNS.
+Agar sertifikat TLS dapat diterbitkan melalui protokol ACME, maka pengguna diperlukan melakukan verifikasi untuk menyelesaikan tantangan. Salah satunya adalah dengan verifikasi DNS.
 
 Verifikasi DNS merupakan sebuah metode yang menggunakan catatan DNS (_DNS Record_) pada domain pengguna untuk memverifikasi bukti kepemilikan domain sebelum sertifikat diterbitkan atau diperbarui.
 
-Verifikasi seperti ini tidak memerlukan keberadaan _web server_ dan juga tidak perlu mengakses konten apa pun (cth. Mengakses `http://domain.com/.well-known/.acme-challenge-xxxxxxxxxxxx`) untuk itu, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk Ponsel Pintar, Komputer Desktop, dll), selama Anda dapat menjalankan acme.sh di dalam perangkat Anda.
+Verifikasi seperti ini tidak memerlukan keberadaan _web server_, sehingga Anda bisa menerbitkannya di mana saja dan di perangkat apa saja (termasuk ponsel pintar, komputer desktop, dll), selama dapat menjalankan acme.sh di dalam perangkat Anda.
 
-Ini juga sebagai syarat agar Anda dapat menerbitkan sertifikat TLS untuk semua subdomain Anda (_Wildcard SSL_) dengan mudah.
+Ini juga sebagai syarat agar dapat menerbitkan sertifikat TLS untuk semua subdomain Anda (_Wildcard SSL_) dengan mudah.
 
-Selain itu, karena Anda ingin memasang sertifikat TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat yang Anda miliki, maka metode verifikasi seperti ini wajib Anda pelajari.
+Selain itu, karena Anda ingin memasang sertifikat TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta melakukannya di dalam perangkat yang Anda miliki, maka metode verifikasi seperti ini wajib dipelajari.
 
 Namun, agar perkakas acme.sh dapat melakukan verifikasi DNS secara otomatis saat menerbitkan dan memperbarui sertifikat TLS-nya, maka acme.sh harus dapat mengakses dan mengubah catatan DNS di dalam domain milik Anda dengan mengakses akun penyedia DNS milik Anda.
 
-Untuk itu, Anda perlu berikan sebuah izin untuk membaca dan mengubah catatan DNS dengan memberinya sebuah kredensial milik Anda, seperti: _API Token_, Kunci API untuk Akses API atau bahkan Nama Pengguna dan Kata Sandi.
+Untuk itu, Anda perlu memasukkan kredensial penyedia DNS milik Anda, bisa berupa kode _API Token_, kunci API atau apa pun itu untuk mengakses API atau bahkan nama pengguna dan kata sandi untuk acme.sh.
 
 **Kalau saya gak mau gimana?** Bisa saja Anda melakukannya secara manual, sehingga Anda menambahkan catatan DNS-nya secara manual juga.
 
-Namun sertifikat TLS tersebut memiliki masa berlaku selama 90 hari, sehingga harus diperbarui sebelum habis masanya (minimum 60 hari setelah sertifikat diterbitkan) dan saat pembaruan Anda harus masukkan lagi catatan DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat tersebut secara otomatis.
+Namun sertifikat TLS tersebut memiliki masa berlaku maksimum 90 hari, sehingga harus diperbarui sebelum habis masanya dan saat pembaruan Anda harus masukkan lagi catatan DNS-nya secara manual, sehingga tidak mungkin kamu bisa memperbarui sertifikat tersebut secara otomatis.
 
 Pertanyaannya, apa kamu gak capek kayak gitu terus? Ya terserah kamu, sih. Kalo saya jadi kamu, mending saya pake metode yang otomatis saja ketimbang pake yang manual.
 
@@ -551,11 +500,13 @@ Jadi kamu gak perlu takut, perkakas acme.sh ini gak bakalan ngumpulin data-data 
 
 #### Untuk Pengguna DNS Otoritatif Cloudflare {#untuk-pengguna-cloudflare}
 
-Jika Anda menggunakan Cloudflare sebagai penyedia DNS untuk domain Anda, maka Anda perlu membuat kode Token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
+Jika Anda menggunakan Cloudflare sebagai penyedia DNS untuk domain Anda, maka Anda perlu membuat kode token API-nya (`CF_Token`) dan mendapatkan **"Account ID"**-nya (`CF_Account_ID`).
 
 Kalau perlu, kamu juga bisa dapatkan **"Zone ID"**-nya juga, agar acme.sh dapat menargetkan domain/zona yang spesifik tanpa harus mencarinya lagi, tapi itu tidak wajib, kalau menurutmu gak perlu ya gak usah.
 
-Namun dengan adanya **"Zone ID"**, maka acme.sh akan menyimpan kode token beserta **"Account ID"** di dalam berkas konfigurasi untuk domain alih-alih di dalam `~/.acme.sh/account.conf` setelah selesai menerbitkan sertifikatnya. Jika tidak, maka akan disimpan ke dalam berkas `account.conf`
+Namun dengan adanya **"Zone ID"**, maka acme.sh akan menyimpan kode token beserta **"Account ID"** di dalam berkas konfigurasi untuk domain alih-alih di dalam `~/.acme.sh/account.conf` setelah selesai menerbitkan sertifikatnya.
+
+Jika **"Zone ID"** tidak dimasukkan, maka konfigurasi akan disimpan ke dalam berkas `account.conf`.
 
 Untuk cara membuatnya, silakan [klik di sini](#cloudflare-api-token).
 
@@ -579,13 +530,13 @@ set -x CF_Account_ID "ACCOUNT_ID_KAMU_DI_SINI"
 set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung.
 
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Netlify DNS {#untuk-pengguna-netlify-dns}
 
-Jika Anda menggunakan Netlify sebagai Penyedia DNS, Anda cuma perlu membuat **"Personal Access Token"**-nya (`NETLIFY_ACCESS_TOKEN`) saja sebagai kredensial untuk akses API-nya.
+Jika Anda menggunakan Netlify sebagai penyedia DNS, Anda cuma perlu membuat **"Personal Access Token"**-nya (`NETLIFY_ACCESS_TOKEN`) saja sebagai kredensial untuk akses API-nya.
 
 Untuk cara membuatnya, silakan [klik di sini](#netlify-personal-access-token).
 
@@ -601,7 +552,7 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set -x NETLIFY_ACCESS_TOKEN "ACCESS_TOKEN_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung.
 
 Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
@@ -623,15 +574,15 @@ Atau, di bawah ini jika Anda menggunakan `fish` sebagai _Shell_:
 set -x BUNNY_API_KEY "ACCESS_KEY_KAMU_DI_SINI"
 ```
 
-Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung, sebenarnya bisa juga di dalam berkas konfigurasi masing-masing _Shell_ yang Anda gunakan, hanya saja Anda perlu memulai ulang Terminal-nya atau perlu muat ulang dulu konfigurasi _Shell-nya_ dengan perintah `source <LETAK_KONFIGURASI_SHELL>`.
+Di mana saya memasukkannya? Saran saya di dalam Terminal-nya langsung.
 
-Udah itu aja, jika Anda menggunakan Netlify dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
+Udah itu aja, jika Anda menggunakan Bunny DNS dan sudah memasukkan informasi di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
 #### Untuk Pengguna Penyedia DNS lain {#untuk-pengguna-dns-lain}
 
-Jika Anda menggunakan Penyedia DNS selain Cloudflare, Netlify DNS dan Bunny DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, Google Cloud DNS, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
+Jika Anda menggunakan penyedia DNS selain Cloudflare, Netlify DNS dan Bunny DNS, seperti Hurricane Electric Free DNS, Constellix, NS1, ClouDNS, Amazon Route 53, Google Cloud DNS, dll, maka Anda perlu membaca [halaman dokumentasinya](https://github.com/acmesh-official/acme.sh/wiki/dnsapi).
 
-Karena setiap Penyedia DNS mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silakan ikuti yang ada di dokumentasinya.
+Karena setiap penyedia DNS mempunyai cara yang berbeda-beda untuk mengaksesnya. Jadi, silakan ikuti yang ada di dokumentasinya.
 
 Setelah itu, kamu telah dapat menggunakan acme.sh seperti biasanya untuk menerbitkan/membuat dan memperbarui sertifikat TLS kamu.
 
@@ -669,7 +620,7 @@ Atau, di bawah ini untuk peramban web berbasis Chromium/Google Chrome di platfor
 
 !["Common Name" pada Sertifikat TLS saya](Certificate_Viewer_1.webp) ![SAN pada Sertifikat TLS saya](Certificate_Viewer_2.webp)
 
-Jika Anda melihat cuplikan di atas, "Common Name" yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
+Jika Anda lihat cuplikan di atas, **"Common Name"** yang tampil adalah `farrel.franqois.id` bukan `*.farrel.franqois.id`, padahal sertifikat yang saya terbitkan itu adalah sertifikat TLS _Wildcard_, dan `*.farrel.franqois.id` malah cuma dimasukkan ke dalam SAN (_Subject Alternative Name_) saja bersamaan dengan Domain Utamanya.
 
 **Kenapa bisa begitu?** Sederhananya karena Domain Pertama yang saya masukkan ketika menerbitkan sebuah sertifikat TLS adalah `farrel.franqois.id`, bukan `*.farrel.franqois.id`. Nah, sekarang sudah paham, kan?
 
@@ -698,11 +649,11 @@ Anda harus menggantikan `METODE_VERIFIKASI` di atas dengan parameter/argumen men
 
     Anda bisa ganti `(lokasi_conf)` dengan lokasi berkas konfigurasi untuk NGINX Anda jika diinginkan barangkali acme.sh tidak dapat mendeteksi berkas konfigurasi NGINX secara otomatis, kalau acme.sh dapat mengenalinya maka cukup tulis `--nginx` saja.
 
-- `--standalone` jika Anda tidak mempunyai Aplikasi _Web Server_ atau sedang tidak berada di dalam Server Web (cth. Sedang berada di dalam Server FTP atau SMTP).
+- `--standalone` jika Anda tidak mempunyai aplikasi _web server_ atau sedang tidak berada di dalam server web (cth. Sedang berada di dalam Server FTP atau SMTP).
 
-Dengan adanya verifikasi seperti ini, artinya Anda tidak bisa sembarangan membuat sertifikat TLS untuk domain lain, berhasil atau gagal akan menambahkan _Rate Limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass.
+Dengan adanya verifikasi seperti ini, artinya Anda tidak bisa sembarangan membuat sertifikat TLS untuk domain lain, berhasil atau gagal akan menambahkan _rate limit_ jika Anda menggunakan CA seperti Let's Encrypt dan Buypass.
 
-Jadi, berhati-hatilah ketika Anda ingin menerbitkan sertifikat TLS dengan menggunakan Protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
+Jadi, berhati-hatilah ketika Anda ingin menerbitkan sertifikat TLS dengan menggunakan protokol ACME, terutama jika Anda menggunakan CA selain ZeroSSL.
 
 #### Parameter Tambahan (`PARAMETER_TAMBAHAN`)
 
@@ -769,7 +720,7 @@ Jika Anda tidak ingin menambahkan parameter lain, Anda bisa menghapus `PARAMETER
 
 #### Setelah menerbitkan Sertifikat TLS
 
-Jika Anda menerbitkan sertifikat TLS memakai acme.sh dan dinyatakan berhasil, maka akhir dari keluarannya kira-kira akan seperti berikut:
+Jika Anda menerbitkan sertifikat TLS memakai acme.sh dan dinyatakan berhasil, maka isi keluarannya kira-kira akan seperti berikut:
 
 ```plain
 [Kam 12 Agu 2021 02:14:50  WIB] Cert success.
@@ -800,7 +751,7 @@ Nah, sekarang sudah paham, kan? Kalau sudah paham, tinggal pelajari verifikasi m
 
 ### Menerbitkan Sertifikat TLS dengan menggunakan DNS sebagai Metode Verifikasi (Wajib dipelajari) {#verifikasi-dns}
 
-Jika Anda ingin menerbitkan sertifikat TLS yang menggunakan DNS sebagai Metode verifikasinya, maka tinggal tambahkan saja parameter `--dns nama_dns`.
+Jika Anda ingin menerbitkan sertifikat TLS yang menggunakan DNS sebagai metode verifikasinya, maka tinggal tambahkan saja parameter `--dns nama_dns`.
 
 Contoh di bawah ini adalah perintah untuk menerbitkan sertifikat TLS untuk 1 Domain dan 1 Subdomain dengan menggunakan DNS dari Cloudflare sebagai metode verifikasi:
 
@@ -824,9 +775,9 @@ Misalnya: Anda ingin menerbitkan sebuah sertifikat TLS untuk `www.domain.com` da
 acme.sh --issue -d www.domain.com -d domain.com --dns dns_netlify
 ```
 
-Agar verifikasinya semakin lancar, maka Anda perlu menunggu selama beberapa detik agar DNS terpropagasi dengan sempurna setelah catatan DNS berubah atau ditambahkan dan sebelum verifikasi oleh CA. Bagaimana caranya? Caranya dengan menambahkan parameter `--dnssleep durasi`.
+Agar verifikasinya semakin lancar, maka Anda perlu menunggu selama beberapa menit agar DNS terpropagasi dengan sempurna setelah catatan DNS berubah atau ditambahkan dan sebelum verifikasi oleh CA. Bagaimana caranya? Caranya dengan menambahkan parameter `--dnssleep durasi`.
 
-Ganti `durasi` di atas dengan durasi berapa detik yang diperlukan untuk menunggu. Misalnya kamu ingin menerbitkan sebuah sertifikat TLS dan menggunakan Netlify DNS sebagai metode verifikasinya, hanya saja kamu ingin menunggu selama 300 detik agar DNS terpropagasi dengan sempurna, maka perintahnya menjadi seperti berikut:
+Ganti `durasi` di atas dengan durasi berapa detik yang diperlukan untuk menunggu. Misalnya kamu ingin menerbitkan sebuah sertifikat TLS dan menggunakan Netlify DNS sebagai metode verifikasinya, hanya saja kamu ingin menunggu selama 5 menit (300 detik) agar DNS terpropagasi dengan sempurna, maka perintahnya menjadi seperti berikut:
 
 ```shell
 acme.sh --issue -d www.domain.com -d domain.com --dns dns_netlify --dnssleep 300
@@ -834,11 +785,7 @@ acme.sh --issue -d www.domain.com -d domain.com --dns dns_netlify --dnssleep 300
 
 Dengan begini, verifikasi dari CA akan berjalan dengan lancar dan sertifikat bisa diterbitkan.
 
-Nah, sekarang paham, kan? Ini juga sangat penting untuk menerbitkan sertifikat TLS [dalam bentuk _Wildcard_](#wildcard-ssl), karena verifikasi melalui DNS merupakan salah satu syarat yang wajib.
-
-Selain itu, jika Anda ingin memasang sertifikat TLS di penyedia web yang sedang saya bahas di artikel ini, yakni Netlify, Bunny CDN, cPanel dan DirectAdmin, serta Anda melakukannya di dalam perangkat seperti komputer desktop, laptop dan ponsel pintar Anda atau di dalam perangkat yang sepenuhnya milik Anda, maka metode verifikasi seperti ini wajib Anda pelajari.
-
-Sekadar informasi saja, sebelum menggunakan DNS sebagai metode verifikasinya, saya sarankan agar Anda membaca dan pahami terlebih dahulu bagaimana cara menambahkan kredensial untuk akses API-nya, silakan [klik di sini](#verifikasi-dns-di-acmesh).
+Sebelum menggunakan DNS sebagai metode verifikasinya, saya sarankan agar Anda membaca dan pahami terlebih dahulu bagaimana cara menambahkan kredensial untuk akses API-nya, silakan [klik di sini](#verifikasi-dns-di-acmesh).
 
 ### Menerbitkan Sertifikat TLS untuk Banyak Domain dan Subdomain {#multi-domain}
 
@@ -921,7 +868,7 @@ Nah, sekarang paham, kan?
 
 ### Menerbitkan Sertifikat TLS dengan menggunakan Mode Alias DNS {#dns-alias-mode}
 
-Jika penyedia DNS Anda tidak mendukung akses API/didukung oleh acme.sh, atau khawatir tentang masalah keamanan karena memberikan akses API DNS ke domain utama Anda, maka Anda dapat menggunakan mode alias DNS (_DNS Alias Mode_).
+Jika penyedia DNS Anda tidak mendukung akses API/tidak didukung oleh acme.sh, atau khawatir tentang masalah keamanan karena memberikan akses API DNS ke domain utama Anda, maka Anda dapat menggunakan mode alias DNS (_DNS Alias Mode_).
 
 Sebagai contoh, domain utamanya adalah `domain.com` yang mana DNS yang digunakan oleh domain tersebut tidak memiliki akses API ataupun didukung oleh acme.sh atau Anda tidak mau memberikan akses API-nya karena domain tersebut penting bagi Anda.
 
@@ -2686,13 +2633,13 @@ Namun, jika Anda lebih suka atau lebih memilih untuk menggunakan Lego atau Certb
 
 ### Pertanyaan ke-10: Selain acme.sh, apakah ada alternatifnya untuk Windows? {#pertanyaan-ke10}
 
-Ada, namanya [simple-acme](https://simple-acme.com) atau [Lego](https://github.com/go-acme/lego) yang mendukung Windows secara _native_.
+Ada, namanya [Certimate](https://docs.certimate.me/en/) sebuah aplikasi pengelola sertifikat TLS berbasis protokol ACME (sehingga bisa termasuk klien ACME) yang dapat berjalan di Windows, GNU/Linux dan macOS.
 
-Selain itu, ada juga [Posh-ACME](https://poshac.me/) yang merupakan modul untuk PowerShell, sehingga dapat dijalankan oleh hampir semua sistem operasi termasuk Windows, GNU/Linux, dan macOS selama terinstal [PowerShell](https://microsoft.com/PowerShell) sebagai _Shell-nya_.
+Untuk mengelola sertifikat, mereka memakai sistem 'alur kerja' dan menggunakan visual dalam bentuk diagram alur kerja, sehingga mempermudah dalam pengelolaan sertifikat (silakan lihat cuplikan layar di bagian [perkenalan](https://docs.certimate.me/en/docs/introduction/) mereka).
 
-Namun sayangnya, saat ini PowerShell [belum bisa diinstal secara langsung](https://github.com/termux/termux-packages/issues/1729) di Termux, sehingga harus memakai [beberapa "trik"](https://dev.to/thementor/i-run-powershell-on-android-and-so-can-you-458k) terlebih dahulu agar bisa memakainya.
+Ini bukanlah aplikasi desktop pada umumnya, melainkan ini benar-benar menggunakan web sebagai antarmuka penggunanya, sehingga harus diakses melalui peramban web.
 
-Saya belum coba semuanya dan keliatannya saya lebih suka (atau mungkin lebih tepatnya "lebih terbiasa" dengan) acme.sh daripada lainnya. Kalau mau pakai ya silakan.
+Tapi walau begitu, aplikasi tersebut sangat ringan ketika berjalan di latar belakang, sehingga kamu tidak perlu khawatir akan penggunaan sumber daya perangkat.
 
 ### Pertanyaan ke-11: Bagaimana cara menghapus acme.sh sepenuhnya? {#pertanyaan-ke11}
 
@@ -2716,7 +2663,7 @@ Jadi, saya ganti setiap jeda baris/baris pemutus (_line break_) dengan `\n` meng
 
 ### Pertanyaan ke-13: Kenapa pake OpenSSL untuk melakukan konversi/_encoding_ teks ke Base64? Kenapa gak pake perintah `base64` aja? {#pertanyaan-ke13}
 
-Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat dan sistem operasi, seperti oleh Pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
+Karena artikel ini saya buat agar bisa diikuti oleh banyak perangkat dan sistem operasi, seperti oleh pengguna Windows, GNU/Linux, Android, BSD dan macOS. Maka saya usahakan agar perintah-perintah yang saya bahas di sini kompatibel oleh banyak perangkat lunak dengan hasil yang sama.
 
 Sedangkan `base64` itu belum tentu kompatibel dan belum tentu akan sama baik perintah ataupun hasil keluarannya di kebanyakan sistem operasi berbasis Unix/Mirip-Unix (\*nix), `base64` [milik GNU (GNU coreutils)](https://www.gnu.org/software/coreutils/manual/html_node/base64-invocation.html) dan yang bukan milik GNU itu benar-benar berbeda, baik dari segi perintah ataupun hasil keluaran bakunya.
 
@@ -2764,7 +2711,7 @@ Tapi pastikan bahwa kamu tidak mematikan WSL 2, entah itu dengan _terminate_ dis
 
 Kalau WSL-nya mati karena alasan apa pun itu, termasuk mematikan dan menyalakan ulang komputer desktop-mu, maka kamu perlu menyalakan WSL-nya cukup dengan membuka Terminal WSL saja, bisa saat _start-up_ atau pas buka Windows Terminal atau terserah kamu caranya bagaimana.
 
-Gak mau repot dengan hal seperti ini? Ya disarankan pakai komputer kecil seperti Raspberry Pi yang bisa kamu nyalakan selama mungkin atau kalau gak punya bisa pakai aplikasi Termux di Ponsel Android kamu, seperti yang saya jelaskan di awal. Toh, ponsel 'kan bisa dinyalakan jauh lebih lama dan konektivitasnya lebih banyak ketimbang komputer desktop.
+Gak mau repot dengan hal seperti ini? Ya disarankan pakai komputer kecil seperti Raspberry Pi yang bisa kamu nyalakan selama mungkin atau kalau gak punya bisa pakai aplikasi Termux di Ponsel Android kamu, seperti yang saya jelaskan di awal. Toh, ponsel 'kan bisa dinyalakan jauh lebih lama dan konektivitasnya lebih banyak ketimbang komputer desktop atau laptop.
 
 ### Pertanyaan ke-15: Apa yang terjadi jika rantai pada sertifikat TLS yang terpasang malah tidak sempurna/tidak lengkap? {#pertanyaan-ke15}
 
@@ -2975,13 +2922,13 @@ Perlu diingat bahwa 200 itu adalah yang paling minimum, nilai minimum yang disar
 
 ### Pertanyaan ke-24: Apakah benar bahwa SSL gratisan itu memiliki enkripsi yang lemah? {#pertanyaan-ke24}
 
-Itu tidak benar, jika ada artikel yang menyatakan demikian, itu bisa dipastikan sesat. Karena Enkripsi, baik itu Algoritma, _Cipher_ (Penyandian) dan entropi pada enkripsi itu ditentukan sepenuhnya oleh konfigurasi _Cipher Suite_ yang ada pada Server.
+Itu tidak benar, jika ada artikel yang menyatakan demikian, itu bisa dipastikan sesat. Karena enkripsi, baik itu algoritma, _cipher_ (penyandian) dan entropi pada enkripsi itu ditentukan sepenuhnya oleh konfigurasi _cipher suite_ yang ada pada Server.
 
 Sertifikatnya memang punya andil yang sangat penting dalam keamanan, karena ia membawa kunci publik di dalamnya, tapi yang melakukan enkripsi dan dekripsi tetap saja oleh server dan kliennya, bukan oleh sertifikat atau pun pihak CA-nya.
 
 Lagipula, algoritma dan ukuran kunci publik yang bisa Anda dapatkan baik dari sertifikat TLS berbayar atau bahkan gratisan itu sama aja kok, dan yang pasti Anda tidak akan mendapatkan kunci yang sudah 'tertinggal' (cth. RSA dengan ukuran 1024-bit).
 
-Bahkan algoritma kunci publik yang digunakan pada sertifikat TLS berbayar yang terpasang di dalam situs web/blog yang saya lihat kebanyakan pada memakai algoritma kunci RSA dengan ukuran 2048-bit saja, yang merupakan kunci yang cukup ideal untuk saat ini, walaupun saat ini ada yang memakai algoritma yang lebih baru (seperti ECC/ECDSA), empat di antaranya adalah Facebook, Twitter, Cloudflare dan Google (meski rantainya tidak sepenuhnya ECC).
+Bahkan algoritma kunci publik yang digunakan pada sertifikat TLS berbayar yang terpasang di dalam situs web/blog yang saya lihat kebanyakan pada memakai algoritma kunci RSA dengan ukuran 2048-bit saja, yang merupakan kunci yang cukup ideal untuk saat ini.
 
 Selain itu, saat sertifikat TLS ingin dibuat memakai acme.sh saja, Anda bisa menentukan ukuran dan jenis kuncinya dengan bebas selama didukung oleh acme.sh dan pihak CA-nya, semakin besar ukuran kuncinya maka semakin kuat kuncinya.
 
@@ -3003,11 +2950,11 @@ Untuk lebih jelasnya, silakan kunjungi [halaman ini](https://www.digicert.com/bl
 
 Jadi, selama bisa diperbarui secara otomatis, maka harusnya tidak masalah.
 
-Sekarang ini sudah sangat banyak atau bahkan mayoritas perangkat lunak klien untuk Protokol ACME, Penyedia Web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui sertifikat tersebut secara otomatis berkat dukungan protokol ACME-nya.
+Sekarang ini sudah sangat banyak atau bahkan mayoritas perangkat lunak klien untuk protokol ACME, penyedia web (seperti Layanan Hosting Web dan CDN), dll, sanggup memperbarui sertifikat tersebut secara otomatis berkat dukungan protokol ACME-nya.
 
 Untuk kasus pembaruan sertifikat TLS dari ZeroSSL (yang telah saya bahas di artikel ini), itu juga diperbarui secara otomatis melalui perkakas acme.sh yang telah dijalankan di dalam latar belakang pada ponsel atau perangkat Anda.
 
-Jadi, Anda hanya perlu duduk diam dan menunggu bahwa sertifikat TLS berhasil diperbarui, tidak perlu melakukan apa pun, Anda hanya perlu pastikan bahwa koneksi Internet selalu ada pada ponsel atau perangkat Anda.
+Jadi, Anda hanya perlu duduk diam dan menunggu bahwa sertifikat TLS berhasil diperbarui, tidak perlu melakukan apa pun, Anda hanya perlu pastikan bahwa koneksi internet selalu ada pada ponsel atau perangkat Anda.
 
 Ada alasan mengapa kebijakan ini diberlakukan, beserta manfaatnya dalam memiliki sertifikat dengan masa yang pendek, seperti berikut ini:
 
@@ -3028,9 +2975,9 @@ Ada alasan mengapa kebijakan ini diberlakukan, beserta manfaatnya dalam memiliki
 
     Ya betul, sekarang ada [CRLite](https://scotthelme.co.uk/crlite-finally-a-fix-for-broken-revocation/) yang digadang-gadang dapat memperbaiki segala masalah yang ada pada sistem pencabutan di dunia IKP Web (WebPKI).
 
-    Tapi itu hanya berlaku buat peramban web, lalu bagaimana dengan perangkat lunak seperti cURL? Yap betul, mereka sama sekali **tidak peduli**, belum lagi perangkat lunak klien lainnya yang belum tentu peduli dan mengimplementasikan juga.
+    Tapi itu hanya berlaku buat peramban web, lalu bagaimana dengan perangkat lunak tanpa antarmuka seperti cURL? Yap betul, mereka sama sekali **tidak peduli**, belum lagi perangkat lunak klien lainnya yang belum tentu peduli dan mengimplementasikan juga.
 
-    Jadi, jangan ketergantungan sama pencabutan sertifikat ya!
+    Jadi, baiknya jangan ketergantungan sama pencabutan sertifikat ya!
 
 5. Anda selalu bisa mendapatkan kunci terbaru (dengan merotasi kunci pribadi) ketika memperbarui sertifikatnya secara otomatis.
 
@@ -3046,7 +2993,7 @@ Ada alasan mengapa kebijakan ini diberlakukan, beserta manfaatnya dalam memiliki
 
     Termasuk segala perubahan dan perbaikan yang sulit diterapkan karena dianggap merusak sistem-sistem itu, yang sebenarnya akan jauh lebih baik jika itu dilayani oleh CA Pribadi
 
-Validitas sertifikat yang diperkecil ini jelas bukan untuk menghasilkan banyak keuntungan dengan menjual sertifikat. Biasanya CA akan menyesuaikan model penetapan harga mereka menjadi sistem berlangganan dengan sertifikat tak terbatas selama periode berlangganan berbayar, yang mana harusnya bukan hal yang sulit bagi pihak CA.
+Apakah validitas sertifikat yang diperkecil ini akan menjadi akal-akalan CA biar supaya untung banyak? Tentu bukan, biasanya CA akan menyesuaikan model penetapan harga mereka menjadi sistem berlangganan dengan sertifikat tak terbatas selama periode berlangganan berbayar, yang mana harusnya bukan hal yang sulit bagi pihak CA.
 
 Jika tidak, mereka akan kehilangan pelanggan karena pelanggan bakal beralih ke CA pesaing yang lebih mampu atau bahkan ke CA gratisan seperti ZeroSSL, Google Trust Services dan Let’s Encrypt.
 
@@ -3066,7 +3013,7 @@ Kalaupun tidak boleh dipasang di Situs Web tersebut, saya juga kurang tahu apaka
 
 Jadi, jawabannya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa izin dari mereka.
 
-### Pertanyaan ke-27: Apa alasan kamu menggunakan ZeroSSL? Kenapa kamu gak pakai Let's Encrypt aja? Padahal tampilan blog ini akan lebih baik apabila diakses dengan Peramban Web yang Sangat Modern {#pertanyaan-ke27}
+### Pertanyaan ke-27: Apa alasan kamu menggunakan ZeroSSL? Kenapa kamu gak pakai Let's Encrypt aja? Padahal tampilan blog ini akan lebih baik apabila diakses dengan peramban web yang sangat modern {#pertanyaan-ke27}
 
 Alasan saya menggunakan ZeroSSL (atau CA lain) sebagai berikut:
 

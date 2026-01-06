@@ -194,7 +194,7 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
     - MD5: `2463b19beac328290e6a8adcedb7533a`
     - SHA1: `76c3c10e38307d29fd8b4748522ed144dba35829`
     - SHA256: `a0334f31ea7a3e6932b9ad7206608248f0bd40698bfb8fc65f14fc5e4976c160`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso)
+  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/yhggy3l1e5oq) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso)
 
 - Windows 10 IoT Enterprise LTSC 2021 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas: en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso
@@ -204,7 +204,7 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
     - MD5: `4fb9dc5b4b872110f2be17c35fbd843b`
     - SHA1: `54822de5035ed87c1982db9dcd924083de599ca1`
     - SHA256: `d265df49b30a1477d010c79185a7bc88591a1be4b3eb690c994bed828ea17c00`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso)
+  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/4ib5kvl31k4c) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso)
 
 - Windows 10 Enterprise LTSC 2021: (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [My Visual Studio](https://my.visualstudio.com/Downloads) atau [MVS Dump](https://awuctl.github.io/mvs/) untuk mengetahuinya
@@ -364,7 +364,7 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - MD5: `7ee34c0eaa7dc81c502de12d4a4a0345`
     - SHA1: `0324d02aa88df64c159e6479f30cbc0a18952e14`
     - SHA256: `2717211095e362c8005ae1ed36be771f27f2031545b065be1718b6fe717b6b12`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso)
+  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/k1g5we7lqkw9) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso)
 
 - Windows 11 IoT Enterprise 25H2 x64 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas
@@ -375,9 +375,9 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - MD5: `67936bd7e33134d2f87b7861ceb3e898`
     - SHA1: `15f42dab2135b60649b21e4baa4e0719b899d2a0`
     - SHA256: `de28a746bad8879b680aaf6a2e2993bf80aaad23904e0acc449815ada5c90107`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso)
+  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/o7s7cmyze7tz) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso)
 
-- Windows 11 25H2 - Pembaruan November 2025 (26200.7171): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+- Windows 11 25H2 - Pembaruan Desember 2025 (26200.7462): (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/c658670b-cee4-c065-ad1f-acf8227051f8), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
