@@ -53,31 +53,135 @@ jobs:
         cache: false
 
     - name: Setup Hugo Extended
+      env:
+        IS_EXTENDED: true
+        IS_WITHDEPLOY: false
       run: |
+        OS_NAME=$(go env GOOS)
+        ARCH_NAME=$(go env GOARCH)
+        
         if [ "$HUGO_VERSION" = 'latest' ]; then
           HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
         fi
-        cd /tmp/
-        wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
-        tar -xzf hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
-        install -Dm755 hugo /usr/local/bin/hugo
-        install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
-        rm hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz LICENSE README.md
+        
+        version_ge() { [ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]; };
+        version_le() { [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" = "$1" ]; };
+        
+        if [ "$OS_NAME" = "darwin" ] && version_ge "$HUGO_VERSION" "0.102.0"; then
+          ARCH_NAME="universal"
+        fi
+        
+        if [ "$OS_NAME" = "windows" ]; then
+          FILE_FORMAT="zip"
+        else
+          FILE_FORMAT="tar.gz"
+        fi
+        
+        if [ "$IS_EXTENDED" = true ] && version_ge "$HUGO_VERSION" "0.43" && \
+        { [ "$OS_NAME" = "linux" ] || [ "$OS_NAME" = "darwin" ] || [ "$OS_NAME" = "windows" ]; }; then
+          HUGO_EXTENDED="_extended"
+          if [ "$IS_WITHDEPLOY" = true ] && version_ge "$HUGO_VERSION" "0.137.1"; then
+            HUGO_EXTENDED="_extended_withdeploy"
+          elif [ "$IS_WITHDEPLOY" = true ] && version_ge "$HUGO_VERSION" "0.137.0" && \
+          { [ "$OS_NAME" = "linux" ]; }; then
+            HUGO_EXTENDED="_extended_withdeploy"
+            if [ "$ARCH_NAME" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
+              HUGO_EXTENDED="_extended"
+            fi
+          fi
+        else
+          HUGO_EXTENDED=""
+        fi
+        
+        if version_le "$HUGO_VERSION" "0.102.3"; then
+          if [ "$OS_NAME" = "linux" ]; then
+            OS_NAME="Linux"
+          elif [ "$OS_NAME" = "darwin" ]; then
+            OS_NAME="macOS"
+          elif [ "$OS_NAME" = "windows" ]; then
+            OS_NAME="Windows"
+          elif [ "$OS_NAME" = "freebsd" ]; then
+            OS_NAME="FreeBSD"
+          elif [ "$OS_NAME" = "openbsd" ]; then
+            OS_NAME="OpenBSD"
+          elif [ "$OS_NAME" = "netbsd" ]; then
+            OS_NAME="NetBSD"
+          elif [ "$OS_NAME" = "dragonfly" ]; then
+            OS_NAME="DragonFlyBSD"
+          fi
+          
+          if [ "$ARCH_NAME" = "arm64" ]; then
+            ARCH_NAME="ARM64"
+          elif [ "$ARCH_NAME" = "arm" ]; then
+            ARCH_NAME="ARM"
+          elif [ "$ARCH_NAME" = "amd64" ]; then
+            ARCH_NAME="64bit"
+          elif [ "$ARCH_NAME" = "386" ]; then
+            ARCH_NAME="32bit"
+          fi
+        fi
+        
+        HUGO_FILENAME="hugo${HUGO_EXTENDED}_${HUGO_VERSION}_${OS_NAME}-${ARCH_NAME}.${FILE_FORMAT}"
+        WORKDIR="${RUNNER_TEMP}/hugo-install"; mkdir -p "${WORKDIR}"; cd "${WORKDIR}"
+        aria2c -c -j 16 -x 16 -s 16 -UMozilla/5.0 https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILENAME}
+        mkdir -p "${GITHUB_WORKSPACE}/bin"
+        
+        if [ "$OS_NAME" = "windows" ]; then
+          7z x ${HUGO_FILENAME} -o"${GITHUB_WORKSPACE}/bin"
+        else
+          7z x -tgzip -so ${HUGO_FILENAME} | 7z x -si -ttar -o"${GITHUB_WORKSPACE}/bin"
+          chmod +x "${GITHUB_WORKSPACE}/bin/hugo"          
+        fi
+        
+        echo "${GITHUB_WORKSPACE}/bin" >> $GITHUB_PATH
+        rm -rf "${WORKDIR}"
         cd ${GITHUB_WORKSPACE}
-        which hugo && hugo version
     
     - name: Setup Dart Sass
+      env:
+        IS_MUSL: false
       run: |
+        OS_NAME=$(go env GOOS)
+        ARCH_NAME=$(go env GOARCH)
+        
+        if [ "$OS_NAME" = "darwin" ]; then
+          OS_NAME="macos"
+        fi
+        
+        if [ "$OS_NAME" = "windows" ]; then
+          FILE_FORMAT="zip"
+        else
+          FILE_FORMAT="tar.gz"
+        fi
+        
+        if [ "$ARCH_NAME" = "amd64" ]; then
+          ARCH_NAME="x64"
+        fi
+        
+        if [ "$IS_MUSL" = true ] && [ "$OS_NAME" = "linux" ]; then
+          DART_SASS_MUSL="-musl"
+        else
+          DART_SASS_MUSL=""
+        fi
+        
         if [ "$DART_SASS_VERSION" = 'latest' ]; then
           DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f4)"
         fi
-        cd /tmp/
-        wget https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
-        tar -xzf dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
-        mv dart-sass /usr/local/bin/
-        rm dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz
-        echo "/usr/local/bin/dart-sass" >> ${GITHUB_PATH}
-        # which sass && sass --version
+        
+        DART_SASS_FILENAME="dart-sass-${DART_SASS_VERSION}-${OS_NAME}-${ARCH_NAME}${DART_SASS_MUSL}.${FILE_FORMAT}"
+        WORKDIR="${RUNNER_TEMP}/dart-install"; mkdir -p "${WORKDIR}"; cd "${WORKDIR}"
+        aria2c -c -j 16 -x 16 -s 16 -UMozilla/5.0 https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_FILENAME}
+        mkdir -p "${GITHUB_WORKSPACE}/bin"
+        
+        if [ "$OS_NAME" = "windows" ]; then
+          7z x ${DART_SASS_FILENAME} -o"${GITHUB_WORKSPACE}/bin"
+        else
+          7z x -tgzip -so ${DART_SASS_FILENAME} | 7z x -si -ttar -o"${GITHUB_WORKSPACE}/bin"
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
+        fi
+        
+        echo "${GITHUB_WORKSPACE}/bin/dart-sass" >> $GITHUB_PATH
+        rm -rf "${WORKDIR}"
 
     - name: Verify Installations
       run: |
@@ -157,22 +261,22 @@ jobs:
                 "TriggerMatchingType": 1,
                 "Enabled": true,
                 "Guid": "${{ secrets.BUNNY_PREVIEW_EDGE_RULES_GUID }}",
-                "OrderIndex": 8,
+                "OrderIndex": 7,
                 "Description": "Block Request for Another Staging URL",
                 "Triggers": [
                   {
                     "Type": 0,
                     "PatternMatchingType": 0,
                     "PatternMatches": [
-                      "*://*-staging.farrelf.blog*"
+                      "*://*-staging.farrelf.blog"
                     ]
                   },
                   {
                     "Type": 0,
                     "PatternMatchingType": 2,
                     "PatternMatches": [
-                      "*://${{ env.GITHUB_SHA }}-staging.farrelf.blog*",
-                      "*://${{ env.SHORT_SHA }}-staging.farrelf.blog*"
+                      "*://${{ env.GITHUB_SHA }}-staging.farrelf.blog",
+                      "*://${{ env.SHORT_SHA }}-staging.farrelf.blog"
                     ]
                   }
                 ]
