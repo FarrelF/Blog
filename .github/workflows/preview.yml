@@ -100,13 +100,15 @@ jobs:
           
           if [ "$IS_WITHDEPLOY" = true ] && version_ge "$HUGO_VERSION" "0.137.1"; then
             HUGO_EXTENDED="_extended_withdeploy"
-          elif [ "$IS_WITHDEPLOY" = true ] && [ "$HUGO_VERSION" = "0.137.0" ] && [ "$OS_NAME" = "linux" ]; then
+          elif [ "$IS_WITHDEPLOY" = true ] && version_ge "$HUGO_VERSION" "0.137.0" && [ "$OS_NAME" = "linux" ]; then
             HUGO_EXTENDED="_extended_withdeploy"
             if [ "$ARCH_NAME" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
               echo "NOTE: Your system architecture doesn't support Hugo Extended with Deploy feature for this version. Fallback to Hugo Extended without Deploy feature."
               echo "If you want to use deploy feature, please consider using a newer version which have deploy feature (starts from 0.139.0) or use another runner image that using AMD64 architecture."
               HUGO_EXTENDED="_extended"
             fi
+          elif [ "$IS_WITHDEPLOY" = true ] && version_ge "$HUGO_VERSION" "0.137.0" && [ "$OS_NAME" = "darwin" ]; then
+            HUGO_EXTENDED="_extended_withdeploy"
           elif [ "$IS_WITHDEPLOY" = true ] && version_le "$HUGO_VERSION" "0.136.5"; then
             echo "NOTE: Your Hugo version still have deploy feature built-in, so 'IS_WITHDEPLOY' variable aren't that needed"
           fi
