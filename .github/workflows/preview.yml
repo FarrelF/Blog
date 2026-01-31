@@ -22,9 +22,6 @@ jobs:
     env:
       TZ: Asia/Jakarta
       HUGO_ENV: staging
-      GO_VERSION: stable
-      HUGO_VERSION: latest
-      DART_SASS_VERSION: latest
 
     steps:
     - name: Checkout the Code
@@ -47,6 +44,8 @@ jobs:
         sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
     - name: Setup Go
+      env:
+        GO_VERSION: stable
       uses: actions/setup-go@v6
       with:
         go-version: ${{ env.GO_VERSION }}
@@ -54,150 +53,244 @@ jobs:
 
     - name: Setup Hugo Extended
       env:
+        HUGO_VERSION: latest
+        HUGO_VERIFY_FILE: true
         IS_EXTENDED: true
         IS_WITHDEPLOY: false
       run: |
-        # Detect OS and system architecture with Go standard environment variables
-        OS_NAME=$(go env GOOS)
-        ARCH_NAME=$(go env GOARCH)
+        #######################################
+        # Script Functions
+        #######################################
+
+        die() {
+          echo "ERROR: $*" >&2
+          exit 1
+        }
+
+        note() {
+          echo "NOTE: $*"
+        }
+
+        warn() {
+          echo "WARNING: $*"
+        }
+
+        require_cmd() {
+          command -v "$1" >/dev/null 2>&1 || die "Required command '$1' is not installed."
+        }
+
+        version_ge() {
+          [ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]
+        }
+
+        version_le() {
+          [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" = "$1" ]
+        }
+
+        #######################################
+        # Dependency checks
+        #######################################
+
+        require_cmd go
+        require_cmd aria2c
+
+        #######################################
+        # Detect runtime OS / ARCH
+        #######################################
         
-        # Use latest version if HUGO_VERSION=latest or if not specified
-        if [ "${HUGO_VERSION:-}" = "latest" ] || [ -z "${HUGO_VERSION:-}" ]; then
-          if [ -z "${HUGO_VERSION:-}" ]; then
-            echo "NOTE: No Hugo version specified in \$HUGO_VERSION."
-            echo "Using the latest release instead."
-          fi
-          HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed 's/^v//')"
+        GO_OS="$(go env GOOS)"
+        GO_ARCH="$(go env GOARCH)"
+
+        #######################################
+        # Resolve Hugo version
+        #######################################
+
+        if [ -z "${HUGO_VERSION:-}" ] || [ "$HUGO_VERSION" = "latest" ]; then
+          note "Resolving latest Hugo version"
+          require_cmd jq
+        
+          HUGO_VERSION="$(
+            curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/gohugoio/hugo/releases/latest |
+            jq -r '.tag_name | sub("^v"; "")'
+          )"
         fi
-        
-        # Compare version function
-        version_ge() { [ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]; }
-        version_le() { [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" = "$1" ]; }
-        
-        # macOS ARM64 before version 0.81.0 handling
-        if [ "$OS_NAME" = "darwin" ] && version_le "$HUGO_VERSION" "0.80.0" && [ "$ARCH_NAME" = "arm64" ]; then
-          echo "WARNING: Your system architecture does not support Hugo natively."
-          echo "You will install the AMD64 version of Hugo, which may cause incompatibility and performance issues."
+
+        [ -n "$HUGO_VERSION" ] && [ "$HUGO_VERSION" != "null" ] \
+          || die "Failed to determine Hugo version."
+
+        #######################################
+        # Architecture adjustments
+        #######################################
+
+        HUGO_ARCH="${GO_ARCH}"
+
+        if [ "$GO_OS" = "darwin" ] && [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.80.0"; then
+          warn "macOS ARM64 is unsupported for this Hugo version. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
           echo "If you encounter issues, consider using Hugo 0.81.0 or newer (which supports ARM64), or use an AMD64 runner image."
-          ARCH_NAME="amd64"
+          HUGO_ARCH="amd64"
         fi
-        
-        # Set file format
-        if [ "$OS_NAME" = "windows" ]; then
-          FILE_FORMAT="zip"
-        elif [ "$OS_NAME" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
-          FILE_FORMAT="pkg"
-        else
-          FILE_FORMAT="tar.gz"
-        fi
-        
-        # Extended build
+
+        #######################################
+        # Extended / Deploy handling
+        #######################################
+
+        HUGO_SUFFIX=""
+
         if [ "${IS_EXTENDED:-false}" = true ] && version_ge "$HUGO_VERSION" "0.43" && \
-        { [ "$OS_NAME" = "linux" ] || [ "$OS_NAME" = "darwin" ] || [ "$OS_NAME" = "windows" ]; } && \
-        { [ "$ARCH_NAME" = "amd64" ] || [ "$ARCH_NAME" = "arm64" ]; }; then
-          HUGO_EXTENDED="_extended"
-          
-          if [ "$ARCH_NAME" = "arm64" ] && [ "$OS_NAME" = "windows" ]; then
-            echo "WARNING: Hugo Extended is not supported on Windows ARM64."
-            echo "You will install the AMD64 version, which may cause incompatibility and performance issues."
+        { [ "$GO_OS" = "linux" ] || [ "$GO_OS" = "darwin" ] || [ "$GO_OS" = "windows" ]; } && \
+        { [ "$GO_ARCH" = "amd64" ] || [ "$GO_ARCH" = "arm64" ]; }; then
+          HUGO_SUFFIX="_extended"
+
+          if [ "$GO_OS" = "windows" ] && [ "$GO_ARCH" = "arm64" ]; then
+            warn "Hugo Extended is not supported on Windows ARM64. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
             echo "If you encounter issues, consider using an AMD64 runner image."
-            ARCH_NAME="amd64"
+            HUGO_ARCH="amd64"
           fi
-        
-          if [ "$ARCH_NAME" = "arm64" ] && [ "$OS_NAME" = "linux" ] && version_le "$HUGO_VERSION" "0.101.0"; then
-            echo "WARNING: Hugo Extended is not supported for ARM64 on this version."
-            echo "You will install the standard Hugo build instead."
-            echo "For Hugo Extended, use version 0.102.0 or newer, or an AMD64 runner image."
-            HUGO_EXTENDED=""
+
+          if [ "$GO_OS" = "linux" ] && [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.101.0"; then
+            warn "Hugo Extended is not supported for ARM64 on this version. You will using standard build instead."
+            echo "Use version 0.102.0 or newer, or an AMD64 runner image if you want using Hugo Extended."
+            HUGO_SUFFIX=""
           fi
-          
-          # Deploy feature
+
           if [ "${IS_WITHDEPLOY:-false}" = true ]; then
             if version_ge "$HUGO_VERSION" "0.137.1"; then
-              HUGO_EXTENDED="_extended_withdeploy"
-            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$OS_NAME" = "linux" ]; then
-              HUGO_EXTENDED="_extended_withdeploy"
-              if [ "$ARCH_NAME" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
-                echo "NOTE: ARM64 does not support Hugo Extended with Deploy for this version."
-                echo "Falling back to Hugo Extended without Deploy."
-                echo "For Deploy support, use Hugo 0.139.0 or newer, or an AMD64 runner image."
-                HUGO_EXTENDED="_extended"
+              HUGO_SUFFIX="_extended_withdeploy"
+            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "linux" ]; then
+              HUGO_SUFFIX="_extended_withdeploy"
+              if [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
+                note "ARM64 does not support Hugo Extended with Deploy for this version. Falling back to Hugo Extended without Deploy."
+                echo "For Deploy support, use version 0.139.0 or newer, or an AMD64 runner image."
+                HUGO_SUFFIX="_extended"
               fi
-            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$OS_NAME" = "darwin" ]; then
-              HUGO_EXTENDED="_extended_withdeploy"
-            elif [ "$HUGO_VERSION" = "0.137.0" ] && [ "$OS_NAME" = "windows" ]; then
-              echo "NOTE: Hugo Extended with Deploy is not supported on Windows for version 0.137.0."
-              echo "Installing Hugo Extended 0.137.1 instead, which includes Deploy support."
+            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "darwin" ]; then
+              HUGO_SUFFIX="_extended_withdeploy"
+            elif [ "$HUGO_VERSION" = "0.137.0" ] && [ "$GO_OS" = "windows" ]; then
+              warn "Deploy unsupported on Windows for Hugo 0.137.0, upgrading to 0.137.1"
               HUGO_VERSION="0.137.1"
-              HUGO_EXTENDED="_extended_withdeploy"
+              HUGO_SUFFIX="_extended_withdeploy"
             elif version_le "$HUGO_VERSION" "0.136.5" && version_ge "$HUGO_VERSION" "0.56.0"; then
-              echo "NOTE: Your Hugo version still has the Deploy feature built-in, so 'IS_WITHDEPLOY' is not required."
+              note "Your Hugo version still has the Deploy feature built-in, so 'IS_WITHDEPLOY' is not required."
             fi
           fi
-        else
-          HUGO_EXTENDED=""
         fi
-        
-        # Use 'all' build if HUGO_VERSION is 0.89.0 for macOS
-        if [ "$OS_NAME" = "darwin" ] && [ "$HUGO_VERSION" = "0.89.0" ]; then
-          ARCH_NAME="all"
-        fi
-        
-        # Use 'universal' build if HUGO_VERSION is 0.102.0 or above for macOS
-        if [ "$OS_NAME" = "darwin" ] && version_ge "$HUGO_VERSION" "0.102.0"; then
-          ARCH_NAME="universal"
-        fi
-        
-        # Normalise OS and architecture names for version 0.102.3 or below
+
+        #######################################
+        # OS / ARCH naming for Hugo assets
+        #######################################
+
+        HUGO_OS="${GO_OS}"
+
         if version_le "$HUGO_VERSION" "0.102.3"; then
-          case "$OS_NAME" in
-            linux) OS_NAME="Linux" ;;
-            darwin) OS_NAME="macOS" ;;
-            windows) OS_NAME="Windows" ;;
-            freebsd) OS_NAME="FreeBSD" ;;
-            openbsd) OS_NAME="OpenBSD" ;;
-            netbsd) OS_NAME="NetBSD" ;;
-            dragonfly) OS_NAME="DragonFlyBSD" ;;
+          case "$HUGO_OS" in
+            linux) HUGO_OS="Linux" ;;
+            darwin) HUGO_OS="macOS" ;;
+            windows) HUGO_OS="Windows" ;;
+            freebsd) HUGO_OS="FreeBSD" ;;
+            openbsd) HUGO_OS="OpenBSD" ;;
+            netbsd) HUGO_OS="NetBSD" ;;
+            dragonfly) HUGO_OS="DragonFlyBSD" ;;
           esac
-        
-          case "$ARCH_NAME" in
-            arm64) ARCH_NAME="ARM64" ;;
-            arm) ARCH_NAME="ARM" ;;
-            amd64) ARCH_NAME="64bit" ;;
-            386) ARCH_NAME="32bit" ;;
+          
+          case "$HUGO_ARCH" in
+            arm64) HUGO_ARCH="ARM64" ;;
+            arm) HUGO_ARCH="ARM" ;;
+            amd64) HUGO_ARCH="64bit" ;;
+            386) HUGO_ARCH="32bit" ;;
           esac
         fi
-        
-        # Set filename
-        HUGO_FILENAME="hugo${HUGO_EXTENDED}_${HUGO_VERSION}_${OS_NAME}-${ARCH_NAME}.${FILE_FORMAT}"
-        
-        # Make a temporary folder for downloaded and extracted files
-        WORKDIR="${RUNNER_TEMP}/hugo-install"; mkdir -p "${WORKDIR}"; cd "${WORKDIR}" || exit
-        
-        # Download with error handling
-        aria2c -c -j 16 -x 16 -s 16 -UMozilla/5.0 \
-        "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILENAME}" \
-        || { echo "Download failed"; exit 1; }
-        
-        # Make directory for Hugo files
-        mkdir -p "${GITHUB_WORKSPACE}/bin/hugo"
-        
-        # Extract and Install
-        if [ "$OS_NAME" = "windows" ] || [ "$OS_NAME" = "Windows" ]; then
-          7z x "${HUGO_FILENAME}" -o"${GITHUB_WORKSPACE}/bin/hugo"
-        elif [ "$OS_NAME" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
-          sudo installer -pkg "${HUGO_FILENAME}" -target /Applications
+
+        if [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.102.0"; then
+          HUGO_ARCH="universal"
+        fi
+
+        #######################################
+        # File format
+        #######################################
+
+        if [ "$GO_OS" = "windows" ]; then
+          FILE_EXT=".zip"
+        elif [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
+          FILE_EXT=".pkg"
         else
-          tar -xzvf "${HUGO_FILENAME}" -C "${GITHUB_WORKSPACE}/bin/hugo"
-          chmod +x "${GITHUB_WORKSPACE}/bin/hugo/hugo"
+          FILE_EXT=".tar.gz"
         fi
-        
-        echo "${GITHUB_WORKSPACE}/bin/hugo" >> "${GITHUB_PATH}"
+
+        #######################################
+        # Filenames
+        #######################################
+
+        HUGO_FILE="hugo${HUGO_SUFFIX}_${HUGO_VERSION}_${HUGO_OS}-${HUGO_ARCH}${FILE_EXT}"
+
+        if version_ge "$HUGO_VERSION" "0.27"; then
+          HASH_FILE="hugo_${HUGO_VERSION}_checksums.txt"
+        elif version_ge "$HUGO_VERSION" "0.20.3"; then
+          HASH_FILE="hugo_checksums.txt"
+        else
+          HASH_FILE=""
+        fi
+
+        #######################################
+        # Download & verify
+        #######################################
+
+        TMPDIR="$(mktemp -d)"
+        cd "${TMPDIR}"
+
+        aria2c -c -x16 -s16 -j16 -UMozilla/5.0 \
+          "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILE}" \
+          || die "Download Failed"
+
+        if [ -n "${HASH_FILE}" ] && [ "${HUGO_VERIFY_FILE:-true}" = true ]; then
+          aria2c -c -x16 -s16 -j16 -UMozilla/5.0 \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HASH_FILE}" \
+            || die "Download Hash File Failed"
+
+          EXPECTED_HASH="$(awk -v f="$HUGO_FILE" '$2 == f { print $1 }' "$HASH_FILE")"
+          [ -n "$EXPECTED_HASH" ] \
+            || die "Checksum entry for ${HUGO_FILE} not found."
+
+          if command -v sha256sum >/dev/null; then
+            ACTUAL_HASH="$(sha256sum "${HUGO_FILE}" | awk '{print $1}')"
+          else
+            ACTUAL_HASH="$(shasum -a 256 "${HUGO_FILE}" | awk '{print $1}')"
+          fi
+  
+          echo "Expected Hash: ${EXPECTED_HASH}"
+          echo "Actual Hash:   ${ACTUAL_HASH}"
+
+          [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ] \
+            || die "Checksum mismatch for ${HUGO_FILE}"
+
+          note "File verification succeeded."
+        fi
+
+        #######################################
+        # Install
+        #######################################
+
+        INSTALL_DIR="${GITHUB_WORKSPACE}/bin/hugo"
+        mkdir -p "${INSTALL_DIR}"
+
+        if [ "$GO_OS" = "windows" ]; then
+          require_cmd 7z
+          7z x "${HUGO_FILE}" -o"${INSTALL_DIR}"
+        elif [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
+          sudo installer -pkg "${HUGO_FILE}" -target /
+        else
+          tar -xzf "${HUGO_FILE}" -C "${INSTALL_DIR}"
+          chmod +x "${INSTALL_DIR}/hugo"
+        fi
+
+        echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
+
         cd "${GITHUB_WORKSPACE}" || exit
-        rm -rf "${WORKDIR}"
+        rm -rf "${TMPDIR}"
     
     - name: Setup Dart Sass
       env:
+        DART_SASS_VERSION: latest
         IS_MUSL: false
       run: |
         # Detect OS and system architecture with Go standard environment variables
