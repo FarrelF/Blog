@@ -51,13 +51,13 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrelf.blog/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrelf.blog/bunny/storage/) (Penyimpanan Utama)
-  - [Tebi](https://tebi.io/), [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) (Penyimpanan dan Hosting Cadangan)
+  - [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) (Hosting Cadangan)
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrelf.blog/bunny/cdn/)
 - Sertifikat TLS/SSL:
   - Otoritas Sertifikat (CA atau _Certificate Authority_):
     - [Google Trust Services (GTS)](https://pki.goog) (CA Utama)
     - [ZeroSSL](https://zerossl.com) (CA Cadangan)
-  - Pengelola Sertifikat: [Certimate](https://docs.certimate.me/en/)
+  - Pengelola Sertifikat: [Certimate](https://docs.certimate.me/)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
 
