@@ -111,9 +111,12 @@ jobs:
         #######################################
 
         if [ -z "${HUGO_VERSION:-}" ] || [ "$HUGO_VERSION" = "latest" ]; then
-          note "Resolving latest Hugo version"
           require_cmd jq
-        
+          
+          if [ -z "${HUGO_VERSION:-}" ]; then
+            note "You don't specify Hugo version, you will using latest version."
+          fi
+          
           HUGO_VERSION="$(
             curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/gohugoio/hugo/releases/latest |
@@ -154,7 +157,7 @@ jobs:
           fi
 
           if [ "$GO_OS" = "linux" ] && [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.101.0"; then
-            warn "Hugo Extended is not supported for ARM64 on this version. You will using standard build instead."
+            warn "Hugo Extended is not supported on Linux ARM64 for this version. You will using standard build instead."
             echo "Use version 0.102.0 or newer, or an AMD64 runner image if you want using Hugo Extended."
             HUGO_SUFFIX=""
           fi
@@ -165,18 +168,20 @@ jobs:
             elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "linux" ]; then
               HUGO_SUFFIX="_extended_withdeploy"
               if [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
-                note "ARM64 does not support Hugo Extended with Deploy for this version. Falling back to Hugo Extended without Deploy."
+                note "Hugo Extended with Deploy is not supported for ARM64 on this version. Falling back to Hugo Extended without Deploy."
                 echo "For Deploy support, use version 0.139.0 or newer, or an AMD64 runner image."
                 HUGO_SUFFIX="_extended"
               fi
             elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "darwin" ]; then
               HUGO_SUFFIX="_extended_withdeploy"
             elif [ "$HUGO_VERSION" = "0.137.0" ] && [ "$GO_OS" = "windows" ]; then
-              warn "Deploy unsupported on Windows for Hugo 0.137.0, upgrading to 0.137.1"
+              note "Hugo Extended with Deploy 0.137.0 is not supported on Windows, upgrading to 0.137.1"
               HUGO_VERSION="0.137.1"
               HUGO_SUFFIX="_extended_withdeploy"
             elif version_le "$HUGO_VERSION" "0.136.5" && version_ge "$HUGO_VERSION" "0.56.0"; then
               note "Your Hugo version still has the Deploy feature built-in, so 'IS_WITHDEPLOY' is not required."
+            else
+              note "Your Hugo version don't have Deploy feature, so 'IS_WITHDEPLOY' is not required."
             fi
           fi
         fi
@@ -268,7 +273,7 @@ jobs:
           [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ] \
             || die "Checksum mismatch for ${HUGO_FILE}"
 
-          note "File verification succeeded."
+          echo "File verification succeeded."
         fi
 
         #######################################
