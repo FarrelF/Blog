@@ -263,6 +263,25 @@ Atau, jika Anda ingin mendaftarkan untuk versi SXG-nya, ganti `google` pada argu
 
 Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL/TLS dengan menggunakan **"Google Public CA"**, lalu bisa Anda kelola sesuka hati menggunakan perkakas acme.sh.
 
+## Sebelum menerbitkan sertifikat SSL/TLS dari Google
+
+Jika Anda ingin menerbitkan sertifikat TLS yang standar, maka tidak ada yang perlu Anda lakukan sebelum menerbitkannya. Sedangkan jika Anda menerbitkan sertifikat TLS dengan dukungan SXG, maka sebelum itu Anda harus menambahkan catatan DNS CAA terlebih dahulu.
+
+Contoh isi catatannya seperti berikut:
+
+- Nama: `@` atau `contoh.com` (sesuaikan dengan nama domain/subdomain Anda)
+- Flag: `0`
+- Tag: `issue` atau pilih `Only allow specific hostnames` jika Anda adalah pengguna Cloudflare
+- Nilai/Nama Domain CA/_Server hostname_: `pki.goog; cansignhttpexchanges=yes`
+
+Jika diterjemahkan ke dalam format BIND, maka catatan DNS CAA-nya akan seperti berikut:
+
+```bind
+contoh.com.   IN      CAA      0 issue "pki.goog; cansignhttpexchanges=yes"
+```
+
+Kalau masih bingung atau untuk lebih lengkap, kamu bisa gunakan situs web penghasil catatan DNS CAA [di sini](https://sslmate.com/caa/), jangan lupa nanti tambahkan `cansignhttpexchanges=yes` saat menambahkan catatan CAA untuk `pki.goog` di penyedia DNS-mu seperti contoh di atas.
+
 ## Menerbitkan sertifikat SSL/TLS dari Google
 
 Untuk menerbitkan sertifikat SSL/TLS dari Google melalui acme.sh, maka Anda hanya perlu pelajari contoh perintah berikut:
