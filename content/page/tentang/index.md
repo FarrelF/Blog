@@ -1,7 +1,7 @@
 ---
 title: Tentang
-description: Laman ini berisikan informasi tentang saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi laman ini
-license: Laman ini telah saya buat di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
+description: Halaman ini berisikan informasi tentang saya dan juga blog ini, bagi yang ingin kenalan bisa kunjungi halaman ini
+license: Halaman ini telah saya buat di bawah lisensi <a class="link" href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener">CC BY-ND 4.0</a>
 slug: tentang
 comments: false
 aliases: 
@@ -56,7 +56,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Sertifikat TLS/SSL:
   - Otoritas Sertifikat (CA atau _Certificate Authority_):
     - [Google Trust Services (GTS)](https://pki.goog) (CA Utama)
-    - [ZeroSSL](https://zerossl.com) (CA Cadangan)
+    - [Let's Encrypt](https://letsencrypt.org) (CA Cadangan)
   - Pengelola Sertifikat: [Certimate](https://docs.certimate.me/)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
@@ -91,12 +91,8 @@ Anda dapat menghubungi saya secara pribadi melalui informasi kontak di bawah ini
 
 ### Surel
 
-- farrel(at)franqois(dot)id
-- farrelf(at)pm(dot)me
-- farrelf(at)proton(dot)me
-- farrelf(at)protonmail(dot)com
-
-**Catatan:** Semua alamat surel saya berada di tempat yang sama, yakni di Proton Mail. Ya benar, untuk saat ini saya menggunakan Proton Mail sebagai hosting untuk surel saya. Silakan pilih alamat surel tujuan yang Anda suka, karena semuanya sama saja.
+- farrel(at)franqois(dot)id (Utama)
+- farrelf(at)pm(dot)me atau farrelf(at)protonmail(dot)com (Menggunakan Proton Mail, yang "katanya" lebih aman dan lebih ramah privasi)
 
 ### Media sosial/Perpesanan {#medsos}
 
