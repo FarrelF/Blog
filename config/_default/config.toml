@@ -1,4 +1,4 @@
-languageCode = "id-id"
+locale = "id-id"
 baseURL = "http://localhost"
 title = "Farrel Franqois Blog"
 enableEmoji = false

@@ -14,16 +14,16 @@
 #[cdn.fonts]
 #url = "https://cdn.statically.io/css/farrelf.blog"
 
-[arcio]
-enabled = false
-widgetId = "D1Tc1z8H"
-
-[counter]
-enabled = false
-username = "FarrelF"
-utcOffset = 7
-
-[umami]
-enabled = false
-hostURL = "https://analitik.farrelf.blog"
-websiteID= "b4aac942-29c5-4f5e-8403-77d9c7eeda23"
+#[arcio]
+#enabled = false
+#widgetId = "D1Tc1z8H"
+#
+#[counter]
+#enabled = false
+#username = "FarrelF"
+#utcOffset = 7
+#
+#[umami]
+#enabled = false
+#hostURL = "https://analitik.farrelf.blog"
+#websiteID= "b4aac942-29c5-4f5e-8403-77d9c7eeda23"

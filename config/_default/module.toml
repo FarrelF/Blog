@@ -1,9 +1,9 @@
 [hugoVersion]
 extended = true
-min = "0.145.0"
+min = "0.157.0"
 
 [[imports]]
 path = "github.com/FarrelF/stack-modified"
 
 [[imports]]
-path = "github.com/CaiJimmy/hugo-theme-stack/v3"
+path = "github.com/CaiJimmy/hugo-theme-stack/v4"
