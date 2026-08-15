@@ -483,31 +483,31 @@ jobs:
             exit 1
         fi
 
-  deploy_to_tebi-s3:
-    name: Deploy to Tebi S3 Storage (Preview)
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v7
-      with:
-        name: preview-build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring RClone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to S3 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: tebi-s3
-      run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
+#  deploy_to_tebi-s3:
+#    name: Deploy to Tebi S3 Storage (Preview)
+#    needs: build
+#    runs-on: ubuntu-24.04
+#    steps:
+#    - name: Setup Environment Variable
+#      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+#    - name: Download Output File from Artifact
+#      uses: actions/download-artifact@v7
+#      with:
+#        name: preview-build-result-${{ env.SHORT_SHA }}
+#
+#    - name: Decompressing Files
+#      run: |
+#        tar -xvzf files.tar.gz
+#
+#    - name: Installing and Configuring RClone
+#      run: |
+#        curl https://rclone.org/install.sh | sudo bash
+#        mkdir -p ${HOME}/.config/rclone
+#        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+#
+#    - name: Deploying to S3 Storage
+#      env:
+#        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+#        S3_SERVICE: tebi-s3
+#      run: |
+#        rclone sync -v -P --stats-one-line --checksum --transfers=64 --checkers=64 --fast-list ./public ${S3_SERVICE}:/${{ secrets.S3_PREVIEW_STORAGE_BUCKET }}
