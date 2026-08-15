@@ -443,15 +443,15 @@ jobs:
       env:
         THUMPER_KEY: "${{ secrets.BUNNY_STORAGE_PASSWORD }}"
 
-    - name: Purge page caches
-      run: |
-        thumper purge-url https://farrelf.blog
-        thumper purge-url https://farrelf.blog/index.xml
-        thumper purge-url https://farrelf.blog/*/index.html
-        thumper purge-url https://farrelf.blog/*/index.xml
-        thumper purge-url https://farrelf.blog/*/index.json
-      env:
-          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
+#    - name: Purge page caches
+#      run: |
+#        thumper purge-url https://farrelf.blog
+#        thumper purge-url https://farrelf.blog/index.xml
+#        thumper purge-url https://farrelf.blog/*/index.html
+#        thumper purge-url https://farrelf.blog/*/index.xml
+#        thumper purge-url https://farrelf.blog/*/index.json
+#      env:
+#          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
 #  deploy_to_tebi-s3:
 #    name: Deploy to Tebi S3 Storage
