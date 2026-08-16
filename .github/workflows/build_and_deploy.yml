@@ -480,7 +480,7 @@ jobs:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         S3_SERVICE: cloudflare-r2
       run: |
-        rclone sync -v -P --stats-one-line --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+        rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   deploy_to_backblaze-b2:
     name: Deploy to Backblaze B2
@@ -509,7 +509,7 @@ jobs:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         S3_SERVICE: backblaze-b2
       run: |
-        rclone sync -v -P --stats-one-line --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+        rclone sync -v -P --stats-one-line --transfers=32 --checkers=32 --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   deploy_to_bunny-s3:
     name: Deploy to Bunny S3
