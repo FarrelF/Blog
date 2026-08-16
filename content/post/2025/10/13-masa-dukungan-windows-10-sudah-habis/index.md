@@ -68,9 +68,13 @@ Ini adalah solusi yang paling realistis jika perangkat kamu tidak memenuhi syara
 
 Sistem operasi lain yang dapat Anda coba adalah GNU/Linux, [ChromeOS Flex](https://chromeos.google/products/chromeos-flex/) atau [FydeOS](https://fydeos.io). Sistem operasi GNU/Linux memiliki banyak sekali distribusi, salah satu contoh yang paling terkenal adalah Ubuntu, Linux Mint, Zorin OS, elementaryOS, dll.
 
-Distribusi GNU/Linux yang saya rekomendasikan adalah [Linux Mint](https://linuxmint.com), kenapa? Karena selain mudah digunakan, pengalaman yang baik karena mirip dengan Windows dan banyak fitur, Linux Mint itu merupakan salah satu distribusi yang stabil dan semuanya sudah _Out Of The Box_.
+Distribusi GNU/Linux yang saya rekomendasikan salah satunya adalah [Linux Mint](https://linuxmint.com), kenapa? Karena selain mudah digunakan, pengalaman yang baik karena mirip dengan Windows dan banyak fitur, Linux Mint itu merupakan salah satu distribusi yang stabil dan semuanya sudah _out of the box_.
 
-Karena Linux Mint berbasis Ubuntu LTS yang populer, maka kamu bisa menggunakan komunitas Ubuntu juga kalau kamu perlu bantuan, tapi komunitas Linux Mint terutama forum internasionalnya itu juga sangat aktif.
+Karena Linux Mint berbasis Ubuntu LTS yang populer, maka kamu bisa menggunakan komunitas Ubuntu juga kalau kamu perlu bantuan, tapi komunitas Linux Mint terutama forum internasionalnya itu juga sangat aktif. Selain Linux Mint, ada juga [Zorin OS](https://zorin.com/os/) yang tampilannya lebih bagus dan fiturnya lumayan lengkap.
+
+Semua distribusi yang saya sebut di atas menggunakan rilisan stabil, yang mana sebagian besar aplikasi mungkin menggunakan versi yang lebih lama karena lebih jarang diperbarui, kecuali jika distribusi tersebut mengalami peningkatan versi.
+
+Mau distribusi umum yang selalu _up-to-date_ atau yang semua aplikasinya bisa menggunakan versi terbaru? Ada [CachyOS](https://cachyos.org/) yang bisa dibuat _gaming_ juga, dan ini berbasiskan Arch Linux, sehingga menggunakan rilisan bergulir. Atau mau terfokus pada _gaming_ saja? Ada [Bazzite](https://bazzite.gg/) yang memang dikhususkan untuk _gaming_, walau bisa untuk umum tapi ya fokus mereka memang ke situ.
 
 Gak mau pake GNU/Linux? Kamu bisa pakai ChromeOS Flex dari Google, FydeOS atau pakai Apple macOS sekalian yang perlu beli perangkat baru juga ujung-ujungnya kalau mau aman.
 
@@ -78,13 +82,7 @@ Gak mau pake GNU/Linux? Kamu bisa pakai ChromeOS Flex dari Google, FydeOS atau p
 
 Menggunakan sistem operasi lain bukanlah tanpa kekurangan dan risiko, dengan menggunakan sistem operasi lain artinya kamu harus siap dengan perbedaan antarmuka, pengalaman penggunaan, dukungan _driver_ dan dukungan perangkat lunak yang berbeda ketimbang saat kamu menggunakan Windows untuk sehari-hari.
 
-Sebagai contoh, kamu adalah pengguna WhatsApp Desktop di Windows 10 yang bisa kamu gunakan untuk menelepon secara langsung di laptop atau komputer desktop-mu tanpa perlu perangkat gawai seperti HP.
-
-Tapi jika kamu bermigrasi ke sistem operasi lain, termasuk GNU/Linux, maka kamu harus siap bahwa kamu hanya bisa menggunakan WhatsApp Web yang tidak mungkin secara resmi bisa menelepon secara langsung di laptop atau komputer desktop-mu, kecuali jika sistem operasi lain tersebut didukung oleh WhatsApp secara resmi, seperti Apple macOS 11 atau di atasnya.
-
-Kalau pun kamu mau menelepon di komputer menggunakan WhatsApp mungkin masih bisa kalau di GNU/Linux, tapi kamu harus menginstal [Waydroid](https://waydro.id) (yang hanya kompatibel kalau kamu pake Wayland sebagai kompositornya) dan menginstal WhatsApp di dalam kontainernya, lalu tautkan perangkatmu seperti biasa.
-
-Itu baru urusan WhatsApp, belum lainnya seperti Microsoft Office yang sehari-hari kamu pakai, _driver_ dari sistem operasi lain yang sangat berbeda, dll, sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
+Seperti Microsoft Office yang sehari-hari kamu pakai yang tidak bisa, _driver_ tertentu tidak tersedia di sistem operasi baru, dll, sehingga mungkin mempengaruhi kesanggupan sistem operasi dalam mengoperasikan perangkatmu atau komponennya, serta produktivitasmu dalam menggunakannya.
 
 Ini artinya, kamu harus siap beradaptasi dengan sistem operasi baru kamu dan segala perangkat lunaknya, antarmuka dan pengalamannya yang berbeda ketimbang saat kamu menggunakan Windows 10.
 
@@ -194,7 +192,7 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
     - MD5: `2463b19beac328290e6a8adcedb7533a`
     - SHA1: `76c3c10e38307d29fd8b4748522ed144dba35829`
     - SHA256: `a0334f31ea7a3e6932b9ad7206608248f0bd40698bfb8fc65f14fc5e4976c160`
-  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/yhggy3l1e5oq) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso)
+  - Tautan: [Buzzheavier](https://buzzheavier.com/yhggy3l1e5oq)
 
 - Windows 10 IoT Enterprise LTSC 2021 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas: en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso
@@ -204,7 +202,7 @@ Anda dapat mengunduh berkas ISO-nya dengan tautan di bawah ini, semua berkas ISO
     - MD5: `4fb9dc5b4b872110f2be17c35fbd843b`
     - SHA1: `54822de5035ed87c1982db9dcd924083de599ca1`
     - SHA256: `d265df49b30a1477d010c79185a7bc88591a1be4b3eb690c994bed828ea17c00`
-  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/4ib5kvl31k4c) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_arm64_dvd_e8d4fc46.iso)
+  - Tautan: [Buzzheavier](https://buzzheavier.com/4ib5kvl31k4c)
 
 - Windows 10 Enterprise LTSC 2021: (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [My Visual Studio](https://my.visualstudio.com/Downloads) atau [MVS Dump](https://awuctl.github.io/mvs/) untuk mengetahuinya
@@ -364,8 +362,7 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - MD5: `7ee34c0eaa7dc81c502de12d4a4a0345`
     - SHA1: `0324d02aa88df64c159e6479f30cbc0a18952e14`
     - SHA256: `2717211095e362c8005ae1ed36be771f27f2031545b065be1718b6fe717b6b12`
-  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/k1g5we7lqkw9) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_x64_dvd_67098cd6.iso)
-
+  - Tautan: [Buzzheavier](https://buzzheavier.com/k1g5we7lqkw9)
 - Windows 11 IoT Enterprise 25H2 x64 ARM64: (cocok buat pengguna ARM64)
   - Nama Berkas
     - `en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso` (Utama)
@@ -375,10 +372,10 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal GAC dengan tautan d
     - MD5: `67936bd7e33134d2f87b7861ceb3e898`
     - SHA1: `15f42dab2135b60649b21e4baa4e0719b899d2a0`
     - SHA256: `de28a746bad8879b680aaf6a2e2993bf80aaad23904e0acc449815ada5c90107`
-  - Tautan: [Buzzheavier (disarankan)](https://buzzheavier.com/o7s7cmyze7tz) | [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_version_25h2_arm64_dvd_59e0d737.iso)
+  - Tautan: [Buzzheavier](https://buzzheavier.com/o7s7cmyze7tz)
 
-- Windows 11 25H2 - Pembaruan Desember 2025 (26200.7462): (disarankan bagi yang ingin melakukan _in-place upgrade_)
-  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/c658670b-cee4-c065-ad1f-acf8227051f8), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
+- Windows 11 25H2 - Pembaruan Juli 2026 (26200.8875): (disarankan bagi yang ingin melakukan _in-place upgrade_)
+  - Hash: Silakan kunjungi [Files RG-Adguard](https://files.rg-adguard.net/language/65784273-6b6b-3ab3-a7e4-4075f8b8c691), [MVS Dump](https://awuctl.github.io/mvs/) atau tautan Microsoft Software Download untuk mengetahuinya
   - Tautan: [Massgrave](https://massgrave.dev/windows_11_links)
 
 - Windows 11 25H2 RTM (26200.6584): (disarankan bagi yang ingin menggunakan versi pembaruan yang agak lama)
@@ -400,7 +397,7 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal LTSC dengan tautan 
     - MD5: `66608a96a4f2d73b4a1d054e76e6eae4`
     - SHA1: `d5dd0a493b6a9c92f7f2a54bb2fb2544587a15fd`
     - SHA256: `4f59662a96fc1da48c1b415d6c369d08af55ddd64e8f1c84e0166d9e50405d7a`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_ltsc_2024_x64_dvd_f6b14814.iso) | [Microsoft OEM Portal (unduh langsung)](https://oemsoc.download.prss.microsoft.com/dbazure/X23-81951_26100.1742.240906-0331.ge_release_svc_refresh_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso_640de540-87c4-427f-be87-e6d53a3a60b4?t=2c3b664b-b119-4088-9db1-ccff72c6d22e&P1=102816950270&P2=601&P3=2&P4=OC448onxqdmdUsBUApAiE8pj1FZ%2bEPTU3%2bC6Quq29MVwMyyDUtR%2fsbiy7RdVoZOHaZRndvzeOOnIwJZ2x3%2bmP6YK9cjJSP41Lvs0SulF4SVyL5C0DdDmiWqh2QW%2bcDPj2Xp%2bMrI9NOeElSBS5kkOWP8Eiyf2VkkQFM3g5vIk3HJVvu5sWo6pFKpFv4lML%2bHaIiTSuwbPMs5xwEQTfScuTKfigNlUZPdHRMp1B3uKLgIA3r0IbRpZgHYMXEwXQ%2fSLMdDNQthpqQvz1PThVkx7ObD55CXgt0GNSAWRfjdURWb8ywWk1gT7ozAgpP%2fKNm56U5nh33WZSuMZIuO1SBM2vw%3d%3d) | [os.click](https://os.click/en/Windows:Windows_11:2024_LTSC:26100.1742:IoT_Enterprise:en-us:x64)
+  - Tautan: [Buzzheavier](https://buzzheavier.com/2gtemvaqgfm3) | [Microsoft OEM Portal (unduh langsung, disarankan)](https://oemsoc.download.prss.microsoft.com/dbazure/X23-81951_26100.1742.240906-0331.ge_release_svc_refresh_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso_640de540-87c4-427f-be87-e6d53a3a60b4?t=2c3b664b-b119-4088-9db1-ccff72c6d22e&P1=102816950270&P2=601&P3=2&P4=OC448onxqdmdUsBUApAiE8pj1FZ%2bEPTU3%2bC6Quq29MVwMyyDUtR%2fsbiy7RdVoZOHaZRndvzeOOnIwJZ2x3%2bmP6YK9cjJSP41Lvs0SulF4SVyL5C0DdDmiWqh2QW%2bcDPj2Xp%2bMrI9NOeElSBS5kkOWP8Eiyf2VkkQFM3g5vIk3HJVvu5sWo6pFKpFv4lML%2bHaIiTSuwbPMs5xwEQTfScuTKfigNlUZPdHRMp1B3uKLgIA3r0IbRpZgHYMXEwXQ%2fSLMdDNQthpqQvz1PThVkx7ObD55CXgt0GNSAWRfjdURWb8ywWk1gT7ozAgpP%2fKNm56U5nh33WZSuMZIuO1SBM2vw%3d%3d) | [os.click](https://os.click/en/Windows:Windows_11:2024_LTSC:26100.1742:IoT_Enterprise:en-us:x64)
   - Catatan: Khusus tautan OEM Portal, nama berkas untuk unduhannya akan berbeda. Jadi harap ganti nama berkas tersebut menjadi nama berkas yang ada di sini sebelum mengunduh agar lebih mudah dibuka setelah mengunduh. Jangan khawatir, itu merupakan berkas yang sama, beda di tautan unduhan dan nama berkasnya saja
 
 - Windows 11 IoT Enterprise LTSC 2024 ARM64: (cocok buat pengguna ARM64)
@@ -412,7 +409,7 @@ Anda dapat mengunduh berkas ISO Windows IoT Enterprise kanal LTSC dengan tautan 
     - MD5: `d5c60d16df2708369e98059f0e15ee94`
     - SHA1: `5811aca5f0dd3a6c260e1c9e2315334b10888e46`
     - SHA256: `f8f068cdc90c894a55d8c8530db7c193234ba57bb11d33b71383839ac41246b4`
-  - Tautan: [Massgrave Drive](https://drive.massgrave.dev/en-us_windows_11_iot_enterprise_ltsc_2024_arm64_dvd_ec517836.iso)
+  - Tautan: [Buzzheavier](https://buzzheavier.com/i44xrak0z5o5)
 
 - Windows 11 Enterprise LTSC 2024: (disarankan bagi yang ingin melakukan _in-place upgrade_)
   - Hash: Silakan kunjungi [My Visual Studio](https://my.visualstudio.com/Downloads) atau [MVS Dump](https://awuctl.github.io/mvs/) untuk mengetahuinya
