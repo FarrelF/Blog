@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
@@ -51,7 +51,7 @@ jobs:
     - name: Setup Go
       env:
         GO_VERSION: stable
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
         go-version: ${{ env.GO_VERSION }}
         cache: false
@@ -384,7 +384,7 @@ jobs:
         echo "Dart Sass: $(sass --version)"
 
     - name: Setup Hugo Resources Cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ./resources
@@ -393,7 +393,7 @@ jobs:
           - v2-9-hugo
 
     - name: Setup Hugo Modules Cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: /tmp/hugo_cache_runner
         key: ${{ runner.os }}-hugo-modules-${{ hashFiles('**/go.sum') }}
@@ -412,7 +412,7 @@ jobs:
         tar cvf - ./public | pigz -9 > files.tar.gz
 
     - name: Upload Output File to Artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: build-result-${{ env.SHORT_SHA }}
         path: files.tar.gz
@@ -424,11 +424,11 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout the Code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
     - name: Download Output File from Artifact
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v8
       with:
         name: build-result-${{ env.SHORT_SHA }}
 
@@ -453,38 +453,95 @@ jobs:
 #      env:
 #          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
-#  deploy_to_tebi-s3:
-#    name: Deploy to Tebi S3 Storage
-#    needs: build
-#    runs-on: ubuntu-24.04
-#    steps:
-#    - name: Setup Environment Variable
-#      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-#    - name: Download Output File from Artifact
-#      uses: actions/download-artifact@v7
-#      with:
-#        name: build-result-${{ env.SHORT_SHA }}
-#
-#    - name: Decompressing Files
-#      run: |
-#        tar -xvzf files.tar.gz
-#
-#    - name: Installing and Configuring RClone
-#      run: |
-#        curl https://rclone.org/install.sh | sudo bash
-#        mkdir -p ${HOME}/.config/rclone
-#        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-#
-#    - name: Deploying to S3 Storage
-#      env:
-#        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-#        S3_SERVICE: tebi-s3
-#      run: |
-#        rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+  deploy_to_cloudflare-r2:
+    name: Deploy to Cloudflare R2
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: build-result-${{ env.SHORT_SHA }}
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring Rclone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to R2 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: cloudflare-r2
+      run: |
+        rclone sync -v -P --stats-one-line --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+
+  deploy_to_backblaze-b2:
+    name: Deploy to Backblaze B2
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: build-result-${{ env.SHORT_SHA }}
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring Rclone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to B2 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+        S3_SERVICE: backblaze-b2
+      run: |
+        rclone sync -v -P --stats-one-line --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
+
+  deploy_to_bunny-s3:
+    name: Deploy to Bunny S3
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Setup Environment Variable
+      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
+    - name: Download Output File from Artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: build-result-${{ env.SHORT_SHA }}
+
+    - name: Decompressing Files
+      run: |
+        tar -xvzf files.tar.gz
+
+    - name: Installing and Configuring Rclone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        mkdir -p ${HOME}/.config/rclone
+        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
+
+    - name: Deploying to S3 Storage
+      env:
+        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
+      run: |
+        rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${{ secrets.S3_STORAGE_BUCKET }}:/${{ secrets.S3_STORAGE_BUCKET }}
 
   submit_sitemap:
     name: Submit Sitemap
-    needs: [deploy_to_bunny_storage]
+    needs: [deploy_to_bunny_storage, deploy_to_cloudflare-r2, deploy_to_backblaze-b2, deploy_to_bunny-s3]
     runs-on: ubuntu-24.04
     steps:
     - name: Submitting Sitemap to Search Engine
