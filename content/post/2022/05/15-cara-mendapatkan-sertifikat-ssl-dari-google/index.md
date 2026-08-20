@@ -39,7 +39,7 @@ Tapi sejak tanggal 25 Mei 2023 berdasarkan [halaman ini](https://security.google
 
 Artinya apa? Ini artinya bahwa Anda bisa mendapatkan/menggunakan sertifikat SSL/TLS dari Google tanpa harus menggunakan layanan/hosting dari Google terlebih dahulu untuk web, blog atau aplikasinya.
 
-Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga, serta Anda dapat menerbitkan sertifikat SSL/TLS dengan tambahan ekstensi [_Signed HTTP Exchanges_ (SXG)](https://web.dev/articles/signed-exchanges) yang mana CA gratisan lain tidak memilikinya.
+Untuk saat ini, Anda bisa mendapatkan sertifikat tersebut secara gratis, mendukung RSA/ECC sebagai algoritma kunci publik dan mendukung penerbitan dalam bentuk _Wildcard_ juga.
 
 Selain itu, sertifikat yang diterbitkan merupakan sertifikat langsung dari [**"Google Trust Services (GTS)"**](https://pki.goog), yang kompatibilitas perangkatnya tidak perlu diragukan lagi dan menggunakan infrastruktur dari Google untuk menerbitkannya.
 
@@ -53,7 +53,7 @@ Jadi, persiapan yang perlu Anda lakukan adalah sebagai berikut:
 2. Punya koneksi Internet (Kalau Internet aja gak punya, gimana kamu bisa baca artikel ini?)
 3. Terinstalnya perkakas klien ACME di dalam perangkat kamu, entah itu di dalam Komputer PC, Laptop, Server/VPS, Ponsel Pintar, atau lainnya.
 
-Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perkakas klien ACME yang merupakan perkakas favorit saya. Untuk pengguna Certbot, Anda dapat membaca tutorial resminya [di sini](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial), di tutorialnya memakai perkakas Certbot juga.
+Di instruksi kali ini, saya akan memakai [acme.sh](https://acme.sh) sebagai perkakas klien ACME yang merupakan salah satu perkakas favorit saya. Untuk pengguna Certbot, Anda dapat membaca tutorial resminya [di sini](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial), di tutorialnya memakai perkakas Certbot juga.
 
 Jadi, maaf yah buat pengguna Lego dan lainnya, saya belum bisa menjelaskannya, karena saya belum pernah pakai.
 
@@ -184,12 +184,6 @@ Jadi, buruan dipakai kredensial EAB-nya setelah ini.
 
 Jika Anda ingin membuat kredensial EAB lagi, maka langkah-langkahnya hampir sama dengan di atas, hanya saja kamu tidak perlu lagi mengikuti langkah ke-4 dan ke-5, karena akses API-nya sudah aktif dan kamu sudah menambahkan izin sebelumnya.
 
-### Membuat Kredensial EAB untuk Signed HTTP Exchanges (SXG)
-
-Kredensial EAB untuk SXG itu sendiri langkah pembuatannya sama saja seperti di atas, tidak ada perbedaan apa-apa dengan yang standar.
-
-Tapi kalau kamu sebelumnya sudah membuat kredensial EAB untuk yang tadi, tinggal kamu buat lagi saja kredensialnya dengan mengikuti langkah-langkah di atas, hanya saja kamu tidak perlu lagi mengikuti langkah ke-4 dan ke-5, karena akses API-nya sudah aktif dan kamu sudah menambahkan izin sebelumnya.
-
 ### Membuat Kredensial EAB untuk Mode Pementasan/Uji coba
 
 Yap, Anda tidak salah lihat, server ACME dari Google Public CA itu sendiri memiliki fasilitas yang memungkinkan penggunanya untuk menguji penerbitan sertifikat dalam mode pementasan (_Staging Mode_).
@@ -259,28 +253,7 @@ Ganti:
 
 Jika ingin mendaftarkan sebuah akun untuk mode uji coba atau pementasannya, Anda bisa mengganti `google` pada argumen `--server` menjadi `googletest` dan pastikan bahwa Anda menggunakan kredensial EAB yang tepat untuk itu.
 
-Atau, jika Anda ingin mendaftarkan untuk versi SXG-nya, ganti `google` pada argumen `--server` di atas menjadi `https://dv-sxg.acme-v02.api.pki.goog/directory`, sedikit berbeda memang karena secara resmi acme.sh memang tidak menambahkan nama pendek dari server tersebut, sehingga perlu menggunakan URL lengkap.
-
 Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL/TLS dengan menggunakan **"Google Public CA"**, lalu bisa Anda kelola sesuka hati menggunakan perkakas acme.sh.
-
-## Sebelum menerbitkan sertifikat SSL/TLS dari Google
-
-Jika Anda ingin menerbitkan sertifikat TLS yang standar, maka tidak ada yang perlu Anda lakukan sebelum menerbitkannya. Sedangkan jika Anda menerbitkan sertifikat TLS dengan dukungan SXG, maka sebelum itu Anda harus menambahkan catatan DNS CAA terlebih dahulu.
-
-Contoh isi catatannya seperti berikut:
-
-- Nama: `@` atau `contoh.com` (sesuaikan dengan nama domain/subdomain Anda)
-- Flag: `0`
-- Tag: `issue` atau pilih `Only allow specific hostnames` jika Anda adalah pengguna Cloudflare
-- Nilai/Nama Domain CA/_Server hostname_: `pki.goog; cansignhttpexchanges=yes`
-
-Jika diterjemahkan ke dalam format BIND, maka catatan DNS CAA-nya akan seperti berikut:
-
-```bind
-contoh.com.   IN      CAA      0 issue "pki.goog; cansignhttpexchanges=yes"
-```
-
-Kalau masih bingung atau untuk lebih lengkap, kamu bisa gunakan situs web penghasil catatan DNS CAA [di sini](https://sslmate.com/caa/), jangan lupa nanti tambahkan `cansignhttpexchanges=yes` saat menambahkan catatan CAA untuk `pki.goog` di penyedia DNS-mu seperti contoh di atas.
 
 ## Menerbitkan sertifikat SSL/TLS dari Google
 
@@ -301,7 +274,7 @@ Jika Anda sudah lama menggunakan acme.sh sebelumnya, maka harusnya sudah familia
 
 Anda juga bisa menggantikan `google` pada parameter `--server` menjadi `googletest` jika Anda ingin menguji coba proses penerbitan sertifikat tanpa harus mempengaruhi _rate limit_ aslinya.
 
-Jika Anda ingin menerbitkan sertifikat SSL/TLS yang ditambahkan dengan ekstensi **Signed HTTP Exchanges (SXG)**, maka selain mengganti `google` di parameter `--server` menjadi `https://dv-sxg.acme-v02.api.pki.goog/directory`, Anda juga perlu menambahkan parameter `--extended-key-usage serverAuth` agar prosesnya berjalan dengan lancar.
+Jika ingin menerbitkan sertifikat SSL/TLS dengan rantai murni ECC, Anda dapat menambahkan parameter `--profile minimal` agar GTS menerbitkan sertifikatnya menggunakan profile `minimal`.
 
 Contoh perintahnya menjadi seperti berikut:
 
@@ -310,13 +283,13 @@ acme.sh --issue \
         -d *.contoh.com \
         -d contoh.com \
         --dns dns_cf \
-        --extended-key-usage serverAuth \
-        --server https://dv-sxg.acme-v02.api.pki.goog/directory
+        --profile minimal \
+        --server google
 ```
 
-Perintah di atas akan menerbitkan sertifikat SSL/TLS yang ditambahkan dengan ekstensi **Signed HTTP Exchanges (SXG)**, yang tentu saja dengan menggunakan rantai murni ECC. Anda tidak bisa menerbitkan sertifikat tersebut menggunakan kunci RSA, ya karena [standarnya atau kebijakannya](https://www.ietf.org/archive/id/draft-yasskin-http-origin-signed-responses-09.html) sudah seperti itu, maka Anda harus menggunakan kunci ECC.
+Perintah di atas akan menerbitkan sertifikat SSL/TLS dengan profile `minimal` dan tentu menggunakan rantai ECC penuh, tapi ini akan menghilangkan beberapa ekstensi seperti `subject:commonName` (atau disebut _Common Name_), `subjectKeyIdentifier` (SKID), `basicConstraints` dan `keyEncipherment`, yang mungkin saja bakal mempengaruhi kompatibilitas perangkat.
 
-Kenapa harus menggunakan parameter `--extended-key-usage serverAuth`? Karena penggunaan `clientAuth` tidak didukung untuk versi ini, silakan lihat [tiket isu ini](https://github.com/acmesh-official/acme.sh/issues/5132) untuk lebih lanjut.
+Untuk nama profil mana saja yang dapat digunakan, silakan [kunjungi halaman resminya](https://developers.google.com/public-key-infrastructure/profiles), secara baku GTS menggunakan profil `standard` yang mana kita belum bisa memilih rantai kepercayaan sendiri dan tidak memakai rantai murni ECC.
 
 Perkakas acme.sh menggunakan ZeroSSL sebagai CA baku, sehingga Anda tetap diharuskan untuk menggunakan parameter `--server` setiap kali menerbitkan sertifikat SSL/TLS baru dari Google.
 
@@ -324,12 +297,6 @@ Jika Anda ingin menggantikan CA bakunya, Anda bisa memakai perintah berikut:
 
 ```shell
 acme.sh --set-default-ca --server google
-```
-
-Atau, jika ingin menggunakan versi SXG-nya, Anda bisa memakai perintah berikut:
-
-```shell
-acme.sh --set-default-ca --server https://dv-sxg.acme-v02.api.pki.goog/directory
 ```
 
 Dengan begini, Anda tidak perlu lagi memakai parameter `--server` hanya sekadar menerbitkan sertifikat SSL/TLS dari Google saja.
@@ -406,7 +373,9 @@ Menggunakan format absolut membuat acme.sh tidak sanggup memperbarui sertifikatn
 
 Sehingga Anda tidak perlu khawatir tentang masalah kompatibilitas, ada halaman demo yang dapat Anda coba juga.
 
-Hal tersebut tentu berbeda dengan versi **Signed HTTP Exchanges (SXG)**-nya, yang mana tidak melakukan _cross-sign_ dengan **GlobalSign Root CA - R1** dan menggunakan [**GTS Root R4**](https://crt.sh/?sha256=349dfa4058c5e263123b398ae795573c4e1313c83fe68f93556cd5e8031b3c7d) sebagai CA akar langsung yang baru terbit dari tahun 2016, sehingga kompatibilitasnya tidak sebaik versi standarnya.
+Menerbitkan sertifikat dengan profil `minimal` pun akan mendapatkan **GTS Root R4** yang _Cross-sign_ dengan **GlobalSign Root CA - R1** juga.
+
+Saya tidak tahu pasti bagaimana kompatibilitasnya, tapi mengingat ada 4 ekstensi yang terhapus termasuk `subject:commonName`, mungkin ini akan mempengaruhi kompatibilitas pada perangkat yang lebih lama, terutama sebelum Windows 7 SP1 karena mereka bergantung pada ekstensi-ekstensi tersebut, jadi coba saja pasang saja sertifikat itu di perangkat yang lebih lama kalau mau, toh itu tergantung perangkat lunak yang Anda pakai.
 
 ### Pertanyaan ke-6: Sebelumnya saya sudah membuat kredensial EAB-nya, lalu bagaimana cara membuatnya lagi? {#pertanyaan-ke6}
 
@@ -422,7 +391,7 @@ Setelah itu tinggal catat saja, serta daftarkan akun seperti biasa sebelum 7 har
 
 ### Pertanyaan ke-7: Kalau saya menerbitkan sertifikat SSL/TLS dengan memakai ECC sebagai algoritma kunci publiknya, apakah rantai yang dipakai itu murni ECC juga? {#pertanyaan-ke7}
 
-Sayangnya, belum untuk server ACME GTS yang standar. Tapi iya kalau kamu menggunakan server ACME SXG (Signed HTTP Exchanges)-nya untuk menerbitkan sertifikat TLS yang ditambahkan dengan ekstensi SXG.
+Sayangnya, belum untuk profil standar. Tapi iya kalau kamu menggunakan profil `minimal`.
 
 ### Pertanyaan ke-8: Saya memakai perkakas ACME selain acme.sh, seperti Certbot, apa alamat URL untuk direktori ACME-nya? {#pertanyaan-ke8}
 
@@ -440,12 +409,6 @@ Server Uji coba:
 https://dv.acme-v02.test-api.pki.goog/directory
 ```
 
-Server Signed HTTP Exchanges (SXG):
-
-```plain
-https://dv-sxg.acme-v02.api.pki.goog/directory
-```
-
 ### Pertanyaan ke-9: Apakah sertifikat TLS dengan ekstensi SXG ini dapat diinstal di web server yang tidak mendukung SXG? Dan, bagaimana akses dari peramban web yang tidak mendukungnya juga? {#pertanyaan-ke9}
 
 Sertifikat TLS tersebut harusnya dapat dipasang pada _web server_ normal pada umumnya yang tidak mendukung SXG, contohnya saya memasang sertifikat tersebut ke Bunny CDN yang tidak mendukung SXG secara resmi, jadi harusnya di _web server_ biasa pun bisa.
@@ -456,6 +419,8 @@ Walau begitu saya tidak terlalu direkomendasikan untuk menggunakan sertifikat TL
 
 Jadi kalau kamu ada masalah saat penggunaan, saya sarankan beralih lagi ke sertifikat TLS biasa.
 
+**PEMBARUAN Jum'at, 21 Agustus 2026:** Sejak bulan Juli 2026 kemarin, Google Trust Services mengumumkan bahwa varian SXG akan dihentikan karena standarnya sendiri belum diterapkan secara luas, pas tanggal 30 September 2026 nanti penerbitan akan dialihkan sepenuhnya untuk menerbitkan sertifikat TLS biasa, meninggalkan SXG sepenuhnya. Pengumumannya bisa dibaca [di sini](https://developers.google.com/public-key-infrastructure/updates/july2026-sxg-deprecation), jadi lebih baik pakai sertifikat TLS biasa sekalian.
+
 ### Pertanyaan ke-10: Kenapa kamu memakai acme.sh? {#pertanyaan-ke10}
 
 Perkakas acme.sh dipilih karena alasan berikut:
@@ -464,7 +429,7 @@ Perkakas acme.sh dipilih karena alasan berikut:
 - Pengelolaan yang sangat fleksibel
 - Fiturnya lengkap, seperti:
   - Dukungan penyedia DNS yang banyak (termasuk Cloudflare DNS, Netlify DNS, Bunny DNS, dll)
-  - Pilihan CA yang cukup banyak (Let's Encrypt, ZeroSSL, SSL\.com, Buypass Go SSL dan Google Trust Services)
+  - Pilihan CA yang cukup banyak (Let's Encrypt, ZeroSSL, SSL\.com dan Google Trust Services)
   - Bisa menggunakan CA kustom
   - Pengelolaan sertifikat (meliputi penerbitan, pencabutan, penghapusan, konfigurasi, penginangan, dan pembaruan sertifikat)
   - Menggunakan _Cron job_ untuk memperbarui sertifikat secara otomatis
@@ -473,7 +438,7 @@ Perkakas acme.sh dipilih karena alasan berikut:
 - Berbasis _Shell_ yang portabel dan kompatibel di hampir semua sistem operasi
 - Semuanya (termasuk konfigurasinya) terpusat di satu folder, yakni `~/.acme.sh` sehingga mudah dipindahkan ke perangkat lain
 
-Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai ini ketimbang perkakas klien ACME lain, seperti Certbot misalnya.
+Alasan-alasan tersebutlah yang membuat saya secara pribadi lebih menyukai ini ketimbang perkakas klien ACME berbasiskan CLI lainnya, seperti Certbot misalnya.
 
 Tapi, ada satu lagi klien ACME yang mana itu terbaik buat saya, yakni [Certimate](https://docs.certimate.me/) yang sekarang saya gunakan sekarang menggantikan acme.sh, nanti saya bahas di artikel ke depan untuk ulasannya.
 
@@ -491,15 +456,15 @@ Kelebihan:
 
 Kekurangan:
 
-- Algoritma Kunci Publik pada rantai sertifikat di atasnya masih menggunakan RSA, meski sertifikat TLS-nya diterbitkan menggunakan ECC, tapi rantainya tidak benar-benar murni ECC, tidak seperti ZeroSSL dan Let's Encrypt. Tapi, Cloudflare sepenuhnya menggunakan rantai murni ECC, entah bagaimana caranya silakan tulis di komentar jika ada.
+- Rantai sertifikat yang didapat masih menggunakan kunci RSA jika menggunakan profil standar atau tidak memakai profil sama sekali, yang mana kamu juga tidak bisa memilih rantainya sesuka hati
 
-    Ya, kamu bisa menerbitkan sertifikat TLS dengan tambahan ekstensi SXG agar sertifikat tersebut dapat menggunakan rantai murni ECC, tapi masalahnya SXG itu sendiri standarnya masih belum matang sampai sekarang, sehingga dukungannya cukup sedikit (baik dari CA, _web server_, layanan penyedia termasuk CDN dan [peramban web](https://caniuse.com/sxg)) walau bisa saja dipasang dan diakses seperti biasanya di perangkat yang tidak mendukung, serta kompatibilitas sertifikatnya masih belum sebaik sertifikat yang disediakan/dikelola oleh Cloudflare
+    Tentu kamu bisa menerbitkan sertifikat dengan rantai (hampir) murni ECC, tapi harus menggunakan profil `minimal`, yang mana itu akan menghapus 4 ekstensi penting, termasuk `subject:commonName` (atau **"Common Name"**) dan mungkin akan berimbas pada kompatibilitas perangkat lama yang bergantung pada ekstensi-ekstensi tersebut.
 
 - ~~Tidak mendukung nama domain Unicode yang disandikan atau _di-encode_ menggunakan Punycode.~~
 
     ~~Sehingga kemungkinan besar tidak ada dukungan nama domain terinternasionalisasikan (bahasa Inggris: **Internationalized Domain Names** atau disingkat menjadi **IDN**) dan huruf lain selain alfabet, termasuk emoji~~
 
-    **PEMBARUAN Senin, 14 Juli 2025:** Sepertinya CA ini sudah bisa menerbitkan sertifikat untuk nama domain/subdomain terinternasionalisasikan, termasuk emoji, berdasarkan [halaman web ini](https://acmeprotocol.dev/getting-started/) entah benar tapi tidak terdokumentasikan atau tidak. Silakan kunjungi [演示测试.farrelf.my.id](https://演示测试.farrelf.my.id) untuk mengujinya
+    **PEMBARUAN Jum'at, 21 Agustus 2026:** Sejak bulan Februari 2026, Google Trust Services secara resmi mendukung nama domain terinternasionalisasikan, termasuk huruf selain alfabet dan emoji, jadi poin ini tidak lagi berlaku. Pengumumannya bisa dibaca [di sini](https://developers.google.com/public-key-infrastructure/updates/february2026-idn-update).
 
 - Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP, CRL dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_) yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
