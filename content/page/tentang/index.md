@@ -43,7 +43,9 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Tema: [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)
 - Fon: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
 - Favicon: Ikon [Papan Klip](https://pixabay.com/images/id-1294565/) oleh [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) dari Pixabay, dilisensikan di bawah [Lisensi Pixabay](https://pixabay.com/service/license/)
-- VCS: [GitHub](https://github.com)
+- VCS: 
+  - [GitHub](https://github.com) (Utama)
+  - [GitLab](https://gitlab.com) dan [Codeberg](https://codeberg.org) (Cadangan)
 - CI/CD:
   - [GitHub Actions](https://github.com/features/actions) (Utama)
   - Netlify dan Cloudflare Pages (Cadangan dan untuk pratinjau)
@@ -51,6 +53,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - DNS Otoritatif: [Bunny DNS](https://afiliasi.farrelf.blog/bunny/dns/)
 - Hosting/Tempat Penyimpanan:
   - [Bunny Storage](https://afiliasi.farrelf.blog/bunny/storage/) (Penyimpanan Utama)
+  - Bunny S3 Storage, [Cloudflare R2](https://www.cloudflare.com/products/r2/) dan [Backblaze B2](https://www.backblaze.com/cloud-storage) (Penyimpanan Cadangan)
   - [Cloudflare Pages](https://pages.cloudflare.com/) dan [Netlify](https://www.netlify.com) (Hosting Cadangan)
 - Pewali terbalik (_Reverse Proxy_): [Bunny CDN](https://afiliasi.farrelf.blog/bunny/cdn/)
 - Sertifikat TLS/SSL:
