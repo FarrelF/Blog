@@ -3009,11 +3009,13 @@ Namun, di dalam halaman [Syarat & Ketentuan Layanannya](https://zerossl.com/term
 
 Saya kurang tahu/kurang paham apa maksud dari kalimat `for any commercial purpose` di sini, apakah tidak boleh dipasang di Situs Web Perdagangan Elektronik secara keseluruhan atau melarang tindakan komersil pada layanan ZeroSSL-nya saja.
 
-Kalaupun tidak boleh dipasang di Situs Web tersebut, saya juga kurang tahu apakah itu berlaku untuk pengguna gratisan, yang berbayar atau malah semua. Karena TOS ini sepertinya melingkupi semua layanan yang ada pada ZeroSSL, gak peduli itu gratisan ataupun berbayar.
+Kalaupun tidak boleh dipasang di situs web tersebut, saya juga kurang tahu apakah itu berlaku untuk pengguna gratisan, yang berbayar atau malah semua. Karena TOS ini sepertinya melingkupi semua layanan yang ada pada ZeroSSL, gak peduli itu gratisan ataupun berbayar.
 
 Jadi, jawabannya saya kurang tahu dan belum saya tanya ke mereka, mungkin saja diperbolehkan sama mereka selama tidak mengkomersilkan layanan mereka tanpa izin dari mereka.
 
 ### Pertanyaan ke-27: Apa alasan kamu menggunakan ZeroSSL? Kenapa kamu gak pakai Let's Encrypt aja? Padahal tampilan blog ini akan lebih baik apabila diakses dengan peramban web yang sangat modern {#pertanyaan-ke27}
+
+**PEMBARUAN Jum'at, 21 Agustus 2026:** Karena ZeroSSL ini makin sering banget gangguan saat penerbitan sertifikat ketimbang saat artikel ini pertama kali diterbitkan, jadi saya putuskan untuk meninggalkan ZeroSSL sepenuhnya dan menjadikan Let's Encrypt sebagai CA cadangan. Sebenarnya sudah cukup lama sih, tapi sempat mau mencoba lagi, cuma hasilnya ya gangguan mulu, jadi saya mulai sepenuhnya meninggalkan ZeroSSL
 
 Alasan saya menggunakan ZeroSSL (atau CA lain) sebagai berikut:
 
