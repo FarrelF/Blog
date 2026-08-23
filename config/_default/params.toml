@@ -117,5 +117,5 @@ inlineScript = false
 sriHash = true
 
 [style]
-inlineStyle = false
+inlineStyle = true
 sriHash = true
