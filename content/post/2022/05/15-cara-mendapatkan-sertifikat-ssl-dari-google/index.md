@@ -61,7 +61,7 @@ Namun, kalau kamu sebelumnya pernah memasang sertifikat SSL/TLS dari ZeroSSL den
 
 Jika Anda menggunakan acme.sh sebagai perkakasnya, silakan perbarui terlebih dahulu versinya dengan perintah berikut:
 
-```shell
+```bash
 acme.sh --upgrade --auto-upgrade
 ```
 
@@ -91,7 +91,7 @@ Kalau ada konfirmasi **"Authorize Cloud Shell"**, klik **"Authorize"** dan gunak
 
 **Langkah ke-3:** Di **"Cloud Shell"**-nya, silakan buat proyeknya dengan perintah berikut:
 
-```shell
+```bash
 gcloud projects create <PROJECT_ID>
 ```
 
@@ -99,7 +99,7 @@ Tentukan sendiri ID Proyeknya (_Project ID_) dengan menggantikan `<PROJECT_ID>`-
 
 Contoh:
 
-```shell
+```bash
 gcloud projects create test-project-3049113
 ```
 
@@ -107,7 +107,7 @@ gcloud projects create test-project-3049113
 
 **Langkah ke-4:** Setelah menentukan ID Proyeknya, silakan tekan **"Enter"**, nanti secara otomatis akan dibuatkan proyeknya. Jika ini berhasil, maka keluarannya akan seperti berikut:
 
-```shell {linenos=true}
+```bash {linenos=true}
 $ gcloud projects create test-project-3049113
 Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/test-project-3049113].
 Waiting for [operations/cp.5266221063755867120] to finish...done.    
@@ -135,7 +135,7 @@ Caranya seperti berikut:
 
 **Langkah ke-3:** Di **"Cloud Shell"**-nya, pastikan Anda memilih proyek mana yang ingin diaktifkan Akses API-nya:
 
-```shell
+```bash
 gcloud config set project <PROJECT_ID>
 ```
 
@@ -143,7 +143,7 @@ Ganti `<PROJECT_ID>` dengan ID Proyek Anda.
 
 **Langkah ke-4:** Berikan izin untuk membuat kredensial EAB dengan perintah berikut di dalam **"Cloud Shell"**-nya:
 
-```shell
+```bash
 gcloud projects add-iam-policy-binding <PROJECT_ID> \
   --member=user:<USER> \
   --role=roles/publicca.externalAccountKeyCreator
@@ -154,13 +154,13 @@ Ganti `<USER>` dengan Alamat Surel untuk akun Google Anda atau Alamat Surel lain
 
 **Langkah ke-5:** Aktifkan Akses API-nya dengan perintah berikut:
 
-```shell
+```bash
 gcloud services enable publicca.googleapis.com
 ```
 
 **Langkah ke-6:** Setelah diaktifkan, buatlah kredensial EAB-nya dengan perintah berikut:
 
-```shell
+```bash
 gcloud publicca external-account-keys create
 ```
 
@@ -194,13 +194,13 @@ Caranya hampir sama dengan yang di atas, hanya saja sebelum kredensial itu dibua
 
 **Langkah ke-6:** Anda perlu mengganti alamat URL _Endpoint_ untuk Google Public CA-nya dengan perintah berikut, lalu tekan "Enter":
 
-```shell
+```bash
 gcloud config set api_endpoint_overrides/publicca https://preprod-publicca.googleapis.com/
 ```
 
 **Langkah ke-7:** Setelah menggantikan alamat URL _Endpoint-nya_, Anda perlu membuat kredensial EAB dengan perintah yang sama. Kalau belum yakin, lupa atau merasa malas, Anda bisa _copy-paste_ perintah berikut:
 
-```shell
+```bash
 gcloud publicca external-account-keys create
 ```
 
@@ -222,7 +222,7 @@ Simpanlah kredensial tersebut dengan baik.
 
 **Langkah ke-8:** Setelah selesai mencatat, Anda perlu mengembalikan alamat URL _Endpoint-nya_ seperti semula dengan perintah berikut:
 
-```shell
+```bash
 gcloud config unset api_endpoint_overrides/publicca
 ```
 
@@ -238,7 +238,7 @@ Setelah membuat kredensial EAB-nya, sekarang waktunya Anda gunakan kredensial te
 
 Untuk mendaftarkan sebuah akun dengan menggunakan Kredensial EAB yang telah dibuat sebelumnya, Anda dapat menggunakan perintah berikut:
 
-```shell
+```bash
 acme.sh --register-account -m <ALAMAT_SUREL_KAMU> \
         --eab-kid <EAB_KID_KAMU> \
         --eab-hmac-key <EAB_HMAC_KEY_KAMU> \
@@ -259,9 +259,9 @@ Jika registrasi berhasil, maka Anda sudah mulai bisa menerbitkan sertifikat SSL/
 
 Untuk menerbitkan sertifikat SSL/TLS dari Google melalui acme.sh, maka Anda hanya perlu pelajari contoh perintah berikut:
 
-```shell
+```bash
 acme.sh --issue \
-        -d '*.contoh.com' \
+        -d "*.contoh.com" \
         -d contoh.com \
         --dns dns_cf --server google
 ```
@@ -274,20 +274,20 @@ Jika Anda sudah lama menggunakan acme.sh sebelumnya, maka harusnya sudah familia
 
 Anda juga bisa menggantikan `google` pada parameter `--server` menjadi `googletest` jika Anda ingin menguji coba proses penerbitan sertifikat tanpa harus mempengaruhi _rate limit_ aslinya.
 
-Jika ingin menerbitkan sertifikat SSL/TLS dengan rantai murni ECC, Anda dapat menambahkan parameter `--profile minimal` agar GTS menerbitkan sertifikatnya menggunakan profile `minimal`.
+Jika ingin menerbitkan sertifikat SSL/TLS dengan rantai murni ECC, Anda dapat menambahkan parameter `--profile minimal` agar GTS menerbitkan sertifikatnya menggunakan profil `minimal`.
 
 Contoh perintahnya menjadi seperti berikut:
 
 ```bash
 acme.sh --issue \
-        -d *.contoh.com \
+        -d "*.contoh.com" \
         -d contoh.com \
         --dns dns_cf \
         --profile minimal \
         --server google
 ```
 
-Perintah di atas akan menerbitkan sertifikat SSL/TLS dengan profile `minimal` dan tentu menggunakan rantai ECC penuh, tapi ini akan menghilangkan beberapa ekstensi seperti `subject:commonName` (atau disebut _Common Name_), `subjectKeyIdentifier` (SKID), `basicConstraints` dan `keyEncipherment`, yang mungkin saja bakal mempengaruhi kompatibilitas perangkat.
+Perintah di atas akan menerbitkan sertifikat SSL/TLS dengan profil `minimal` dan tentu menggunakan rantai ECC penuh, tapi ini akan menghilangkan beberapa ekstensi seperti `subject:commonName` (atau disebut _Common Name_), `subjectKeyIdentifier` (SKID), `basicConstraints` dan `keyEncipherment`, yang mungkin saja bakal mempengaruhi kompatibilitas perangkat.
 
 Untuk nama profil mana saja yang dapat digunakan, silakan [kunjungi halaman resminya](https://developers.google.com/public-key-infrastructure/profiles), secara baku GTS menggunakan profil `standard` yang mana kita belum bisa memilih rantai kepercayaan sendiri dan tidak memakai rantai murni ECC.
 
@@ -295,7 +295,7 @@ Perkakas acme.sh menggunakan ZeroSSL sebagai CA baku, sehingga Anda tetap diharu
 
 Jika Anda ingin menggantikan CA bakunya, Anda bisa memakai perintah berikut:
 
-```shell
+```bash
 acme.sh --set-default-ca --server google
 ```
 
@@ -327,9 +327,9 @@ Di acme.sh, Anda bisa tambahkan parameter `--valid-to <tanggal waktu>` saat ingi
 
 Contoh:
 
-```shell
+```bash
 acme.sh --issue \
-        -d '*.contoh.com' \
+        -d "*.contoh.com" \
         -d contoh.com \
         --dns dns_cf --valid-to "+30d"
 ```
@@ -338,9 +338,9 @@ Perintah di atas akan menerbitkan sertifikat SSL/TLS untuk domain `*.contoh.com`
 
 Contoh lainnya:
 
-```shell
+```bash
 acme.sh --issue \
-        -d '*.contoh.com' \
+        -d "*.contoh.com" \
         -d contoh.com \
         --dns dns_cf --valid-to "+30h"
 ```
@@ -353,9 +353,9 @@ Selain menggunakan format relatif, Anda juga dapat menggunakan format absolut de
 
 Contoh:
 
-```shell
+```bash
 acme.sh --issue \
-        -d '*.contoh.com' \
+        -d "*.contoh.com" \
         -d contoh.com \
         --dns dns_cf --valid-to "2022-04-01T08:10:33Z"
 ```
@@ -375,7 +375,7 @@ Sehingga Anda tidak perlu khawatir tentang masalah kompatibilitas, ada halaman d
 
 Menerbitkan sertifikat dengan profil `minimal` pun akan mendapatkan **GTS Root R4** yang _Cross-sign_ dengan **GlobalSign Root CA - R1** juga.
 
-Saya tidak tahu pasti bagaimana kompatibilitasnya, tapi mengingat ada 4 ekstensi yang terhapus termasuk `subject:commonName`, mungkin ini akan mempengaruhi kompatibilitas pada perangkat yang lebih lama, terutama sebelum Windows 7 SP1 karena mereka bergantung pada ekstensi-ekstensi tersebut, jadi coba saja pasang saja sertifikat itu di perangkat yang lebih lama kalau mau, toh itu tergantung perangkat lunak yang Anda pakai.
+Saya tidak tahu pasti bagaimana kompatibilitasnya, tapi mengingat ada 4 ekstensi yang terhapus termasuk `subject:commonName`, mungkin ini akan mempengaruhi kompatibilitas pada perangkat yang lebih lama, terutama sebelum Windows 7 SP1 karena bisa jadi mereka bergantung pada ekstensi-ekstensi tersebut, jadi coba saja pasang saja sertifikat itu di perangkat yang lebih lama kalau mau, toh itu tergantung perangkat lunak yang kamu pakai juga.
 
 ### Pertanyaan ke-6: Sebelumnya saya sudah membuat kredensial EAB-nya, lalu bagaimana cara membuatnya lagi? {#pertanyaan-ke6}
 
@@ -446,11 +446,15 @@ Tapi, ada satu lagi klien ACME yang mana itu terbaik buat saya, yakni [Certimate
 
 Kelebihan:
 
-- Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke Server terdekat saat memakainya, sehingga proses penerbitan/pembaruan akan menjadi jauh lebih cepat
-- Lebih minim gangguan, sehingga kamu lebih jarang menemukan galat 5xx dan 4xx (kecuali kalau itu disebabkan oleh kesalahanmu sendiri) karena infrastruktur jaringan dari Google itu tadi
-- Alamat URL OCSP dan CRL yang berbeda di setiap sertifikat (Entah ini merupakan sesuatu kelebihan atau bukan, mungkin lebih ke "keunikan")
+- Penerbitan/pembaruan sertifikat yang cepat. Hal ini dikarenakan ia menggunakan infrastruktur jaringan dari Google untuk server ACME-nya dan kita penggunanya akan diarahkan ke server terdekat saat memakainya, sehingga proses penerbitan/pembaruan akan menjadi jauh lebih cepat
+- Jauh lebih minim gangguan, sehingga kamu lebih jarang menemukan galat 5xx dan 4xx (kecuali kalau itu disebabkan oleh kesalahanmu sendiri) karena infrastruktur jaringan dari Google itu tadi
+- Alamat URL CRL yang berbeda di setiap sertifikat (Entah ini merupakan sesuatu kelebihan atau bukan, mungkin lebih ke "keunikan")
 - Kamu bisa menerbitkan sertifikat dalam bentuk standar, _Multi-domain_, dan bahkan _Wildcard_ baik menggunakan RSA ataupun ECC sebagai algoritma kunci publiknya
+- Mendukung nama domain _Unicode_ yang disandikan menggunakan _Punycode_ atau dengan kata lain nama domain terinternasionalisasikan itu didukung, termasuk penggunaan huruf selain alfabet, emoji, dsb
 - Masa berlaku sertifikat bervariasi, bisa dimulai dari 1 hari sampai 90 hari ke depan, walaupun disarankan minimum 3 hari
+- Tersedia 2 profil yang bisa kamu pilih untuk menerbitkan sertifikat, jadi sesuaikan dengan kebutuhan, yakni sebagai berikut:
+  - `standard` untuk sertifikat standar, tapi ukuran sertifikatnya cukup besar (profil bawaan)
+  - `minimal` untuk sertifikat dengan ukuran yang jauh lebih kecil dan rantai yang sepenuhnya ECC, tapi menghapus 4 ekstensi penting, termasuk `subject:commonName` (atau **"Common Name"**)
 - Sertifikat yang diterbitkannya dapat digunakan oleh hampir semua perangkat. Untuk alasannya, silakan lihat jawaban untuk [pertanyaan ke-5](#pertanyaan-ke5)
 - Yang paling penting adalah semuanya bisa digunakan secara cuma-cuma alias gratis
 
@@ -466,7 +470,7 @@ Kekurangan:
 
     **PEMBARUAN Jum'at, 21 Agustus 2026:** Sejak bulan Februari 2026, Google Trust Services secara resmi mendukung nama domain terinternasionalisasikan, termasuk huruf selain alfabet dan emoji, jadi poin ini tidak lagi berlaku. Pengumumannya bisa dibaca [di sini](https://developers.google.com/public-key-infrastructure/updates/february2026-idn-update).
 
-- Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk OCSP, CRL dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_) yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
+- Jika Anda ingin situs web atau blog-nya diakses oleh pengguna di Tiongkok Daratan (bukan Hong Kong, Makau dan Taiwan, tentunya), tidak saya sarankan untuk memakai sertifikat TLS ini karena seluruh layanan Google, termasuk untuk CRL dan ekstensi AIA-nya diblokir oleh GFW (_Great Firewall_) yang berimbas pada pemuatan situs web Anda karena masalah pada pemuatan sertifikatnya/jabat tangan TLS-nya.
 
     Tapi, kebanyakan peramban web secara baku tidak lagi mengecek pencabutan sertifikat lebih lanjut jika server-nya tidak bisa diakses, sehingga web/aplikasi dengan sertifikat TLS tersebut tetap dapat dimuat seperti biasanya dan sertifikat tetap dianggap masih valid setelah dicabut, atau bahkan bisa jadi mereka tidak mengeceknya sama sekali.
 
@@ -501,7 +505,7 @@ Untuk mempercantik tampilan/keluaran JSON, silakan gunakan ekstensi berikut di p
 
 Selain di peramban web, Anda juga dapat melihat keluarannya di dalam aplikasi Terminal Emulator. Berikut di bawah ini jika Anda ingin menggunakan `curl` dan `jq`:
 
-```shell
+```bash
 curl -s https://dv.acme-v02.api.pki.goog/directory | jq
 ```
 
