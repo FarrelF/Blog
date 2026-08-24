@@ -61,3 +61,15 @@ minifyOutput = true
 
 [minify.tdewolff.html]
 keepWhitespace = false
+keepSpecialComments = false
+keepQuotes = false
+
+[minify.tdewolff.css]
+inline = true
+
+[[cascade]]
+[cascade.build]
+publishResources = false
+
+[cascade.target]
+kind = 'page'
