@@ -101,7 +101,7 @@ Blog ini menggunakan protokol TLS untuk mengenkripsi transmisi data dan diakses 
 
 Selain itu, blog ini juga menerapkan _HSTS Preloading_ agar blog ini selalu diakses menggunakan protokol HTTPS di peramban web dengan memaksanya mengalihkan ke HTTPS langsung melalui peramban web, tanpa bantuan dari _web server_ karena domain yang dimasukkan ke dalam _HSTS Preload List_ yang berada di dalam peramban.
 
-Otoritas sertifikat/CA (_Certificate Authority_) yang saya gunakan untuk menerbitkan sertifikat TLS blog ini adalah [Google Trust Services](https://pki.goog) sebagai CA utama dan [ZeroSSL](https://zerossl.com) sebagai CA cadangan.
+Otoritas sertifikat/CA (_Certificate Authority_) yang saya gunakan untuk menerbitkan sertifikat TLS blog ini adalah [Google Trust Services](https://pki.goog) sebagai CA utama dan [Let's Encrypt](https://letsencrypt.org) sebagai CA cadangan.
 
 Sehingga harusnya transmisi data, baik saat Anda berkomentar, memuat sebuah berkas, artikel, dll, di blog ini bisa dilakukan dengan aman tanpa dicegat oleh pihak lain.
 
@@ -123,8 +123,8 @@ Selain itu, saya berhak untuk mengubah kebijakan ini kapan pun dan di mana pun, 
 
 Mengenai halaman kebijakan privasi di blog ini:
 
-- Diperbarui/diubah pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
-- Diberlakukan pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
+- Diperbarui/diubah pada Hari/Tanggal: **Selasa, 25 Agustus 2026**
+- Diberlakukan pada Hari/Tanggal: **Selasa, 25 Agustus 2026**
 
 ## Penutup
 
