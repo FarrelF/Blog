@@ -1,4 +1,4 @@
 github.com/CaiJimmy/hugo-theme-stack/v4 v4.0.3 h1:IoIqvXDnkEci5p4U6okl1LUIRhlD4HwQsbpwQf8fUSE=
 github.com/CaiJimmy/hugo-theme-stack/v4 v4.0.3/go.mod h1:6SWZIQIut6uVjxhLraexYzgtdNDrod0xnfM/to6D/1I=
-github.com/FarrelF/stack-modified v0.0.0-20260823161650-9dd51eae22a5 h1:p1e09MckUljcv/8qiQ3ak97jeHCg4GKIYgA6fRxqYdA=
-github.com/FarrelF/stack-modified v0.0.0-20260823161650-9dd51eae22a5/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=
+github.com/FarrelF/stack-modified v0.0.0-20260824173938-3e0764cb59e2 h1:R3+9s2oFZOXDJoP+HSYz+VEEKCqo9PZtGkH/TyowIwk=
+github.com/FarrelF/stack-modified v0.0.0-20260824173938-3e0764cb59e2/go.mod h1:j8/y6Wgzs65DL8izwjhsc933w6/OTZPZPUf1VZ2dRIA=

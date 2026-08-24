@@ -5,7 +5,7 @@ publish = "public"
 
 [build.environment]
 HUGO_VERSION = "0.165.0"
-GO_VERSION = "1.26.6"
+GO_VERSION = "1.27.0"
 TZ = "Asia/Jakarta"
 
 ### Netlify Build Context and Command
