@@ -18,6 +18,7 @@ on:
 
 jobs:
   build:
+    name: Build
     uses: ./.github/workflows/_build.yml
     with:
       environment: staging
@@ -29,7 +30,7 @@ jobs:
       hugo-version: latest
 
   deploy:
-    name: Deploy (Staging)
+    name: Deploy
     needs: build
     uses: ./.github/workflows/_deploy.yml
     with:
