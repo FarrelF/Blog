@@ -31,6 +31,7 @@ runs:
         HUGO_VERIFY_FILE: ${{ inputs.verify-file }}
         IS_EXTENDED: ${{ inputs.is-extended }}
         IS_WITHDEPLOY: ${{ inputs.is-with-deploy }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
       run: |
         #######################################
         # Script Functions
@@ -86,7 +87,7 @@ runs:
             note "You don't specify Hugo version, you will using latest version."
           fi
 
-          if [ -z "${{ inputs.github-token }}" ]; then
+          if [ -z "${GITHUB_TOKEN:-}" ]; then
               warn "You don't specify GitHub Token, a lower rate limit will apply and errors will occur more frequently."
               HUGO_VERSION="$(
               curl -s \
@@ -95,7 +96,7 @@ runs:
             )"
           else
               HUGO_VERSION="$(
-              curl -s -H "Authorization: Bearer ${{ inputs.github-token }}" \
+              curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" \
               https://api.github.com/repos/gohugoio/hugo/releases/latest |
               jq -r '.tag_name | sub("^v"; "")'
             )"

@@ -1,6 +1,6 @@
 # Farrel Franqois Blog
 
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/FarrelF/Blog/build_and_deploy.yml?style=flat-square&logo=github&label=Build%20and%20Deploy)](https://github.com/FarrelF/Blog/actions/workflows/build_and_deploy.yml)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/FarrelF/Blog/production.yml?style=flat-square&logo=github&label=Production%20Build)](https://github.com/FarrelF/Blog/actions/workflows/production.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/edc59a5f-e63a-426c-ae65-cffe9153fa04/deploy-status)](https://app.netlify.com/sites/farrelf/deploys)
 [![Lisensi](https://img.shields.io/github/license/FarrelF/Blog?label=Lisensi&style=flat-square)](LICENSE)
 [![Ditenagai oleh Hugo](https://img.shields.io/badge/Hugo-ff4088?logo=hugo&style=flat-square&label=Ditenagai%20oleh)](https://gohugo.io)

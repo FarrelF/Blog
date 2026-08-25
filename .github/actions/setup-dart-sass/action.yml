@@ -21,6 +21,7 @@ runs:
       env:
         DART_SASS_VERSION: ${{ inputs.dart-sass-version }}
         IS_MUSL: ${{ inputs.is-musl }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
       run: |
         # Detect OS and system architecture with Go standard environment variables
         OS_NAME=$(go env GOOS)
@@ -56,8 +57,8 @@ runs:
             echo "NOTE: No Dart Sass version specified in \$DART_SASS_VERSION."
             echo "Using the latest release instead."
           fi
-          if [ -n "${{ inputs.github-token }}" ]; then
-            DART_SASS_VERSION="$(curl -s -H "Authorization: Bearer ${{ inputs.github-token }}" https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
+          if [ -n "${GITHUB_TOKEN:-}" ]; then
+            DART_SASS_VERSION="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
           else
             DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
           fi

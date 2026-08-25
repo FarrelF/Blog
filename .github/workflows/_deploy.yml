@@ -1,0 +1,192 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: Deployment environment (production or staging).
+        required: true
+        type: string
+      artifact-name:
+        description: Name of the build artifact to deploy.
+        required: true
+        type: string
+      enable-preview-edge-rule:
+        description: Whether to activate the staging edge rule after Bunny Storage deployment.
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      s3-bucket:
+        description: S3-compatible bucket name used by the deployment.
+        required: true
+      bunny-storage-username:
+        description: Bunny Storage username / storage zone name.
+        required: true
+      bunny-storage-password:
+        description: Bunny Storage password.
+        required: true
+      rclone-config:
+        description: Rclone configuration file contents.
+        required: true
+      rclone-config-pass:
+        description: Rclone configuration password.
+        required: true
+      bunny-api-key:
+        description: Bunny API key used by the preview edge rule.
+        required: false
+      bunny-pullzone-id:
+        description: Bunny Pull Zone ID used by the preview edge rule.
+        required: false
+      bunny-preview-edge-rules-guid:
+        description: Bunny preview edge rule GUID.
+        required: false
+
+jobs:
+  deploy_to_bunny_storage:
+    name: Deploy to Bunny Storage (${{ inputs.environment }})
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download Output File from Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact-name }}
+
+      - name: Setup Mise
+        uses: jdx/mise-action@v4
+        with:
+          install: false
+
+      - name: Installing Thumper
+        run: mise use ubi:kaaveland/thumper@latest
+
+      - name: Decompressing Files
+        run: tar -xvzf files.tar.gz
+
+      - name: Deploying to Bunny Storage
+        run: thumper sync public "${{ secrets.bunny-storage-username }}" --concurrency 8 --verbose
+        env:
+          THUMPER_KEY: ${{ secrets.bunny-storage-password }}
+
+#      - name: Purge page caches
+#        if: ${{ inputs.environment == 'production' }}
+#        run: |
+#          thumper purge-url https://farrelf.blog
+#          thumper purge-url https://farrelf.blog/index.xml
+#          thumper purge-url https://farrelf.blog/*/index.html
+#          thumper purge-url https://farrelf.blog/*/index.xml
+#          thumper purge-url https://farrelf.blog/*/index.json
+#        env:
+#          THUMPER_API_KEY: ${{ secrets.bunny-api-key }}
+
+      - name: Activate Staging Environment
+        if: ${{ inputs.enable-preview-edge-rule }}
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          BUNNY_API_KEY: ${{ secrets.bunny-api-key }}
+          BUNNY_PULLZONE_ID: ${{ secrets.bunny-pullzone-id }}
+          BUNNY_PREVIEW_EDGE_RULES_GUID: ${{ secrets.bunny-preview-edge-rules-guid }}
+        run: |
+          set -o errexit
+          set -o pipefail
+          set -o nounset
+
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+
+          HTTP_CODE=$(curl -sS -o /dev/null -w '%{http_code}' \
+            -H "AccessKey: ${BUNNY_API_KEY}" \
+            -H 'content-type: application/json' \
+            --data "{
+              \"ActionType\": 4,
+              \"TriggerMatchingType\": 1,
+              \"Enabled\": true,
+              \"Guid\": \"${BUNNY_PREVIEW_EDGE_RULES_GUID}\",
+              \"OrderIndex\": 7,
+              \"Description\": \"Block Request for Another Staging URL\",
+              \"Triggers\": [
+                {
+                  \"Type\": 0,
+                  \"PatternMatchingType\": 0,
+                  \"PatternMatches\": [
+                    \"*://*-staging.farrelf.blog\"
+                  ]
+                },
+                {
+                  \"Type\": 0,
+                  \"PatternMatchingType\": 2,
+                  \"PatternMatches\": [
+                    \"*://${GITHUB_SHA}-staging.farrelf.blog\",
+                    \"*://${SHORT_SHA}-staging.farrelf.blog\"
+                  ]
+                }
+              ]
+            }" \
+            "https://api.bunny.net/pullzone/${BUNNY_PULLZONE_ID}/edgerules/addOrUpdate")
+
+          if [[ ${HTTP_CODE} -ge 200 && ${HTTP_CODE} -lt 300 ]]; then
+            echo "Staging Environment has been successfully activated, you can visit one of following URL for preview changes"
+            echo "- https://${SHORT_SHA}-staging.farrelf.blog"
+            echo "- https://${GITHUB_SHA}-staging.farrelf.blog"
+          else
+            echo "Staging Environment activation failed, the error code: ${HTTP_CODE}"
+            exit 1
+          fi
+
+  deploy_to_s3_compatible:
+    name: Deploy to ${{ matrix.display_name }} (${{ inputs.environment }})
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        include:
+          - remote: cloudflare-r2
+            display_name: Cloudflare R2
+          - remote: backblaze-b2
+            display_name: Backblaze B2
+    steps:
+      - name: Download Output File from Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact-name }}
+
+      - name: Decompressing Files
+        run: tar -xvzf files.tar.gz
+
+      - name: Installing and Configuring Rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          mkdir -p "${HOME}/.config/rclone"
+          echo "${{ secrets.rclone-config }}" > "${HOME}/.config/rclone/rclone.conf"
+
+      - name: Deploying to ${{ matrix.display_name }}
+        env:
+          RCLONE_CONFIG_PASS: ${{ secrets.rclone-config-pass }}
+          S3_SERVICE: ${{ matrix.remote }}
+          S3_BUCKET: ${{ secrets.s3-bucket }}
+        run: |
+          rclone sync -v -P --stats-one-line --transfers=32 --checkers=32 --checksum ./public "${S3_SERVICE}:/${S3_BUCKET}"
+
+  deploy_to_bunny_s3:
+    name: Deploy to Bunny S3 (${{ inputs.environment }})
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download Output File from Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact-name }}
+
+      - name: Decompressing Files
+        run: tar -xvzf files.tar.gz
+
+      - name: Installing and Configuring Rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          mkdir -p "${HOME}/.config/rclone"
+          echo "${{ secrets.rclone-config }}" > "${HOME}/.config/rclone/rclone.conf"
+
+      - name: Deploying to Bunny S3
+        env:
+          RCLONE_CONFIG_PASS: ${{ secrets.rclone-config-pass }}
+          S3_SERVICE: ${{ inputs.environment == 'staging' && 'bunny-s3-staging' || 'bunny-s3' }}
+          S3_BUCKET: ${{ secrets.s3-bucket }}
+        run: |
+          rclone sync -v -P --stats-one-line --transfers=32 --checkers=32 --checksum ./public "${S3_SERVICE}:/${S3_BUCKET}"

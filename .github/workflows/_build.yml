@@ -1,0 +1,148 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: Hugo environment to build with.
+        required: true
+        type: string
+      timezone:
+        description: Timezone to use for the build.
+        required: false
+        default: Asia/Jakarta
+        type: string
+      hugo-version:
+        description: Hugo version to use for the build.
+        required: false
+        default: latest
+        type: string
+      base-url:
+        description: Base URL used for the build. Empty for production.
+        required: false
+        default: ''
+        type: string
+      build-future:
+        description: Whether Hugo should include future-dated content.
+        required: false
+        default: false
+        type: boolean
+      artifact-name:
+        description: Name of the build artifact.
+        required: true
+        type: string
+      resources-cache-key:
+        description: Hugo resources cache key.
+        required: true
+        type: string
+      modules-cache-prefix:
+        description: Hugo modules cache prefix.
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build (${{ inputs.environment }})
+    runs-on: ubuntu-24.04
+    env:
+      TZ: ${{ inputs.timezone }}
+      HUGO_ENV: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up APT Mirror
+        # GitHub Actions APT proxy is super unstable
+        # See: https://github.com/actions/runner-images/issues/7048
+        run: |
+          printf 'http://azure.archive.ubuntu.com/ubuntu\tpriority:1\n' | sudo tee /etc/apt/mirrors.txt
+          curl http://mirrors.ubuntu.com/mirrors.txt | sudo tee --append /etc/apt/mirrors.txt
+          sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/mirrors.txt/' /etc/apt/sources.list
+
+      - name: Install All Locales and Other Packages
+        run: |
+          sudo sh -c 'apt update; apt install -y locales-all pigz'
+          sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
+          sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
+
+      - name: Setup Go
+        env:
+          GO_VERSION: stable
+        uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: false
+
+      - name: Setup Hugo Extended
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ inputs.hugo-version }}
+          verify-file: true
+          is-extended: true
+          is-with-deploy: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Dart Sass
+        uses: ./.github/actions/setup-dart-sass
+        with:
+          dart-sass-version: latest
+          is-musl: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Installations
+        run: |
+          echo "Go: $(go version)"
+          echo "Hugo: $(hugo version)"
+          echo "Dart Sass: $(sass --version)"
+
+      - name: Setup Hugo Resources Cache
+        uses: actions/cache@v6
+        with:
+          path: ./resources
+          key: ${{ inputs.resources-cache-key }}
+          restore-keys: |
+            ${{ inputs.resources-cache-key }}
+
+      - name: Setup Hugo Modules Cache
+        uses: actions/cache@v6
+        with:
+          path: /tmp/hugo_cache_runner
+          key: ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-
+
+      - name: Building the Static Web
+        env:
+          BUILD_BASE_URL: ${{ inputs.base-url }}
+          BUILD_FUTURE: ${{ inputs.build-future }}
+        run: |
+          if [ "${BUILD_FUTURE:-false}" = true ]; then
+            BUILD_FUTURE_FLAG="--buildFuture"
+          fi
+
+          if [ -n "${BUILD_BASE_URL}" ]; then
+            BUILD_BASE_URL_FLAG="-b ${BUILD_BASE_URL}"
+          fi
+          
+          if [ "${HUGO_ENV}" != "production" ]; then
+            rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
+            hugo --gc ${BUILD_FUTURE_FLAG} --environment "${HUGO_ENV}" ${BUILD_BASE_URL_FLAG}
+          else
+            hugo --gc ${BUILD_FUTURE_FLAG} ${BUILD_BASE_URL_FLAG}
+          fi
+
+      - name: Compressing Static Web Files
+        run: |
+          # pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
+          # brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
+          tar cvf - ./public | pigz -9 > files.tar.gz
+
+      - name: Upload Output File to Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: files.tar.gz
+          retention-days: 1

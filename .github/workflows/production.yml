@@ -1,0 +1,44 @@
+name: Production Site
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/README.md"
+      - "**/LICENSE"
+      - "**/LICENSE*"
+      - "**/CONTRIBUTING.md"
+      - "**/.gitignore"
+      - "**/netlify.toml"
+      - "config/development/**"
+      - "**/archetypes/**"
+      - "**/.markdownlint.*"
+
+jobs:
+  build:
+    name: Build (Production)
+    uses: ./.github/workflows/_build.yml
+    with:
+      environment: production
+      artifact-name: build-result-${{ github.sha }}
+      resources-cache-key: v2-9-hugo
+      modules-cache-prefix: production
+      hugo-version: latest
+
+  deploy:
+    name: Deploy (Production)
+    needs: build
+    uses: ./.github/workflows/_deploy.yml
+    with:
+      environment: production
+      artifact-name: build-result-${{ github.sha }}
+      enable-preview-edge-rule: false
+    secrets:
+      s3-bucket: ${{ secrets.S3_STORAGE_BUCKET }}
+      bunny-storage-username: ${{ secrets.BUNNY_STORAGE_USERNAME }}
+      bunny-storage-password: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+      rclone-config: ${{ secrets.RCLONE_CONFIG }}
+      rclone-config-pass: ${{ secrets.RCLONE_CONFIG_PASS }}
+      bunny-api-key: ${{ secrets.BUNNY_API_KEY }}
+      bunny-pullzone-id: ${{ secrets.BUNNY_PULLZONE_ID }}
