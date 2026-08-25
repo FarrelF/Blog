@@ -1,5 +1,5 @@
 name: 'Setup Hugo Extended'
-description: 'Install Go and Hugo (optionally Extended / Extended+Deploy build), verified against the official checksum file'
+description: 'Install Hugo (optionally Extended / Extended+Deploy build), verified against the official checksum file'
 inputs:
   hugo-version:
     description: 'Hugo version to install. "latest" resolves the newest release via the GitHub API.'
@@ -17,10 +17,6 @@ inputs:
     description: 'Install Hugo Extended with the Deploy feature, for Hugo >= 0.137.0 (true/false)'
     required: false
     default: 'false'
-  go-version:
-    description: 'Go version to install'
-    required: false
-    default: 'stable'
   github-token:
     description: 'Token used to query the GitHub API when resolving "latest" (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
     required: false

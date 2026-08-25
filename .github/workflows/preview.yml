@@ -126,7 +126,7 @@ jobs:
         name: preview-build-result-${{ env.SHORT_SHA }}
 
     - name: Setup Mise and Thumper
-      uses: jdx/mise-action@v3
+      uses: jdx/mise-action@v4
     - name: Decompressing Files
       run: |
         tar -xvzf files.tar.gz
