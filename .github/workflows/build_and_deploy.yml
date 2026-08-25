@@ -1,5 +1,5 @@
 name: Build and Deploy
-on: 
+on:
   push:
     branches:
       - main
@@ -32,7 +32,7 @@ jobs:
       # GitHub Actions APT proxy is super unstable
       # See: https://github.com/actions/runner-images/issues/7048
       run: |
-        printf 'http://azure.archive.ubuntu.com/ubuntu	priority:1\n' | sudo tee /etc/apt/mirrors.txt
+        printf 'http://azure.archive.ubuntu.com/ubuntu\tpriority:1\n' | sudo tee /etc/apt/mirrors.txt
         curl http://mirrors.ubuntu.com/mirrors.txt | sudo tee --append /etc/apt/mirrors.txt
         sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/mirrors.txt/' /etc/apt/sources.list
 
@@ -41,12 +41,6 @@ jobs:
         sudo sh -c 'apt update; apt install -y locales-all pigz'
         sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
         sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
-
-    #- name: Setup Hugo Extended
-    #  uses: peaceiris/actions-hugo@v3
-    #  with:
-    #    hugo-version: latest
-    #    extended: true
 
     - name: Setup Go
       env:
@@ -57,325 +51,20 @@ jobs:
         cache: false
 
     - name: Setup Hugo Extended
-      env:
-        HUGO_VERSION: latest
-        HUGO_VERIFY_FILE: true
-        IS_EXTENDED: true
-        IS_WITHDEPLOY: false
-      run: |
-        #######################################
-        # Script Functions
-        #######################################
+      uses: ./.github/actions/setup-hugo
+      with:
+        hugo-version: latest
+        verify-file: true
+        is-extended: true
+        is-with-deploy: false
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
-        die() {
-          echo "ERROR: $*" >&2
-          exit 1
-        }
-
-        note() {
-          echo "NOTE: $*"
-        }
-
-        warn() {
-          echo "WARNING: $*"
-        }
-
-        require_cmd() {
-          command -v "$1" >/dev/null 2>&1 || die "Required command '$1' is not installed."
-        }
-
-        version_ge() {
-          [ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]
-        }
-
-        version_le() {
-          [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" = "$1" ]
-        }
-
-        #######################################
-        # Dependency checks
-        #######################################
-
-        require_cmd go
-        require_cmd aria2c
-
-        #######################################
-        # Detect runtime OS / ARCH
-        #######################################
-        
-        GO_OS="$(go env GOOS)"
-        GO_ARCH="$(go env GOARCH)"
-
-        #######################################
-        # Resolve Hugo version
-        #######################################
-
-        if [ -z "${HUGO_VERSION:-}" ] || [ "$HUGO_VERSION" = "latest" ]; then
-          require_cmd jq
-          
-          if [ -z "${HUGO_VERSION:-}" ]; then
-            note "You don't specify Hugo version, you will using latest version."
-          fi
-          
-          HUGO_VERSION="$(
-            curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/gohugoio/hugo/releases/latest |
-            jq -r '.tag_name | sub("^v"; "")'
-          )"
-        fi
-
-        [ -n "$HUGO_VERSION" ] && [ "$HUGO_VERSION" != "null" ] \
-          || die "Failed to determine Hugo version."
-
-        #######################################
-        # Architecture adjustments
-        #######################################
-
-        HUGO_ARCH="${GO_ARCH}"
-
-        if [ "$GO_OS" = "darwin" ] && [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.80.0"; then
-          warn "macOS ARM64 is unsupported for this Hugo version. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
-          echo "If you encounter issues, consider using Hugo 0.81.0 or newer (which supports ARM64), or use an AMD64 runner image."
-          HUGO_ARCH="amd64"
-        fi
-
-        #######################################
-        # Extended / Deploy handling
-        #######################################
-
-        HUGO_SUFFIX=""
-
-        if [ "${IS_EXTENDED:-false}" = true ] && version_ge "$HUGO_VERSION" "0.43" && \
-        { [ "$GO_OS" = "linux" ] || [ "$GO_OS" = "darwin" ] || [ "$GO_OS" = "windows" ]; } && \
-        { [ "$GO_ARCH" = "amd64" ] || [ "$GO_ARCH" = "arm64" ]; }; then
-          HUGO_SUFFIX="_extended"
-
-          if [ "$GO_OS" = "windows" ] && [ "$GO_ARCH" = "arm64" ]; then
-            warn "Hugo Extended is not supported on Windows ARM64. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
-            echo "If you encounter issues, consider using an AMD64 runner image."
-            HUGO_ARCH="amd64"
-          fi
-
-          if [ "$GO_OS" = "linux" ] && [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.101.0"; then
-            warn "Hugo Extended is not supported on Linux ARM64 for this version. You will using standard build instead."
-            echo "Use version 0.102.0 or newer, or an AMD64 runner image if you want using Hugo Extended."
-            HUGO_SUFFIX=""
-          fi
-
-          if [ "${IS_WITHDEPLOY:-false}" = true ]; then
-            if version_ge "$HUGO_VERSION" "0.137.1"; then
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "linux" ]; then
-              HUGO_SUFFIX="_extended_withdeploy"
-              if [ "$GO_ARCH" = "arm64" ] && version_le "$HUGO_VERSION" "0.138.0"; then
-                note "Hugo Extended with Deploy is not supported for ARM64 on this version. Falling back to Hugo Extended without Deploy."
-                echo "For Deploy support, use version 0.139.0 or newer, or an AMD64 runner image."
-                HUGO_SUFFIX="_extended"
-              fi
-            elif version_ge "$HUGO_VERSION" "0.137.0" && [ "$GO_OS" = "darwin" ]; then
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif [ "$HUGO_VERSION" = "0.137.0" ] && [ "$GO_OS" = "windows" ]; then
-              note "Hugo Extended with Deploy 0.137.0 is not supported on Windows, upgrading to 0.137.1"
-              HUGO_VERSION="0.137.1"
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif version_le "$HUGO_VERSION" "0.136.5" && version_ge "$HUGO_VERSION" "0.56.0"; then
-              note "Your Hugo version still has the Deploy feature built-in, so 'IS_WITHDEPLOY' is not required."
-            else
-              note "Your Hugo version don't have Deploy feature, so 'IS_WITHDEPLOY' is not required."
-            fi
-          fi
-        fi
-
-        #######################################
-        # OS / ARCH naming for Hugo assets
-        #######################################
-
-        HUGO_OS="${GO_OS}"
-
-        if version_le "$HUGO_VERSION" "0.102.3"; then
-          case "$HUGO_OS" in
-            linux) HUGO_OS="Linux" ;;
-            darwin) HUGO_OS="macOS" ;;
-            windows) HUGO_OS="Windows" ;;
-            freebsd) HUGO_OS="FreeBSD" ;;
-            openbsd) HUGO_OS="OpenBSD" ;;
-            netbsd) HUGO_OS="NetBSD" ;;
-            dragonfly) HUGO_OS="DragonFlyBSD" ;;
-          esac
-          
-          case "$HUGO_ARCH" in
-            arm64) HUGO_ARCH="ARM64" ;;
-            arm) HUGO_ARCH="ARM" ;;
-            amd64) HUGO_ARCH="64bit" ;;
-            386) HUGO_ARCH="32bit" ;;
-          esac
-        fi
-
-        if [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.102.0"; then
-          HUGO_ARCH="universal"
-        fi
-
-        #######################################
-        # File format
-        #######################################
-
-        if [ "$GO_OS" = "windows" ]; then
-          FILE_EXT=".zip"
-        elif [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
-          FILE_EXT=".pkg"
-        else
-          FILE_EXT=".tar.gz"
-        fi
-
-        #######################################
-        # Filenames
-        #######################################
-
-        HUGO_FILE="hugo${HUGO_SUFFIX}_${HUGO_VERSION}_${HUGO_OS}-${HUGO_ARCH}${FILE_EXT}"
-
-        if version_ge "$HUGO_VERSION" "0.27"; then
-          HASH_FILE="hugo_${HUGO_VERSION}_checksums.txt"
-        elif version_ge "$HUGO_VERSION" "0.20.3"; then
-          HASH_FILE="hugo_checksums.txt"
-        else
-          HASH_FILE=""
-        fi
-
-        #######################################
-        # Download & verify
-        #######################################
-
-        TMPDIR="$(mktemp -d)"
-        cd "${TMPDIR}"
-
-        aria2c -c -x16 -s16 -j16 -UMozilla/5.0 \
-          "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILE}" \
-          || die "Download Failed"
-
-        if [ -n "${HASH_FILE}" ] && [ "${HUGO_VERIFY_FILE:-true}" = true ]; then
-          aria2c -c -x16 -s16 -j16 -UMozilla/5.0 \
-            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HASH_FILE}" \
-            || die "Download Hash File Failed"
-
-          EXPECTED_HASH="$(awk -v f="$HUGO_FILE" '$2 == f { print $1 }' "$HASH_FILE")"
-          [ -n "$EXPECTED_HASH" ] \
-            || die "Checksum entry for ${HUGO_FILE} not found."
-
-          if command -v sha256sum >/dev/null; then
-            ACTUAL_HASH="$(sha256sum "${HUGO_FILE}" | awk '{print $1}')"
-          else
-            ACTUAL_HASH="$(shasum -a 256 "${HUGO_FILE}" | awk '{print $1}')"
-          fi
-  
-          echo "Expected Hash: ${EXPECTED_HASH}"
-          echo "Actual Hash:   ${ACTUAL_HASH}"
-
-          [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ] \
-            || die "Checksum mismatch for ${HUGO_FILE}"
-
-          echo "File verification succeeded."
-        fi
-
-        #######################################
-        # Install
-        #######################################
-
-        INSTALL_DIR="${GITHUB_WORKSPACE}/bin/hugo"
-        mkdir -p "${INSTALL_DIR}"
-
-        if [ "$GO_OS" = "windows" ]; then
-          require_cmd 7z
-          7z x "${HUGO_FILE}" -o"${INSTALL_DIR}"
-        elif [ "$GO_OS" = "darwin" ] && version_ge "$HUGO_VERSION" "0.153.0"; then
-          sudo installer -pkg "${HUGO_FILE}" -target /
-        else
-          tar -xzf "${HUGO_FILE}" -C "${INSTALL_DIR}"
-          chmod +x "${INSTALL_DIR}/hugo"
-        fi
-
-        echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
-
-        cd "${GITHUB_WORKSPACE}" || exit
-        rm -rf "${TMPDIR}"
-    
     - name: Setup Dart Sass
-      env:
-        DART_SASS_VERSION: latest
-        IS_MUSL: false
-      run: |
-        # Detect OS and system architecture with Go standard environment variables
-        OS_NAME=$(go env GOOS)
-        ARCH_NAME=$(go env GOARCH)
-        
-        # Normalise OS name for macOS
-        if [ "$OS_NAME" = "darwin" ]; then
-          OS_NAME="macos"
-        fi
-        
-        # Normalise architecture name for AMD64 architecture
-        if [ "$ARCH_NAME" = "amd64" ]; then
-          ARCH_NAME="x64"
-        fi
-        
-        # Set file format
-        if [ "$OS_NAME" = "windows" ]; then
-          FILE_FORMAT="zip"
-        else
-          FILE_FORMAT="tar.gz"
-        fi
-        
-        # Handle MUSL Build for Linux
-        if [ "${IS_MUSL:-false}" = true ] && [ "$OS_NAME" = "linux" ]; then
-          DART_SASS_MUSL="-musl"
-        else
-          DART_SASS_MUSL=""
-        fi
-        
-        # Use latest version if DART_SASS_VERSION=latest or if not specified
-        if [ "${DART_SASS_VERSION:-}" = "latest" ] || [ -z "${DART_SASS_VERSION:-}" ]; then
-          if [ -z "${DART_SASS_VERSION:-}" ]; then
-            echo "NOTE: No Dart Sass version specified in \$DART_SASS_VERSION."
-            echo "Using the latest release instead."
-          fi
-          DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
-        fi
-        
-        # Set filename
-        DART_SASS_FILENAME="dart-sass-${DART_SASS_VERSION}-${OS_NAME}-${ARCH_NAME}${DART_SASS_MUSL}.${FILE_FORMAT}"
-        
-        # Make a temporary folder for downloaded and extracted files
-        WORKDIR="${RUNNER_TEMP}/dart-install"; mkdir -p "${WORKDIR}"; cd "${WORKDIR}"
-        
-        # Download with error handling
-        aria2c -c -j 16 -x 16 -s 16 -UMozilla/5.0 https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_FILENAME} \
-        || { echo "Download failed"; exit 1; }
-        
-        # Make directory for Dart Sass files
-        mkdir -p "${GITHUB_WORKSPACE}/bin"
-        
-        # Extract downloaded file
-        if [ "$FILE_FORMAT" = "zip" ]; then
-          # Use 7z to extract zip file
-          7z x "${DART_SASS_FILENAME}" -o"${GITHUB_WORKSPACE}/bin" -y
-        else
-          tar -xzf "${DART_SASS_FILENAME}" -C "${GITHUB_WORKSPACE}/bin"
-        fi
-        
-        # Install Dart Sass
-        if [ "$OS_NAME" = "windows" ]; then
-          echo '#!/usr/bin/env bash' > "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
-          echo 'exec "$(dirname "$0")/sass.bat" "$@"' >> "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
-          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
-          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass.bat"
-          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/src/dart.exe"
-        else
-          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
-          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/src/dart"
-        fi
-        
-        echo "${GITHUB_WORKSPACE}/bin/dart-sass" >> $GITHUB_PATH
-        cd "${GITHUB_WORKSPACE}" || exit
-        rm -rf "${WORKDIR}"
+      uses: ./.github/actions/setup-dart-sass
+      with:
+        dart-sass-version: latest
+        is-musl: false
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Verify Installations
       run: |
@@ -389,7 +78,7 @@ jobs:
         path: |
           ./resources
         key: v2-9-hugo
-        restore-keys: | 
+        restore-keys: |
           - v2-9-hugo
 
     - name: Setup Hugo Modules Cache
@@ -397,7 +86,7 @@ jobs:
       with:
         path: /tmp/hugo_cache_runner
         key: ${{ runner.os }}-hugo-modules-${{ hashFiles('**/go.sum') }}
-        restore-keys: | 
+        restore-keys: |
           - ${{ runner.os }}-hugo-modules-${{ hashFiles('**/go.sum') }}
 
     - name: Building the Static Web
@@ -419,7 +108,7 @@ jobs:
         retention-days: 1
 
   deploy_to_bunny_storage:
-    name: Deploy to Bunny Storage 
+    name: Deploy to Bunny Storage
     needs: build
     runs-on: ubuntu-24.04
     steps:
@@ -453,10 +142,19 @@ jobs:
 #      env:
 #          THUMPER_API_KEY: "${{ secrets.BUNNY_API_KEY }}"
 
-  deploy_to_cloudflare-r2:
-    name: Deploy to Cloudflare R2
+  deploy_to_s3_compatible:
+    name: Deploy to ${{ matrix.display_name }}
     needs: build
     runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        include:
+          - remote: cloudflare-r2
+            display_name: Cloudflare R2
+          - remote: backblaze-b2
+            display_name: Backblaze B2
+          - remote: bunny-s3
+            display_name: Bunny S3
     steps:
     - name: Setup Environment Variable
       run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
@@ -475,73 +173,16 @@ jobs:
         mkdir -p ${HOME}/.config/rclone
         echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
 
-    - name: Deploying to R2 Storage
+    - name: Deploying to ${{ matrix.display_name }}
       env:
         RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: cloudflare-r2
+        S3_SERVICE: ${{ matrix.remote }}
       run: |
         rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
 
-  deploy_to_backblaze-b2:
-    name: Deploy to Backblaze B2
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v8
-      with:
-        name: build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring Rclone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to B2 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-        S3_SERVICE: backblaze-b2
-      run: |
-        rclone sync -v -P --stats-one-line --transfers=32 --checkers=32 --checksum ./public ${S3_SERVICE}:/${{ secrets.S3_STORAGE_BUCKET }}
-
-  deploy_to_bunny-s3:
-    name: Deploy to Bunny S3
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-    - name: Setup Environment Variable
-      run: printf "SHORT_SHA=%s\n" ${GITHUB_SHA::7} >> $GITHUB_ENV
-    - name: Download Output File from Artifact
-      uses: actions/download-artifact@v8
-      with:
-        name: build-result-${{ env.SHORT_SHA }}
-
-    - name: Decompressing Files
-      run: |
-        tar -xvzf files.tar.gz
-
-    - name: Installing and Configuring Rclone
-      run: |
-        curl https://rclone.org/install.sh | sudo bash
-        mkdir -p ${HOME}/.config/rclone
-        echo "${{ secrets.RCLONE_CONFIG }}" > ${HOME}/.config/rclone/rclone.conf
-
-    - name: Deploying to S3 Storage
-      env:
-        RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
-      run: |
-        rclone sync -v -P --stats-one-line --checksum --transfers=32 --checkers=32 ./public ${{ secrets.S3_STORAGE_BUCKET }}:/${{ secrets.S3_STORAGE_BUCKET }}
-
   submit_sitemap:
     name: Submit Sitemap
-    needs: [deploy_to_bunny_storage, deploy_to_cloudflare-r2, deploy_to_backblaze-b2, deploy_to_bunny-s3]
+    needs: [deploy_to_bunny_storage, deploy_to_s3_compatible]
     runs-on: ubuntu-24.04
     steps:
     - name: Submitting Sitemap to Search Engine

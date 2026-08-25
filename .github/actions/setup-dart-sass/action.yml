@@ -1,0 +1,101 @@
+name: 'Setup Dart Sass'
+description: 'Download and install the Dart Sass CLI binary for the current runner OS/architecture'
+inputs:
+  dart-sass-version:
+    description: 'Dart Sass version to install. "latest" resolves the newest release via the GitHub API.'
+    required: false
+    default: 'latest'
+  is-musl:
+    description: 'Install the musl build (Linux only) (true/false)'
+    required: false
+    default: 'false'
+  github-token:
+    description: 'Token used to query the GitHub API when resolving "latest" (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Dart Sass
+      shell: bash
+      env:
+        DART_SASS_VERSION: ${{ inputs.dart-sass-version }}
+        IS_MUSL: ${{ inputs.is-musl }}
+      run: |
+        # Detect OS and system architecture with Go standard environment variables
+        OS_NAME=$(go env GOOS)
+        ARCH_NAME=$(go env GOARCH)
+        
+        # Normalise OS name for macOS
+        if [ "$OS_NAME" = "darwin" ]; then
+          OS_NAME="macos"
+        fi
+        
+        # Normalise architecture name for AMD64 architecture
+        if [ "$ARCH_NAME" = "amd64" ]; then
+          ARCH_NAME="x64"
+        fi
+        
+        # Set file format
+        if [ "$OS_NAME" = "windows" ]; then
+          FILE_FORMAT="zip"
+        else
+          FILE_FORMAT="tar.gz"
+        fi
+        
+        # Handle MUSL Build for Linux
+        if [ "${IS_MUSL:-false}" = true ] && [ "$OS_NAME" = "linux" ]; then
+          DART_SASS_MUSL="-musl"
+        else
+          DART_SASS_MUSL=""
+        fi
+        
+        # Use latest version if DART_SASS_VERSION=latest or if not specified
+        if [ "${DART_SASS_VERSION:-}" = "latest" ] || [ -z "${DART_SASS_VERSION:-}" ]; then
+          if [ -z "${DART_SASS_VERSION:-}" ]; then
+            echo "NOTE: No Dart Sass version specified in \$DART_SASS_VERSION."
+            echo "Using the latest release instead."
+          fi
+          if [ -n "${{ inputs.github-token }}" ]; then
+            DART_SASS_VERSION="$(curl -s -H "Authorization: Bearer ${{ inputs.github-token }}" https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
+          else
+            DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
+          fi
+        fi
+        
+        # Set filename
+        DART_SASS_FILENAME="dart-sass-${DART_SASS_VERSION}-${OS_NAME}-${ARCH_NAME}${DART_SASS_MUSL}.${FILE_FORMAT}"
+        
+        # Make a temporary folder for downloaded and extracted files
+        WORKDIR="${RUNNER_TEMP}/dart-install"; mkdir -p "${WORKDIR}"; cd "${WORKDIR}"
+        
+        # Download with error handling
+        aria2c -c -j 16 -x 16 -s 16 -UMozilla/5.0 https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_FILENAME} \
+        || { echo "Download failed"; exit 1; }
+        
+        # Make directory for Dart Sass files
+        mkdir -p "${GITHUB_WORKSPACE}/bin"
+        
+        # Extract downloaded file
+        if [ "$FILE_FORMAT" = "zip" ]; then
+          # Use 7z to extract zip file
+          7z x "${DART_SASS_FILENAME}" -o"${GITHUB_WORKSPACE}/bin" -y
+        else
+          tar -xzf "${DART_SASS_FILENAME}" -C "${GITHUB_WORKSPACE}/bin"
+        fi
+        
+        # Install Dart Sass
+        if [ "$OS_NAME" = "windows" ]; then
+          echo '#!/usr/bin/env bash' > "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
+          echo 'exec "$(dirname "$0")/sass.bat" "$@"' >> "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass.bat"
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/src/dart.exe"
+        else
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/sass"
+          chmod +x "${GITHUB_WORKSPACE}/bin/dart-sass/src/dart"
+        fi
+        
+        echo "${GITHUB_WORKSPACE}/bin/dart-sass" >> $GITHUB_PATH
+        cd "${GITHUB_WORKSPACE}" || exit
+        rm -rf "${WORKDIR}"
