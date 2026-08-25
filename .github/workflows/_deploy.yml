@@ -44,7 +44,7 @@ on:
 
 jobs:
   deploy_to_bunny_storage:
-    name: Deploy to Bunny Storage (${{ inputs.environment }})
+    name: Deploy to Bunny Storage
     runs-on: ubuntu-24.04
     steps:
       - name: Download Output File from Artifact
@@ -80,7 +80,7 @@ jobs:
 #          THUMPER_API_KEY: ${{ secrets.bunny-api-key }}
 
       - name: Activate Staging Environment
-        if: ${{ inputs.enable-preview-edge-rule }}
+        if: ${{ inputs.enable-preview-edge-rule == true && inputs.environment == 'staging' }}
         env:
           GITHUB_SHA: ${{ github.sha }}
           BUNNY_API_KEY: ${{ secrets.bunny-api-key }}
@@ -133,7 +133,7 @@ jobs:
           fi
 
   deploy_to_s3_compatible:
-    name: Deploy to ${{ matrix.display_name }} (${{ inputs.environment }})
+    name: Deploy to ${{ matrix.display_name }}
     runs-on: ubuntu-24.04
     strategy:
       matrix:
@@ -166,7 +166,7 @@ jobs:
           rclone sync -v -P --stats-one-line --transfers=32 --checkers=32 --checksum ./public "${S3_SERVICE}:/${S3_BUCKET}"
 
   deploy_to_bunny_s3:
-    name: Deploy to Bunny S3 (${{ inputs.environment }})
+    name: Deploy to Bunny S3
     runs-on: ubuntu-24.04
     steps:
       - name: Download Output File from Artifact
