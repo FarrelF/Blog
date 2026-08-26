@@ -252,20 +252,20 @@ runs:
 
         if [ -z "${DOWNLOADER_ARGS}" ]; then
           case "${DOWNLOADER_CMD}" in
-            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U 'Mozilla/5.0'" ;;
-            curl) DOWNLOADER_ARGS="-C - -A "Mozilla/5.0" -LO" ;;
+            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -UMozilla/5.0" ;;
+            curl) DOWNLOADER_ARGS="-C - -A 'Mozilla/5.0' -LO" ;;
             wget) DOWNLOADER_ARGS="-c -U 'Mozilla/5.0'" ;;
             axel) DOWNLOADER_ARGS="-a -n 16 -U 'Mozilla/5.0'" ;;
             mwget) DOWNLOADER_ARGS="-n 16 -c -U 'Mozilla/5.0'" ;;
           esac
         fi
 
-        "${DOWNLOADER_CMD}" "${DOWNLOADER_ARGS}" \
+        ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} \
           "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILE}" \
           || die "Download Failed"
 
         if [ -n "${HASH_FILE}" ] && [ "${HUGO_VERIFY_FILE:-true}" = true ]; then
-          "${DOWNLOADER_CMD}" "${DOWNLOADER_ARGS}" \
+          ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} \
             "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HASH_FILE}" \
             || die "Download Hash File Failed"
 
