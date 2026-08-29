@@ -11,10 +11,10 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
   - [hugo-theme-stack/v4](https://github.com/CaiJimmy/hugo-theme-stack) (Main Theme)
   - [stack-modified](https://github.com/FarrelF/stack-modified) (Modified Theme, all of it, including directory structure are based on Main Theme)
 - **Module system**: Go modules (go.mod / go.sum) -- not git submodules
-- **Primary deploy**: Bunny Storage (using GitHub Actions)
+- **Primary deploy**: Bunny Storage as main storage (using GitHub Actions for deployment) and use Bunny CDN as main resolve proxy CDN
 - **Backup deploy**:
-  - Netlify and Cloudflare Pages (for Hosting)
-  - Cloudflare R2, Backblaze B2 and Bunny S3 (for Storage, deployed using GitHub Actions)
+  - Netlify and Cloudflare Pages (as backup Hosting)
+  - Cloudflare R2, Backblaze B2 and Bunny S3 (as backup Storage, using GitHub Actions for deployment)
 - **Default branch**: main
 - **Comments**: [Giscus](https://giscus.app) (GitHub Discussions-based)
 
@@ -99,9 +99,9 @@ Posts use YAML-style front matter (--- delimiters). Here is the complete pattern
     Tags:
         - TagName
     readMore: true
-    DescriptionSEO: Short SEO description for search engines
+    DescriptionSEO: Short SEO description for search engines, open graph and social media cards
     Description: |- 
-        Longer description used for Open Graph / social media cards.
+        Longer description used for caption that describe or summarize the article.
         Can span multiple lines using |- block scalar.
     ---
 ```
@@ -112,18 +112,18 @@ Posts use YAML-style front matter (--- delimiters). Here is the complete pattern
 |-------|----------|-------------|
 | Title | Yes | Article title. Quote if it contains colons or special characters |
 | Slug | Yes | URL slug (lowercase, hyphens, no special chars) |
-| Author | Yes | Always Farrel Franqois |
+| Author | Yes | Always `Farrel Franqois` |
 | Categories | Yes | List of categories (see below). Title Case |
 | Image | Recommended | Featured image filename (must exist in same page bundle directory). Use .webp format preferred |
 | Date | Yes | Publication date with +07:00 timezone offset |
-| Draft | Yes | false to publish, true to hide from production |
-| License | Optional | Leave empty for default CC BY-SA 4.0, or specify custom license |
-| Math | Optional | Set to true if article contains mathematical formulas |
-| Comments | Yes | true to enable Giscus comments |
+| Draft | Yes | Set to `false` to publish, or `true` to hide from production |
+| License | Optional | Leave empty for default (`CC BY-SA 4.0`), or specify custom license |
+| Math | Optional | Set to `true` if article contains mathematical formulas |
+| Comments | Yes | Set to `true` to enable comments system |
 | Tags | Optional | List of tags (Title Case) |
 | readMore | Yes | true to show read more truncation |
-| DescriptionSEO | Yes | Concise description for search engine results |
-| Description | Yes | Detailed description for Open Graph / social sharing. Use |- block scalar for multi-line |
+| DescriptionSEO | Yes | Concise description for search engine results, open graph and social media cards |
+| Description | Yes | Detailed description for caption that describe or summarize the article. Use \|\- block scalar for multi-line |
 
 ## Existing Categories
 
@@ -162,9 +162,9 @@ Posts use YAML-style front matter (--- delimiters). Here is the complete pattern
 ### Image Handling
 
 - Place images in the same directory as the content file that references them
-- Use relative paths in markdown: ![alt text](image.webp)
+- Use relative paths in markdown: `![alt text](image.webp)`
 - Prefer .webp format for better compression
-- **Never** put Hugo-processed assets in static/ -- use page bundles instead
+- **Never** put Hugo-processed assets in `static/` -- use page bundles instead
 
 ## Available Shortcodes
 
@@ -172,15 +172,14 @@ Use these in markdown content:
 
 | Shortcode | Purpose | Example |
 |-----------|---------|---------|
-| info | Callout/info box with title | {{< info title="Note" >}}...{{< /info >}} |
-| spoiler | Collapsible section | {{< spoiler title="Click to expand" >}}...{{< /spoiler >}} |
-| toc | Table of contents | {{< toc >}} |
-| a-file | File attachment link | {{< a-file >}} |
-| bunny-stream | Bunny.net video embed | {{< bunny-stream id="VIDEO_ID" >}} |
-| hugo-version | Hugo version display | {{< hugo-version >}} |
-| hugo-version-long | Full Hugo version | {{< hugo-version-long >}} |
-| hugo-builddate | Build timestamp | {{< hugo-builddate >}} |
-| hugo-hash | Build hash | {{< hugo-hash >}} |
+| info | Callout/info box with title | `{{< info title="Note" >}}...{{< /info >}}` |
+| spoiler | Collapsible section | `{{< spoiler title="Click to expand" >}}...{{< /spoiler >}}` |
+| a-file | File attachment link (place the attachment in the same page bundle directory) | `{{< a-file path="RELATIVE_PATH_TO_FILE" download="true" >}}` |
+| bunny-stream | [Bunny Stream](https://bunny.net/stream/) video embed | `{{< bunny-stream libraryID="LIBRARY_ID" id="VIDEO_ID" newPlayer="true" autoplay="false" responsive="true" >}}` |
+| hugo-version | Hugo version display | `{{< hugo-version >}}` |
+| hugo-version-long | Full Hugo version | `{{< hugo-version-long platform="linux/amd64" vendorInfo="gohugo" isExtended="true" >}}` |
+| hugo-builddate | Hugo build timestamp | `{{< hugo-builddate >}}` |
+| hugo-hash | Hugo build hash | `{{< hugo-hash >}}` |
 
 **Important**: Use spaces inside shortcode delimiters consistently -- `{{< name >}}` and `{{< /name >}}`.
 
@@ -189,14 +188,23 @@ Use these in markdown content:
 ### Local Development
 
 ```bash
-hugo server -D --gc
+hugo server -D --gc --renderStaticToDisk
 ```
 
 - `-D` includes draft posts
 - `--gc` garbage collects unused cache files
+- `--renderStaticToDisk` renders static files to disk instead of memory
 - Access at `http://localhost:1313`
-- Add `--liveReloadPort 443` for Codespaces
-- Add `--tlsAuto` to issue and set self-signed certificate to Hugo local server
+- Output goes to `public/` directory
+- Add `--liveReloadPort 443` if you're using Codespaces for Livereload feature
+- Add `--tlsAuto` to issue and set self-signed TLS certificate to Hugo local server. DO NOT access it with HTTP (`http://localhost:1313`) while using `--tlsAuto` as it will causes errors, use HTTPS (`https://localhost:1313`) instead
+  - **NOTE:** Before using `--tlsAuto` argument for first time, execute `hugo server trust` command first to install a local CA.
+- Add `-e production` to set environment to `production`, default is `development`, see **Hugo Configuration** for configuration. This will imitates production environment on local server, useful for testing production site
+- Add `--logLevel LOG_LEVEL` to set output logging level while executing Hugo command, the `LOG_LEVEL` can be following:
+  - `error` (example `--logLevel error`) -- Display error messages only
+  - `warn` (example `--logLevel warn`) -- Display warning and error messages
+  - `info` (example `--logLevel info`) -- Display information, warning, and error messages
+  - `debug` (example `--logLevel debug`) -- Display debug, information, warning, and error messages
 
 ### Production Build (Static)
 
@@ -205,6 +213,12 @@ hugo --gc
 ```
 
 - Output goes to `public/` directory
+- Default environment is `production`, add `-e development` to set environment to `development`, see **Hugo Configuration** for configuration
+- Add `--logLevel LOG_LEVEL` to set output logging level while executing Hugo command, the `LOG_LEVEL` can be following:
+  - `error` (example `--logLevel error`) -- Display error messages only
+  - `warn` (example `--logLevel warn`) -- Display warning and error messages
+  - `info` (example `--logLevel info`) -- Display information, warning, and error messages
+  - `debug` (example `--logLevel debug`) -- Display debug, information, warning, and error messages
 
 ### Netlify Build
 
@@ -213,6 +227,43 @@ rm static/_headers; hugo --minify --gc
 ```
 
 - `_headers` file is removed before build because it used by Cloudflare Pages and the Netlify headers are managed by `netlify.toml` file instead
+
+## Hugo Modules
+
+### Install Modules
+
+Execute the Hugo build command, see **Build Commands** to see all available build options. Hugo will automatically install modules when building site.
+
+### Update Modules
+
+```bash
+hugo mod get -u
+```
+
+- `-u` updates the modules to the latest version
+- All flags of `go get` command are relevant to `hugo mod get` command. Run `go help get` for more information
+
+### Tidying Modules
+
+```bash
+hugo mod tidy
+```
+
+### Vendoring Modules
+
+```bash
+hugo mod vendor
+```
+
+### Cleaning Hugo Modules Cache
+
+```bash
+hugo mod clean
+```
+
+### Hugo Modules Configuration
+
+See `config/_default/module.toml` for default module configuration and `config/development/module.toml` for development module configuration.
 
 ## Permalinks Configuration
 
@@ -226,7 +277,7 @@ rm static/_headers; hugo --minify --gc
 ## Key Rules for AI Agents
 
 1. NEVER put Hugo-processed assets in `static/` -- Use page bundles (alongside `index.md`) for post images, or `assets/` for Hugo-processed files like favicon
-2. All content must be in Indonesian language -- titles, descriptions, body text, categories, tags
+2. All content must be in Indonesian -- titles, descriptions, body text, categories, tags
 3. Follow the exact front matter pattern shown above -- include ALL required fields
 4. Italicize English technical terms with _underscores_ -- this is the established writing style
 5. Use page bundles for posts -- create `YYYY/MM/DD-slug/index.md` with images in the same directory
