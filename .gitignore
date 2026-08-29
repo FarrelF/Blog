@@ -21,3 +21,6 @@ jsconfig.json
 hugo.exe
 hugo.linux
 hugo.darwin
+
+# Freebuff Files
+.freebuff/
