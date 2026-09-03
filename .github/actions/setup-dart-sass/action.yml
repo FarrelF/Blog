@@ -61,7 +61,7 @@ runs:
 
         if [ -z "${DOWNLOADER_ARGS}" ]; then
           case "${DOWNLOADER_CMD}" in
-            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U 'Mozilla/5.0'" ;;
+            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -UMozilla/5.0" ;;
             curl) DOWNLOADER_ARGS="-C - -A 'Mozilla/5.0' -LO" ;;
             wget) DOWNLOADER_ARGS="-c -U 'Mozilla/5.0'" ;;
             axel) DOWNLOADER_ARGS="-a -n 16 -U 'Mozilla/5.0'" ;;
