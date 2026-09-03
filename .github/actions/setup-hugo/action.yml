@@ -9,12 +9,12 @@ inputs:
     description: 'Verify the downloaded binary against the official checksum file (true/false)'
     required: false
     default: 'true'
-  is-extended:
+  extended:
     description: 'Install the Hugo Extended build (true/false)'
     required: false
-    default: 'true'
-  is-with-deploy:
-    description: 'Install Hugo Extended with the Deploy feature, for Hugo >= 0.137.0 (true/false)'
+    default: 'false'
+  with-deploy:
+    description: 'Install Hugo with the Deploy feature, for Hugo Extended >= 0.137.0 or standard Hugo >= 0.159.2 (true/false)'
     required: false
     default: 'false'
   github-token:
@@ -41,8 +41,8 @@ runs:
       env:
         HUGO_VERSION: ${{ inputs.hugo-version }}
         HUGO_VERIFY_FILE: ${{ inputs.verify-file }}
-        IS_EXTENDED: ${{ inputs.is-extended }}
-        IS_WITHDEPLOY: ${{ inputs.is-with-deploy }}
+        IS_EXTENDED: ${{ inputs.extended }}
+        IS_WITHDEPLOY: ${{ inputs.with-deploy }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         INSTALL_DIR: ${{ inputs.install-dir }}
         DOWNLOADER: ${{ inputs.downloader }}
@@ -124,16 +124,16 @@ runs:
           fi
 
           if [ -z "${GITHUB_TOKEN:-}" ]; then
-              warn "You don't specify GitHub Token, a lower rate limit will apply and a rate limit error may occur."
-              HUGO_VERSION="$(
+            warn "You don't specify GitHub Token, a lower rate limit will apply and a rate limit error may occur."
+            HUGO_VERSION="$(
               curl -s \
-              "${GITHUB_REPO_API_URL}/releases/latest" |
+              "${GITHUB_REPO_API_URL}/releases/latest" | \
               jq -r '.tag_name | sub("^v"; "")'
             )"
           else
-              HUGO_VERSION="$(
+            HUGO_VERSION="$(
               curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-              "${GITHUB_REPO_API_URL}/releases/latest" |
+              "${GITHUB_REPO_API_URL}/releases/latest" | \
               jq -r '.tag_name | sub("^v"; "")'
             )"
           fi
@@ -205,10 +205,22 @@ runs:
               HUGO_VERSION="0.137.1"
               HUGO_SUFFIX="_extended_withdeploy"
             elif version_le "${HUGO_VERSION}" "0.136.5" && version_ge "${HUGO_VERSION}" "0.56.0"; then
-              note "Your Hugo version still has the Deploy feature built-in, so 'IS_WITHDEPLOY' is not required."
+              note "Your Hugo version still has the Deploy feature built-in, so 'with-deploy' input is not required."
             else
-              note "Your Hugo version don't have Deploy feature, so 'IS_WITHDEPLOY' is not required."
+              note "Your Hugo version don't have Deploy feature, so 'with-deploy' input is not required."
             fi
+          fi
+        fi
+
+        if [ "${IS_WITHDEPLOY:-false}" = true ] && [ "${IS_EXTENDED:-false}" = false ] && version_ge "${HUGO_VERSION}" "0.159.2" && \
+        { [ "${GO_OS}" = "linux" ] || [ "${GO_OS}" = "darwin" ] || [ "${GO_OS}" = "windows" ]; } && \
+        { [ "${GO_ARCH}" = "amd64" ] || [ "${GO_ARCH}" = "arm64" ]; }; then
+          HUGO_SUFFIX="_withdeploy"
+
+          if [ "${GO_OS}" = "windows" ] && [ "${GO_ARCH}" = "arm64" ]; then
+            warn "Hugo with Deploy feature is not supported on Windows ARM64. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
+            echo "If you encounter issues, consider using an AMD64 runner image."
+            HUGO_ARCH="amd64"
           fi
         fi
 
