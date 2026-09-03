@@ -12,8 +12,38 @@ on:
         required: false
         default: Asia/Jakarta
         type: string
+      use-actions-go:
+        description: Use actions/setup-go for installing Go. In fact, Go is already installed by default, but the version depends on the runner image (true/false)
+        required: false
+        default: true
+        type: boolean
+      use-dart-sass:
+        description: Use Dart Sass for the build (true/false)
+        required: false
+        default: true
+        type: boolean
+      go-version:
+        description: Go version to use for the build.
+        required: false
+        default: stable
+        type: string
       hugo-version:
         description: Hugo version to use for the build.
+        required: false
+        default: latest
+        type: string
+      hugo-extended:
+        description: Install Hugo Extended build (true/false)
+        required: false
+        default: true
+        type: boolean
+      hugo-with-deploy:
+        description: Install Hugo with Deploy feature (true/false)
+        required: false
+        default: false
+        type: boolean
+      dart-sass-version:
+        description: Dart Sass version to use for the build.
         required: false
         default: latest
         type: string
@@ -23,7 +53,7 @@ on:
         default: ''
         type: string
       build-future:
-        description: Whether Hugo should include future-dated content.
+        description: Whether Hugo should include future-dated content (true/false)
         required: false
         default: false
         type: boolean
@@ -69,26 +99,26 @@ jobs:
           sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
       - name: Setup Go
-        env:
-          GO_VERSION: stable
+        if: ${{ inputs.use-actions-go == true }}
         uses: actions/setup-go@v7
         with:
-          go-version: ${{ env.GO_VERSION }}
+          go-version: ${{ inputs.go-version }}
           cache: false
 
-      - name: Setup Hugo Extended
+      - name: Setup Hugo
         uses: ./.github/actions/setup-hugo
         with:
           hugo-version: ${{ inputs.hugo-version }}
           verify-file: true
-          is-extended: true
-          is-with-deploy: false
+          extended: ${{ inputs.hugo-extended }}
+          with-deploy: ${{ inputs.hugo-with-deploy }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Dart Sass
+        if: ${{ inputs.use-dart-sass == true }}
         uses: ./.github/actions/setup-dart-sass
         with:
-          dart-sass-version: latest
+          dart-sass-version: ${{ inputs.dart-sass-version }}
           is-musl: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -126,7 +156,7 @@ jobs:
           if [ -n "${BUILD_BASE_URL}" ]; then
             BUILD_BASE_URL_FLAG="-b ${BUILD_BASE_URL}"
           fi
-          
+
           if [ "${HUGO_ENV}" != "production" ]; then
             rm -rf static/*.txt static/*.xml static/google*.html static/CNAME static/_redirects
             hugo --gc ${BUILD_FUTURE_FLAG} --environment "${HUGO_ENV}" ${BUILD_BASE_URL_FLAG}
