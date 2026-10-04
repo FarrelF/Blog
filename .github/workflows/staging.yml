@@ -44,5 +44,5 @@ jobs:
       rclone-config: ${{ secrets.RCLONE_CONFIG }}
       rclone-config-pass: ${{ secrets.RCLONE_CONFIG_PASS }}
       bunny-api-key: ${{ secrets.BUNNY_API_KEY }}
-      bunny-pullzone-id: ${{ secrets.BUNNY_PULLZONE_ID }}
+      bunny-pullzone-id: ${{ secrets.BUNNY_PREVIEW_PULLZONE_ID }}
       bunny-preview-edge-rules-guid: ${{ secrets.BUNNY_PREVIEW_EDGE_RULES_GUID }}
