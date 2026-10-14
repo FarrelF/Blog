@@ -59,7 +59,7 @@ Berikut ini adalah apa yang saya pakai untuk blog ini:
 - Sertifikat TLS/SSL:
   - Otoritas Sertifikat (CA atau _Certificate Authority_):
     - [Google Trust Services (GTS)](https://pki.goog) (CA Utama)
-    - [Let's Encrypt](https://letsencrypt.org) (CA Cadangan)
+    - [ZeroSSL](https://zerossl.com) (CA Cadangan)
   - Pengelola Sertifikat: [Certimate](https://docs.certimate.me/)
 - CDN: Bunny CDN (Untuk berkas CSS, Fon dan Gambar)
 - Sistem Komentar: [giscus](https://giscus.app)
