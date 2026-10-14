@@ -49,14 +49,14 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
 - **All content is written in Bahasa Indonesia (Indonesian)**
 - Content language code: id-id
 - **Timezone**: Asia/Jakarta (WIB, UTC+7)
-- **Writing style**: Conversational, friendly, informal Indonesian. Uses words like kamu, saya, kita
+- **Writing style**: Conversational, friendly Indonesian. The reader may be addressed formally (`Anda`) or informally (`kamu`) depending on the sentence and context, so both forms can appear in the same article. Keep it natural and do not mix them arbitrarily within one sentence.
 - **Technical terms in English** should be italicized using _underscores_ (e.g., _in-place upgrade_, _bootable_, _Feature update_)
 - Hugo markdown uses Goldmark with **unsafe = true** -- raw HTML in markdown is allowed and used frequently
 
 ## Writing Style Guide
 
 1. **Language**: Bahasa Indonesia (Indonesian) for all content
-2. **Tone**: Conversational, friendly, informal (uses kamu, saya, kita)
+2. **Tone**: Conversational and friendly. Use `Anda` or `kamu` per sentence and context -- a mix of both within one article is fine as long as it reads naturally
 3. **Technical terms**: Italicize English technical terms with _underscores_ (e.g., _in-place upgrade_, _bootable_)
 4. **Raw HTML**: Allowed in markdown (Goldmark unsafe = true) -- used frequently for complex layouts
 5. **Emphasis**: Use **bold** for important terms, _italic_ for technical jargon
@@ -81,7 +81,7 @@ Key config files:
 
 ## Front Matter Reference
 
-Posts use YAML-style front matter (--- delimiters). Here is the complete pattern:
+Posts use YAML-style front matter (--- delimiters). Here is the full pattern -- fields marked Optional in the table below may be omitted:
 
 ```yaml
     ---
@@ -116,10 +116,10 @@ Posts use YAML-style front matter (--- delimiters). Here is the complete pattern
 | Categories | Yes | List of categories (see below). Title Case |
 | Image | Recommended | Featured image filename (must exist in same page bundle directory). Use .webp format preferred |
 | Date | Yes | Publication date with +07:00 timezone offset |
-| Draft | Yes | Set to `false` to publish, or `true` to hide from production |
+| Draft | Optional | Set to `false` to publish, or `true` to hide from production. Omit to use the default (published) |
 | License | Optional | Leave empty for default (`CC BY-SA 4.0`), or specify custom license |
 | Math | Optional | Set to `true` if article contains mathematical formulas |
-| Comments | Yes | Set to `true` to enable comments system |
+| Comments | Optional | Set to `true` to enable or `false` to disable comments for this post. Omit to follow the global `comments.enabled` in params.toml |
 | Tags | Optional | List of tags (Title Case) |
 | readMore | Yes | true to show read more truncation |
 | DescriptionSEO | Yes | Concise description for search engine results, open graph and social media cards |
@@ -278,7 +278,7 @@ See `config/_default/module.toml` for default module configuration and `config/d
 
 1. NEVER put Hugo-processed assets in `static/` -- Use page bundles (alongside `index.md`) for post images, or `assets/` for Hugo-processed files like favicon
 2. All content must be in Indonesian -- titles, descriptions, body text, categories, tags
-3. Follow the exact front matter pattern shown above -- include ALL required fields
+3. Follow the front matter pattern shown above -- include ALL required fields (fields marked Optional may be omitted)
 4. Italicize English technical terms with _underscores_ -- this is the established writing style
 5. Use page bundles for posts -- create `YYYY/MM/DD-slug/index.md` with images in the same directory
 6. Use .webp format for images when possible -- it is the preferred format in existing posts

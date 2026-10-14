@@ -9,7 +9,12 @@ timeout = 1_200_000
 timeZone = "Asia/Jakarta"
 enableRobotsTXT = true
 defaultContentLanguage = "id"
-ignoreFiles = [ "README.md" ]
+ignoreFiles = [ 
+    "README.md",
+    "CONTRIBUTING.md",
+    "AGENTS.md",
+    "CLAUDE.md"
+]
 
 [pagination]
 pagerSize = 5
