@@ -27,7 +27,11 @@ jobs:
       artifact-name: staging-build-result-${{ github.sha }}
       resources-cache-key: v2-5-hugo-staging
       modules-cache-prefix: staging
+      use-dart-sass: true
+      dart-sass-version: latest
+      go-version: stable
       hugo-version: latest
+      hugo-extended: false
 
   deploy:
     name: Deploy

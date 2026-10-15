@@ -38,7 +38,7 @@ runs:
         DOWNLOADER: ${{ inputs.downloader }}
         DOWNLOADER_ARGS: ${{ inputs.downloader-args }}
       run: |
-        # Detect OS and system architecture with Go standard environment variables
+        # Detect OS and system architecture
         case "${RUNNER_OS}" in
           "Linux") OS_NAME="linux" ;;
           "macOS") OS_NAME="macos" ;;

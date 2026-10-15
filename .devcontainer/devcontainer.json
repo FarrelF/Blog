@@ -45,7 +45,11 @@
 	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	//"postCreateCommand": "bash .devcontainer/clone-repo.sh",
+	// The stack-modified theme transpiles SCSS with Dart Sass, so the sass CLI
+	// has to be on PATH for `hugo` to work. There is no official Dart Sass
+	// dev container feature, so install it here. The script is a no-op when a
+	// matching version is already present.
+	"postCreateCommand": "bash scripts/install-dart-sass.sh",
 
 	// Remove the comment at "remoteUser" to connect as non-root instead.
 	// More info: https://aka.ms/vscode-remote/containers/non-root.

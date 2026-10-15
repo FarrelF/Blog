@@ -13,7 +13,8 @@ ignoreFiles = [
     "README.md",
     "CONTRIBUTING.md",
     "AGENTS.md",
-    "CLAUDE.md"
+    "CLAUDE.md",
+    "scripts/*"
 ]
 
 [pagination]
