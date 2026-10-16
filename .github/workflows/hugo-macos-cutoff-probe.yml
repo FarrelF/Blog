@@ -99,8 +99,8 @@ jobs:
             fi
             chmod +x "$bin" 2>/dev/null || true
 
-            out_v="$("$bin" version 2>&1)"; rc_v=$?
-            out_h="$("$bin" -h 2>&1)"; rc_h=$?
+            rc_v=0; out_v="$("$bin" version 2>&1)" || rc_v=$?
+            rc_h=0; out_h="$("$bin" -h 2>&1)" || rc_h=$?
 
             if [ $rc_v -eq 0 ] && printf '%s' "$out_v" | grep -qi hugo; then
               echo "RESULT $tag: RUNS :: $(first "$out_v")"
@@ -112,10 +112,10 @@ jobs:
             fi
 
             echo "RESULT $tag: FAILS :: version rc=$rc_v [$(first "$out_v")] help rc=$rc_h [$(first "$out_h")]"
-            sig="$(codesign -dv "$bin" 2>&1 | head -n 2 | tr '\n' ' ')"
+            sig="$(codesign -dv "$bin" 2>&1 | head -n 2 | tr '\n' ' ' || true)"
             echo "SIGNINFO $tag: ${sig:-codesign produced no output}"
             if codesign --force --sign - "$bin" >/dev/null 2>&1; then
-              out_r="$("$bin" version 2>&1)"; rc_r=$?
+              rc_r=0; out_r="$("$bin" version 2>&1)" || rc_r=$?
               if [ $rc_r -eq 0 ] && printf '%s' "$out_r" | grep -qi hugo; then
                 echo "RESIGN $tag: RUNS :: $(first "$out_r")"
               else
