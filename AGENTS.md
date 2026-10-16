@@ -291,7 +291,7 @@ Both composite actions live in `.github/actions/` and are exercised by `.github/
 
 ### setup-hugo
 
-Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically. The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`. See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2).
+Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically. The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`. See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2; the 2016-era macOS builds v0.16/v0.18 do not execute on macOS 15).
 
 ### setup-dart-sass
 

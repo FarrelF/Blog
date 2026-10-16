@@ -739,30 +739,37 @@ runs:
         #######################################
 
         smoke_test() {
-          local bin="$1" out
+          local bin="$1" out rc
+          SMOKE_OUTPUT=''
+          SMOKE_DETAIL=''
           # Current releases: 'hugo version' exits 0 and prints a version banner
-          if out="$("${bin}" version 2>&1)"; then
-            if printf '%s' "${out}" | grep -qi 'hugo'; then
-              printf '%s\n' "${out}" | head -n 1
-              return 0
-            fi
-          fi
-          # v0.7/v0.8 have no 'version' subcommand; '-h' prints 'usage: hugo' and exits non-zero
-          out="$("${bin}" -h 2>&1 || true)"
-          if printf '%s' "${out}" | grep -qi 'usage: hugo'; then
-            printf '%s\n' "hugo (this release has no 'version' subcommand)"
+          rc=0
+          out="$("${bin}" version 2>&1)" || rc=$?
+          if [ "${rc}" -eq 0 ] && printf '%s' "${out}" | grep -qi 'hugo'; then
+            SMOKE_OUTPUT="$(printf '%s\n' "${out}" | head -n 1)"
             return 0
           fi
+          SMOKE_DETAIL="'hugo version' exited with code ${rc}"
+          if [ -n "${out}" ]; then
+            SMOKE_DETAIL="${SMOKE_DETAIL} and printed: $(printf '%s\n' "${out}" | head -n 1)"
+          fi
+          # v0.7/v0.8 have no 'version' subcommand; '-h' prints 'usage: hugo' but may exit non-zero
+          out="$("${bin}" -h 2>&1 || true)"
+          if printf '%s' "${out}" | grep -qi 'usage: hugo'; then
+            SMOKE_OUTPUT="hugo (this release has no 'version' subcommand)"
+            return 0
+          fi
+          SMOKE_DETAIL="${SMOKE_DETAIL}; 'hugo -h' did not print 'usage: hugo'"
           return 1
         }
 
-        if SMOKE_OUTPUT="$(smoke_test "${INSTALL_DIR}/${BIN_NAME}")"; then
+        if smoke_test "${INSTALL_DIR}/${BIN_NAME}"; then
           note "Smoke test passed: ${SMOKE_OUTPUT}"
         elif [ "${CROSS_ARCH_FALLBACK}" = 'true' ]; then
-          warn "The installed ${GO_ARCH} build could not be executed on this runner (expected when a cross-architecture fallback is involved)."
+          warn "The installed ${GO_ARCH} build could not be executed on this runner (expected when a cross-architecture fallback is involved): ${SMOKE_DETAIL}"
           warn "Install emulation support (Rosetta 2 or Windows on ARM x64 emulation) or use a matching runner architecture."
         else
-          die "The installed hugo binary failed to execute ('hugo version' returned an error)."
+          die "The installed hugo binary failed to execute (${SMOKE_DETAIL})."
         fi
 
         #######################################

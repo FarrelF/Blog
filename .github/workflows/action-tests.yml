@@ -58,7 +58,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
   hugo-windows:
     name: Hugo / Windows / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -96,7 +98,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -f "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
   hugo-macos-arm64:
     name: Hugo / macOS ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -131,7 +135,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
   hugo-macos-intel:
     name: Hugo / macOS Intel / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -140,8 +146,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { version: '0.16',   edition: 'standard' }
-          - { version: '0.18',   edition: 'standard' }
+          # v0.16/v0.18 are covered by hugo-macos-intel-expected-gap: their
+          # 2016-era binaries do not execute on modern macOS runners.
           - { version: '0.103.0', edition: 'standard' }
           - { version: '0.152.2', edition: 'standard' }
           - { version: 'latest', edition: 'extended' }
@@ -166,7 +172,40 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+
+  hugo-macos-intel-expected-gap:
+    name: Hugo / macOS Intel / ${{ matrix.version }} / expected gap
+    runs-on: macos-15-intel
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.16' }
+          - { version: '0.18' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo (expected to fail)
+        id: hugo
+        continue-on-error: true
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+
+      - name: Assert the action failed with the smoke-test error
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.hugo.outcome }}" != 'failure' ]; then
+            echo "::error::Expected the action to fail for Hugo v${{ matrix.version }} on macOS Intel (2016-era binaries do not execute on macOS 15)"
+            exit 1
+          fi
+          echo "Action failed as expected for v${{ matrix.version }} on macOS Intel."
 
   hugo-linux-arm64:
     name: Hugo / Ubuntu ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -199,7 +238,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
   hugo-windows-arm64:
     name: Hugo / Windows ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -233,7 +274,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -f "${{ steps.hugo.outputs.hugo-path }}"
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+          # v0.7/v0.8 print help with a non-zero exit code even though the
+          # binary works; it was already smoke tested by the action.
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
   hugo-linux-arm64-expected-gap:
     name: Hugo / Ubuntu ARM64 / v0.19 / expected gap
