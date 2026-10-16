@@ -146,8 +146,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # v0.16/v0.18 are covered by hugo-macos-intel-expected-gap: their
-          # 2016-era binaries do not execute on modern macOS runners.
+          # Releases below v0.48 are covered by hugo-macos-intel-expected-gap:
+          # binaries built with Go 1.10 and older do not execute on modern macOS runners.
+          - { version: '0.48', edition: 'standard' }                # oldest release that executes on macOS 15 (Go 1.11)
           - { version: '0.103.0', edition: 'standard' }
           - { version: '0.152.2', edition: 'standard' }
           - { version: 'latest', edition: 'extended' }
@@ -183,8 +184,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { version: '0.16' }
-          - { version: '0.18' }
+          - { version: '0.16' }    # Go 1.6.2: crashes with SIGSEGV
+          - { version: '0.18' }    # Go 1.7.4: killed by the OS
+          - { version: '0.47.1' }  # Go 1.10.3: bsdthread_register error (last failing release)
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -202,7 +204,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ "${{ steps.hugo.outcome }}" != 'failure' ]; then
-            echo "::error::Expected the action to fail for Hugo v${{ matrix.version }} on macOS Intel (2016-era binaries do not execute on macOS 15)"
+            echo "::error::Expected the action to fail for Hugo v${{ matrix.version }} on macOS Intel (Go 1.10 and older binaries do not execute on macOS 15)"
             exit 1
           fi
           echo "Action failed as expected for v${{ matrix.version }} on macOS Intel."
