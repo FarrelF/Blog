@@ -177,6 +177,8 @@ jobs:
           # binary works; it was already smoke tested by the action.
           hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
 
+  # Pre-v0.48 builds (Go 1.10 and older) cannot execute on macOS 15+;
+  # setup-hugo refuses them up front on those runners (both architectures).
   hugo-macos-intel-expected-gap:
     name: Hugo / macOS Intel / ${{ matrix.version }} / expected gap
     runs-on: macos-15-intel
@@ -184,9 +186,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { version: '0.16' }    # Go 1.6.2: crashes with SIGSEGV
-          - { version: '0.18' }    # Go 1.7.4: killed by the OS
-          - { version: '0.47.1' }  # Go 1.10.3: bsdthread_register error (last failing release)
+          - { version: '0.16' }    # Go 1.6.2
+          - { version: '0.18' }    # Go 1.7.4
+          - { version: '0.47.1' }  # Go 1.10.3 (last failing release)
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -199,15 +201,40 @@ jobs:
           hugo-version: ${{ matrix.version }}
           verify-file: true
 
-      - name: Assert the action failed with the smoke-test error
+      - name: Assert the action refused the build
         shell: bash
         run: |
           set -euo pipefail
           if [ "${{ steps.hugo.outcome }}" != 'failure' ]; then
-            echo "::error::Expected the action to fail for Hugo v${{ matrix.version }} on macOS Intel (Go 1.10 and older binaries do not execute on macOS 15)"
+            echo "::error::Expected the action to refuse Hugo v${{ matrix.version }} on macOS Intel (Go 1.10 and older builds cannot execute on macOS 15+)"
             exit 1
           fi
-          echo "Action failed as expected for v${{ matrix.version }} on macOS Intel."
+          echo "Action refused v${{ matrix.version }} on macOS Intel as expected."
+
+  hugo-macos-arm64-expected-gap:
+    name: Hugo / macOS ARM64 / v0.47.1 / expected gap
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo (expected to fail)
+        id: hugo
+        continue-on-error: true
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: '0.47.1'
+          verify-file: true
+
+      - name: Assert the action refused the build
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.hugo.outcome }}" != 'failure' ]; then
+            echo "::error::Expected the action to refuse Hugo v0.47.1 on macOS ARM64 (Go 1.10 and older builds cannot execute on macOS 15+)"
+            exit 1
+          fi
+          echo "Action refused v0.47.1 on macOS ARM64 as expected."
 
   hugo-linux-arm64:
     name: Hugo / Ubuntu ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}

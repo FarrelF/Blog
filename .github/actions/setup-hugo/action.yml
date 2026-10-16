@@ -2,7 +2,7 @@ name: 'Setup Hugo'
 description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Extended or Extended+Deploy) on Linux, macOS and Windows runners, verified against the official checksum files when published'
 inputs:
   hugo-version:
-    description: 'Hugo version to install, with or without the "v" prefix (e.g. "0.168.0" or "v0.168.0"). Any official release from v0.7.0 to the latest is supported. "latest" resolves the newest release.'
+    description: 'Hugo version to install, with or without the "v" prefix (e.g. "0.168.0" or "v0.168.0"). Any official release from v0.7.0 to the latest is supported, except on macOS 15+ runners, where releases before v0.48.0 are refused (their Go 1.10-and-older runtime cannot execute there). "latest" resolves the newest release.'
     required: false
     default: 'latest'
   verify-file:
@@ -447,6 +447,26 @@ runs:
               WINDOWS_DEPLOY_BUMP_FROM='0.137.0'
             fi
           done
+        fi
+
+        #######################################
+        # Refuse builds that cannot execute on modern macOS
+        #######################################
+
+        # Releases before v0.48 were built with Go 1.10 and older. Those
+        # runtimes cannot register threads on macOS 15 and newer, so the
+        # binary either aborts with "fatal error: runtime: bsdthread_register
+        # error" or is killed by the OS (likewise under Rosetta 2 on Apple
+        # Silicon). Refuse the request up front instead of downloading a
+        # binary that can never run here; on older macOS (for example,
+        # self-hosted runners) the install is still attempted and the smoke
+        # test reports what actually happened.
+        if [ "${GO_OS}" = 'darwin' ] && ! version_ge "${HUGO_VERSION}" '0.48'; then
+          MACOS_PRODUCT_VERSION="$(sw_vers -productVersion 2>/dev/null || true)"
+          MACOS_MAJOR="${MACOS_PRODUCT_VERSION%%.*}"
+          if [ -n "${MACOS_MAJOR}" ] && [ "${MACOS_MAJOR}" -ge 15 ] 2>/dev/null; then
+            die "Hugo v${HUGO_VERSION} cannot execute on macOS ${MACOS_PRODUCT_VERSION}: releases before v0.48.0 were built with Go 1.10 and older, whose runtime aborts on macOS 15 and newer ('fatal error: runtime: bsdthread_register error', or the process is killed by the OS, also under Rosetta 2). The oldest Hugo release that runs on this runner is v0.48.0. Request v0.48.0 or newer, or run this job on an older macOS image."
+          fi
         fi
 
         #######################################
