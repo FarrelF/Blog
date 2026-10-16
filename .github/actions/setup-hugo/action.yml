@@ -1,24 +1,24 @@
 name: 'Setup Hugo'
-description: 'Download and install Hugo (optionally Extended / Extended+Deploy build) in GitHub Actions, verified against the official checksum file'
+description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Extended or Extended+Deploy) on Linux, macOS and Windows runners, verified against the official checksum files when published'
 inputs:
   hugo-version:
-    description: 'Hugo version to install. "latest" resolves the newest release via the GitHub API.'
+    description: 'Hugo version to install, with or without the "v" prefix (e.g. "0.168.0" or "v0.168.0"). Any official release from v0.7.0 to the latest is supported. "latest" resolves the newest release.'
     required: false
     default: 'latest'
   verify-file:
-    description: 'Verify the downloaded binary against the official checksum file (true/false)'
+    description: 'Verify the downloaded archive against the official checksum file (true/false). Hugo does not publish checksum files for v0.20.2 and earlier, so verification is skipped (with a warning) for those releases.'
     required: false
     default: 'true'
   extended:
-    description: 'Install the Hugo Extended build (true/false)'
+    description: 'Install the Hugo Extended build (true/false). Extended builds are published from v0.43.0 onward; on unsupported platforms the standard build is installed with a warning.'
     required: false
     default: 'false'
   with-deploy:
-    description: 'Install Hugo with the Deploy feature, for Hugo Extended >= 0.137.0 or standard Hugo >= 0.159.2 (true/false)'
+    description: 'Install Hugo with the Deploy feature (true/false). Available as Extended+Deploy from v0.137.0 (Linux ARM64 from v0.139.0, Windows from v0.137.1) and as standard+Deploy from v0.159.2; Hugo Extended v0.56.0-v0.136.x bundle Deploy already.'
     required: false
     default: 'false'
   github-token:
-    description: 'Token used to query the GitHub API when resolving "latest" (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
+    description: 'Token used to query the GitHub API when resolving "latest" fails via the releases redirect (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
     required: false
     default: ''
   install-dir:
@@ -26,17 +26,25 @@ inputs:
     required: false
     default: '~/.local/bin'
   downloader:
-    description: 'Downloader to use for Hugo (curl, wget or aria2/2c)'
+    description: 'Downloader to use for Hugo (curl, wget, aria2/2c or axel). Falls back to curl when aria2c is not installed.'
     required: false
     default: 'aria2'
   downloader-args:
-    description: 'Arguments to pass to the downloader'
+    description: 'Arguments to pass to the downloader (word-split, so avoid embedded spaces)'
     required: false
     default: ''
+outputs:
+  hugo-version:
+    description: 'The Hugo version that was actually installed (without the "v" prefix)'
+    value: ${{ steps.install-hugo.outputs.hugo-version }}
+  hugo-path:
+    description: 'Path to the installed Hugo binary'
+    value: ${{ steps.install-hugo.outputs.hugo-path }}
 runs:
   using: 'composite'
   steps:
     - name: Install Hugo
+      id: install-hugo
       shell: bash
       env:
         HUGO_VERSION: ${{ inputs.hugo-version }}
@@ -48,8 +56,10 @@ runs:
         DOWNLOADER: ${{ inputs.downloader }}
         DOWNLOADER_ARGS: ${{ inputs.downloader-args }}
       run: |
+        set -euo pipefail
+
         #######################################
-        # Script Functions
+        # Logging helpers
         #######################################
 
         die() {
@@ -69,278 +79,712 @@ runs:
           command -v "$1" >/dev/null 2>&1 || die "Required command '$1' is not installed."
         }
 
+        # version_ge A B -- succeeds when A >= B (dotted numeric versions, e.g. 0.168.0)
         version_ge() {
-          [ "$(printf '%s\n%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]
+          local a="$1" b="$2" i ai bi
+          local -a a_parts b_parts
+          IFS='.' read -r -a a_parts <<< "${a}"
+          IFS='.' read -r -a b_parts <<< "${b}"
+          for i in 0 1 2; do
+            ai=$((10#${a_parts[i]:-0}))
+            bi=$((10#${b_parts[i]:-0}))
+            if [ "${ai}" -gt "${bi}" ]; then return 0; fi
+            if [ "${ai}" -lt "${bi}" ]; then return 1; fi
+          done
+          return 0
         }
-        
-        version_le() {
-          [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" = "$1" ]
+
+        # probe_url URL -- succeeds when the URL exists (final HTTP status 2xx/3xx)
+        probe_url() {
+          local url="$1" code
+          if command -v curl >/dev/null 2>&1; then
+            code="$(curl -sIL --retry 2 --retry-connrefused --connect-timeout 10 -o /dev/null -w '%{http_code}' "${url}" || true)"
+            case "${code}" in
+              2??|3??) return 0 ;;
+            esac
+            return 1
+          fi
+          if command -v wget >/dev/null 2>&1; then
+            if wget --spider -q --tries=2 --timeout=15 "${url}" 2>/dev/null; then
+              return 0
+            fi
+            return 1
+          fi
+          die "Either curl or wget is required to probe Hugo release assets."
+        }
+
+        # read_magic FILE -- first 4 bytes as lowercase hex without separators
+        read_magic() {
+          head -c 4 "$1" 2>/dev/null | od -An -tx1 | tr -d ' \n' || true
+        }
+
+        # detect_kind FILE -- gzip | zip | pkg | raw
+        detect_kind() {
+          case "$(read_magic "$1")" in
+            1f8b*)    echo 'gzip' ;;
+            504b*)    echo 'zip' ;;
+            78617221) echo 'pkg' ;;
+            *)        echo 'raw' ;;
+          esac
         }
 
         #######################################
-        # Dependency checks
+        # Asset candidate rules
+        #
+        # Hugo has changed its release asset naming several times since v0.7.0
+        # (raw binaries, "linux_amd64", "Linux-64bit", "linux-amd64", ".tgz",
+        # ".zip", ".tar.gz", ".pkg", ...). Instead of maintaining version
+        # thresholds for every rename, the candidates below are probed in order
+        # with HEAD requests and the first hit wins.
+        # --- BEGIN asset candidate rules (also extracted by the probe harness) ---
         #######################################
 
-        DOWNLOADER_CMD=${DOWNLOADER}
+        # edition_suffix EDITION -- asset infix for an edition
+        edition_suffix() {
+          case "$1" in
+            extended)            echo '_extended' ;;
+            extended_withdeploy) echo '_extended_withdeploy' ;;
+            withdeploy)          echo '_withdeploy' ;;
+            *)                   echo '' ;;
+          esac
+        }
 
-        if [ "${DOWNLOADER}" = "aria2" ]; then
-          DOWNLOADER_CMD=aria2c
+        # asset_names_linux SUFFIX VERSION ARCH
+        asset_names_linux() {
+          local sfx="$1" v="$2" arch="$3"
+          # v0.103.0+ uses lowercase GOOS-GOARCH names (the title-case Linux-64bit name is kept as an alias)
+          if version_ge "${v}" "0.103.0"; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_${v}_linux-amd64.tar.gz"; echo "hugo${sfx}_${v}_Linux-64bit.tar.gz" ;;
+              arm64) echo "hugo${sfx}_${v}_linux-arm64.tar.gz" ;;
+              arm)   echo "hugo${sfx}_${v}_linux-arm.tar.gz" ;;
+              386)   echo "hugo${sfx}_${v}_Linux-32bit.tar.gz" ;;
+            esac
+          fi
+          # v0.20.3-v0.102.3 uses title-case names; v0.20.3 alone published v-prefixed asset names
+          if version_ge "${v}" "0.20.3" && version_ge "0.102.3" "${v}"; then
+            local prefix="hugo${sfx}_${v}"
+            if [ "${v}" = "0.20.3" ]; then prefix="hugo${sfx}_v${v}"; fi
+            case "${arch}" in
+              amd64) echo "${prefix}_Linux-64bit.tar.gz" ;;
+              arm64) echo "${prefix}_Linux-ARM64.tar.gz" ;;
+              arm)   echo "${prefix}_Linux-ARM.tar.gz" ;;
+              386)   echo "${prefix}_Linux-32bit.tar.gz" ;;
+            esac
+          fi
+          # v0.17-v0.20.2
+          if version_ge "${v}" "0.17" && version_ge "0.20.2" "${v}"; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_${v}_Linux-64bit.tar.gz" ;;
+              arm)   echo "hugo${sfx}_${v}_Linux_ARM.tar.gz"; echo "hugo${sfx}_${v}_linux_arm.tar.gz" ;;
+              386)   echo "hugo${sfx}_${v}_Linux-32bit.tar.gz" ;;
+            esac
+          fi
+          # v0.16
+          if [ "${v}" = "0.16" ]; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_0.16_linux-64bit.tgz" ;;
+              arm64) echo "hugo${sfx}_0.16_linux-arm64.tgz" ;;
+              arm)   echo "hugo${sfx}_0.16_linux-arm32.tgz" ;;
+              386)   echo "hugo${sfx}_0.16_linux-32bit.tgz" ;;
+            esac
+          fi
+          # v0.9-v0.15
+          if version_ge "${v}" "0.9" && version_ge "0.15" "${v}"; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_${v}_linux_amd64.tar.gz" ;;
+              arm)   echo "hugo${sfx}_${v}_linux_arm.tar.gz" ;;
+              386)   echo "hugo${sfx}_${v}_linux_386.tar.gz" ;;
+            esac
+          fi
+          # v0.8 and v0.7 published raw binaries without archives
+          if [ "${v}" = "0.8" ]; then
+            case "${arch}" in
+              amd64) echo "hugo-linux-amd64" ;;
+              arm)   echo "hugo-linux-arm" ;;
+              386)   echo "hugo-linux-386" ;;
+            esac
+          fi
+          if [ "${v}" = "0.7" ]; then
+            case "${arch}" in
+              amd64) echo "hugo-0.7-linux-x64" ;;
+              386)   echo "hugo-0.7-linux-386" ;;
+            esac
+          fi
+        }
+
+        # asset_names_windows SUFFIX VERSION ARCH
+        asset_names_windows() {
+          local sfx="$1" v="$2" arch="$3"
+          # v0.103.0+ uses lowercase GOOS-GOARCH names (no title-case alias for Windows)
+          if version_ge "${v}" "0.103.0"; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_${v}_windows-amd64.zip" ;;
+              arm64) echo "hugo${sfx}_${v}_windows-arm64.zip" ;;
+            esac
+          fi
+          # v0.17-v0.102.3 uses title-case names; v0.20.3 alone published v-prefixed asset names
+          if version_ge "${v}" "0.17" && version_ge "0.102.3" "${v}"; then
+            local prefix="hugo${sfx}_${v}"
+            if [ "${v}" = "0.20.3" ]; then prefix="hugo${sfx}_v${v}"; fi
+            case "${arch}" in
+              amd64) echo "${prefix}_Windows-64bit.zip" ;;
+              arm64) echo "${prefix}_Windows-ARM64.zip" ;;
+              386)   echo "${prefix}_Windows-32bit.zip" ;;
+            esac
+          fi
+          # v0.16
+          if [ "${v}" = "0.16" ]; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_0.16_windows-64bit.zip" ;;
+              386)   echo "hugo${sfx}_0.16_windows-32bit.zip" ;;
+            esac
+          fi
+          # v0.9-v0.15
+          if version_ge "${v}" "0.9" && version_ge "0.15" "${v}"; then
+            case "${arch}" in
+              amd64) echo "hugo${sfx}_${v}_windows_amd64.zip" ;;
+              386)
+                if [ "${v}" = "0.15" ]; then
+                  echo "hugo${sfx}_0.15_windows_386_32-bit-only.zip"
+                else
+                  echo "hugo${sfx}_${v}_windows_386.zip"
+                fi ;;
+            esac
+          fi
+          # v0.8 and v0.7 published raw binaries without archives
+          if [ "${v}" = "0.8" ]; then
+            case "${arch}" in
+              amd64) echo "hugo-windows-amd64" ;;
+              386)   echo "hugo-windows-386" ;;
+            esac
+          fi
+          if [ "${v}" = "0.7" ]; then
+            case "${arch}" in
+              amd64) echo "hugo-0.7-windows-x64" ;;
+              386)   echo "hugo-0.7-windows-386" ;;
+            esac
+          fi
+          # Windows ARM64 exists from v0.89.0 (standard builds only); fall back to AMD64
+          if [ "${arch}" = "arm64" ]; then
+            asset_names_windows "${sfx}" "${v}" "amd64"
+          fi
+        }
+
+        # asset_names_darwin SUFFIX VERSION ARCH
+        asset_names_darwin() {
+          local sfx="$1" v="$2" arch="$3"
+          # Universal builds
+          if version_ge "${v}" "0.153.0"; then
+            echo "hugo${sfx}_${v}_darwin-universal.pkg"
+          elif version_ge "${v}" "0.103.0"; then
+            echo "hugo${sfx}_${v}_darwin-universal.tar.gz"
+          elif version_ge "${v}" "0.102.0" && version_ge "0.102.3" "${v}"; then
+            echo "hugo${sfx}_${v}_macOS-universal.tar.gz"
+          fi
+          # v0.89.0 shipped one combined macOS binary for both architectures
+          if [ "${v}" = "0.89.0" ]; then
+            echo "hugo${sfx}_0.89.0_macOS-all.tar.gz"
+          fi
+          # Native ARM64 builds before the universal switch
+          if [ "${arch}" = "arm64" ]; then
+            if { version_ge "${v}" "0.81.0" && version_ge "0.87.0" "${v}"; } || { version_ge "${v}" "0.90.0" && version_ge "0.101.0" "${v}"; }; then
+              echo "hugo${sfx}_${v}_macOS-ARM64.tar.gz"
+            fi
+          fi
+          # Intel builds (on Apple Silicon these run through Rosetta 2)
+          if version_ge "${v}" "0.20.3" && version_ge "0.102.3" "${v}"; then
+            local prefix="hugo${sfx}_${v}"
+            if [ "${v}" = "0.20.3" ]; then prefix="hugo${sfx}_v${v}"; fi
+            echo "${prefix}_macOS-64bit.tar.gz"
+          fi
+          if version_ge "${v}" "0.18" && version_ge "0.20.2" "${v}"; then
+            echo "hugo${sfx}_${v}_macOS-64bit.zip"
+          fi
+          if [ "${v}" = "0.17" ]; then
+            echo "hugo${sfx}_0.17_MacOS-64bit.zip"
+          fi
+          if [ "${v}" = "0.16" ]; then
+            echo "hugo${sfx}_0.16_osx-64bit.tgz"
+          fi
+          if version_ge "${v}" "0.9" && version_ge "0.15" "${v}"; then
+            echo "hugo${sfx}_${v}_darwin_amd64.zip"
+          fi
+          if [ "${v}" = "0.8" ]; then
+            echo "hugo-darwin-amd64"
+          fi
+          if [ "${v}" = "0.7" ]; then
+            echo "hugo-0.7-darwin-x64"
+          fi
+        }
+
+        # asset_names OS SUFFIX VERSION ARCH
+        asset_names() {
+          case "$1" in
+            linux)   asset_names_linux "$2" "$3" "$4" ;;
+            windows) asset_names_windows "$2" "$3" "$4" ;;
+            darwin)  asset_names_darwin "$2" "$3" "$4" ;;
+          esac
+        }
+
+        # --- END asset candidate rules ---
+
+        #######################################
+        # Downloader selection
+        #######################################
+
+        DOWNLOADER_CMD="${DOWNLOADER:-aria2}"
+        case "${DOWNLOADER_CMD}" in
+          aria2|2c) DOWNLOADER_CMD='aria2c' ;;
+        esac
+
+        if ! command -v "${DOWNLOADER_CMD}" >/dev/null 2>&1; then
+          if [ "${DOWNLOADER_CMD}" = "aria2c" ]; then
+            warn "'aria2c' is not installed on this runner; falling back to curl."
+            DOWNLOADER_CMD='curl'
+          else
+            die "Downloader '${DOWNLOADER_CMD}' is not installed."
+          fi
         fi
 
-        require_cmd "${DOWNLOADER_CMD}"
-
-        if [ "${RUNNER_OS}" = "Windows" ]; then
-          require_cmd 7z
+        if [ -z "${DOWNLOADER_ARGS}" ]; then
+          case "${DOWNLOADER_CMD}" in
+            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U Mozilla/5.0" ;;
+            curl)   DOWNLOADER_ARGS="-L -O -C - -A Mozilla/5.0" ;;
+            wget)   DOWNLOADER_ARGS="-c -U Mozilla/5.0" ;;
+            axel)   DOWNLOADER_ARGS="-a -n 16 -U Mozilla/5.0" ;;
+            mwget)  DOWNLOADER_ARGS="-n 16 -c -U Mozilla/5.0" ;;
+          esac
         fi
 
+        # download URL NAME -- no-op when the file already exists and is non-empty
+        download() {
+          local url="$1" name="$2" attempt
+          for attempt in 1 2; do
+            if ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} "${url}"; then
+              if [ -s "${name}" ]; then
+                return 0
+              fi
+            fi
+            warn "Download attempt ${attempt} failed for ${name}."
+            rm -f "${name}" 2>/dev/null || true
+          done
+          return 1
+        }
+
         #######################################
-        # Detect runtime OS / ARCH
+        # Detect runner OS / architecture
         #######################################
 
         case "${RUNNER_OS}" in
-          "Linux") GO_OS="linux" ;;
-          "macOS") GO_OS="darwin" ;;
-          "Windows") GO_OS="windows" ;;
+          Linux)   GO_OS='linux' ;;
+          macOS)   GO_OS='darwin' ;;
+          Windows) GO_OS='windows' ;;
+          *)       die "Unsupported runner OS: '${RUNNER_OS}'." ;;
         esac
 
         case "${RUNNER_ARCH}" in
-          "X64") GO_ARCH="amd64" ;;
-          "X86") GO_ARCH="386" ;;
-          "ARM64") GO_ARCH="arm64" ;;
-          "ARM") GO_ARCH="arm" ;;
+          X64)   GO_ARCH='amd64' ;;
+          X86)   GO_ARCH='386' ;;
+          ARM64) GO_ARCH='arm64' ;;
+          ARM)   GO_ARCH='arm' ;;
+          *)     die "Unsupported runner architecture: '${RUNNER_ARCH}'." ;;
         esac
 
+        HUGO_REPO_URL='https://github.com/gohugoio/hugo'
+        RELEASE_BASE="${HUGO_REPO_URL}/releases/download"
+
         #######################################
-        # Resolve Hugo version
+        # Resolve the requested version
         #######################################
 
-        GITHUB_REPO_API_URL="https://api.github.com/repos/gohugoio/hugo"
+        if [ -z "${HUGO_VERSION:-}" ] || [ "${HUGO_VERSION}" = 'latest' ]; then
+          note "No Hugo version specified; resolving the latest release."
 
-        if [ -z "${HUGO_VERSION:-}" ] || [ "${HUGO_VERSION}" = "latest" ]; then
-          require_cmd jq
+          HUGO_VERSION="$(curl -sIL -o /dev/null -w '%{url_effective}' "${HUGO_REPO_URL}/releases/latest" | sed -n 's#.*/tag/##p')"
 
-          if [ -z "${HUGO_VERSION:-}" ]; then
-            note "You don't specify Hugo version, you will using latest version."
+          if [ -z "${HUGO_VERSION}" ]; then
+            warn "Could not resolve 'latest' through the releases redirect; falling back to the GitHub API."
+            API_RESPONSE=''
+            if [ -n "${GITHUB_TOKEN:-}" ]; then
+              API_RESPONSE="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" "https://api.github.com/repos/gohugoio/hugo/releases/latest" || true)"
+            else
+              API_RESPONSE="$(curl -s "https://api.github.com/repos/gohugoio/hugo/releases/latest" || true)"
+            fi
+            HUGO_VERSION="$(printf '%s' "${API_RESPONSE}" | grep '"tag_name"' | head -n 1 | cut -d'"' -f4)"
           fi
 
-          if [ -z "${GITHUB_TOKEN:-}" ]; then
-            warn "You don't specify GitHub Token, a lower rate limit will apply and a rate limit error may occur."
-            HUGO_VERSION="$(
-              curl -s \
-              "${GITHUB_REPO_API_URL}/releases/latest" | \
-              jq -r '.tag_name | sub("^v"; "")'
-            )"
+          HUGO_VERSION="${HUGO_VERSION#v}"
+          [ -n "${HUGO_VERSION}" ] || die "Failed to resolve the latest Hugo version."
+        fi
+
+        HUGO_VERSION="${HUGO_VERSION#v}"
+
+        case "${HUGO_VERSION}" in
+          ''|*[!0-9.]*) die "Invalid Hugo version: '${HUGO_VERSION}'." ;;
+        esac
+
+        # Tags without a patch component exist for old releases (v0.7, v0.20, ...),
+        # while newer versions always use three components. Also accept a
+        # two-component version for a "X.Y.0" release.
+        VERSION_CANDIDATES=("${HUGO_VERSION}")
+        case "${HUGO_VERSION}" in
+          *.*.*) ;;
+          *.*)   VERSION_CANDIDATES+=("${HUGO_VERSION}.0") ;;
+        esac
+
+        # Hugo v0.137.0 accidentally shipped without the Windows
+        # "extended_withdeploy" archives; v0.137.1 restored them ("build: Add
+        # missing withdeploy archive for Windows"). Windows Extended+Deploy
+        # requests for v0.137.0 are therefore transparently bumped to v0.137.1
+        # so that the Deploy feature is actually installed instead of
+        # silently falling back to an Extended build without Deploy.
+        WINDOWS_DEPLOY_BUMP_FROM=''
+        if [ "${GO_OS}" = 'windows' ] && [ "${IS_EXTENDED:-false}" = 'true' ] && [ "${IS_WITHDEPLOY:-false}" = 'true' ]; then
+          for i in "${!VERSION_CANDIDATES[@]}"; do
+            if [ "${VERSION_CANDIDATES[i]}" = '0.137.0' ]; then
+              VERSION_CANDIDATES[i]='0.137.1'
+              WINDOWS_DEPLOY_BUMP_FROM='0.137.0'
+            fi
+          done
+        fi
+
+        #######################################
+        # Build the edition chain
+        #######################################
+
+        # The chain lists the requested edition first, then the fallbacks that
+        # should be tried when the requested edition has no asset for this
+        # version/platform (e.g. Extended does not exist before v0.43.0).
+        EDITION_CHAIN=()
+        REQUESTED_EDITION='standard'
+
+        if [ "${IS_EXTENDED:-false}" = 'true' ]; then
+          if version_ge "${HUGO_VERSION}" "0.43"; then
+            REQUESTED_EDITION='extended'
+            EDITION_CHAIN=('extended' 'standard')
+            if [ "${IS_WITHDEPLOY:-false}" = 'true' ]; then
+              if version_ge "${HUGO_VERSION}" "0.137.0"; then
+                REQUESTED_EDITION='extended_withdeploy'
+                EDITION_CHAIN=('extended_withdeploy' 'extended' 'standard')
+              else
+                EDITION_CHAIN=('extended' 'standard')
+              fi
+            fi
           else
-            HUGO_VERSION="$(
-              curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-              "${GITHUB_REPO_API_URL}/releases/latest" | \
-              jq -r '.tag_name | sub("^v"; "")'
-            )"
+            warn "Hugo Extended is only published for v0.43.0 and later; installing the standard build for v${HUGO_VERSION}."
+            EDITION_CHAIN=('standard')
           fi
         else
-          HUGO_VERSION=$(printf '%s\n' "${HUGO_VERSION}" | sed 's/^v*//')
-
-          if [ -z "${GITHUB_TOKEN:-}" ]; then
-            VERSION_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "${GITHUB_REPO_API_URL}/releases/tags/v${HUGO_VERSION}")
+          if [ "${IS_WITHDEPLOY:-false}" = 'true' ] && version_ge "${HUGO_VERSION}" "0.159.2"; then
+            REQUESTED_EDITION='withdeploy'
+            EDITION_CHAIN=('withdeploy' 'standard')
           else
-            VERSION_RESPONSE=$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" -o /dev/null -w "%{http_code}" "${GITHUB_REPO_API_URL}/releases/tags/v${HUGO_VERSION}")
+            EDITION_CHAIN=('standard')
           fi
-
-          [ "${VERSION_RESPONSE}" -ge 200 ] && [ "${VERSION_RESPONSE}" -lt 300 ] \
-            || die "Hugo version ${HUGO_VERSION} was not found."
-        fi
-
-        [ -n "${HUGO_VERSION}" ] && [ "${HUGO_VERSION}" != "null" ] \
-          || die "Failed to determine Hugo version."
-
-        #######################################
-        # Architecture adjustments
-        #######################################
-
-        HUGO_ARCH="${GO_ARCH}"
-
-        if [ "${GO_OS}" = "darwin" ] && [ "${GO_ARCH}" = "arm64" ] && version_le "${HUGO_VERSION}" "0.80.0"; then
-          warn "macOS ARM64 is unsupported for this Hugo version. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
-          echo "If you encounter issues, consider using Hugo 0.81.0 or newer (which supports ARM64), or use an AMD64 runner image."
-          HUGO_ARCH="amd64"
         fi
 
         #######################################
-        # Extended / Deploy handling
+        # Resolve the release asset
         #######################################
 
-        HUGO_SUFFIX=""
+        RESOLVED_VERSION=''
+        RESOLVED_ASSET=''
 
-        if [ "${IS_EXTENDED:-false}" = true ] && version_ge "${HUGO_VERSION}" "0.43" && \
-        { [ "${GO_OS}" = "linux" ] || [ "${GO_OS}" = "darwin" ] || [ "${GO_OS}" = "windows" ]; } && \
-        { [ "${GO_ARCH}" = "amd64" ] || [ "${GO_ARCH}" = "arm64" ]; }; then
-          HUGO_SUFFIX="_extended"
-
-          if [ "${GO_OS}" = "windows" ] && [ "${GO_ARCH}" = "arm64" ]; then
-            warn "Hugo Extended is not supported on Windows ARM64. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
-            echo "If you encounter issues, consider using an AMD64 runner image."
-            HUGO_ARCH="amd64"
-          fi
-
-          if [ "${GO_OS}" = "linux" ] && [ "${GO_ARCH}" = "arm64" ] && version_le "${HUGO_VERSION}" "0.101.0"; then
-            warn "Hugo Extended is not supported on Linux ARM64 for this version. You will using standard build instead."
-            echo "Use version 0.102.0 or newer, or an AMD64 runner image if you want using Hugo Extended."
-            HUGO_SUFFIX=""
-          fi
-
-          if [ "${IS_WITHDEPLOY:-false}" = true ]; then
-            if version_ge "${HUGO_VERSION}" "0.137.1"; then
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif version_ge "${HUGO_VERSION}" "0.137.0" && [ "${GO_OS}" = "linux" ]; then
-              HUGO_SUFFIX="_extended_withdeploy"
-              if [ "${GO_ARCH}" = "arm64" ] && version_le "${HUGO_VERSION}" "0.138.0"; then
-                note "Hugo Extended with Deploy is not supported for ARM64 on this version. Falling back to Hugo Extended without Deploy."
-                echo "For Deploy support, use version 0.139.0 or newer, or an AMD64 runner image."
-                HUGO_SUFFIX="_extended"
+        for candidate_version in "${VERSION_CANDIDATES[@]}"; do
+          for edition in "${EDITION_CHAIN[@]}"; do
+            sfx="$(edition_suffix "${edition}")"
+            for name in $(asset_names "${GO_OS}" "${sfx}" "${candidate_version}" "${GO_ARCH}"); do
+              if probe_url "${RELEASE_BASE}/v${candidate_version}/${name}"; then
+                RESOLVED_VERSION="${candidate_version}"
+                RESOLVED_ASSET="${name}"
+                break 3
               fi
-            elif version_ge "${HUGO_VERSION}" "0.137.0" && [ "${GO_OS}" = "darwin" ]; then
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif [ "${HUGO_VERSION}" = "0.137.0" ] && [ "${GO_OS}" = "windows" ]; then
-              note "Hugo Extended with Deploy 0.137.0 is not supported on Windows, upgrading to 0.137.1"
-              HUGO_VERSION="0.137.1"
-              HUGO_SUFFIX="_extended_withdeploy"
-            elif version_le "${HUGO_VERSION}" "0.136.5" && version_ge "${HUGO_VERSION}" "0.56.0"; then
-              note "Your Hugo version still has the Deploy feature built-in, so 'with-deploy' input is not required."
+            done
+          done
+        done
+
+        if [ -z "${RESOLVED_ASSET}" ]; then
+          if ! probe_url "${HUGO_REPO_URL}/releases/tag/v${VERSION_CANDIDATES[0]}"; then
+            die "Hugo v${VERSION_CANDIDATES[0]} does not exist. Check the version against ${HUGO_REPO_URL}/releases."
+          fi
+          if [ "${GO_OS}" = 'linux' ] && [ "${GO_ARCH}" = 'arm64' ] && \
+             version_ge "0.20.2" "${VERSION_CANDIDATES[0]}" && [ "${VERSION_CANDIDATES[0]}" != "0.16" ] && [ "${VERSION_CANDIDATES[0]}" != "0.16.0" ]; then
+            die "Hugo v${VERSION_CANDIDATES[0]} has no Linux ARM64 build (no ARM64 assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2). Install v0.16.0 or v0.20.3 or later, or use an AMD64 runner."
+          fi
+          die "No matching Hugo release asset was found for v${VERSION_CANDIDATES[0]} on ${GO_OS}/${GO_ARCH} (tried editions: ${EDITION_CHAIN[*]}). Note that some releases publish no assets at all (for example, v0.139.5)."
+        fi
+
+        if [ -n "${WINDOWS_DEPLOY_BUMP_FROM}" ]; then
+          note "Hugo v${WINDOWS_DEPLOY_BUMP_FROM} is missing the Windows Extended+Deploy archives (upstream bug, fixed in v0.137.1); installing v0.137.1 instead."
+        elif [ "${RESOLVED_VERSION}" != "${HUGO_VERSION}" ]; then
+          note "Tag v${HUGO_VERSION} does not exist; using v${RESOLVED_VERSION} instead."
+        fi
+
+        # Classify what was actually resolved so fallbacks can be reported
+        ASSET_EDITION='standard'
+        case "${RESOLVED_ASSET}" in
+          *extended_withdeploy*) ASSET_EDITION='extended_withdeploy' ;;
+          *extended*)            ASSET_EDITION='extended' ;;
+          *withdeploy*)          ASSET_EDITION='withdeploy' ;;
+        esac
+
+        CROSS_ARCH_FALLBACK='false'
+        if [ "${GO_ARCH}" = 'arm64' ]; then
+          case "${GO_OS}:${RESOLVED_ASSET}" in
+            windows:*arm64*|windows:*ARM64*) ;;
+            darwin:*ARM64*|darwin:*all.tar.gz|darwin:*universal*|darwin:*.pkg) ;;
+            *) CROSS_ARCH_FALLBACK='true' ;;
+          esac
+          if [ "${CROSS_ARCH_FALLBACK}" = 'true' ]; then
+            if [ "${GO_OS}" = 'windows' ]; then
+              warn "No ARM64 build of the requested Hugo edition exists for v${RESOLVED_VERSION}; installing the AMD64 build (runs through x64 emulation on Windows on ARM)."
+              note "Native Windows ARM64 builds exist from v0.89.0, for the standard edition only."
             else
-              note "Your Hugo version don't have Deploy feature, so 'with-deploy' input is not required."
+              warn "No ARM64 or universal build exists for Hugo v${RESOLVED_VERSION}; installing the AMD64 build (requires Rosetta 2 on Apple Silicon)."
+              note "Native macOS ARM64 builds exist from v0.81.0 (except v0.88.x); universal builds exist from v0.102.0."
             fi
           fi
         fi
 
-        if [ "${IS_WITHDEPLOY:-false}" = true ] && [ "${IS_EXTENDED:-false}" = false ] && version_ge "${HUGO_VERSION}" "0.159.2" && \
-        { [ "${GO_OS}" = "linux" ] || [ "${GO_OS}" = "darwin" ] || [ "${GO_OS}" = "windows" ]; } && \
-        { [ "${GO_ARCH}" = "amd64" ] || [ "${GO_ARCH}" = "arm64" ]; }; then
-          HUGO_SUFFIX="_withdeploy"
-
-          if [ "${GO_OS}" = "windows" ] && [ "${GO_ARCH}" = "arm64" ]; then
-            warn "Hugo with Deploy feature is not supported on Windows ARM64. You will install the AMD64 of Hugo, which may cause incompatibility and performance issues."
-            echo "If you encounter issues, consider using an AMD64 runner image."
-            HUGO_ARCH="amd64"
-          fi
-        fi
-
-        #######################################
-        # OS / ARCH naming for Hugo assets
-        #######################################
-
-        HUGO_OS="${GO_OS}"
-
-        if version_le "${HUGO_VERSION}" "0.102.3"; then
-          HUGO_OS="${RUNNER_OS}"
-
-          case "${HUGO_ARCH}" in
-            arm64) HUGO_ARCH="ARM64" ;;
-            arm) HUGO_ARCH="ARM" ;;
-            amd64) HUGO_ARCH="64bit" ;;
-            386) HUGO_ARCH="32bit" ;;
+        if [ "${ASSET_EDITION}" != "${REQUESTED_EDITION}" ]; then
+          case "${REQUESTED_EDITION}:${ASSET_EDITION}" in
+            extended_withdeploy:extended)
+              if [ "${GO_OS}" = 'linux' ] && [ "${GO_ARCH}" = 'arm64' ] && version_ge "0.138.0" "${RESOLVED_VERSION}"; then
+                warn "Hugo Extended with Deploy is only published for Linux ARM64 from v0.139.0; installing the extended build without Deploy."
+              else
+                warn "No Extended+Deploy build found for v${RESOLVED_VERSION} on this platform; installing the extended build without Deploy."
+              fi ;;
+            *:standard)
+              if [ "${GO_OS}" = 'linux' ] && [ "${GO_ARCH}" = 'arm64' ]; then
+                warn "Hugo Extended is only published for Linux ARM64 from v0.102.0; installing the standard build instead."
+              else
+                warn "No '${REQUESTED_EDITION}' build found for v${RESOLVED_VERSION} on this platform; installing the standard build instead."
+              fi ;;
+            *)
+              warn "No '${REQUESTED_EDITION}' build found for v${RESOLVED_VERSION} on this platform; installing '${ASSET_EDITION}' instead." ;;
           esac
         fi
 
-        if [ "${GO_OS}" = "darwin" ] && version_ge "${HUGO_VERSION}" "0.102.0"; then
-          HUGO_ARCH="universal"
+        if [ "${IS_EXTENDED:-false}" = 'true' ] && [ "${IS_WITHDEPLOY:-false}" = 'true' ] && \
+           version_ge "${RESOLVED_VERSION}" "0.56.0" && version_ge "0.136.5" "${RESOLVED_VERSION}"; then
+          note "Hugo v${RESOLVED_VERSION} extended builds include 'hugo deploy' already, so 'with-deploy' had no additional effect."
         fi
 
-        #######################################
-        # File format
-        #######################################
-
-        if [ "${GO_OS}" = "windows" ]; then
-          FILE_EXT=".zip"
-        elif [ "${GO_OS}" = "darwin" ] && version_ge "${HUGO_VERSION}" "0.153.0"; then
-          FILE_EXT=".pkg"
-        else
-          FILE_EXT=".tar.gz"
+        if [ "${IS_EXTENDED:-false}" != 'true' ] && [ "${IS_WITHDEPLOY:-false}" = 'true' ]; then
+          if version_ge "${RESOLVED_VERSION}" "0.159.2"; then
+            :
+          elif version_ge "${RESOLVED_VERSION}" "0.137.0"; then
+            note "Standard Hugo includes 'hugo deploy' only from v0.159.2; set 'extended: true' to get Deploy for v0.137.0-v0.159.1."
+          else
+            note "Hugo v${RESOLVED_VERSION} does not include 'hugo deploy'; installing the standard build."
+          fi
         fi
 
-        #######################################
-        # Filenames
-        #######################################
-
-        HUGO_FILE="hugo${HUGO_SUFFIX}_${HUGO_VERSION}_${HUGO_OS}-${HUGO_ARCH}${FILE_EXT}"
-
-        if version_ge "${HUGO_VERSION}" "0.27"; then
-          HASH_FILE="hugo_${HUGO_VERSION}_checksums.txt"
-        elif version_ge "${HUGO_VERSION}" "0.20.3"; then
-          HASH_FILE="hugo_checksums.txt"
-        else
-          HASH_FILE=""
-          HUGO_VERIFY_FILE=false
-        fi
+        note "Resolved Hugo v${RESOLVED_VERSION}: ${RESOLVED_ASSET}"
 
         #######################################
-        # Download & verify
+        # Download
         #######################################
 
         TMPDIR="$(mktemp -d)"
+        cleanup() {
+          rm -rf "${TMPDIR}"
+        }
+        trap cleanup EXIT
+
         cd "${TMPDIR}"
 
-        if [ -z "${DOWNLOADER_ARGS}" ]; then
-          case "${DOWNLOADER_CMD}" in
-            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U 'Mozilla/5.0'" ;;
-            curl) DOWNLOADER_ARGS="-C - -A 'Mozilla/5.0' -LO" ;;
-            wget) DOWNLOADER_ARGS="-c -U 'Mozilla/5.0'" ;;
-            axel) DOWNLOADER_ARGS="-a -n 16 -U 'Mozilla/5.0'" ;;
-            mwget) DOWNLOADER_ARGS="-n 16 -c -U 'Mozilla/5.0'" ;;
+        download "${RELEASE_BASE}/v${RESOLVED_VERSION}/${RESOLVED_ASSET}" "${RESOLVED_ASSET}" \
+          || die "Failed to download ${RESOLVED_ASSET}."
+
+        #######################################
+        # Verify the file against the official checksum file
+        #######################################
+
+        HASH_CANDIDATES=()
+        if version_ge "${RESOLVED_VERSION}" "0.27"; then
+          case "${RESOLVED_ASSET}" in
+            hugo_extended_*)
+              if version_ge "0.55.6" "${RESOLVED_VERSION}"; then
+                HASH_CANDIDATES+=("hugo_extended_${RESOLVED_VERSION}_checksums.txt")
+              fi ;;
           esac
+          HASH_CANDIDATES+=("hugo_${RESOLVED_VERSION}_checksums.txt")
+        elif version_ge "${RESOLVED_VERSION}" "0.20.3"; then
+          HASH_CANDIDATES=('hugo_checksums.txt')
         fi
 
-        ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} \
-          "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILE}" \
-          || die "Download Failed"
-
-        if [ -n "${HASH_FILE}" ] && [ "${HUGO_VERIFY_FILE:-true}" = true ]; then
-          ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} \
-            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HASH_FILE}" \
-            || die "Download Hash File Failed"
-
-          EXPECTED_HASH="$(awk -v f="${HUGO_FILE}" '$2 == f { print $1 }' "${HASH_FILE}")"
-          [ -n "{$EXPECTED_HASH}" ] \
-            || die "Checksum entry for ${HUGO_FILE} not found."
-
-          if command -v sha256sum >/dev/null; then
-            ACTUAL_HASH="$(sha256sum "${HUGO_FILE}" | awk '{print $1}')"
+        if [ "${HUGO_VERIFY_FILE:-true}" = 'true' ]; then
+          if [ "${#HASH_CANDIDATES[@]}" -eq 0 ]; then
+            warn "Hugo v${RESOLVED_VERSION} does not publish checksum files (v0.20.2 and earlier); skipping verification."
           else
-            ACTUAL_HASH="$(shasum -a 256 "${HUGO_FILE}" | awk '{print $1}')"
+            HASH_FILE=''
+            for hf in "${HASH_CANDIDATES[@]}"; do
+              if probe_url "${RELEASE_BASE}/v${RESOLVED_VERSION}/${hf}"; then
+                HASH_FILE="${hf}"
+                break
+              fi
+            done
+            [ -n "${HASH_FILE}" ] || die "No checksum file found for v${RESOLVED_VERSION} (tried: ${HASH_CANDIDATES[*]})."
+
+            download "${RELEASE_BASE}/v${RESOLVED_VERSION}/${HASH_FILE}" "${HASH_FILE}" \
+              || die "Failed to download ${HASH_FILE}."
+
+            EXPECTED_HASH="$(awk -v f="${RESOLVED_ASSET}" '$NF == f { print $1; exit }' "${HASH_FILE}")"
+            [ -n "${EXPECTED_HASH}" ] \
+              || die "No checksum entry for ${RESOLVED_ASSET} in ${HASH_FILE}."
+
+            if command -v sha256sum >/dev/null 2>&1; then
+              ACTUAL_HASH="$(sha256sum "${RESOLVED_ASSET}" | awk '{print $1}')"
+            else
+              ACTUAL_HASH="$(shasum -a 256 "${RESOLVED_ASSET}" | awk '{print $1}')"
+            fi
+
+            echo "Expected SHA256: ${EXPECTED_HASH}"
+            echo "Actual SHA256:   ${ACTUAL_HASH}"
+
+            [ "${EXPECTED_HASH}" = "${ACTUAL_HASH}" ] \
+              || die "Checksum mismatch for ${RESOLVED_ASSET}."
+
+            note "Checksum verification succeeded (${HASH_FILE})."
           fi
-
-          echo "Expected Hash: ${EXPECTED_HASH}"
-          echo "Actual Hash:   ${ACTUAL_HASH}"
-
-          [ "${EXPECTED_HASH}" = "${ACTUAL_HASH}" ] \
-            || die "Checksum mismatch for ${HUGO_FILE}"
-
-          echo "File verification succeeded."
+        else
+          note "File verification is disabled ('verify-file: false')."
         fi
 
         #######################################
         # Install
         #######################################
 
-        if [ "${INSTALL_DIR}" = "~/.local/bin" ]; then
+        if [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
           INSTALL_DIR="${HOME}/.local/bin"
         fi
-
-        if test ! -d "${INSTALL_DIR}"; then
-          mkdir -p "${INSTALL_DIR}"
+        if [ "${RUNNER_OS}" = 'Windows' ]; then
+          INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
         fi
 
-        if [ "${GO_OS}" = "windows" ]; then
-          7z x "${HUGO_FILE}" -o"${INSTALL_DIR}"
-        elif [ "${GO_OS}" = "darwin" ] && version_ge "${HUGO_VERSION}" "0.153.0"; then
-          sudo installer -pkg "${HUGO_FILE}" -target /
+        mkdir -p "${INSTALL_DIR}"
+
+        BIN_NAME='hugo'
+        if [ "${GO_OS}" = 'windows' ]; then
+          BIN_NAME='hugo.exe'
+        fi
+
+        KIND="$(detect_kind "${RESOLVED_ASSET}")"
+        EXTRACT_DIR="${TMPDIR}/extract"
+
+        case "${KIND}" in
+          'gzip')
+            require_cmd tar
+            mkdir -p "${EXTRACT_DIR}"
+            tar -xzf "${RESOLVED_ASSET}" -C "${EXTRACT_DIR}" \
+              || die "Failed to extract ${RESOLVED_ASSET}."
+            ;;
+          'zip')
+            mkdir -p "${EXTRACT_DIR}"
+            if [ "${GO_OS}" = 'windows' ]; then
+              SEVENZIP=''
+              if command -v 7z >/dev/null 2>&1; then
+                SEVENZIP='7z'
+              elif [ -x '/c/Program Files/7-Zip/7z.exe' ]; then
+                SEVENZIP='/c/Program Files/7-Zip/7z.exe'
+              elif [ -x '/c/Program Files (x86)/7-Zip/7z.exe' ]; then
+                SEVENZIP='/c/Program Files (x86)/7-Zip/7z.exe'
+              fi
+              [ -n "${SEVENZIP}" ] || die "7-Zip ('7z') is required to extract ${RESOLVED_ASSET}."
+              "${SEVENZIP}" x "${RESOLVED_ASSET}" -o"${EXTRACT_DIR}" -y >/dev/null \
+                || die "Failed to extract ${RESOLVED_ASSET}."
+            else
+              require_cmd unzip
+              unzip -oq "${RESOLVED_ASSET}" -d "${EXTRACT_DIR}" \
+                || die "Failed to extract ${RESOLVED_ASSET}."
+            fi
+            ;;
+          'pkg')
+            require_cmd installer
+            ;;
+          *)
+            : # raw binary, no extraction needed
+            ;;
+        esac
+
+        # Locate the binary inside the archive. Old releases buried it under a
+        # versioned folder and/or used versioned file names (e.g. "hugo" inside
+        # hugo_0.9_linux_amd64/, "hugo_0.15_linux_amd64", "hugo.v0.17.exe", ...).
+        if [ "${KIND}" = 'raw' ]; then
+          BIN_SRC="${RESOLVED_ASSET}"
+        elif [ "${KIND}" = 'gzip' ] || [ "${KIND}" = 'zip' ]; then
+          BIN_SRC="$(find "${EXTRACT_DIR}" -type f \( -name 'hugo' -o -name 'hugo.exe' \) | head -n 1)"
+          if [ -z "${BIN_SRC}" ]; then
+            BIN_SRC="$(find "${EXTRACT_DIR}" -type f -name 'hugo*' ! -name '*.md' ! -name '*.txt' | head -n 1)"
+          fi
+          [ -n "${BIN_SRC}" ] || die "Could not locate the hugo binary inside ${RESOLVED_ASSET}."
+        fi
+
+        if [ "${KIND}" = 'pkg' ]; then
+          note "Installing the macOS package (installs hugo into /usr/local/bin)."
+          sudo installer -pkg "${RESOLVED_ASSET}" -target /
+          if [ "${INSTALL_DIR}" != '/usr/local/bin' ]; then
+            cp '/usr/local/bin/hugo' "${INSTALL_DIR}/hugo"
+          fi
         else
-          tar -xzf "${HUGO_FILE}" -C "${INSTALL_DIR}"
-          chmod +x "${INSTALL_DIR}/hugo"
+          cp "${BIN_SRC}" "${INSTALL_DIR}/${BIN_NAME}"
         fi
 
-        if ! echo "$PATH" | tr ':' '\n' | grep -Fxq "${INSTALL_DIR}"; then
-          echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
+        chmod +x "${INSTALL_DIR}/${BIN_NAME}"
+
+        #######################################
+        # Smoke test
+        #######################################
+
+        smoke_test() {
+          local bin="$1" out
+          # Current releases: 'hugo version' exits 0 and prints a version banner
+          if out="$("${bin}" version 2>&1)"; then
+            if printf '%s' "${out}" | grep -qi 'hugo'; then
+              printf '%s\n' "${out}" | head -n 1
+              return 0
+            fi
+          fi
+          # v0.7/v0.8 have no 'version' subcommand; '-h' prints 'usage: hugo' and exits non-zero
+          out="$("${bin}" -h 2>&1 || true)"
+          if printf '%s' "${out}" | grep -qi 'usage: hugo'; then
+            printf '%s\n' "hugo (this release has no 'version' subcommand)"
+            return 0
+          fi
+          return 1
+        }
+
+        if SMOKE_OUTPUT="$(smoke_test "${INSTALL_DIR}/${BIN_NAME}")"; then
+          note "Smoke test passed: ${SMOKE_OUTPUT}"
+        elif [ "${CROSS_ARCH_FALLBACK}" = 'true' ]; then
+          warn "The installed ${GO_ARCH} build could not be executed on this runner (expected when a cross-architecture fallback is involved)."
+          warn "Install emulation support (Rosetta 2 or Windows on ARM x64 emulation) or use a matching runner architecture."
+        else
+          die "The installed hugo binary failed to execute ('hugo version' returned an error)."
         fi
 
-        cd "${GITHUB_WORKSPACE}" || exit
-        rm -rf "${TMPDIR}"
+        #######################################
+        # Register on PATH and set outputs
+        #######################################
+
+        if [ "${RUNNER_OS}" = 'Windows' ]; then
+          HUGO_BIN_PATH="$(cygpath -w "${INSTALL_DIR}/${BIN_NAME}")"
+          PATH_ENTRY="$(cygpath -w "${INSTALL_DIR}")"
+        else
+          HUGO_BIN_PATH="${INSTALL_DIR}/${BIN_NAME}"
+          PATH_ENTRY="${INSTALL_DIR}"
+        fi
+
+        # In bash on Windows runners $PATH is still colon separated (MSYS
+        # style), so always split on ':' but write the native path format to
+        # GITHUB_PATH for the runner to consume.
+        if ! printf '%s' "${PATH}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}"; then
+          printf '%s\n' "${PATH_ENTRY}" >> "${GITHUB_PATH}"
+        fi
+
+        echo "hugo-version=${RESOLVED_VERSION}" >> "${GITHUB_OUTPUT}"
+        echo "hugo-path=${HUGO_BIN_PATH}" >> "${GITHUB_OUTPUT}"
+
+        echo "Hugo v${RESOLVED_VERSION} installed at ${HUGO_BIN_PATH}"

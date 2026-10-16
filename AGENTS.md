@@ -285,6 +285,24 @@ The script downloads the official release archive, detects OS/architecture (incl
 - **Cloudflare does not inject a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH` and `CF_PAGES_URL`. A token *can* be supplied by adding your own encrypted environment variable in the dashboard, and the installer reads `GITHUB_TOKEN` if present, but it is only needed when `DART_SASS_VERSION` is unset and the latest release has to be resolved through the rate-limited GitHub API. Pinning the version removes the need entirely.
 - **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.157.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
 
+## GitHub Actions Composite Actions
+
+Both composite actions live in `.github/actions/` and are exercised by `.github/workflows/action-tests.yml` (manual dispatch, or a PR that touches the actions). Each action folder has its own README with the full input/output reference.
+
+### setup-hugo
+
+Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically. The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`. See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2).
+
+### setup-dart-sass
+
+Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. The Windows archive ships `sass.bat` only, so the action adds a bash `sass` wrapper next to it; the binary is smoke tested because Dart Sass publishes no checksums.
+
+### Shared behavior
+
+- Both default to `aria2` and automatically fall back to `curl` when `aria2c` is not installed (Ubuntu Slim images).
+- Both append the install directory to `GITHUB_PATH` in the runner's native format, so `hugo`, `sass` and `dart-sass` resolve in later steps on all shells.
+- Both resolve `latest` through the GitHub releases redirect without `jq`; the GitHub API (with an optional token) is only a fallback.
+
 ## Hugo Modules
 
 ### Install Modules

@@ -1,8 +1,8 @@
 name: 'Setup Dart Sass'
-description: 'Download and install the Dart Sass CLI binary in GitHub Actions'
+description: 'Download and install the Dart Sass CLI on Linux, macOS and Windows runners and expose it on PATH as both "sass" and "dart-sass"'
 inputs:
   dart-sass-version:
-    description: 'Dart Sass version to install. "latest" resolves the newest release via the GitHub API.'
+    description: 'Dart Sass version to install, with or without the "v" prefix (e.g. "1.105.2"). "latest" resolves the newest release.'
     required: false
     default: 'latest'
   is-musl:
@@ -14,21 +14,29 @@ inputs:
     required: false
     default: '~/.local/bin'
   downloader:
-    description: 'Downloader to use for fetching the Dart Sass binary (curl, wget or aria2/2c)'
+    description: 'Downloader to use for fetching the Dart Sass binary (curl, wget, aria2/2c or axel). Falls back to curl when aria2c is not installed.'
     required: false
     default: 'aria2'
   downloader-args:
-    description: 'Arguments to pass to the downloader'
+    description: 'Arguments to pass to the downloader (word-split, so avoid embedded spaces)'
     required: false
     default: ''
   github-token:
-    description: 'Token used to query the GitHub API when resolving "latest" (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
+    description: 'Token used to query the GitHub API when resolving "latest" fails via the releases redirect (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
     required: false
     default: ''
+outputs:
+  dart-sass-version:
+    description: 'The Dart Sass version that was actually installed (without the "v" prefix)'
+    value: ${{ steps.install-dart-sass.outputs.dart-sass-version }}
+  dart-sass-path:
+    description: 'Path to the installed Dart Sass executable (on Windows, the "sass.bat" launcher)'
+    value: ${{ steps.install-dart-sass.outputs.dart-sass-path }}
 runs:
   using: 'composite'
   steps:
     - name: Install Dart Sass
+      id: install-dart-sass
       shell: bash
       env:
         DART_SASS_VERSION: ${{ inputs.dart-sass-version }}
@@ -38,107 +46,230 @@ runs:
         DOWNLOADER: ${{ inputs.downloader }}
         DOWNLOADER_ARGS: ${{ inputs.downloader-args }}
       run: |
-        # Detect OS and system architecture
-        case "${RUNNER_OS}" in
-          "Linux") OS_NAME="linux" ;;
-          "macOS") OS_NAME="macos" ;;
-          "Windows") OS_NAME="windows" ;;
+        set -euo pipefail
+
+        #######################################
+        # Logging helpers
+        #######################################
+
+        die() {
+          echo "ERROR: $*" >&2
+          exit 1
+        }
+
+        note() {
+          echo "NOTE: $*"
+        }
+
+        warn() {
+          echo "WARNING: $*"
+        }
+
+        require_cmd() {
+          command -v "$1" >/dev/null 2>&1 || die "Required command '$1' is not installed."
+        }
+
+        #######################################
+        # Downloader selection
+        #######################################
+
+        DOWNLOADER_CMD="${DOWNLOADER:-aria2}"
+        case "${DOWNLOADER_CMD}" in
+          aria2|2c) DOWNLOADER_CMD='aria2c' ;;
         esac
 
-        case "${RUNNER_ARCH}" in
-          "X64") ARCH_NAME="x64" ;;
-          "X86") ARCH_NAME="x86" ;;
-          "ARM64") ARCH_NAME="arm64" ;;
-          "ARM") ARCH_NAME="arm" ;;
-        esac
-
-        # Setup downloader command and arguments
-        DOWNLOADER_CMD=${DOWNLOADER}
-
-        if [ "${DOWNLOADER}" = "aria2" ]; then
-          DOWNLOADER_CMD=aria2c
+        if ! command -v "${DOWNLOADER_CMD}" >/dev/null 2>&1; then
+          if [ "${DOWNLOADER_CMD}" = 'aria2c' ]; then
+            warn "'aria2c' is not installed on this runner; falling back to curl."
+            DOWNLOADER_CMD='curl'
+          else
+            die "Downloader '${DOWNLOADER_CMD}' is not installed."
+          fi
         fi
 
         if [ -z "${DOWNLOADER_ARGS}" ]; then
           case "${DOWNLOADER_CMD}" in
-            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U 'Mozilla/5.0'" ;;
-            curl) DOWNLOADER_ARGS="-C - -A 'Mozilla/5.0' -LO" ;;
-            wget) DOWNLOADER_ARGS="-c -U 'Mozilla/5.0'" ;;
-            axel) DOWNLOADER_ARGS="-a -n 16 -U 'Mozilla/5.0'" ;;
-            mwget) DOWNLOADER_ARGS="-n 16 -c -U 'Mozilla/5.0'" ;;
+            aria2c) DOWNLOADER_ARGS="-c -x16 -s16 -j16 -U Mozilla/5.0" ;;
+            curl)   DOWNLOADER_ARGS="-L -O -C - -A Mozilla/5.0" ;;
+            wget)   DOWNLOADER_ARGS="-c -U Mozilla/5.0" ;;
+            axel)   DOWNLOADER_ARGS="-a -n 16 -U Mozilla/5.0" ;;
+            mwget)  DOWNLOADER_ARGS="-n 16 -c -U Mozilla/5.0" ;;
           esac
         fi
 
-        # Set file format
-        if [ "$OS_NAME" = "windows" ]; then
-          FILE_FORMAT="zip"
-        else
-          FILE_FORMAT="tar.gz"
+        # download URL NAME -- no-op when the file already exists and is non-empty
+        download() {
+          local url="$1" name="$2" attempt
+          for attempt in 1 2; do
+            if ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} "${url}"; then
+              if [ -s "${name}" ]; then
+                return 0
+              fi
+            fi
+            warn "Download attempt ${attempt} failed for ${name}."
+            rm -f "${name}" 2>/dev/null || true
+          done
+          return 1
+        }
+
+        #######################################
+        # Detect runner OS / architecture
+        #######################################
+
+        case "${RUNNER_OS}" in
+          Linux)   OS_NAME='linux' ;;
+          macOS)   OS_NAME='macos' ;;
+          Windows) OS_NAME='windows' ;;
+          *)       die "Unsupported runner OS: '${RUNNER_OS}'." ;;
+        esac
+
+        # Dart Sass names 32-bit x86 "ia32" and 32-bit ARM "arm"
+        case "${RUNNER_ARCH}" in
+          X64)   ARCH_NAME='x64' ;;
+          X86)   ARCH_NAME='ia32' ;;
+          ARM64) ARCH_NAME='arm64' ;;
+          ARM)   ARCH_NAME='arm' ;;
+          *)     die "Unsupported runner architecture: '${RUNNER_ARCH}'." ;;
+        esac
+
+        if [ "${ARCH_NAME}" = 'ia32' ]; then
+          note "Dart Sass has not published ia32 (32-bit x86) builds for recent releases, so the download may fail for those versions."
         fi
 
-        # Handle MUSL Build for Linux
-        if [ "${IS_MUSL:-false}" = true ] && [ "$OS_NAME" = "linux" ]; then
-          DART_SASS_MUSL="-musl"
-        else
-          DART_SASS_MUSL=""
-        fi
-
-        # Use latest version if DART_SASS_VERSION=latest or if not specified
-        if [ "${DART_SASS_VERSION:-}" = "latest" ] || [ -z "${DART_SASS_VERSION:-}" ]; then
-          if [ -z "${DART_SASS_VERSION:-}" ]; then
-            echo "NOTE: No Dart Sass version specified in \$DART_SASS_VERSION."
-            echo "Using the latest release instead."
-          fi
-
-          if [ -n "${GITHUB_TOKEN:-}" ]; then
-            DART_SASS_VERSION="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
+        # musl is a Linux-only flavour
+        DART_SASS_MUSL=''
+        if [ "${IS_MUSL:-false}" = 'true' ]; then
+          if [ "${OS_NAME}" = 'linux' ]; then
+            DART_SASS_MUSL='-musl'
           else
-            DART_SASS_VERSION="$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | jq -r .tag_name)"
+            warn "'is-musl' is only supported on Linux; ignoring it."
           fi
         fi
 
-        # Set filename
+        FILE_FORMAT='tar.gz'
+        if [ "${OS_NAME}" = 'windows' ]; then
+          FILE_FORMAT='zip'
+        fi
+
+        #######################################
+        # Resolve the requested version
+        #######################################
+
+        if [ -z "${DART_SASS_VERSION:-}" ] || [ "${DART_SASS_VERSION}" = 'latest' ]; then
+          note "Resolving the latest Dart Sass release."
+          require_cmd curl
+
+          DART_SASS_VERSION="$(curl -sIL -o /dev/null -w '%{url_effective}' 'https://github.com/sass/dart-sass/releases/latest' | sed -n 's#.*/tag/##p')"
+
+          if [ -z "${DART_SASS_VERSION}" ]; then
+            warn "Could not resolve 'latest' through the releases redirect; falling back to the GitHub API."
+            API_RESPONSE=''
+            if [ -n "${GITHUB_TOKEN:-}" ]; then
+              API_RESPONSE="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" 'https://api.github.com/repos/sass/dart-sass/releases/latest' || true)"
+            else
+              API_RESPONSE="$(curl -s 'https://api.github.com/repos/sass/dart-sass/releases/latest' || true)"
+            fi
+            DART_SASS_VERSION="$(printf '%s' "${API_RESPONSE}" | grep '"tag_name"' | head -n 1 | cut -d'"' -f4)"
+          fi
+
+          [ -n "${DART_SASS_VERSION}" ] || die "Failed to resolve the latest Dart Sass version."
+        fi
+
+        DART_SASS_VERSION="${DART_SASS_VERSION#v}"
+
+        case "${DART_SASS_VERSION}" in
+          ''|*[!0-9A-Za-z.-]*|*..*|-) die "Invalid Dart Sass version: '${DART_SASS_VERSION}'." ;;
+        esac
+
         DART_SASS_FILENAME="dart-sass-${DART_SASS_VERSION}-${OS_NAME}-${ARCH_NAME}${DART_SASS_MUSL}.${FILE_FORMAT}"
+        DART_SASS_URL="https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_FILENAME}"
 
-        # Make a temporary folder for downloaded and extracted files
-        TMPDIR="$(mktemp -d)"; cd "${TMPDIR}"
+        #######################################
+        # Download
+        #######################################
 
-        # Download with error handling
-        ${DOWNLOADER_CMD} ${DOWNLOADER_ARGS} "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_FILENAME}" \
-        || { echo "Download failed"; exit 1; }
+        TMPDIR="$(mktemp -d)"
+        cleanup() {
+          rm -rf "${TMPDIR}"
+        }
+        trap cleanup EXIT
 
-        # Make directory for Dart Sass files
-        if [ "${INSTALL_DIR}" = "~/.local/bin" ]; then
+        cd "${TMPDIR}"
+
+        note "Downloading ${DART_SASS_FILENAME}."
+        download "${DART_SASS_URL}" "${DART_SASS_FILENAME}" \
+          || die "Failed to download ${DART_SASS_FILENAME}. Check that Dart Sass ${DART_SASS_VERSION} publishes a build for ${OS_NAME}-${ARCH_NAME}."
+
+        #######################################
+        # Install
+        #######################################
+
+        if [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
           INSTALL_DIR="${HOME}/.local/bin"
         fi
-
-        if test ! -d "${INSTALL_DIR}"; then
-          mkdir -p "${INSTALL_DIR}"
+        if [ "${RUNNER_OS}" = 'Windows' ]; then
+          INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
         fi
 
-        # Extract downloaded file
-        if [ "$FILE_FORMAT" = "zip" ]; then
-          # Use 7z to extract zip file
-          7z x "${DART_SASS_FILENAME}" -o"${INSTALL_DIR}" -y
+        mkdir -p "${INSTALL_DIR}"
+
+        if [ "${FILE_FORMAT}" = 'zip' ]; then
+          SEVENZIP=''
+          if command -v 7z >/dev/null 2>&1; then
+            SEVENZIP='7z'
+          elif [ -x '/c/Program Files/7-Zip/7z.exe' ]; then
+            SEVENZIP='/c/Program Files/7-Zip/7z.exe'
+          elif [ -x '/c/Program Files (x86)/7-Zip/7z.exe' ]; then
+            SEVENZIP='/c/Program Files (x86)/7-Zip/7z.exe'
+          fi
+          [ -n "${SEVENZIP}" ] || die "7-Zip ('7z') is required to extract ${DART_SASS_FILENAME}."
+          "${SEVENZIP}" x "${DART_SASS_FILENAME}" -o"${INSTALL_DIR}" -y >/dev/null \
+            || die "Failed to extract ${DART_SASS_FILENAME}."
         else
-          tar -xzf "${DART_SASS_FILENAME}" -C "${INSTALL_DIR}"
+          require_cmd tar
+          tar -xzf "${DART_SASS_FILENAME}" -C "${INSTALL_DIR}" \
+            || die "Failed to extract ${DART_SASS_FILENAME}."
         fi
 
-        # Install Dart Sass
-        if [ "$OS_NAME" = "windows" ]; then
-          echo '#!/usr/bin/env bash' > "${INSTALL_DIR}/dart-sass/sass"
-          echo 'exec "$(dirname "$0")/sass.bat" "$@"' >> "${INSTALL_DIR}/dart-sass/sass"
-          chmod +x "${INSTALL_DIR}/dart-sass/sass"
-          chmod +x "${INSTALL_DIR}/dart-sass/sass.bat"
-          chmod +x "${INSTALL_DIR}/dart-sass/src/dart.exe"
+        if [ "${OS_NAME}" = 'windows' ]; then
+          # The Windows archive ships "sass.bat" only; add a bash wrapper so the
+          # same "sass" entry point works in every shell.
+          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/dart-sass/sass"
+          chmod +x "${INSTALL_DIR}/dart-sass/sass" "${INSTALL_DIR}/dart-sass/sass.bat" "${INSTALL_DIR}/dart-sass/src/dart.exe"
         else
-          chmod +x "${INSTALL_DIR}/dart-sass/sass"
-          chmod +x "${INSTALL_DIR}/dart-sass/src/dart"
+          chmod +x "${INSTALL_DIR}/dart-sass/sass" "${INSTALL_DIR}/dart-sass/src/dart"
         fi
 
-        if ! echo "$PATH" | tr ':' '\n' | grep -Fxq "${INSTALL_DIR}/dart-sass"; then
-          echo "${INSTALL_DIR}/dart-sass" >> "${GITHUB_PATH}"
+        #######################################
+        # Smoke test
+        #######################################
+
+        SASS_BIN="${INSTALL_DIR}/dart-sass/sass"
+        [ -f "${SASS_BIN}" ] || die "The Dart Sass launch script was not found at ${SASS_BIN}."
+        SMOKE_OUTPUT="$("${SASS_BIN}" --version 2>&1)" \
+          || die "The installed Dart Sass binary failed to execute ('sass --version' returned an error)."
+        note "Smoke test passed: Dart Sass ${SMOKE_OUTPUT}"
+
+        #######################################
+        # Register on PATH and set outputs
+        #######################################
+
+        if [ "${RUNNER_OS}" = 'Windows' ]; then
+          DART_SASS_PATH="$(cygpath -w "${INSTALL_DIR}/dart-sass/sass.bat")"
+          PATH_ENTRY="$(cygpath -w "${INSTALL_DIR}/dart-sass")"
+        else
+          DART_SASS_PATH="${INSTALL_DIR}/dart-sass/sass"
+          PATH_ENTRY="${INSTALL_DIR}/dart-sass"
         fi
 
-        cd "${GITHUB_WORKSPACE}" || exit
-        rm -rf "${TMPDIR}"
+        # In bash on Windows runners $PATH is still colon separated (MSYS
+        # style), so always split on ':' but write the native path format to
+        # GITHUB_PATH for the runner to consume.
+        if ! printf '%s' "${PATH}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}/dart-sass"; then
+          printf '%s\n' "${PATH_ENTRY}" >> "${GITHUB_PATH}"
+        fi
+
+        echo "dart-sass-version=${DART_SASS_VERSION}" >> "${GITHUB_OUTPUT}"
+        echo "dart-sass-path=${DART_SASS_PATH}" >> "${GITHUB_OUTPUT}"
+
+        echo "Dart Sass ${DART_SASS_VERSION} installed at ${DART_SASS_PATH}"

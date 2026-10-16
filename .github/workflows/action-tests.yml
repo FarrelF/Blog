@@ -1,0 +1,399 @@
+name: Action Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/actions/setup-hugo/**'
+      - '.github/actions/setup-dart-sass/**'
+      - '.github/workflows/action-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  hugo-linux:
+    name: Hugo / Ubuntu / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.7',    edition: 'standard' }
+          - { version: '0.8',    edition: 'standard' }
+          - { version: '0.9',    edition: 'standard' }
+          - { version: '0.15',   edition: 'standard' }
+          - { version: '0.16',   edition: 'standard' }
+          - { version: '0.17',   edition: 'standard' }
+          - { version: '0.20.3', edition: 'standard' }
+          - { version: '0.26',   edition: 'standard', downloader: 'curl', verify: 'false' }
+          - { version: '0.27',   edition: 'standard' }
+          - { version: '0.43',   edition: 'extended' }
+          - { version: '0.55.6', edition: 'extended' }
+          - { version: '0.56.0', edition: 'extended' }
+          - { version: '0.102.3', edition: 'standard' }
+          - { version: '0.103.0', edition: 'standard' }
+          - { version: '0.137.0', edition: 'extended-with-deploy' }
+          - { version: '0.159.2', edition: 'with-deploy' }
+          - { version: 'latest', edition: 'extended-with-deploy' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: ${{ matrix.verify || 'true' }}
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          downloader: ${{ matrix.downloader || 'aria2' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -x "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-windows:
+    name: Hugo / Windows / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.7',    edition: 'standard' }
+          - { version: '0.9',    edition: 'standard' }
+          - { version: '0.15',   edition: 'standard' }
+          - { version: '0.17',   edition: 'standard' }
+          - { version: '0.20.3', edition: 'standard' }
+          - { version: '0.103.0', edition: 'standard' }
+          - { version: '0.137.0', edition: 'extended-with-deploy' }   # bumped to v0.137.1 (Windows archive was missing)
+          - { version: 'latest', edition: 'extended' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -f "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-macos-arm64:
+    name: Hugo / macOS ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.88.0', edition: 'standard' }               # no native ARM64 build; Intel fallback
+          - { version: '0.102.3', edition: 'extended' }              # macOS-universal era
+          - { version: '0.152.2', edition: 'extended' }              # last darwin-universal.tar.gz
+          - { version: '0.153.0', edition: 'standard' }              # first darwin-universal.pkg
+          - { version: 'latest', edition: 'extended-with-deploy' }   # current .pkg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -x "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-macos-intel:
+    name: Hugo / macOS Intel / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: macos-15-intel
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.16',   edition: 'standard' }
+          - { version: '0.18',   edition: 'standard' }
+          - { version: '0.103.0', edition: 'standard' }
+          - { version: '0.152.2', edition: 'standard' }
+          - { version: 'latest', edition: 'extended' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -x "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-linux-arm64:
+    name: Hugo / Ubuntu ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.100.0', edition: 'extended' }             # no ARM64 extended build; standard fallback
+          - { version: 'latest', edition: 'extended-with-deploy' }  # native ARM64 extended_withdeploy
+          - { version: 'latest', edition: 'standard' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -x "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-windows-arm64:
+    name: Hugo / Windows ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
+    runs-on: windows-11-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: '0.100.0', edition: 'standard' }             # native Windows-ARM64 build
+          - { version: 'latest', edition: 'extended' }              # AMD64 build (x64 emulation)
+          - { version: '0.137.0', edition: 'extended-with-deploy' } # bumped to v0.137.1, AMD64 build
+          - { version: 'latest', edition: 'standard' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo
+        id: hugo
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: ${{ matrix.version }}
+          verify-file: true
+          extended: ${{ contains(matrix.edition, 'extended') }}
+          with-deploy: ${{ contains(matrix.edition, 'deploy') }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Hugo
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
+          echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
+          test -f "${{ steps.hugo.outputs.hugo-path }}"
+          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1
+
+  hugo-linux-arm64-expected-gap:
+    name: Hugo / Ubuntu ARM64 / v0.19 / expected gap
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Hugo (expected to fail)
+        id: hugo
+        continue-on-error: true
+        uses: ./.github/actions/setup-hugo
+        with:
+          hugo-version: '0.19'
+          verify-file: true
+
+      - name: Assert the action failed with the ARM64 gap error
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.hugo.outcome }}" != 'failure' ]; then
+            echo "::error::Expected the action to fail for Hugo v0.19 on Linux ARM64 (no ARM64 assets in v0.17.0-v0.20.2)"
+            exit 1
+          fi
+          echo "Action failed as expected for v0.19 on Linux ARM64."
+
+  dart-sass-linux:
+    name: Dart Sass / Ubuntu / ${{ matrix.version }} / ${{ matrix.downloader || 'aria2' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { version: 'latest' }
+          - { version: '1.63.0', downloader: 'curl' }
+          - { version: 'latest', downloader: '2c' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Dart Sass
+        id: sass
+        uses: ./.github/actions/setup-dart-sass
+        with:
+          dart-sass-version: ${{ matrix.version }}
+          downloader: ${{ matrix.downloader || 'aria2' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Dart Sass
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
+          echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
+          test -x "${{ steps.sass.outputs.dart-sass-path }}"
+          sass --version
+
+  dart-sass-windows:
+    name: Dart Sass / Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Dart Sass
+        id: sass
+        uses: ./.github/actions/setup-dart-sass
+        with:
+          dart-sass-version: 'latest'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Dart Sass
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
+          echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
+          test -f "${{ steps.sass.outputs.dart-sass-path }}"
+          sass --version
+
+  dart-sass-macos-arm64:
+    name: Dart Sass / macOS ARM64
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Dart Sass
+        id: sass
+        uses: ./.github/actions/setup-dart-sass
+        with:
+          dart-sass-version: 'latest'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Dart Sass
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
+          echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
+          test -x "${{ steps.sass.outputs.dart-sass-path }}"
+          sass --version
+
+  dart-sass-windows-arm64:
+    name: Dart Sass / Windows ARM64
+    runs-on: windows-11-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Dart Sass
+        id: sass
+        uses: ./.github/actions/setup-dart-sass
+        with:
+          dart-sass-version: 'latest'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Dart Sass
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
+          echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
+          test -f "${{ steps.sass.outputs.dart-sass-path }}"
+          sass --version
+
+  dart-sass-musl:
+    name: Dart Sass / Alpine (musl)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Extract the install script embedded in the action
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -n '/^      run: |$/,$p' .github/actions/setup-dart-sass/action.yml | sed '1d' | sed 's/^        //' > "${RUNNER_TEMP}/dart-sass-install.sh"
+          bash -n "${RUNNER_TEMP}/dart-sass-install.sh"
+
+      - name: Run the install script inside an Alpine container
+        shell: bash
+        env:
+          # `-e GITHUB_TOKEN` below forwards this value to the container
+          # without putting it on the docker command line; the script only
+          # uses it when the releases redirect fails and the API fallback runs.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            -v "${RUNNER_TEMP}/dart-sass-install.sh:/tmp/dart-sass-install.sh:ro" \
+            -e RUNNER_OS=Linux -e RUNNER_ARCH=X64 \
+            -e DART_SASS_VERSION=latest -e IS_MUSL=true \
+            -e DOWNLOADER=aria2 -e DOWNLOADER_ARGS= \
+            -e GITHUB_TOKEN \
+            -e INSTALL_DIR=/usr/local/bin \
+            -e GITHUB_OUTPUT=/tmp/gh-output -e GITHUB_PATH=/tmp/gh-path \
+            alpine:3.22 sh -c '
+              apk add --no-cache bash curl >/dev/null &&
+              touch /tmp/gh-output /tmp/gh-path &&
+              bash /tmp/dart-sass-install.sh &&
+              /usr/local/bin/dart-sass/sass --version
+            '
