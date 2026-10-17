@@ -451,8 +451,6 @@ Kalau belum, silakan dibuat terlebih dahulu, caranya sebagai berikut:
 
 ### Verifikasi DNS di acme.sh {#verifikasi-dns-di-acmesh}
 
-Untuk ketiga penyedia DNS di bawah ini, saya sarankan agar Anda memasukkan kredensialnya langsung di dalam Terminal-nya (atau _Shell_) yang sedang Anda gunakan.
-
 Agar sertifikat TLS dapat diterbitkan melalui protokol ACME, maka pengguna diperlukan melakukan verifikasi untuk menyelesaikan tantangan. Salah satunya adalah dengan verifikasi DNS.
 
 Verifikasi DNS merupakan sebuah metode yang menggunakan catatan DNS (_DNS Record_) pada domain pengguna untuk memverifikasi bukti kepemilikan domain sebelum sertifikat diterbitkan atau diperbarui.
@@ -506,6 +504,8 @@ set -x CF_Token "API_TOKEN_KAMU_DI_SINI"
 set -x CF_Account_ID "ACCOUNT_ID_KAMU_DI_SINI"
 set -x CF_Zone_ID "ZONE_ID_KAMU_DI_SINI"
 ```
+
+Saya sarankan agar Anda memasukkan kredensialnya langsung di dalam Terminal-nya (atau _Shell_) yang sedang Anda gunakan.
 
 Udah itu aja, jika Anda menggunakan Cloudflare dan sudah memasukkan kredensial di atas, Anda hanya perlu langsung melanjutkan ke [langkah berikutnya](#menerbitkan-sertifikat-ssl) saja untuk mempelajari penerbitan sertifikat.
 
