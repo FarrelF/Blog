@@ -14,31 +14,45 @@ menu:
 
 ## Pembuka
 
-Dengan mengakses, menjelajah dan menggunakan blog ini, yaitu "Farrel Franqois Blog", maka Anda harus memahami dan menerima ketentuan di dalam halaman ini. Blog ini mencakup domain `farrelf.blog`, `farrel.franqois.id` dan seluruh sub-subdomainnya.
+Dengan mengakses, menjelajah dan menggunakan blog ini, yaitu "Farrel Franqois Blog", maka Anda harus memahami dan menerima ketentuan di dalam halaman ini. Blog ini mencakup domain `farrelf.blog` dan `farrel.franqois.id`, serta subdomain yang dikelola untuk blog ini. `farrel.franqois.id` pernah menjadi alamat utama blog ini sebelum dialihkan ke `farrelf.blog`, sehingga masih termasuk dalam ruang lingkup ketentuan ini.
 
 ## Ketentuan Hukum
 
 ### Konten/Isi
 
-Semua konten yang disediakan/dibuat oleh saya (sebagai 'pemilik' atau satu-satunya 'penulis' di dalam blog ini) hanya berdasarkan "apa adanya" (_"as-is" basis_). Saya percaya bahwa konten di dalam blog ini 'benar' dan 'akurat', karena saya telah melakukan 'riset' terlebih dahulu sebelum artikel diterbitkan, saya telah menyediakannya dengan itikad yang baik, tapi mungkin akan mengandung ketidakakuratan teknis atau kesalahan ketik.
+Semua konten yang disediakan/dibuat oleh saya (sebagai 'pemilik' atau satu-satunya 'penulis' di dalam blog ini) hanya berdasarkan "apa adanya" (_"as-is" basis_).
+
+Halaman ini tidak menjamin bahwa blog atau kontennya bebas dari masalah, bebas dari tuntutan apa pun, atau bahwa semua interaksi di dalamnya aman dari segala risiko. Saya percaya bahwa konten di dalam blog ini 'benar' dan 'akurat', karena saya telah melakukan 'riset' terlebih dahulu sebelum artikel diterbitkan, saya telah menyediakannya dengan itikad yang baik, tapi mungkin akan mengandung ketidakakuratan teknis atau kesalahan ketik.
 
 Jadi saya tidak bisa memberikan jaminan, baik itu secara tersurat atau tersirat, termasuk tetapi tidak terbatas pada jaminan kesesuaian tersirat untuk tujuan tertentu.
 
 Blog ini dan kontennya saya rilis di bawah lisensi berikut:
 
-- Semua konten teks, gambar, illustrasi atau/dan grafis yang telah saya buat, saya lisensikan di bawah: ["Creative Commons Attribution Share-Alike 4.0 Internasional (CC BY-SA 4.0)"](https://creativecommons.org/licenses/by-sa/4.0/), sedangkan kode sumbernya saya lisensikan di bawah ["GNU Affero General Public License v3 (GNU AGPLv3)"](https://github.com/FarrelF/Blog/blob/master/LICENSE). Ini artinya saya memegang hak cipta, tetapi memberikan beberapa hak kepada Anda, seperti mempelajari, memodifikasi, menyalinkan, mendistribusikan kembali untuk keperluan apa pun, termasuk keperluan komersial sekalipun, selama Anda melakukan beberapa kewajiban sebelum melakukannya.
+- Semua konten teks, gambar, illustrasi atau/dan grafis yang telah saya buat, saya lisensikan di bawah: ["Creative Commons Attribution Share-Alike 4.0 Internasional (CC BY-SA 4.0)"](https://creativecommons.org/licenses/by-sa/4.0/), sedangkan kode sumbernya saya lisensikan di bawah ["GNU Affero General Public License v3 (GNU AGPLv3)"](https://github.com/FarrelF/Blog/blob/master/LICENSE).
 
-- Blog ini menggunakan [Twemoji (Twitter Emoji)](https://jdecked.github.io/twemoji/) yang merupakan salah satu emoji yang dibuat oleh Twitter sebagai emoji bawaannya dan sekarang dikelola oleh [`jdecked`](https://github.com/jdecked). Dilisensikan di bawah ["Creative Commons Attribution 4.0 Internasional (CC BY 4.0)"](https://creativecommons.org/licenses/by/4.0/) untuk gambar emojinya dan [Lisensi MIT](https://github.com/jdecked/twemoji/blob/master/LICENSE) untuk [kode sumbernya](https://github.com/jdecked/twemoji).
+    Ini artinya saya memegang hak cipta, tetapi memberikan beberapa hak kepada Anda, seperti mempelajari, memodifikasi, menyalinkan, mendistribusikan kembali untuk keperluan apa pun, termasuk keperluan komersial sekalipun, selama Anda melakukan beberapa kewajiban sebelum melakukannya
 
-- Mungkin untuk gambar, illustrasi, grafis atau/dan referensi lainnya yang telah saya dapatkan dari situs web atau blog lain akan menggunakan lisensi yang berbeda. Oleh karena itu, sebagai kredit (jika diizinkan), saya akan berikan atribusi berupa pencantuman judul atau nama dari gambar, illustrasi atau grafis, pembuatnya, sumber gambar dan juga lisensi yang digunakannya di akhir artikel atau halaman.
+- Blog ini menggunakan [Twemoji](https://jdecked.github.io/twemoji/), yaitu kumpulan emoji yang awal-mula dikaitkan dengan Twitter dan kini dikelola oleh [`jdecked`](https://github.com/jdecked).
+
+    Gambar emojinya didistribusikan di bawah lisensi ["Creative Commons Attribution 4.0 Internasional (CC BY 4.0)"](https://creativecommons.org/licenses/by/4.0/), sedangkan kode sumbernya didistribusikan di bawah [lisensi MIT](https://github.com/jdecked/twemoji/blob/master/LICENSE).
+
+    Penyebutan Twemoji sebagai "Twitter Emoji" hanyalah nama yang umum digunakan secara historis dan tidak berarti bahwa Twitter atau X memiliki hubungan operasional dengan blog ini
+
+- Mungkin untuk gambar, illustrasi, grafis atau/dan referensi lainnya yang telah saya dapatkan dari situs web atau blog lain akan menggunakan lisensi yang berbeda.
+
+    Oleh karena itu, sebagai kredit (jika diizinkan), saya akan berikan atribusi berupa pencantuman judul atau nama dari gambar, illustrasi atau grafis, pembuatnya, sumber gambar dan juga lisensi yang digunakannya di akhir artikel atau halaman
 
 ### Merek Dagang Perusahaan
 
 Google AdSense&trade;, Google Custom Search&trade;, Google Site Search&trade;, Google Analytics&trade;, serta [produk, layanan atau/dan fitur dari Google lainnya](https://www.google.com/permissions/trademark/trademark-list/) dan Logo Google, serta produk, layanan dan fitur-fiturnya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari Google, LLC.
 
-Cloudflare&reg;, Cloudflare logo&reg;, 1.1.1.1&trade;, Cloudflare Registrar&trade;, serta [produk dan layanan dari Cloudflare lainnya](https://www.cloudflare.com/trademark/) merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari Cloudflare, Inc.
+Cloudflare&reg;, Cloudflare logo&reg;, 1.1.1.1&trade;, Cloudflare Registrar&trade;, Cloudflare Pages&trade; serta [produk dan layanan dari Cloudflare lainnya](https://www.cloudflare.com/trademark/) merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari Cloudflare, Inc.
 
 Netlify&reg;, logo, produk dan layanan lainnya merupakan merek dagang terdaftar atau/dan pakaian dagang dari Netlify, Inc. (Sebelumnya: MakerLoop, Inc.).
+
+Nama-nama tersebut muncul di blog ini karena saya menggunakan layanan penyedia tersebut, antara lain Cloudflare Pages dan Netlify sebagai hosting cadangan, serta Google Search Console untuk memungkinkan blog ini diindeks oleh Google Penelusuran.
+
+Penyebutan mereka di sini bukanlah pernyataan bahwa semua layanan atau fitur tersebut digunakan di blog ini, melainkan pemberitahuan mengenai merek yang mungkin muncul dalam konteks blog ini.
 
 Semua merek dagang lain yang bukan milik Google, Cloudflare, Netlify atau/dan afiliasinya yang mungkin muncul di blog ini adalah milik dari pemiliknya masing-masing, baik yang mungkin atau mungkin tidak berafiliasi dengan, terhubung dengan, atau disponsori oleh Google, Cloudflare, Netlify atau/dan afiliasinya.
 
@@ -168,17 +182,21 @@ Pernyataan ini akan berlaku selama Anda mengunjungi, menjelajahi dan menggunakan
 
 Jadi, baca/tidak baca, mau/tidak mau, suka/tidak suka atau setuju/tidak setuju, maka Anda harus menyetujui dan mematuhi semua pernyataan-pernyataan ini selama Anda mengunjungi blog ini dan mematuhinya dengan alasan apa pun.
 
+Halaman ini tidak menjamin bahwa blog atau kontennya bebas dari masalah, bebas dari tuntutan apa pun, atau bahwa semua interaksi di dalamnya aman dari segala risiko.
+
 Jika Anda tidak menyetujui dan tidak ingin mematuhi pernyataan tersebut, maka sebaiknya Anda tidak perlu mengunjungi, menjelajahi dan menggunakan blog ini. Harap maklumi.
 
 Serta saya berhak untuk mengubah kebijakan ini di mana pun dan kapan pun, tanpa perlu pemberitahuan terlebih dahulu, dengan alasan apa pun.
 
 Mengenai halaman ketentuan dan kebijakan blog ini:
 
-- Diperbarui/diubah pada Hari/Tanggal: **Selasa, 12 Agustus 2025**
-- Diberlakukan pada Hari/Tanggal: **Senin, 04 Agustus 2025**
+- Diperbarui/diubah pada Hari/Tanggal: **Sabtu, 17 Oktober 2026**
+- Diberlakukan pada Hari/Tanggal: **Sabtu, 17 Oktober 2026**
+
+Untuk melihat riwayat perubahan kebijakan ini, silakan kunjungi riwayatnya di [repositori GitHub saya](https://github.com/FarrelF/Blog/commits/main/content/page/ketentuan-dan-kebijakan-blog).
 
 ## Penutup
 
-Baiklah, sekian untuk halaman ketentuan dan kebijakan blog kali ini. Semoga Anda memahami dan memaklumi adanya ketentuan seperti ini, serta bisa mentaatinya untuk kebaikan bersama dan Anda juga.
+Baiklah, sekian untuk halaman ketentuan dan kebijakan blog kali ini. Semoga Anda memahami dan memaklumi adanya ketentuan seperti ini, serta dapat mematuhi ketentuan tersebut.
 
-Terima kasih atas perhatiannya dari kalian semua 😊
+Terima kasih atas perhatiannya dari kalangan pembaca 😊
