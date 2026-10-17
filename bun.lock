@@ -1,0 +1,14 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "dependencies": {
+        "@gethinode/netlify-plugin-dartsass": "^0.3.0",
+      },
+    },
+  },
+  "packages": {
+    "@gethinode/netlify-plugin-dartsass": ["@gethinode/netlify-plugin-dartsass@0.3.0", "", {}, "sha512-EWBWLW1jwZzbP6U7+bD50Y1yqlvfVcENNy9qAU/uW14zf325TbnD8qLrJE/+Y2rzZj1yFv+9FZcVuRmzlCEVbw=="],
+  }
+}
