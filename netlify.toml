@@ -3,6 +3,7 @@
 [build]
 publish = "public"
 ignore = '''
+if [ "$CACHED_COMMIT_REF" = "$COMMIT_REF" ]; then exit 1; fi
 git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
   ":(exclude,glob)**/README.md" \
   ":(exclude,glob)**/CONTRIBUTING.md" \
@@ -11,6 +12,7 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
   ":(exclude,glob)**/.gitignore" \
   ":(exclude,glob)**/.markdownlint.yaml" \
   ":(exclude,glob)**/LICENSE*" \
+  ":(exclude,glob)**/archetypes/**" \
   ":(exclude,glob).github/**" \
   ":(exclude,glob).devcontainer/**" \
   ":(exclude,glob)scripts/**" \

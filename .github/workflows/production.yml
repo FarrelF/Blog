@@ -14,6 +14,10 @@ on:
       - "config/development/**"
       - "**/archetypes/**"
       - "**/.markdownlint.*"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - ".devcontainer/**"
+      - "scripts/**"
 
 jobs:
   build:
