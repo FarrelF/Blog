@@ -234,6 +234,9 @@ rm static/_headers && hugo --minify --gc
 - The plugin is declared in `netlify.toml` under `[[plugins]]` and pinned via `DART_SASS_VERSION` in `[build.environment]`. Netlify installs file-based plugins using `bun` command while deploying with Netlify, so Bun, `bun.lock` and `package.json` file are needed only for Netlify.
 - Build commands use `&&` rather than `;`, so a failed Dart Sass install aborts the build instead of falling through to `hugo` and reporting a confusing transpiler error.
 - `_headers` file is removed before build because it used by Cloudflare Pages and the Netlify headers are managed by `netlify.toml` file instead
+- The `ignore` command in `[build]` cancels the build when a push only touches documentation, license, lint-config or CI/development paths: `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, `CLAUDE.md`, `.gitignore`, `.markdownlint.yaml`, `LICENSE*` (at any depth) plus the root-level `.github/`, `.devcontainer/`, `scripts/`, `config/development/` and `archetypes/` directories. Exit code `0` skips the build, any other exit code builds.
+- `CACHED_COMMIT_REF` is compared with `COMMIT_REF` before the diff runs: when both are identical, the build is forced (exit `1`), because a fresh clone after a failed cache fetch would otherwise produce an empty diff and skip every push.
+- Keep that list in sync with `paths-ignore` in `.github/workflows/production.yml` and `staging.yml`, so GitHub Actions and Netlify agree on which changes need a rebuild.
 
 ### Cloudflare Pages Build
 
