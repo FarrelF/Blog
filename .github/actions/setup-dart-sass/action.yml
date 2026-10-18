@@ -1,5 +1,5 @@
 name: 'Setup Dart Sass'
-description: 'Download and install the Dart Sass CLI on Linux, macOS and Windows runners and expose it on PATH as both "sass" and "dart-sass"'
+description: 'Download and install the Dart Sass CLI on Linux, macOS and Windows runners, verifying each archive against the SHA-256 digest published in the GitHub release when available, and expose it on PATH as both "sass" and "dart-sass"'
 inputs:
   dart-sass-version:
     description: 'Dart Sass version to install, with or without the "v" prefix (e.g. "1.105.2"). "latest" resolves the newest release.'
@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ''
   github-token:
-    description: 'Token used to query the GitHub API when resolving "latest" fails via the releases redirect (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
+    description: 'Token used to query the GitHub API when resolving "latest" fails via the releases redirect and when fetching the SHA-256 digest of the downloaded archive (avoids rate limiting). Pass secrets.GITHUB_TOKEN from the caller workflow.'
     required: false
     default: ''
 outputs:
@@ -199,6 +199,97 @@ runs:
         note "Downloading ${DART_SASS_FILENAME}."
         download "${DART_SASS_URL}" "${DART_SASS_FILENAME}" \
           || die "Failed to download ${DART_SASS_FILENAME}. Check that Dart Sass ${DART_SASS_VERSION} publishes a build for ${OS_NAME}-${ARCH_NAME}."
+
+        #######################################
+        # Verify the archive against GitHub's published SHA-256 digest
+        #
+        # Dart Sass publishes no checksum file, so the per-asset digest from
+        # the GitHub release is the primary verification. GitHub only began
+        # attaching digests to release assets in May 2025 (Dart Sass 1.89.1+).
+        #######################################
+
+        # --- BEGIN SHA-256 helpers (also extracted by the digest harness) ---
+
+        # sha256_of FILE -- the file's SHA-256 digest (bare lowercase hex)
+        sha256_of() {
+          if command -v sha256sum >/dev/null 2>&1; then
+            sha256sum "$1" | awk '{print $1}'
+          else
+            shasum -a 256 "$1" | awk '{print $1}'
+          fi
+        }
+
+        # verify_sha256 EXPECTED FILE -- prints both digests, fails on mismatch
+        verify_sha256() {
+          local expected="$1" file="$2" actual
+          actual="$(sha256_of "${file}")"
+          echo "Expected SHA256: ${expected}"
+          echo "Actual SHA256:   ${actual}"
+          [ "${expected}" = "${actual}" ]
+        }
+
+        # release_asset_sha256 REPO TAG ASSET -- the SHA-256 digest that GitHub
+        # publishes for a release asset. Exit status: 0 = digest printed on
+        # stdout, 1 = no digest published for that release/asset, 2 = the
+        # GitHub API could not be queried.
+        release_asset_sha256() {
+          local repo="$1" tag="$2" asset="$3" json
+          local -a curl_args
+
+          command -v curl >/dev/null 2>&1 || return 2
+
+          curl_args=(-fsSL --retry 2 --connect-timeout 15)
+          if [ -n "${GITHUB_TOKEN:-}" ]; then
+            curl_args+=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+          fi
+
+          json="$(curl "${curl_args[@]}" "https://api.github.com/repos/${repo}/releases/tags/${tag}" 2>/dev/null)" \
+            || return 2
+
+          # The API answers with pretty-printed JSON (one field per line), so a
+          # small state machine is enough and jq is not needed. Asset objects
+          # start with a lone "{" indented by four spaces; within an object the
+          # "name" field comes before the "digest" field.
+          printf '%s\n' "${json}" | awk -v want="${asset}" '
+            { sub(/\r$/, "") }
+            $0 == "    {" {
+              if (found) { exit }
+              found = 0
+              digest = ""
+              next
+            }
+            /^ *"name": "/ && !found {
+              line = $0
+              sub(/^ *"name": "/, "", line)
+              sub(/".*$/, "", line)
+              if (line == want) { found = 1 }
+            }
+            /^ *"digest": "sha256:/ && found && digest == "" {
+              line = $0
+              sub(/^.*"digest": "sha256:/, "", line)
+              sub(/".*$/, "", line)
+              digest = line
+            }
+            END {
+              if (found && digest != "") { print digest } else { exit 1 }
+            }
+          ' || return 1
+        }
+
+        # --- END SHA-256 helpers ---
+
+        DIGEST_RC=0
+        DIGEST_HASH="$(release_asset_sha256 'sass/dart-sass' "${DART_SASS_VERSION}" "${DART_SASS_FILENAME}")" || DIGEST_RC=$?
+        case "${DIGEST_RC}" in
+          0)
+            verify_sha256 "${DIGEST_HASH}" "${DART_SASS_FILENAME}" \
+              || die "SHA-256 mismatch for ${DART_SASS_FILENAME} (the digest published in the GitHub release does not match the downloaded archive)."
+            note "SHA-256 verification succeeded (GitHub release asset digest)." ;;
+          1)
+            warn "The GitHub release for Dart Sass ${DART_SASS_VERSION} publishes no SHA-256 digest for ${DART_SASS_FILENAME} (GitHub started attaching digests to release assets in late May 2025); skipping verification." ;;
+          *)
+            warn "The GitHub API could not be queried for the SHA-256 digest of ${DART_SASS_FILENAME} (network or rate limiting); skipping verification. Pass 'github-token' to avoid API rate limits." ;;
+        esac
 
         #######################################
         # Install

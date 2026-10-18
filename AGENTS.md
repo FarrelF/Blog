@@ -283,7 +283,7 @@ The script downloads the official release archive, detects OS/architecture (incl
 - **Dart Sass works in every Hugo edition.** Only _embedded LibSass_ is restricted to the extended and extended/deploy editions. Hugo's feature matrix states the Dart Sass transpiler "is compatible with any edition", because Hugo shells out to the external binary rather than using anything compiled into the Hugo executable. So there is no extended-build check in the build scripts.
 - **Hugo needs Dart Sass 1.63.0 or later.** Anything older is rejected with "unsupported Dart Sass version detected". The Cloudflare build image ships 1.62.1, which is below that floor, so a newer one is always installed.
 - **How Hugo finds the binary.** In `common/hugo/hugo.go` Hugo tries `$DART_SASS_BINARY`, then `dart-sass`, then `sass`, then the legacy `dart-sass-embedded`. There is no `sass-embedded` lookup. `scripts/install-dart-sass.sh` exposes both `dart-sass` and `sass` so whichever Hugo settles on is the freshly installed one, and Hugo itself appends `--embedded` when it runs the binary.
-- **No checksum verification.** The Dart Sass project does not publish a checksum file alongside its release assets, unlike Hugo. The archive is fetched over HTTPS and the binary is smoke tested instead. Pin `DART_SASS_VERSION` for reproducible builds.
+- **No checksum file exists.** The Dart Sass project does not publish one alongside its release assets, unlike Hugo; the composite action therefore verifies the archive against the SHA-256 digest that GitHub publishes for release assets (available from 1.89.1 onward, skipped with a warning otherwise). `scripts/install-dart-sass.sh` and the Netlify plugin simply fetch the archive over HTTPS (the installer smoke tests the binary afterwards). Pin `DART_SASS_VERSION` for reproducible builds.
 - **Cloudflare may not allow writing to `/usr` or `/etc`.** Pages builds run in a gVisor container; whether those paths are writable is not documented, so nothing is written there. `scripts/build-cloudflare-pages.sh` defaults `DART_SASS_PREFIX` to `$HOME/.local` and sets the timezone by exporting `TZ` rather than rewriting `/etc/localtime`. The installer prefers `$HOME/.local` too and only falls back to `/usr/local` when running as root.
 - **Cloudflare does not inject a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH` and `CF_PAGES_URL`. A token *can* be supplied by adding your own encrypted environment variable in the dashboard, and the installer reads `GITHUB_TOKEN` if present, but it is only needed when `DART_SASS_VERSION` is unset and the latest release has to be resolved through the rate-limited GitHub API. Pinning the version removes the need entirely.
 - **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.157.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
@@ -296,19 +296,19 @@ Both composite actions live in `.github/actions/` and are exercised by `.github/
 
 Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically.
 
-The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`.
+The SHA-256 checksum is verified whenever the release publishes one, falling back to the SHA-256 digest published in the GitHub release (available from v0.147.7 onward) when the checksum file cannot be fetched. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`.
 
 See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2; macOS builds older than v0.48 (Go 1.10 and earlier) do not execute on macOS 15 and are refused up front by the action on macOS 15+ runners, with v0.48 as the oldest release that runs).
 
 ### setup-dart-sass
 
-Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. The Windows archive ships `sass.bat` only, so the action adds a bash `sass` wrapper next to it; the binary is smoke tested because Dart Sass publishes no checksums.
+Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. The Windows archive ships `sass.bat` only, so the action adds a bash `sass` wrapper next to it; because Dart Sass publishes no checksums, the archive is verified against the SHA-256 digest published in the GitHub release (available from 1.89.1 onward) and the binary is smoke tested, with a warning when the release has no digest.
 
 ### Shared behavior
 
 - Both default to `aria2` and automatically fall back to `curl` when `aria2c` is not installed (Ubuntu Slim images).
 - Both append the install directory to `GITHUB_PATH` in the runner's native format, so `hugo`, `sass` and `dart-sass` resolve in later steps on all shells.
-- Both resolve `latest` through the GitHub releases redirect without `jq`; the GitHub API (with an optional token) is only a fallback.
+- Both resolve `latest` through the GitHub releases redirect without `jq`; the GitHub API (with an optional token) is only a fallback, and the same token is used for the SHA-256 digest lookups that back verification.
 
 ## Hugo Modules
 

@@ -2,7 +2,7 @@
 
 Composite action that downloads and installs the [Dart Sass](https://github.com/sass/dart-sass) CLI on GitHub Actions runners (Linux, macOS and Windows; x64 and ARM64) and puts `sass` on `PATH`.
 
-Unlike Hugo, the Dart Sass project does not publish checksum files, so the action installs the archive and **smoke tests the binary** instead (`sass --version`). A binary that cannot execute fails the step.
+Dart Sass publishes no checksum file, so the action verifies the archive against the **SHA-256 digest that GitHub publishes for release assets** (available from 1.89.1 — late May 2025 — onward) and **smoke tests the binary** (`sass --version`). A binary that cannot execute fails the step; releases without a digest (1.89.0 and earlier) or with an unreachable GitHub API are installed with a warning.
 
 ## Usage
 
@@ -31,7 +31,7 @@ Hugo 0.153.0+ uses Dart Sass through this `sass` executable (the embedded LibSas
 | `install-dir` | No | `~/.local/bin` | Directory to install Dart Sass into. The archive is extracted to `install-dir/dart-sass`. |
 | `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
 | `downloader-args` | No | `''` | Override the arguments passed to the downloader (word-split, so avoid embedded spaces). |
-| `github-token` | No | `''` | Token for the GitHub API, used only if resolving `latest` through the releases redirect fails (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
+| `github-token` | No | `''` | Token for the GitHub API, used when resolving `latest` through the releases redirect fails and to fetch the SHA-256 digest used for verification (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
 
 ## Outputs
 
@@ -42,7 +42,8 @@ Hugo 0.153.0+ uses Dart Sass through this `sass` executable (the embedded LibSas
 
 ## Notes
 
-- **`latest` resolution** follows the `https://github.com/sass/dart-sass/releases/latest` redirect (no API call, no `jq`). The GitHub API is only used as a fallback when the redirect fails.
+- **`latest` resolution** follows the `https://github.com/sass/dart-sass/releases/latest` redirect (no API call, no `jq`). The GitHub API is only used as a fallback when the redirect fails, and — with the same optional `github-token` — to fetch the SHA-256 digest used for verification.
+- **Digest verification**: before installing, the `digest` field of the matching asset in `GET https://api.github.com/repos/sass/dart-sass/releases/tags/<version>` is compared with the downloaded archive; a mismatch fails the step. A warning (not a failure) is printed when the release has no digest (releases before 1.89.1) or the API cannot be reached (network or rate limits).
 - **musl builds**: the musl archive links against `/lib/ld-musl-*.so.1` and therefore only runs on musl hosts. Using `is-musl: true` on a glibc runner extracts fine but the smoke test fails by design.
 - **Windows layout**: the Windows archive ships `sass.bat` only, so the action writes a small bash `sass` wrapper next to it. Both entry points work in every shell offered by the runner.
 - **32-bit x86** (`RUNNER_ARCH` `X86`, mapped to the historical `ia32` names) is best-effort: Dart Sass has not published ia32 builds for recent releases, and GitHub-hosted runners do not use that architecture.
