@@ -23,29 +23,32 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
 HUGO_VERSION = "0.168.0"
 GO_VERSION = "1.27.2"
 TZ = "Asia/Jakarta"
-DART_SASS_VERSION = "1.105.1"
-BUN_VERSION="1.4.3"
+DART_SASS_VERSION = "1.105.2"
+
+### Dart Sass: each build command installs it via scripts/install-dart-sass.sh
+### (digest verification; the version is pinned by DART_SASS_VERSION) and
+### prepends the install prefix's bin directory to PATH before running hugo.
 
 [context.production]
-command = "rm static/_headers && hugo --minify --gc"
+command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.production.environment]
 HUGO_ENV = "production"
 
 [context.split1]
-command = "rm static/_headers && hugo --minify --gc"
+command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.split1.environment]
 HUGO_ENV = "production"
 
 [context.deploy-preview]
-command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}"
+command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}'
 
 [context.deploy-preview.environment]
 HUGO_ENV = "staging"
 
 [context.branch-deploy]
-command = "rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}"
+command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}'
 
 [context.branch-deploy.environment]
 HUGO_ENV = "staging"
@@ -120,9 +123,6 @@ package = "netlify-plugin-hugo-cache-resources"
 
 [plugins.inputs]
 debug = true
-
-[[plugins]]
-package = "@gethinode/netlify-plugin-dartsass"
 
 ### Netlify Headers
 #### Headers 1

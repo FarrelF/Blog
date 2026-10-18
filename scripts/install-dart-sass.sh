@@ -6,7 +6,7 @@
 # `toCSS` options, so a `sass` executable must be reachable on PATH
 # before `hugo` runs.
 #
-# Used by the Cloudflare Pages build, and the devcontainer.
+# Used by the Cloudflare Pages and Netlify builds, and the devcontainer.
 # Safe to run repeatedly an already-installed matching version
 # is left alone.
 #
@@ -14,10 +14,11 @@
 #   scripts/install-dart-sass.sh [version]
 #
 # Environment:
-#   DART_SASS_VERSION  Version to install, e.g. "1.105.1". Defaults to
+#   DART_SASS_VERSION  Version to install, e.g. "1.105.2". Defaults to
 #                      "latest". (Same as the positional argument.)
-#   DART_SASS_PREFIX   Install prefix. Default: /usr/local when running as
-#                      root, otherwise the first writable PATH entry.
+#   DART_SASS_PREFIX   Install prefix. Default: $HOME/.local, falling back to
+#                      a writable PATH entry and then /usr/local when running
+#                      as root.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
 #   GITHUB_TOKEN       Token used when querying the GitHub API (resolving
 #                      "latest" and fetching the release asset digest for

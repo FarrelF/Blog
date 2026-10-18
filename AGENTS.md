@@ -225,13 +225,14 @@ hugo --gc
 
 ### Netlify Build
 
-The build commands are defined per context in `netlify.toml`. Dart Sass is installed by the [`@gethinode/netlify-plugin-dartsass`](https://github.com/gethinode/netlify-plugin-dartsass) plugin, which prepends its install steps to **every** build context automatically, so the commands themselves stay clean:
+The build commands are defined per context in `netlify.toml`. Each command installs Dart Sass with `scripts/install-dart-sass.sh` -- the same installer Cloudflare Pages uses -- and prepends its `bin` directory to `PATH`, so the commands themselves stay a short two-step chain:
 
 ```bash
-rm static/_headers && hugo --minify --gc
+export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc
 ```
 
-- The plugin is declared in `netlify.toml` under `[[plugins]]` and pinned via `DART_SASS_VERSION` in `[build.environment]`. Netlify installs file-based plugins using `bun` command while deploying with Netlify, so Bun, `bun.lock` and `package.json` file are needed only for Netlify.
+- The version is pinned via `DART_SASS_VERSION` in `[build.environment]`, which the installer reads. The SHA-256 digest verification from the GitHub release (1.89.1+) applies here too, with the same warn-and-continue behaviour when the API cannot be queried; Netlify does not inject a `GITHUB_TOKEN`, so add your own encrypted environment variable if the lookup must survive rate limits.
+- The former `@gethinode/netlify-plugin-dartsass` plugin was replaced by the installer because it downloaded the archive without any verification; `package.json`, `bun.lock` and the `BUN_VERSION` setting were removed along with it.
 - Build commands use `&&` rather than `;`, so a failed Dart Sass install aborts the build instead of falling through to `hugo` and reporting a confusing transpiler error.
 - `_headers` file is removed before build because it used by Cloudflare Pages and the Netlify headers are managed by `netlify.toml` file instead
 - The `ignore` command in `[build]` cancels the build when a push only touches documentation, license, lint-config or CI/development paths: `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, `CLAUDE.md`, `.gitignore`, `.markdownlint.yaml`, `LICENSE*` (at any depth) plus the root-level `.github/`, `.devcontainer/`, `scripts/`, `config/development/` and `archetypes/` directories. Exit code `0` skips the build, any other exit code builds.
@@ -247,7 +248,7 @@ Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
 | Build command | `bash scripts/build-cloudflare-pages.sh` |
 | Build output directory | `public` |
 | `HUGO_VERSION` (environment) | `0.168.0` or newer |
-| `DART_SASS_VERSION` (environment) | `1.105.1` (recommended, see below) |
+| `DART_SASS_VERSION` (environment) | `1.105.2` (recommended, see below) |
 
 The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. See **Dart Sass Requirement** below.
 
@@ -265,7 +266,7 @@ sass --version
 
 ```bash
 bash scripts/install-dart-sass.sh              # latest release
-bash scripts/install-dart-sass.sh 1.105.1      # pinned version
+bash scripts/install-dart-sass.sh 1.105.2      # pinned version
 ```
 
 The script downloads the official release archive, detects OS/architecture (including musl), verifies the archive against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped with a warning without querying the API), installs into `~/.local` (override with `DART_SASS_PREFIX`) and smoke tests the binary. It is idempotent -- an already-installed matching version is left alone.
@@ -273,7 +274,7 @@ The script downloads the official release archive, detects OS/architecture (incl
 | Environment | How Dart Sass is provided |
 |-------------|---------------------------|
 | GitHub Actions | `.github/actions/setup-dart-sass` composite action, wired into `.github/workflows/_build.yml` |
-| Netlify | `@gethinode/netlify-plugin-dartsass` plugin, declared in `netlify.toml` |
+| Netlify | `scripts/install-dart-sass.sh`, invoked by each build command in `netlify.toml` |
 | Cloudflare Pages | `scripts/build-cloudflare-pages.sh`, which calls the installer |
 | Dev container | `postCreateCommand` in `.devcontainer/devcontainer.json` |
 | Local (Linux/macOS) | Run `scripts/install-dart-sass.sh` manually |
@@ -283,7 +284,7 @@ The script downloads the official release archive, detects OS/architecture (incl
 - **Dart Sass works in every Hugo edition.** Only _embedded LibSass_ is restricted to the extended and extended/deploy editions. Hugo's feature matrix states the Dart Sass transpiler "is compatible with any edition", because Hugo shells out to the external binary rather than using anything compiled into the Hugo executable. So there is no extended-build check in the build scripts.
 - **Hugo needs Dart Sass 1.63.0 or later.** Anything older is rejected with "unsupported Dart Sass version detected". The Cloudflare build image ships 1.62.1, which is below that floor, so a newer one is always installed.
 - **How Hugo finds the binary.** In `common/hugo/hugo.go` Hugo tries `$DART_SASS_BINARY`, then `dart-sass`, then `sass`, then the legacy `dart-sass-embedded`. There is no `sass-embedded` lookup. `scripts/install-dart-sass.sh` exposes both `dart-sass` and `sass` so whichever Hugo settles on is the freshly installed one, and Hugo itself appends `--embedded` when it runs the binary.
-- **No checksum file exists.** The Dart Sass project does not publish one alongside its release assets, unlike Hugo; the composite action therefore verifies the archive against the SHA-256 digest that GitHub publishes for release assets (1.89.1+; earlier releases are skipped with a warning without querying the API). `scripts/install-dart-sass.sh` performs the same digest verification, and both it and the composite action smoke test the binary afterwards; the third-party Netlify plugin still fetches the archive over HTTPS without verification. Pin `DART_SASS_VERSION` for reproducible builds.
+- **No checksum file exists.** The Dart Sass project does not publish one alongside its release assets, unlike Hugo; the composite action therefore verifies the archive against the SHA-256 digest that GitHub publishes for release assets (1.89.1+; earlier releases are skipped with a warning without querying the API). `scripts/install-dart-sass.sh` performs the same digest verification, and both it and the composite action smoke test the binary afterwards; every deploy path (GitHub Actions, Netlify, Cloudflare Pages) now goes through one of those two. Pin `DART_SASS_VERSION` for reproducible builds.
 - **Cloudflare may not allow writing to `/usr` or `/etc`.** Pages builds run in a gVisor container; whether those paths are writable is not documented, so nothing is written there. `scripts/build-cloudflare-pages.sh` defaults `DART_SASS_PREFIX` to `$HOME/.local` and sets the timezone by exporting `TZ` rather than rewriting `/etc/localtime`. The installer prefers `$HOME/.local` too and only falls back to `/usr/local` when running as root.
 - **Cloudflare does not inject a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH` and `CF_PAGES_URL`. A token *can* be supplied by adding your own encrypted environment variable in the dashboard, and the installer reads `GITHUB_TOKEN` if present, for both resolving `latest` and looking up the release asset digest used for verification (releases 1.89.1+ only). Without one, resolving `latest` through the rate-limited API fails the build while the digest lookup skips verification with a warning; pinning the version removes the hard dependency on the API.
 - **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.157.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
