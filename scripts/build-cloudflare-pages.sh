@@ -90,10 +90,12 @@ version_ge "${DART_SASS_FOUND}" "1.63.0" \
 note "using Dart Sass ${DART_SASS_FOUND} (dart-sass: $(command -v dart-sass))"
 
 # A GITHUB_TOKEN is not required, but install-dart-sass.sh asks the GitHub API
-# for the latest tag when DART_SASS_VERSION is left unset, and always looks up
-# the release asset digest it verifies the archive against. Unauthenticated
-# requests are rate limited to 60/hour per IP; when that happens, the digest
-# lookup is skipped with a warning instead of failing the build.
+# for the latest tag when DART_SASS_VERSION is left unset, and — for releases
+# that publish one (1.89.1+) — looks up the release asset digest it verifies
+# the archive against. Unauthenticated requests are rate limited to 60/hour
+# per IP; when that happens, the digest lookup is skipped with a warning
+# instead of failing the build, and releases before 1.89.1 skip it without
+# querying the API at all.
 # 
 # Cloudflare injects CI, CF_PAGES, CF_PAGES_COMMIT_SHA, CF_PAGES_BRANCH and CF_PAGES_URL
 # but never a GITHUB_TOKEN; if you do need one, add your own as an encrypted

@@ -27,8 +27,9 @@
 # release assets, unlike Hugo. The archive is instead verified against the
 # SHA-256 digest that GitHub publishes for release assets (the same digest
 # shown on the release page), and the extracted binary is smoke tested before
-# being linked into place. Releases without a digest (1.89.0 and earlier) or
-# an unreachable GitHub API are installed with a warning; a digest mismatch
+# being linked into place. Releases before 1.89.1 predate the digest feature
+# and are skipped without querying the API at all, as is an unreachable
+# GitHub API; both are installed with a warning, and only a digest mismatch
 # aborts the install. Pin DART_SASS_VERSION to make the build reproducible.
 
 set -euo pipefail
@@ -129,6 +130,26 @@ release_asset_sha256() {
 }
 
 # --- END SHA-256 helpers ---
+
+# version_ge A B -- succeeds when A >= B (dotted numeric versions, e.g.
+# 1.105.2). Prerelease suffixes and non-numeric segments compare as 0.
+version_ge() {
+  local a="$1" b="$2" i ai bi part
+  local -a a_parts b_parts
+  IFS='.' read -r -a a_parts <<< "${a}"
+  IFS='.' read -r -a b_parts <<< "${b}"
+  for i in 0 1 2; do
+    part="${a_parts[i]:-0}"; part="${part%%-*}"
+    case "${part}" in ''|*[!0-9]*) part=0 ;; esac
+    ai=$((10#${part}))
+    part="${b_parts[i]:-0}"; part="${part%%-*}"
+    case "${part}" in ''|*[!0-9]*) part=0 ;; esac
+    bi=$((10#${part}))
+    if [ "${ai}" -gt "${bi}" ]; then return 0; fi
+    if [ "${ai}" -lt "${bi}" ]; then return 1; fi
+  done
+  return 0
+}
 
 # ---------------------------------------------------------------------------
 # Arguments and environment
@@ -313,25 +334,30 @@ fi
 # Dart Sass publishes no checksum file, so the per-asset digest from the
 # GitHub release is the primary verification. GitHub only began attaching
 # digests to release assets in late May 2025 (Dart Sass 1.89.1+), so older
-# releases are installed with a warning instead of failing.
+# releases are installed with a warning instead of failing, without querying
+# the API at all.
 # ---------------------------------------------------------------------------
 
-DIGEST_RC=0
-DIGEST_HASH="$(release_asset_sha256 "${DART_SASS_REPO}" "${RESOLVED_VERSION}" "${ARCHIVE}")" || DIGEST_RC=$?
+if version_ge "${RESOLVED_VERSION}" '1.89.1'; then
+  DIGEST_RC=0
+  DIGEST_HASH="$(release_asset_sha256 "${DART_SASS_REPO}" "${RESOLVED_VERSION}" "${ARCHIVE}")" || DIGEST_RC=$?
 
-case "${DIGEST_RC}" in
-  0)
-    verify_sha256 "${DIGEST_HASH}" "${TMP_DIR}/${ARCHIVE}" \
-      || die "SHA-256 mismatch for ${ARCHIVE} (the digest published in the GitHub release does not match the downloaded archive)"
-    note "SHA-256 verification succeeded (GitHub release asset digest)"
-    ;;
-  1)
-    warn "${RESOLVED_VERSION} publishes no SHA-256 digest for ${ARCHIVE} (GitHub started attaching digests to release assets in late May 2025); skipping verification"
-    ;;
-  *)
-    warn "the GitHub API could not be queried for the SHA-256 digest of ${ARCHIVE} (network or rate limiting); skipping verification. Set GITHUB_TOKEN to avoid rate limits"
-    ;;
-esac
+  case "${DIGEST_RC}" in
+    0)
+      verify_sha256 "${DIGEST_HASH}" "${TMP_DIR}/${ARCHIVE}" \
+        || die "SHA-256 mismatch for ${ARCHIVE} (the digest published in the GitHub release does not match the downloaded archive)"
+      note "SHA-256 verification succeeded (GitHub release asset digest)"
+      ;;
+    1)
+      warn "${RESOLVED_VERSION} publishes no SHA-256 digest for ${ARCHIVE}; skipping verification"
+      ;;
+    *)
+      warn "the GitHub API could not be queried for the SHA-256 digest of ${ARCHIVE} (network or rate limiting); skipping verification. Set GITHUB_TOKEN to avoid rate limits"
+      ;;
+  esac
+else
+  warn "${RESOLVED_VERSION} predates the first release with published SHA-256 asset digests (1.89.1); skipping verification"
+fi
 
 tar -xzf "${TMP_DIR}/${ARCHIVE}" -C "${TMP_DIR}"
 
