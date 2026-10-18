@@ -231,7 +231,7 @@ The build commands are defined per context in `netlify.toml`. Dart Sass is insta
 rm static/_headers && hugo --minify --gc
 ```
 
-- The plugin is declared in `netlify.toml` under `[[plugins]]` and pinned via `DART_SASS_VERSION` in `[build.environment]`. Netlify installs file-based plugins straight from `netlify.toml`, so no `package.json` or `package-lock.json` is needed -- this is not a Node project.
+- The plugin is declared in `netlify.toml` under `[[plugins]]` and pinned via `DART_SASS_VERSION` in `[build.environment]`. Netlify installs file-based plugins using `bun` command while deploying with Netlify, so Bun, `bun.lock` and `package.json` file are needed only for Netlify.
 - Build commands use `&&` rather than `;`, so a failed Dart Sass install aborts the build instead of falling through to `hugo` and reporting a confusing transpiler error.
 - `_headers` file is removed before build because it used by Cloudflare Pages and the Netlify headers are managed by `netlify.toml` file instead
 
@@ -277,7 +277,7 @@ The script downloads the official release archive, detects OS/architecture (incl
 
 ### Notes
 
-- **Dart Sass works in every Hugo edition.** Only *embedded LibSass* is restricted to the extended and extended/deploy editions. Hugo's feature matrix states the Dart Sass transpiler "is compatible with any edition", because Hugo shells out to the external binary rather than using anything compiled into the Hugo executable. So there is no extended-build check in the build scripts.
+- **Dart Sass works in every Hugo edition.** Only _embedded LibSass_ is restricted to the extended and extended/deploy editions. Hugo's feature matrix states the Dart Sass transpiler "is compatible with any edition", because Hugo shells out to the external binary rather than using anything compiled into the Hugo executable. So there is no extended-build check in the build scripts.
 - **Hugo needs Dart Sass 1.63.0 or later.** Anything older is rejected with "unsupported Dart Sass version detected". The Cloudflare build image ships 1.62.1, which is below that floor, so a newer one is always installed.
 - **How Hugo finds the binary.** In `common/hugo/hugo.go` Hugo tries `$DART_SASS_BINARY`, then `dart-sass`, then `sass`, then the legacy `dart-sass-embedded`. There is no `sass-embedded` lookup. `scripts/install-dart-sass.sh` exposes both `dart-sass` and `sass` so whichever Hugo settles on is the freshly installed one, and Hugo itself appends `--embedded` when it runs the binary.
 - **No checksum verification.** The Dart Sass project does not publish a checksum file alongside its release assets, unlike Hugo. The archive is fetched over HTTPS and the binary is smoke tested instead. Pin `DART_SASS_VERSION` for reproducible builds.
@@ -291,7 +291,11 @@ Both composite actions live in `.github/actions/` and are exercised by `.github/
 
 ### setup-hugo
 
-Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically. The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`. See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2; macOS builds older than v0.48 (Go 1.10 and earlier) do not execute on macOS 15 and are refused up front by the action on macOS 15+ runners, with v0.48 as the oldest release that runs).
+Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically.
+
+The SHA-256 checksum is verified whenever the release publishes one. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`.
+
+See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2; macOS builds older than v0.48 (Go 1.10 and earlier) do not execute on macOS 15 and are refused up front by the action on macOS 15+ runners, with v0.48 as the oldest release that runs).
 
 ### setup-dart-sass
 
