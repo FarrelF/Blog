@@ -10,9 +10,9 @@ inputs:
     required: false
     default: 'false'
   install-dir:
-    description: 'Directory to install Dart Sass to'
+    description: 'Directory to install Dart Sass to. Defaults to "~/.local/bin" on Linux and macOS, and to "%LOCALAPPDATA%\Programs\Dart Sass" on Windows.'
     required: false
-    default: '~/.local/bin'
+    default: ''
   downloader:
     description: 'Downloader to use for fetching the Dart Sass binary (curl, wget, aria2/2c or axel). Falls back to curl when aria2c is not installed.'
     required: false
@@ -67,6 +67,27 @@ runs:
 
         require_cmd() {
           command -v "$1" >/dev/null 2>&1 || die "Required command '$1' is not installed."
+        }
+
+        # version_ge A B -- succeeds when A >= B (dotted numeric versions,
+        # e.g. 1.105.2). Prerelease suffixes and non-numeric segments
+        # compare as 0.
+        version_ge() {
+          local a="$1" b="$2" i ai bi part
+          local -a a_parts b_parts
+          IFS='.' read -r -a a_parts <<< "${a}"
+          IFS='.' read -r -a b_parts <<< "${b}"
+          for i in 0 1 2; do
+            part="${a_parts[i]:-0}"; part="${part%%-*}"
+            case "${part}" in ''|*[!0-9]*) part=0 ;; esac
+            ai=$((10#${part}))
+            part="${b_parts[i]:-0}"; part="${part%%-*}"
+            case "${part}" in ''|*[!0-9]*) part=0 ;; esac
+            bi=$((10#${part}))
+            if [ "${ai}" -gt "${bi}" ]; then return 0; fi
+            if [ "${ai}" -lt "${bi}" ]; then return 1; fi
+          done
+          return 0
         }
 
         #######################################
@@ -205,7 +226,9 @@ runs:
         #
         # Dart Sass publishes no checksum file, so the per-asset digest from
         # the GitHub release is the primary verification. GitHub only began
-        # attaching digests to release assets in May 2025 (Dart Sass 1.89.1+).
+        # attaching digests to release assets in late May 2025 (Dart Sass
+        # 1.89.1+), so older releases skip verification without querying the
+        # API at all.
         #######################################
 
         # --- BEGIN SHA-256 helpers (also extracted by the digest harness) ---
@@ -278,29 +301,50 @@ runs:
 
         # --- END SHA-256 helpers ---
 
-        DIGEST_RC=0
-        DIGEST_HASH="$(release_asset_sha256 'sass/dart-sass' "${DART_SASS_VERSION}" "${DART_SASS_FILENAME}")" || DIGEST_RC=$?
-        case "${DIGEST_RC}" in
-          0)
-            verify_sha256 "${DIGEST_HASH}" "${DART_SASS_FILENAME}" \
-              || die "SHA-256 mismatch for ${DART_SASS_FILENAME} (the digest published in the GitHub release does not match the downloaded archive)."
-            note "SHA-256 verification succeeded (GitHub release asset digest)." ;;
-          1)
-            warn "The GitHub release for Dart Sass ${DART_SASS_VERSION} publishes no SHA-256 digest for ${DART_SASS_FILENAME} (GitHub started attaching digests to release assets in late May 2025); skipping verification." ;;
-          *)
-            warn "The GitHub API could not be queried for the SHA-256 digest of ${DART_SASS_FILENAME} (network or rate limiting); skipping verification. Pass 'github-token' to avoid API rate limits." ;;
-        esac
+        if version_ge "${DART_SASS_VERSION}" '1.89.1'; then
+          DIGEST_RC=0
+          DIGEST_HASH="$(release_asset_sha256 'sass/dart-sass' "${DART_SASS_VERSION}" "${DART_SASS_FILENAME}")" || DIGEST_RC=$?
+          case "${DIGEST_RC}" in
+            0)
+              verify_sha256 "${DIGEST_HASH}" "${DART_SASS_FILENAME}" \
+                || die "SHA-256 mismatch for ${DART_SASS_FILENAME} (the digest published in the GitHub release does not match the downloaded archive)."
+              note "SHA-256 verification succeeded (GitHub release asset digest)." ;;
+            1)
+              warn "The GitHub release for Dart Sass ${DART_SASS_VERSION} publishes no SHA-256 digest for ${DART_SASS_FILENAME}; skipping verification." ;;
+            *)
+              warn "The GitHub API could not be queried for the SHA-256 digest of ${DART_SASS_FILENAME} (network or rate limiting); skipping verification. Pass 'github-token' to avoid API rate limits." ;;
+          esac
+        else
+          warn "Dart Sass ${DART_SASS_VERSION} predates the first release with published SHA-256 asset digests (1.89.1); skipping verification."
+        fi
 
         #######################################
         # Install
         #######################################
 
-        if [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
+        # --- BEGIN install-dir defaults (also extracted by the install-dir harness) ---
+
+        # Defaults: ~/.local/bin on Linux and macOS, the
+        # %LOCALAPPDATA%\Programs\Dart Sass directory on Windows. An explicit
+        # "~/.local/bin" keeps working as before.
+        if [ -z "${INSTALL_DIR}" ]; then
+          if [ "${RUNNER_OS}" = 'Windows' ]; then
+            if [ -n "${LOCALAPPDATA:-}" ]; then
+              INSTALL_DIR="${LOCALAPPDATA}\\Programs\\Dart Sass"
+            else
+              INSTALL_DIR="${HOME}/AppData/Local/Programs/Dart Sass"
+            fi
+          else
+            INSTALL_DIR="${HOME}/.local/bin"
+          fi
+        elif [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
           INSTALL_DIR="${HOME}/.local/bin"
         fi
         if [ "${RUNNER_OS}" = 'Windows' ]; then
           INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
         fi
+
+        # --- END install-dir defaults (also extracted by the install-dir harness) ---
 
         mkdir -p "${INSTALL_DIR}"
 

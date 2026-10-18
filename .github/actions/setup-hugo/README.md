@@ -31,11 +31,11 @@ Composite action that downloads and installs any official [Hugo](https://github.
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
 | `hugo-version` | No | `latest` | Version to install, with or without the `v` prefix. `latest` resolves the newest release. Two-part versions also try the `.0` tag (e.g. `0.55` falls back to `v0.55.0`). On macOS 15+ runners, releases before v0.48.0 are refused (see the ancient-builds note below). |
-| `verify-file` | No | `true` | Verify the downloaded archive against the official checksum file. When the checksum file is unavailable (not published for v0.20.2 and earlier, or its download fails), the SHA-256 digest published in the GitHub release is used as a fallback. v0.20.2 and earlier have no digest either and skip verification with a warning. |
+| `verify-file` | No | `true` | Verify the downloaded archive against the official checksum file. When the checksum file is unavailable or has no entry for the asset, the SHA-256 digest published in the GitHub release (v0.147.7+) is used as a fallback. When nothing can verify the archive (older releases, or the API is unreachable), verification is skipped with a warning; a mismatching checksum or digest always fails the step. |
 | `extended` | No | `false` | Install the Hugo Extended build. Extended builds exist from v0.43.0; on platforms without an Extended build the standard build is installed with a warning. |
 | `with-deploy` | No | `false` | Install with the Deploy feature. With `extended: true` this means Extended+Deploy (from v0.137.0); with a standard build it means `withdeploy` (from v0.159.2). On older releases the closest available edition is installed with a warning. |
 | `github-token` | No | `''` | Token for the GitHub API, used when resolving `latest` through the releases redirect fails and to fetch the SHA-256 digest used for verification (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
-| `install-dir` | No | `~/.local/bin` | Directory to install Hugo into. |
+| `install-dir` | No | platform default | Directory to install Hugo into. Defaults to `/usr/local/bin` for macOS `.pkg` assets (their package location, so nothing is copied), `%LOCALAPPDATA%\Programs\Hugo` on Windows, and `~/.local/bin` elsewhere. |
 | `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
 | `downloader-args` | No | `''` | Override the arguments passed to the downloader (word-split, so avoid embedded spaces). |
 
@@ -75,27 +75,28 @@ Details and exceptions:
 
 | Version range | Checksum file |
 |---------------|---------------|
-| v0.7.0-v0.20.2 | none published (the digest fallback is tried, then verification is skipped with a warning) |
+| v0.7.0-v0.20.2 | none published (those releases predate GitHub's asset digests, so verification is skipped with a warning) |
 | v0.20.3-v0.26 | `hugo_checksums.txt` |
 | v0.27.0+ | `hugo_<version>_checksums.txt` |
 | v0.43.0-v0.55.6 (Extended) | `hugo_extended_<version>_checksums.txt` |
 | v0.56.0+ | merged `hugo_<version>_checksums.txt` (includes Extended and, later, Deploy variants) |
 
-A missing entry in an otherwise present checksum file is a hard failure, as is a checksum mismatch.
+A checksum or digest **mismatch is always a hard failure**. Everything else — a checksum file that cannot be fetched, a checksum file without an entry for the asset, an unreachable API — falls back to the next verification method and, when no method can verify the archive, is skipped with a warning.
 
 ### Digest fallback
 
 GitHub attaches a **SHA-256 digest** to every release asset published from late May 2025 onward (shown on the release page and exposed as the `digest` field in the REST API). For Hugo that means **v0.147.7 and newer**; GitHub did not backfill older releases.
 
-When the checksum file cannot be fetched — or is not published at all (v0.20.2 and earlier) — the action queries `api.github.com` for the digest of the exact asset being installed and compares it before installing. The lookup uses `github-token` when provided and needs no `jq`.
+When the checksum file cannot be fetched — it has no entry for the asset, it is not published at all (v0.20.2 and earlier), or its download fails — the action queries `api.github.com` for the digest of the exact asset being installed and compares it before installing. The lookup uses `github-token` when provided and needs no `jq`. Releases before **v0.147.7** predate the digest feature, so the API is **not queried at all** for them.
 
-- A checksum-era release (v0.20.3+) whose checksum file cannot be fetched is rescued by the digest; if the release has no digest either, the step fails with a combined message (it failed on the missing checksum file before as well).
-- v0.20.2 and earlier have no digest, so verification still ends with the same "does not publish checksum files" warning (now mentioning the absent digest).
+- A checksum-era release (v0.20.3+) whose checksum file cannot be fetched is rescued by the digest; if the release has no digest either, verification is skipped with a warning.
+- v0.20.2 and earlier have neither a checksum file nor a digest, so verification ends with a single "publishes no checksum files" warning.
+- Only an actual **hash mismatch fails the step**; every "cannot verify" situation (unreachable API, no checksum file, no entry in the file) ultimately skips verification with a warning instead of failing the install.
 
 ## Notes
 
 - **Downloads** are retried once; a failed download removes the partial file first.
-- **macOS packages**: from v0.153.0 the macOS asset is a `.pkg`. The checksum is verified first, then the package is installed with `sudo installer -pkg ... -target /` (which places `hugo` in `/usr/local/bin`) and copied to `install-dir` when different.
+- **macOS packages**: from v0.153.0 the macOS asset is a `.pkg`. The checksum is verified first, then the package is installed with `sudo installer -pkg ... -target /` (which places `hugo` in `/usr/local/bin`). With the default `install-dir` the package location is kept as-is (no copy is made); when `install-dir` is set explicitly, the binary is also copied there.
 - **Smoke test**: the installed binary is executed (`hugo version`, or `hugo -h` for v0.7/v0.8 which have no `version` subcommand) before the step finishes. A failure is fatal unless it is an expected cross-architecture fallback.
 - **Windows v0.137.0 + Extended+Deploy** is transparently bumped to **v0.137.1** (the release that restored the missing Windows archive), with an explanatory note; the previous action performed the same bump silently.
-- The candidate lists used for probing are marked in `action.yml` with `BEGIN/END asset candidate rules` markers; the test workflow extracts the embedded script with the same markers. The SHA-256 helpers carry `BEGIN/END SHA-256 helpers` markers for the local digest test harness.
+- The candidate lists used for probing are marked in `action.yml` with `BEGIN/END asset candidate rules` markers; the test workflow extracts the embedded script with the same markers. The SHA-256 helpers carry `BEGIN/END SHA-256 helpers` markers for the local digest test harness, and the `install-dir` defaults carry an `install-dir defaults` marker for the local install-dir harness.

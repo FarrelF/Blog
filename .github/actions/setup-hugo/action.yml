@@ -6,7 +6,7 @@ inputs:
     required: false
     default: 'latest'
   verify-file:
-    description: 'Verify the downloaded archive against the official checksum file (true/false). When the checksum file is unavailable (not published for v0.20.2 and earlier, or its download fails), the SHA-256 digest published in the GitHub release is used as a fallback; v0.20.2 and earlier, which have no digest either, skip verification with a warning.'
+    description: 'Verify the downloaded archive against the official checksum file (true/false). When the checksum file is unavailable or has no entry for the asset, the SHA-256 digest published in the GitHub release (v0.147.7+) is used as a fallback. When nothing can verify the archive (older releases, or the API is unreachable), verification is skipped with a warning; a mismatching checksum or digest always fails the step.'
     required: false
     default: 'true'
   extended:
@@ -22,9 +22,9 @@ inputs:
     required: false
     default: ''
   install-dir:
-    description: 'Directory to install Hugo to'
+    description: 'Directory to install Hugo to. Defaults to "/usr/local/bin" for macOS ".pkg" assets (where the package installs hugo anyway, so nothing is copied), to "%LOCALAPPDATA%\Programs\Hugo" on Windows, and to "~/.local/bin" elsewhere.'
     required: false
-    default: '~/.local/bin'
+    default: ''
   downloader:
     description: 'Downloader to use for Hugo (curl, wget, aria2/2c or axel). Falls back to curl when aria2c is not installed.'
     required: false
@@ -712,6 +712,8 @@ runs:
         if [ "${HUGO_VERIFY_FILE:-true}" = 'true' ]; then
           VERIFIED='false'
 
+          CHECKSUM_WARN=''
+
           if [ "${#HASH_CANDIDATES[@]}" -gt 0 ]; then
             HASH_FILE=''
             for hf in "${HASH_CANDIDATES[@]}"; do
@@ -723,21 +725,30 @@ runs:
 
             if [ -n "${HASH_FILE}" ] && download "${RELEASE_BASE}/v${RESOLVED_VERSION}/${HASH_FILE}" "${HASH_FILE}"; then
               EXPECTED_HASH="$(awk -v f="${RESOLVED_ASSET}" '$NF == f { print $1; exit }' "${HASH_FILE}")"
-              [ -n "${EXPECTED_HASH}" ] \
-                || die "No checksum entry for ${RESOLVED_ASSET} in ${HASH_FILE}."
+              if [ -n "${EXPECTED_HASH}" ]; then
+                verify_sha256 "${EXPECTED_HASH}" "${RESOLVED_ASSET}" \
+                  || die "Checksum mismatch for ${RESOLVED_ASSET}."
 
-              verify_sha256 "${EXPECTED_HASH}" "${RESOLVED_ASSET}" \
-                || die "Checksum mismatch for ${RESOLVED_ASSET}."
-
-              note "Checksum verification succeeded (${HASH_FILE})."
-              VERIFIED='true'
-            fi
-
-            if [ "${VERIFIED}" != 'true' ]; then
-              if [ -n "${HASH_FILE}" ]; then
-                warn "Could not download ${HASH_FILE}; checking the SHA-256 digest published in the GitHub release instead."
+                note "Checksum verification succeeded (${HASH_FILE})."
+                VERIFIED='true'
               else
-                warn "No checksum file found for v${RESOLVED_VERSION} (tried: ${HASH_CANDIDATES[*]}); checking the SHA-256 digest published in the GitHub release instead."
+                CHECKSUM_WARN="No checksum entry for ${RESOLVED_ASSET} in ${HASH_FILE}"
+              fi
+            elif [ -n "${HASH_FILE}" ]; then
+              CHECKSUM_WARN="Could not download ${HASH_FILE}"
+            else
+              CHECKSUM_WARN="No checksum file found for v${RESOLVED_VERSION} (tried: ${HASH_CANDIDATES[*]})"
+            fi
+          fi
+
+          # The SHA-256 digest published in the GitHub release (v0.147.7+) is
+          # the fallback. Older releases skip it without querying the API, and
+          # a mismatch always fails; any other "cannot verify" situation only
+          # warns and the install continues.
+          if [ "${VERIFIED}" != 'true' ]; then
+            if version_ge "${RESOLVED_VERSION}" "0.147.7"; then
+              if [ -n "${CHECKSUM_WARN}" ]; then
+                warn "${CHECKSUM_WARN}; falling back to the SHA-256 digest published in the GitHub release."
               fi
 
               DIGEST_RC=0
@@ -749,27 +760,15 @@ runs:
                   note "SHA-256 verification succeeded (GitHub release asset digest)."
                   VERIFIED='true' ;;
                 1)
-                  die "No checksum file could be fetched for v${RESOLVED_VERSION} and the release publishes no SHA-256 asset digest, so ${RESOLVED_ASSET} could not be verified." ;;
+                  warn "The GitHub release for v${RESOLVED_VERSION} publishes no SHA-256 digest for ${RESOLVED_ASSET}; skipping verification." ;;
                 *)
-                  die "No checksum file could be fetched for v${RESOLVED_VERSION} and the GitHub API could not be queried for an asset digest (network or rate limiting), so ${RESOLVED_ASSET} could not be verified." ;;
+                  warn "The GitHub API could not be queried for the SHA-256 digest of ${RESOLVED_ASSET} (network or rate limiting); skipping verification. Pass 'github-token' to avoid rate limits." ;;
               esac
+            elif [ "${#HASH_CANDIDATES[@]}" -eq 0 ]; then
+              warn "Hugo v${RESOLVED_VERSION} publishes no checksum files (v0.20.2 and earlier) and predates the first release with published SHA-256 asset digests (v0.147.7); skipping verification."
+            else
+              warn "${CHECKSUM_WARN}; v${RESOLVED_VERSION} predates the first release with published SHA-256 asset digests (v0.147.7), so verification is skipped."
             fi
-          else
-            # v0.20.2 and earlier publish no checksum files. GitHub only began
-            # attaching digests to release assets in May 2025, so in practice
-            # these releases are skipped with a warning.
-            DIGEST_RC=0
-            DIGEST_HASH="$(release_asset_sha256 'gohugoio/hugo' "v${RESOLVED_VERSION}" "${RESOLVED_ASSET}")" || DIGEST_RC=$?
-            case "${DIGEST_RC}" in
-              0)
-                verify_sha256 "${DIGEST_HASH}" "${RESOLVED_ASSET}" \
-                  || die "SHA-256 mismatch for ${RESOLVED_ASSET} (the digest published in the GitHub release does not match the downloaded file)."
-                note "SHA-256 verification succeeded (GitHub release asset digest)." ;;
-              1)
-                warn "Hugo v${RESOLVED_VERSION} does not publish checksum files (v0.20.2 and earlier) and has no SHA-256 asset digest; skipping verification." ;;
-              *)
-                warn "Hugo v${RESOLVED_VERSION} does not publish checksum files (v0.20.2 and earlier) and the GitHub API could not be queried for an asset digest; skipping verification." ;;
-            esac
           fi
         else
           note "File verification is disabled ('verify-file: false')."
@@ -779,12 +778,34 @@ runs:
         # Install
         #######################################
 
-        if [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
+        # --- BEGIN install-dir defaults (also extracted by the install-dir harness) ---
+
+        KIND="$(detect_kind "${RESOLVED_ASSET}")"
+
+        # Defaults: /usr/local/bin for macOS .pkg assets (that is where the
+        # package installs hugo anyway, so nothing is copied), the
+        # %LOCALAPPDATA%\Programs\Hugo directory on Windows, and ~/.local/bin
+        # elsewhere. An explicit "~/.local/bin" keeps working as before.
+        if [ -z "${INSTALL_DIR}" ]; then
+          if [ "${KIND}" = 'pkg' ]; then
+            INSTALL_DIR='/usr/local/bin'
+          elif [ "${RUNNER_OS}" = 'Windows' ]; then
+            if [ -n "${LOCALAPPDATA:-}" ]; then
+              INSTALL_DIR="${LOCALAPPDATA}\\Programs\\Hugo"
+            else
+              INSTALL_DIR="${HOME}/AppData/Local/Programs/Hugo"
+            fi
+          else
+            INSTALL_DIR="${HOME}/.local/bin"
+          fi
+        elif [ "${INSTALL_DIR}" = '~/.local/bin' ]; then
           INSTALL_DIR="${HOME}/.local/bin"
         fi
         if [ "${RUNNER_OS}" = 'Windows' ]; then
           INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
         fi
+
+        # --- END install-dir defaults (also extracted by the install-dir harness) ---
 
         mkdir -p "${INSTALL_DIR}"
 
@@ -793,7 +814,6 @@ runs:
           BIN_NAME='hugo.exe'
         fi
 
-        KIND="$(detect_kind "${RESOLVED_ASSET}")"
         EXTRACT_DIR="${TMPDIR}/extract"
 
         case "${KIND}" in
@@ -847,14 +867,16 @@ runs:
         if [ "${KIND}" = 'pkg' ]; then
           note "Installing the macOS package (installs hugo into /usr/local/bin)."
           sudo installer -pkg "${RESOLVED_ASSET}" -target /
-          if [ "${INSTALL_DIR}" != '/usr/local/bin' ]; then
+          if [ "${INSTALL_DIR}" = '/usr/local/bin' ]; then
+            note "Keeping the package's default location (${INSTALL_DIR}/hugo); no copy made."
+          else
             cp '/usr/local/bin/hugo' "${INSTALL_DIR}/hugo"
+            chmod +x "${INSTALL_DIR}/hugo"
           fi
         else
           cp "${BIN_SRC}" "${INSTALL_DIR}/${BIN_NAME}"
+          chmod +x "${INSTALL_DIR}/${BIN_NAME}"
         fi
-
-        chmod +x "${INSTALL_DIR}/${BIN_NAME}"
 
         #######################################
         # Smoke test
