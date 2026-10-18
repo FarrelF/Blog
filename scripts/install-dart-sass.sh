@@ -19,14 +19,17 @@
 #   DART_SASS_PREFIX   Install prefix. Default: /usr/local when running as
 #                      root, otherwise the first writable PATH entry.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
-#   GITHUB_TOKEN       Token used when querying the GitHub API, to avoid
-#                      rate limiting.
+#   GITHUB_TOKEN       Token used when querying the GitHub API (resolving
+#                      "latest" and fetching the release asset digest for
+#                      verification), to avoid rate limiting.
 #
 # Note: the Dart Sass project does not publish a checksum file alongside its
-# release assets, so the download cannot be verified the way Hugo's own
-# releases can. The archive is instead fetched over HTTPS from the official
-# repository and the extracted binary is smoke tested before being linked into
-# place. Pin DART_SASS_VERSION to make the build reproducible.
+# release assets, unlike Hugo. The archive is instead verified against the
+# SHA-256 digest that GitHub publishes for release assets (the same digest
+# shown on the release page), and the extracted binary is smoke tested before
+# being linked into place. Releases without a digest (1.89.0 and earlier) or
+# an unreachable GitHub API are installed with a warning; a digest mismatch
+# aborts the install. Pin DART_SASS_VERSION to make the build reproducible.
 
 set -euo pipefail
 
@@ -41,6 +44,91 @@ die() {
 note() {
   printf '==> %s\n' "$*"
 }
+
+warn() {
+  printf 'warning: %s\n' "$*" >&2
+}
+
+# ---------------------------------------------------------------------------
+# SHA-256 helpers
+# ---------------------------------------------------------------------------
+
+# --- BEGIN SHA-256 helpers (also extracted by the digest harness) ---
+
+# sha256_of FILE -- the file's SHA-256 digest (bare lowercase hex)
+sha256_of() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{print $1}'
+  else
+    shasum -a 256 "$1" | awk '{print $1}'
+  fi
+}
+
+# verify_sha256 EXPECTED FILE -- prints both digests, fails on mismatch
+verify_sha256() {
+  local expected="$1" file="$2" actual
+  actual="$(sha256_of "${file}")"
+  echo "Expected SHA256: ${expected}"
+  echo "Actual SHA256:   ${actual}"
+  [ "${expected}" = "${actual}" ]
+}
+
+# release_asset_sha256 REPO TAG ASSET -- the SHA-256 digest that GitHub
+# publishes for a release asset. Exit status: 0 = digest printed on
+# stdout, 1 = no digest published for that release/asset, 2 = the
+# GitHub API could not be queried.
+release_asset_sha256() {
+  local repo="$1" tag="$2" asset="$3" json
+  local url="https://api.github.com/repos/${repo}/releases/tags/${tag}"
+
+  if command -v curl >/dev/null 2>&1; then
+    local -a curl_args
+    curl_args=(-fsSL --retry 2 --connect-timeout 15)
+    if [ -n "${GITHUB_TOKEN:-}" ]; then
+      curl_args+=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+    fi
+    json="$(curl "${curl_args[@]}" "${url}" 2>/dev/null)" || return 2
+  elif command -v wget >/dev/null 2>&1; then
+    if [ -n "${GITHUB_TOKEN:-}" ]; then
+      json="$(wget -q -t 2 -T 15 --header="Authorization: Bearer ${GITHUB_TOKEN}" -O - "${url}" 2>/dev/null)" || return 2
+    else
+      json="$(wget -q -t 2 -T 15 -O - "${url}" 2>/dev/null)" || return 2
+    fi
+  else
+    return 2
+  fi
+
+  # The API answers with pretty-printed JSON (one field per line), so a
+  # small state machine is enough and jq is not needed. Asset objects
+  # start with a lone "{" indented by four spaces; within an object the
+  # "name" field comes before the "digest" field.
+  printf '%s\n' "${json}" | awk -v want="${asset}" '
+    { sub(/\r$/, "") }
+    $0 == "    {" {
+      if (found) { exit }
+      found = 0
+      digest = ""
+      next
+    }
+    /^ *"name": "/ && !found {
+      line = $0
+      sub(/^ *"name": "/, "", line)
+      sub(/".*$/, "", line)
+      if (line == want) { found = 1 }
+    }
+    /^ *"digest": "sha256:/ && found && digest == "" {
+      line = $0
+      sub(/^.*"digest": "sha256:/, "", line)
+      sub(/".*$/, "", line)
+      digest = line
+    }
+    END {
+      if (found && digest != "") { print digest } else { exit 1 }
+    }
+  ' || return 1
+}
+
+# --- END SHA-256 helpers ---
 
 # ---------------------------------------------------------------------------
 # Arguments and environment
@@ -191,7 +279,7 @@ if [ "${FORCE}" != "1" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# Download and extract
+# Download, verify and extract
 # ---------------------------------------------------------------------------
 
 readonly ARCHIVE="dart-sass-${RESOLVED_VERSION}-${OS_NAME}-${ARCH_NAME}${MUSL_SUFFIX}.tar.gz"
@@ -218,6 +306,32 @@ fi
 
 [ -s "${TMP_DIR}/${ARCHIVE}" ] \
   || die "downloaded archive is empty or missing: ${ARCHIVE} (check the version exists)"
+
+# ---------------------------------------------------------------------------
+# Verify the archive against the digest that GitHub publishes
+#
+# Dart Sass publishes no checksum file, so the per-asset digest from the
+# GitHub release is the primary verification. GitHub only began attaching
+# digests to release assets in late May 2025 (Dart Sass 1.89.1+), so older
+# releases are installed with a warning instead of failing.
+# ---------------------------------------------------------------------------
+
+DIGEST_RC=0
+DIGEST_HASH="$(release_asset_sha256 "${DART_SASS_REPO}" "${RESOLVED_VERSION}" "${ARCHIVE}")" || DIGEST_RC=$?
+
+case "${DIGEST_RC}" in
+  0)
+    verify_sha256 "${DIGEST_HASH}" "${TMP_DIR}/${ARCHIVE}" \
+      || die "SHA-256 mismatch for ${ARCHIVE} (the digest published in the GitHub release does not match the downloaded archive)"
+    note "SHA-256 verification succeeded (GitHub release asset digest)"
+    ;;
+  1)
+    warn "${RESOLVED_VERSION} publishes no SHA-256 digest for ${ARCHIVE} (GitHub started attaching digests to release assets in late May 2025); skipping verification"
+    ;;
+  *)
+    warn "the GitHub API could not be queried for the SHA-256 digest of ${ARCHIVE} (network or rate limiting); skipping verification. Set GITHUB_TOKEN to avoid rate limits"
+    ;;
+esac
 
 tar -xzf "${TMP_DIR}/${ARCHIVE}" -C "${TMP_DIR}"
 
@@ -256,7 +370,7 @@ ln -sf "../share/dart-sass/sass" "${BIN_DIR}/sass"
 # name for Hugo to look up.
 
 # ---------------------------------------------------------------------------
-# Verify
+# Smoke test
 # ---------------------------------------------------------------------------
 
 export PATH="${BIN_DIR}:${PATH}"
