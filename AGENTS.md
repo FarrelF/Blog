@@ -6,7 +6,7 @@ This file provides context for AI agents working in this repository.
 
 This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farrelf.blog](https://farrelf.blog).
 
-- **Static site generator**: Hugo (deployed with latest version, minimum v0.157.0)
+- **Static site generator**: Hugo (deployed with latest version, minimum v0.167.0)
 - **Theme**:
   - [hugo-theme-stack/v4](https://github.com/CaiJimmy/hugo-theme-stack) (Main Theme)
   - [stack-modified](https://github.com/FarrelF/stack-modified) (Modified Theme, based on the Main Theme)
@@ -287,7 +287,7 @@ The script downloads the official release archive, detects OS/architecture (incl
 - **No checksum file exists.** The Dart Sass project does not publish one alongside its release assets, unlike Hugo; the composite action therefore verifies the archive against the SHA-256 digest that GitHub publishes for release assets (1.89.1+; earlier releases are skipped with a warning without querying the API). `scripts/install-dart-sass.sh` performs the same digest verification, and both it and the composite action smoke test the binary afterwards; every deploy path (GitHub Actions, Netlify, Cloudflare Pages) now goes through one of those two. The installer can opt out of the digest check with `DART_SASS_VERIFY=0`, and the composite action with `verify-file: false`. Pin `DART_SASS_VERSION` for reproducible builds.
 - **Cloudflare may not allow writing to `/usr` or `/etc`.** Pages builds run in a gVisor container; whether those paths are writable is not documented, so nothing is written there. `scripts/build-cloudflare-pages.sh` defaults `DART_SASS_PREFIX` to `$HOME/.local` and sets the timezone by exporting `TZ` rather than rewriting `/etc/localtime`. The installer prefers `$HOME/.local` too and only falls back to `/usr/local` when running as root.
 - **Cloudflare does not inject a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH` and `CF_PAGES_URL`. A token *can* be supplied by adding your own encrypted environment variable in the dashboard, and the installer reads `GITHUB_TOKEN` if present, as a fallback for resolving `latest` and for looking up the release asset digest used for verification (releases 1.89.1+ only). Without one, `latest` still resolves through the releases/latest redirect and the digest lookup skips verification with a warning when the API is rate limited; pinning the version keeps builds reproducible.
-- **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.157.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
+- **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.167.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
 
 ## GitHub Actions Composite Actions
 

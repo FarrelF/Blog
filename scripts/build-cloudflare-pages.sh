@@ -22,13 +22,13 @@
 #
 # Optional environment variables:
 #   HUGO_VERSION        Minimum Hugo this script expects Cloudflare to have
-#                       installed. Default: 0.157.0 (see config/_default/module.toml)
+#                       installed. Default: 0.167.0 (see config/_default/module.toml)
 #   DART_SASS_VERSION   Dart Sass version to install. Default: latest
 #   HUGO_ENVIRONMENT    Hugo environment. Default: production
 
 set -euo pipefail
 
-readonly MIN_HUGO_VERSION="${HUGO_VERSION:-0.157.0}"
+readonly MIN_HUGO_VERSION="${HUGO_VERSION:-0.167.0}"
 readonly HUGO_ENVIRONMENT="${HUGO_ENVIRONMENT:-${HUGO_ENV:-production}}"
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"

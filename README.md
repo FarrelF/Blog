@@ -14,7 +14,7 @@ Sebelumnya saya menggunakan Pelican yang berbasiskan Python sebagai basis saya u
 Agar dapat menggunakan kode sumber ini, silakan penuhi persyaratannya terlebih dahulu, yakni terinstalnya:
 
 - Git (disarankan versi terbaru): [https://git-scm.com/downloads](https://git-scm.com/downloads) (Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrelf.blog/cara-install-git))
-- Hugo (versi minimum: 0.157.0, tidak perlu edisi "Extended", disarankan terbaru): Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrelf.blog/cara-install-hugo) atau kunjungi [dokumentasi resminya](https://gohugo.io/installation/)
+- Hugo (versi minimum: 0.167.0, tidak perlu edisi "Extended", disarankan terbaru): Untuk mengetahui cara instalnya, silakan baca [artikel ini](https://farrelf.blog/cara-install-hugo) atau kunjungi [dokumentasi resminya](https://gohugo.io/installation/)
 - Dart Sass (disarankan versi terbaru): Untuk mengetahui cara instalnya, silakan kunjungi [dokumentasi resminya](https://sass-lang.com/install/)
 - Go (versi minimum: 1.12, disarankan: 1.17 atau terbaru): [https://golang.org/](https://golang.org/)
 
