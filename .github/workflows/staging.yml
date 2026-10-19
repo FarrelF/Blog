@@ -17,6 +17,7 @@ on:
       - "**/.markdownlint.*"
       - "AGENTS.md"
       - "CLAUDE.md"
+      - ".github/**"
       - ".devcontainer/**"
       - "scripts/**"
 
