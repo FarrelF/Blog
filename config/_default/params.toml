@@ -81,6 +81,15 @@ enabled = true
 
 [imageProcessing.content]
 enabled = true
+quality = 50
+
+[imageProcessing.webp]
+enabled = true
+quality = 75
+
+[imageProcessing.avif]
+enabled = true
+quality = 50
 
 [twemoji]
 enabled = true
