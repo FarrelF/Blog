@@ -358,6 +358,7 @@ jobs:
           - { version: 'latest' }
           - { version: '1.63.0', downloader: 'curl' }
           - { version: 'latest', downloader: '2c' }
+          - { version: '1.105.2', verify: 'false' }
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -367,6 +368,7 @@ jobs:
         uses: ./.github/actions/setup-dart-sass
         with:
           dart-sass-version: ${{ matrix.version }}
+          verify-file: ${{ matrix.verify || 'true' }}
           downloader: ${{ matrix.downloader || 'aria2' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

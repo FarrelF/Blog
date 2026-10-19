@@ -5,6 +5,10 @@ inputs:
     description: 'Dart Sass version to install, with or without the "v" prefix (e.g. "1.105.2"). "latest" resolves the newest release.'
     required: false
     default: 'latest'
+  verify-file:
+    description: 'Verify the downloaded archive against the SHA-256 digest published in the GitHub release (true/false). Dart Sass publishes no checksum file; releases before 1.89.1 predate the digest feature and are skipped without querying the API. When the digest is unavailable (older releases, or the API is unreachable), verification is skipped with a warning; a mismatching digest always fails the step.'
+    required: false
+    default: 'true'
   is-musl:
     description: 'Install the musl build (Linux only) (true/false)'
     required: false
@@ -40,6 +44,7 @@ runs:
       shell: bash
       env:
         DART_SASS_VERSION: ${{ inputs.dart-sass-version }}
+        DART_SASS_VERIFY_FILE: ${{ inputs.verify-file }}
         IS_MUSL: ${{ inputs.is-musl }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         INSTALL_DIR: ${{ inputs.install-dir }}
@@ -228,7 +233,7 @@ runs:
         # the GitHub release is the primary verification. GitHub only began
         # attaching digests to release assets in late May 2025 (Dart Sass
         # 1.89.1+), so older releases skip verification without querying the
-        # API at all.
+        # API at all. Setting 'verify-file' to false skips this step entirely.
         #######################################
 
         # --- BEGIN SHA-256 helpers (also extracted by the digest harness) ---
@@ -301,7 +306,9 @@ runs:
 
         # --- END SHA-256 helpers ---
 
-        if version_ge "${DART_SASS_VERSION}" '1.89.1'; then
+        if [ "${DART_SASS_VERIFY_FILE:-true}" != 'true' ]; then
+          note "File verification is disabled ('verify-file: false')."
+        elif version_ge "${DART_SASS_VERSION}" '1.89.1'; then
           DIGEST_RC=0
           DIGEST_HASH="$(release_asset_sha256 'sass/dart-sass' "${DART_SASS_VERSION}" "${DART_SASS_FILENAME}")" || DIGEST_RC=$?
           case "${DIGEST_RC}" in
