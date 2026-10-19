@@ -15,14 +15,19 @@
 #
 # Environment:
 #   DART_SASS_VERSION  Version to install, e.g. "1.105.2". Defaults to
-#                      "latest". (Same as the positional argument.)
+#                      "latest", which is resolved through the releases/latest
+#                      redirect without an API call (the GitHub API is only a
+#                      fallback). (Same as the positional argument.)
 #   DART_SASS_PREFIX   Install prefix. Default: $HOME/.local, falling back to
 #                      a writable PATH entry and then /usr/local when running
 #                      as root.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
-#   GITHUB_TOKEN       Token used when querying the GitHub API (resolving
-#                      "latest" and fetching the release asset digest for
-#                      verification), to avoid rate limiting.
+#   DART_SASS_VERIFY   Set to 0 to install without verifying the archive
+#                      against the SHA-256 digest published in the GitHub
+#                      release. Defaults to 1 (verify).
+#   GITHUB_TOKEN       Token used when querying the GitHub API (as a fallback
+#                      when resolving "latest" and when fetching the release
+#                      asset digest for verification), to avoid rate limiting.
 #
 # Note: the Dart Sass project does not publish a checksum file alongside its
 # release assets, unlike Hugo. The archive is instead verified against the
@@ -31,7 +36,8 @@
 # being linked into place. Releases before 1.89.1 predate the digest feature
 # and are skipped without querying the API at all, as is an unreachable
 # GitHub API; both are installed with a warning, and only a digest mismatch
-# aborts the install. Pin DART_SASS_VERSION to make the build reproducible.
+# aborts the install. Set DART_SASS_VERIFY to 0 to skip the verification
+# entirely. Pin DART_SASS_VERSION to make the build reproducible.
 
 set -euo pipefail
 
@@ -160,6 +166,13 @@ REQUESTED_VERSION="${1:-${DART_SASS_VERSION:-latest}}"
 FORCE="${DART_SASS_FORCE:-0}"
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
 
+# DART_SASS_VERIFY accepts the usual falsy spellings; anything else (and an
+# unset variable) keeps the digest verification on.
+case "$(printf '%s' "${DART_SASS_VERIFY:-1}" | tr '[:upper:]' '[:lower:]')" in
+  0 | false | no | off) VERIFY=0 ;;
+  *)                    VERIFY=1 ;;
+esac
+
 # ---------------------------------------------------------------------------
 # Platform detection
 # ---------------------------------------------------------------------------
@@ -195,15 +208,31 @@ fi
 # Resolve version
 # ---------------------------------------------------------------------------
 
+# Prints the latest release tag, preferring the releases/latest redirect so no
+# GitHub API call is made (no rate limiting and no token needed); the API is
+# only a fallback, mirroring the setup-dart-sass composite action.
 resolve_latest_version() {
+  local version
+  version="$(curl --fail --silent --show-error --location --head \
+    --retry 2 --connect-timeout 15 \
+    --output /dev/null --write-out '%{url_effective}' \
+    "https://github.com/${DART_SASS_REPO}/releases/latest" \
+    | sed -n 's#.*/tag/##p' || true)"
+  version="${version#v}"
+  if [ -n "${version}" ]; then
+    printf '%s' "${version}"
+    return 0
+  fi
+
+  warn "the releases/latest redirect could not be resolved; falling back to the GitHub API"
+
+  local -a api_args
+  api_args=(--fail --silent --show-error --location)
   if [ -n "${GITHUB_TOKEN}" ]; then
-    curl --fail --silent --show-error --location \
-      --header "Authorization: Bearer ${GITHUB_TOKEN}" \
-      "${DART_SASS_API}/releases/latest"
-  else
-    curl --fail --silent --show-error --location \
-      "${DART_SASS_API}/releases/latest"
-  fi | grep '"tag_name"' | head -n 1 | cut -d '"' -f 4
+    api_args+=(--header "Authorization: Bearer ${GITHUB_TOKEN}")
+  fi
+  curl "${api_args[@]}" "${DART_SASS_API}/releases/latest" \
+    | grep '"tag_name"' | head -n 1 | cut -d '"' -f 4 || true
 }
 
 if [ "${REQUESTED_VERSION}" = "latest" ] || [ -z "${REQUESTED_VERSION}" ]; then
@@ -211,7 +240,7 @@ if [ "${REQUESTED_VERSION}" = "latest" ] || [ -z "${REQUESTED_VERSION}" ]; then
   note "resolving the latest Dart Sass release"
   RESOLVED_VERSION="$(resolve_latest_version)"
   [ -n "${RESOLVED_VERSION}" ] && [ "${RESOLVED_VERSION}" != "null" ] \
-    || die "could not resolve the latest Dart Sass version from the GitHub API"
+    || die "could not resolve the latest Dart Sass version"
   note "latest release is ${RESOLVED_VERSION}"
 else
   RESOLVED_VERSION="${REQUESTED_VERSION#v}"
@@ -336,10 +365,12 @@ fi
 # GitHub release is the primary verification. GitHub only began attaching
 # digests to release assets in late May 2025 (Dart Sass 1.89.1+), so older
 # releases are installed with a warning instead of failing, without querying
-# the API at all.
+# the API at all. Setting DART_SASS_VERIFY to 0 skips this step entirely.
 # ---------------------------------------------------------------------------
 
-if version_ge "${RESOLVED_VERSION}" '1.89.1'; then
+if [ "${VERIFY}" != "1" ]; then
+  note "verification disabled (DART_SASS_VERIFY=${DART_SASS_VERIFY}); skipping verification of ${ARCHIVE}"
+elif version_ge "${RESOLVED_VERSION}" '1.89.1'; then
   DIGEST_RC=0
   DIGEST_HASH="$(release_asset_sha256 "${DART_SASS_REPO}" "${RESOLVED_VERSION}" "${ARCHIVE}")" || DIGEST_RC=$?
 
