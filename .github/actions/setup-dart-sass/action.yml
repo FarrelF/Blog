@@ -438,9 +438,11 @@ runs:
           || die "Unexpected archive layout: ${DART_SASS_FILENAME} has no top-level 'dart-sass' directory."
 
         # Copy the contents (not the wrapper directory) into INSTALL_DIR.
-        # "cp -a" merges into an existing installation, so re-running the
-        # action in the same directory is safe.
-        cp -a "${EXTRACT_DIR}/dart-sass/." "${INSTALL_DIR}/" \
+        # "cp -R" merges into an existing installation, so re-running the
+        # action in the same directory is safe; unlike "cp -a" it does not try
+        # to preserve the timestamps of the destination directory, which is not
+        # owned by the runner when installing into /usr/local/bin.
+        cp -R "${EXTRACT_DIR}/dart-sass/." "${INSTALL_DIR}/" \
           || die "Failed to install ${DART_SASS_FILENAME} into ${INSTALL_DIR}."
         rm -rf "${EXTRACT_DIR}"
 
