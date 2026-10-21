@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ''
   install-dir:
-    description: 'Directory to install Hugo to. Defaults to "/usr/local/bin" for macOS ".pkg" assets (where the package installs hugo anyway, so nothing is copied), to "/usr/local/bin" on Linux when it is writable without elevation (otherwise "~/.local/bin"), to "C:\Program Files\Hugo" (64-bit) or "C:\Program Files (x86)\Hugo" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Hugo"), and to "~/.local/bin" on macOS.'
+    description: 'Directory to install Hugo to. Defaults to "/usr/local/bin" for macOS ".pkg" assets (where the package installs hugo anyway, so nothing is copied), to "/usr/local/bin" on Linux and for macOS assets that are not ".pkg" when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Hugo" (64-bit) or "C:\Program Files (x86)\Hugo" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Hugo").'
     required: false
     default: ''
   downloader:
@@ -823,12 +823,12 @@ runs:
         }
 
         # Defaults: /usr/local/bin for macOS .pkg assets (that is where the
-        # package installs hugo anyway, so nothing is copied), /usr/local/bin
-        # on Linux when it is writable without elevation (otherwise
-        # ~/.local/bin), Program Files\Hugo (or Program Files (x86)\Hugo for
-        # 32-bit builds) on Windows when writable (otherwise
-        # %LOCALAPPDATA%\Programs\Hugo), and ~/.local/bin on macOS. An explicit
-        # "~/.local/bin" keeps working as before.
+        # package installs hugo anyway, so nothing is copied); /usr/local/bin
+        # on Linux and for macOS assets that are not .pkg when it is writable
+        # without elevation (otherwise ~/.local/bin); Program Files\Hugo (or
+        # Program Files (x86)\Hugo for 32-bit builds) on Windows when writable
+        # (otherwise %LOCALAPPDATA%\Programs\Hugo). An explicit "~/.local/bin"
+        # keeps working as before.
         if [ -z "${INSTALL_DIR}" ]; then
           if [ "${KIND}" = 'pkg' ]; then
             INSTALL_DIR='/usr/local/bin'
@@ -845,7 +845,7 @@ runs:
               [ -n "${WIN_LOCAL}" ] || WIN_LOCAL="${HOME}/AppData/Local"
               INSTALL_DIR="${WIN_LOCAL}/Programs/Hugo"
             fi
-          elif [ "${RUNNER_OS}" = 'Linux' ] && can_install_to '/usr/local/bin'; then
+          elif { [ "${RUNNER_OS}" = 'Linux' ] || [ "${RUNNER_OS}" = 'macOS' ]; } && can_install_to '/usr/local/bin'; then
             INSTALL_DIR='/usr/local/bin'
           else
             INSTALL_DIR="${HOME}/.local/bin"

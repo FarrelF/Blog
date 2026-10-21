@@ -18,10 +18,10 @@
 #                      "latest", which is resolved through the releases/latest
 #                      redirect without an API call (the GitHub API is only a
 #                      fallback). (Same as the positional argument.)
-#   DART_SASS_PREFIX   Install prefix. Default: /usr/local on Linux when its
-#                      bin directory is writable without elevation, otherwise
-#                      $HOME/.local; on macOS $HOME/.local. Falls back to a
-#                      writable PATH entry when $HOME is not usable.
+#   DART_SASS_PREFIX   Install prefix. Default: /usr/local on Linux and macOS
+#                      when its bin directory is writable without elevation,
+#                      otherwise $HOME/.local. Falls back to a writable PATH
+#                      entry when $HOME is not usable.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
 #   DART_SASS_VERIFY   Set to 0 to install without verifying the archive
 #                      against the SHA-256 digest published in the GitHub
@@ -277,11 +277,11 @@ detect_prefix() {
     return
   fi
 
-  # Linux: prefer the system-wide prefix, whose bin directory is already on
-  # PATH, as long as it can be written to without elevation. On multi-user
-  # systems this usually means running as root; otherwise fall back to the
-  # user's own directory below.
-  if [ "${OS_NAME}" = "linux" ] && can_write_dir /usr/local/bin; then
+  # Linux and macOS: prefer the system-wide prefix, whose bin directory is
+  # already on PATH, as long as it can be written to without elevation. On
+  # multi-user systems this usually means running as root; otherwise fall back
+  # to the user's own directory below.
+  if { [ "${OS_NAME}" = "linux" ] || [ "${OS_NAME}" = "macos" ]; } && can_write_dir /usr/local/bin; then
     printf '%s' "/usr/local"
     return
   fi

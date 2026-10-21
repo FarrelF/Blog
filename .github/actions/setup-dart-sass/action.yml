@@ -1,5 +1,5 @@
 name: 'Setup Dart Sass'
-description: 'Download and install the Dart Sass CLI on Linux, macOS and Windows runners, verifying each archive against the SHA-256 digest published in the GitHub release when available, and expose it on PATH as both "sass" and "dart-sass"'
+description: 'Download and install the Dart Sass CLI on Linux, macOS and Windows runners, verifying each archive against the SHA-256 digest published in the GitHub release when available, and put "sass" on PATH'
 inputs:
   dart-sass-version:
     description: 'Dart Sass version to install, with or without the "v" prefix (e.g. "1.105.2"). "latest" resolves the newest release.'
@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'false'
   install-dir:
-    description: 'Directory to install Dart Sass to. Defaults to "/usr/local/bin" on Linux (falling back to "~/.local/bin" without elevated access), to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows (falling back to "%LOCALAPPDATA%\Programs\Dart Sass"), and to "~/.local/bin" on macOS.'
+    description: 'Directory to install Dart Sass to. Defaults to "/usr/local/bin" on Linux and macOS when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"). The archive contents (the "sass"/"sass.bat" launcher and its "src" directory) are installed directly into this directory.'
     required: false
     default: ''
   downloader:
@@ -371,12 +371,11 @@ runs:
           return 1
         }
 
-        # Defaults: /usr/local/bin on Linux when it is writable without
-        # elevation (otherwise ~/.local/bin); Program Files\Dart Sass (or
-        # Program Files (x86)\Dart Sass for 32-bit builds) on Windows when
-        # writable (otherwise %LOCALAPPDATA%\Programs\Dart Sass); and
-        # ~/.local/bin on macOS. An explicit "~/.local/bin" keeps working as
-        # before.
+        # Defaults: /usr/local/bin on Linux and macOS when it is writable
+        # without elevation (otherwise ~/.local/bin); Program Files\Dart Sass
+        # (or Program Files (x86)\Dart Sass for 32-bit builds) on Windows when
+        # writable (otherwise %LOCALAPPDATA%\Programs\Dart Sass). An explicit
+        # "~/.local/bin" keeps working as before.
         if [ -z "${INSTALL_DIR}" ]; then
           if [ "${RUNNER_OS}" = 'Windows' ]; then
             WIN_BASE=''
@@ -391,7 +390,7 @@ runs:
               [ -n "${WIN_LOCAL}" ] || WIN_LOCAL="${HOME}/AppData/Local"
               INSTALL_DIR="${WIN_LOCAL}/Programs/Dart Sass"
             fi
-          elif [ "${RUNNER_OS}" = 'Linux' ] && can_install_to '/usr/local/bin'; then
+          elif { [ "${RUNNER_OS}" = 'Linux' ] || [ "${RUNNER_OS}" = 'macOS' ]; } && can_install_to '/usr/local/bin'; then
             INSTALL_DIR='/usr/local/bin'
           else
             INSTALL_DIR="${HOME}/.local/bin"
@@ -407,6 +406,13 @@ runs:
 
         mkdir -p "${INSTALL_DIR}"
 
+        # Extract into a staging directory first: the archives wrap everything
+        # in a top-level "dart-sass/" folder, and only its contents are moved
+        # into INSTALL_DIR so that "sass" (or "sass.bat") sits directly there.
+        EXTRACT_DIR="${TMPDIR:-/tmp}/dart-sass-extract"
+        rm -rf "${EXTRACT_DIR}"
+        mkdir -p "${EXTRACT_DIR}"
+
         if [ "${FILE_FORMAT}" = 'zip' ]; then
           SEVENZIP=''
           if command -v 7z >/dev/null 2>&1; then
@@ -420,28 +426,38 @@ runs:
             done
           fi
           [ -n "${SEVENZIP}" ] || die "7-Zip ('7z') is required to extract ${DART_SASS_FILENAME}."
-          "${SEVENZIP}" x "${DART_SASS_FILENAME}" -o"${INSTALL_DIR}" -y >/dev/null \
+          "${SEVENZIP}" x "${DART_SASS_FILENAME}" -o"${EXTRACT_DIR}" -y >/dev/null \
             || die "Failed to extract ${DART_SASS_FILENAME}."
         else
           require_cmd tar
-          tar -xzf "${DART_SASS_FILENAME}" -C "${INSTALL_DIR}" \
+          tar -xzf "${DART_SASS_FILENAME}" -C "${EXTRACT_DIR}" \
             || die "Failed to extract ${DART_SASS_FILENAME}."
         fi
+
+        [ -d "${EXTRACT_DIR}/dart-sass" ] \
+          || die "Unexpected archive layout: ${DART_SASS_FILENAME} has no top-level 'dart-sass' directory."
+
+        # Copy the contents (not the wrapper directory) into INSTALL_DIR.
+        # "cp -a" merges into an existing installation, so re-running the
+        # action in the same directory is safe.
+        cp -a "${EXTRACT_DIR}/dart-sass/." "${INSTALL_DIR}/" \
+          || die "Failed to install ${DART_SASS_FILENAME} into ${INSTALL_DIR}."
+        rm -rf "${EXTRACT_DIR}"
 
         if [ "${OS_NAME}" = 'windows' ]; then
           # The Windows archive ships "sass.bat" only; add a bash wrapper so the
           # same "sass" entry point works in every shell.
-          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/dart-sass/sass"
-          chmod +x "${INSTALL_DIR}/dart-sass/sass" "${INSTALL_DIR}/dart-sass/sass.bat" "${INSTALL_DIR}/dart-sass/src/dart.exe"
+          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
+          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/sass.bat" "${INSTALL_DIR}/src/dart.exe"
         else
-          chmod +x "${INSTALL_DIR}/dart-sass/sass" "${INSTALL_DIR}/dart-sass/src/dart"
+          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/src/dart"
         fi
 
         #######################################
         # Smoke test
         #######################################
 
-        SASS_BIN="${INSTALL_DIR}/dart-sass/sass"
+        SASS_BIN="${INSTALL_DIR}/sass"
         [ -f "${SASS_BIN}" ] || die "The Dart Sass launch script was not found at ${SASS_BIN}."
         SMOKE_OUTPUT="$("${SASS_BIN}" --version 2>&1)" \
           || die "The installed Dart Sass binary failed to execute ('sass --version' returned an error)."
@@ -452,17 +468,17 @@ runs:
         #######################################
 
         if [ "${RUNNER_OS}" = 'Windows' ]; then
-          DART_SASS_PATH="$(cygpath -w "${INSTALL_DIR}/dart-sass/sass.bat")"
-          PATH_ENTRY="$(cygpath -w "${INSTALL_DIR}/dart-sass")"
+          DART_SASS_PATH="$(cygpath -w "${INSTALL_DIR}/sass.bat")"
+          PATH_ENTRY="$(cygpath -w "${INSTALL_DIR}")"
         else
-          DART_SASS_PATH="${INSTALL_DIR}/dart-sass/sass"
-          PATH_ENTRY="${INSTALL_DIR}/dart-sass"
+          DART_SASS_PATH="${INSTALL_DIR}/sass"
+          PATH_ENTRY="${INSTALL_DIR}"
         fi
 
         # In bash on Windows runners $PATH is still colon separated (MSYS
         # style), so always split on ':' but write the native path format to
         # GITHUB_PATH for the runner to consume.
-        if ! printf '%s' "${PATH}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}/dart-sass"; then
+        if ! printf '%s' "${PATH}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}"; then
           printf '%s\n' "${PATH_ENTRY}" >> "${GITHUB_PATH}"
         fi
 

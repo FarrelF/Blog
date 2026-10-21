@@ -141,10 +141,16 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          # From v0.153.0 the macOS asset is a .pkg; the default install-dir
-          # keeps the package's own location instead of copying to ~/.local/bin.
+          # From v0.153.0 the macOS asset is a .pkg, which installs into
+          # /usr/local/bin. Non-.pkg assets follow the Linux default:
+          # /usr/local/bin when writable, otherwise ~/.local/bin.
           if [ "${{ matrix.version }}" = 'latest' ] || [ "${{ matrix.version }}" = '0.153.0' ]; then
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+          elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
+            rm -f "/usr/local/bin/.install-dir-test.$$"
+            test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+          else
+            test "${{ steps.hugo.outputs.hugo-path }}" = "${HOME}/.local/bin/hugo"
           fi
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
@@ -184,10 +190,16 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          # v0.153.0+ ships .pkg assets; the default install-dir keeps the
-          # package's own location instead of copying to ~/.local/bin.
+          # v0.153.0+ ships .pkg assets, which install into /usr/local/bin.
+          # Older archives follow the Linux default: /usr/local/bin when
+          # writable, otherwise ~/.local/bin.
           if [ "${{ matrix.version }}" = 'latest' ]; then
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+          elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
+            rm -f "/usr/local/bin/.install-dir-test.$$"
+            test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+          else
+            test "${{ steps.hugo.outputs.hugo-path }}" = "${HOME}/.local/bin/hugo"
           fi
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
@@ -383,8 +395,9 @@ jobs:
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -x "${{ steps.sass.outputs.dart-sass-path }}"
           # Default install-dir on Linux is /usr/local/bin; GitHub-hosted
-          # Ubuntu runners can write there without elevation.
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '/usr/local/bin/dart-sass/sass'
+          # Ubuntu runners can write there without elevation. The archive is
+          # flattened, so the launcher is directly in that directory.
+          test "${{ steps.sass.outputs.dart-sass-path }}" = '/usr/local/bin/sass'
           sass --version
 
   dart-sass-windows:
@@ -410,7 +423,8 @@ jobs:
           test -f "${{ steps.sass.outputs.dart-sass-path }}"
           # Default install-dir on Windows is C:\Program Files\Dart Sass (the
           # GitHub-hosted runner is elevated, so the primary is writable).
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\dart-sass\sass.bat'
+          # The archive is flattened, so sass.bat sits directly there.
+          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\sass.bat'
           sass --version
 
   dart-sass-macos-arm64:
@@ -434,8 +448,15 @@ jobs:
           echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -x "${{ steps.sass.outputs.dart-sass-path }}"
-          # Default install-dir on macOS is ~/.local/bin.
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '/.local/bin/dart-sass/sass'
+          # Default install-dir on macOS is /usr/local/bin when writable
+          # (otherwise ~/.local/bin), matching Linux. The archive is
+          # flattened, so the launcher is directly in that directory.
+          if mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
+            rm -f "/usr/local/bin/.install-dir-test.$$"
+            test "${{ steps.sass.outputs.dart-sass-path }}" = '/usr/local/bin/sass'
+          else
+            test "${{ steps.sass.outputs.dart-sass-path }}" = "${HOME}/.local/bin/sass"
+          fi
           sass --version
 
   dart-sass-windows-arm64:
@@ -461,7 +482,8 @@ jobs:
           test -f "${{ steps.sass.outputs.dart-sass-path }}"
           # Default install-dir on Windows is C:\Program Files\Dart Sass (the
           # GitHub-hosted runner is elevated, so the primary is writable).
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\dart-sass\sass.bat'
+          # The archive is flattened, so sass.bat sits directly there.
+          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\sass.bat'
           sass --version
 
   dart-sass-musl:
@@ -499,5 +521,5 @@ jobs:
               apk add --no-cache bash curl >/dev/null &&
               touch /tmp/gh-output /tmp/gh-path &&
               bash /tmp/dart-sass-install.sh &&
-              /usr/local/bin/dart-sass/sass --version
+              /usr/local/bin/sass --version
             '
