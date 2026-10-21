@@ -397,26 +397,20 @@ jobs:
           install_dir="$(dirname "${sass_path}")"
           test -x "${sass_path}"
           # Default install-dir on Linux is /usr/local/bin; GitHub-hosted
-          # Ubuntu runners can write there without elevation. The entry point
-          # is a symlink to the intact payload in share/dart-sass.
+          # Ubuntu runners can write there without elevation. The payload is
+          # a private directory inside the install dir.
           test "${sass_path}" = '/usr/local/bin/sass'
           test -L "${sass_path}"
           payload_dir="$(dirname "$(readlink "${sass_path}")")"
+          test "${payload_dir}" = '/usr/local/bin/.dart-sass'
           test -f "${payload_dir}/sass"
           test -f "${payload_dir}/src/sass.snapshot"
           test -f "${payload_dir}/src/dart"
           test -f "${payload_dir}/src/LICENSE"
           test ! -e "${install_dir}/src"
           test ! -e "${install_dir}/LICENSE"
-          case "${payload_dir}" in
-            /usr/local/share/dart-sass)
-              test -f /usr/local/share/licenses/dart-sass/LICENSE ;;
-            /usr/local/bin/.dart-sass)
-              ;;
-            *)
-              echo "::error::Unexpected payload directory: ${payload_dir}"
-              exit 1 ;;
-          esac
+          test ! -e /usr/local/share/dart-sass
+          test ! -e /usr/local/share/licenses/dart-sass
           sass --version
 
   dart-sass-windows:
@@ -443,14 +437,16 @@ jobs:
           test -f "${sass_path}"
           # Default install-dir on Windows is C:\Program Files\Dart Sass (the
           # GitHub-hosted runner is elevated, so the primary is writable).
-          # sass.bat is a wrapper; the payload lives in dart-sass\.
+          # The archive is extracted directly into install-dir; a bash wrapper
+          # sits beside the upstream sass.bat.
           echo "${sass_path}" | grep -qF '\Program Files\Dart Sass\sass.bat'
           install_dir="$(dirname "$(cygpath -u "${sass_path}")")"
-          test -f "${install_dir}/dart-sass/sass.bat"
-          test -f "${install_dir}/dart-sass/src/dart.exe"
-          test -f "${install_dir}/dart-sass/src/sass.snapshot"
-          test -f "${install_dir}/dart-sass/src/LICENSE"
-          test ! -e "${install_dir}/src"
+          test -f "${install_dir}/sass.bat"
+          test -f "${install_dir}/sass"
+          test -f "${install_dir}/src/dart.exe"
+          test -f "${install_dir}/src/sass.snapshot"
+          test -f "${install_dir}/src/LICENSE"
+          test ! -e "${install_dir}/dart-sass"
           test ! -e "${install_dir}/LICENSE"
           sass --version
 
@@ -478,8 +474,8 @@ jobs:
           install_dir="$(dirname "${sass_path}")"
           test -x "${sass_path}"
           # Default install-dir on macOS is /usr/local/bin when writable
-          # (otherwise ~/.local/bin), matching Linux. The entry point is a
-          # symlink to the intact payload in share/dart-sass.
+          # (otherwise ~/.local/bin), matching Linux. The payload is a private
+          # directory inside the install dir.
           if mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
             rm -f "/usr/local/bin/.install-dir-test.$$"
             test "${sass_path}" = '/usr/local/bin/sass'
@@ -488,21 +484,23 @@ jobs:
           fi
           test -L "${sass_path}"
           payload_dir="$(dirname "$(readlink "${sass_path}")")"
-          test -f "${payload_dir}/sass"
-          test -f "${payload_dir}/src/sass.snapshot"
-          test -f "${payload_dir}/src/dart"
-          test -f "${payload_dir}/src/LICENSE"
-          test ! -e "${install_dir}/src"
-          test ! -e "${install_dir}/LICENSE"
           case "${payload_dir}" in
-            /usr/local/share/dart-sass|"${HOME}/.local/share/dart-sass")
-              test -f "$(dirname "${payload_dir}")/licenses/dart-sass/LICENSE" ;;
             /usr/local/bin/.dart-sass|"${HOME}/.local/bin/.dart-sass")
               ;;
             *)
               echo "::error::Unexpected payload directory: ${payload_dir}"
               exit 1 ;;
           esac
+          test -f "${payload_dir}/sass"
+          test -f "${payload_dir}/src/sass.snapshot"
+          test -f "${payload_dir}/src/dart"
+          test -f "${payload_dir}/src/LICENSE"
+          test ! -e "${install_dir}/src"
+          test ! -e "${install_dir}/LICENSE"
+          test ! -e /usr/local/share/dart-sass
+          test ! -e /usr/local/share/licenses/dart-sass
+          test ! -e "${HOME}/.local/share/dart-sass"
+          test ! -e "${HOME}/.local/share/licenses/dart-sass"
           sass --version
 
   dart-sass-windows-arm64:
@@ -529,14 +527,16 @@ jobs:
           test -f "${sass_path}"
           # Default install-dir on Windows is C:\Program Files\Dart Sass (the
           # GitHub-hosted runner is elevated, so the primary is writable).
-          # sass.bat is a wrapper; the payload lives in dart-sass\.
+          # The archive is extracted directly into install-dir; a bash wrapper
+          # sits beside the upstream sass.bat.
           echo "${sass_path}" | grep -qF '\Program Files\Dart Sass\sass.bat'
           install_dir="$(dirname "$(cygpath -u "${sass_path}")")"
-          test -f "${install_dir}/dart-sass/sass.bat"
-          test -f "${install_dir}/dart-sass/src/dart.exe"
-          test -f "${install_dir}/dart-sass/src/sass.snapshot"
-          test -f "${install_dir}/dart-sass/src/LICENSE"
-          test ! -e "${install_dir}/src"
+          test -f "${install_dir}/sass.bat"
+          test -f "${install_dir}/sass"
+          test -f "${install_dir}/src/dart.exe"
+          test -f "${install_dir}/src/sass.snapshot"
+          test -f "${install_dir}/src/LICENSE"
+          test ! -e "${install_dir}/dart-sass"
           test ! -e "${install_dir}/LICENSE"
           sass --version
 
@@ -576,11 +576,12 @@ jobs:
               touch /tmp/gh-output /tmp/gh-path &&
               bash /tmp/dart-sass-install.sh &&
               test -L /usr/local/bin/sass &&
-              test -f /usr/local/share/dart-sass/sass &&
-              test -f /usr/local/share/dart-sass/src/sass.snapshot &&
-              test -f /usr/local/share/dart-sass/src/LICENSE &&
+              test -f /usr/local/bin/.dart-sass/sass &&
+              test -f /usr/local/bin/.dart-sass/src/sass.snapshot &&
+              test -f /usr/local/bin/.dart-sass/src/LICENSE &&
               test ! -e /usr/local/bin/src &&
               test ! -e /usr/local/bin/LICENSE &&
-              test -f /usr/local/share/licenses/dart-sass/LICENSE &&
+              test ! -e /usr/local/share/dart-sass &&
+              test ! -e /usr/local/share/licenses/dart-sass &&
               /usr/local/bin/sass --version
             '

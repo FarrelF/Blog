@@ -250,7 +250,7 @@ Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
 | `HUGO_VERSION` (environment) | `0.168.0` or newer |
 | `DART_SASS_VERSION` (environment) | `1.105.2` (recommended, see below) |
 
-The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. See **Dart Sass Requirement** below.
+The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. The project's Build watch paths exclude `.github/**`, documentation files, `netlify.toml` and `scripts/**`, so a scripts-only push does not trigger a Cloudflare build; trigger a manual deployment when changing the build tooling itself. See **Dart Sass Requirement** below.
 
 ## Dart Sass Requirement
 
@@ -269,7 +269,7 @@ bash scripts/install-dart-sass.sh              # latest release
 bash scripts/install-dart-sass.sh 1.105.2      # pinned version
 ```
 
-The script downloads the official release archive, detects OS/architecture (including musl), verifies the archive against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped with a warning without querying the API), installs into `/usr/local` on Linux and macOS when its bin and share directories are writable without elevation (otherwise `~/.local`; override with `DART_SASS_PREFIX`) and smoke tests the binary. The payload stays in `<prefix>/share/dart-sass` with `sass` and `dart-sass` symlinks in `<prefix>/bin`; the license is copied to `<prefix>/share/licenses/dart-sass` when writable. `latest` resolves through the releases/latest redirect without an API call (the GitHub API is only a fallback), and `DART_SASS_VERIFY=0` skips the digest verification entirely. It is idempotent -- an already-installed matching version is left alone.
+The script downloads the official release archive, detects OS/architecture (including musl), verifies the archive against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped with a warning without querying the API), installs into `/usr/local` on Linux and macOS when its bin directory is writable without elevation (otherwise `~/.local`; override with `DART_SASS_PREFIX`) and smoke tests the binary. The payload stays in `<prefix>/bin/.dart-sass` with `sass` and `dart-sass` symlinks in `<prefix>/bin`; the license remains inside the payload. `latest` resolves through the releases/latest redirect without an API call (the GitHub API is only a fallback), and `DART_SASS_VERIFY=0` skips the digest verification entirely. It is idempotent -- an already-installed matching version is left alone.
 
 | Environment | How Dart Sass is provided |
 |-------------|---------------------------|
@@ -303,7 +303,7 @@ See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and t
 
 ### setup-dart-sass
 
-Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `verify-file`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. On Linux/macOS the archive payload stays intact in `<parent>/share/dart-sass` (or `<install-dir>/.dart-sass` when `<parent>/share` is not writable) and `install-dir/sass` is a symlink to it, so `src/` and `LICENSE` no longer clutter the PATH directory; the license is copied to `<parent>/share/licenses/dart-sass` when writable. On Windows the payload lives in `<install-dir>\dart-sass`, with a `sass.bat` wrapper in `install-dir` and a bash `sass` wrapper beside it. Because Dart Sass publishes no checksums, the archive is verified against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped without querying the API) and the binary is smoke tested; when the digest is unavailable (or the API is unreachable) the step warns instead of failing, and `verify-file: false` skips the digest lookup entirely.
+Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `verify-file`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. On Linux/macOS the archive payload stays intact in `<install-dir>/.dart-sass` and `install-dir/sass` is an absolute symlink to it, so only `sass` appears in the PATH directory. On Windows the archive is extracted directly into `<install-dir>` (`sass.bat` and `src/` with `dart.exe`, `sass.snapshot`, `LICENSE`), with a bash `sass` wrapper beside it. Because Dart Sass publishes no checksums, the archive is verified against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped without querying the API) and the binary is smoke tested; when the digest is unavailable (or the API is unreachable) the step warns instead of failing, and `verify-file: false` skips the digest lookup entirely.
 
 ### Shared behavior
 

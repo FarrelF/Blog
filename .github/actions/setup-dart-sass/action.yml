@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'false'
   install-dir:
-    description: 'Directory that receives the "sass" entry point: a symlink to the intact archive payload on Linux/macOS, and "sass.bat" plus a bash "sass" wrapper on Windows. Defaults to "/usr/local/bin" on Linux and macOS when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"). On Linux/macOS the payload lives in "<parent>/share/dart-sass" (or "<install-dir>/.dart-sass" when "<parent>/share" is not writable), and the license is copied to "<parent>/share/licenses/dart-sass" when writable. On Windows the payload lives in "<install-dir>\dart-sass".'
+    description: 'Directory that receives the "sass" entry point: a symlink to the intact archive payload on Linux/macOS, and "sass.bat" plus a bash "sass" wrapper on Windows. Defaults to "/usr/local/bin" on Linux and macOS when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"). On Linux/macOS the payload lives in "<install-dir>/.dart-sass". On Windows the archive is extracted directly into "<install-dir>" ("sass.bat" and "src"), with a bash "sass" wrapper beside it.'
     required: false
     default: ''
   downloader:
@@ -390,8 +390,14 @@ runs:
               [ -n "${WIN_LOCAL}" ] || WIN_LOCAL="${HOME}/AppData/Local"
               INSTALL_DIR="${WIN_LOCAL}/Programs/Dart Sass"
             fi
-          elif { [ "${RUNNER_OS}" = 'Linux' ] || [ "${RUNNER_OS}" = 'macOS' ]; } && can_install_to '/usr/local/bin'; then
-            INSTALL_DIR='/usr/local/bin'
+          elif [ "${RUNNER_OS}" = 'Linux' ] || [ "${RUNNER_OS}" = 'macOS' ]; then
+            if can_install_to '/usr/local/bin'; then
+              INSTALL_DIR='/usr/local/bin'
+            elif can_install_to "${HOME}/.local/bin"; then
+              INSTALL_DIR="${HOME}/.local/bin"
+            else
+              die "Could not find a writable install directory; set the install-dir input explicitly."
+            fi
           else
             INSTALL_DIR="${HOME}/.local/bin"
           fi
@@ -403,6 +409,10 @@ runs:
         fi
 
         # --- END install-dir defaults (also extracted by the install-dir harness) ---
+
+        if ! can_install_to "${INSTALL_DIR}"; then
+          die "Cannot write to install directory ${INSTALL_DIR}; set the install-dir input to a writable directory."
+        fi
 
         mkdir -p "${INSTALL_DIR}"
 
@@ -440,45 +450,60 @@ runs:
         [ -d "${EXTRACT_DIR}/dart-sass" ] \
           || die "Unexpected archive layout: ${DART_SASS_FILENAME} has no top-level 'dart-sass' directory."
 
-        # Keep the archive payload out of INSTALL_DIR: only the "sass" entry
-        # point (a symlink on Unix, a small wrapper on Windows) belongs there.
-        # On Unix the payload lives in the prefix's share/dart-sass, the FHS
-        # location for architecture-independent data. When the share directory
-        # is not writable (for example when only /usr/local/bin is), fall back
-        # to a private directory inside INSTALL_DIR.
+        # On Unix the payload lives in a private .dart-sass directory inside
+        # INSTALL_DIR, so only the "sass" symlink is visible in the PATH
+        # directory. On Windows the archive is extracted as-is: sass.bat and
+        # src/ live directly in INSTALL_DIR, with a bash "sass" wrapper beside
+        # them.
         if [ "${OS_NAME}" = 'windows' ]; then
-          PAYLOAD_DIR="${INSTALL_DIR}/dart-sass"
+          PAYLOAD_DIR="${INSTALL_DIR}"
         else
-          PREFIX_DIR="$(dirname "${INSTALL_DIR}")"
-          PAYLOAD_DIR="${PREFIX_DIR}/share/dart-sass"
-          if ! can_install_to "$(dirname "${PAYLOAD_DIR}")"; then
-            warn "Cannot write to $(dirname "${PAYLOAD_DIR}"); using ${INSTALL_DIR}/.dart-sass for the Dart Sass payload instead."
-            PAYLOAD_DIR="${INSTALL_DIR}/.dart-sass"
-          fi
+          PAYLOAD_DIR="${INSTALL_DIR}/.dart-sass"
         fi
 
-        # Remove the files left by the older layout that copied the archive
-        # contents straight into INSTALL_DIR. The src/dart + src/sass.snapshot
-        # pair is specific to Dart Sass; the LICENSE is removed only when it
-        # matches this archive, so unrelated files in a shared bin directory
-        # are left untouched. An old pre-flatten "dart-sass/" directory in a
-        # Unix bin directory is also removed when it has the same signature.
+        # Remove the files left by older layouts. The src/dart +
+        # src/sass.snapshot pair is specific to Dart Sass; the LICENSE is
+        # removed only when it matches this archive, so unrelated files in a
+        # shared install directory are left untouched. An old pre-flatten
+        # "dart-sass/" directory is also removed when it has the same signature.
         if [ -f "${INSTALL_DIR}/src/sass.snapshot" ] && \
            { [ -f "${INSTALL_DIR}/src/dart" ] || [ -f "${INSTALL_DIR}/src/dart.exe" ]; }; then
-          rm -rf "${INSTALL_DIR}/src"
+          rm -rf "${INSTALL_DIR}/src" 2>/dev/null || true
           if [ -f "${INSTALL_DIR}/LICENSE" ] && cmp -s "${INSTALL_DIR}/LICENSE" "${EXTRACT_DIR}/dart-sass/src/LICENSE"; then
-            rm -f "${INSTALL_DIR}/LICENSE"
+            rm -f "${INSTALL_DIR}/LICENSE" 2>/dev/null || true
           fi
         fi
-        if [ "${OS_NAME}" != 'windows' ] && [ -d "${INSTALL_DIR}/dart-sass" ] && \
-           [ -f "${INSTALL_DIR}/dart-sass/sass" ] && [ -f "${INSTALL_DIR}/dart-sass/src/sass.snapshot" ]; then
-          rm -rf "${INSTALL_DIR}/dart-sass"
+        if [ -d "${INSTALL_DIR}/dart-sass" ] && \
+           { [ -f "${INSTALL_DIR}/dart-sass/sass" ] || [ -f "${INSTALL_DIR}/dart-sass/sass.bat" ]; } && \
+           [ -f "${INSTALL_DIR}/dart-sass/src/sass.snapshot" ]; then
+          rm -rf "${INSTALL_DIR}/dart-sass" 2>/dev/null || true
         fi
 
-        rm -rf "${PAYLOAD_DIR}" || die "Failed to replace ${PAYLOAD_DIR}."
-        mkdir -p "${PAYLOAD_DIR}" || die "Failed to create ${PAYLOAD_DIR}."
+        # Older Unix installs kept the payload in <prefix>/share and copied
+        # the license to <prefix>/share/licenses. Remove those copies when
+        # they are unmistakably Dart Sass, but never delete unrelated system
+        # data. Cleanup is best-effort: an unwritable share directory must not
+        # prevent the new payload from being installed in INSTALL_DIR.
+        if [ "${OS_NAME}" != 'windows' ]; then
+          PREFIX_DIR="$(dirname "${INSTALL_DIR}")"
+          OLD_PAYLOAD_DIR="${PREFIX_DIR}/share/dart-sass"
+          if [ -f "${OLD_PAYLOAD_DIR}/sass" ] && [ -f "${OLD_PAYLOAD_DIR}/src/sass.snapshot" ]; then
+            rm -rf "${OLD_PAYLOAD_DIR}" 2>/dev/null || true
+          fi
+          OLD_LICENSE="${PREFIX_DIR}/share/licenses/dart-sass/LICENSE"
+          if [ -f "${OLD_LICENSE}" ] && cmp -s "${OLD_LICENSE}" "${EXTRACT_DIR}/dart-sass/src/LICENSE"; then
+            rm -rf "$(dirname "${OLD_LICENSE}")" 2>/dev/null || true
+          fi
+        fi
+
+        if [ "${OS_NAME}" = 'windows' ]; then
+          mkdir -p "${INSTALL_DIR}" || die "Failed to create ${INSTALL_DIR}."
+        else
+          rm -rf "${PAYLOAD_DIR}" || die "Failed to replace ${PAYLOAD_DIR}."
+          mkdir -p "${PAYLOAD_DIR}" || die "Failed to create ${PAYLOAD_DIR}."
+        fi
         # "cp -R" (not "cp -a") avoids preserving timestamps of the destination
-        # directory, which may not be owned by the runner (e.g. /usr/local/share).
+        # directory, which may not be owned by the runner.
         cp -R "${EXTRACT_DIR}/dart-sass/." "${PAYLOAD_DIR}/" \
           || die "Failed to install ${DART_SASS_FILENAME} into ${PAYLOAD_DIR}."
         rm -rf "${EXTRACT_DIR}"
@@ -487,12 +512,10 @@ runs:
         if [ "${OS_NAME}" = 'windows' ]; then
           chmod +x "${PAYLOAD_DIR}/sass.bat" "${PAYLOAD_DIR}/src/dart.exe"
 
-          # The Windows archive ships "sass.bat" only. Put a small batch
-          # wrapper directly in INSTALL_DIR (so "sass.bat" is found there) and
-          # a bash wrapper beside it for Git Bash/MSYS shells.
-          printf '@echo off\r\ncall "%%~dp0dart-sass\\sass.bat" %%*\r\nexit /b %%ERRORLEVEL%%\r\n' > "${INSTALL_DIR}/sass.bat"
-          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/dart-sass/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
-          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/sass.bat"
+          # The archive's sass.bat already finds src/ next to itself. Add a
+          # bash wrapper so Git Bash/MSYS can invoke sass without cmd.exe.
+          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
+          chmod +x "${INSTALL_DIR}/sass"
         else
           chmod +x "${PAYLOAD_DIR}/sass" "${PAYLOAD_DIR}/src/dart"
 
@@ -506,19 +529,6 @@ runs:
           rm -f "${INSTALL_DIR}/sass"
           ln -s "${PAYLOAD_DIR}/sass" "${INSTALL_DIR}/sass" \
             || die "Failed to link ${INSTALL_DIR}/sass to ${PAYLOAD_DIR}/sass."
-
-          # Keep the license in the FHS location when the prefix allows it;
-          # otherwise it stays next to the payload, which is still shipped.
-          LICENSE_DIR="${PREFIX_DIR}/share/licenses/dart-sass"
-          if can_install_to "${LICENSE_DIR}"; then
-            if cp -f "${PAYLOAD_DIR}/src/LICENSE" "${LICENSE_DIR}/LICENSE"; then
-              note "Dart Sass license copied to ${LICENSE_DIR}/LICENSE."
-            else
-              warn "Could not copy the Dart Sass license to ${LICENSE_DIR}; it remains in ${PAYLOAD_DIR}."
-            fi
-          else
-            warn "Cannot write to ${LICENSE_DIR}; keeping the Dart Sass license in ${PAYLOAD_DIR}."
-          fi
         fi
 
         #######################################

@@ -19,14 +19,11 @@
 #                      redirect without an API call (the GitHub API is only a
 #                      fallback). (Same as the positional argument.)
 #   DART_SASS_PREFIX   Install prefix. Default: /usr/local on Linux and macOS
-#                      when its bin and share directories are writable
-#                      without elevation, otherwise $HOME/.local. Falls back to
-#                      a writable PATH entry when $HOME is not usable. The
-#                      archive payload is
-#                      installed in <prefix>/share/dart-sass and exposed through
-#                      <prefix>/bin/sass and <prefix>/bin/dart-sass symlinks;
-#                      the license is copied to <prefix>/share/licenses/dart-sass
-#                      when that directory is writable.
+#                      when its bin directory is writable without elevation,
+#                      otherwise $HOME/.local. Falls back to a writable PATH
+#                      entry when $HOME is not usable. The archive payload is
+#                      installed in <prefix>/bin/.dart-sass and exposed through
+#                      <prefix>/bin/sass and <prefix>/bin/dart-sass symlinks.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
 #   DART_SASS_VERIFY   Set to 0 to install without verifying the archive
 #                      against the SHA-256 digest published in the GitHub
@@ -282,14 +279,13 @@ detect_prefix() {
     return
   fi
 
-  # Linux and macOS: prefer the system-wide prefix, whose bin directory is
-  # already on PATH, as long as both its bin and share directories can be
-  # written to without elevation (the payload lives in share/dart-sass). On
-  # multi-user systems this usually means running as root; otherwise fall back
-  # to the user's own directory below.
+  # Linux and macOS: prefer the system-wide prefix when its bin directory can
+  # be written to without elevation. The payload lives inside bin/.dart-sass,
+  # so no separate share directory is required. On multi-user systems this
+  # usually means running as root; otherwise fall back to the user's own
+  # directory below.
   if { [ "${OS_NAME}" = "linux" ] || [ "${OS_NAME}" = "macos" ]; } \
-    && can_write_dir /usr/local/bin \
-    && can_write_dir /usr/local/share; then
+    && can_write_dir /usr/local/bin; then
     printf '%s' "/usr/local"
     return
   fi
@@ -297,7 +293,7 @@ detect_prefix() {
   # Prefer the user's own directory. It is writable in every environment we
   # care about and avoids depending on being root, so this is the default
   # everywhere else.
-  if [ -n "${HOME:-}" ] && mkdir -p "${HOME}/.local/bin" 2>/dev/null; then
+  if [ -n "${HOME:-}" ] && can_write_dir "${HOME}/.local/bin"; then
     printf '%s' "${HOME}/.local"
     return
   fi
@@ -328,6 +324,13 @@ detect_prefix() {
 PREFIX="$(detect_prefix)"
 BIN_DIR="${PREFIX}/bin"
 
+mkdir -p "${BIN_DIR}" || die "cannot create ${BIN_DIR}; set DART_SASS_PREFIX to a writable prefix"
+if ! can_write_dir "${BIN_DIR}"; then
+  die "cannot write to ${BIN_DIR}; set DART_SASS_PREFIX to a writable prefix"
+fi
+BIN_DIR="$(CDPATH= cd -- "${BIN_DIR}" && pwd -P)"
+PREFIX="$(dirname "${BIN_DIR}")"
+
 # ---------------------------------------------------------------------------
 # Skip work when the requested version is already installed
 #
@@ -354,7 +357,13 @@ installed_version() {
 
 if [ "${FORCE}" != "1" ]; then
   if CURRENT_VERSION="$(installed_version)"; then
-    if [ "${CURRENT_VERSION}" = "${RESOLVED_VERSION}" ]; then
+    NEW_LAYOUT_OK=0
+    if [ -x "${BIN_DIR}/.dart-sass/sass" ] && \
+       [ "$(readlink "${BIN_DIR}/sass" 2>/dev/null || true)" = "${BIN_DIR}/.dart-sass/sass" ] && \
+       [ "$(readlink "${BIN_DIR}/dart-sass" 2>/dev/null || true)" = "${BIN_DIR}/.dart-sass/sass" ]; then
+      NEW_LAYOUT_OK=1
+    fi
+    if [ "${CURRENT_VERSION}" = "${RESOLVED_VERSION}" ] && [ "${NEW_LAYOUT_OK}" = "1" ]; then
       note "Dart Sass ${CURRENT_VERSION} is already installed in ${BIN_DIR}, nothing to do"
       exit 0
     fi
@@ -434,25 +443,40 @@ EXTRACTED="${TMP_DIR}/dart-sass"
 # Install
 # ---------------------------------------------------------------------------
 
-mkdir -p "${BIN_DIR}"
-INSTALL_DIR="${PREFIX}/share/dart-sass"
-mkdir -p "$(dirname "${INSTALL_DIR}")"
-rm -rf "${INSTALL_DIR}"
-mv "${EXTRACTED}" "${INSTALL_DIR}"
-chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/src/dart"
+PAYLOAD_DIR="${BIN_DIR}/.dart-sass"
 
-# Keep the license in the FHS location when the prefix allows it; otherwise it
-# stays next to the payload, which is still shipped.
-LICENSE_DIR="${PREFIX}/share/licenses/dart-sass"
-if can_write_dir "${LICENSE_DIR}"; then
-  if cp -f "${INSTALL_DIR}/src/LICENSE" "${LICENSE_DIR}/LICENSE"; then
-    note "license copied to ${LICENSE_DIR}/LICENSE"
-  else
-    warn "could not copy the license to ${LICENSE_DIR}; it remains in ${INSTALL_DIR}"
+# Remove the files left by older layouts. The src/dart + src/sass.snapshot
+# pair is specific to Dart Sass; the LICENSE is removed only when it matches
+# the archive, so unrelated files in a shared bin directory are left alone.
+if [ -f "${BIN_DIR}/src/sass.snapshot" ] && \
+   { [ -f "${BIN_DIR}/src/dart" ] || [ -f "${BIN_DIR}/src/dart.exe" ]; }; then
+  rm -rf "${BIN_DIR}/src" 2>/dev/null || true
+  if [ -f "${BIN_DIR}/LICENSE" ] && cmp -s "${BIN_DIR}/LICENSE" "${EXTRACTED}/src/LICENSE"; then
+    rm -f "${BIN_DIR}/LICENSE" 2>/dev/null || true
   fi
-else
-  warn "cannot write to ${LICENSE_DIR}; keeping the license in ${INSTALL_DIR}"
 fi
+if [ -d "${BIN_DIR}/dart-sass" ] && \
+   [ -f "${BIN_DIR}/dart-sass/sass" ] && [ -f "${BIN_DIR}/dart-sass/src/sass.snapshot" ]; then
+  rm -rf "${BIN_DIR}/dart-sass" 2>/dev/null || true
+fi
+
+# Older installations kept the payload in <prefix>/share and copied the
+# license to <prefix>/share/licenses. Remove those copies only when they are
+# unmistakably Dart Sass. Cleanup is best-effort so an unwritable legacy
+# directory does not block installing the new payload in bin/.dart-sass.
+OLD_PAYLOAD_DIR="${PREFIX}/share/dart-sass"
+if [ -f "${OLD_PAYLOAD_DIR}/sass" ] && [ -f "${OLD_PAYLOAD_DIR}/src/sass.snapshot" ]; then
+  rm -rf "${OLD_PAYLOAD_DIR}" 2>/dev/null || true
+fi
+OLD_LICENSE="${PREFIX}/share/licenses/dart-sass/LICENSE"
+if [ -f "${OLD_LICENSE}" ] && cmp -s "${OLD_LICENSE}" "${EXTRACTED}/src/LICENSE"; then
+  rm -rf "$(dirname "${OLD_LICENSE}")" 2>/dev/null || true
+fi
+
+rm -rf "${PAYLOAD_DIR}"
+mv "${EXTRACTED}" "${PAYLOAD_DIR}"
+chmod +x "${PAYLOAD_DIR}/sass" "${PAYLOAD_DIR}/src/dart"
+note "payload installed in ${PAYLOAD_DIR}"
 
 # Hugo resolves the Dart Sass binary in this order (common/hugo/hugo.go):
 #
@@ -463,11 +487,16 @@ fi
 #
 # Expose both names Hugo looks for, so whichever it settles on is the version
 # installed here. This also shadows any stale "dart-sass" that an image may put
-# on PATH ahead of us, since this prefix goes to the front of PATH. The install
-# lives in share/ because a file called "dart-sass" cannot coexist with a
-# directory of the same name in bin/.
-ln -sf "../share/dart-sass/sass" "${BIN_DIR}/dart-sass"
-ln -sf "../share/dart-sass/sass" "${BIN_DIR}/sass"
+# on PATH ahead of us, since this prefix goes to the front of PATH. The payload
+# is a hidden directory so both symlinks fit beside it. The targets are
+# absolute because the upstream launcher's old-macOS fallback cannot follow a
+# relative symlink reliably.
+for name in sass dart-sass; do
+  [ ! -d "${BIN_DIR}/${name}" ] \
+    || die "cannot replace ${BIN_DIR}/${name}: it is a directory"
+done
+ln -sf "${PAYLOAD_DIR}/sass" "${BIN_DIR}/dart-sass"
+ln -sf "${PAYLOAD_DIR}/sass" "${BIN_DIR}/sass"
 
 # Note: Hugo runs the binary with --embedded itself (bep/godartsass transpiler.go),
 # so the plain "sass" CLI is all that is needed. There is no "sass-embedded"
