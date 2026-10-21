@@ -18,9 +18,10 @@
 #                      "latest", which is resolved through the releases/latest
 #                      redirect without an API call (the GitHub API is only a
 #                      fallback). (Same as the positional argument.)
-#   DART_SASS_PREFIX   Install prefix. Default: $HOME/.local, falling back to
-#                      a writable PATH entry and then /usr/local when running
-#                      as root.
+#   DART_SASS_PREFIX   Install prefix. Default: /usr/local on Linux when its
+#                      bin directory is writable without elevation, otherwise
+#                      $HOME/.local; on macOS $HOME/.local. Falls back to a
+#                      writable PATH entry when $HOME is not usable.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
 #   DART_SASS_VERIFY   Set to 0 to install without verifying the archive
 #                      against the SHA-256 digest published in the GitHub
@@ -253,6 +254,20 @@ fi
 # target prefix, not only at whatever happens to be on PATH.
 # ---------------------------------------------------------------------------
 
+# can_write_dir DIR -- true when DIR can be created and written to without
+# elevated privileges. mkdir alone is not enough: it also succeeds for an
+# existing directory that is not writable, so probe with a real file write.
+can_write_dir() {
+  local dir="$1" probe
+  mkdir -p "${dir}" 2>/dev/null || return 1
+  probe="${dir}/.install-dir-test.$$"
+  if ( : > "${probe}" ) 2>/dev/null; then
+    rm -f "${probe}" 2>/dev/null || true
+    return 0
+  fi
+  return 1
+}
+
 detect_prefix() {
   # An explicit prefix always wins. CI systems that may not allow writing to
   # /usr (whether or not Cloudflare Pages actually permits it is undocumented)
@@ -262,8 +277,18 @@ detect_prefix() {
     return
   fi
 
+  # Linux: prefer the system-wide prefix, whose bin directory is already on
+  # PATH, as long as it can be written to without elevation. On multi-user
+  # systems this usually means running as root; otherwise fall back to the
+  # user's own directory below.
+  if [ "${OS_NAME}" = "linux" ] && can_write_dir /usr/local/bin; then
+    printf '%s' "/usr/local"
+    return
+  fi
+
   # Prefer the user's own directory. It is writable in every environment we
-  # care about and avoids depending on being root, so this is the default.
+  # care about and avoids depending on being root, so this is the default
+  # everywhere else.
   if [ -n "${HOME:-}" ] && mkdir -p "${HOME}/.local/bin" 2>/dev/null; then
     printf '%s' "${HOME}/.local"
     return
