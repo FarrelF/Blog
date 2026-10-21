@@ -4,6 +4,8 @@ Folder/Direktori ini merupakan tempat penyimpanan konfigurasi untuk Hugo.
 
 Yap, Anda tidak salah baca, saya tidak menggunakan berkas `config.toml`, `config.yaml` atau `config.json` sebagai konfigurasi, melainkan melalui Folder ini.
 
+Satu-satunya berkas `hugo.toml` di root repositori hanyalah penanda agar Cloudflare Pages mendeteksi proyek ini sebagai Hugo dan mengaktifkan _build cache_. Berkas tersebut tidak berisi konfigurasi situs; seluruh konfigurasi tetap berada di folder ini.
+
 Untuk lebih lanjut mengenai folder ini, silakan baca halaman [dokumentasinya](https://gohugo.io/configuration/introduction/#configuration-directory) (terutama di bagian "Configuration Directory").
 
 ## Struktur Direktori dan Berkas

@@ -41,6 +41,7 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
     |-- .github/actions/       # GitHub Actions Composite (setup-hugo, setup-dart-sass)
     |-- .devcontainer/         # GitHub Codespaces configuration
     |-- netlify.toml           # Netlify build config, redirects, headers
+    |-- hugo.toml              # Cloudflare Pages Hugo detection marker (site config lives in config/)
     |-- go.mod                 # Go module dependencies (Hugo theme imports)
     |-- go.sum                 # Go module checksums
     |-- CONTRIBUTING.md        # Contribution guide (detailed, in Indonesian)
@@ -251,6 +252,8 @@ Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
 | `DART_SASS_VERSION` (environment) | `1.105.2` (recommended, see below) |
 
 The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. The project's Build watch paths exclude `.github/**`, documentation files, `netlify.toml` and `scripts/**`, so a scripts-only push does not trigger a Cloudflare build; trigger a manual deployment when changing the build tooling itself. See **Dart Sass Requirement** below.
+
+Cloudflare Pages detects Hugo for build caching from a root `hugo.toml`; the file in this repository is intentionally comment-only, because the real configuration stays in `config/_default/`. Keep it in sync with `--cacheDir="${PROJECT_ROOT}/.cache"` in the build script: the marker enables detection and the flag makes Hugo put its cache in `.cache`, which Cloudflare then saves and restores between builds. The first build populates the cache; later builds restore it.
 
 ## Dart Sass Requirement
 

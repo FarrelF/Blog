@@ -125,7 +125,7 @@ note "using ${HUGO_RAW}"
 # ---------------------------------------------------------------------------
 
 note "building with HUGO_ENVIRONMENT=${HUGO_ENVIRONMENT}"
-hugo --gc --minify --environment "${HUGO_ENVIRONMENT}"
+hugo --gc --minify --cacheDir="${PROJECT_ROOT}/.cache" --environment "${HUGO_ENVIRONMENT}"
 
 [ -d public ] || die "expected the build output in ${PROJECT_ROOT}/public"
 note "build finished, $(find public -type f | wc -l | tr -d ' ') files written to public/"
