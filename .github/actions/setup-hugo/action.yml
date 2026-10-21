@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ''
   install-dir:
-    description: 'Directory to install Hugo to. Defaults to "/usr/local/bin" for macOS ".pkg" assets (where the package installs hugo anyway, so nothing is copied), to "%LOCALAPPDATA%\Programs\Hugo" on Windows, and to "~/.local/bin" elsewhere.'
+    description: 'Directory to install Hugo to. Defaults to "/usr/local/bin" for macOS ".pkg" assets (where the package installs hugo anyway, so nothing is copied), to "/usr/local/bin" on Linux when it is writable without elevation (otherwise "~/.local/bin"), to "C:\Program Files\Hugo" (64-bit) or "C:\Program Files (x86)\Hugo" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Hugo"), and to "~/.local/bin" on macOS.'
     required: false
     default: ''
   downloader:
@@ -782,19 +782,71 @@ runs:
 
         KIND="$(detect_kind "${RESOLVED_ASSET}")"
 
+        # Windows known folders are looked up through "cygpath -uF" (CSIDL /
+        # FOLDERID 38 = Program Files, 42 = Program Files (x86), 28 = Local
+        # AppData), so no drive letter or localized folder name is hardcoded.
+        # The environment variables are only a fallback for when cygpath is
+        # unavailable or does not know a folder.
+        win_folder() {
+          local id="$1" name="$2" value='' raw=''
+          if command -v cygpath >/dev/null 2>&1; then
+            value="$(cygpath -uF "${id}" 2>/dev/null || true)"
+          fi
+          if [ -z "${value}" ]; then
+            raw="$(printenv "${name}" 2>/dev/null || true)"
+            if [ -z "${raw}" ]; then
+              raw="$(printenv "$(printf '%s' "${name}" | tr '[:lower:]' '[:upper:]')" 2>/dev/null || true)"
+            fi
+            if [ -n "${raw}" ]; then
+              if command -v cygpath >/dev/null 2>&1; then
+                value="$(cygpath -u "${raw}" 2>/dev/null || true)"
+              fi
+              [ -n "${value}" ] || value="${raw}"
+            fi
+          fi
+          printf '%s' "${value}"
+        }
+
+        # can_install_to DIR -- true when DIR can be created and written to
+        # without elevated privileges. mkdir alone is not enough: it also
+        # succeeds for an existing directory that is not writable, so probe
+        # with a real file write.
+        can_install_to() {
+          local dir="$1" probe
+          mkdir -p "${dir}" 2>/dev/null || return 1
+          probe="${dir}/.install-dir-test.$$"
+          if ( : > "${probe}" ) 2>/dev/null; then
+            rm -f "${probe}" 2>/dev/null || true
+            return 0
+          fi
+          return 1
+        }
+
         # Defaults: /usr/local/bin for macOS .pkg assets (that is where the
-        # package installs hugo anyway, so nothing is copied), the
-        # %LOCALAPPDATA%\Programs\Hugo directory on Windows, and ~/.local/bin
-        # elsewhere. An explicit "~/.local/bin" keeps working as before.
+        # package installs hugo anyway, so nothing is copied), /usr/local/bin
+        # on Linux when it is writable without elevation (otherwise
+        # ~/.local/bin), Program Files\Hugo (or Program Files (x86)\Hugo for
+        # 32-bit builds) on Windows when writable (otherwise
+        # %LOCALAPPDATA%\Programs\Hugo), and ~/.local/bin on macOS. An explicit
+        # "~/.local/bin" keeps working as before.
         if [ -z "${INSTALL_DIR}" ]; then
           if [ "${KIND}" = 'pkg' ]; then
             INSTALL_DIR='/usr/local/bin'
           elif [ "${RUNNER_OS}" = 'Windows' ]; then
-            if [ -n "${LOCALAPPDATA:-}" ]; then
-              INSTALL_DIR="${LOCALAPPDATA}\\Programs\\Hugo"
+            WIN_BASE=''
+            case "${GO_ARCH}" in
+              386) WIN_BASE="$(win_folder 42 'ProgramFiles(x86)')" ;;
+            esac
+            [ -n "${WIN_BASE}" ] || WIN_BASE="$(win_folder 38 'PROGRAMFILES')"
+            if [ -n "${WIN_BASE}" ] && can_install_to "${WIN_BASE}/Hugo"; then
+              INSTALL_DIR="${WIN_BASE}/Hugo"
             else
-              INSTALL_DIR="${HOME}/AppData/Local/Programs/Hugo"
+              WIN_LOCAL="$(win_folder 28 'LOCALAPPDATA')"
+              [ -n "${WIN_LOCAL}" ] || WIN_LOCAL="${HOME}/AppData/Local"
+              INSTALL_DIR="${WIN_LOCAL}/Programs/Hugo"
             fi
+          elif [ "${RUNNER_OS}" = 'Linux' ] && can_install_to '/usr/local/bin'; then
+            INSTALL_DIR='/usr/local/bin'
           else
             INSTALL_DIR="${HOME}/.local/bin"
           fi
@@ -829,10 +881,13 @@ runs:
               SEVENZIP=''
               if command -v 7z >/dev/null 2>&1; then
                 SEVENZIP='7z'
-              elif [ -x '/c/Program Files/7-Zip/7z.exe' ]; then
-                SEVENZIP='/c/Program Files/7-Zip/7z.exe'
-              elif [ -x '/c/Program Files (x86)/7-Zip/7z.exe' ]; then
-                SEVENZIP='/c/Program Files (x86)/7-Zip/7z.exe'
+              else
+                for WIN_7Z_DIR in "$(win_folder 38 'PROGRAMFILES')" "$(win_folder 42 'ProgramFiles(x86)')"; do
+                  if [ -n "${WIN_7Z_DIR}" ] && [ -x "${WIN_7Z_DIR}/7-Zip/7z.exe" ]; then
+                    SEVENZIP="${WIN_7Z_DIR}/7-Zip/7z.exe"
+                    break
+                  fi
+                done
               fi
               [ -n "${SEVENZIP}" ] || die "7-Zip ('7z') is required to extract ${RESOLVED_ASSET}."
               "${SEVENZIP}" x "${RESOLVED_ASSET}" -o"${EXTRACT_DIR}" -y >/dev/null \

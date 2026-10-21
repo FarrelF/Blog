@@ -35,7 +35,7 @@ Composite action that downloads and installs any official [Hugo](https://github.
 | `extended` | No | `false` | Install the Hugo Extended build. Extended builds exist from v0.43.0; on platforms without an Extended build the standard build is installed with a warning. |
 | `with-deploy` | No | `false` | Install with the Deploy feature. With `extended: true` this means Extended+Deploy (from v0.137.0); with a standard build it means `withdeploy` (from v0.159.2). On older releases the closest available edition is installed with a warning. |
 | `github-token` | No | `''` | Token for the GitHub API, used when resolving `latest` through the releases redirect fails and to fetch the SHA-256 digest used for verification (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
-| `install-dir` | No | platform default | Directory to install Hugo into. Defaults to `/usr/local/bin` for macOS `.pkg` assets (their package location, so nothing is copied), `%LOCALAPPDATA%\Programs\Hugo` on Windows, and `~/.local/bin` elsewhere. |
+| `install-dir` | No | platform default | Directory to install Hugo into. Defaults to `/usr/local/bin` for macOS `.pkg` assets (their package location, so nothing is copied), to `/usr/local/bin` on Linux when it is writable without elevation (otherwise `~/.local/bin`), to `C:\Program Files\Hugo` (64-bit) or `C:\Program Files (x86)\Hugo` (32-bit) on Windows when writable (otherwise `%LOCALAPPDATA%\Programs\Hugo`), and to `~/.local/bin` on macOS. |
 | `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
 | `downloader-args` | No | `''` | Override the arguments passed to the downloader (word-split, so avoid embedded spaces). |
 
@@ -44,7 +44,7 @@ Composite action that downloads and installs any official [Hugo](https://github.
 | Output | Description |
 |--------|-------------|
 | `hugo-version` | The version that was actually installed, without the `v` prefix (e.g. `0.168.0`). |
-| `hugo-path` | Path to the installed binary (native format, e.g. `C:\Users\...\hugo.exe` on Windows). |
+| `hugo-path` | Path to the installed binary (native format, e.g. `C:\Program Files\Hugo\hugo.exe` on Windows). |
 
 ## Supported versions and editions
 

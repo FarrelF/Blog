@@ -58,7 +58,8 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          # Default install-dir on Linux is ~/.local/bin.
+          # Default install-dir on Linux is /usr/local/bin when it is writable
+          # without elevation; GitHub-hosted runners fall back to ~/.local/bin.
           echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '/.local/bin/hugo'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
@@ -100,8 +101,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -f "${{ steps.hugo.outputs.hugo-path }}"
-          # Default install-dir on Windows is %LOCALAPPDATA%\Programs\Hugo.
-          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\AppData\Local\Programs\Hugo\hugo.exe'
+          # Default install-dir on Windows is C:\Program Files\Hugo (the
+          # GitHub-hosted runner is elevated, so the primary is writable).
+          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\Program Files\Hugo\hugo.exe'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
           hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
@@ -317,8 +319,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -f "${{ steps.hugo.outputs.hugo-path }}"
-          # Default install-dir on Windows is %LOCALAPPDATA%\Programs\Hugo.
-          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\AppData\Local\Programs\Hugo\hugo.exe'
+          # Default install-dir on Windows is C:\Program Files\Hugo (the
+          # GitHub-hosted runner is elevated, so the primary is writable).
+          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\Program Files\Hugo\hugo.exe'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
           hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
@@ -379,7 +382,8 @@ jobs:
           echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -x "${{ steps.sass.outputs.dart-sass-path }}"
-          # Default install-dir on Linux is ~/.local/bin.
+          # Default install-dir on Linux is /usr/local/bin when it is writable
+          # without elevation; GitHub-hosted runners fall back to ~/.local/bin.
           echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '/.local/bin/dart-sass/sass'
           sass --version
 
@@ -404,8 +408,9 @@ jobs:
           echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -f "${{ steps.sass.outputs.dart-sass-path }}"
-          # Default install-dir on Windows is %LOCALAPPDATA%\Programs\Dart Sass.
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\AppData\Local\Programs\Dart Sass\dart-sass\sass.bat'
+          # Default install-dir on Windows is C:\Program Files\Dart Sass (the
+          # GitHub-hosted runner is elevated, so the primary is writable).
+          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\dart-sass\sass.bat'
           sass --version
 
   dart-sass-macos-arm64:
@@ -454,8 +459,9 @@ jobs:
           echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -f "${{ steps.sass.outputs.dart-sass-path }}"
-          # Default install-dir on Windows is %LOCALAPPDATA%\Programs\Dart Sass.
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\AppData\Local\Programs\Dart Sass\dart-sass\sass.bat'
+          # Default install-dir on Windows is C:\Program Files\Dart Sass (the
+          # GitHub-hosted runner is elevated, so the primary is writable).
+          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '\Program Files\Dart Sass\dart-sass\sass.bat'
           sass --version
 
   dart-sass-musl:
