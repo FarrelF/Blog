@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'false'
   install-dir:
-    description: 'Directory to install Dart Sass to. Defaults to "/usr/local/bin" on Linux and macOS when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"). The archive contents (the "sass"/"sass.bat" launcher and its "src" directory) are installed directly into this directory.'
+    description: 'Directory that receives the "sass" entry point: a symlink to the intact archive payload on Linux/macOS, and "sass.bat" plus a bash "sass" wrapper on Windows. Defaults to "/usr/local/bin" on Linux and macOS when it is writable without elevation (otherwise "~/.local/bin"), and to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"). On Linux/macOS the payload lives in "<parent>/share/dart-sass" (or "<install-dir>/.dart-sass" when "<parent>/share" is not writable), and the license is copied to "<parent>/share/licenses/dart-sass" when writable. On Windows the payload lives in "<install-dir>\dart-sass".'
     required: false
     default: ''
   downloader:
@@ -406,9 +406,12 @@ runs:
 
         mkdir -p "${INSTALL_DIR}"
 
+        # Resolve to an absolute path so the symlink target below stays valid
+        # when "sass" is invoked from a different working directory.
+        INSTALL_DIR="$(CDPATH= cd -- "${INSTALL_DIR}" && pwd -P)"
+
         # Extract into a staging directory first: the archives wrap everything
-        # in a top-level "dart-sass/" folder, and only its contents are moved
-        # into INSTALL_DIR so that "sass" (or "sass.bat") sits directly there.
+        # in a top-level "dart-sass/" folder.
         EXTRACT_DIR="${TMPDIR:-/tmp}/dart-sass-extract"
         rm -rf "${EXTRACT_DIR}"
         mkdir -p "${EXTRACT_DIR}"
@@ -437,22 +440,85 @@ runs:
         [ -d "${EXTRACT_DIR}/dart-sass" ] \
           || die "Unexpected archive layout: ${DART_SASS_FILENAME} has no top-level 'dart-sass' directory."
 
-        # Copy the contents (not the wrapper directory) into INSTALL_DIR.
-        # "cp -R" merges into an existing installation, so re-running the
-        # action in the same directory is safe; unlike "cp -a" it does not try
-        # to preserve the timestamps of the destination directory, which is not
-        # owned by the runner when installing into /usr/local/bin.
-        cp -R "${EXTRACT_DIR}/dart-sass/." "${INSTALL_DIR}/" \
-          || die "Failed to install ${DART_SASS_FILENAME} into ${INSTALL_DIR}."
+        # Keep the archive payload out of INSTALL_DIR: only the "sass" entry
+        # point (a symlink on Unix, a small wrapper on Windows) belongs there.
+        # On Unix the payload lives in the prefix's share/dart-sass, the FHS
+        # location for architecture-independent data. When the share directory
+        # is not writable (for example when only /usr/local/bin is), fall back
+        # to a private directory inside INSTALL_DIR.
+        if [ "${OS_NAME}" = 'windows' ]; then
+          PAYLOAD_DIR="${INSTALL_DIR}/dart-sass"
+        else
+          PREFIX_DIR="$(dirname "${INSTALL_DIR}")"
+          PAYLOAD_DIR="${PREFIX_DIR}/share/dart-sass"
+          if ! can_install_to "$(dirname "${PAYLOAD_DIR}")"; then
+            warn "Cannot write to $(dirname "${PAYLOAD_DIR}"); using ${INSTALL_DIR}/.dart-sass for the Dart Sass payload instead."
+            PAYLOAD_DIR="${INSTALL_DIR}/.dart-sass"
+          fi
+        fi
+
+        # Remove the files left by the older layout that copied the archive
+        # contents straight into INSTALL_DIR. The src/dart + src/sass.snapshot
+        # pair is specific to Dart Sass; the LICENSE is removed only when it
+        # matches this archive, so unrelated files in a shared bin directory
+        # are left untouched. An old pre-flatten "dart-sass/" directory in a
+        # Unix bin directory is also removed when it has the same signature.
+        if [ -f "${INSTALL_DIR}/src/sass.snapshot" ] && \
+           { [ -f "${INSTALL_DIR}/src/dart" ] || [ -f "${INSTALL_DIR}/src/dart.exe" ]; }; then
+          rm -rf "${INSTALL_DIR}/src"
+          if [ -f "${INSTALL_DIR}/LICENSE" ] && cmp -s "${INSTALL_DIR}/LICENSE" "${EXTRACT_DIR}/dart-sass/src/LICENSE"; then
+            rm -f "${INSTALL_DIR}/LICENSE"
+          fi
+        fi
+        if [ "${OS_NAME}" != 'windows' ] && [ -d "${INSTALL_DIR}/dart-sass" ] && \
+           [ -f "${INSTALL_DIR}/dart-sass/sass" ] && [ -f "${INSTALL_DIR}/dart-sass/src/sass.snapshot" ]; then
+          rm -rf "${INSTALL_DIR}/dart-sass"
+        fi
+
+        rm -rf "${PAYLOAD_DIR}" || die "Failed to replace ${PAYLOAD_DIR}."
+        mkdir -p "${PAYLOAD_DIR}" || die "Failed to create ${PAYLOAD_DIR}."
+        # "cp -R" (not "cp -a") avoids preserving timestamps of the destination
+        # directory, which may not be owned by the runner (e.g. /usr/local/share).
+        cp -R "${EXTRACT_DIR}/dart-sass/." "${PAYLOAD_DIR}/" \
+          || die "Failed to install ${DART_SASS_FILENAME} into ${PAYLOAD_DIR}."
         rm -rf "${EXTRACT_DIR}"
+        note "Dart Sass payload installed in ${PAYLOAD_DIR}."
 
         if [ "${OS_NAME}" = 'windows' ]; then
-          # The Windows archive ships "sass.bat" only; add a bash wrapper so the
-          # same "sass" entry point works in every shell.
-          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
-          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/sass.bat" "${INSTALL_DIR}/src/dart.exe"
+          chmod +x "${PAYLOAD_DIR}/sass.bat" "${PAYLOAD_DIR}/src/dart.exe"
+
+          # The Windows archive ships "sass.bat" only. Put a small batch
+          # wrapper directly in INSTALL_DIR (so "sass.bat" is found there) and
+          # a bash wrapper beside it for Git Bash/MSYS shells.
+          printf '@echo off\r\ncall "%%~dp0dart-sass\\sass.bat" %%*\r\nexit /b %%ERRORLEVEL%%\r\n' > "${INSTALL_DIR}/sass.bat"
+          printf '#!/usr/bin/env bash\nexec "$(dirname "$0")/dart-sass/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
+          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/sass.bat"
         else
-          chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/src/dart"
+          chmod +x "${PAYLOAD_DIR}/sass" "${PAYLOAD_DIR}/src/dart"
+
+          # The upstream launcher follows symlinks (follow_links), so linking
+          # to the intact payload keeps the launcher unmodified while exposing
+          # "sass" directly in INSTALL_DIR. The target is absolute because the
+          # launcher's fallback for old macOS lacks a reliable readlink -f for
+          # relative links.
+          [ ! -d "${INSTALL_DIR}/sass" ] \
+            || die "Cannot replace ${INSTALL_DIR}/sass: it is a directory."
+          rm -f "${INSTALL_DIR}/sass"
+          ln -s "${PAYLOAD_DIR}/sass" "${INSTALL_DIR}/sass" \
+            || die "Failed to link ${INSTALL_DIR}/sass to ${PAYLOAD_DIR}/sass."
+
+          # Keep the license in the FHS location when the prefix allows it;
+          # otherwise it stays next to the payload, which is still shipped.
+          LICENSE_DIR="${PREFIX_DIR}/share/licenses/dart-sass"
+          if can_install_to "${LICENSE_DIR}"; then
+            if cp -f "${PAYLOAD_DIR}/src/LICENSE" "${LICENSE_DIR}/LICENSE"; then
+              note "Dart Sass license copied to ${LICENSE_DIR}/LICENSE."
+            else
+              warn "Could not copy the Dart Sass license to ${LICENSE_DIR}; it remains in ${PAYLOAD_DIR}."
+            fi
+          else
+            warn "Cannot write to ${LICENSE_DIR}; keeping the Dart Sass license in ${PAYLOAD_DIR}."
+          fi
         fi
 
         #######################################

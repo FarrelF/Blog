@@ -19,9 +19,14 @@
 #                      redirect without an API call (the GitHub API is only a
 #                      fallback). (Same as the positional argument.)
 #   DART_SASS_PREFIX   Install prefix. Default: /usr/local on Linux and macOS
-#                      when its bin directory is writable without elevation,
-#                      otherwise $HOME/.local. Falls back to a writable PATH
-#                      entry when $HOME is not usable.
+#                      when its bin and share directories are writable
+#                      without elevation, otherwise $HOME/.local. Falls back to
+#                      a writable PATH entry when $HOME is not usable. The
+#                      archive payload is
+#                      installed in <prefix>/share/dart-sass and exposed through
+#                      <prefix>/bin/sass and <prefix>/bin/dart-sass symlinks;
+#                      the license is copied to <prefix>/share/licenses/dart-sass
+#                      when that directory is writable.
 #   DART_SASS_FORCE    Set to 1 to reinstall even if the version matches.
 #   DART_SASS_VERIFY   Set to 0 to install without verifying the archive
 #                      against the SHA-256 digest published in the GitHub
@@ -278,10 +283,13 @@ detect_prefix() {
   fi
 
   # Linux and macOS: prefer the system-wide prefix, whose bin directory is
-  # already on PATH, as long as it can be written to without elevation. On
+  # already on PATH, as long as both its bin and share directories can be
+  # written to without elevation (the payload lives in share/dart-sass). On
   # multi-user systems this usually means running as root; otherwise fall back
   # to the user's own directory below.
-  if { [ "${OS_NAME}" = "linux" ] || [ "${OS_NAME}" = "macos" ]; } && can_write_dir /usr/local/bin; then
+  if { [ "${OS_NAME}" = "linux" ] || [ "${OS_NAME}" = "macos" ]; } \
+    && can_write_dir /usr/local/bin \
+    && can_write_dir /usr/local/share; then
     printf '%s' "/usr/local"
     return
   fi
@@ -432,6 +440,19 @@ mkdir -p "$(dirname "${INSTALL_DIR}")"
 rm -rf "${INSTALL_DIR}"
 mv "${EXTRACTED}" "${INSTALL_DIR}"
 chmod +x "${INSTALL_DIR}/sass" "${INSTALL_DIR}/src/dart"
+
+# Keep the license in the FHS location when the prefix allows it; otherwise it
+# stays next to the payload, which is still shipped.
+LICENSE_DIR="${PREFIX}/share/licenses/dart-sass"
+if can_write_dir "${LICENSE_DIR}"; then
+  if cp -f "${INSTALL_DIR}/src/LICENSE" "${LICENSE_DIR}/LICENSE"; then
+    note "license copied to ${LICENSE_DIR}/LICENSE"
+  else
+    warn "could not copy the license to ${LICENSE_DIR}; it remains in ${INSTALL_DIR}"
+  fi
+else
+  warn "cannot write to ${LICENSE_DIR}; keeping the license in ${INSTALL_DIR}"
+fi
 
 # Hugo resolves the Dart Sass binary in this order (common/hugo/hugo.go):
 #
