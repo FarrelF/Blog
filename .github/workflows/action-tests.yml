@@ -58,9 +58,9 @@ jobs:
           echo "output hugo-version: ${{ steps.hugo.outputs.hugo-version }}"
           echo "output hugo-path:    ${{ steps.hugo.outputs.hugo-path }}"
           test -x "${{ steps.hugo.outputs.hugo-path }}"
-          # Default install-dir on Linux is /usr/local/bin when it is writable
-          # without elevation; GitHub-hosted runners fall back to ~/.local/bin.
-          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '/.local/bin/hugo'
+          # Default install-dir on Linux is /usr/local/bin; GitHub-hosted
+          # Ubuntu runners can write there without elevation.
+          echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '/usr/local/bin/hugo'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
           hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
@@ -382,9 +382,9 @@ jobs:
           echo "output dart-sass-version: ${{ steps.sass.outputs.dart-sass-version }}"
           echo "output dart-sass-path:    ${{ steps.sass.outputs.dart-sass-path }}"
           test -x "${{ steps.sass.outputs.dart-sass-path }}"
-          # Default install-dir on Linux is /usr/local/bin when it is writable
-          # without elevation; GitHub-hosted runners fall back to ~/.local/bin.
-          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '/.local/bin/dart-sass/sass'
+          # Default install-dir on Linux is /usr/local/bin; GitHub-hosted
+          # Ubuntu runners can write there without elevation.
+          echo "${{ steps.sass.outputs.dart-sass-path }}" | grep -qF '/usr/local/bin/dart-sass/sass'
           sass --version
 
   dart-sass-windows:
