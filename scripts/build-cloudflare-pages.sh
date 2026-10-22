@@ -124,7 +124,13 @@ note "using ${HUGO_RAW}"
 # Build
 # ---------------------------------------------------------------------------
 
+# Hugo writes processed images and other asset-pipeline output to resourceDir
+# ("resources" by default), which is outside the .cache directory Cloudflare
+# saves. Keep it under .cache as well so later builds can reuse the output.
+export HUGO_RESOURCEDIR="${PROJECT_ROOT}/.cache/resources"
+
 note "building with HUGO_ENVIRONMENT=${HUGO_ENVIRONMENT}"
+note "caching Hugo output in ${PROJECT_ROOT}/.cache"
 hugo --gc --minify --cacheDir="${PROJECT_ROOT}/.cache" --environment "${HUGO_ENVIRONMENT}"
 
 [ -d public ] || die "expected the build output in ${PROJECT_ROOT}/public"

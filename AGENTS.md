@@ -253,7 +253,7 @@ Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
 
 The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. The project's Build watch paths exclude `.github/**`, documentation files, `netlify.toml` and `scripts/**`, so a scripts-only push does not trigger a Cloudflare build; trigger a manual deployment when changing the build tooling itself. See **Dart Sass Requirement** below.
 
-Cloudflare Pages detects Hugo for build caching from a root `hugo.toml`; the file in this repository is intentionally comment-only, because the real configuration stays in `config/_default/`. Keep it in sync with `--cacheDir="${PROJECT_ROOT}/.cache"` in the build script: the marker enables detection and the flag makes Hugo put its cache in `.cache`, which Cloudflare then saves and restores between builds. The first build populates the cache; later builds restore it.
+Cloudflare Pages detects Hugo for build caching from a root `hugo.toml`; the file in this repository is intentionally comment-only, because the real configuration stays in `config/_default/`. Keep it in sync with `--cacheDir` and `HUGO_RESOURCEDIR` in the build script: the marker enables detection, `--cacheDir` puts Hugo's file cache in `.cache`, and `HUGO_RESOURCEDIR="${PROJECT_ROOT}/.cache/resources"` puts processed image/asset output there too, so Cloudflare saves and restores the useful cache between builds. The first build populates the cache; later builds restore it.
 
 ## Dart Sass Requirement
 

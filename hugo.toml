@@ -1,2 +1,3 @@
 # Marker for Cloudflare Pages Hugo build-cache detection.
 # All site configuration lives in config/_default/.
+# The Cloudflare build script keeps Hugo's cache and processed assets in .cache/.
