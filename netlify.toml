@@ -23,7 +23,7 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
 HUGO_VERSION = "0.168.0"
 GO_VERSION = "1.27.2"
 TZ = "Asia/Jakarta"
-DART_SASS_VERSION = "1.105.2"
+DART_SASS_VERSION = "latest"
 
 ### Dart Sass: each build command installs it via scripts/install-dart-sass.sh
 ### (digest verification; the version is pinned by DART_SASS_VERSION) and
