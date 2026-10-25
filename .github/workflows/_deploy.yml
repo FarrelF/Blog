@@ -61,7 +61,7 @@ jobs:
         run: mise use ubi:kaaveland/thumper@latest
 
       - name: Decompressing Files
-        run: tar -xvzf files.tar.gz
+        run: tar -I 'zstd -T0' -xvf files.tar.zst
 
       - name: Deploying to Bunny Storage
         run: thumper sync public "${{ secrets.bunny-storage-username }}" --concurrency 8 --verbose
@@ -149,7 +149,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
 
       - name: Decompressing Files
-        run: tar -xvzf files.tar.gz
+        run: tar -I 'zstd -T0' -xvf files.tar.zst
 
       - name: Installing and Configuring Rclone
         run: |
@@ -175,7 +175,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
 
       - name: Decompressing Files
-        run: tar -xvzf files.tar.gz
+        run: tar -I 'zstd -T0' -xvf files.tar.zst
 
       - name: Installing and Configuring Rclone
         run: |

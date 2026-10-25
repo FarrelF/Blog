@@ -61,10 +61,6 @@ on:
         description: Name of the build artifact.
         required: true
         type: string
-      resources-cache-key:
-        description: Hugo resources cache key.
-        required: true
-        type: string
       modules-cache-prefix:
         description: Hugo modules cache prefix.
         required: true
@@ -84,18 +80,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up APT Mirror
-        # GitHub Actions APT proxy is super unstable
-        # See: https://github.com/actions/runner-images/issues/7048
-        run: |
-          printf 'http://azure.archive.ubuntu.com/ubuntu\tpriority:1\n' | sudo tee /etc/apt/mirrors.txt
-          curl http://mirrors.ubuntu.com/mirrors.txt | sudo tee --append /etc/apt/mirrors.txt
-          sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/mirrors.txt/' /etc/apt/sources.list
+      # - name: Set up APT Mirror
+      #   # GitHub Actions APT proxy is super unstable
+      #   # See: https://github.com/actions/runner-images/issues/7048
+      #   run: |
+      #     printf 'http://azure.archive.ubuntu.com/ubuntu\tpriority:1\n' | sudo tee /etc/apt/mirrors.txt
+      #     curl http://mirrors.ubuntu.com/mirrors.txt | sudo tee --append /etc/apt/mirrors.txt
+      #     sudo sed -i 's/http:\/\/azure.archive.ubuntu.com\/ubuntu\//mirror+file:\/etc\/apt\/mirrors.txt/' /etc/apt/sources.list
 
-      - name: Install All Locales and Other Packages
+      - name: Set Timezone
         run: |
-          sudo sh -c 'apt update; apt install -y locales-all pigz'
-          sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
+          # sudo sh -c 'apt update; apt install -y locales-all pigz'
+          # sudo update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
           sudo ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
       - name: Setup Go
@@ -128,26 +124,21 @@ jobs:
           echo "Hugo: $(hugo version)"
           echo "Dart Sass: $(sass --version)"
 
-      - name: Setup Hugo Resources Cache
+      - name: Setup Hugo Cache
         uses: actions/cache@v6
         with:
-          path: ./resources
-          key: ${{ inputs.resources-cache-key }}
+          path: /tmp/hugo_cache
+          key: ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}-${{ github.sha }}
           restore-keys: |
-            ${{ inputs.resources-cache-key }}
-
-      - name: Setup Hugo Modules Cache
-        uses: actions/cache@v6
-        with:
-          path: /tmp/hugo_cache_runner
-          key: ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
+            ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}-
             ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-
 
       - name: Building the Static Web
         env:
           BUILD_BASE_URL: ${{ inputs.base-url }}
           BUILD_FUTURE: ${{ inputs.build-future }}
+          HUGO_CACHEDIR: '/tmp/hugo_cache'
+          HUGO_RESOURCEDIR: '/tmp/hugo_cache/resources'
         run: |
           if [ "${BUILD_FUTURE:-false}" = true ]; then
             BUILD_FUTURE_FLAG="--buildFuture"
@@ -168,11 +159,12 @@ jobs:
         run: |
           # pigz -km -9 $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
           # brotli -Zn $(find public -iname '*.html' -o -iname '*.css' -o -iname '*.js' -o -iname '*.json' -o -iname '*.xml' -o -iname '*.svg' -o -iname '*.txt')
-          tar cvf - ./public | pigz -9 > files.tar.gz
+          tar -I 'zstd -T0 -15' -cvf files.tar.zst ./public
 
       - name: Upload Output File to Artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ inputs.artifact-name }}
-          path: files.tar.gz
+          path: files.tar.zst
+          compression-level: 0
           retention-days: 1
