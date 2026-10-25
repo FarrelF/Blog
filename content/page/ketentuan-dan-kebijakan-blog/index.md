@@ -42,6 +42,19 @@ Blog ini dan kontennya saya rilis di bawah lisensi berikut:
 
     Oleh karena itu, sebagai kredit (jika diizinkan), saya akan berikan atribusi berupa pencantuman judul atau nama dari gambar, illustrasi atau grafis, pembuatnya, sumber gambar dan juga lisensi yang digunakannya di akhir artikel atau halaman
 
+### Penggunaan Akal Imitasi (AI)
+
+Isi artikel di blog ini saya tulis sendiri. Meski begitu, saya terkadang menggunakan Akal Imitasi (_Artificial Intelligence_/AI) sebagai alat bantu untuk hal-hal berikut:
+
+- Mencari ide dan melakukan riset awal
+- Memeriksa ejaan dan tata bahasa, atau memberi saran penyuntingan
+- Membuat gambar, ilustrasi atau grafis
+- Membantu menulis kode, seperti tema, skrip atau konfigurasi untuk blog ini
+
+Gagasan, keputusan akhir, dan tanggung jawab atas apa yang saya terbitkan tetap ada pada saya. Penggunaan AI di atas tidak selalu saya tandai di setiap artikel, karena penjelasan ini berlaku untuk seluruh blog.
+
+Status hak cipta atas keluaran (_output_) AI masih belum jelas di banyak negara. Oleh karena itu, lisensi CC BY-SA 4.0 dan GNU AGPLv3 di atas hanya berlaku sejauh bagian tersebut memang merupakan karya saya dan dapat dilindungi hak cipta. Saya tidak menjamin bahwa gambar, ilustrasi, grafis, atau kode yang dibuat dengan bantuan AI dapat dilindungi hak cipta.
+
 ### Merek Dagang Perusahaan
 
 Google AdSense&trade;, Google Custom Search&trade;, Google Site Search&trade;, Google Analytics&trade;, serta [produk, layanan atau/dan fitur dari Google lainnya](https://www.google.com/permissions/trademark/trademark-list/) dan Logo Google, serta produk, layanan dan fitur-fiturnya merupakan Merek Dagang, Merek Dagang Terdaftar, atau/dan Pakaian Dagang dari Google, LLC.
@@ -63,6 +76,12 @@ Semua merek dagang lain yang bukan milik Google, Cloudflare, Netlify atau/dan af
 Dalam keadaan apa pun, saya tidak bertanggung jawab kepada Anda atau individu atau entitas lain untuk setiap kerugian secara langsung, atau secara tidak langsung, insidental, hukuman, khusus atau konsenkuensial yang terkait dengan penggunaan blog ini, kontennya atau situs web atau blog lainnya, termasuk tetapi tidak terbatas untuk kerusakan atau kehilangan pada perangkat keras, barang, program atau perangkat lunak (_Software_) atau/dan data lainnya.
 
 Jadi segala risiko yang telah Anda timbulkan setelah mengakses, menjelajah, dan menggunakan blog ini dan kontennya, silakan tanggung sendiri.
+
+### Keakuratan Konten Berbantuan AI
+
+Informasi, gambar, atau kode yang dibuat dengan bantuan AI tetap bisa mengandung kesalahan atau ketidakakuratan, meskipun sudah saya periksa.
+
+Saya tidak memberikan jaminan apa pun atas keakuratannya, sehingga Anda sebaiknya memeriksa kembali informasi penting sebelum menggunakannya. Segala risikonya menjadi tanggung jawab Anda, sesuai dengan bagian [Tanggung Jawab](#tanggung-jawab).
 
 ### Kerahasiaan informasi yang dikirim oleh Anda
 
@@ -142,6 +161,12 @@ Jika Anda mengiklankan suatu produk, mungkin saya akan hapus/menolak komentar An
 
 Jadi, mohon untuk berkomentar dengan sewajarnya saja.
 
+### Komentar yang Dihasilkan oleh AI
+
+Komentar yang ditulis sepenuhnya oleh AI atau bot, atau yang dikirim secara otomatis, tidak diperbolehkan di sini. Anda boleh memakai AI sebagai alat bantu (misalnya untuk menerjemahkan atau merapikan kalimat), selama komentar tersebut tetap mewakili pendapat Anda sendiri, relevan dengan topik artikel, dan Anda bertanggung jawab atas isinya.
+
+Komentar yang terindikasi dibuat oleh AI atau bot, serta tidak relevan atau bersifat spam, akan saya hapus. Jika dilakukan berulang kali, akun Anda akan saya blokir.
+
 ### Diskriminasi dan Penghinaan terhadap Seseorang, Kelompok atau Antargolongan
 
 Segala bentuk diskriminasi dan penghinaan terhadap Suku, Agama, Ras dan Antargolongan serta warna kulit, bentuk fisik, keyakinan, dll, di dalam kolom komentar, dengan alasan apa pun, itu sangat tidak diperbolehkan.
@@ -162,7 +187,7 @@ Ini akan terjadi kapan saja sesuai dengan yang saya kehendaki, termasuk tetapi t
 
 Dengan berkomentar di blog ini, maka artinya Anda telah mengakui bahwa segala komentar/pertanyaan yang Anda lontarkan tidak menjamin akan mendapatkan jawaban atau balasannya secara langsung, baik itu dari orang lain, atau bahkan dari saya itu sendiri.
 
-Ini artinya, setiap orang memiliki hak untuk tidak menjawab atau membalas pertanyaan atau komentar Anda dengan alasan apa pun, termasuk tetapi tidak terbatas pada ketidaktahuannya, sedang sibuk, terjadinya bencana/berita duka, dan segala situasi atau kondisi yang menyebabkan demikian.
+Ini artinya, setiap orang memiliki hak untuk tidak menjawab, bereaksi atau membalas pertanyaan atau komentar Anda dengan alasan apa pun, termasuk tetapi tidak terbatas pada ketidaktahuannya, sedang sibuk, terjadinya bencana/berita duka, dan segala situasi atau kondisi yang menyebabkan demikian.
 
 Jadi jika Anda berkomentar di sini, maka sebaiknya jangan pernah merasa berhak untuk dijawab atau dibalas oleh orang lain dengan alasan apa pun. Sadarilah bahwa Anda tidak mengeluarkan uang sepeser pun untuk berkomentar/bertanya di sini, jadi jawaban/balasan komentar yang ada itu bersifat "sukarela".
 
@@ -190,8 +215,8 @@ Serta saya berhak untuk mengubah kebijakan ini di mana pun dan kapan pun, tanpa 
 
 Mengenai halaman ketentuan dan kebijakan blog ini:
 
-- Diperbarui/diubah pada Hari/Tanggal: **Sabtu, 17 Oktober 2026**
-- Diberlakukan pada Hari/Tanggal: **Sabtu, 17 Oktober 2026**
+- Diperbarui/diubah pada Hari/Tanggal: **Minggu, 25 Oktober 2026**
+- Diberlakukan pada Hari/Tanggal: **Minggu, 25 Oktober 2026**
 
 Untuk melihat riwayat perubahan kebijakan ini, silakan kunjungi riwayatnya di [repositori GitHub saya](https://github.com/FarrelF/Blog/commits/main/content/page/ketentuan-dan-kebijakan-blog).
 
