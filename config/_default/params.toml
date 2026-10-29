@@ -128,3 +128,7 @@ sriHash = true
 [style]
 inlineStyle = true
 sriHash = true
+
+[webmcp]
+enabled = true
+# searchIndex = "cari/index.json" # Opsional; dideteksi otomatis dari halaman ber-layout "search"
