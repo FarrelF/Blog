@@ -27,7 +27,7 @@ jobs:
     with:
       environment: production
       artifact-name: build-result-${{ github.sha }}
-      modules-cache-prefix: production
+      hugo-cache-prefix: production
       use-dart-sass: true
       dart-sass-version: latest
       go-version: stable

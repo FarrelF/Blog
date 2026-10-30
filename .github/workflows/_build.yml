@@ -61,8 +61,8 @@ on:
         description: Name of the build artifact.
         required: true
         type: string
-      modules-cache-prefix:
-        description: Hugo modules cache prefix.
+      hugo-cache-prefix:
+        description: Hugo cache prefix.
         required: true
         type: string
 
@@ -128,10 +128,10 @@ jobs:
         uses: actions/cache@v6
         with:
           path: /tmp/hugo_cache
-          key: ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}-${{ github.sha }}
+          key: ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('**/go.sum') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-${{ hashFiles('**/go.sum') }}-
-            ${{ runner.os }}-hugo-modules-${{ inputs.modules-cache-prefix }}-
+            ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('**/go.sum') }}-
+            ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-
 
       - name: Building the Static Web
         env:

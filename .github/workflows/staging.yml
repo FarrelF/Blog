@@ -30,7 +30,7 @@ jobs:
       base-url: https://${{ github.sha }}-staging.farrelf.blog
       build-future: true
       artifact-name: staging-build-result-${{ github.sha }}
-      modules-cache-prefix: staging
+      hugo-cache-prefix: staging
       use-dart-sass: true
       dart-sass-version: latest
       go-version: stable
