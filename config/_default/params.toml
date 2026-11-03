@@ -132,3 +132,6 @@ sriHash = true
 [webmcp]
 enabled = true
 # searchIndex = "cari/index.json" # Opsional; dideteksi otomatis dari halaman ber-layout "search"
+
+[external]
+bundle = true
