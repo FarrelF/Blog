@@ -14,6 +14,7 @@ on:
       - "**/netlify.toml"
       - "config/development/**"
       - "**/archetypes/**"
+      - "**/docs/**"
       - "**/.markdownlint.*"
       - "AGENTS.md"
       - "CLAUDE.md"

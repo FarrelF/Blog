@@ -6,17 +6,17 @@ This file provides context for AI agents working in this repository.
 
 This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farrelf.blog](https://farrelf.blog).
 
-- **Static site generator**: Hugo (deployed with latest version, minimum v0.167.0)
+- **Static site generator**: Hugo (minimum supported version: v0.167.0; newer versions are supported)
 - **Theme**:
   - [hugo-theme-stack/v4](https://github.com/CaiJimmy/hugo-theme-stack) (Main Theme)
   - [stack-modified](https://github.com/FarrelF/stack-modified) (Modified Theme, based on the Main Theme)
 - **Theme SCSS ownership**: `stack-modified` vendors the complete `assets/scss` tree, including files it does not otherwise modify. Hugo would otherwise merge those in from `CaiJimmy/hugo-theme-stack/v4`, but the vendored copies were migrated to the Dart Sass module system. **Upstream SCSS changes no longer flow in automatically** and must be merged by hand when the Main Theme is bumped.
-- **Module system**: Go modules (go.mod / go.sum) -- not git submodules
-- **Primary deploy**: Bunny Storage as main storage (using GitHub Actions for deployment) and use Bunny CDN as main resolve proxy CDN
-- **Backup deploy**:
-  - Netlify and Cloudflare Pages (as backup Hosting)
-  - Cloudflare R2, Backblaze B2 and Bunny S3 (as backup Storage, using GitHub Actions for deployment)
-- **Default branch**: main
+- **Module system**: Go modules (`go.mod` / `go.sum`), not Git submodules
+- **Primary deployment**: Bunny Storage as the primary storage backend, deployed through GitHub Actions, with Bunny CDN used as the primary CDN and reverse proxy
+- **Backup deployment**:
+  - Netlify and Cloudflare Pages as backup hosting providers
+  - Cloudflare R2, Backblaze B2, and Bunny S3 as backup storage providers, deployed through GitHub Actions
+- **Default branch**: `main` (verify the remote before creating branches or pushing)
 - **Comments**: [Giscus](https://giscus.app) (GitHub Discussions-based)
 
 ## Directory Structure
@@ -37,6 +37,7 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
     |-- assets/                # Hugo-processed assets (favicon, webmanifest, images)
     |-- static/                # Files copied directly to site root (CNAME, verification files)
     |-- scripts/               # Build scripts (Dart Sass installer, Cloudflare Pages build)
+    |-- docs/                  # AI-agent operational documentation
     |-- .github/workflows/     # GitHub Actions CI/CD
     |-- .github/actions/       # GitHub Actions Composite (setup-hugo, setup-dart-sass)
     |-- .devcontainer/         # GitHub Codespaces configuration
@@ -55,7 +56,7 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
 - **Timezone**: Asia/Jakarta (WIB, UTC+7)
 - **Writing style**: Conversational, friendly Indonesian. The reader may be addressed formally (`Anda`) or informally (`kamu`) depending on the sentence and context, so both forms can appear in the same article. Keep it natural and do not mix them arbitrarily within one sentence.
 - **Technical terms in English** should be italicized using _underscores_ (e.g., _in-place upgrade_, _bootable_, _Feature update_)
-- Hugo markdown uses Goldmark with **unsafe = true** -- raw HTML in markdown is allowed and used frequently
+- Markdown uses Goldmark with `markup.goldmark.renderer.unsafe = true`, so raw HTML is allowed and used in some content
 
 ## Writing Style Guide
 
@@ -85,49 +86,54 @@ Key config files:
 
 ## Front Matter Reference
 
-Posts use YAML-style front matter (--- delimiters). Here is the full pattern -- fields marked Optional in the table below may be omitted:
+Posts use YAML-style front matter (`---` delimiters). The example below shows the preferred camelCase convention for new content; existing posts may use legacy PascalCase or lowercase keys and should not be migrated unless explicitly requested. Fields marked Optional in the table below may be omitted:
 
 ```yaml
-    ---
-    Title: Article Title in Indonesian
-    Slug: article-url-slug
-    Author: Farrel Franqois
-    Categories:
-        - CategoryName
-    Image: image-filename.webp
-    Date: YYYY-MM-DDTHH:MM:SS+07:00
-    Draft: false
-    License:
-    Math:
-    Comments: true
-    Tags:
-        - TagName
-    readMore: true
-    DescriptionSEO: Short SEO description for search engines, open graph and social media cards
-    Description: |- 
-        Longer description used for caption that describe or summarize the article.
-        Can span multiple lines using |- block scalar.
-    ---
+---
+title: Article Title in Indonesian
+slug: article-url-slug
+author: Farrel Franqois
+categories:
+  - CategoryName
+image: image-filename.webp
+imageHint: photo
+date: YYYY-MM-DDTHH:MM:SS+07:00
+draft: false
+license:
+math:
+comments: true
+tags:
+  - TagName
+readMore: true
+descriptionSEO: Short SEO description for search engines, Open Graph, and social media cards
+description: |-
+  Longer description used as the caption or summary for the article.
+
+  Use the `|-` block scalar when the description contains multiple paragraphs.
+---
 ```
+
+`date` uses an ISO 8601 timestamp. Replace `YYYY-MM-DDTHH:MM:SS+07:00` with the actual publication timestamp, for example `2025-10-13T22:52:05+07:00`.
 
 ### Front Matter Fields
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| Title | Yes | Article title. Quote if it contains colons or special characters |
-| Slug | Yes | URL slug (lowercase, hyphens, no special chars) |
-| Author | Yes | Always `Farrel Franqois` |
-| Categories | Yes | List of categories (see below). Title Case |
-| Image | Recommended | Featured image filename (must exist in same page bundle directory). Use .webp format preferred |
-| Date | Yes | Publication date with +07:00 timezone offset |
-| Draft | Optional | Set to `false` to publish, or `true` to hide from production. Omit to use the default (published) |
-| License | Optional | Leave empty for default (`CC BY-SA 4.0`), or specify custom license |
-| Math | Optional | Set to `true` if article contains mathematical formulas |
-| Comments | Optional | Set to `true` to enable or `false` to disable comments for this post. Omit to follow the global `comments.enabled` in params.toml |
-| Tags | Optional | List of tags (Title Case) |
-| readMore | Yes | true to show read more truncation |
-| DescriptionSEO | Yes | Concise description for search engine results, open graph and social media cards |
-| Description | Yes | Detailed description for caption that describe or summarize the article. Use \|\- block scalar for multi-line |
+| title | Yes | Article title. Quote it if it contains colons or special characters |
+| slug | Yes | URL slug (lowercase, hyphens, no special characters) |
+| author | Yes | Always `Farrel Franqois` |
+| categories | Yes | List of category names (see below), using Title Case |
+| image | Recommended | Featured image filename. If provided, it must exist in the same page bundle directory; `.webp` is preferred |
+| imageHint | Optional | Image category used by image processing. Supported values are `photo` (default), `picture`, `drawing`, `icon`, and `text` |
+| date | Yes | Publication timestamp in ISO 8601 format with the `+07:00` timezone offset |
+| draft | Optional | Set to `false` to publish or `true` to hide from production. Omit it to use the default published state |
+| license | Optional | Leave empty to use the default (`CC BY-SA 4.0`) or specify a custom license |
+| math | Optional | Set to `true` if the article contains mathematical formulas |
+| comments | Optional | Set to `true` to enable or `false` to disable comments for this post. Omit it to follow the global `comments.enabled` parameter |
+| tags | Optional | List of tag names, using Title Case |
+| readMore | Yes | Set to `true` to show read-more truncation |
+| descriptionSEO | Yes | Concise description for search engine results, Open Graph, and social media cards |
+| description | Yes | Detailed description or summary for the article. Use the `|-` block scalar for multiple paragraphs |
 
 ## Existing Categories
 
@@ -161,14 +167,14 @@ Posts use YAML-style front matter (--- delimiters). Here is the full pattern -- 
 ### README.md files
 
 - Present in many directories as documentation
-- Listed in ignoreFiles in config -- Hugo will NOT process them as content
+- Listed in `ignoreFiles` in config, so Hugo will NOT process them as content
 
 ### Image Handling
 
 - Place images in the same directory as the content file that references them
 - Use relative paths in markdown: `![alt text](image.webp)`
 - Prefer .webp format for better compression
-- **Never** put Hugo-processed assets in `static/` -- use page bundles instead
+- **Never** put Hugo-processed assets in `static/`, use page bundles instead
 
 ## Available Shortcodes
 
@@ -201,10 +207,10 @@ hugo server -D --gc --renderStaticToDisk
 - Access at `http://localhost:1313`
 - Output goes to `public/` directory
 - Add `--liveReloadPort 443` if you're using Codespaces for Livereload feature
-- Add `--tlsAuto` to issue and set self-signed TLS certificate to Hugo local server. DO NOT access it with HTTP (`http://localhost:1313`) while using `--tlsAuto` as it will causes errors, use HTTPS (`https://localhost:1313`) instead
-  - **NOTE:** Before using `--tlsAuto` argument for first time, execute `hugo server trust` command first to install a local CA.
-- Add `-e production` to set environment to `production`, default is `development`, see **Hugo Configuration** for configuration. This will imitates production environment on local server, useful for testing production site
-- Add `--logLevel LOG_LEVEL` to set output logging level while executing Hugo command, the `LOG_LEVEL` can be following:
+- Add `--tlsAuto` to issue a self-signed TLS certificate for the local Hugo server. Do not access the server over HTTP (`http://localhost:1313`) when `--tlsAuto` is enabled, because this causes errors; use HTTPS (`https://localhost:1313`) instead.
+  - **Note:** Before using `--tlsAuto` for the first time, run `hugo server trust` to install the local CA certificate.
+- Add `-e production` to use the `production` environment. The default is `development`; this simulates a production build locally and is useful for testing the production configuration.
+- Add `--logLevel LOG_LEVEL` to set the log level while Hugo runs. The flag accepts the following values:
   - `error` (example `--logLevel error`) -- Display error messages only
   - `warn` (example `--logLevel warn`) -- Display warning and error messages
   - `info` (example `--logLevel info`) -- Display information, warning, and error messages
@@ -217,108 +223,26 @@ hugo --gc
 ```
 
 - Output goes to `public/` directory
-- Default environment is `production`, add `-e development` to set environment to `development`, see **Hugo Configuration** for configuration
-- Add `--logLevel LOG_LEVEL` to set output logging level while executing Hugo command, the `LOG_LEVEL` can be following:
+- Default environment is `production`; add `-e development` to use the `development` environment
+- Add `--logLevel LOG_LEVEL` to set the log level while Hugo runs. The flag accepts the following values:
   - `error` (example `--logLevel error`) -- Display error messages only
   - `warn` (example `--logLevel warn`) -- Display warning and error messages
   - `info` (example `--logLevel info`) -- Display information, warning, and error messages
   - `debug` (example `--logLevel debug`) -- Display debug, information, warning, and error messages
 
-### Netlify Build
+## Deployment
 
-The build commands are defined per context in `netlify.toml`. Each command installs Dart Sass with `scripts/install-dart-sass.sh` -- the same installer Cloudflare Pages uses -- and prepends its `bin` directory to `PATH`, so the commands themselves stay a short two-step chain:
+Bunny Storage is the primary storage backend and is deployed through GitHub Actions. Netlify and Cloudflare Pages are backup hosting providers; Cloudflare R2, Backblaze B2, and Bunny S3 are backup storage providers.
 
-```bash
-export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc
-```
+See [`docs/agent-deployment.md`](docs/agent-deployment.md) for provider-specific build instructions, Dart Sass setup, optional GitHub API authentication, build/deployment verification, and MCP/CLI usage.
 
-- The version is pinned via `DART_SASS_VERSION` in `[build.environment]`, which the installer reads. The SHA-256 digest verification from the GitHub release (1.89.1+) applies here too, with the same warn-and-continue behaviour when the API cannot be queried; Netlify does not inject a `GITHUB_TOKEN`, so add your own encrypted environment variable if the lookup must survive rate limits.
-- The former `@gethinode/netlify-plugin-dartsass` plugin was replaced by the installer because it downloaded the archive without any verification; `package.json`, `bun.lock` and the `BUN_VERSION` setting were removed along with it.
-- Build commands use `&&` rather than `;`, so a failed Dart Sass install aborts the build instead of falling through to `hugo` and reporting a confusing transpiler error.
-- `_headers` file is removed before build because it used by Cloudflare Pages and the Netlify headers are managed by `netlify.toml` file instead
-- The `ignore` command in `[build]` cancels the build when a push only touches documentation, license, lint-config or CI/development paths: `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, `CLAUDE.md`, `.gitignore`, `.markdownlint.yaml`, `LICENSE*` (at any depth) plus the root-level `.github/`, `.devcontainer/`, `scripts/`, `config/development/` and `archetypes/` directories. Exit code `0` skips the build, any other exit code builds.
-- `CACHED_COMMIT_REF` is compared with `COMMIT_REF` before the diff runs: when both are identical, the build is forced (exit `1`), because a fresh clone after a failed cache fetch would otherwise produce an empty diff and skip every push.
-- Keep that list in sync with `paths-ignore` in `.github/workflows/production.yml` and `staging.yml`, so GitHub Actions and Netlify agree on which changes need a rebuild.
-
-### Cloudflare Pages Build
-
-Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
-
-| Setting | Value |
-|---------|-------|
-| Build command | `bash scripts/build-cloudflare-pages.sh` |
-| Build output directory | `public` |
-| `HUGO_VERSION` (environment) | `0.168.0` or newer |
-| `DART_SASS_VERSION` (environment) | `1.105.2` (recommended, see below) |
-
-The script installs Dart Sass, verifies Hugo is new enough, runs the production build and drops the Netlify `_headers` copy from the output. The project's Build watch paths exclude `.github/**`, documentation files, `netlify.toml` and `scripts/**`, so a scripts-only push does not trigger a Cloudflare build; trigger a manual deployment when changing the build tooling itself. See **Dart Sass Requirement** below.
-
-Cloudflare Pages detects Hugo for build caching from a root `hugo.toml`; the file in this repository is intentionally comment-only, because the real configuration stays in `config/_default/`. Keep it in sync with `--cacheDir` and `HUGO_RESOURCEDIR` in the build script: the marker enables detection, `--cacheDir` puts Hugo's file cache in `.cache`, and `HUGO_RESOURCEDIR="${PROJECT_ROOT}/.cache/resources"` puts processed image/asset output there too, so Cloudflare saves and restores the useful cache between builds. The first build populates the cache; later builds restore it.
-
-## Dart Sass Requirement
-
-The `stack-modified` theme sets `"transpiler" "dartsass"` in the `toCSS` options, so Hugo needs a Dart Sass executable on `PATH`. The embedded libsass transpiler was deprecated in Hugo v0.153.0 and is no longer used.
-
-Check locally with:
-
-```bash
-sass --version
-```
-
-### Installing
-
-```bash
-bash scripts/install-dart-sass.sh              # latest release
-bash scripts/install-dart-sass.sh 1.105.2      # pinned version
-```
-
-The script downloads the official release archive, detects OS/architecture (including musl), verifies the archive against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped with a warning without querying the API), installs into `/usr/local` on Linux and macOS when its bin directory is writable without elevation (otherwise `~/.local`; override with `DART_SASS_PREFIX`) and smoke tests the binary. The payload stays in `<prefix>/bin/.dart-sass` with `sass` and `dart-sass` symlinks in `<prefix>/bin`; the license remains inside the payload. `latest` resolves through the releases/latest redirect without an API call (the GitHub API is only a fallback), and `DART_SASS_VERIFY=0` skips the digest verification entirely. It is idempotent -- an already-installed matching version is left alone.
-
-| Environment | How Dart Sass is provided |
-|-------------|---------------------------|
-| GitHub Actions | `.github/actions/setup-dart-sass` composite action, wired into `.github/workflows/_build.yml` |
-| Netlify | `scripts/install-dart-sass.sh`, invoked by each build command in `netlify.toml` |
-| Cloudflare Pages | `scripts/build-cloudflare-pages.sh`, which calls the installer |
-| Dev container | `postCreateCommand` in `.devcontainer/devcontainer.json` |
-| Local (Linux/macOS) | Run `scripts/install-dart-sass.sh` manually |
-
-### Notes
-
-- **Dart Sass works in every Hugo edition.** Only _embedded LibSass_ is restricted to the extended and extended/deploy editions. Hugo's feature matrix states the Dart Sass transpiler "is compatible with any edition", because Hugo shells out to the external binary rather than using anything compiled into the Hugo executable. So there is no extended-build check in the build scripts.
-- **Hugo needs Dart Sass 1.63.0 or later.** Anything older is rejected with "unsupported Dart Sass version detected". The Cloudflare build image ships 1.62.1, which is below that floor, so a newer one is always installed.
-- **How Hugo finds the binary.** In `common/hugo/hugo.go` Hugo tries `$DART_SASS_BINARY`, then `dart-sass`, then `sass`, then the legacy `dart-sass-embedded`. There is no `sass-embedded` lookup. `scripts/install-dart-sass.sh` exposes both `dart-sass` and `sass` so whichever Hugo settles on is the freshly installed one, and Hugo itself appends `--embedded` when it runs the binary.
-- **No checksum file exists.** The Dart Sass project does not publish one alongside its release assets, unlike Hugo; the composite action therefore verifies the archive against the SHA-256 digest that GitHub publishes for release assets (1.89.1+; earlier releases are skipped with a warning without querying the API). `scripts/install-dart-sass.sh` performs the same digest verification, and both it and the composite action smoke test the binary afterwards; every deploy path (GitHub Actions, Netlify, Cloudflare Pages) now goes through one of those two. The installer can opt out of the digest check with `DART_SASS_VERIFY=0`, and the composite action with `verify-file: false`. Pin `DART_SASS_VERSION` for reproducible builds.
-- **Cloudflare may not allow writing to `/usr` or `/etc`.** Pages builds run in a gVisor container; whether those paths are writable is not documented, so nothing is written there. `scripts/build-cloudflare-pages.sh` defaults `DART_SASS_PREFIX` to `$HOME/.local` and sets the timezone by exporting `TZ` rather than rewriting `/etc/localtime`. The installer prefers `/usr/local` on Linux and macOS only when its bin directory is writable without elevation, and otherwise uses `$HOME/.local`.
-- **Cloudflare does not inject a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH` and `CF_PAGES_URL`. A token *can* be supplied by adding your own encrypted environment variable in the dashboard, and the installer reads `GITHUB_TOKEN` if present, as a fallback for resolving `latest` and for looking up the release asset digest used for verification (releases 1.89.1+ only). Without one, `latest` still resolves through the releases/latest redirect and the digest lookup skips verification with a warning when the API is rate limited; pinning the version keeps builds reproducible.
-- **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.167.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
-
-## GitHub Actions Composite Actions
-
-Both composite actions live in `.github/actions/` and are exercised by `.github/workflows/action-tests.yml` (manual dispatch, or a PR that touches the actions). Each action folder has its own README with the full input/output reference.
-
-### setup-hugo
-
-Installs any official Hugo release from v0.7.0 to the latest on Linux, macOS and Windows (x64 and ARM64) by probing the per-era asset names with `HEAD` requests (raw binaries, `linux_amd64`, `Linux-64bit`, `linux-amd64`, `.tgz`, `.pkg`, ...), so upstream renames are handled automatically.
-
-The SHA-256 checksum is verified whenever the release publishes one, falling back to the SHA-256 digest published in the GitHub release (v0.147.7+; earlier releases skip it without an API call) when the checksum file cannot be fetched or has no entry for the asset; only an actual hash mismatch fails, anything else that cannot verify is skipped with a warning. Inputs: `hugo-version`, `verify-file`, `extended`, `with-deploy`, `github-token`, `install-dir`, `downloader`, `downloader-args`; outputs: `hugo-version`, `hugo-path`.
-
-See `.github/actions/setup-hugo/README.md` for the edition/platform matrix and the known upstream gaps (v0.139.5 is an empty release; Linux ARM64 has no assets in v0.7.0-v0.15.x and v0.17.0-v0.20.2; macOS builds older than v0.48 (Go 1.10 and earlier) do not execute on macOS 15 and are refused up front by the action on macOS 15+ runners, with v0.48 as the oldest release that runs).
-
-### setup-dart-sass
-
-Installs the Dart Sass CLI (required by Hugo 0.153.0+ to transpile SCSS). Inputs: `dart-sass-version`, `verify-file`, `is-musl`, `install-dir`, `downloader`, `downloader-args`, `github-token`; outputs: `dart-sass-version`, `dart-sass-path`. On Linux/macOS the archive payload stays intact in `<install-dir>/.dart-sass` and `install-dir/sass` is an absolute symlink to it, so only `sass` appears in the PATH directory. On Windows the archive is extracted directly into `<install-dir>` (`sass.bat` and `src/` with `dart.exe`, `sass.snapshot`, `LICENSE`), with a bash `sass` wrapper beside it. Because Dart Sass publishes no checksums, the archive is verified against the SHA-256 digest published in the GitHub release (1.89.1+; earlier releases are skipped without querying the API) and the binary is smoke tested; when the digest is unavailable (or the API is unreachable) the step warns instead of failing, and `verify-file: false` skips the digest lookup entirely.
-
-### Shared behavior
-
-- Both default to `aria2` and automatically fall back to `curl` when `aria2c` is not installed (Ubuntu Slim images).
-- Both append the install directory to `GITHUB_PATH` in the runner's native format, so `hugo` and `sass` resolve in later steps on all shells; with no `install-dir` input they install to `/usr/local/bin` on Linux and macOS when it is writable without elevation (otherwise `~/.local/bin`; `setup-hugo` keeps macOS `.pkg` assets in their package location, `/usr/local/bin`), to `C:\Program Files\<name>` for 64-bit Windows builds (or `C:\Program Files (x86)\<name>` for 32-bit) when writable, otherwise to `%LOCALAPPDATA%\Programs\<name>`. The Windows folders come from `cygpath -uF` (CSIDL 38/42/28) and the environment variables are only a fallback; 7-Zip is found on `PATH` or through the same resolved Program Files folders, never through a hardcoded drive letter.
-- Both resolve `latest` through the GitHub releases redirect without `jq`; the GitHub API (with an optional token) is only a fallback, and the same token is used for the SHA-256 digest lookups that back verification (which are skipped entirely for releases that predate digests).
+Do not trigger a deployment or push changes unless the user explicitly requests or approves it.
 
 ## Hugo Modules
 
 ### Install Modules
 
-Execute the Hugo build command, see **Build Commands** to see all available build options. Hugo will automatically install modules when building site.
+Run a Hugo build command; see **Build Commands** for the available build options. Hugo resolves and downloads missing modules during a build when module installation is enabled and network access is available.
 
 ### Update Modules
 
@@ -327,7 +251,7 @@ hugo mod get -u
 ```
 
 - `-u` updates the modules to the latest version
-- All flags of `go get` command are relevant to `hugo mod get` command. Run `go help get` for more information
+- Use `hugo mod get --help` to see the flags supported by this Hugo command. Do not assume that every `go get` flag is supported.
 
 ### Tidying Modules
 
@@ -364,24 +288,29 @@ See `config/_default/module.toml` for default module configuration and `config/d
 
 1. NEVER put Hugo-processed assets in `static/` -- Use page bundles (alongside `index.md`) for post images, or `assets/` for Hugo-processed files like favicon
 2. All content must be in Indonesian -- titles, descriptions, body text, categories, tags
-3. Follow the front matter pattern shown above -- include ALL required fields (fields marked Optional may be omitted)
+3. Follow the front matter pattern shown above -- include every field marked Yes; fields marked Optional may be omitted
 4. Italicize English technical terms with _underscores_ -- this is the established writing style
 5. Use page bundles for posts -- create `YYYY/MM/DD-slug/index.md` with images in the same directory
 6. Use .webp format for images when possible -- it is the preferred format in existing posts
 7. README.md files are ignored by Hugo -- they serve as directory documentation only
-8. Hugo markdown allows raw HTML (`unsafe = true`) -- inline HTML in markdown is used throughout
+8. Markdown allows raw HTML because Goldmark's unsafe renderer is enabled -- inline HTML is used throughout
 9. Categories use Title Case in Indonesian -- e.g., `Web dan Blog`, not `web-dan-blog`
-10. Date format must include timezone: +07:00 (Asia/Jakarta, WIB -  Waktu Indonesia Barat)
+10. Use an ISO 8601 date with the `+07:00` timezone offset (Asia/Jakarta, WIB) for new content
+11. Use camelCase for new front matter parameters, such as `readMore`, `imageHint`, and `descriptionSEO`; preserve existing key casing unless a migration is explicitly requested
+12. Use Conventional Commits for commit messages and write them in English
+13. Do not modify, revert, or commit unrelated user changes
+14. Do not push changes unless the user explicitly requests it
+15. Never print, commit, expose, or place credentials or tokens in source files, build output, or logs
 
 ## Important Notes
 
 - Default branch: main
-- Hugo Extended is not required, you can use standard Hugo build
+- Hugo Extended is not required because SCSS is transpiled with the external Dart Sass executable; a compatible Dart Sass executable must be available on `PATH`
 - Dart Sass is required, because this project uses Dart Sass as a transpiler for SCSS files
 - Go modules are used for theme management (not git submodules)
 - Netlify and Cloudflare Pages is the backup hosting; GitHub Actions deploys to primary host
 - Giscus handles comments via GitHub Discussions
-- README.md files in directories are documentation only -- Hugo ignores them via ignoreFiles config
+- README.md files in directories are documentation only -- Hugo ignores them via `ignoreFiles` configuration
 - Markdownlint is configured (.markdownlint.yaml)
 - Contributing: See CONTRIBUTING.md for contribution guidelines
 - License: Source code is GNU AGPLv3; content is CC BY-SA 4.0

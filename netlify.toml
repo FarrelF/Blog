@@ -10,6 +10,7 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
   ":(exclude,glob)**/AGENTS.md" \
   ":(exclude,glob)**/CLAUDE.md" \
   ":(exclude,glob)**/.gitignore" \
+  ":(exclude,glob)**/docs/**" \
   ":(exclude,glob)**/.markdownlint.yaml" \
   ":(exclude,glob)**/LICENSE*" \
   ":(exclude,glob)**/archetypes/**" \
