@@ -255,9 +255,19 @@ hugo mod get -u
 
 ### Tidying Modules
 
+After updating the Hugo Modules, the list of modules in `go.sum` will usually grow, and the entries relating to older versions of the module will not be removed.
+
+This causes the contents of `go.sum` to become disorganised over time.
+
+Therefore, please tidy up the contents of `go.sum` using the following command:
+
 ```bash
 hugo mod tidy
 ```
+
+Run it with the default environment. Do not add `-e development`, because `config/development/module.toml` replaces `stack-modified` with a local path, and the command will drop that module from `go.mod` and `go.sum`.
+
+The command also removes unused entries from `go.mod`. If it has no effect, you can tidy it up manually by deleting the entries relating to older module versions.
 
 ### Vendoring Modules
 
@@ -297,10 +307,11 @@ See `config/_default/module.toml` for default module configuration and `config/d
 9. Categories use Title Case in Indonesian -- e.g., `Web dan Blog`, not `web-dan-blog`
 10. Use an ISO 8601 date with the `+07:00` timezone offset (Asia/Jakarta, WIB) for new content
 11. Use camelCase for new front matter parameters, such as `readMore`, `imageHint`, and `descriptionSEO`; preserve existing key casing unless a migration is explicitly requested
-12. Use Conventional Commits for commit messages and write them in English
-13. Do not modify, revert, or commit unrelated user changes
-14. Do not push changes unless the user explicitly requests it
-15. Never print, commit, expose, or place credentials or tokens in source files, build output, or logs
+12. After bumping Hugo Modules, tidy up the `go.sum` using `hugo mod tidy` command. See **Tidying Modules**
+13. Use Conventional Commits for commit messages and write them in English
+14. Do not modify, revert, or commit unrelated user changes
+15. Do not push changes unless the user explicitly requests it
+16. Never print, commit, expose, or place credentials or tokens in source files, build output, or logs
 
 ## Important Notes
 
