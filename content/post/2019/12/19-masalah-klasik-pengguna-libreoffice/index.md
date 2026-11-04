@@ -13,6 +13,8 @@ Tags:
 Date: 2019-12-19 21:42:00+07:00
 Slug: masalah-klasik-pengguna-libreoffice
 image: LibreOffice-External-Logo.png
+imageCoverMode: contain
+imageMode: height
 readMore: true
 descriptionSEO: Apakah Anda merasa kesulitan saat menggunakan LibreOffice pertama kali dan ingin mengatasi nya? Silahkan baca Artikel ini!
 description: |-

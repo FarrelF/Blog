@@ -8,6 +8,8 @@ Categories:
     - Opini
 Date: 2021-04-23 00:31:39+07:00
 image: CF_logo_stacked_blktype.webp
+imageCoverMode: contain
+imageMode: height
 Tags: 
     - Cloudflare
     - CDN

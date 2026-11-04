@@ -12,6 +12,8 @@ Categories:
     - Info Blog
     - Tutorial
 Image: ZeroSSL-Logo.webp
+imageCoverMode: contain
+imageMode: height
 Date: 2021-08-26 20:51:00+07:00
 Tags:
     - Sertifikat SSL/TLS

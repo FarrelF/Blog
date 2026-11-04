@@ -26,6 +26,8 @@ Tags:
     - Penyimpanan berbasis Objek
 readMore: true
 Image: IDCloudHost_Logo.jpg
+imageCoverMode: contain
+imageMode: height
 DescriptionSEO: Blog ini pernah menggunakan IDCloudHost Object Storage, bagaimana pengalamannya? Silakan baca artikel ini!
 Description: |-
     Beberapa bulan kemarin, saya sudah berencana kalau saya akan menggunakan penyimpanan yang menggunakan protokol S3 ini sebagai tempat penyimpanan untuk blog statis ini.

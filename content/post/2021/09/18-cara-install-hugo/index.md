@@ -6,6 +6,8 @@ Categories:
     - Tutorial
     - Web dan Blog
 Image: hugo-logo-wide.webp
+imageCoverMode: contain
+imageMode: height
 Date: 2021-10-22T13:32:20+07:00
 Comments: true
 Tags:

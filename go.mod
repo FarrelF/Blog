@@ -4,5 +4,5 @@ go 1.14
 
 require (
 	github.com/CaiJimmy/hugo-theme-stack/v4 v4.0.3 // indirect
-	github.com/FarrelF/stack-modified v0.0.0-20261103160514-3e848ebf072d // indirect
+	github.com/FarrelF/stack-modified v0.0.0-20261104184915-2979b773af68 // indirect
 )

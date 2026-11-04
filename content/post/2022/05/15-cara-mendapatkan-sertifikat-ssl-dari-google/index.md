@@ -8,6 +8,8 @@ Categories:
     - Info Blog
     - Tutorial
 Image: Google-Trust-Services-Logo.webp
+imageCoverMode: contain
+imageMode: height
 Date: 2022-05-15T23:32:00+07:00
 Draft: false
 Comments: true

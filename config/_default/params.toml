@@ -91,6 +91,24 @@ quality = 75
 enabled = true
 quality = 50
 
+[imageProcessing.thumbnail]
+enabled = true
+width = 60
+height = 60
+anchor = "Center"
+mode = "fill"
+
+[imageProcessing.tile]
+width = 250
+height = 150
+anchor = "Center"
+mode = "fill"
+
+[imageProcessing.search]
+width = 120
+height = 120
+anchor = "Center"
+
 [twemoji]
 enabled = true
 

@@ -9,6 +9,8 @@ tags:
 slug: cara-install-git
 author: Farrel Franqois
 image: Cover.png
+imageCoverMode: contain
+imageMode: height
 date: 2019-09-17 16:13:03+07:00
 readMore: true
 descriptionSEO: Apakah Anda ingin meng-install Git di dalam Komputer Anda? Kalau iya, silahkan Anda baca artikel ini!
