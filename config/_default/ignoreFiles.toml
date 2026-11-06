@@ -2,6 +2,9 @@
 # ABSOLUT berkas (cth. "C:\...\content\README.md"), sehingga ^ tidak bisa
 # dipakai untuk menandai awal direktori content. Karena itu gunakan (^|/).
 #
+# Hanya berlaku untuk content, data, dan i18n, jadi tidak perlu mencantumkan
+# direktori lain seperti docs atau scripts.
+#
 # Berkas ini terpisah dari hugo.toml agar perubahannya tidak memicu build di
 # CI/CD (lihat paths-ignore di .github/workflows dan [build] ignore di
 # netlify.toml).
@@ -10,6 +13,4 @@ ignoreFiles = [
     '(^|/)CONTRIBUTING\.md$',
     '(^|/)AGENTS\.md$',
     '(^|/)CLAUDE\.md$',
-    '(^|/)docs/',
-    '(^|/)scripts/',
 ]
