@@ -1,0 +1,15 @@
+# Pola di bawah adalah EKSPRESI REGULER, bukan glob, dan dicocokkan ke path
+# ABSOLUT berkas (cth. "C:\...\content\README.md"), sehingga ^ tidak bisa
+# dipakai untuk menandai awal direktori content. Karena itu gunakan (^|/).
+#
+# Berkas ini terpisah dari hugo.toml agar perubahannya tidak memicu build di
+# CI/CD (lihat paths-ignore di .github/workflows dan [build] ignore di
+# netlify.toml).
+ignoreFiles = [
+    '(^|/)README\.md$',
+    '(^|/)CONTRIBUTING\.md$',
+    '(^|/)AGENTS\.md$',
+    '(^|/)CLAUDE\.md$',
+    '(^|/)docs/',
+    '(^|/)scripts/',
+]

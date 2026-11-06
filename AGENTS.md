@@ -24,9 +24,9 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
 ```plaintext
     .
     |-- config/
-    |   |-- _default/          # Base config (config.toml, params.toml, module.toml, menu.toml)
+    |   |-- _default/          # Base config (hugo.toml, ignoreFiles.toml, params.toml, module.toml, menu.toml)
     |   |-- development/       # Dev overrides (module.toml, server.toml)
-    |   +-- production/        # Production overrides (config.toml, params.toml)
+    |   +-- production/        # Production overrides (hugo.toml, params.toml)
     |-- content/
     |   |-- post/              # Articles, organized by year (YYYY/MM/DD-slug/index.md)
     |   |-- page/              # Static pages (tentang, dukung, cari, arsip, etc.)
@@ -79,7 +79,8 @@ The project uses Hugo config directory split:
 
 Key config files:
 
-- `config.toml` -- Hugo core config (locale, baseURL, permalinks)
+- `hugo.toml` -- Hugo core config (locale, baseURL, permalinks)
+- `ignoreFiles.toml` -- Files/directories Hugo must not process (regex, matched against absolute paths)
 - `params.toml` -- Theme parameters (sidebar, article settings, comments)
 - `module.toml` -- Hugo module imports (theme dependencies)
 - `menu.toml` -- Navigation menu

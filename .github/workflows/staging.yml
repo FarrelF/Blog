@@ -12,6 +12,7 @@ on:
       - "**/CONTRIBUTING.md"
       - "**/.gitignore"
       - "**/netlify.toml"
+      - "config/_default/ignoreFiles.toml"
       - "config/development/**"
       - "**/archetypes/**"
       - "**/docs/**"

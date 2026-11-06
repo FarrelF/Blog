@@ -17,7 +17,8 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
   ":(exclude,glob).github/**" \
   ":(exclude,glob).devcontainer/**" \
   ":(exclude,glob)scripts/**" \
-  ":(exclude,glob)config/development/**"
+  ":(exclude,glob)config/development/**" \
+  ":(exclude,glob)config/_default/ignoreFiles.toml"
 '''
 
 [build.environment]

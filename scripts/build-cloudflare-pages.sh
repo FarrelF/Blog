@@ -51,7 +51,7 @@ version_ge() {
 # need to touch /etc.
 #
 # This mostly matters for the build process itself. Hugo renders dates using
-# the `timeZone` setting in config/_default/config.toml, which is already
+# the `timeZone` setting in config/_default/hugo.toml, which is already
 # Asia/Jakarta.
 export TZ="${TZ:-Asia/Jakarta}"
 note "timezone: ${TZ}"
