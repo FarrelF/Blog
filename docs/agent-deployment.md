@@ -52,7 +52,23 @@ Configure under **Settings > Builds & deployments** in the Cloudflare dashboard:
 
 The script installs Dart Sass, verifies Hugo is new enough and runs the production build.
 
-The project's Build watch paths exclude `.github/**`, documentation files, `netlify.toml` and `scripts/**`, so a scripts-only push does not trigger a Cloudflare build; trigger a manual deployment when changing the build tooling itself.
+The project's **Build watch paths** (Settings > Build > Build watch paths) use include `*` and these excludes:
+
+```text
+.github/workflows/*   .github/*   .github/actions/*   */.github/*
+README.md   */README.md   CONTRIBUTING.md   */CONTRIBUTING.md
+AGENTS.md   */AGENTS.md   CLAUDE.md   */CLAUDE.md
+netlify.toml   scripts/**   docs/*   config/_default/ignoreFiles.*
+```
+
+A push that only touches these paths does not trigger a Cloudflare build, so trigger a manual deployment when changing the build tooling itself.
+
+Two rules when editing the list:
+
+- Paths are repo-relative with **no leading slash**, and `*` matches zero or more characters **including `/`**. A leading `*/` therefore requires at least one path segment before the match: `*/config/*/ignoreFiles.*` never matches `config/_default/ignoreFiles.toml`, while `config/_default/ignoreFiles.*` does.
+- Prefer a wildcard at the start or end of a rule; that is the only position the Cloudflare UI documents.
+
+Excludes are evaluated per changed path, and the build still runs if any path survives, so a multi-file commit that also touches `content/` builds as expected. Retries, deploy hooks and direct uploads bypass watch paths entirely.
 
 If `DART_SASS_VERSION` is set to `latest`, Cloudflare Pages will download and use the latest version of Dart Sass. To get the latest version, the `releases/latest` redirect is used first without an API call; the GitHub API is only a fallback if the redirect fails. Providing a `GITHUB_TOKEN` is optional, but recommended to avoid GitHub rate limit errors.
 
