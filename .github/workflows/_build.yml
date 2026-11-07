@@ -128,10 +128,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: /tmp/hugo_cache
-          key: ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('**/go.sum') }}-${{ github.sha }}
+          key: ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('go.mod', 'go.sum') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('**/go.sum') }}-
-            ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-
+            ${{ runner.os }}-hugo-caches-${{ inputs.hugo-cache-prefix }}-${{ hashFiles('go.mod', 'go.sum') }}-
 
       - name: Building the Static Web
         env:
