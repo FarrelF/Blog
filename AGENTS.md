@@ -318,6 +318,7 @@ See `config/_default/module.toml` for default module configuration and `config/d
 
 - Default branch: main
 - Hugo Extended is not required because SCSS is transpiled with the external Dart Sass executable; a compatible Dart Sass executable must be available on `PATH`
+- Hugo v0.170.0 removed the Extended edition and the `extended_withdeploy` builds. The standard binary now includes every feature except LibSass, `hugo.IsExtended` always returns `false`, and Deploy is available through the `withdeploy` build. `setup-hugo` still accepts `extended: true` as a no-op from v0.170.0, and `with-deploy: true` maps to `withdeploy`
 - Dart Sass is required, because this project uses Dart Sass as a transpiler for SCSS files
 - Go modules are used for theme management (not git submodules)
 - Netlify and Cloudflare Pages is the backup hosting; GitHub Actions deploys to primary host

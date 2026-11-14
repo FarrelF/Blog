@@ -1,5 +1,5 @@
 name: 'Setup Hugo'
-description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Extended or Extended+Deploy) on Linux, macOS and Windows runners, verified against the official checksum files, falling back to the SHA-256 digest published in the GitHub release'
+description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Deploy or the historical Extended editions) on Linux, macOS and Windows runners, verified against the official checksum files, falling back to the SHA-256 digest published in the GitHub release'
 inputs:
   hugo-version:
     description: 'Hugo version to install, with or without the "v" prefix (e.g. "0.168.0" or "v0.168.0"). Any official release from v0.7.0 to the latest is supported, except on macOS 15+ runners, where releases before v0.48.0 are refused (their Go 1.10-and-older runtime cannot execute there). "latest" resolves the newest release.'
@@ -10,11 +10,11 @@ inputs:
     required: false
     default: 'true'
   extended:
-    description: 'Install the Hugo Extended build (true/false). Extended builds are published from v0.43.0 onward; on unsupported platforms the standard build is installed with a warning.'
+    description: 'Install the Hugo Extended build (true/false). Extended builds are published from v0.43.0 through v0.169.x; v0.170.0 removed the Extended edition, so from v0.170.0 this input is accepted for backward compatibility and the equivalent standard build is installed. On unsupported platforms the standard build is installed with a warning.'
     required: false
     default: 'false'
   with-deploy:
-    description: 'Install Hugo with the Deploy feature (true/false). Available as Extended+Deploy from v0.137.0 (Linux ARM64 from v0.139.0, Windows from v0.137.1) and as standard+Deploy from v0.159.2; Hugo Extended v0.56.0-v0.136.x bundle Deploy already.'
+    description: 'Install Hugo with the Deploy feature (true/false). From v0.170.0 this installs the "withdeploy" build. Before v0.170.0 it means Extended+Deploy when "extended" is also true (v0.137.0+; Linux ARM64 from v0.139.0, Windows from v0.137.1) and standard+Deploy from v0.159.2; Hugo Extended v0.56.0-v0.136.x bundle Deploy already.'
     required: false
     default: 'false'
   github-token:
@@ -479,7 +479,26 @@ runs:
         EDITION_CHAIN=()
         REQUESTED_EDITION='standard'
 
-        if [ "${IS_EXTENDED:-false}" = 'true' ]; then
+        if version_ge "${HUGO_VERSION}" "0.170.0"; then
+          # Hugo v0.170.0 removed the Extended edition: LibSass was the only
+          # reason for the CGO build, and it is gone. The remaining
+          # "hugo_extended_*" assets are byte-identical aliases of the
+          # standard archives, so they are never requested here. The Deploy
+          # feature now lives in the standard "withdeploy" build, and the
+          # "extended_withdeploy" archives no longer exist at all.
+          if [ "${IS_EXTENDED:-false}" = 'true' ]; then
+            note "Hugo v${HUGO_VERSION} removed the Extended edition (v0.170.0); installing the equivalent standard build."
+            if [ "${IS_WITHDEPLOY:-false}" = 'true' ]; then
+              note "The Deploy feature is provided by the 'withdeploy' build from v0.170.0; the 'extended' input has no additional effect."
+            fi
+          fi
+          if [ "${IS_WITHDEPLOY:-false}" = 'true' ]; then
+            REQUESTED_EDITION='withdeploy'
+            EDITION_CHAIN=('withdeploy' 'standard')
+          else
+            EDITION_CHAIN=('standard')
+          fi
+        elif [ "${IS_EXTENDED:-false}" = 'true' ]; then
           if version_ge "${HUGO_VERSION}" "0.43"; then
             REQUESTED_EDITION='extended'
             EDITION_CHAIN=('extended' 'standard')
@@ -576,7 +595,9 @@ runs:
                 warn "No Extended+Deploy build found for v${RESOLVED_VERSION} on this platform; installing the extended build without Deploy."
               fi ;;
             *:standard)
-              if [ "${GO_OS}" = 'linux' ] && [ "${GO_ARCH}" = 'arm64' ]; then
+              if [ "${REQUESTED_EDITION}" = 'withdeploy' ]; then
+                warn "No Deploy ('withdeploy') build was found for v${RESOLVED_VERSION} on this platform; installing the standard build without Deploy."
+              elif [ "${GO_OS}" = 'linux' ] && [ "${GO_ARCH}" = 'arm64' ] && [ "${REQUESTED_EDITION}" = 'extended' ]; then
                 warn "Hugo Extended is only published for Linux ARM64 from v0.102.0; installing the standard build instead."
               else
                 warn "No '${REQUESTED_EDITION}' build found for v${RESOLVED_VERSION} on this platform; installing the standard build instead."

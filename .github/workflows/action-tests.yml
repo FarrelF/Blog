@@ -35,7 +35,11 @@ jobs:
           - { version: '0.103.0', edition: 'standard' }
           - { version: '0.137.0', edition: 'extended-with-deploy' }
           - { version: '0.159.2', edition: 'with-deploy' }
-          - { version: 'latest', edition: 'extended-with-deploy' }
+          - { version: '0.169.0', edition: 'extended-with-deploy', expect: '+extended+withdeploy' }
+          - { version: '0.170.0', edition: 'extended', reject: '+extended' }
+          - { version: '0.170.0', edition: 'with-deploy', expect: '+withdeploy' }
+          - { version: '0.170.0', edition: 'extended-with-deploy', expect: '+withdeploy', reject: '+extended' }
+          - { version: 'latest', edition: 'extended-with-deploy', expect: '+withdeploy' }
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -63,7 +67,26 @@ jobs:
           echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '/usr/local/bin/hugo'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   hugo-windows:
     name: Hugo / Windows / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -79,7 +102,9 @@ jobs:
           - { version: '0.20.3', edition: 'standard' }
           - { version: '0.103.0', edition: 'standard' }
           - { version: '0.137.0', edition: 'extended-with-deploy' }   # bumped to v0.137.1 (Windows archive was missing)
-          - { version: 'latest', edition: 'extended' }
+          - { version: '0.169.0', edition: 'extended-with-deploy', expect: '+extended+withdeploy' }
+          - { version: '0.170.0', edition: 'extended-with-deploy', expect: '+withdeploy', reject: '+extended' }
+          - { version: 'latest', edition: 'extended', reject: '+extended' }
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -106,7 +131,26 @@ jobs:
           echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\Program Files\Hugo\hugo.exe'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   hugo-macos-arm64:
     name: Hugo / macOS ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -117,9 +161,10 @@ jobs:
         include:
           - { version: '0.88.0', edition: 'standard' }               # no native ARM64 build; Intel fallback
           - { version: '0.102.3', edition: 'extended' }              # macOS-universal era
-          - { version: '0.152.2', edition: 'extended' }              # last darwin-universal.tar.gz
-          - { version: '0.153.0', edition: 'standard' }              # first darwin-universal.pkg
-          - { version: 'latest', edition: 'extended-with-deploy' }   # current .pkg
+          - { version: '0.152.2', edition: 'extended', expect: '+extended' }  # last darwin-universal.tar.gz
+          - { version: '0.153.0', edition: 'standard', pkg: true }              # first darwin-universal.pkg
+          - { version: '0.170.0', edition: 'extended', reject: '+extended', pkg: true }  # Extended was removed; no macOS extended asset
+          - { version: 'latest', edition: 'extended-with-deploy', expect: '+withdeploy', reject: '+extended', pkg: true }   # current .pkg
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -144,7 +189,7 @@ jobs:
           # From v0.153.0 the macOS asset is a .pkg, which installs into
           # /usr/local/bin. Non-.pkg assets follow the Linux default:
           # /usr/local/bin when writable, otherwise ~/.local/bin.
-          if [ "${{ matrix.version }}" = 'latest' ] || [ "${{ matrix.version }}" = '0.153.0' ]; then
+          if [ "${{ matrix.pkg || '' }}" = 'true' ]; then
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
           elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
             rm -f "/usr/local/bin/.install-dir-test.$$"
@@ -154,7 +199,26 @@ jobs:
           fi
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   hugo-macos-intel:
     name: Hugo / macOS Intel / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -168,7 +232,8 @@ jobs:
           - { version: '0.48', edition: 'standard' }                # oldest release that executes on macOS 15 (Go 1.11)
           - { version: '0.103.0', edition: 'standard' }
           - { version: '0.152.2', edition: 'standard' }
-          - { version: 'latest', edition: 'extended' }
+          - { version: '0.169.0', edition: 'extended', expect: '+extended', pkg: true }
+          - { version: 'latest', edition: 'extended', reject: '+extended', pkg: true }
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -193,7 +258,7 @@ jobs:
           # v0.153.0+ ships .pkg assets, which install into /usr/local/bin.
           # Older archives follow the Linux default: /usr/local/bin when
           # writable, otherwise ~/.local/bin.
-          if [ "${{ matrix.version }}" = 'latest' ]; then
+          if [ "${{ matrix.pkg || '' }}" = 'true' ]; then
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
           elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
             rm -f "/usr/local/bin/.install-dir-test.$$"
@@ -203,7 +268,26 @@ jobs:
           fi
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   # Pre-v0.48 builds (Go 1.10 and older) cannot execute on macOS 15+;
   # setup-hugo refuses them up front on those runners (both architectures).
@@ -272,7 +356,9 @@ jobs:
       matrix:
         include:
           - { version: '0.100.0', edition: 'extended' }             # no ARM64 extended build; standard fallback
-          - { version: 'latest', edition: 'extended-with-deploy' }  # native ARM64 extended_withdeploy
+          - { version: '0.169.0', edition: 'extended-with-deploy', expect: '+extended+withdeploy' }
+          - { version: '0.170.0', edition: 'extended-with-deploy', expect: '+withdeploy', reject: '+extended' }
+          - { version: 'latest', edition: 'extended-with-deploy', expect: '+withdeploy' }  # native ARM64 withdeploy
           - { version: 'latest', edition: 'standard' }
     steps:
       - name: Checkout
@@ -297,7 +383,26 @@ jobs:
           test -x "${{ steps.hugo.outputs.hugo-path }}"
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   hugo-windows-arm64:
     name: Hugo / Windows ARM64 / ${{ matrix.version }} / ${{ matrix.edition }}
@@ -307,7 +412,9 @@ jobs:
       matrix:
         include:
           - { version: '0.100.0', edition: 'standard' }             # native Windows-ARM64 build
-          - { version: 'latest', edition: 'extended' }              # AMD64 build (x64 emulation)
+          - { version: '0.169.0', edition: 'extended', expect: '+extended', expect_platform: 'windows/amd64' }  # AMD64 build (x64 emulation)
+          - { version: '0.170.0', edition: 'extended', reject: '+extended', expect_platform: 'windows/arm64' }  # native standard ARM64 build
+          - { version: '0.170.0', edition: 'extended-with-deploy', expect: '+withdeploy', reject: '+extended', expect_platform: 'windows/amd64' }  # no native withdeploy ARM64 asset
           - { version: '0.137.0', edition: 'extended-with-deploy' } # bumped to v0.137.1, AMD64 build
           - { version: 'latest', edition: 'standard' }
     steps:
@@ -336,7 +443,34 @@ jobs:
           echo "${{ steps.hugo.outputs.hugo-path }}" | grep -qF '\Program Files\Hugo\hugo.exe'
           # v0.7/v0.8 print help with a non-zero exit code even though the
           # binary works; it was already smoke tested by the action.
-          hugo version 2>/dev/null || hugo -h 2>&1 | head -n 1 || true
+          HUGO_VERSION_LINE="$(hugo version 2>/dev/null || true)"
+          if [ -z "${HUGO_VERSION_LINE}" ]; then
+            HUGO_VERSION_LINE="$(hugo -h 2>&1 | head -n 1 || true)"
+          fi
+          printf '%s\n' "${HUGO_VERSION_LINE}"
+          # Edition assertions ("expect"/"reject") pin the Hugo v0.170.0
+          # edition change: Extended is gone, Deploy lives in the standard
+          # "withdeploy" build, and the hugo_extended_* aliases are never used.
+          if [ -n "${{ matrix.expect || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect }}"; then
+              echo "::error::Expected '${{ matrix.expect }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          if [ -n "${{ matrix.reject || '' }}" ]; then
+            if printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.reject }}"; then
+              echo "::error::Did not expect '${{ matrix.reject }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
+          # Windows ARM64 rows assert whether a native windows/arm64 build or
+          # the AMD64 emulation fallback was installed.
+          if [ -n "${{ matrix.expect_platform || '' }}" ]; then
+            if ! printf '%s\n' "${HUGO_VERSION_LINE}" | grep -qF "${{ matrix.expect_platform }}"; then
+              echo "::error::Expected platform '${{ matrix.expect_platform }}' in 'hugo version' for v${{ matrix.version }} / ${{ matrix.edition }}; got: ${HUGO_VERSION_LINE}"
+              exit 1
+            fi
+          fi
 
   hugo-linux-arm64-expected-gap:
     name: Hugo / Ubuntu ARM64 / v0.19 / expected gap

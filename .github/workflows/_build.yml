@@ -33,7 +33,7 @@ on:
         default: latest
         type: string
       hugo-extended:
-        description: Install Hugo Extended build (true/false)
+        description: Install Hugo Extended build (true/false). Ignored from Hugo v0.170.0, which removed the Extended edition and installs the equivalent standard build.
         required: false
         default: true
         type: boolean

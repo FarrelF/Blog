@@ -3,7 +3,7 @@
 Composite action that downloads and installs any official [Hugo](https://github.com/gohugoio/hugo) release on GitHub Actions runners (Linux, macOS and Windows; x64 and ARM64) and puts `hugo` on `PATH`.
 
 - Supports **every release from v0.7.0 to the latest**, including the eras where the release assets were raw binaries, `linux_amd64`-style names, `Linux-64bit`-style names, `.tgz` archives and macOS `.pkg` installers.
-- Supports the **standard**, **Extended** and **Extended+Deploy** editions (plus standard `withdeploy` since v0.159.2).
+- Supports the **standard**, **Deploy** (`withdeploy`) and historical **Extended** / **Extended+Deploy** editions. Hugo v0.170.0 removed the Extended edition; see the edition matrix below.
 - **Verifies the SHA-256 checksum** against the official checksum file whenever the release publishes one, falling back to the SHA-256 digest that GitHub publishes for the release asset when the checksum file cannot be fetched.
 - Falls back gracefully when an edition or architecture is not published for the requested version, with clear warnings.
 
@@ -32,8 +32,8 @@ Composite action that downloads and installs any official [Hugo](https://github.
 |-------|----------|---------|-------------|
 | `hugo-version` | No | `latest` | Version to install, with or without the `v` prefix. `latest` resolves the newest release. Two-part versions also try the `.0` tag (e.g. `0.55` falls back to `v0.55.0`). On macOS 15+ runners, releases before v0.48.0 are refused (see the ancient-builds note below). |
 | `verify-file` | No | `true` | Verify the downloaded archive against the official checksum file. When the checksum file is unavailable or has no entry for the asset, the SHA-256 digest published in the GitHub release (v0.147.7+) is used as a fallback. When nothing can verify the archive (older releases, or the API is unreachable), verification is skipped with a warning; a mismatching checksum or digest always fails the step. |
-| `extended` | No | `false` | Install the Hugo Extended build. Extended builds exist from v0.43.0; on platforms without an Extended build the standard build is installed with a warning. |
-| `with-deploy` | No | `false` | Install with the Deploy feature. With `extended: true` this means Extended+Deploy (from v0.137.0); with a standard build it means `withdeploy` (from v0.159.2). On older releases the closest available edition is installed with a warning. |
+| `extended` | No | `false` | Install the Hugo Extended build. Extended builds exist from v0.43.0 through v0.169.x. Hugo v0.170.0 removed the Extended edition, so from v0.170.0 this input is accepted for backward compatibility and the equivalent standard build is installed with a note. On platforms without an Extended build the standard build is installed with a warning. |
+| `with-deploy` | No | `false` | Install with the Deploy feature. From v0.170.0 this installs the `withdeploy` build. With `extended: true` before v0.170.0 it means Extended+Deploy (from v0.137.0); with a standard build it means `withdeploy` (from v0.159.2). On older releases the closest available edition is installed with a warning. |
 | `github-token` | No | `''` | Token for the GitHub API, used when resolving `latest` through the releases redirect fails and to fetch the SHA-256 digest used for verification (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
 | `install-dir` | No | platform default | Directory to install Hugo into. Defaults to `/usr/local/bin` for macOS `.pkg` assets (their package location, so nothing is copied), to `/usr/local/bin` on Linux and for macOS assets that are not `.pkg` when it is writable without elevation (otherwise `~/.local/bin`), and to `C:\Program Files\Hugo` (64-bit) or `C:\Program Files (x86)\Hugo` (32-bit) on Windows when writable (otherwise `%LOCALAPPDATA%\Programs\Hugo`). |
 | `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
@@ -53,15 +53,16 @@ Any official release from **v0.7.0** onward can be installed. The action probes 
 | Edition | Linux x64 | Linux ARM64 | macOS x64 | macOS ARM64 | Windows x64 | Windows ARM64 |
 |---------|-----------|-------------|-----------|-------------|-------------|---------------|
 | standard | v0.7.0+ | v0.16.0, v0.20.3+ | v0.7.0+ | v0.81.0+ | v0.7.0+ | v0.89.0+ |
-| extended | v0.43.0+ | v0.102.0+ | v0.43.0+ | v0.81.0+ | v0.43.0+ | not published |
-| extended_withdeploy | v0.137.0+ | v0.139.0+ | v0.137.0+ | v0.137.0+ | v0.137.1+ | not published |
+| extended (v0.43.0-v0.169.x) | v0.43.0+ | v0.102.0+ | v0.43.0+ | v0.81.0+ | v0.43.0+ | not published |
+| extended_withdeploy (v0.137.0-v0.169.x) | v0.137.0+ | v0.139.0+ | v0.137.0+ | v0.137.0+ | v0.137.1+ | not published |
 | withdeploy (standard) | v0.159.2+ | v0.159.2+ | v0.159.2+ | v0.159.2+ | v0.159.2+ | not published |
 
 Details and exceptions:
 
+- **Hugo v0.170.0 removed the Extended edition.** LibSass was the only remaining reason for the CGO build, so there is now a single binary with every feature except LibSass. From v0.170.0 `extended: true` installs the equivalent standard build with a note, `extended_withdeploy` no longer exists, and `with-deploy: true` installs `withdeploy`. The `hugo_extended_*` archives still published for a few platforms are byte-identical aliases of the standard archives and are **never** requested by this action.
 - **macOS ARM64**: native builds exist from v0.81.0 with the exception of v0.88.x; universal (`darwin-universal`) builds exist from v0.102.0, and from v0.153.0 macOS is published as a `.pkg` only.
 - **Linux ARM64**: no ARM64 assets at all in v0.7.0-v0.15.x and v0.17.0-v0.20.2. The action fails with an explanatory error for those versions.
-- **Windows ARM64**: only the standard edition is published (from v0.89.0). Extended/Deploy requests install the AMD64 build, which runs through Windows x64 emulation (a warning is printed).
+- **Windows ARM64**: only the standard edition is published (from v0.89.0). Before v0.170.0, Extended/Deploy requests installed the AMD64 build; from v0.170.0 an `extended: true` request installs the native ARM64 standard build, while `with-deploy: true` still installs the AMD64 `withdeploy` build. Both fall back through Windows x64 emulation with a warning when necessary.
 - **Pre-ARM64 macOS**: on Apple Silicon, requests for versions without a native/universal build install the AMD64 build with a warning; it requires Rosetta 2. If the binary cannot execute, the smoke test downgrades to a warning in this case only.
 - **Ancient macOS builds**: macOS binaries built with Go 1.10 and older do not execute on macOS 15 and newer (on Apple Silicon the AMD64 binary fails under Rosetta 2 as well); they segfault, get killed, or abort with `fatal error: runtime: bsdthread_register error` (everything tested between v0.16 and v0.47.1 fails, and ad-hoc re-signing does not help). On macOS 15+ runners the action **refuses these versions up front** with an explanatory error and downloads nothing; on older macOS the install is still attempted and the smoke test reports the outcome. **v0.48 (the first release built with Go 1.11) is the oldest release that runs** on macOS 15+; it is exercised by the `hugo-macos-intel` test matrix, and the `hugo-macos-intel-expected-gap` / `hugo-macos-arm64-expected-gap` jobs assert the refusal for v0.16, v0.18 and v0.47.1.
 - **Extended v0.56.0-v0.136.x**: those Extended builds already bundle `hugo deploy`, so `with-deploy` has no additional effect (a note is printed).
