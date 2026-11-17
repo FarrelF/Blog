@@ -39,7 +39,7 @@ Agar blog ini 'hidup' (bukan dalam artian _makhluk hidup_ yah), maka saya perlu 
 
 Berikut ini adalah apa yang saya pakai untuk blog ini:
 
-- SSG: [Hugo Extended](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
+- SSG: [Hugo](https://gohugo.io/) (versi [{{< hugo-version >}}](https://github.com/gohugoio/hugo/releases/tag/v{{< hugo-version >}})), saya gak pake CMS/_Platform_ kayak WordPress
 - Tema: [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)
 - Fon: Keluarga [Lato](https://www.latofonts.com/) (varian: Lato Latin)
 - Favicon: Ikon [Papan Klip](https://pixabay.com/images/id-1294565/) oleh [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) dari Pixabay, dilisensikan di bawah [Lisensi Pixabay](https://pixabay.com/service/license/)
