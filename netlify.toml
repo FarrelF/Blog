@@ -23,7 +23,7 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
 '''
 
 [build.environment]
-HUGO_VERSION = "0.170.0"
+HUGO_VERSION = "0.170.1"
 GO_VERSION = "1.27.4"
 TZ = "Asia/Jakarta"
 DART_SASS_VERSION = "latest"
