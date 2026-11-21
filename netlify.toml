@@ -15,6 +15,7 @@ git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . \
   ":(exclude,glob)**/LICENSE*" \
   ":(exclude,glob)**/archetypes/**" \
   ":(exclude,glob).github/**" \
+  ":(exclude,glob).claude/**" \
   ":(exclude,glob).devcontainer/**" \
   ":(exclude,glob)scripts/**" \
   ":(exclude,glob)config/development/**" \

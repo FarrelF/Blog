@@ -20,6 +20,7 @@ on:
       - "AGENTS.md"
       - "CLAUDE.md"
       - ".github/**"
+      - ".claude/**"
       - ".devcontainer/**"
       - "scripts/**"
 
