@@ -1,16 +1,21 @@
 {{- $Platform := default "linux/amd64" (.Get "platform") -}}
 {{- $Hash := default hugo.CommitHash (.Get "hash") -}}
 {{- $Version := default hugo.Version (.Get "version") -}}
-{{- $BuildDate := default hugo.BuildDate (.Get "buildDate") -}}
-{{- $IsExtended := default hugo.IsExtended (or (.Get "isExtended")) -}}
-{{- $VendorInfo := default "gohugoio" (.Get "vendorInfo") -}}
-{{- $IsVendorInfo := default true (.Get "isVendorInfo") -}}
-{{- $VendorInfoText := "" -}}
+{{- $buildDate := default hugo.BuildDate (.Get "buildDate") -}}
+{{- $isExtended := default hugo.IsExtended (or (.Get "isExtended")) -}}
+{{- $isWithDeploy := default false (or (.Get "isWithDeploy")) -}}
+{{- $vendorInfo := default "gohugoio" (.Get "vendorInfo") -}}
+{{- $isVendorInfo := default true (.Get "isVendorInfo") -}}
+{{- $vendorInfoText := "" -}}
 {{- $Extended := "" -}}
-{{- if eq $IsVendorInfo true -}}
-    {{- $VendorInfoText = printf " VendorInfo=%s" $VendorInfo -}}
+{{- $withDeploy := "" -}}
+{{- if eq $isVendorInfo true -}}
+    {{- $vendorInfoText = printf " VendorInfo=%s" $vendorInfo -}}
 {{- end -}}
-{{- if eq $IsExtended true -}}
+{{- if eq $isExtended true -}}
     {{- $Extended = "+extended" -}}
 {{- end -}}
-{{- printf "hugo v%s-%s%s %s BuildDate=%s%s" $Version $Hash $Extended $Platform $BuildDate $VendorInfoText -}}
+{{- if eq $isWithDeploy true -}}
+    {{- $withDeploy = "+withdeploy" -}}
+{{- end -}}
+{{- printf "hugo v%s-%s%s%s %s BuildDate=%s%s" $Version $Hash $Extended $withDeploy $Platform $buildDate $vendorInfoText -}}
