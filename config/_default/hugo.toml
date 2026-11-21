@@ -38,8 +38,8 @@ name = "categories"
 weight = 200
 
 [markup.tableOfContents]
-start = 1
-end = 4
+startLevel = 2
+endLevel = 6
 ordered = true
 
 [markup.highlight]
