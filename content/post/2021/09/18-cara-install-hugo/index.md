@@ -1,5 +1,5 @@
 ---
-Title: Cara Install Hugo Static-site Generator
+Title: Cara Install Hugo Static Site Generator
 Slug: cara-install-hugo
 Author: Farrel Franqois
 Categories: 
@@ -12,7 +12,7 @@ Date: 2021-10-22T13:32:20+07:00
 Comments: true
 Tags:
     - SSG
-    - Static-site Generator
+    - Static Site Generator
     - Cara Install
     - Windows
     - GNU/Linux
@@ -36,7 +36,7 @@ Hugo juga merupakan FLOSS (_Free/Libre Open Source Software_) yang dirilis di ba
 
 Hugo mendukung berbagai _platform_ yang ada, termasuk sistem operasi Windows, macOS, berbasis Linux, dan BSD, untuk arsitektur x64 (disebut sebagai x86-64, x86_64 atau AMD64), ARM, dan ARM64. Hugo tidak lagi menyediakan berkas untuk arsitektur x86 (32-bit).
 
-SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apa pun (kecuali kalau kamu mau dukungan CSS SASS) dan memiliki fitur yang dinamakan _Fast Render Mode_.
+SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apa pun (kecuali kalau kamu mau dukungan CSS Sass) dan memiliki fitur yang dinamakan _Fast Render Mode_.
 
 Selain itu, Hugo juga memiliki banyak fitur lainnya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
 
@@ -46,19 +46,19 @@ Saat ini Hugo memiliki 2 varian, yakni edisi standar tanpa dan dengan fitur **De
 
 Fitur **Deploy** dari Hugo berguna untuk _men-deploy_ web statis ke layanan _storage_ seperti [AWS S3](https://aws.amazon.com/s3/), [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs/) dan [Google Cloud Storage](https://cloud.google.com/storage).
 
-Karena pilihannya sangat terbatas dan _platform_ yang didukung juga tidak banyak, maka sekalian saja menggunakan [Rclone]({{< relref "post/2022/08/19-cara-memakai-rclone-di-github-actions/index.md" >}}) yang secara fungsi dan fiturnya jauh lebih lengkap dan lebih baik, sehingga tidak ada fitur tersebut pun di Hugo bukan masalah sama sekali.
+Karena pilihannya terbatas dan platform yang didukung sedikit, sebaiknya gunakan saja [Rclone]({{< relref "post/2022/08/19-cara-memakai-rclone-di-github-actions/index.md" >}}), yang secara fungsi dan fiturnya jauh lebih lengkap. Jadi, ketiadaan fitur Deploy di Hugo tidak masalah.
 
-Sebelum versi `0.170.0` Hugo memiliki 1 edisi lagi selain edisi standar, yaitu **Extended** yang mana ia mendukung CSS yang berbasis Sass dan diproses menggunakan [LibSass](https://github.com/sass/libsass).
+Sebelum versi `0.170.0`, Hugo juga memiliki dua edisi lain di luar edisi standar, yaitu **Extended** dan **Extended dengan Deploy** (`extended_withdeploy`). Keduanya mendukung CSS berbasis Sass dan diproses dengan [LibSass](https://github.com/sass/libsass).
 
 Sayangnya LibSass tidak dikembangkan lagi, sehingga pengembang Hugo memutuskan untuk berganti ke [Dart Sass](https://github.com/sass/dart-sass) yang lebih baru.
 
-Sebagai akibatnya, di versi `0.170.0` dan setelahnya edisi Extended secara resmi dihapus, walau sepertinya masih bisa dikompilasi.
+Sebagai akibatnya, di versi `0.170.0` dan setelahnya kedua edisi itu resmi dihapus, walau sepertinya masih bisa dikompilasi.
 
-Sayangnya lagi, untuk mengaktifkan dukungan Sass di Hugo edisi standar, maka Dart Sass harus diinstal sendiri oleh pengguna.
+Selain itu, untuk mengaktifkan dukungan Sass di Hugo edisi standar, Dart Sass harus diinstal sendiri oleh pengguna.
 
 **Tapi kok masih ada Extended di perilisan?** Itu hanya sebagai _alias_ saja, atau dengan kata lain mereka adalah berkas yang sama dengan edisi standar. Tujuan adanya berkas-berkas tersebut adalah untuk menghindari gangguan konfigurasi yang sudah ada, seperti konfigurasi CI/CD, pengelola paket, dll, itu pun yang tersedia cuma berkas yang sering diunduh saja.
 
-## Cara Install Hugo
+## Cara install Hugo
 
 Di bagian ini, saya akan membahas cara instalasinya.
 
@@ -66,13 +66,13 @@ Caranya sendiri akan berbeda-beda untuk setiap sistem operasi ataupun _platform_
 
 Perlu dicatat bahwa Dart Sass adalah program yang terpisah dari Hugo meskipun Hugo menggunakannya jika diperlukan, sehingga harus diinstal sendiri dan tidak semua cara instalasi Hugo di sini sudah termasuk instalasi Dart Sass.
 
-Instalasi Dart Sass bisa termasuk jika secara eksplisit menyebutkan `sass` maupun `dart-sass` di dalam barisan perintah instalasinya, jika tidak maka Dart Sass tidak akan terinstal. Dart Sass itu program opsional di sini, tidak wajib diinstal, jadi tanpa itu pun tidak masalah selama temanya tidak menggunakan Sass.
+Dart Sass ikut terpasang hanya jika perintah instalasinya menyebut `sass` atau `dart-sass` secara eksplisit. Dart Sass bersifat opsional, jadi tidak menginstalnya pun tidak masalah selama tema yang dipakai tidak memakai Sass.
 
 Berikut adalah cara instalasinya:
 
 ### Windows
 
-#### Pengelola Paket Scoop (direkomendasikan)
+#### Pengelola paket Scoop (direkomendasikan)
 
 Anda dapat menginstal Hugo dan Dart Sass melalui [Scoop](https://scoop.sh) sebagai pengelola paket di Windows dengan perintah berikut:
 
@@ -96,11 +96,11 @@ Jika Anda sudah menginstal `sudo` melalui Scoop, [mengaktifkan `sudo` di Windows
 sudo scoop install hugo sass -g
 ```
 
-Dengan begini, Anda tidak perlu membuka Terminal-nya sebagai Administrator lagi.
+Dengan begitu, Anda tidak perlu lagi membuka Terminal sebagai Administrator.
 
 Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `update`. Kalau tidak butuh Dart Sass, cukup hapus saja `sass`-nya pada barisan perintah di atas.
 
-#### Pengelola Paket Chocolatey
+#### Pengelola paket Chocolatey
 
 Anda dapat menginstal Hugo dan Dart Sass melalui [Chocolatey](https://chocolatey.org/) sebagai pengelola paket di Windows dengan perintah berikut:
 
@@ -108,9 +108,9 @@ Anda dapat menginstal Hugo dan Dart Sass melalui [Chocolatey](https://chocolatey
 choco install hugo sass
 ```
 
-Mungkin perintah di atas akan menginstal Dart SDK juga yang ukurannya kurang lebih 200 MB-an, yang mana itu terlalu besar untuk keperluan Hugo dan Dart Sass saja.
+Perlu diketahui, paket `sass` di Chocolatey selalu mengikuti versi Dart Sass terbaru, tetapi ia bergantung pada paket `dart-sdk` sehingga SDK lengkapnya ikut terinstal. Unduhan SDK itu sekitar 210 MB, jauh lebih besar daripada kebutuhan Hugo dan Dart Sass saja.
 
-Apabila ukuran tersebut dianggap masalah, gunakan pengelola paket Scoop untuk menginstal Dart Sass atau instal secara manual. Kalau tidak butuh Dart Sass, cukup hapus saja `sass` pada baris perintah di atas.
+Situs resmi Sass memang menyarankan `choco install sass`, jadi perintah di atas sah-sah saja. Namun, bila ukuran unduhan menjadi masalah, gunakan Scoop untuk memasang Dart Sass atau instal secara manual. Kalau tidak butuh Dart Sass, cukup hapus `sass` dari perintah di atas.
 
 Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrade`.
 
@@ -120,7 +120,7 @@ Secara baku, Chocolatey akan menginstal paket-paketnya di dalam direktori `%Prog
 Namun, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau aplikasi terminal lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
 {{< /info >}}
 
-#### Pengelola Paket WinGet
+#### Pengelola paket WinGet
 
 Anda dapat menginstal Hugo melalui WinGet sebagai pengelola paket di Windows dengan perintah berikut:
 
@@ -140,7 +140,7 @@ Anda tidak dapat menginstal Dart Sass menggunakan pengelola paket ini karena tid
 
 Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrade`.
 
-#### Berkas Biner, tanpa Pengelola Paket (Manual)
+#### Berkas biner, tanpa pengelola paket (manual)
 
 Hugo telah menyediakan berkas biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `zip` (untuk Windows), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
 
@@ -196,7 +196,7 @@ Jika tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, maka b
 
 7. Jika masih ada sesi Command Prompt, Windows Terminal, PowerShell, dll, maka Anda perlu menutup semuanya terlebih dahulu/mengakhiri semua sesinya, lalu membukanya kembali.
 
-    Biasanya, perubahan pada variabel `PATH` tidak akan berefek jika sesinya masih ada. Jika Anda tidak membuka Terminalnya, silakan Anda membukanya terlebih dahulu, entah itu Command Prompt, Windows Terminal, PowerShell, dll.
+    Perubahan pada variabel `PATH` tidak berlaku di sesi terminal yang sudah terbuka. Jika belum ada terminal yang dibuka, bukalah salah satu (Command Prompt, Windows Terminal, PowerShell, dan sebagainya) sekarang.
 
 8. Setelah Anda membuka Terminal-nya, silakan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
@@ -212,7 +212,7 @@ Nah, untuk Windows-nya saya cukupkan di sini dulu, berikutnya saya bahas cara in
 
 ### GNU/Linux {#gnu-linux}
 
-#### Debian, Ubuntu dan Keluarganya
+#### Debian, Ubuntu, dan keluarganya
 
 Jika Anda adalah pengguna Debian, Ubuntu atau keluarganya, sebenarnya Anda dapat menginstalnya dengan perintah berikut:
 
@@ -274,13 +274,13 @@ rm -f "$HUGO_FILENAME"; cd -
 **Penjelasan:**
 Perintah di atas menginstal Hugo lewat `dpkg` dari berkas `.deb` yang namanya diambil dari variabel `HUGO_FILENAME`, lalu menampilkan pesan berhasil atau gagal. Apa pun hasilnya, berkas penginstal dihapus dan Terminal kembali ke direktori sebelumnya.
 
-Sayangnya semua cara di sini tidak menginstal Dart Sass melalui repositori resmi dan juga tidak ada berkas `.deb`-nya, sehingga Anda diharuskan menggunakan pengelola paket lain seperti Homebrew, Snap atau pengelola paket Nix, atau instal manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
+Semua cara di bagian ini tidak menyertakan Dart Sass, dan Dart Sass juga tidak tersedia sebagai berkas `.deb`. Gunakan pengelola paket lain seperti Homebrew, Snap, atau Nix, instal secara manual, atau pakai skrip yang telah tersedia.
 
 Jika merasa sudah selesai, silakan alihkan kembali hak akses di dalam Terminal Anda menjadi pengguna biasa dengan perintah `exit`.
 
 Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
-#### Fedora, CentOS, RHEL dan Keluarganya
+#### Fedora, CentOS, RHEL, dan keluarganya
 
 Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat memasangnya dengan perintah berikut:
 
@@ -288,29 +288,29 @@ Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat mema
 sudo dnf install hugo
 ```
 
-Versi yang didapat mungkin bukanlah yang terbaru, apalagi kalau kamu menggunakan RHEL dan keluarganya, tapi setidaknya mendekati terbaru kalau kamu menggunakan Fedora versi terbaru.
+Versi yang didapat mungkin bukan yang terbaru, terutama untuk RHEL dan keluarganya. Untuk Fedora versi terbaru, paketnya biasanya sudah mendekati rilis terkini.
 
-Anda juga tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia.
+Dart Sass juga belum tersedia di repositori resmi Fedora dan keluarganya. Untuk memasangnya, gunakan Homebrew, Snap, atau Nix, instal secara manual, atau pakai skrip yang telah tersedia.
 
-Kalau mau menginstal Dart Sass atau/dan Hugo versi terbaru sekalian, silakan gunakan pengelola paket Homebrew, Snap atau pengelola paket Nix, atau instal manual.
+Kalau ingin Hugo versi terbaru sekaligus Dart Sass, gunakan Homebrew, Snap, atau Nix, atau instal secara manual.
 
-#### openSUSE Leap/Tumbleweed dan Keluarganya (Tidak Resmi)
+#### openSUSE Leap/Tumbleweed dan keluarganya (tidak resmi)
 
 Jika Anda adalah pengguna openSUSE Leap/Tumbleweed atau keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:dirkmueller:Factory`](https://build.opensuse.org/project/show/home:dirkmueller:Factory) untuk Hugo dan [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps) untuk Dart Sass, jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
 
 ```shell {linenos=true}
-### Untuk Pengguna openSUSE Leap 16
+### Untuk pengguna openSUSE Leap 16
 # Hugo
 sudo zypper ar -f https://download.opensuse.org/repositories/home:dirkmueller:Factory/16.0/home:dirkmueller:Factory.repo
 
 # Dart Sass
 sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/16.0/home:darix:apps.repo
 
-### Untuk Pengguna openSUSE Tumbleweed
+### Untuk pengguna openSUSE Tumbleweed
 # Hugo
 sudo zypper ar -f https://download.opensuse.org/repositories/home:dirkmueller:Factory/standard/home:dirkmueller:Factory.repo
 
-### Catatan: Menginstal Dart Sass tidak perlu menambahkan repositori apa pun jika Anda adalah pengguna openSUSE Tumbleweed, karena sudah tersedia versi terbaru dari repositori resminya
+### Catatan: pengguna openSUSE Tumbleweed tidak perlu menambahkan repositori karena Dart Sass sudah tersedia di repositori resmi
 ```
 
 Setelah itu segarkan repositorinya, lalu install Hugo dan Dart Sass-nya dengan perintah berikut:
@@ -321,7 +321,7 @@ sudo sh -c 'zypper ref; zypper in hugo dart-sass'
 
 Untuk lebih lanjut, silakan kunjungi [halaman unduh repositorinya](https://software.opensuse.org/download.html?project=home%3Adirkmueller%3AFactory&package=hugo).
 
-#### Arch Linux, Manjaro dan Keluarganya
+#### Arch Linux, Manjaro, dan keluarganya
 
 Jika Anda adalah pengguna Arch Linux, Manjaro atau keluarganya, Anda dapat menginstal Hugo dan Dart Sass dengan perintah berikut:
 
@@ -329,7 +329,7 @@ Jika Anda adalah pengguna Arch Linux, Manjaro atau keluarganya, Anda dapat mengi
 sudo pacman -S hugo dart-sass
 ```
 
-#### Solus dan Keluarganya
+#### Solus dan keluarganya
 
 Jika Anda menggunakan Solus atau keluarganya, maka Anda dapat menginstalnya dengan perintah berikut:
 
@@ -339,7 +339,7 @@ sudo eopkg install hugo
 
 Anda tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia, silakan gunakan pengelola paket lain seperti Snap, Homebrew atau pengelola paket Nix, atau instal manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
 
-#### Void Linux dan Keluarganya
+#### Void Linux dan keluarganya
 
 Jika Anda adalah pengguna Void Linux atau keluarganya, Anda dapat menginstal Hugo dengan perintah berikut:
 
@@ -349,9 +349,9 @@ sudo xbps-install -S hugo
 
 Anda tidak perlu khawatir mengenai arsitektur sistem yang Anda gunakan, karena paketnya mendukung itu semua, sehingga bisa diinstal di arsitektur sistem manapun di Void Linux.
 
-Sayangnya, Anda juga tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia, silakan gunakan pengelola paket lain seperti Homebrew, atau pengelola paket Nix, instal secara manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
+Dart Sass juga belum tersedia di repositori resmi Void Linux. Gunakan Homebrew atau Nix, instal secara manual, atau pakai skrip yang telah tersedia.
 
-#### Homebrew (Lebih Universal)
+#### Homebrew (lebih universal) {#homebrew-lebih-universal}
 
 Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih universal, maka Anda bisa menginstal Hugo dan Dart Sass-nya dengan perintah berikut:
 
@@ -361,7 +361,7 @@ brew install hugo dart-sass
 
 Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
 
-#### Snap (Lebih Universal)
+#### Snap (lebih universal)
 
 Jika Anda ingin menggunakan Snap yang lebih universal, maka Anda dapat menginstal Hugo dan Dart Sass-nya dengan perintah berikut:
 
@@ -369,7 +369,7 @@ Jika Anda ingin menggunakan Snap yang lebih universal, maka Anda dapat menginsta
 sudo snap install hugo dart-sass
 ```
 
-Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
+Untuk memasang salah satunya saja, hapus nama paket yang tidak dibutuhkan dari perintah di atas.
 
 {{< info title="Catatan:" >}}
 Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan systemd sebagai ketergantungan, sehingga distribusi yang Anda gunakan harus memakai systemd sebagai init agar Snap bisa digunakan.
@@ -379,7 +379,7 @@ Jika Anda menggunakan distribusi yang tidak memakai systemd seperti Void Linux, 
 Makanya di awal saya bilang "lebih universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan pengelola paket bawaan.
 {{< /info >}}
 
-#### Pengelola Paket Nix (Lebih Universal)
+#### Pengelola paket Nix (lebih universal)
 
 Jika Anda ingin menggunakan [Pengelola Paket Nix](https://nixos.org/) yang lebih universal, sebelum benar-benar menginstalnya, Anda bisa mencobanya terlebih dahulu dengan menggunakan perintah berikut:
 
@@ -391,7 +391,7 @@ Perintah di atas akan tetap menginstal Hugo dan Dart Sass, tapi di dalam `nix-sh
 
 Jadi, jika Anda menginstalnya dengan perintah di atas, agar Hugo dapat dijalankan sewaktu-waktu, maka Anda harus masuk ke dalam `nix-shell` terlebih dahulu dengan mengeksekusi perintah di atas.
 
-Hal seperti ini cocok untuk Anda yang menguji aplikasi sebelum diinstal secara permanen, meski sebenarnya cara ini yang direkomendasikan oleh mereka ketimbang menginstalnya secara permanen, kecuali jika Anda menggunakan NixOS yang aplikasinya bisa diinstal dengan mengubah berkas konfigurasi sistemnya.
+Cara ini cocok untuk menguji aplikasi sebelum dipasang permanen. Nix sendiri justru menyarankan `nix-shell` ketimbang instalasi permanen, kecuali Anda memakai NixOS yang aplikasinya dipasang lewat berkas konfigurasi sistem.
 
 Namun, jika Anda ingin menginstalnya secara permanen, maka Anda bisa menginstalnya dengan perintah berikut:
 
@@ -399,15 +399,15 @@ Namun, jika Anda ingin menginstalnya secara permanen, maka Anda bisa menginstaln
 nix-env -iA nixpkgs.hugo nixpkgs.dart-sass
 ```
 
-Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
+Untuk memasang salah satunya saja, hapus nama paket yang tidak dibutuhkan dari perintah di atas.
 
-Perintah di atas berlaku bagi yang bukan pengguna NixOS, jika Anda menggunakannya, cukup ganti `nixpkgs` di atas menjadi `nixos`.
+Aturan ini berlaku bagi pengguna Nix di luar NixOS. Jika Anda pengguna NixOS, ganti `nixpkgs` menjadi `nixos`.
 
 Namun, jika Anda tidak menggunakan NixOS dan menggunakan Nix sebagai pengelola paket, maka versi paket yang Anda dapatkan biasanya akan mengikuti kanal tidak stabil dari NixOS/Nixpkgs.
 
-#### Penyebutan khusus: Instalasi Dart Sass menggunakan skrip (Lebih Universal)
+#### Penyebutan khusus: instalasi Dart Sass menggunakan skrip (lebih universal)
 
-Saya telah menyediakan skrip khusus instalasi Dart Sass apabila distribusi Anda tidak menyediakan Dart Sass, baik tidak ada versi terbaru maupun tidak ada sama sekali, tapi tidak mau ribet menginstalnya.
+Saya sudah menyediakan skrip instalasi Dart Sass untuk distribusi yang tidak menyediakannya, baik versinya ketinggalan maupun paketnya tidak ada sama sekali.
 
 Untuk melihat atau/dan mengunduh skripnya, silakan kunjungi file yang bernama [`install-dart-sass.sh`](https://github.com/FarrelF/Blog/blob/main/scripts/install-dart-sass.sh).
 
@@ -433,7 +433,7 @@ Karena skrip tersebut juga berbasis Bash, bukan POSIX shell, maka mungkin ada se
 
 Untuk Android melalui Termux juga belum didukung oleh skrip ini, mungkin ke depan akan ditambahkan sekalian skrip _installer_ Hugo-nya.
 
-#### Berkas Biner, tanpa Pengelola Paket (Lebih Universal, Manual)
+#### Berkas biner, tanpa pengelola paket (lebih universal, manual)
 
 Hugo telah menyediakan berkas biner yang telah dikompilasi agar dapat digunakan secara langsung dan berkas tersebut diarsipkan dengan format/ekstensi `.tar.gz` (untuk GNU/Linux), jadi Anda bisa langsung menggunakannya setelah berkas tersebut diunduh dan diekstrak.
 
@@ -450,7 +450,7 @@ Cara sederhananya:
 5. Pastikan bahwa `/usr/local/bin/hugo` itu milik pengguna `root` (dengan mengeksekusi perintah `sudo chown root:root /usr/local/bin/hugo`)
 6. Selesai!
 
-Langkah yang kurang lebih sama juga bisa diaplikasikan untuk menginstal Dart Sass, cuma bedanya di perilisan, direktori sama cara ekstraknya.
+Langkah yang kurang lebih sama berlaku untuk Dart Sass; hanya halaman rilis, direktori, dan cara ekstraknya yang berbeda.
 
 Untuk mengunduhnya, silakan kunjungi [halaman perilisannya](https://github.com/sass/dart-sass/releases), unduh dan ekstrak, setelah diekstrak, pindahkan folder `src` dan berkas `sass` di dalam folder `dart-sass` langsung ke direktori `/usr/local/bin`.
 
@@ -575,13 +575,7 @@ Perlu diingat bahwa ini tidaklah menginstal Dart Sass, Anda dapat menginstalnya 
 
 #### Homebrew
 
-Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat menginstal Hugo dan Dart Sass dengan perintah berikut:
-
-```shell
-brew install hugo dart-sass
-```
-
-Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
+Homebrew tersedia untuk macOS maupun GNU/Linux. Perintah instalasinya sama dengan bagian [Homebrew di GNU/Linux](#homebrew-lebih-universal).
 
 #### MacPorts
 
@@ -631,7 +625,7 @@ Jika Anda adalah pengguna NetBSD dan keluarganya, maka Anda dapat menginstal Hug
 sudo pkgin install go-hugo
 ```
 
-#### FreeBSD, DragonFly BSD dan keluarganya
+#### FreeBSD, DragonFly BSD, dan keluarganya
 
 **Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti FreeBSD dan DragonFly BSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna FreeBSD dan DragonFly BSD, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
 
@@ -647,15 +641,15 @@ Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`hugomod
 
 Untuk penjelasan lebih lanjut, silakan kunjungi [situs web resminya](https://docker.hugomods.com).
 
-## Pertanyaan dan Jawaban
+## Pertanyaan dan jawaban
 
-### Pertanyaan ke-1: Varian Hugo mana yang harus dipakai? {#pertanyaan-ke1}
+### Pertanyaan ke-1: varian Hugo mana yang harus dipakai? {#pertanyaan-ke1}
 
-**Jawab:** Sebaiknya edisi standar tanpa fitur **Deploy**, karena fitur tersebut pilihannya sangat terbatas dan secara fungsi itu tidak lebih baik ketimbang kamu menggunakan Rclone sekalian.
+**Jawab:** Sebaiknya edisi standar tanpa fitur **Deploy**, karena pilihannya terbatas dan secara fungsi tidak lebih baik daripada memakai Rclone.
 
-Akan lebih baik kalau Dart Sass terinstal, mengingat banyak tema yang menggunakan SASS juga, tapi sayangnya tidak semua cara instalasi di sini bisa menyertakan instalasi Dart Sass.
+Akan lebih baik kalau Dart Sass terinstal, mengingat banyak tema yang menggunakan Sass juga, tapi sayangnya tidak semua cara instalasi di sini bisa menyertakan instalasi Dart Sass.
 
-### Pertanyaan ke-2: Kenapa cara instal Hugo di Fedora, Red Hat dan keluarganya dulu tidak dibahas? {#pertanyaan-ke2}
+### Pertanyaan ke-2: kenapa cara instal Hugo di Fedora, Red Hat, dan keluarganya dulu tidak dibahas? {#pertanyaan-ke2}
 
 **Jawab:** ~~Karena versi Hugo yang digunakan oleh Fedora, Red Hat, dan Keluarganya adalah versi lama.~~
 
@@ -663,9 +657,9 @@ Akan lebih baik kalau Dart Sass terinstal, mengingat banyak tema yang menggunaka
 
 ~~Jika Anda sangat ingin menginstal Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda menginstalnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew, Nix atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).~~
 
-**PEMBARUAN, 07 Juni 2023:** Sekarang cara instal untuk Fedora, CentOS, RHEL, dan keluarganya sudah saya bahas, sehingga pertanyaan ini tidak berlaku lagi.
+**Pembaruan (7 Juni 2023):** Sekarang cara instal untuk Fedora, CentOS, RHEL, dan keluarganya sudah saya bahas, sehingga pertanyaan ini tidak berlaku lagi.
 
-### Pertanyaan ke-3: Apakah Cara instal untuk openSUSE bisa diaplikasikan di Fedora, Red Hat, dan keluarganya? {#pertanyaan-ke3}
+### Pertanyaan ke-3: apakah cara instal untuk openSUSE bisa diaplikasikan di Fedora, Red Hat, dan keluarganya? {#pertanyaan-ke3}
 
 **Jawab:** Tidak bisa, kalaupun bisa maka sebaiknya jangan, karena pada dasarnya distribusi keluarga SUSE dan Fedora/Red Hat memang berbeda meskipun sama-sama menggunakan RPM sebagai salah satu sistem pengelolaan paketnya dan sama-sama merupakan GNU/Linux.
 
