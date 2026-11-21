@@ -30,85 +30,87 @@ Description: |-
 
 ## Apa itu Hugo?
 
-Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis yang dibuat menggunakan bahasa pemrograman Go, dikembangkan oleh Steve Francia, Bjørn Erik Pedersen, dan kontributor lainnya
+Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis yang dibuat menggunakan bahasa pemrograman Go, dikembangkan oleh Steve Francia, Bjørn Erik Pedersen, dan kontributor lainnya.
 
 Hugo juga merupakan FLOSS (_Free/Libre Open Source Software_) yang dirilis di bawah [Lisensi Apache 2.0](https://github.com/gohugoio/hugo/blob/master/LICENSE), kode sumbernya bisa Anda akses [di sini](https://github.com/gohugoio/hugo).
 
-Hugo mendukung berbagai _platform_ yang ada, termasuk sistem operasi Windows, macOS, berbasis Linux, dan BSD, baik untuk arsitektur x86, x64 (disebut sebagai x86-64, x86_64 atau AMD64), ARM dan ARM64.
+Hugo mendukung berbagai _platform_ yang ada, termasuk sistem operasi Windows, macOS, berbasis Linux, dan BSD, untuk arsitektur x64 (disebut sebagai x86-64, x86_64 atau AMD64), ARM, dan ARM64. Hugo tidak lagi menyediakan berkas untuk arsitektur x86 (32-bit).
 
-SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apa pun dan memiliki fitur yang dinamakan _Fast Render Mode_.
+SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apa pun (kecuali kalau kamu mau dukungan CSS SASS) dan memiliki fitur yang dinamakan _Fast Render Mode_.
 
 Selain itu, Hugo juga memiliki banyak fitur lainnya, seperti i18n untuk dukungan multibahasa, berkas data, berkas statis, pemrosesan gambar, pemrosesan berkas CSS, JS, dll yang dapat menunjang kebutuhan untuk Situs Web/Blog Anda.
 
 ## Varian Hugo
 
-Hugo memiliki 2 varian, yakni Hugo (varian Standar/Biasa) dan Hugo Extended, bedanya adalah kalau Hugo Extended memiliki fitur tambahan, seperti pemrosesan berkas SCSS/SASS yang tidak dimiliki oleh Hugo Standar.
+Saat ini Hugo memiliki 2 varian, yakni edisi standar tanpa dan dengan fitur **Deploy** (atau ada `withdeploy` di nama berkasnya) yang mana bisa kamu lakukan dengan perintah `hugo deploy` nantinya.
 
-Namun, secara resmi Hugo Extended memiliki dukungan yang lebih sedikit dibandingkan dengan Hugo biasa dan hanya disediakan untuk _platform_ berikut:
+Fitur **Deploy** dari Hugo berguna untuk _men-deploy_ web statis ke layanan _storage_ seperti [AWS S3](https://aws.amazon.com/s3/), [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs/) dan [Google Cloud Storage](https://cloud.google.com/storage).
 
-- Windows yang berarsitektur x64
-- Sistem Operasi berbasiskan Linux yang berarsitektur x64 dan ARM64, serta perlu "GNU C Library" (glibc)
-- macOS yang berarsitektur x64 dan ARM64 (itu pun dicampur jadi satu berkas biner)
+Karena pilihannya sangat terbatas dan _platform_ yang didukung juga tidak banyak, maka sekalian saja menggunakan [Rclone]({{< relref "post/2022/08/19-cara-memakai-rclone-di-github-actions/index.md" >}}) yang secara fungsi dan fiturnya jauh lebih lengkap dan lebih baik, sehingga tidak ada fitur tersebut pun di Hugo bukan masalah sama sekali.
 
-Meskipun secara resmi Hugo Extended hanya disediakan untuk _platform_ di atas saja, akan tapi Anda juga bisa menginstalnya di _platform_ lain, salah satunya adalah Void Linux dan Termux di Android walau bukan resmi dari pengembang, nanti akan saya bahas cara instalnya.
+Sebelum versi `0.170.0` Hugo memiliki 1 edisi lagi selain edisi standar, yaitu **Extended** yang mana ia mendukung CSS yang berbasis Sass dan diproses menggunakan [LibSass](https://github.com/sass/libsass).
+
+Sayangnya LibSass tidak dikembangkan lagi, sehingga pengembang Hugo memutuskan untuk berganti ke [Dart Sass](https://github.com/sass/dart-sass) yang lebih baru.
+
+Sebagai akibatnya, di versi `0.170.0` dan setelahnya edisi Extended secara resmi dihapus, walau sepertinya masih bisa dikompilasi.
+
+Sayangnya lagi, untuk mengaktifkan dukungan Sass di Hugo edisi standar, maka Dart Sass harus diinstal sendiri oleh pengguna.
+
+**Tapi kok masih ada Extended di perilisan?** Itu hanya sebagai _alias_ saja, atau dengan kata lain mereka adalah berkas yang sama dengan edisi standar. Tujuan adanya berkas-berkas tersebut adalah untuk menghindari gangguan konfigurasi yang sudah ada, seperti konfigurasi CI/CD, pengelola paket, dll, itu pun yang tersedia cuma berkas yang sering diunduh saja.
 
 ## Cara Install Hugo
 
-Di bagian ini, saya akan membahas cara instalnya.
+Di bagian ini, saya akan membahas cara instalasinya.
 
 Caranya sendiri akan berbeda-beda untuk setiap sistem operasi ataupun _platform_ yang ada, jadi pastikan Anda mengikutinya sesuai dengan sistem operasi atau _platform_ yang digunakan.
+
+Perlu dicatat bahwa Dart Sass adalah program yang terpisah dari Hugo meskipun Hugo menggunakannya jika diperlukan, sehingga harus diinstal sendiri dan tidak semua cara instalasi Hugo di sini sudah termasuk instalasi Dart Sass.
+
+Instalasi Dart Sass bisa termasuk jika secara eksplisit menyebutkan `sass` maupun `dart-sass` di dalam barisan perintah instalasinya, jika tidak maka Dart Sass tidak akan terinstal. Dart Sass itu program opsional di sini, tidak wajib diinstal, jadi tanpa itu pun tidak masalah selama temanya tidak menggunakan Sass.
 
 Berikut adalah cara instalasinya:
 
 ### Windows
 
-#### Pengelola Paket Scoop
+#### Pengelola Paket Scoop (direkomendasikan)
 
-Anda dapat menginstal Hugo melalui [Scoop](https://scoop.sh) sebagai pengelola paket di Windows dengan perintah berikut:
-
-```powershell
-scoop install hugo
-```
-
-Perintah di atas akan menginstal Hugo dalam varian biasa, jika Anda ingin menginstal Hugo Extended, ganti `hugo` jadi `hugo-extended`, seperti berikut:
+Anda dapat menginstal Hugo dan Dart Sass melalui [Scoop](https://scoop.sh) sebagai pengelola paket di Windows dengan perintah berikut:
 
 ```powershell
-scoop install hugo-extended
+scoop install hugo sass
 ```
 
-Perintah di atas akan menginstal Hugo di dalam direktori pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `-g`.
+Perintah di atas akan menginstal Hugo dan Dart Sass di dalam direktori pengguna (`%USERPROFILE%\scoop\apps`), jika Anda ingin Hugo dan Dart Sass-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `-g`.
 
 Perintahnya akan menjadi seperti berikut:
 
 ```powershell
-scoop install hugo-extended -g
+scoop install hugo sass -g
 ```
 
 Namun, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell-nya, atau aplikasi terminal lainnya sebagai Administrator terlebih dahulu sebelum menjalankan perintah di atas.
 
-Jika Anda sudah menginstal `sudo` melalui Scoop atau [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
+Jika Anda sudah menginstal `sudo` melalui Scoop, [mengaktifkan `sudo` di Windows 11](https://learn.microsoft.com/en-us/windows/advanced-settings/sudo/) atau menginstal [`gsudo`](https://github.com/gerardog/gsudo) sebelumnya, maka cukup tambahkan saja `sudo` sebelum menjalankan perintah Scoop, tanpa harus menjalankan Terminal sebagai Administrator, menjadi seperti berikut:
 
 ```powershell
-sudo scoop install hugo-extended -g
+sudo scoop install hugo sass -g
 ```
 
 Dengan begini, Anda tidak perlu membuka Terminal-nya sebagai Administrator lagi.
 
-Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `update`.
+Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `update`. Kalau tidak butuh Dart Sass, cukup hapus saja `sass`-nya pada barisan perintah di atas.
 
 #### Pengelola Paket Chocolatey
 
-Anda dapat menginstal Hugo melalui [Chocolatey](https://chocolatey.org/) sebagai pengelola paket di Windows dengan perintah berikut:
+Anda dapat menginstal Hugo dan Dart Sass melalui [Chocolatey](https://chocolatey.org/) sebagai pengelola paket di Windows dengan perintah berikut:
 
 ```powershell
-choco install hugo
+choco install hugo sass
 ```
 
-Perintah di atas akan menginstal Hugo dalam varian Biasa/Standar, jika Anda ingin menginstal Hugo Extended, cukup ganti saja `hugo` menjadi `hugo-extended`, seperti berikut:
+Mungkin perintah di atas akan menginstal Dart SDK juga yang ukurannya kurang lebih 200 MB-an, yang mana itu terlalu besar untuk keperluan Hugo dan Dart Sass saja.
 
-```powershell
-choco install hugo-extended
-```
+Apabila ukuran tersebut dianggap masalah, gunakan pengelola paket Scoop untuk menginstal Dart Sass atau instal secara manual. Kalau tidak butuh Dart Sass, cukup hapus saja `sass` pada baris perintah di atas.
 
 Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrade`.
 
@@ -116,25 +118,25 @@ Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrad
 Secara baku, Chocolatey akan menginstal paket-paketnya di dalam direktori `%ProgramData%\chocolatey`, sehingga paket yang terinstal dapat diakses oleh semua pengguna di dalam 1 sistem.
 
 Namun, direktori tersebut memerlukan izin Administrator untuk mengisinya. Oleh karena itu, Anda perlu membuka Command Prompt, Windows Terminal, PowerShell, atau aplikasi terminal lainnya sebagai Administrator sebelum menginstal, menghapus, dan memperbarui paket melalui Chocolatey.
-
-Atau, Anda juga bisa memakai [`gsudo`](https://github.com/gerardog/gsudo) agar dapat memakai perintah `sudo` di dalam Terminal tanpa harus membukanya sebagai Administrator.
-{{< / info >}}
+{{< /info >}}
 
 #### Pengelola Paket WinGet
 
-Anda dapat menginstal Hugo Extended melalui WinGet sebagai pengelola paket di Windows dengan perintah berikut:
+Anda dapat menginstal Hugo melalui WinGet sebagai pengelola paket di Windows dengan perintah berikut:
 
 ```powershell
-winget install --name "Hugo (Extended)"
+winget install -e --id Hugo.Hugo
 ```
 
-Secara baku, perintah di atas akan menginstal Hugo Extended di dalam direktori pengguna, jika Anda ingin Hugo-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `--scope machine`, contohnya seperti berikut:
+Secara baku, perintah di atas akan menginstal Hugo di dalam direktori pengguna, jika Anda ingin Hugo-nya dapat berjalan di semua pengguna, maka Anda perlu menambahkan argumen `--scope machine`, contohnya seperti berikut:
 
 ```powershell
-winget install --name "Hugo (Extended)" --scope machine
+winget install -e --id Hugo.Hugo --scope machine
 ```
 
 Namun, perlu diingat bahwa Anda perlu membuka Windows Terminal, Command Prompt, PowerShell, atau aplikasi terminal lainnya sebagai Administrator agar dapat menjalankan perintah dengan argumen di atas.
+
+Anda tidak dapat menginstal Dart Sass menggunakan pengelola paket ini karena tidak tersedia, sehingga Anda perlu menginstalnya menggunakan pengelola paket lain, seperti Scoop dan Chocolatey, atau diinstal secara manual.
 
 Untuk memperbarui versinya, silakan ganti opsi `install` di atas menjadi `upgrade`.
 
@@ -144,19 +146,19 @@ Hugo telah menyediakan berkas biner yang telah dikompilasi agar dapat digunakan 
 
 Maksud dari "berkas biner" di sini adalah berkas yang tujuannya untuk dieksekusi, kalau di Windows Anda akan mengenal dengan berkas yang berakhiran `.exe`.
 
-Jika Anda tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, maka berikut adalah langkah-langkahnya:
+Jika tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, maka berikut adalah langkah-langkahnya:
 
 1. Unduh Berkas Arsip yang berisi berkas biner Hugo di [halaman perilisannya](https://github.com/gohugoio/hugo/releases).
 
     Di situ tersedia 4 berkas yang bisa Anda unduh salah satunya, semua itu diarsipkan dalam format Zip, sesuaikan dengan Arsitektur Sistem Operasi yang dipakai.
 
-    Namun, jika Anda ingin menginstal Hugo Extended, unduh berkas yang namanya diawali dengan `hugo_extended`
+    Namun, jika Anda memakai Hugo sebelum versi `0.170.0` dan ingin menginstal edisi Extended, unduh berkas yang namanya diawali dengan `hugo_extended`
 
 2. Setelah diunduh, ekstrak berkas arsip tersebut ke dalam folder/direktori apa saja.
 
     Saya asumsikan bahwa Anda mengekstraknya ke dalam Folder `C:\Hugo\bin` dan akan saya gunakan direktori tersebut untuk seterusnya
 
-3. Setelah diekstrak, Anda perlu menambahkan ke dalam variabel `PATH` agar Hugo bisa dieksekusikan di mana saja.
+3. Setelah diekstrak, Anda perlu menambahkan ke dalam variabel `PATH` agar Hugo bisa dieksekusi di mana saja.
 
     Pertama-tama, klik "Start Menu", lalu manfaatkan fasilitas pencarian yang ada di sana atau Anda juga bisa langsung ke pencarian yang ada di _Taskbar_ jika Anda memasangkannya.
 
@@ -168,15 +170,15 @@ Jika Anda tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, m
 
 ![Dialog 'System Properties' di Windows 10](System-Properties-in-Windows-10.webp)
 
-5. Setelah itu, Anda akan memasukki dialog yang berjudul **Environment Variables**, di situ nanti ada dua kolom, yakni **User variables** yang terletak di atas dan **System variables** yang terletak di bawah.
+5. Setelah itu, Anda akan memasuki dialog yang berjudul **Environment Variables**, di situ nanti ada dua kolom, yakni **User variables** yang terletak di atas dan **System variables** yang terletak di bawah.
 
-    Karena Variabel yang di ubah ini lingkupnya ke satu Sistem Operasi, yang artinya semua Akun Pengguna (_User Account_) kena, maka carilah variabel `PATH` di dalam kolom **System variables**.
+    Karena Variabel yang diubah ini lingkupnya ke satu Sistem Operasi, yang artinya semua Akun Pengguna (_User Account_) kena, maka carilah variabel `PATH` di dalam kolom **System variables**.
 
     Setelah ketemu, pilih variabel tersebut dan klik pada _Button_ **Edit**, seperti cuplikan berikut:
 
 ![Environment Variables di Windows 10 (beberapa bagian sengaja saya hitamkan)](Environment-Variables-in-Windows-10.webp)
 
-6. Anda memasukki dialog yang berjudul **Edit environment variables**, di situ Anda akan merubah nilai dari variabel tersebut. Windows 10 dan Windows 7 mungkin memiliki penampilan yang berbeda, jadi cara mengubahnya akan berbeda-beda, berikut di bawah ini adalah caranya:
+6. Anda memasuki dialog yang berjudul **Edit environment variables**, di situ Anda akan mengubah nilai dari variabel tersebut. Windows 10 dan Windows 7 mungkin memiliki penampilan yang berbeda, jadi cara mengubahnya akan berbeda-beda, berikut di bawah ini adalah caranya:
 
     - Di Windows 10 atau di atasnya: Nilai dari variabel `PATH` yang tampil di Windows 10 adalah dalam bentuk daftar. Untuk menambahkannya, cukup klik pada _Button_ **New**, lalu isi nilainya dengan lokasi berkas Hugo itu berada.
 
@@ -199,12 +201,14 @@ Jika Anda tidak ingin menggunakan pengelola paket apa pun untuk menginstalnya, m
 8. Setelah Anda membuka Terminal-nya, silakan Anda eksekusikan perintah `hugo version` untuk menampilkan versi Hugo yang Anda gunakan. Jika berhasil, maka akan tampil keluaran seperti berikut:
 
 ```plain
-{{< hugo-version-long isExtended=true platform="windows/amd64" >}}
+{{< hugo-version-long isExtended=false platform="windows/amd64" >}}
 ```
 
 9. Selamat! Anda telah berhasil menginstal Hugo. Jika Anda ingin memperbarui versi Hugo-nya, cukup unduh lagi berkas binernya, lalu tinggal timpakan berkas lamanya.
 
-Nah, untuk Windows-nya saya cukupkan di sini dulu, berikutnya saya bahas Cara Install Hugo untuk Sistem Operasi GNU/Linux.
+Langkah-langkah di atas juga dapat diikuti ketika Anda menginstal Dart Sass, paling berkas-berkas dan letak direktorinya saja yang berbeda, silakan kunjungi [halaman perilisan Dart Sass](https://github.com/sass/dart-sass/releases) jika Anda ingin mengunduhnya.
+
+Nah, untuk Windows-nya saya cukupkan di sini dulu, berikutnya saya bahas cara instal Hugo untuk sistem operasi GNU/Linux.
 
 ### GNU/Linux {#gnu-linux}
 
@@ -232,114 +236,98 @@ Setelah itu, tentukan apakah Anda mau menginstal Hugo varian standar atau Extend
 
 Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
 
-Untuk menginstalnya, salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan "Enter": (Langsung copas aja)
+Untuk menginstalnya, salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan "Enter":
 
 ```shell {linenos=true}
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
-IS_EXTENDED=true
+HUGO_VERSION="$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' "https://github.com/gohugoio/hugo/releases/latest" | sed -n 's#.*/tag/v*##p')"
 HUGO_ARCH="$(dpkg --print-architecture)"
-if [ "$IS_EXTENDED" = true ]; then HUGO_EXTENDED="extended_"; fi
-HUGO_FILENAME="hugo_"$HUGO_EXTENDED$HUGO_VERSION"_linux-$HUGO_ARCH.deb"
+HUGO_FILENAME="hugo_"$HUGO_VERSION"_linux-"$HUGO_ARCH".deb"
 cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _shell_:
 
 ```fish {linenos=true}
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
-set IS_EXTENDED "true"
+set HUGO_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | string match -rg '/tag/v*(.+)')
 set HUGO_ARCH (dpkg --print-architecture)
-set HUGO_EXTENDED ""; if test $IS_EXTENDED = "true"; set HUGO_EXTENDED "extended_"; end
-set HUGO_FILENAME "hugo_"$HUGO_EXTENDED$HUGO_VERSION"_linux-$HUGO_ARCH.deb"
+set HUGO_FILENAME hugo_$HUGO_VERSION"_linux-$HUGO_ARCH.deb"
 cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
 ```
 
 **Penjelasan:**
 
 - Baris ke-1: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
-- Baris ke-2: Untuk mementukan apakah Anda ingin mengunduh Hugo standar atau Hugo Extended, secara baku akan mengunduh Hugo Extended, ganti `true` menjadi `false` atau selain `true` jika Anda ingin mengunduh Hugo varian standar
-- Baris ke-3: Untuk menentukan arsitektur sistem pada berkas Hugo yang ingin Anda unduh, variabel tersebut akan otomatis diisi berdasarkan hasil dari perintah `dpkg --print-architecture`.
+- Baris ke-2: Untuk menentukan arsitektur sistem pada berkas Hugo yang ingin Anda unduh, variabel tersebut akan otomatis diisi berdasarkan hasil dari perintah `dpkg --print-architecture`.
 
     Anda bisa menggantinya kalau mau, arsitektur yang tersedia untuk Hugo adalah `amd64` dan `arm64`
 
-- Baris ke-4: Untuk pengkondisian jika `IS_EXTENDED` itu bernilai `true`, maka variabel `HUGO_EXTENDED` akan bernilai `extended_` atau kosong/tidak disetel jika selain itu. Khusus fish, variabel `HUGO_EXTENDED` disetel terlebih dahulu dengan nilai kosong sebelum pengkondisian
-- Baris ke-5: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_EXTENDED` untuk teks tambahan kondisionalnya, `HUGO_VERSION` untuk versi Hugo-nya dan `HUGO_ARCH` untuk arsitektur pada Hugo yang ingin diunduh
-- Baris ke-6: Untuk menavigasikan Terminal ke `/tmp`, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
+- Baris ke-3: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo aslinya, `HUGO_VERSION` untuk versi Hugo-nya dan `HUGO_ARCH` untuk arsitektur pada Hugo yang ingin diunduh
+- Baris ke-4: Untuk menavigasikan Terminal ke `/tmp`, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 Lalu, instal berkas yang telah Anda unduh dengan perintah berikut:
 
 ```shell
-dpkg -i "$HUGO_FILENAME" || ! echo "Instalasi Gagal"; rm "$HUGO_FILENAME"; cd -
+dpkg -i "$HUGO_FILENAME" && echo "Instalasi berhasil" || echo "Instalasi Gagal"
+rm -f "$HUGO_FILENAME"; cd -
 ```
 
 **Penjelasan:**
-Perintah di atas untuk menginstal Hugo melalui `dpkg` dari berkas penginstal yang berekstensi `deb` dan nama berkasnya diambil dari variabel `HUGO_FILENAME`. Jika berhasil, maka berkas penginstal akan dihapus dan kembali ke direktori sebelumnya atau hanya menampilkan pesan jika gagal.
+Perintah di atas menginstal Hugo lewat `dpkg` dari berkas `.deb` yang namanya diambil dari variabel `HUGO_FILENAME`, lalu menampilkan pesan berhasil atau gagal. Apa pun hasilnya, berkas penginstal dihapus dan Terminal kembali ke direktori sebelumnya.
+
+Sayangnya semua cara di sini tidak menginstal Dart Sass melalui repositori resmi dan juga tidak ada berkas `.deb`-nya, sehingga Anda diharuskan menggunakan pengelola paket lain seperti Homebrew, Snap atau pengelola paket Nix, atau instal manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
 
 Jika merasa sudah selesai, silakan alihkan kembali hak akses di dalam Terminal Anda menjadi pengguna biasa dengan perintah `exit`.
 
 Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di atas.
 
-#### Fedora, CentOS, RHEL dan Keluarganya (Tidak Resmi)
+#### Fedora, CentOS, RHEL dan Keluarganya
 
-Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat memasangnya melalui repositori dari luar (dari [`daftaupe`](https://copr.fedorainfracloud.org/coprs/daftaupe/)). Walau itu bukan resmi, tapi disarankan oleh komunitas, jadi bisa Anda percayakan.
-
-Untuk menambahkan repositori sekaligus menginstalnya, Anda dapat mengeksekusi perintah berikut:
+Jika Anda adalah pengguna Fedora, CentOS, RHEL atau keluarganya, Anda dapat memasangnya dengan perintah berikut:
 
 ```shell {linenos=true}
-sudo dnf copr enable daftaupe/hugo
 sudo dnf install hugo
 ```
 
-Untuk lebih lanjut, silakan kunjungi [halaman unduh repositorinya](https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/).
+Versi yang didapat mungkin bukanlah yang terbaru, apalagi kalau kamu menggunakan RHEL dan keluarganya, tapi setidaknya mendekati terbaru kalau kamu menggunakan Fedora versi terbaru.
 
-**Catatan:** Saya tidak memakai Fedora, CentOS, RHEL dan keluarganya, tapi berdasarkan [spesifikasinya](https://gitlab.com/daftaupe/hugo-rpm/-/blob/master/SPECS/hugo.spec), varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
+Anda juga tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia.
+
+Kalau mau menginstal Dart Sass atau/dan Hugo versi terbaru sekalian, silakan gunakan pengelola paket Homebrew, Snap atau pengelola paket Nix, atau instal manual.
 
 #### openSUSE Leap/Tumbleweed dan Keluarganya (Tidak Resmi)
 
-Jika Anda adalah pengguna openSUSE Leap/Tumbleweed atau keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps), jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
+Jika Anda adalah pengguna openSUSE Leap/Tumbleweed atau keluarganya, sebelum menginstalnya, tambahkan dulu repositori dari luar (dari [`home:dirkmueller:Factory`](https://build.opensuse.org/project/show/home:dirkmueller:Factory) untuk Hugo dan [`home:darix:apps`](https://build.opensuse.org/project/show/home:darix:apps) untuk Dart Sass, jadi itu bukan resmi) yang bisa Anda percayakan dengan salah satu perintah berikut:
 
 ```shell {linenos=true}
-### Untuk Pengguna openSUSE Leap 15.5
-sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/15.5/home:darix:apps.repo
+### Untuk Pengguna openSUSE Leap 16
+# Hugo
+sudo zypper ar -f https://download.opensuse.org/repositories/home:dirkmueller:Factory/16.0/home:dirkmueller:Factory.repo
 
-### Untuk Pengguna openSUSE Leap 15.6
-sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/15.6/home:darix:apps.repo
+# Dart Sass
+sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/16.0/home:darix:apps.repo
 
 ### Untuk Pengguna openSUSE Tumbleweed
-sudo zypper ar -f https://download.opensuse.org/repositories/home:darix:apps/openSUSE_Tumbleweed/home:darix:apps.repo
+# Hugo
+sudo zypper ar -f https://download.opensuse.org/repositories/home:dirkmueller:Factory/standard/home:dirkmueller:Factory.repo
+
+### Catatan: Menginstal Dart Sass tidak perlu menambahkan repositori apa pun jika Anda adalah pengguna openSUSE Tumbleweed, karena sudah tersedia versi terbaru dari repositori resminya
 ```
 
-Setelah itu segarkan repositorinya, lalu install Hugo-nya dengan perintah berikut:
+Setelah itu segarkan repositorinya, lalu install Hugo dan Dart Sass-nya dengan perintah berikut:
 
 ```shell {linenos=true}
-sudo sh -c 'zypper ref; zypper in hugo'
+sudo sh -c 'zypper ref; zypper in hugo dart-sass'
 ```
 
-Untuk lebih lanjut. silakan kunjungi [halaman unduh repositorinya](https://software.opensuse.org/download/package?package=hugo&project=home%3Adarix%3Aapps).
-
-**Catatan:** Saya tidak memakai SUSE Linux Enterprise, openSUSE dan keluarganya, tapi berdasarkan [konfigurasinya](https://build.opensuse.org/package/view_file/home:darix:apps/hugo/hugo.spec?expand=1), kemungkinan varian Hugo yang digunakan adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Namun, arsitektur sistem yang didukung hanyalah `x86_64` saja.
+Untuk lebih lanjut, silakan kunjungi [halaman unduh repositorinya](https://software.opensuse.org/download.html?project=home%3Adirkmueller%3AFactory&package=hugo).
 
 #### Arch Linux, Manjaro dan Keluarganya
 
-Jika Anda adalah pengguna Arch Linux, Manjaro atau keluarganya, Anda dapat menginstal Hugo dengan perintah berikut:
+Jika Anda adalah pengguna Arch Linux, Manjaro atau keluarganya, Anda dapat menginstal Hugo dan Dart Sass dengan perintah berikut:
 
 ```shell
-sudo pacman -S hugo
+sudo pacman -S hugo dart-sass
 ```
-
-~~Namun jika Anda lebih memilih lewat AUR (_Arch User Repository_), silakan gunakan paket [`hugo-bin`](https://aur.archlinux.org/packages/hugo-bin/) dari AUR.~~
-
-~~Cara Instal paket dari AUR akan berbeda-beda, tergantung _AUR Helper_ yang Anda gunakan.~~
-
-~~Namun jika Anda menggunakan Yay sebagai _AUR Helper-nya_, maka Anda dapat memakai perintah berikut:~~
-
-```shell
-yay -S hugo-bin
-```
-
-**PEMBARUAN Senin, 29 November 2021:** Paket `hugo-bin` yang ada di AUR mungkin sudah tidak ada, jadi untuk sekarang instal Hugo melalui paket resminya saja.
-
-**Catatan:** Berdasarkan [konfigurasinya](https://gitlab.archlinux.org/archlinux/packaging/packages/hugo/-/blob/main/PKGBUILD), varian Hugo yang digunakan oleh Arch, Manjaro dan Keluarganya adalah varian Extended.
 
 #### Solus dan Keluarganya
 
@@ -349,7 +337,7 @@ Jika Anda menggunakan Solus atau keluarganya, maka Anda dapat menginstalnya deng
 sudo eopkg install hugo
 ```
 
-**Catatan:** Saya tidak memakai Solus dan keluarganya, tapi berdasarkan [konfigurasinya](https://github.com/getsolus/packages/blob/main/packages/h/hugo/package.yml), kemungkinan varian Hugo yang digunakan oleh Solus dan keluarganya adalah varian Extended.
+Anda tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia, silakan gunakan pengelola paket lain seperti Snap, Homebrew atau pengelola paket Nix, atau instal manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
 
 #### Void Linux dan Keluarganya
 
@@ -359,61 +347,91 @@ Jika Anda adalah pengguna Void Linux atau keluarganya, Anda dapat menginstal Hug
 sudo xbps-install -S hugo
 ```
 
-**Catatan:** Saya tidak memakai Void Linux dan keluarganya, tapi berdasarkan [templatnya](https://github.com/void-linux/void-packages/blob/master/srcpkgs/hugo/template), kemungkinan varian Hugo yang digunakan oleh Void Linux dan keluarganya adalah varian Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, Hugo Extended yang mereka gunakan didukung oleh semua arsitektur (baik itu x86, x86_64, ARM, ARM64, dan arsitektur lainnya) dan "C Library" (`glibc` dan `musl`) yang ada pada Void Linux.
+Anda tidak perlu khawatir mengenai arsitektur sistem yang Anda gunakan, karena paketnya mendukung itu semua, sehingga bisa diinstal di arsitektur sistem manapun di Void Linux.
+
+Sayangnya, Anda juga tidak dapat menginstal Dart Sass menggunakan repositori resminya, karena memang belum tersedia, silakan gunakan pengelola paket lain seperti Homebrew, atau pengelola paket Nix, instal secara manual, atau bisa juga menggunakan skrip yang tersedia bila tidak mau ribet.
 
 #### Homebrew (Lebih Universal)
 
-Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih Universal, maka Anda bisa menginstalnya dengan perintah berikut:
+Jika Anda ingin menggunakan [Homebrew (brew)](https://brew.sh/) yang lebih universal, maka Anda bisa menginstal Hugo dan Dart Sass-nya dengan perintah berikut:
 
 ```shell
-brew install hugo
+brew install hugo dart-sass
 ```
 
-**Catatan:** Saya tidak memakai Homebrew sebagai pengelola paket, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/master/Formula/h/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Homebrew adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
+Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
 
 #### Snap (Lebih Universal)
 
-Jika Anda ingin menggunakan Snap yang lebih universal, maka Anda dapat menginstalnya dengan perintah berikut:
+Jika Anda ingin menggunakan Snap yang lebih universal, maka Anda dapat menginstal Hugo dan Dart Sass-nya dengan perintah berikut:
 
 ```shell
-sudo snap install hugo
+sudo snap install hugo dart-sass
 ```
 
-Perintah di atas akan menginstal Hugo Extended.
+Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
 
 {{< info title="Catatan:" >}}
-Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan Systemd sebagai ketergantungan, sehingga distribusi yang Anda gunakan harus memakai Systemd sebagai Init agar Snap bisa digunakan.
+Kalau dibilang 'Universal' mungkin tidak terlalu, semenjak Snap sendiri memasukkan systemd sebagai ketergantungan, sehingga distribusi yang Anda gunakan harus memakai systemd sebagai init agar Snap bisa digunakan.
 
-Jika Anda menggunakan distribusi yang tidak memakai systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, GUIX dan keluarganya dan lainnya, maka kemungkinan besar Anda tidak dapat menggunakan pengelola paket Snap.
+Jika Anda menggunakan distribusi yang tidak memakai systemd seperti Void Linux, Devuan, MX Linux (lebih tepatnya ia tidak menggunakannya sebagai "Init baku"), Artix Linux, Guix dan keluarganya dan lainnya, maka kemungkinan besar Anda tidak dapat menggunakan pengelola paket Snap.
 
 Makanya di awal saya bilang "lebih universal", karena bisa untuk distribusi lainnya yang lebih luas ketimbang menggunakan pengelola paket bawaan.
-{{< / info >}}
+{{< /info >}}
 
 #### Pengelola Paket Nix (Lebih Universal)
 
-Jika Anda ingin menggunakan [Pengelola Paket Nix](https://nixos.org/) yang lebih universal. Sebelum menginstalnya, Anda bisa mencobanya terlebih dahulu dengan menggunakan perintah berikut:
+Jika Anda ingin menggunakan [Pengelola Paket Nix](https://nixos.org/) yang lebih universal, sebelum benar-benar menginstalnya, Anda bisa mencobanya terlebih dahulu dengan menggunakan perintah berikut:
 
 ```shell
-nix-shell -p hugo
+nix-shell -p hugo dart-sass
 ```
 
-Perintah di atas akan tetap menginstal Hugo, tapi di dalam nix-shell yang dikhususkan untuk Hugo, setelah diinstal Anda akan masuk ke dalam nix-shell dan Hugo hanya bisa dijalankan dari sana.
+Perintah di atas akan tetap menginstal Hugo dan Dart Sass, tapi di dalam `nix-shell` khusus, sehingga setelah masuk ke sana Hugo dan Dart Sass hanya bisa dijalankan dari situ.
 
-Jadi, jika Anda menginstalnya dengan perintah di atas, agar Hugo dapat dijalankan sewaktu-waktu, maka Anda harus masuk ke dalam nix-shell terlebih dahulu dengan mengeksekusi perintah di atas.
+Jadi, jika Anda menginstalnya dengan perintah di atas, agar Hugo dapat dijalankan sewaktu-waktu, maka Anda harus masuk ke dalam `nix-shell` terlebih dahulu dengan mengeksekusi perintah di atas.
 
 Hal seperti ini cocok untuk Anda yang menguji aplikasi sebelum diinstal secara permanen, meski sebenarnya cara ini yang direkomendasikan oleh mereka ketimbang menginstalnya secara permanen, kecuali jika Anda menggunakan NixOS yang aplikasinya bisa diinstal dengan mengubah berkas konfigurasi sistemnya.
 
 Namun, jika Anda ingin menginstalnya secara permanen, maka Anda bisa menginstalnya dengan perintah berikut:
 
 ```shell
-nix-env -iA nixpkgs.hugo
+nix-env -iA nixpkgs.hugo nixpkgs.dart-sass
 ```
+
+Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
 
 Perintah di atas berlaku bagi yang bukan pengguna NixOS, jika Anda menggunakannya, cukup ganti `nixpkgs` di atas menjadi `nixos`.
 
-Berdasarkan [berkas konfigurasinya](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hugo/default.nix), varian Hugo yang digunakan adalah Hugo Extended, jadi yang terinstal adalah Hugo Extended. Selain itu, versi yang digunakan itu merupakan versi baru, tapi tidak untuk pengguna NixOS dengan kanal selain tidak stabil (_Unstable_) yang mendapatkan versi lebih lama.
-
 Namun, jika Anda tidak menggunakan NixOS dan menggunakan Nix sebagai pengelola paket, maka versi paket yang Anda dapatkan biasanya akan mengikuti kanal tidak stabil dari NixOS/Nixpkgs.
+
+#### Penyebutan khusus: Instalasi Dart Sass menggunakan skrip (Lebih Universal)
+
+Saya telah menyediakan skrip khusus instalasi Dart Sass apabila distribusi Anda tidak menyediakan Dart Sass, baik tidak ada versi terbaru maupun tidak ada sama sekali, tapi tidak mau ribet menginstalnya.
+
+Untuk melihat atau/dan mengunduh skripnya, silakan kunjungi file yang bernama [`install-dart-sass.sh`](https://github.com/FarrelF/Blog/blob/main/scripts/install-dart-sass.sh).
+
+Skrip tersebut tidaklah sepenuhnya dibuat oleh saya, melainkan AI yang membuat skrip tersebut, jadi mohon baca (kalau bisa pahami) terlebih dahulu kodenya sebelum menjalankan skrip tersebut.
+
+Tapi harusnya tidak masalah, karena saya yakin tidak ada kode yang membahayakan di situ dan saya menggunakannya untuk Netlify dan Cloudflare Pages.
+
+Jika sudah yakin, Anda bisa mengunduh, lalu mengeksekusi skripnya dengan cara berikut:
+
+```shell {linenos=true}
+curl -fsSLO https://raw.githubusercontent.com/FarrelF/Blog/refs/heads/main/scripts/install-dart-sass.sh
+chmod +x ./install-dart-sass.sh
+sudo ./install-dart-sass.sh [versi]
+```
+
+Hapus `[versi]` di atas untuk menginstal Dart Sass versi terbaru atau ganti `[versi]` dengan versi Dart Sass yang Anda inginkan.
+
+Secara baku, Dart Sass akan terinstal di dalam direktori `/usr/local/bin` karena skrip tersebut dieksekusi dengan hak akses `root` ataupun menggunakan `sudo`, jika tidak menggunakan hak akses `root` maka secara otomatis akan terinstal di dalam direktori `$HOME/.local/bin`.
+
+Mengapa bagian ini termasuk "Penyebutan khusus" adalah bahwa skrip tersebut dibuat dengan tujuan membantu instalasi di Netlify dan Cloudflare Pages, walau harusnya bisa juga untuk umum, tapi belum terlalu matang, jadi silakan dicoba.
+
+Karena skrip tersebut juga berbasis Bash, bukan POSIX shell, maka mungkin ada sebagian distribusi/sistem operasi yang tidak kompatibel dengan skrip ini, tapi harusnya sebagian besar distribusi GNU/Linux sudah kompatibel dengan ini.
+
+Untuk Android melalui Termux juga belum didukung oleh skrip ini, mungkin ke depan akan ditambahkan sekalian skrip _installer_ Hugo-nya.
 
 #### Berkas Biner, tanpa Pengelola Paket (Lebih Universal, Manual)
 
@@ -432,69 +450,65 @@ Cara sederhananya:
 5. Pastikan bahwa `/usr/local/bin/hugo` itu milik pengguna `root` (dengan mengeksekusi perintah `sudo chown root:root /usr/local/bin/hugo`)
 6. Selesai!
 
-**Catatan:** Bisa saja Anda memindahkan berkas tersebut ke dalam direktori lain yang termasuk dalam variabel `PATH`, seperti `/home/username/.local/bin` misalnya dan tidak perlu melakukan peralihan kepemilikan ke `root`, tapi saya rekomendasikan agar diletakkan ke dalam direktori `/usr/local/bin` supaya Hugo bisa dieksekusi oleh seluruh pengguna di satu sistem.
+Langkah yang kurang lebih sama juga bisa diaplikasikan untuk menginstal Dart Sass, cuma bedanya di perilisan, direktori sama cara ekstraknya.
+
+Untuk mengunduhnya, silakan kunjungi [halaman perilisannya](https://github.com/sass/dart-sass/releases), unduh dan ekstrak, setelah diekstrak, pindahkan folder `src` dan berkas `sass` di dalam folder `dart-sass` langsung ke direktori `/usr/local/bin`.
+
+Lalu, jalankan `sudo chmod +x /usr/local/bin/sass` dan `sudo chown -R root:root /usr/local/bin/sass /usr/local/bin/src`. Udah deh selesai!
+
+**Catatan:** Bisa saja Anda memindahkan berkas tersebut ke dalam direktori lain yang termasuk dalam variabel `PATH`, seperti `/home/username/.local/bin` misalnya dan tidak perlu melakukan peralihan kepemilikan ke `root`, tapi saya rekomendasikan agar diletakkan ke dalam direktori `/usr/local/bin` supaya Hugo dan Dart Sass bisa dieksekusi oleh seluruh pengguna di satu sistem.
 
 Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`, atau `sudo -s`, kecuali jika Anda ingin menginstalnya di dalam direktori pengguna.
 
-Setelah itu, tentukan apakah Anda mau menginstal Hugo varian standar atau Extended, beserta arsitektur sistem operasi yang Anda gunakan sekarang.
+Setelah itu, tentukan arsitektur sistem operasi apa yang Anda gunakan sekarang.
 
 Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
 
 Untuk menginstalnya, maka tinggal Anda copas saja skrip berikut ke dalam Terminal, lalu tekan "Enter":
 
 ```shell {linenos=true}
-HUGO_VERSION="$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)"
-IS_EXTENDED=true
-HUGO_ARCH="amd64"
-if [ "$IS_EXTENDED" = true ]; then HUGO_EXTENDED="extended_"; fi
-HUGO_FILENAME="hugo_"$HUGO_EXTENDED$HUGO_VERSION"_linux-$HUGO_ARCH.tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
+HUGO_VERSION=$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | sed -n 's#.*/tag/v*##p')
+DART_SASS_VERSION=$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/sass/dart-sass/releases/latest | sed -n 's#.*/tag/v*##p')
+HUGO_ARCH=amd64 DART_SASS_ARCH=x64
+HUGO_FILENAME=hugo_${HUGO_VERSION}_linux-$HUGO_ARCH.tar.gz DART_SASS_FILENAME=dart-sass-$DART_SASS_VERSION-linux-$DART_SASS_ARCH.tar.gz
+INSTALL_TEMPDIR=$(mktemp -d); cd "$INSTALL_TEMPDIR" && wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
+printf '%s\n' *.tar.gz | xargs -n1 -P2 tar -xzf
+install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
+install -Dm755 dart-sass/sass /usr/local/bin/; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
+sed -i '/^exec /s|/src/|/dart-sass/|g' /usr/local/bin/sass
+cd -
+rm -rf "$INSTALL_TEMPDIR"
 ```
 
 Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _shell_:
 
 ```fish {linenos=true}
-set HUGO_VERSION (curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep tag_name | cut -d 'v' -f2 | cut -d'"' -f1)
-set IS_EXTENDED "true"
-set HUGO_ARCH "amd64"
-set HUGO_EXTENDED ""; if test $IS_EXTENDED = "true"; set HUGO_EXTENDED "extended_"; end
-set HUGO_FILENAME "hugo_"$HUGO_EXTENDED$HUGO_VERSION"_linux-$HUGO_ARCH.tar.gz"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
-```
-
-**Penjelasan:**
-
-- Baris ke-1: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
-- Baris ke-2: Untuk mementukan apakah Anda ingin mengunduh Hugo dengan varian standar atau Hugo Extended, secara baku akan mengunduh Hugo Extended, ganti `true` menjadi `false` atau selain `true` jika Anda ingin mengunduh Hugo varian standar
-- Baris ke-3: Untuk menentukan arsitektur sistem pada berkas Hugo yang ingin Anda unduh, secara baku diisi `amd64`, yang artinya Anda akan mengunduh berkas Hugo untuk arsitektur `AMD64` atau `x86_64`.
-
-    Anda bisa menggantinya kalau mau, arsitektur yang tersedia untuk Hugo Extended adalah `amd64` dan `arm64`, sedangkan varian standar ada tambahan satu arsitektur lagi, yakni `arm` yang diperuntukkan bagi pengguna prosesor berbasis ARM dengan arsitektur 32-bit
-
-- Baris ke-4: Untuk pengkondisian jika `IS_EXTENDED` itu bernilai `true`, maka variabel `HUGO_EXTENDED` akan bernilai `extended_` atau kosong/tidak disetel jika selain itu. Khusus fish, variabel `HUGO_EXTENDED` disetel terlebih dahulu dengan nilai kosong sebelum pengkondisian
-- Baris ke-5: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo Aslinya dan variabel `HUGO_EXTENDED` untuk teks tambahan kondisionalnya, `HUGO_VERSION` untuk versi Hugo-nya dan `HUGO_ARCH` untuk arsitektur pada Hugo yang ingin diunduh
-- Baris ke-6: Untuk menavigasikan Terminal ke `/tmp`, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
-
-{{< spoiler title="Mengenai Instalasi Hugo" >}}
-Setelah mengunduhnya, tentukan terlebih dahulu di mana Anda menginstal Hugo-nya, apakah di dalam direktori pengguna yang hanya dapat dijalankan oleh Anda sendiri atau di dalam direktori sistem agar dapat dijalankan oleh semua pengguna.
-
-Jika Anda ingin Hugo-nya dapat dijalankan oleh semua pengguna, silakan ikuti caranya di bawah ini. Namun, jika Anda ingin Hugo-nya diinstal di dalam direktori pengguna dan tanpa perlu perintah `sudo` ataupun hak akses `root`, silakan [klik di sini](#pertanyaan-ke4).
-{{< / spoiler >}}
-
-Setelah mengunduhnya, Anda perlu mengeksekusi skrip berikut untuk menginstalnya:
-
-```shell {linenos=true}
-tar -xvzf "$HUGO_FILENAME"; install -Dm755 hugo /usr/local/bin/
-install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
-rm "$HUGO_FILENAME" hugo LICENSE README.md
+set HUGO_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | string match -rg '/tag/v*(.+)')
+set DART_SASS_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/sass/dart-sass/releases/latest | string match -rg '/tag/v*(.+)')
+set HUGO_ARCH amd64; set DART_SASS_ARCH x64
+set HUGO_FILENAME hugo_$HUGO_VERSION"_linux-$HUGO_ARCH.tar.gz"; set DART_SASS_FILENAME dart-sass-$DART_SASS_VERSION"-linux-$DART_SASS_ARCH.tar.gz"
+set INSTALL_TEMPDIR (mktemp -d); cd $INSTALL_TEMPDIR; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
+printf '%s\n' *.tar.gz | xargs -n1 -P2 tar -xzf
+install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
+install -Dm755 dart-sass/sass /usr/local/bin/; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
+sed -i '/^exec /s|/src/|/dart-sass/|g' /usr/local/bin/sass
 cd -
+rm -rf $INSTALL_TEMPDIR
 ```
 
 **Penjelasan:**
 
-- Baris ke-1: Untuk mengekstrak Berkas Arsip, lalu menginstal Hugo di direktori `/usr/local/bin` dan chmod dari berkas tersebut disetel dengan nilai `755`
-- Baris ke-2: Untuk menyalinkan berkas `LICENSE` milik Hugo kedalam direktori `/usr/share/licenses/hugo` dan chmod dari berkas tersebut disetel dengan nilai `644`
-- Baris ke-3: Menghapus berkas yang sudah tak terpakai lagi
-- Baris ke-4: Kembali ke direktori sebelumnya
+- Baris ke-1: Untuk mendapatkan versi terbaru Hugo dari tujuan akhir pengalihan (redirect) halaman `releases/latest` di GitHub, lalu memasukkannya ke dalam variabel `HUGO_VERSION`. Awalan `v` pada tag otomatis dibuang oleh `string match`
+- Baris ke-2: Untuk mendapatkan versi terbaru Dart Sass dengan cara yang sama, lalu memasukkannya ke dalam variabel `DART_SASS_VERSION`
+- Baris ke-3: Untuk menentukan arsitektur sistem pada berkas Hugo dan Dart Sass yang ingin Anda unduh, secara baku diisi `amd64` (variabel `HUGO_ARCH`) dan `x64` (variabel `DART_SASS_ARCH`), yang artinya Anda akan mengunduh berkas untuk arsitektur `AMD64` atau `x86_64`. Sesuaikan dengan arsitektur sistem operasi yang Anda gunakan
+- Baris ke-4: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan `DART_SASS_FILENAME`, dengan nilai yang diambil dari nama berkas aslinya, yakni adanya versi (`HUGO_VERSION`/`DART_SASS_VERSION`) dan arsitektur (`HUGO_ARCH`/`DART_SASS_ARCH`)
+- Baris ke-5: Untuk membuat direktori sementara dengan `mktemp -d` dan menyimpan lokasinya di variabel `INSTALL_TEMPDIR`, menavigasikan Terminal ke sana, lalu mengunduh Hugo dan Dart Sass sekaligus dengan bantuan GNU Wget. Opsi `-c` membuat unduhan bisa dilanjutkan bila terputus
+- Baris ke-6: Untuk mengekstrak kedua berkas arsip `.tar.gz` secara paralel (dua proses sekaligus) dengan bantuan `xargs`
+- Baris ke-7: Untuk menginstal `hugo` di direktori `/usr/local/bin` dengan chmod `755`, lalu menyalin berkas `LICENSE` milik Hugo ke `/usr/share/licenses/hugo/LICENSE` dengan chmod `644`
+- Baris ke-8: Untuk menginstal `sass` di direktori `/usr/local/bin` dengan chmod `755`, memindahkan direktori `src` milik Dart Sass ke `/usr/local/bin/dart-sass`, lalu menyetel pemilik direktori tersebut menjadi `root:root`
+- Baris ke-9: Untuk mengubah jalur `/src/` menjadi `/dart-sass/` pada baris `exec` di berkas `/usr/local/bin/sass`, agar skrip `sass` menunjuk ke lokasi baru Dart Sass. Opsi `-i` mengubah berkas langsung di tempat
+- Baris ke-10: Kembali ke direktori sebelumnya
+- Baris ke-11: Menghapus direktori sementara beserta berkas unduhan dan hasil ekstrak yang sudah tak terpakai lagi
 
 Setelah itu, pastikan kalau Hugo dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo yang Anda gunakan sekarang:
 
@@ -505,10 +519,8 @@ hugo version
 Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 ```plain
-{{< hugo-version-long isExtended=true >}}
+{{< hugo-version-long isExtended=false >}}
 ```
-
-Keluaran di atas itu terjadi karena saya menggunakan Hugo Extended, jika Anda menggunakan varian biasa, harusnya sih sama aja, bedanya cuma gak ada tulisan `extended`-nya aja.
 
 Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat halaman panduan (manpages) untuk Hugo dengan skrip berikut:
 
@@ -523,12 +535,12 @@ cd -; rm -rf /tmp/hugo_manpages
 
 - Baris ke-1: Untuk membuat Halaman Panduan Hugo dan berkas-berkasnya akan diletakkan di dalam direktori `/tmp/hugo_manpages` (Direktori tersebut akan dibuatkan secara otomatis jika tidak ada, jadi Anda tidak perlu membuatnya terlebih dahulu)
 - Baris ke-2: Untuk menavigasikan _shell_ ke dalam direktori `/tmp/hugo_manpages`, lalu mengkompresi semua berkas di dalamnya dengan Gzip dan menghapus semua berkas aslinya
-- Baris ke-3: Untuk menyalinkan semua berkas di dalamnya ke `/usr/local/man/man1` dan menyetel nilai chmod-nya ke `644`
+- Baris ke-3: Untuk menyalin semua berkas di dalamnya ke `/usr/local/man/man1` dan menyetel nilai chmod-nya ke `644`
 - Baris ke-4: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `/tmp/hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
 Kalau sudah, Anda bisa tes halaman panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
 
-Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangkannya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di sistem Anda)
+Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangnya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di sistem Anda)
 
 ```shell {linenos=true}
 ### Untuk pengguna Bash
@@ -549,9 +561,31 @@ Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di
 
 ### macOS
 
+#### Berkas penginstal
+
+**Catatan:** Saya tidak memakai sistem operasi macOS, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
+
+Anda dapat menginstal Hugo menggunakan berkas penginstal yang disediakan secara resmi jika Anda menggunakan macOS.
+
+Cukup unduh berkasnya di [halaman perilisannya](https://github.com/gohugoio/hugo/releases) yang biasanya berkas tersebut berekstensi `.pkg`, lalu buka berkasnya.
+
+Setelah dibuka maka penginstal akan muncul, cukup ikuti saja langkahnya, lalu masukkan kata sandi Administrator bila perlu. Hugo pun langsung terinstal setelah itu.
+
+Perlu diingat bahwa ini tidaklah menginstal Dart Sass, Anda dapat menginstalnya menggunakan pengelola paket Homebrew/`brew`.
+
+#### Homebrew
+
+Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat menginstal Hugo dan Dart Sass dengan perintah berikut:
+
+```shell
+brew install hugo dart-sass
+```
+
+Hapus salah satu nama paket dari barisan perintah untuk menginstal salah satunya. Contohnya bila Anda sudah menginstal Hugo dengan metode lain dan hanya ingin menginstal Dart Sass saja, maka cukup hapus saja `hugo` di barisan perintah di atas.
+
 #### MacPorts
 
-**Catatan:** Saya tidak memakai sistem operasi macOS dan MacPorts sebagai pengelola paket, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna MacPorts, mohon berikan masukkan/koreksi dari Anda melalui kolom komentar.
+**Catatan:** Saya tidak memakai sistem operasi macOS dan MacPorts sebagai pengelola paket, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna MacPorts, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
 
 Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat menginstal Hugo dengan perintah berikut:
 
@@ -559,27 +593,9 @@ Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Pa
 sudo port install hugo
 ```
 
-Perintah di atas akan menginstal Hugo dengan varian biasa, jika Anda ingin menginstal Hugo Extended, Anda hanya perlu tambahkan argumen `+extended` saja, menjadi seperti berikut:
 
-```shell
-sudo port install hugo +extended
-```
-
-**Catatan:** Menginstalnya melalui MacPorts mungkin akan menghimpun (_compile_) kode sumber Hugo di dalam perangkat Anda.
-
-Anda juga dapat menambahkan fitur _Completion_ untuk Bash kalau mau dengan menambahkan argumen `+bash_completion` di dalam baris perintahnya saja.
 
 Jika Anda tidak ingin menggunakan `sudo`, maka hapus saja `sudo`-nya.
-
-#### Homebrew
-
-Jika Anda menggunakan [Homebrew (brew)](https://brew.sh/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat menginstal Hugo dengan perintah berikut:
-
-```shell
-brew install hugo
-```
-
-**Catatan:** Saya tidak memakai Homebrew sebagai pengelola paket, tapi berdasarkan [kode formulanya](https://github.com/Homebrew/homebrew-core/blob/master/Formula/h/hugo.rb), kemungkinan varian Hugo yang digunakan oleh Homebrew adalah varian Extended, jadi yang terinstal adalah Hugo Extended.
 
 ### Android
 
@@ -591,17 +607,13 @@ Jika Anda menggunakan [Termux](https://termux.com/) di dalam Android, maka Anda 
 pkg i hugo
 ```
 
-Perintah di atas akan menginstal Hugo Extended, bukan Hugo varian standar, berdasarkan [konfigurasinya](https://github.com/termux/termux-packages/blob/master/packages/hugo/build.sh) meskipun Anda menggunakan Arsitektur dari ARM.
-
-Jadi, Anda tidak perlu lagi khawatir mengenai masalah varian Hugo di Android Anda.
-
-Saya sarankan agar Anda menggunakan Termux versi terbaru untuk pengalaman yang lebih nyaman, bisa Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/) atau [Google Play Store (eksperimental)](https://play.google.com/store/apps/details?id=com.termux). Perlu versi Android minimal 7.0 agar Termux versi terbaru dapat digunakan.
+Saya sarankan agar Anda menggunakan Termux versi terbaru untuk pengalaman yang lebih nyaman, bisa Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/), [GitHub](https://github.com/termux/termux-app/releases) atau [Google Play Store (eksperimental)](https://play.google.com/store/apps/details?id=com.termux). Perlu versi Android minimal 7.0 agar Termux versi terbaru dapat digunakan.
 
 ### BSD
 
-#### OpenBSD dan Keluarganya
+#### OpenBSD dan keluarganya
 
-**Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti OpenBSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna OpenBSD, mohon berikan masukkan/koreksi dari Anda melalui kolom komentar.
+**Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti OpenBSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna OpenBSD, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
 
 Jika Anda adalah pengguna OpenBSD dan keluarganya, maka Anda dapat menginstal Hugo dengan perintah berikut:
 
@@ -609,13 +621,29 @@ Jika Anda adalah pengguna OpenBSD dan keluarganya, maka Anda dapat menginstal Hu
 doas pkg_add hugo
 ```
 
-Karena saya tidak pakai, jadi saya tidak tahu apa varian Hugo yang terinstal nantinya dan dapat versi berapa.
+#### NetBSD dan keluarganya
 
-Jika versi yang didapat adalah versi lama dan Anda sangat ingin mendapatkan versi terbarunya, maka Anda bisa mempertimbangkan opsi instalasi melalui [OpenBSD Ports](https://openports.se/www/hugo), mungkin ini akan menghimpun (_compile_) kode sumber Hugo.
+**Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti NetBSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna OpenBSD, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
+
+Jika Anda adalah pengguna NetBSD dan keluarganya, maka Anda dapat menginstal Hugo dengan perintah berikut:
+
+```shell
+sudo pkgin install go-hugo
+```
+
+#### FreeBSD, DragonFly BSD dan keluarganya
+
+**Catatan:** Saya tidak memakai sistem operasi berbasis BSD, seperti FreeBSD dan DragonFly BSD, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna FreeBSD dan DragonFly BSD, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
+
+Jika Anda adalah pengguna FreeBSD, DragonFly BSD dan keluarganya, maka Anda dapat menginstal Hugo dengan perintah berikut:
+
+```shell
+sudo pkg install gohugo
+```
 
 ### Docker
 
-Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`hugomods/hugo`](https://hub.docker.com/r/hugomods/hugo) untuk itu. Ini memang bukan resmi dari pengembang, tapi ini yang paling aktif.
+Jika Anda menggunakan Docker, mungkin Anda bisa gunakan _Docker Image_ [`hugomods/hugo`](https://hub.docker.com/r/hugomods/hugo) untuk itu. Ini memang bukan dari pengembang resmi, tapi ini yang paling aktif.
 
 Untuk penjelasan lebih lanjut, silakan kunjungi [situs web resminya](https://docker.hugomods.com).
 
@@ -623,13 +651,11 @@ Untuk penjelasan lebih lanjut, silakan kunjungi [situs web resminya](https://doc
 
 ### Pertanyaan ke-1: Varian Hugo mana yang harus dipakai? {#pertanyaan-ke1}
 
-**Jawab:** Usahakan untuk selalu gunakan Hugo Extended ketimbang Hugo varian standar.
+**Jawab:** Sebaiknya edisi standar tanpa fitur **Deploy**, karena fitur tersebut pilihannya sangat terbatas dan secara fungsi itu tidak lebih baik ketimbang kamu menggunakan Rclone sekalian.
 
-Saya menyarankan seperti ini karena dukungan tema akan lebih beragam jika Anda menggunakan Hugo Extended dan ada beberapa tema yang menggunakan SCSS ketimbang CSS untuk mengatur penampilannya.
+Akan lebih baik kalau Dart Sass terinstal, mengingat banyak tema yang menggunakan SASS juga, tapi sayangnya tidak semua cara instalasi di sini bisa menyertakan instalasi Dart Sass.
 
-Lagipula, sudah banyak _platform_ yang mendukung Hugo Extended ini, walaupun secara resmi hanya disediakan untuk _platform_ tertentu saja.
-
-### Pertanyaan ke-2: Kenapa Cara Install Hugo di Fedora, Red Hat dan Keluarganya malah gak dibahas? {#pertanyaan-ke2}
+### Pertanyaan ke-2: Kenapa cara instal Hugo di Fedora, Red Hat dan keluarganya dulu tidak dibahas? {#pertanyaan-ke2}
 
 **Jawab:** ~~Karena versi Hugo yang digunakan oleh Fedora, Red Hat, dan Keluarganya adalah versi lama.~~
 
@@ -637,9 +663,9 @@ Lagipula, sudah banyak _platform_ yang mendukung Hugo Extended ini, walaupun sec
 
 ~~Jika Anda sangat ingin menginstal Hugo di dalam Distribusi yang tidak saya bahas, maka saya sarankan agar Anda menginstalnya melalui cara yang lebih "Universal" seperti menggunakan Snap, Homebrew, Nix atau melalui cara manual (mengunduh berkas biner, tanpa pengelola paket).~~
 
-**PEMBARUAN, 07 Juni 2023:** Sekarang cara instal untuk Fedora, CentOS, RHEL dan keluarganya sudah saya bahas, sehingga pertanyaan ini tidak berlaku lagi.
+**PEMBARUAN, 07 Juni 2023:** Sekarang cara instal untuk Fedora, CentOS, RHEL, dan keluarganya sudah saya bahas, sehingga pertanyaan ini tidak berlaku lagi.
 
-### Pertanyaan ke-3: Apakah Cara Install untuk openSUSE bisa diaplikasikan di Fedora, Red Hat, dan Keluarganya? {#pertanyaan-ke3}
+### Pertanyaan ke-3: Apakah Cara instal untuk openSUSE bisa diaplikasikan di Fedora, Red Hat, dan keluarganya? {#pertanyaan-ke3}
 
 **Jawab:** Tidak bisa, kalaupun bisa maka sebaiknya jangan, karena pada dasarnya distribusi keluarga SUSE dan Fedora/Red Hat memang berbeda meskipun sama-sama menggunakan RPM sebagai salah satu sistem pengelolaan paketnya dan sama-sama merupakan GNU/Linux.
 
@@ -647,149 +673,12 @@ Letak perbedaannya nanti di paket ketergantungannya, mulai dari nama paketnya sa
 
 Jika Anda ingin mencobanya ya silakan saja, tapi segala risiko yang ada atau yang telah terjadi, silakan Anda tanggung sendiri.
 
-### Pertanyaan ke-4: Saya ingin menginstal Hugo dengan mengunduh Berkas Biner di GNU/Linux, tapi apakah ada cara agar saya dapat menginstalnya di direktori pengguna tanpa perlu hak akses `root` ataupun menggunakan `sudo` lagi? {#pertanyaan-ke4}
-
-**Jawab**: Ada, pada dasarnya Anda dapat mengikuti cara di atas, tapi Anda perlu mengubah beberapa direktori tujuan pada skrip di atas, seperti `/usr/local/bin` menjadi `$HOME/.local/bin`, `/usr/local/man/man1` menjadi `$HOME/.local/share/man/man1` untuk Halaman Manual, dll.
-
-**Catatan**: Saya belum pernah coba instal Hugo di dalam direktori pengguna, sehingga akan terjadi ketidakakuratan dalam pembahasan. Namun saya berani jamin, bahwa perintah-perintah di bawah ini tidak akan membahayakan sedikitpun baik untuk sistem operasi dan data-data pribadi Anda, kalau kamu benar-benar mengikutinya.
-
-#### Install Hugo
-
-Kalau Anda gak mau ribet, setelah Anda mengunduh Hugo-nya, alihkan terlebih dahulu hak aksesnya menjadi pengguna biasa, lalu Anda bisa gunakan skrip berikut untuk menginstal Hugo-nya di dalam direktori pengguna:
-
-```shell {linenos=true}
-tar -xvzf "$HUGO_FILENAME"; install -Dm755 hugo "$HOME"/.local/bin/
-install -Dm644 LICENSE "$HOME"/.local/share/licenses/hugo/LICENSE
-rm "$HUGO_FILENAME" hugo LICENSE README.md
-cd -
-```
-
-Setelah menginstalnya, silakan Anda pastikan agar Hugo dapat dieksekusi setelah diinstal dengan perintah berikut untuk menampilan versinya:
-
-```shell
-hugo version
-```
-
-Jika berhasil, maka harusnya akan muncul keluaran seperti di bawah ini:
-
-```plain
-{{< hugo-version-long isExtended=true >}}
-```
-
-Kalau muncul keluaran seperti di atas, maka tandanya Hugo berhasil diinstal. Tulisan `+extended` di atas terjadi ketika Anda menggunakan Hugo Extended, kalau tidak, maka tulisan tersebut memang tidak ada.
-
-Kalau tidak muncul sama sekali atau bahkan mengalami pesan galat, maka artinya instalasi belum berhasil.
-
-#### Membuat Halaman Panduan Hugo
-
-Kalau mau, Anda juga dapat membuat halaman panduannya yang akan disimpan di dalam direktori pengguna dengan skrip berikut:
-
-```shell {linenos=true}
-hugo gen man --dir '/tmp/hugo_manpages'
-cd /tmp/hugo_manpages; gzip -9 *
-install -Dm644 * -t "$HOME"/.local/share/man/man1
-cd -; rm -rf /tmp/hugo_manpages
-```
-
-Secara baku, direktori `"$HOME"/.local/share/man/man1` tidak dianggap sebagai tempat untuk menyimpan halaman panduan, sehingga tidak terbaca oleh Aplikasi pembaca Halaman Panduan seperti `man`.
-
-Jadi, Anda harus memasukkan direktori tersebut ke dalam variabel `MANPATH` bersamaan dengan direktori lainnya yang ada di dalam perintah `manpath -g`.
-
-Anda bisa gunakan perintah di bawah ini untuk menambahkannya:
-
-```shell
-MANPATH="$(manpath -g):$HOME/.local/share/man" && export MANPATH
-```
-
-Atau, jika Anda menggunakan `fish` sebagai _Shell_, silakan gunakan perintah berikut:
-
-```fish
-set -gx MANPATH (manpath -g) "$HOME"/.local/share/man
-```
-
-Anda bisa menyimpan salah satu dari perintah di atas ke dalam berkas konfigurasi untuk _Shell_ yang Anda gunakan agar perintah tersebut bisa dieksekusi ketika _Shell_ dijalankan secara interaktif.
-
-#### Membuat fitur _Shell Completion_ untuk Hugo
-
-Jika Anda adalah pengguna `fish` sebagai _Shell_, maka Anda dapat memasang fitur _Shell Completion-nya_ dengan perintah berikut:
-
-```fish
-hugo completion fish | install -Dm644 /dev/stdin "$HOME/.config/fish/completions/hugo.fish"
-```
-
-Atau, jika Anda adalah pengguna GNU Bash, maka Anda dapat memasang fitur _Shell Completion-nya_ dengan perintah berikut:
-
-```shell
-hugo completion bash | install -Dm 644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
-```
-
-Fitur seperti ini akan memerlukan paket/perkakas yang bernama [`bash-completion`](https://github.com/scop/bash-completion/) dan itu bisa Anda instal di dalam distribusi yang Anda gunakan.
-
-Biasanya, perkakas tersebut sudah terinstal secara baku di beberapa distribusi GNU/Linux, seperti: Ubuntu, openSUSE, Fedora, Manjaro, dll. Namun jika Anda merasa tidak demikian, maka Anda bisa menginstalnya sendiri dengan mengikuti petunjuk dari distribusi Anda.
-
-Jika Anda menggunakan perkakas `bash-completion` versi 2.8 atau di atasnya (seperti yang ada pada mayoritas Distribusi GNU/Linux), maka seharusnya itu langsung bekerja.
-
-Namun jika Anda merasa masih menggunakan versi di bawahnya atau merasa kurang yakin, maka Anda dapat menambahkan baris skrip berikut ke dalam berkas `~/.bash_completion` ataupun di dalam berkas `~/.bashrc`:
-
-```shell
-for bcfile in "$HOME"/.local/share/bash-completion/completions/* ; do
-  [ -f "$bcfile" ] && . $bcfile
-done
-```
-
-**Catatan**: Skrip di atas saya dapatkan dari [Jawaban Russell E Glaue](https://serverfault.com/a/831184) untuk pertanyaan **"Standard place for user defined bash_completion.d scripts?"** di Server Fault, dilisensikan di bawah CC BY-SA 4.0 oleh penjawab.
-
-Dengan begitu, Anda bisa menggunakan fitur _Shell Completion-nya_ di dalam Bash.
-
-Namun jika Anda menggunakan Z Shell (disingkat menjadi `zsh`), maka pertama-tama Anda perlu ketahui terlebih dahulu isi dari variabel `FPATH` dengan perintah berikut beserta keluarannya:
-
-```shell {linenos=true}
-$ echo $FPATH
-/home/user/.oh-my-zsh/plugins/colored-man-pages:/home/user/.oh-my-zsh/plugins/sudo:/home/user/.oh-my-zsh/plugins/debian:/home/user/.oh-my-zsh/plugins/git:/home/user/.oh-my-zsh/functions:/home/user/.oh-my-zsh/completions:/home/user/.oh-my-zsh/cache/completions:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/functions/Calendar:/usr/share/zsh/functions/Chpwd:/usr/share/zsh/functions/Completion:/usr/share/zsh/functions/Completion/Base:/usr/share/zsh/functions/Completion/Linux:/usr/share/zsh/functions/Completion/Unix:/usr/share/zsh/functions/Completion/X:/usr/share/zsh/functions/Completion/Zsh:/usr/share/zsh/functions/Exceptions:/usr/share/zsh/functions/Math:/usr/share/zsh/functions/MIME:/usr/share/zsh/functions/Misc:/usr/share/zsh/functions/Newuser:/usr/share/zsh/functions/Prompts:/usr/share/zsh/functions/TCP:/usr/share/zsh/functions/VCS_Info:/usr/share/zsh/functions/VCS_Info/Backends:/usr/share/zsh/functions/Zftp:/usr/share/zsh/functions/Zle
-```
-
-Hasil keluaran di atas mungkin akan berbeda-beda pada setiap perangkat, adapun tulisan `/home/user/.oh-my-zsh` pada keluaran di atas itu akan terjadi jika Anda menggunakan [`oh-my-zsh`](https://ohmyz.sh/) sebagai kerangka kerja untuk mengelola konfigurasi Z Shell Anda.
-
-Variabel tersebut mendefinisikan satu set direktori, yang berisi berkas yang dapat ditandai untuk dimuat secara otomatis oleh Z Shell saat dijalankan, termasuk _Completion-nya_. Jadi, ketika Anda membuat sebuah skrip _Completion_, maka Anda perlu meletakkannya di dalam salah satu direktori yang ada di dalam variabel `FPATH` itu tadi.
-
-Contohnya jika Anda menggunakan `oh-my-zsh`, maka Anda perlu meletakkannya di dalam folder `~/.oh-my-zsh/completions` dan kabar baiknya direktori tersebut ada di dalam variabel `FPATH`. Berikut adalah perintah untuk membuat _Completion-nya_:
-
-```shell
-hugo completion zsh | install -Dm 644 /dev/stdin "$HOME/.oh-my-zsh/completions/_hugo"
-```
-
-Namun jika Anda tidak menggunakan `oh-my-zsh`, Anda bisa mengganti `$HOME/.oh-my-zsh/completions/_hugo` di atas menjadi direktori lain, tapi termasuk dalam variabel `FPATH`.
-
-Jika Anda ingin meletakkannya di dalam direktori kustom yang mana itu tidak termasuk dalam variabel `FPATH`, maka Anda perlu memasukkan direktori tersebut ke dalam variabelnya secara manual dengan perintah/skrip berikut:
-
-```shell
-FPATH="/direktori/kustom/kamu:$FPATH" && export FPATH
-```
-
-Atau, perintah berikut:
-
-```shell
-fpath=( /direktori/kustom/kamu "${fpath[@]}" )
-```
-
-Atau, berikut di bawah ini jika Anda ingin multi-baris:
-
-```shell
-fpath=(
-    /direktori/kustom/kamu
-    /direktori/kustom/kamu2
-    "${fpath[@]}"
-)
-```
-
-Anda bisa simpan perintah/skrip di atas di dalam berkas `~/.zshrc` agar perintah tersebut dapat dieksekusi oleh Z Shell ketika dijalankan secara interaktif.
-
 ## Penutup
 
-Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan Artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja variannya.
+Sudah? Iya, sudah, cuma itu saja yang perlu Anda lakukan. Ini merupakan artikel yang membahas tentang 'Cara Install Hugo', bukan 'Cara Install Hugo beserta konfigurasinya', walaupun saya sedikit berbasa-basi tentang apa itu Hugo dan apa saja variannya.
 
 Demi kesederhanaan Artikel ini, maka topik tentang membuat Blog di Hugo beserta konfigurasinya akan saya bahas secara terpisah.
 
-Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukkan lainnya, silakan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang).
+Jika kamu mempunyai pertanyaan, kritik dan saran, komentar atau masukan lainnya, silakan kamu berkomentar melalui kolom komentar yang tersedia atau bisa kamu [Hubungi Saya](/tentang).
 
 Terima kasih atas perhatiannya 😊
