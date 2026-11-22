@@ -174,7 +174,7 @@ Hal-hal yang harus Anda siapkan untuk pengguna Windows adalah sebagai berikut:
   - Mengakses server atau perangkat Anda yang menggunakan sistem operasi \*nix dengan menggunakan klien SSH
 - Persiapan perangkat lunak pada WSL, mesin virtual, kontainer atau pada server bisa mengikuti [persiapan untuk sistem operasi \*nix](#persiapan-pengguna-unix-like)
 
-Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, disarankan instal Termux di ponsel Anda dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop Anda melalui SSH, lalu aturlah agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya kunjungi [artikel ini](https://farrelf.blog/cara-menggunakan-termux-dari-komputer/).
+Namun, jika Anda mempunyai ponsel berbasis Android 7.0 atau di atasnya, disarankan instal Termux di ponsel Anda dan buatlah agar Termux-nya dapat diakses dari komputer desktop atau laptop Anda melalui SSH, lalu aturlah agar Termux-nya dapat diaktifkan setelah perangkat dinyalakan dan terus aktif di latar belakang, caranya kunjungi [artikel ini]({{< relref "post/2021/11/17-cara-menggunakan-termux-dari-komputer-laptop/index.md" >}}).
 
 #### Untuk Pengguna Android (tidak perlu akses _root_) {#persiapan-pengguna-android}
 
@@ -187,7 +187,7 @@ Hal-hal yang harus Anda siapkan untuk pengguna Android adalah sebagai berikut:
     2. Perbarui semua paket yang ada di Termux dengan perintah: `pkg upg -y`
     3. Instal semua keperluannya dengan perintah: `pkg i -y curl wget openssl-tool jq yq cronie termux-services`, lalu mulai ulang Termux jika berhasil
     4. Aktifkan Layanan (_Service_) Cron di latar belakang dengan perintah: `sv-enable crond && sv up crond`
-    5. Jika Anda memiliki komputer desktop atau laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya Anda instal `openssh` (atau sejenisnya) di dalam Termux, lalu lakukan semuanya secara remot dari komputer desktop atau laptop Anda melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini](https://farrelf.blog/cara-menggunakan-termux-dari-komputer/)
+    5. Jika Anda memiliki komputer desktop atau laptop dan ponsel pintar berbasis Android yang terkoneksi dengan jaringan yang sama, maka sebaiknya Anda instal `openssh` (atau sejenisnya) di dalam Termux, lalu lakukan semuanya secara remot dari komputer desktop atau laptop Anda melalui perkakas klien SSH. Caranya bisa Anda baca [artikel ini]({{< relref "post/2021/11/17-cara-menggunakan-termux-dari-komputer-laptop/index.md" >}})
 
 **Catatan:** Semua hal di atas dapat Anda lakukan tanpa perlu akses _root_ sedikit pun dan perangkat tidak perlu _di-root_, sehingga tidak perlu khawatir soal garansi perangkat Anda.
 
@@ -2490,7 +2490,7 @@ IKP diperlukan untuk aktivitas di mana kata sandi sederhana merupakan metode ote
 
 ### Pertanyaan ke-4: Apa saja CA selain ZeroSSL dan Let's Encrypt yang bisa menggunakan Protokol ACME? {#pertanyaan-ke4}
 
-Untuk yang gratisan, ada [SSL.com](https://www.ssl.com/certificates/free/), Google Public CA yang saya bahas di dalam [artikel ini](https://farrelf.blog/cara-mendapatkan-sertifikat-ssl-dari-google/), serta [Actalis](https://www.actalis.com/acme-protocol-ssl-certificate-automation) yang baru didukung oleh acme.sh.
+Untuk yang gratisan, ada [SSL.com](https://www.ssl.com/certificates/free/), Google Public CA yang saya bahas di dalam [artikel ini]({{< relref "post/2022/05/15-cara-mendapatkan-sertifikat-ssl-dari-google/index.md" >}}), serta [Actalis](https://www.actalis.com/acme-protocol-ssl-certificate-automation) yang baru didukung oleh acme.sh.
 
 {{< info title="**Catatan:**" >}}
 Sebelumnya ada satu lagi CA gratisan yang mendukung Protokol ACME, yaitu [Buypass Go SSL](https://www.buypass.com/products/tls-ssl-certificates/go-ssl). Namun, Buypass **berhenti menerima pesanan dan renewal sertifikat TLS/SSL** sejak 15 Oktober 2025 (penerbitan terakhir 31 Oktober 2025), dan layanan ACME-nya berakhir pada 15 April 2026.

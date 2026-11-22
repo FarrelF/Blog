@@ -240,28 +240,25 @@ Untuk menginstalnya, salinkan skrip berikut di bawah ini dan tempelkan itu ke da
 
 ```shell {linenos=true}
 HUGO_VERSION="$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' "https://github.com/gohugoio/hugo/releases/latest" | sed -n 's#.*/tag/v*##p')"
-HUGO_ARCH="$(dpkg --print-architecture)"
-HUGO_FILENAME="hugo_"$HUGO_VERSION"_linux-"$HUGO_ARCH".deb"
-cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
+case $(uname -m) in x86_64|amd64) HUGO_ARCH=amd64;; aarch64|arm64) HUGO_ARCH=arm64;; *) echo "Arsitektur tidak didukung: $(uname -m)" >&2; exit 1;; esac
+HUGO_FILENAME=hugo_${HUGO_VERSION}_linux-${HUGO_ARCH}.deb
+cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_FILENAME}"
 ```
 
-Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _shell_:
+Atau, gunakan skrip berikut jika Anda menggunakan fish sebagai _shell_:
 
 ```fish {linenos=true}
 set HUGO_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | string match -rg '/tag/v*(.+)')
-set HUGO_ARCH (dpkg --print-architecture)
-set HUGO_FILENAME hugo_$HUGO_VERSION"_linux-$HUGO_ARCH.deb"
+switch (uname -m); case x86_64 amd64; set HUGO_ARCH amd64; case aarch64 arm64; set HUGO_ARCH arm64; case '*'; echo "Arsitektur tidak didukung: "(uname -m) >&2; exit 1; end
+set HUGO_FILENAME hugo_{$HUGO_VERSION}_linux-{$HUGO_ARCH}.deb
 cd /tmp; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME"
 ```
 
 **Penjelasan:**
 
-- Baris ke-1: Untuk mendapatkan versi terbaru Hugo, lalu memasukkannya ke dalam variabel `HUGO_VERSION`
-- Baris ke-2: Untuk menentukan arsitektur sistem pada berkas Hugo yang ingin Anda unduh, variabel tersebut akan otomatis diisi berdasarkan hasil dari perintah `dpkg --print-architecture`.
-
-    Anda bisa menggantinya kalau mau, arsitektur yang tersedia untuk Hugo adalah `amd64` dan `arm64`
-
-- Baris ke-3: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan Nilai tersebut diambil dari nama berkas Hugo aslinya, `HUGO_VERSION` untuk versi Hugo-nya dan `HUGO_ARCH` untuk arsitektur pada Hugo yang ingin diunduh
+- Baris ke-1: Untuk mendapatkan versi terbaru Hugo dari tujuan akhir pengalihan (redirect) halaman `releases/latest` di GitHub, lalu memasukkannya ke dalam variabel `HUGO_VERSION`. Awalan `v` pada tag otomatis dibuang oleh `sed` atau `string match` jika menggunakan fish
+- Baris ke-2: Untuk menentukan arsitektur sistem pada berkas Hugo yang ingin Anda unduh secara otomatis ke dalam variabel `HUGO_ARCH` jika arsitektur sistem mendukung, yakni `amd64`/`x86_64` dan `arm64`/`aarch64` saja, jika tidak maka akan muncul galat dan skrip tidak dilanjutkan
+- Baris ke-3: Untuk memasukkan nama berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME`, dengan nilai yang diambil dari nama berkas aslinya, yakni adanya versi (`HUGO_VERSION`) dan arsitektur sistem (`HUGO_ARCH`) di dalam nama berkasnya
 - Baris ke-4: Untuk menavigasikan Terminal ke `/tmp`, lalu mengunduh Hugo-nya di sana dengan bantuan GNU Wget
 
 Lalu, instal berkas yang telah Anda unduh dengan perintah berikut:
@@ -458,76 +455,84 @@ Lalu, jalankan `sudo chmod +x /usr/local/bin/sass` dan `sudo chown -R root:root 
 
 **Catatan:** Bisa saja Anda memindahkan berkas tersebut ke dalam direktori lain yang termasuk dalam variabel `PATH`, seperti `/home/username/.local/bin` misalnya dan tidak perlu melakukan peralihan kepemilikan ke `root`, tapi saya rekomendasikan agar diletakkan ke dalam direktori `/usr/local/bin` supaya Hugo dan Dart Sass bisa dieksekusi oleh seluruh pengguna di satu sistem.
 
-Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka pertama-tama Anda perlu mengubah hak akses Anda di Terminal menjadi `root` dengan perintah `sudo su`, `sudo -i`, atau `sudo -s`, kecuali jika Anda ingin menginstalnya di dalam direktori pengguna.
+Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjangnya) maka Anda dapat mengikuti langkah-langkah berikut ini:
 
-Setelah itu, tentukan arsitektur sistem operasi apa yang Anda gunakan sekarang.
+**Langkah ke-1:** Buka Terminal, lalu Anda perlu mengubah hak akses di Terminal menjadi `root`, bisa dengan eksekusi perintah `sudo su`, `sudo -i`, atau `sudo -s`, kecuali jika Anda ingin menginstalnya di dalam direktori pengguna.
 
-Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
+**Langkah ke-2:** Untuk menginstalnya, maka tinggal Anda copas saja skrip berikut ke dalam Terminal yang menggunakan Bash atau Zsh sebagai _shell_, lalu tekan "Enter":
 
-Untuk menginstalnya, maka tinggal Anda copas saja skrip berikut ke dalam Terminal, lalu tekan "Enter":
-
-```shell {linenos=true}
+```bash {linenos=true}
 HUGO_VERSION=$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | sed -n 's#.*/tag/v*##p')
 DART_SASS_VERSION=$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/sass/dart-sass/releases/latest | sed -n 's#.*/tag/v*##p')
-HUGO_ARCH=amd64 DART_SASS_ARCH=x64
-HUGO_FILENAME=hugo_${HUGO_VERSION}_linux-$HUGO_ARCH.tar.gz DART_SASS_FILENAME=dart-sass-$DART_SASS_VERSION-linux-$DART_SASS_ARCH.tar.gz
-INSTALL_TEMPDIR=$(mktemp -d); cd "$INSTALL_TEMPDIR" && wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
+case $(uname -m) in x86_64|amd64) HUGO_ARCH=amd64 DART_SASS_ARCH=x64;; aarch64|arm64) HUGO_ARCH=arm64 DART_SASS_ARCH=arm64;; armv6*|armv7*|arm) HUGO_ARCH=arm DART_SASS_ARCH=arm;; *) echo "Arsitektur tidak didukung: $(uname -m)" >&2; exit 1;; esac; if ldd --version 2>&1 | grep -qi musl || ls /lib/ld-musl-* >/dev/null 2>&1; then DART_SASS_LIBC=-musl; else DART_SASS_LIBC=; fi
+HUGO_FILENAME=hugo_${HUGO_VERSION}_linux-${HUGO_ARCH}.tar.gz DART_SASS_FILENAME=dart-sass-${DART_SASS_VERSION}-linux-${DART_SASS_ARCH}${DART_SASS_LIBC}.tar.gz
+INSTALL_TEMPDIR=$(mktemp -d); cd "${INSTALL_TEMPDIR}" && wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
 printf '%s\n' *.tar.gz | xargs -n1 -P2 tar -xzf
-install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
-install -Dm755 dart-sass/sass /usr/local/bin/; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
+install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/local/share/licenses/hugo/LICENSE
+install -Dm755 dart-sass/sass /usr/local/bin/; rm -rf /usr/local/bin/dart-sass; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
+sed -i '/^exec /s|/src/|/dart-sass/|g' /usr/local/bin/sass
+cd -
+rm -rf "${INSTALL_TEMPDIR}"
+```
+
+Atau, gunakan skrip berikut jika Anda menggunakan fish sebagai _shell_:
+
+```fish {linenos=true}
+set HUGO_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | string match -rg '/tag/v*(.+)')
+set DART_SASS_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/sass/dart-sass/releases/latest | string match -rg '/tag/v*(.+)')
+switch (uname -m); case x86_64 amd64; set HUGO_ARCH amd64; set DART_SASS_ARCH x64; case aarch64 arm64; set HUGO_ARCH arm64; set DART_SASS_ARCH arm64; case 'armv6*' 'armv7*' arm; set HUGO_ARCH arm; set DART_SASS_ARCH arm; case '*'; echo "Arsitektur tidak didukung: "(uname -m) >&2; exit 1; end; if ldd --version 2>&1 | grep -qi musl; or test (count /lib/ld-musl-*) -gt 0; set DART_SASS_LIBC -musl; else; set DART_SASS_LIBC ''; end
+set HUGO_FILENAME hugo_{$HUGO_VERSION}_linux-{$HUGO_ARCH}.tar.gz; set DART_SASS_FILENAME dart-sass-{$DART_SASS_VERSION}-linux-{$DART_SASS_ARCH}{$DART_SASS_LIBC}.tar.gz
+set INSTALL_TEMPDIR (mktemp -d); cd "$INSTALL_TEMPDIR"; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
+printf '%s\n' *.tar.gz | xargs -n1 -P2 tar -xzf
+install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/local/share/licenses/hugo/LICENSE
+install -Dm755 dart-sass/sass /usr/local/bin/; rm -rf /usr/local/bin/dart-sass; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
 sed -i '/^exec /s|/src/|/dart-sass/|g' /usr/local/bin/sass
 cd -
 rm -rf "$INSTALL_TEMPDIR"
 ```
 
-Atau, gunakan skrip berikut jika Anda menggunakan `fish` sebagai _shell_:
-
-```fish {linenos=true}
-set HUGO_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | string match -rg '/tag/v*(.+)')
-set DART_SASS_VERSION (curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/sass/dart-sass/releases/latest | string match -rg '/tag/v*(.+)')
-set HUGO_ARCH amd64; set DART_SASS_ARCH x64
-set HUGO_FILENAME hugo_$HUGO_VERSION"_linux-$HUGO_ARCH.tar.gz"; set DART_SASS_FILENAME dart-sass-$DART_SASS_VERSION"-linux-$DART_SASS_ARCH.tar.gz"
-set INSTALL_TEMPDIR (mktemp -d); cd $INSTALL_TEMPDIR; wget -c "https://github.com/gohugoio/hugo/releases/download/v$HUGO_VERSION/$HUGO_FILENAME" "https://github.com/sass/dart-sass/releases/download/$DART_SASS_VERSION/$DART_SASS_FILENAME"
-printf '%s\n' *.tar.gz | xargs -n1 -P2 tar -xzf
-install -Dm755 hugo /usr/local/bin/; install -Dm644 LICENSE /usr/share/licenses/hugo/LICENSE
-install -Dm755 dart-sass/sass /usr/local/bin/; mv dart-sass/src /usr/local/bin/dart-sass; chown -R root:root /usr/local/bin/dart-sass
-sed -i '/^exec /s|/src/|/dart-sass/|g' /usr/local/bin/sass
-cd -
-rm -rf $INSTALL_TEMPDIR
-```
-
 **Penjelasan:**
 
-- Baris ke-1: Untuk mendapatkan versi terbaru Hugo dari tujuan akhir pengalihan (redirect) halaman `releases/latest` di GitHub, lalu memasukkannya ke dalam variabel `HUGO_VERSION`. Awalan `v` pada tag otomatis dibuang oleh `string match`
+- Baris ke-1: Untuk mendapatkan versi terbaru Hugo dari tujuan akhir pengalihan (redirect) halaman `releases/latest` di GitHub, lalu memasukkannya ke dalam variabel `HUGO_VERSION`. Awalan `v` pada tag otomatis dibuang oleh `sed` atau `string match` jika menggunakan fish
 - Baris ke-2: Untuk mendapatkan versi terbaru Dart Sass dengan cara yang sama, lalu memasukkannya ke dalam variabel `DART_SASS_VERSION`
-- Baris ke-3: Untuk menentukan arsitektur sistem pada berkas Hugo dan Dart Sass yang ingin Anda unduh, secara baku diisi `amd64` (variabel `HUGO_ARCH`) dan `x64` (variabel `DART_SASS_ARCH`), yang artinya Anda akan mengunduh berkas untuk arsitektur `AMD64` atau `x86_64`. Sesuaikan dengan arsitektur sistem operasi yang Anda gunakan
-- Baris ke-4: Untuk memasukkan Nama Berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan `DART_SASS_FILENAME`, dengan nilai yang diambil dari nama berkas aslinya, yakni adanya versi (`HUGO_VERSION`/`DART_SASS_VERSION`) dan arsitektur (`HUGO_ARCH`/`DART_SASS_ARCH`)
+- Baris ke-3: Untuk menentukan arsitektur sistem pada berkas Hugo dan Dart Sass yang ingin Anda unduh secara otomatis ke dalam variabel `HUGO_ARCH` dan `DART_SASS_ARCH` jika arsitektur sistem mendukung, yakni `amd64`/`x86_64`, `arm64`/`aarch64` dan `arm`/`armv6*`/`armv7*` saja, jika tidak maka akan muncul galat dan skrip tidak dilanjutkan
+- Baris ke-4: Untuk memasukkan nama berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan `DART_SASS_FILENAME`, dengan nilai yang diambil dari nama berkas aslinya, yakni adanya versi (`HUGO_VERSION`/`DART_SASS_VERSION`) dan arsitektur sistem (`HUGO_ARCH`/`DART_SASS_ARCH`) di dalam nama berkasnya
 - Baris ke-5: Untuk membuat direktori sementara dengan `mktemp -d` dan menyimpan lokasinya di variabel `INSTALL_TEMPDIR`, menavigasikan Terminal ke sana, lalu mengunduh Hugo dan Dart Sass sekaligus dengan bantuan GNU Wget. Opsi `-c` membuat unduhan bisa dilanjutkan bila terputus
 - Baris ke-6: Untuk mengekstrak kedua berkas arsip `.tar.gz` secara paralel (dua proses sekaligus) dengan bantuan `xargs`
 - Baris ke-7: Untuk menginstal `hugo` di direktori `/usr/local/bin` dengan chmod `755`, lalu menyalin berkas `LICENSE` milik Hugo ke `/usr/share/licenses/hugo/LICENSE` dengan chmod `644`
-- Baris ke-8: Untuk menginstal `sass` di direktori `/usr/local/bin` dengan chmod `755`, memindahkan direktori `src` milik Dart Sass ke `/usr/local/bin/dart-sass`, lalu menyetel pemilik direktori tersebut menjadi `root:root`
+- Baris ke-8: Untuk menginstal `sass` di direktori `/usr/local/bin` dengan chmod `755`, menghapus `/usr/local/bin/dart-sass` bila ada, memindahkan direktori `src` milik Dart Sass ke `/usr/local/bin/dart-sass`, lalu menyetel pemilik direktori tersebut menjadi `root:root`
 - Baris ke-9: Untuk mengubah jalur `/src/` menjadi `/dart-sass/` pada baris `exec` di berkas `/usr/local/bin/sass`, agar skrip `sass` menunjuk ke lokasi baru Dart Sass. Opsi `-i` mengubah berkas langsung di tempat
 - Baris ke-10: Kembali ke direktori sebelumnya
 - Baris ke-11: Menghapus direktori sementara beserta berkas unduhan dan hasil ekstrak yang sudah tak terpakai lagi
 
-Setelah itu, pastikan kalau Hugo dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo yang Anda gunakan sekarang:
+Kalau mau menginstalnya di dalam direktori pengguna, silakan ganti `/usr/local` di atas menjadi `${HOME}/.local` dan ganti `chown -R root:root` yang berada di baris ke-8 menjadi `chown -R $USER:$USER`.
+
+**Bagaimana kalau mau _meng-update_ Hugo dan Dart Sass?** Bisa banget, tinggal eksekusikan lagi skrip di atas, otomatis berkas-berkas lama akan ditimpa.
+
+Kamu bisa menyimpan barisan skrip di atas sebagai berkas skrip agar bisa dieksekusikan kapan saja tanpa harus mengunjungi artikel ini, memang tidaklah terbaik, bahkan bisa dibilang berantakan.
+
+Saya sendiri berencana agar skrip tersebut menjadi berkas skrip yang lebih layak (walau skrip Dart Sass sudah sih, tinggal Hugo saja), sehingga bisa digunakan oleh semuanya, termasuk GitHub Actions, Cloudflare Pages dan Netlify, tapi tidak sekarang. Silakan tanyakan sendiri pada AI kalau tidak sabar sambil _copy-paste_ skrip di atas mengenai apa yang perlu diperbaiki, analisa semuanya, dll, agar bisa menyesuaikan dengan kebutuhan Anda.
+
+**Langkah ke-3:** Setelah itu, pastikan kalau Hugo dan Dart Sass dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo dan Dart Sass yang Anda gunakan sekarang:
 
 ```shell
 hugo version
+sass --version
 ```
 
 Jika berhasil, maka keluarannya akan seperti di bawah ini:
 
 ```plain
 {{< hugo-version-long isExtended=false >}}
+1.108.2
 ```
 
-Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat halaman panduan (manpages) untuk Hugo dengan skrip berikut:
+**Langkah ke-4 (opsional):** Masih dalam hak akses `root`, kalau mau, Anda juga dapat membuat halaman panduan (manpages) untuk Hugo dengan skrip berikut:
 
 ```shell {linenos=true}
 hugo gen man --dir '/tmp/hugo_manpages'
 cd /tmp/hugo_manpages; gzip -9 *
-install -Dm644 * -t /usr/local/man/man1
+install -Dm644 * -t /usr/local/share/man/man1
 cd -; rm -rf /tmp/hugo_manpages
 ```
 
@@ -538,9 +543,30 @@ cd -; rm -rf /tmp/hugo_manpages
 - Baris ke-3: Untuk menyalin semua berkas di dalamnya ke `/usr/local/man/man1` dan menyetel nilai chmod-nya ke `644`
 - Baris ke-4: Untuk kembali ke direktori sebelumnya, lalu menghapus direktori `/tmp/hugo_manpages` dan seluruh berkas di dalamnya (atau secara rekursif)
 
+Kalau mau membuat halaman panduan Hugo di direktori pengguna, tanpa hak akses `root`, silakan ganti `/usr/local` di atas menjadi `${HOME}/.local`.
+
+Namun masalahnya, direktori `${HOME}/.local/share/man` tidaklah dianggap sebagai tempat untuk menyimpan halaman panduan, sehingga ketika kamu mengetik `man hugo` pun bakal dianggap tidak ada karena memang tidak dibaca, jadi tambahkan direktori tersebut ke dalam variabel `MANPATH` bersamaan dengan perintah `manpath -g` di awal.
+
+Kalau di Terminal yang menggunakan Bash atau Zsh sebagai _shell_, Anda bisa eksekusi perintah berikut untuk menambahkannya:
+
+```bash
+printf "\n%s\n" 'MANPATH="$(manpath -g):$HOME/.local/share/man" && export MANPATH' >> ~/.bashrc
+```
+
+Ganti `~/.bashrc` menjadi `~/.zshrc` kalau Anda menggunakan Zsh sebagai _shell_.
+
+Atau, kalau Anda menggunakan fish, perintahnya menjadi sebagai berikut:
+
+```fish
+mkdir -p {$HOME}/.config/fish/conf.d
+printf '%s\n' 'set -gx MANPATH (manpath -g) {$HOME}/.local/share/man' > {$HOME}/.config/fish/conf.d/manpath.fish
+```
+
+Setelah itu Anda bisa mulai/muat ulang _shell_ yang digunakan, bisa dengan cara tutup lalu buka lagi Terminal-nya, atau eksekusi perintah `exec bash`, `exec zsh` atau `exec fish` juga bisa.
+
 Kalau sudah, Anda bisa tes halaman panduannya dengan mengeksekusi perintah `man hugo` di dalam Terminal Anda.
 
-Jika Anda ingin memasang fitur _Completion_ untuk _Shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangnya dengan perintah berikut: (Sesuaikan dengan _Shell_ yang ter-install di sistem Anda)
+**Langkah ke-5 (opsional):** Jika Anda ingin memasang fitur _completion_ untuk _shell_ yang Anda gunakan di Terminal, maka Anda dapat memasangnya dengan perintah berikut: (Sesuaikan dengan _shell_ yang terinstal di sistem Anda)
 
 ```shell {linenos=true}
 ### Untuk pengguna Bash
@@ -553,11 +579,39 @@ hugo completion zsh | install -Dm644 /dev/stdin "/usr/share/zsh/site-functions/_
 hugo completion fish | install -Dm644 /dev/stdin "/usr/share/fish/vendor_completions.d/hugo.fish"
 ```
 
-Silakan coba fitur _Completion_ di dalam Terminal Anda setelah itu.
+Silakan coba fitur _completion-nya_ di dalam Terminal Anda setelah itu.
 
-Jika merasa sudah selesai, silakan alihkan kembali hak akses di dalam Terminal Anda menjadi Pengguna Biasa dengan perintah `exit`.
+Tapi, kalau Anda mau memasangnya di dalam direktori pengguna juga bisa, silakan eksekusikan salah satu perintah berikut:
 
-Untuk memperbarui versi Hugo-nya, Anda perlu mengulangi semua langkah-langkah di atas.
+```shell
+### Untuk pengguna Bash
+hugo completion bash | install -Dm644 /dev/stdin "$HOME/.local/share/bash-completion/completions/hugo"
+
+### Untuk pengguna Oh My Zsh
+hugo completion zsh | install -Dm644 /dev/stdin "$HOME/.oh-my-zsh/custom/completions/_hugo"
+
+### Untuk pengguna fish
+hugo completion fish | install -Dm644 /dev/stdin "$HOME/.config/fish/completions/hugo.fish"
+```
+
+**Loh kok Oh My Zsh? Di mana Zsh biasanya?** Karena secara baku Zsh sendiri sama sekali tidak mempunyai direktori yang menyimpan dan membaca _completions_ di direktori pengguna, sedangkan jika Anda menggunakan Oh My Zsh maka direktori tersebut bisa digunakan untuk menyimpan _completions_.
+
+Sebenarnya mudah mengatasi ini, cukup instal saja [Oh My Zsh](https://ohmyz.sh), lalu pasang _completions-nya_ dengan eksekusi perintah di atas, tapi kalau tidak mau menginstalnya maka kamu harus tambahkan direktori `$HOME/.local/share/zsh/completions` ke dalam variabel `fpath`.
+
+Eksekusikan perintah berikut untuk menambahkan direktori tersebut ke dalam `fpath` di dalam berkas `.zshrc` sekalian memasang _completion-nya_ juga:
+
+```shell
+printf "\n%s\n" 'typeset -gaU fpath=($fpath $HOME/.local/share/zsh/completions)' >> ~/.zshrc
+hugo completion zsh | install -Dm644 /dev/stdin "$HOME/.local/share/zsh/completions/_hugo"
+```
+
+Setelah itu, mulai/muat ulang Zsh-nya, bisa dengan tutup lalu buka lagi Terminal-nya, atau bisa dengan eksekusi perintah `exec zsh` atau `source ~/.zshrc` tanpa harus tutup-buka Terminal.
+
+Silakan coba lagi _completion-nya_ apakah berfungsi dengan benar atau tidak.
+
+**Langkah terakhir:** Jika merasa sudah selesai dan bagi yang masih di hak akses `root`, silakan alihkan kembali hak akses di dalam Terminal Anda menjadi pengguna biasa dengan perintah `exit`.
+
+Untuk memperbarui versi Hugo dan Dart Sass-nya, cukup ulangi semua langkah-langkah di atas, nanti berkas-berkas lama akan ditimpa secara otomatis.
 
 ### macOS
 
@@ -581,13 +635,11 @@ Homebrew tersedia untuk macOS maupun GNU/Linux. Perintah instalasinya sama denga
 
 **Catatan:** Saya tidak memakai sistem operasi macOS dan MacPorts sebagai pengelola paket, mungkin cara instalasi yang saya lontarkan di sini kurang begitu akurat sehingga bisa saja salah. Jika terjadi kesalahan dan Anda adalah pengguna MacPorts, mohon berikan masukan/koreksi dari Anda melalui kolom komentar.
 
-Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai Pengelola Paket di dalam macOS Anda, maka Anda dapat menginstal Hugo dengan perintah berikut:
+Jika Anda menggunakan [MacPorts](https://www.macports.org/) sebagai pengelola paket di dalam macOS, maka Anda dapat menginstal Hugo dengan perintah berikut:
 
 ```shell
 sudo port install hugo
 ```
-
-
 
 Jika Anda tidak ingin menggunakan `sudo`, maka hapus saja `sudo`-nya.
 
