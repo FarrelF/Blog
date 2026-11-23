@@ -1,6 +1,6 @@
 # Setup Hugo
 
-Composite action that downloads and installs any official [Hugo](https://github.com/gohugoio/hugo) release on GitHub Actions runners (Linux, macOS and Windows; x64 and ARM64) and puts `hugo` on `PATH`.
+Composite action that installs any official [Hugo](https://github.com/gohugoio/hugo) release on GitHub Actions runners (Linux, macOS and Windows; x64 and ARM64) and puts `hugo` on `PATH`. It is a thin wrapper around [`scripts/install-hugo.sh`](../../../scripts/install-hugo.sh), a self-contained POSIX `sh` installer that also runs outside GitHub Actions on Linux, macOS, Windows Git Bash/MSYS, and Termux/Android.
 
 - Supports **every release from v0.7.0 to the latest**, including the eras where the release assets were raw binaries, `linux_amd64`-style names, `Linux-64bit`-style names, `.tgz` archives and macOS `.pkg` installers.
 - Supports the **standard**, **Deploy** (`withdeploy`) and historical **Extended** / **Extended+Deploy** editions. Hugo v0.170.0 removed the Extended edition; see the edition matrix below.
@@ -18,6 +18,8 @@ Composite action that downloads and installs any official [Hugo](https://github.
     verify-file: true
     extended: true
     with-deploy: true
+    manpages: true
+    completions: 'bash,fish'
     github-token: ${{ secrets.GITHUB_TOKEN }}
 
 - name: Hugo version
@@ -25,6 +27,30 @@ Composite action that downloads and installs any official [Hugo](https://github.
     hugo version
     echo "Installed at ${{ steps.hugo.outputs.hugo-path }}"
 ```
+
+### Standalone
+
+The installer is POSIX `sh` and has no GitHub Actions dependency:
+
+```sh
+# Resolve and install the latest release (Termux uses "pkg install hugo").
+sh scripts/install-hugo.sh
+
+# Install a pinned release. Manpages and completions for the shells that are
+# actually installed are set up automatically.
+sh scripts/install-hugo.sh --version 0.170.1
+
+# Print only the bin directory, for PATH.
+PATH="$(sh scripts/install-hugo.sh --print-path):$PATH"
+
+# Skip the extras, or force specific completion shells.
+sh scripts/install-hugo.sh --no-man --no-completions
+sh scripts/install-hugo.sh --completions bash,fish
+```
+
+The environment equivalents are `HUGO_VERSION`, `HUGO_INSTALL_DIR`, `HUGO_METHOD`, `HUGO_VERIFY`, `HUGO_EXTENDED`, `HUGO_WITHDEPLOY`, `HUGO_FORCE`, `HUGO_MANPAGES`, `HUGO_COMPLETIONS`, `HUGO_SHARE_DIR`, `GITHUB_TOKEN`, `DOWNLOADER`, and `DOWNLOADER_ARGS`. Run `sh scripts/install-hugo.sh --help` for the full list of options.
+
+On Termux/Android, `--method auto` selects `pkg install hugo` for `latest` because Termux ships a native `android/arm64` build that reads Android's timezone data. Pinned versions still use the official Linux ARM64 binary, with a warning: that binary is static but cannot resolve named timezones such as `Asia/Jakarta` because Android has no `/usr/share/zoneinfo`.
 
 ## Inputs
 
@@ -35,8 +61,11 @@ Composite action that downloads and installs any official [Hugo](https://github.
 | `extended` | No | `false` | Install the Hugo Extended build. Extended builds exist from v0.43.0 through v0.169.x. Hugo v0.170.0 removed the Extended edition, so from v0.170.0 this input is accepted for backward compatibility and the equivalent standard build is installed with a note. On platforms without an Extended build the standard build is installed with a warning. |
 | `with-deploy` | No | `false` | Install with the Deploy feature. From v0.170.0 this installs the `withdeploy` build. With `extended: true` before v0.170.0 it means Extended+Deploy (from v0.137.0); with a standard build it means `withdeploy` (from v0.159.2). On older releases the closest available edition is installed with a warning. |
 | `github-token` | No | `''` | Token for the GitHub API, used when resolving `latest` through the releases redirect fails and to fetch the SHA-256 digest used for verification (avoids rate limiting). Pass `secrets.GITHUB_TOKEN`. |
-| `install-dir` | No | platform default | Directory to install Hugo into. Defaults to `/usr/local/bin` for macOS `.pkg` assets (their package location, so nothing is copied), to `/usr/local/bin` on Linux and for macOS assets that are not `.pkg` when it is writable without elevation (otherwise `~/.local/bin`), and to `C:\Program Files\Hugo` (64-bit) or `C:\Program Files (x86)\Hugo` (32-bit) on Windows when writable (otherwise `%LOCALAPPDATA%\Programs\Hugo`). |
-| `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
+| `install-dir` | No | platform default | Directory that receives the `hugo` binary. Defaults to `/usr/local/bin` on Linux and macOS when it is writable without elevation (otherwise `~/.local/bin`), to `C:\Program Files\Hugo` (64-bit) or `C:\Program Files (x86)\Hugo` (32-bit) on Windows when writable (otherwise `%LOCALAPPDATA%\Programs\Hugo`), and to `$PREFIX/bin` when it is writable and not owned by `dpkg`, otherwise `~/.local/bin`, on Termux. macOS `.pkg` assets are expanded with `pkgutil --expand-full` first and the binary is copied into this directory; `sudo installer` is only used as a fallback and then installs into `/usr/local/bin`. |
+| `manpages` | No | `false` | Generate and install Hugo's manpages. `hugo gen man` output is gzipped and installed under `<share-dir>/man/man1`; when `gzip` is unavailable the manpages are skipped. The standalone script defaults this to `true`, but the action defaults to `false` so CI builds stay lean. |
+| `completions` | No | `none` | Shell completions to install: `auto` (only the supported shells detected on the runner), `none`, a comma-separated subset of `bash`, `fish`, `zsh`, and `powershell`, or `all`. The standalone script defaults this to `auto`, but the action defaults to `none` so CI builds stay lean. |
+| `share-dir` | No | platform default | Directory that receives manpages and completion data. Defaults to `<prefix>/share` when that directory is writable (for example `/usr/local/share` for `/usr/local/bin`), otherwise `~/.local/share`. User-local installs print the `MANPATH`, zsh `fpath`, or PowerShell `$PROFILE` line to add. |
+| `downloader` | No | `aria2` | `aria2`/`2c`, `curl`, `wget`, `axel` or `mwget`. Falls back to `curl` or `wget` when `aria2c` is not installed (e.g. Ubuntu Slim images). |
 | `downloader-args` | No | `''` | Override the arguments passed to the downloader (word-split, so avoid embedded spaces). |
 
 ## Outputs
@@ -45,6 +74,26 @@ Composite action that downloads and installs any official [Hugo](https://github.
 |--------|-------------|
 | `hugo-version` | The version that was actually installed, without the `v` prefix (e.g. `0.168.0`). |
 | `hugo-path` | Path to the installed binary (native format, e.g. `C:\Program Files\Hugo\hugo.exe` on Windows). |
+
+## Manpages and shell completions
+
+The **standalone script installs both extras by default** after a successful Hugo install. It detects the supported shells that are actually present (`bash`, `fish`, `zsh`, and PowerShell through `command -v`, plus `/etc/shells`) and installs completions only for those; an explicit list still installs exactly the requested shells, and `all` installs all four. Use `--no-man`, `--no-completions`, or `--completions none` to opt out.
+
+The **action keeps both extras opt-in** so CI builds stay lean: set `manpages: true`, `completions: auto` (or an explicit list such as `'bash,fish'`), or both. `completions: all` installs bash, fish, zsh, and PowerShell even when they are not detected.
+
+| Target | System share directory | User-local share directory |
+|--------|------------------------|----------------------------|
+| manpages | `<share>/man/man1` | `<share>/man/man1` |
+| bash | `<share>/bash-completion/completions/hugo` | same |
+| zsh | `<share>/zsh/site-functions/_hugo` | `<share>/zsh/completions/_hugo` |
+| fish | `<share>/fish/vendor_completions.d/hugo.fish` | `~/.config/fish/completions/hugo.fish` |
+| PowerShell | `<share>/powershell/completions/hugo.ps1` | same |
+
+`<share>` defaults to `<prefix>/share` when it is writable (for example `/usr/local/share` when `hugo` is installed in `/usr/local/bin`), otherwise `~/.local/share`. Override it with `share-dir`.
+
+The installer prints the `MANPATH` line for manpages, the `fpath` line for a user-local zsh directory, and the `$PROFILE` dot-source line for PowerShell. bash-completion and fish load their user-local locations automatically.
+
+Generation is best-effort: a release that predates `hugo gen man` or `hugo completion`, a missing `gzip` (manpages are skipped entirely), or an unwritable target prints a warning and leaves the binary installed.
 
 ## Supported versions and editions
 
@@ -97,7 +146,7 @@ When the checksum file cannot be fetched — it has no entry for the asset, it i
 ## Notes
 
 - **Downloads** are retried once; a failed download removes the partial file first.
-- **macOS packages**: from v0.153.0 the macOS asset is a `.pkg`. The checksum is verified first, then the package is installed with `sudo installer -pkg ... -target /` (which places `hugo` in `/usr/local/bin`). With the default `install-dir` the package location is kept as-is (no copy is made); when `install-dir` is set explicitly, the binary is also copied there.
+- **macOS packages**: from v0.153.0 the macOS asset is a `.pkg`. The checksum is verified first, then the package is expanded with `pkgutil --expand-full` and the binary is copied into the install directory without elevation. If expansion fails, the installer falls back to `sudo installer -pkg ... -target /` (which places `hugo` in `/usr/local/bin`) and copies it to a custom `install-dir` when one was requested.
 - **Smoke test**: the installed binary is executed (`hugo version`, or `hugo -h` for v0.7/v0.8 which have no `version` subcommand) before the step finishes. A failure is fatal unless it is an expected cross-architecture fallback.
-- **Windows v0.137.0 + Extended+Deploy** is transparently bumped to **v0.137.1** (the release that restored the missing Windows archive), with an explanatory note; the previous action performed the same bump silently.
-- The candidate lists used for probing are marked in `action.yml` with `BEGIN/END asset candidate rules` markers; the test workflow extracts the embedded script with the same markers. The SHA-256 helpers carry `BEGIN/END SHA-256 helpers` markers for the local digest test harness, and the `install-dir` defaults carry an `install-dir defaults` marker for the local install-dir harness.
+- **Windows v0.137.0 + Extended+Deploy** is transparently bumped to **v0.137.1** (the release that restored the missing Windows archive), with an explanatory note.
+- The install logic lives in [`scripts/install-hugo.sh`](../../../scripts/install-hugo.sh). The action only maps its inputs to the script's environment variables and resolves the script path on Windows. The workflow tests the script directly (`sh -n`, `dash -n`, `shellcheck`, Alpine containers) as well as through the action.

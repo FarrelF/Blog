@@ -61,17 +61,16 @@ note "timezone: ${TZ}"
 # ---------------------------------------------------------------------------
 
 # Cloudflare Pages builds run in a gVisor container. Whether /usr is writable
-# there is not documented, so assume it is not and keep everything under $HOME.
-DART_SASS_PREFIX="${DART_SASS_PREFIX:-${HOME}/.local}"
-export DART_SASS_PREFIX
+# there is not documented, so the installer falls back to $HOME/.local/bin
+# when /usr/local/bin is not writable. It prints the directory it chose, which
+# is then prepended to PATH.
+note "installing Dart Sass"
+DART_SASS_BIN_DIR="$(sh "${SCRIPT_DIR}/install-dart-sass.sh" --print-path)"
+[ -n "${DART_SASS_BIN_DIR}" ] || die "install-dart-sass.sh did not print a bin directory"
 
-note "installing Dart Sass into ${DART_SASS_PREFIX}"
-bash "${SCRIPT_DIR}/install-dart-sass.sh"
-
-# Put our prefix first so Hugo resolves to the Sass we just installed rather
+# Put our directory first so Hugo resolves to the Sass we just installed rather
 # than to anything the image already had on PATH. The image ships Embedded Dart
 # Sass 1.62.1, which is below the 1.63.0 minimum Hugo enforces.
-DART_SASS_BIN_DIR="${DART_SASS_PREFIX}/bin"
 case ":${PATH}:" in
   *":${DART_SASS_BIN_DIR}:"*) ;;
   *) export PATH="${DART_SASS_BIN_DIR}:${PATH}" ;;

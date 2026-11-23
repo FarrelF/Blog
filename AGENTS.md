@@ -36,7 +36,7 @@ This is a **Hugo-based (not so) personal blog** (Farrel Franqois Blog) for [farr
     |-- layouts/shortcodes/    # Custom Hugo shortcodes
     |-- assets/                # Hugo-processed assets (favicon, webmanifest, images)
     |-- static/                # Files copied directly to site root (CNAME, verification files)
-    |-- scripts/               # Build scripts (Dart Sass installer, Cloudflare Pages build)
+    |-- scripts/               # Build scripts (POSIX Hugo/Dart Sass installers, Cloudflare Pages build)
     |-- docs/                  # AI-agent operational documentation
     |-- .github/workflows/     # GitHub Actions CI/CD
     |-- .github/actions/       # GitHub Actions Composite (setup-hugo, setup-dart-sass)

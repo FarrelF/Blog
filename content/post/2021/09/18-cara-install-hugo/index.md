@@ -236,7 +236,7 @@ Setelah itu, tentukan apakah Anda mau menginstal Hugo varian standar atau Extend
 
 Jika sudah ditentukan, Anda bisa mengikuti caranya berikut:
 
-Untuk menginstalnya, salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan "Enter":
+Untuk menginstalnya, salinkan skrip berikut di bawah ini dan tempelkan itu ke dalam Terminal, lalu tekan <kbd>&#8629; Enter</kbd>:
 
 ```shell {linenos=true}
 HUGO_VERSION="$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' "https://github.com/gohugoio/hugo/releases/latest" | sed -n 's#.*/tag/v*##p')"
@@ -402,33 +402,53 @@ Aturan ini berlaku bagi pengguna Nix di luar NixOS. Jika Anda pengguna NixOS, ga
 
 Namun, jika Anda tidak menggunakan NixOS dan menggunakan Nix sebagai pengelola paket, maka versi paket yang Anda dapatkan biasanya akan mengikuti kanal tidak stabil dari NixOS/Nixpkgs.
 
-#### Penyebutan khusus: instalasi Dart Sass menggunakan skrip (lebih universal)
+#### Menggunakan berkas skrip (lebih universal) {#menggunakan-berkas-skrip}
 
-Saya sudah menyediakan skrip instalasi Dart Sass untuk distribusi yang tidak menyediakannya, baik versinya ketinggalan maupun paketnya tidak ada sama sekali.
+Saya sudah menyediakan skrip penginstal Hugo dan Dart Sass untuk distribusi yang tidak menyediakannya, baik karena versinya ketinggalan maupun paketnya tidak ada sama sekali.
 
-Untuk melihat atau/dan mengunduh skripnya, silakan kunjungi file yang bernama [`install-dart-sass.sh`](https://github.com/FarrelF/Blog/blob/main/scripts/install-dart-sass.sh).
+Untuk melihat atau/dan mengunduh skripnya, silakan kunjungi file yang bernama [`install-dart-sass.sh`](https://github.com/FarrelF/Blog/blob/main/scripts/install-dart-sass.sh) dan [`install-hugo.sh`](https://github.com/FarrelF/Blog/blob/main/scripts/install-hugo.sh).
 
 Skrip tersebut tidaklah sepenuhnya dibuat oleh saya, melainkan AI yang membuat skrip tersebut, jadi mohon baca (kalau bisa pahami) terlebih dahulu kodenya sebelum menjalankan skrip tersebut.
 
-Tapi harusnya tidak masalah, karena saya yakin tidak ada kode yang membahayakan di situ dan saya menggunakannya untuk Netlify dan Cloudflare Pages.
+Tapi harusnya tidak masalah, karena saya yakin tidak ada kode yang membahayakan di situ dan saya menggunakannya untuk GitHub Actions, Netlify dan Cloudflare Pages juga.
 
 Jika sudah yakin, Anda bisa mengunduh, lalu mengeksekusi skripnya dengan cara berikut:
+
+Di bawah ini untuk menginstal Hugo:
+
+```shell {linenos=true}
+curl -fsSLO https://raw.githubusercontent.com/FarrelF/Blog/refs/heads/main/scripts/install-hugo.sh
+chmod +x ./install-hugo.sh
+./install-hugo.sh [versi]
+```
+
+Dan, di bawah ini untuk menginstal Dart Sass:
 
 ```shell {linenos=true}
 curl -fsSLO https://raw.githubusercontent.com/FarrelF/Blog/refs/heads/main/scripts/install-dart-sass.sh
 chmod +x ./install-dart-sass.sh
-sudo ./install-dart-sass.sh [versi]
+./install-dart-sass.sh [versi]
 ```
 
-Hapus `[versi]` di atas untuk menginstal Dart Sass versi terbaru atau ganti `[versi]` dengan versi Dart Sass yang Anda inginkan.
+Kedua skrip tersebut mendukung sistem operasi GNU/Linux (dan berbagai distribusinya), macOS, Windows (Git Bash/MSYS), dan Android melalui [Termux](https://termux.dev).
 
-Secara baku, Dart Sass akan terinstal di dalam direktori `/usr/local/bin` karena skrip tersebut dieksekusi dengan hak akses `root` ataupun menggunakan `sudo`, jika tidak menggunakan hak akses `root` maka secara otomatis akan terinstal di dalam direktori `$HOME/.local/bin`.
+Hapus `[versi]` di atas untuk menginstal versi terbaru atau ganti `[versi]` dengan versi yang Anda inginkan.
 
-Mengapa bagian ini termasuk "Penyebutan khusus" adalah bahwa skrip tersebut dibuat dengan tujuan membantu instalasi di Netlify dan Cloudflare Pages, walau harusnya bisa juga untuk umum, tapi belum terlalu matang, jadi silakan dicoba.
+Secara baku, Dart Sass dan Hugo akan terinstal di dalam direktori `/usr/local/bin` jika direktori tersebut bisa ditulis tanpa hak akses `root`, jika tidak maka secara otomatis akan terinstal di dalam direktori `$HOME/.local/bin`. Anda bisa mengganti lokasinya dengan menambahkan opsi `--install-dir`.
 
-Karena skrip tersebut juga berbasis Bash, bukan POSIX shell, maka mungkin ada sebagian distribusi/sistem operasi yang tidak kompatibel dengan skrip ini, tapi harusnya sebagian besar distribusi GNU/Linux sudah kompatibel dengan ini.
+Skrip Hugo juga secara baku memasang manpage dan _shell completion_. _Completion_ hanya dipasang untuk _shell_ yang terdeteksi terpasang (Bash, Zsh, Fish, dan PowerShell), sedangkan manpage akan dilewati jika `gzip` tidak tersedia. Gunakan `--no-man` atau `--no-completions` jika tidak ingin keduanya dipasang, atau `--completions bash,fish` untuk memilih _shell_ tertentu.
 
-Untuk Android melalui Termux juga belum didukung oleh skrip ini, mungkin ke depan akan ditambahkan sekalian skrip _installer_ Hugo-nya.
+Jadi, jika Anda ingin menginstalnya untuk semua pengguna di dalam 1 komputer, maka Anda perlu memberikan mereka hak akses `root`, Administrator atau apa pun itu, bisa dengan membuka skrip penginstal tersebut diawali dengan `sudo` (cth. `sudo ./install-dart-sass.sh`).
+
+Tapi kalau Anda adalah pengguna Termux, Anda tidak perlu menggunakan `sudo` untuk menginstal dua-duanya, karena keduanya akan terinstal di dalam `$PREFIX/bin` apa pun hak aksesnya, sehingga itu tidak berguna dan malah bikin repot saja.
+
+Ngomongin soal Android/Termux, instalasi Dart Sass menggunakan skrip di atas memang sepenuhnya mendukung Android melalui Termux, karena mereka menyediakan berkas binernya secara resmi untuk Android.
+
+Namun, berbeda dengan Hugo yang tidak menyediakan berkas biner untuk Android secara _native_, melainkan untuk GNU/Linux. Ya bisa sih berkas biner tersebut dieksekusikan di Android, tapi bakal terjadi rentetan isu kalau dipakai bukan peruntukannya, seperti bakal ada masalah zona waktu yang tidak dikenali/selalu UTC, dll.
+
+Jadi ujung-ujungnya kamu bakal diarahkan buat instal Hugo di Android melalui [pengelola paket di Termux](#termux), terutama jika versi yang dipilih adalah yang terbaru, karena itu adalah pilihan terbaik buat pengguna Android saat ini.
+
+Untuk mempelajarinya lebih lanjut, silakan eksekusikan skrip tersebut dengan menambahkan parameter `--help` (cth. `./install-hugo.sh --help` atau `./install-dart-sass.sh --help`).
 
 #### Berkas biner, tanpa pengelola paket (lebih universal, manual)
 
@@ -459,7 +479,7 @@ Jika Anda lebih suka melakukannya secara langsung di Terminal (atau cara panjang
 
 **Langkah ke-1:** Buka Terminal, lalu Anda perlu mengubah hak akses di Terminal menjadi `root`, bisa dengan eksekusi perintah `sudo su`, `sudo -i`, atau `sudo -s`, kecuali jika Anda ingin menginstalnya di dalam direktori pengguna.
 
-**Langkah ke-2:** Untuk menginstalnya, maka tinggal Anda copas saja skrip berikut ke dalam Terminal yang menggunakan Bash atau Zsh sebagai _shell_, lalu tekan "Enter":
+**Langkah ke-2:** Untuk menginstalnya, maka tinggal Anda copas saja skrip berikut ke dalam Terminal yang menggunakan Bash atau Zsh sebagai _shell_, lalu tekan <kbd>&#8629; Enter</kbd>:
 
 ```bash {linenos=true}
 HUGO_VERSION=$(curl -fsSLIo /dev/null --retry 2 --connect-timeout 15 -w '%{url_effective}' https://github.com/gohugoio/hugo/releases/latest | sed -n 's#.*/tag/v*##p')
@@ -499,7 +519,7 @@ rm -rf "$INSTALL_TEMPDIR"
 - Baris ke-4: Untuk memasukkan nama berkas yang ingin diunduh ke dalam variabel `HUGO_FILENAME` dan `DART_SASS_FILENAME`, dengan nilai yang diambil dari nama berkas aslinya, yakni adanya versi (`HUGO_VERSION`/`DART_SASS_VERSION`) dan arsitektur sistem (`HUGO_ARCH`/`DART_SASS_ARCH`) di dalam nama berkasnya
 - Baris ke-5: Untuk membuat direktori sementara dengan `mktemp -d` dan menyimpan lokasinya di variabel `INSTALL_TEMPDIR`, menavigasikan Terminal ke sana, lalu mengunduh Hugo dan Dart Sass sekaligus dengan bantuan GNU Wget. Opsi `-c` membuat unduhan bisa dilanjutkan bila terputus
 - Baris ke-6: Untuk mengekstrak kedua berkas arsip `.tar.gz` secara paralel (dua proses sekaligus) dengan bantuan `xargs`
-- Baris ke-7: Untuk menginstal `hugo` di direktori `/usr/local/bin` dengan chmod `755`, lalu menyalin berkas `LICENSE` milik Hugo ke `/usr/share/licenses/hugo/LICENSE` dengan chmod `644`
+- Baris ke-7: Untuk menginstal `hugo` di direktori `/usr/local/bin` dengan chmod `755`, lalu menyalin berkas `LICENSE` milik Hugo ke `/usr/local/share/licenses/hugo/LICENSE` dengan chmod `644`
 - Baris ke-8: Untuk menginstal `sass` di direktori `/usr/local/bin` dengan chmod `755`, menghapus `/usr/local/bin/dart-sass` bila ada, memindahkan direktori `src` milik Dart Sass ke `/usr/local/bin/dart-sass`, lalu menyetel pemilik direktori tersebut menjadi `root:root`
 - Baris ke-9: Untuk mengubah jalur `/src/` menjadi `/dart-sass/` pada baris `exec` di berkas `/usr/local/bin/sass`, agar skrip `sass` menunjuk ke lokasi baru Dart Sass. Opsi `-i` mengubah berkas langsung di tempat
 - Baris ke-10: Kembali ke direktori sebelumnya
@@ -509,9 +529,7 @@ Kalau mau menginstalnya di dalam direktori pengguna, silakan ganti `/usr/local` 
 
 **Bagaimana kalau mau _meng-update_ Hugo dan Dart Sass?** Bisa banget, tinggal eksekusikan lagi skrip di atas, otomatis berkas-berkas lama akan ditimpa.
 
-Kamu bisa menyimpan barisan skrip di atas sebagai berkas skrip agar bisa dieksekusikan kapan saja tanpa harus mengunjungi artikel ini, memang tidaklah terbaik, bahkan bisa dibilang berantakan.
-
-Saya sendiri berencana agar skrip tersebut menjadi berkas skrip yang lebih layak (walau skrip Dart Sass sudah sih, tinggal Hugo saja), sehingga bisa digunakan oleh semuanya, termasuk GitHub Actions, Cloudflare Pages dan Netlify, tapi tidak sekarang. Silakan tanyakan sendiri pada AI kalau tidak sabar sambil _copy-paste_ skrip di atas mengenai apa yang perlu diperbaiki, analisa semuanya, dll, agar bisa menyesuaikan dengan kebutuhan Anda.
+Kamu bisa menyimpan barisan skrip di atas sebagai berkas skrip agar bisa dieksekusikan kapan saja tanpa harus mengunjungi artikel ini. Kalau mau menggunakan semuanya otomatis, tapi memakai berkas biner, silakan memakai [berkas skrip yang disediakan](#menggunakan-berkas-skrip).
 
 **Langkah ke-3:** Setelah itu, pastikan kalau Hugo dan Dart Sass dapat berjalan dengan mengeksekusi perintah berikut untuk melihat versi Hugo dan Dart Sass yang Anda gunakan sekarang:
 
@@ -654,6 +672,8 @@ pkg i hugo
 ```
 
 Saya sarankan agar Anda menggunakan Termux versi terbaru untuk pengalaman yang lebih nyaman, bisa Anda unduh di [F-Droid](https://f-droid.org/en/packages/com.termux/), [GitHub](https://github.com/termux/termux-app/releases) atau [Google Play Store (eksperimental)](https://play.google.com/store/apps/details?id=com.termux). Perlu versi Android minimal 7.0 agar Termux versi terbaru dapat digunakan.
+
+Perintah di atas tidak akan menginstal Dart Sass, silakan memakai [berkas skrip yang disediakan](#menggunakan-berkas-skrip) untuk menginstalnya.
 
 ### BSD
 

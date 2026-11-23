@@ -30,28 +30,28 @@ DART_SASS_VERSION = "latest"
 
 ### Dart Sass: each build command installs it via scripts/install-dart-sass.sh
 ### (digest verification; the version is pinned by DART_SASS_VERSION) and
-### prepends the install prefix's bin directory to PATH before running hugo.
+### prepends the resolved bin directory to PATH before running hugo.
 
 [context.production]
-command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.production.environment]
 HUGO_ENV = "production"
 
 [context.split1]
-command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm static/_headers && hugo --minify --gc'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.split1.environment]
 HUGO_ENV = "production"
 
 [context.deploy-preview]
-command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}'
 
 [context.deploy-preview.environment]
 HUGO_ENV = "staging"
 
 [context.branch-deploy]
-command = 'export DART_SASS_PREFIX="${DART_SASS_PREFIX:-$HOME/.local}" && bash scripts/install-dart-sass.sh && export PATH="${DART_SASS_PREFIX}/bin:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}'
 
 [context.branch-deploy.environment]
 HUGO_ENV = "staging"

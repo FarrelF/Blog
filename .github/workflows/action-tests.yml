@@ -7,6 +7,9 @@ on:
       - '.github/actions/setup-hugo/**'
       - '.github/actions/setup-dart-sass/**'
       - '.github/workflows/action-tests.yml'
+      - 'scripts/install-hugo.sh'
+      - 'scripts/install-dart-sass.sh'
+      - 'scripts/tests/**'
 
 permissions:
   contents: read
@@ -190,7 +193,15 @@ jobs:
           # /usr/local/bin. Non-.pkg assets follow the Linux default:
           # /usr/local/bin when writable, otherwise ~/.local/bin.
           if [ "${{ matrix.pkg || '' }}" = 'true' ]; then
-            test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+            # .pkg assets install into /usr/local/bin when the runner can
+            # write there; the script falls back to ~/.local/bin otherwise.
+            case "${{ steps.hugo.outputs.hugo-path }}" in
+              /usr/local/bin/hugo | "${HOME}/.local/bin/hugo") ;;
+              *)
+                echo "::error::Unexpected .pkg install path: ${{ steps.hugo.outputs.hugo-path }}"
+                exit 1
+                ;;
+            esac
           elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
             rm -f "/usr/local/bin/.install-dir-test.$$"
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
@@ -259,7 +270,15 @@ jobs:
           # Older archives follow the Linux default: /usr/local/bin when
           # writable, otherwise ~/.local/bin.
           if [ "${{ matrix.pkg || '' }}" = 'true' ]; then
-            test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
+            # .pkg assets install into /usr/local/bin when the runner can
+            # write there; the script falls back to ~/.local/bin otherwise.
+            case "${{ steps.hugo.outputs.hugo-path }}" in
+              /usr/local/bin/hugo | "${HOME}/.local/bin/hugo") ;;
+              *)
+                echo "::error::Unexpected .pkg install path: ${{ steps.hugo.outputs.hugo-path }}"
+                exit 1
+                ;;
+            esac
           elif mkdir -p '/usr/local/bin' 2>/dev/null && ( : > "/usr/local/bin/.install-dir-test.$$" ) 2>/dev/null; then
             rm -f "/usr/local/bin/.install-dir-test.$$"
             test "${{ steps.hugo.outputs.hugo-path }}" = '/usr/local/bin/hugo'
@@ -681,14 +700,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Extract the install script embedded in the action
-        shell: bash
-        run: |
-          set -euo pipefail
-          sed -n '/^      run: |$/,$p' .github/actions/setup-dart-sass/action.yml | sed '1d' | sed 's/^        //' > "${RUNNER_TEMP}/dart-sass-install.sh"
-          bash -n "${RUNNER_TEMP}/dart-sass-install.sh"
-
-      - name: Run the install script inside an Alpine container
+      - name: Run the POSIX installer inside an Alpine container
         shell: bash
         env:
           # `-e GITHUB_TOKEN` below forwards this value to the container
@@ -698,18 +710,18 @@ jobs:
         run: |
           set -euo pipefail
           docker run --rm \
-            -v "${RUNNER_TEMP}/dart-sass-install.sh:/tmp/dart-sass-install.sh:ro" \
-            -e RUNNER_OS=Linux -e RUNNER_ARCH=X64 \
-            -e DART_SASS_VERSION=latest -e IS_MUSL=true \
-            -e DOWNLOADER=aria2 -e DOWNLOADER_ARGS= \
+            -v "${PWD}/scripts/install-dart-sass.sh:/tmp/install-dart-sass.sh:ro" \
+            -e DART_SASS_VERSION=latest \
+            -e DART_SASS_LIBC=musl \
+            -e DART_SASS_INSTALL_DIR=/usr/local/bin \
             -e GITHUB_TOKEN \
-            -e INSTALL_DIR=/usr/local/bin \
             -e GITHUB_OUTPUT=/tmp/gh-output -e GITHUB_PATH=/tmp/gh-path \
             alpine:3.22 sh -c '
-              apk add --no-cache bash curl >/dev/null &&
+              apk add --no-cache curl tar >/dev/null &&
               touch /tmp/gh-output /tmp/gh-path &&
-              bash /tmp/dart-sass-install.sh &&
+              sh /tmp/install-dart-sass.sh &&
               test -L /usr/local/bin/sass &&
+              test -L /usr/local/bin/dart-sass &&
               test -f /usr/local/bin/.dart-sass/sass &&
               test -f /usr/local/bin/.dart-sass/src/sass.snapshot &&
               test -f /usr/local/bin/.dart-sass/src/LICENSE &&
@@ -717,5 +729,260 @@ jobs:
               test ! -e /usr/local/bin/LICENSE &&
               test ! -e /usr/local/share/dart-sass &&
               test ! -e /usr/local/share/licenses/dart-sass &&
+              grep -q "^dart-sass-version=" /tmp/gh-output &&
+              grep -qx "dart-sass-path=/usr/local/bin/sass" /tmp/gh-output &&
               /usr/local/bin/sass --version
             '
+
+  hugo-alpine:
+    name: Hugo / Alpine (musl)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run the POSIX installer inside an Alpine container
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            -v "${PWD}/scripts/install-hugo.sh:/tmp/install-hugo.sh:ro" \
+            -e HUGO_VERSION=0.170.1 \
+            -e HUGO_INSTALL_DIR=/usr/local/bin \
+            -e HUGO_MANPAGES=true \
+            -e HUGO_COMPLETIONS=all \
+            -e HUGO_SHARE_DIR=/tmp/hugo-share \
+            -e GITHUB_TOKEN \
+            -e GITHUB_OUTPUT=/tmp/gh-output -e GITHUB_PATH=/tmp/gh-path \
+            alpine:3.22 sh -c '
+              apk add --no-cache curl tar gzip >/dev/null &&
+              touch /tmp/gh-output /tmp/gh-path &&
+              sh /tmp/install-hugo.sh &&
+              test -x /usr/local/bin/hugo &&
+              grep -qx "hugo-version=0.170.1" /tmp/gh-output &&
+              grep -qx "hugo-path=/usr/local/bin/hugo" /tmp/gh-output &&
+              test -f /tmp/hugo-share/man/man1/hugo.1.gz &&
+              test -f /tmp/hugo-share/bash-completion/completions/hugo &&
+              test -f /tmp/hugo-share/zsh/site-functions/_hugo &&
+              test -f /tmp/hugo-share/fish/vendor_completions.d/hugo.fish &&
+              test -f /tmp/hugo-share/powershell/completions/hugo.ps1 &&
+              /usr/local/bin/hugo version
+            '
+
+  script-posix:
+    name: Installer scripts / POSIX syntax and machine-readable output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check syntax with dash and sh
+        shell: bash
+        run: |
+          set -euo pipefail
+          for script in scripts/install-hugo.sh scripts/install-dart-sass.sh; do
+            dash -n "${script}"
+            sh -n "${script}"
+            echo "${script}: dash -n and sh -n passed"
+          done
+
+      - name: Check --help and --dry-run output contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          sh scripts/install-hugo.sh --help >/dev/null
+          sh scripts/install-dart-sass.sh --help >/dev/null
+
+          # --print-path must emit exactly one path on stdout; the dry-run
+          # details belong on stderr so command substitution stays safe.
+          hugo_path="$(sh scripts/install-hugo.sh --dry-run --version 0.170.1 --print-path 2>/dev/null)"
+          sass_path="$(sh scripts/install-dart-sass.sh --dry-run --version 1.108.2 --print-path 2>/dev/null)"
+          case "${hugo_path}" in
+            /*) ;;
+            *) echo "::error::install-hugo.sh --print-path did not print an absolute path: ${hugo_path}"; exit 1 ;;
+          esac
+          case "${sass_path}" in
+            /*) ;;
+            *) echo "::error::install-dart-sass.sh --print-path did not print an absolute path: ${sass_path}"; exit 1 ;;
+          esac
+          case "${hugo_path}${sass_path}" in
+            *'='*)
+              echo "::error::--print-path leaked dry-run detail: hugo='${hugo_path}' sass='${sass_path}'"
+              exit 1
+              ;;
+          esac
+
+          sh scripts/install-hugo.sh --dry-run --version 0.170.1 --print-env 2>/dev/null \
+            | grep -qx "HUGO_DIR=${hugo_path}"
+          sh scripts/install-dart-sass.sh --dry-run --version 1.108.2 --print-env 2>/dev/null \
+            | grep -qx "DART_SASS_DIR=${sass_path}"
+
+      - name: Check Hugo extras dry-run targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          share=/tmp/hugo-share-plan
+          plan="$(sh scripts/install-hugo.sh --dry-run --version 0.170.1 \
+            --man --completions all --share-dir "${share}")"
+          for expected in \
+            "manpages=${share}/man/man1" \
+            "completion.bash=${share}/bash-completion/completions/hugo" \
+            "completion.zsh=${share}/zsh/site-functions/_hugo" \
+            "completion.fish=${share}/fish/vendor_completions.d/hugo.fish" \
+            "completion.powershell=${share}/powershell/completions/hugo.ps1"; do
+            grep -qxF "${expected}" <<<"${plan}" \
+              || { echo "::error::install-hugo.sh --dry-run did not report: ${expected}"; exit 1; }
+          done
+
+          # A user-local prefix uses the auto-loaded zsh and fish locations.
+          home=/tmp/hugo-user-home
+          plan="$(HOME="${home}" sh scripts/install-hugo.sh --dry-run --version 0.170.1 \
+            --completions zsh,fish --install-dir "${home}/.local/bin")"
+          for expected in \
+            "completion.zsh=${home}/.local/share/zsh/completions/_hugo" \
+            "completion.fish=${home}/.config/fish/completions/hugo.fish"; do
+            grep -qxF "${expected}" <<<"${plan}" \
+              || { echo "::error::install-hugo.sh user-local target missing: ${expected}"; exit 1; }
+          done
+
+      - name: Check default Hugo extras and opt-out
+        shell: bash
+        run: |
+          set -euo pipefail
+          share=/tmp/hugo-default-share-plan
+
+          # Manpages and completions are on by default. Bash is running this
+          # step, so auto-detection must find it even when fish or zsh are not
+          # installed on the runner.
+          plan="$(sh scripts/install-hugo.sh --dry-run --version 0.170.1 \
+            --install-dir /tmp/hugo-default-bin --share-dir "${share}")"
+          grep -qxF "manpages=${share}/man/man1" <<<"${plan}" \
+            || { echo "::error::default manpages missing from the plan"; exit 1; }
+          grep -qxF "completion.bash=${share}/bash-completion/completions/hugo" <<<"${plan}" \
+            || { echo "::error::default bash completion missing from the plan"; exit 1; }
+
+          plan="$(sh scripts/install-hugo.sh --dry-run --version 0.170.1 \
+            --install-dir /tmp/hugo-default-bin --share-dir "${share}" \
+            --no-man --no-completions)"
+          if grep -qE '^(manpages|completion\.)' <<<"${plan}"; then
+            echo "::error::--no-man/--no-completions still planned extras"
+            exit 1
+          fi
+
+          plan="$(sh scripts/install-hugo.sh --dry-run --version 0.170.1 \
+            --install-dir /tmp/hugo-default-bin --share-dir "${share}" \
+            --man --completions none)"
+          grep -qxF "manpages=${share}/man/man1" <<<"${plan}" \
+            || { echo "::error::--completions none disabled manpages too"; exit 1; }
+          if grep -q '^completion\.' <<<"${plan}"; then
+            echo "::error::--completions none still planned completions"
+            exit 1
+          fi
+
+      - name: Check Termux package-manager fallback contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          stub="$(mktemp -d)"
+          trap 'rm -rf "${stub}"' EXIT
+          for manager in bun pnpm; do
+            printf '#!/bin/sh\nexit 1\n' > "${stub}/${manager}"
+            chmod +x "${stub}/${manager}"
+          done
+
+          # Keep the stub first and drop /usr/local/bin so a runner that
+          # happens to ship bun cannot mask the ordering check.
+          fallback() {
+            TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
+              sh scripts/install-dart-sass.sh --dry-run --version 1.69.0 \
+              --install-dir /tmp/sass-fallback
+          }
+
+          plan="$(fallback)"
+          grep -qx 'method=package-manager' <<<"${plan}" \
+            || { echo "::error::Termux fallback did not use a package manager"; exit 1; }
+          grep -qx 'manager=bun' <<<"${plan}" \
+            || { echo "::error::Termux fallback did not prefer bun"; exit 1; }
+          grep -qx 'command=bun add -g sass@1.69.0' <<<"${plan}" \
+            || { echo "::error::Termux fallback did not report the bun command"; exit 1; }
+
+          rm -f "${stub}/bun"
+          plan="$(fallback)"
+          grep -qx 'manager=pnpm' <<<"${plan}" \
+            || { echo "::error::Termux fallback did not continue with pnpm"; exit 1; }
+          grep -qx 'command=pnpm add -g sass@1.69.0' <<<"${plan}" \
+            || { echo "::error::Termux fallback did not report the pnpm command"; exit 1; }
+
+      - name: Install Dart Sass through a fake bun on Termux
+        shell: bash
+        run: |
+          set -euo pipefail
+          stub="$(mktemp -d)"
+          global="$(mktemp -d)"
+          target="$(mktemp -d)/bin"
+          trap 'rm -rf "${stub}" "${global}" "$(dirname "${target}")"' EXIT
+
+          cat > "${stub}/bun" <<'EOF'
+          #!/bin/sh
+          case "$1" in
+            add)
+              mkdir -p "${BUN_GLOBAL}"
+              printf '#!/bin/sh\nprintf "1.69.0\\n"\n' > "${BUN_GLOBAL}/sass"
+              chmod +x "${BUN_GLOBAL}/sass"
+              exit 0
+              ;;
+            pm)
+              printf '%s\n' "${BUN_GLOBAL}"
+              exit 0
+              ;;
+          esac
+          exec "$@"
+          EOF
+          chmod +x "${stub}/bun"
+
+          BUN_GLOBAL="${global}" TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
+            GITHUB_OUTPUT= GITHUB_PATH= \
+            sh scripts/install-dart-sass.sh --version 1.69.0 --install-dir "${target}"
+
+          test -x "${target}/sass"
+          test -L "${target}/dart-sass"
+          grep -qx 'manager=bun' "${target}/.dart-sass-package-manager"
+          grep -qx 'version=1.69.0' "${target}/.dart-sass-package-manager"
+          test "$("${target}/sass" --version)" = '1.69.0'
+
+          # A second run is idempotent.
+          BUN_GLOBAL="${global}" TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
+            GITHUB_OUTPUT= GITHUB_PATH= \
+            sh scripts/install-dart-sass.sh --version 1.69.0 --install-dir "${target}" \
+            2>&1 | grep -q 'already installed'
+
+  installer-integration:
+    name: Installer scripts / integration suites
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install dash and shellcheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends dash shellcheck
+
+      - name: Run the Hugo and Dart Sass integration suites
+        shell: bash
+        run: sh scripts/tests/run-installer-tests.sh
+
+  hugo-no-gzip:
+    name: Hugo installer / no gzip
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run the no-gzip regression check
+        shell: bash
+        run: sh scripts/tests/no-gzip.test.sh
