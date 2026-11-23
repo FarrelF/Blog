@@ -309,14 +309,38 @@ case "$(uname -s)" in
   *) die "unsupported operating system: $(uname -s)" ;;
 esac
 
-case "$(uname -m)" in
-  x86_64 | amd64)       ARCH_NAME='x64' ;;
-  aarch64 | arm64)      ARCH_NAME='arm64' ;;
-  armv7l | armv6l | arm) ARCH_NAME='arm' ;;
-  i386 | i686 | x86)    ARCH_NAME='ia32' ;;
-  riscv64)              ARCH_NAME='riscv64' ;;
-  *) die "unsupported architecture: $(uname -m)" ;;
+# GitHub Actions reports the runner's native architecture in RUNNER_ARCH.
+# On Windows ARM64, Git Bash may be an x64 process, so `uname -m` can report
+# x86_64 even though the host is ARM64. Prefer RUNNER_ARCH when it is set.
+ARCH_NAME=''
+case "${RUNNER_ARCH:-}" in
+  X64)   ARCH_NAME='x64' ;;
+  X86)   ARCH_NAME='ia32' ;;
+  ARM64) ARCH_NAME='arm64' ;;
+  ARM)   ARCH_NAME='arm' ;;
 esac
+
+# Outside GitHub Actions, PROCESSOR_ARCHITEW6432 carries the native Windows
+# architecture when an x86 or x64 process runs on Windows on ARM.
+if [ -z "${ARCH_NAME}" ] && [ "${OS_NAME}" = 'windows' ]; then
+  case "${PROCESSOR_ARCHITEW6432:-}" in
+    ARM64) ARCH_NAME='arm64' ;;
+    AMD64) ARCH_NAME='x64' ;;
+    x86)   ARCH_NAME='ia32' ;;
+    ARM)   ARCH_NAME='arm' ;;
+  esac
+fi
+
+if [ -z "${ARCH_NAME}" ]; then
+  case "$(uname -m)" in
+    x86_64 | amd64)       ARCH_NAME='x64' ;;
+    aarch64 | arm64)      ARCH_NAME='arm64' ;;
+    armv7l | armv6l | arm) ARCH_NAME='arm' ;;
+    i386 | i686 | x86)    ARCH_NAME='ia32' ;;
+    riscv64)              ARCH_NAME='riscv64' ;;
+    *) die "unsupported architecture: $(uname -m)" ;;
+  esac
+fi
 
 TERMUX=0
 is_termux() {

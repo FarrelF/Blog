@@ -185,6 +185,27 @@ t "latest resolves to a numeric version" has_text '^version=[0-9][0-9.]*[0-9]$' 
 t "latest URL uses the resolved version" contains_text "/${latest_ver}/" "$WORK/d10.out"
 
 # ---------------------------------------------------------------------------
+# Platform detection
+# ---------------------------------------------------------------------------
+
+# GitHub Actions advertises the runner's native architecture in RUNNER_ARCH.
+# It must win over `uname -m`, which reports x86_64 inside the emulated x64 Git
+# Bash on a Windows ARM64 runner.
+RUNNER_ARCH=ARM64 sh "$SASS_SCRIPT" --dry-run --version 1.108.2 \
+  --install-dir "$BIN" >"$WORK/d11.out" 2>"$WORK/d11.err"
+RS_RC=$?
+t "RUNNER_ARCH=ARM64 dry-run exits 0" rc_is "$RS_RC" 0
+t "RUNNER_ARCH=ARM64 selects arm64" has_line 'arch=arm64' "$WORK/d11.out"
+t "RUNNER_ARCH=ARM64 selects an arm64 asset" has_text '^asset=.*-arm64\.' "$WORK/d11.out"
+
+RUNNER_ARCH=X64 sh "$SASS_SCRIPT" --dry-run --version 1.108.2 \
+  --install-dir "$BIN" >"$WORK/d12.out" 2>"$WORK/d12.err"
+RS_RC=$?
+t "RUNNER_ARCH=X64 dry-run exits 0" rc_is "$RS_RC" 0
+t "RUNNER_ARCH=X64 selects x64" has_line 'arch=x64' "$WORK/d12.out"
+t "RUNNER_ARCH=X64 selects an x64 asset" has_text '^asset=.*-x64\.' "$WORK/d12.out"
+
+# ---------------------------------------------------------------------------
 # Actual installation
 # ---------------------------------------------------------------------------
 
