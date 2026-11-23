@@ -417,13 +417,37 @@ if [ "${GO_OS}" = 'windows' ] && [ -n "${HOME:-}" ]; then
   HOME="$(cygpath -u "${HOME}" 2>/dev/null || printf '%s' "${HOME}")"
 fi
 
-case "$(uname -m)" in
-  x86_64 | amd64)   GO_ARCH='amd64' ;;
-  aarch64 | arm64)  GO_ARCH='arm64' ;;
-  armv7l | armv6l | arm) GO_ARCH='arm' ;;
-  i386 | i686)      GO_ARCH='386' ;;
-  *) die "unsupported architecture: $(uname -m)" ;;
+# GitHub Actions reports the runner's native architecture in RUNNER_ARCH.
+# On Windows ARM64, Git Bash may be an x64 process, so `uname -m` can report
+# x86_64 even though the host is ARM64. Prefer RUNNER_ARCH when it is set.
+GO_ARCH=''
+case "${RUNNER_ARCH:-}" in
+  X64)   GO_ARCH='amd64' ;;
+  X86)   GO_ARCH='386' ;;
+  ARM64) GO_ARCH='arm64' ;;
+  ARM)   GO_ARCH='arm' ;;
 esac
+
+# Outside GitHub Actions, PROCESSOR_ARCHITEW6432 carries the native Windows
+# architecture when an x86 or x64 process runs on Windows on ARM.
+if [ -z "${GO_ARCH}" ] && [ "${GO_OS}" = 'windows' ]; then
+  case "${PROCESSOR_ARCHITEW6432:-}" in
+    ARM64) GO_ARCH='arm64' ;;
+    AMD64) GO_ARCH='amd64' ;;
+    x86)   GO_ARCH='386' ;;
+    ARM)   GO_ARCH='arm' ;;
+  esac
+fi
+
+if [ -z "${GO_ARCH}" ]; then
+  case "$(uname -m)" in
+    x86_64 | amd64)   GO_ARCH='amd64' ;;
+    aarch64 | arm64)  GO_ARCH='arm64' ;;
+    armv7l | armv6l | arm) GO_ARCH='arm' ;;
+    i386 | i686)      GO_ARCH='386' ;;
+    *) die "unsupported architecture: $(uname -m)" ;;
+  esac
+fi
 
 TERMUX=0
 is_termux() {

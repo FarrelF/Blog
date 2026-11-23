@@ -302,6 +302,27 @@ t "latest resolves to a numeric version" has_text '^version=[0-9][0-9.]*[0-9]$' 
 t "latest URL uses the resolved version" contains_text "/v${latest_ver}/" "$WORK/d20.out"
 
 # ---------------------------------------------------------------------------
+# Platform detection
+# ---------------------------------------------------------------------------
+
+# GitHub Actions advertises the runner's native architecture in RUNNER_ARCH.
+# It must win over `uname -m`, which reports x86_64 inside the emulated x64 Git
+# Bash on a Windows ARM64 runner.
+RUNNER_ARCH=ARM64 sh "$HUGO_SCRIPT" --dry-run --version 0.170.1 \
+  --install-dir "$BIN" --share-dir "$SHARE" --no-man --no-completions \
+  >"$WORK/d21.out" 2>"$WORK/d21.err"
+RH_RC=$?
+t "RUNNER_ARCH=ARM64 dry-run exits 0" rc_is "$RH_RC" 0
+t "RUNNER_ARCH=ARM64 selects an arm64 asset" has_text '^asset=.*-arm64\.' "$WORK/d21.out"
+
+RUNNER_ARCH=X64 sh "$HUGO_SCRIPT" --dry-run --version 0.170.1 \
+  --install-dir "$BIN" --share-dir "$SHARE" --no-man --no-completions \
+  >"$WORK/d22.out" 2>"$WORK/d22.err"
+RH_RC=$?
+t "RUNNER_ARCH=X64 dry-run exits 0" rc_is "$RH_RC" 0
+t "RUNNER_ARCH=X64 selects an amd64 asset" has_text '^asset=.*-amd64\.' "$WORK/d22.out"
+
+# ---------------------------------------------------------------------------
 # Actual installation with default extras
 # ---------------------------------------------------------------------------
 
