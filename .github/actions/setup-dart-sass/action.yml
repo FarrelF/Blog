@@ -1,5 +1,5 @@
 name: 'Setup Dart Sass'
-description: 'Download and install the Dart Sass CLI on Linux, macOS, Windows and Termux/Android through scripts/install-dart-sass.sh, verifying each archive against the SHA-256 digest published in the GitHub release when available, and put "sass" on PATH'
+description: 'Download and install the Dart Sass CLI on Linux, macOS, Windows and Termux/Android through scripts/install-dart-sass.sh, verifying each archive against the SHA-256 digest published in the GitHub release when available, and put "sass" on PATH. BSD and Solaris/illumos have no official Dart Sass binary; use npm, bun, pnpm, or the OS package manager there.'
 inputs:
   dart-sass-version:
     description: 'Dart Sass version to install, with or without the "v" prefix (e.g. "1.105.2"). "latest" resolves the newest release.'
@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'false'
   install-dir:
-    description: 'Directory that receives the "sass" entry point: a symlink to the intact archive payload on Linux/macOS (and on Termux when a native Android build exists), a link or bun wrapper when Termux falls back to bun/pnpm/npm, and "sass.bat" plus a POSIX "sass" wrapper on Windows. Defaults to "/usr/local/bin" when writable without elevation (otherwise "~/.local/bin"), to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"), and to "$PREFIX/bin" or "~/.local/bin" on Termux. On Linux/macOS the payload lives in "<install-dir>/.dart-sass"; the Termux fallback records the manager in "<install-dir>/.dart-sass-package-manager". On Windows the archive is extracted directly into "<install-dir>" ("sass.bat" and "src"), with a POSIX "sass" wrapper beside it.'
+    description: 'Directory that receives the "sass" entry point: a symlink to the intact archive payload on Linux/macOS (and on Termux when a native Android build exists), a link or bun wrapper when Termux falls back to bun/pnpm/npm, and "sass.bat" plus a POSIX "sass" wrapper on Windows. Defaults to "/usr/local/bin" when it is writable or reachable through root, passwordless sudo/doas, or pfexec (otherwise "~/.local/bin" in non-interactive runs), to "C:\Program Files\Dart Sass" (64-bit) or "C:\Program Files (x86)\Dart Sass" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Dart Sass"), and to "$PREFIX/bin" or "~/.local/bin" on Termux. An explicit directory never falls back silently. On Linux/macOS the payload lives in "<install-dir>/.dart-sass"; the Termux fallback records the manager in "<install-dir>/.dart-sass-package-manager". On Windows the archive is extracted directly into "<install-dir>" ("sass.bat" and "src"), with a POSIX "sass" wrapper beside it.'
     required: false
     default: ''
   downloader:

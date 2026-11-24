@@ -34,7 +34,7 @@ Hugo adalah salah satu SSG (_Static-site Generator_) atau Generator Web Statis y
 
 Hugo juga merupakan FLOSS (_Free/Libre Open Source Software_) yang dirilis di bawah [Lisensi Apache 2.0](https://github.com/gohugoio/hugo/blob/master/LICENSE), kode sumbernya bisa Anda akses [di sini](https://github.com/gohugoio/hugo).
 
-Hugo mendukung berbagai _platform_ yang ada, termasuk sistem operasi Windows, macOS, berbasis Linux, dan BSD, untuk arsitektur x64 (disebut sebagai x86-64, x86_64 atau AMD64), ARM, dan ARM64. Hugo tidak lagi menyediakan berkas untuk arsitektur x86 (32-bit).
+Hugo mendukung berbagai _platform_ yang ada, termasuk sistem operasi Windows, macOS, GNU/Linux, keluarga BSD (FreeBSD, OpenBSD, NetBSD, dan DragonFly BSD), serta Solaris/illumos. Berkas perilisan resmi untuk BSD tersedia mulai Hugo v0.103.0 dan untuk Solaris/illumos mulai v0.120.0, keduanya hanya untuk arsitektur AMD64 (x86-64). GNU/Linux, macOS, dan Windows juga tersedia untuk arsitektur ARM dan ARM64. Hugo tidak lagi menyediakan berkas untuk arsitektur x86 (32-bit).
 
 SSG ini diklaim sebagai SSG tercepat oleh para pengembangnya, salah satunya adalah karena Hugo berjalan di lingkungan yang _Native_, tanpa ketergantungan (_dependencies_) apa pun (kecuali kalau kamu mau dukungan CSS Sass) dan memiliki fitur yang dinamakan _Fast Render Mode_.
 
@@ -430,15 +430,13 @@ chmod +x ./install-dart-sass.sh
 ./install-dart-sass.sh [versi]
 ```
 
-Kedua skrip tersebut mendukung sistem operasi GNU/Linux (dan berbagai distribusinya), macOS, Windows (Git Bash/MSYS), dan Android melalui [Termux](https://termux.dev).
+Kedua skrip tersebut mendukung sistem operasi GNU/Linux (dan berbagai distribusinya), macOS, Windows (Git Bash/MSYS), dan Android melalui [Termux](https://termux.dev). Skrip penginstal Hugo juga mendukung BSD (FreeBSD, OpenBSD, NetBSD, dan DragonFly BSD) serta Solaris/illumos.
 
 Hapus `[versi]` di atas untuk menginstal versi terbaru atau ganti `[versi]` dengan versi yang Anda inginkan.
 
-Secara baku, Dart Sass dan Hugo akan terinstal di dalam direktori `/usr/local/bin` jika direktori tersebut bisa ditulis tanpa hak akses `root`, jika tidak maka secara otomatis akan terinstal di dalam direktori `$HOME/.local/bin`. Anda bisa mengganti lokasinya dengan menambahkan opsi `--install-dir`.
+Secara baku kedua skrip di atas akan mengusahakan untuk menginstalnya secara menyeluruh di seluruh sistem (_system-wide_), jadi bisa dijalankan oleh semua pengguna dalam 1 sistem dan memerlukan hak akses `root` untuk menginstalnya.
 
-Skrip Hugo juga secara baku memasang manpage dan _shell completion_. _Completion_ hanya dipasang untuk _shell_ yang terdeteksi terpasang (Bash, Zsh, Fish, dan PowerShell), sedangkan manpage akan dilewati jika `gzip` tidak tersedia. Gunakan `--no-man` atau `--no-completions` jika tidak ingin keduanya dipasang, atau `--completions bash,fish` untuk memilih _shell_ tertentu.
-
-Jadi, jika Anda ingin menginstalnya untuk semua pengguna di dalam 1 komputer, maka Anda perlu memberikan mereka hak akses `root`, Administrator atau apa pun itu, bisa dengan membuka skrip penginstal tersebut diawali dengan `sudo` (cth. `sudo ./install-dart-sass.sh`).
+Jadi walau Anda tidak mengeksekusinya dengan perintah `sudo` sekalipun, Anda akan tetap diminta untuk memasukkan kata sandi jika perlu, karena skrip tersebut akan menggunakan `sudo` atau `pfexec` untuk keperluan tersebut, jika tidak bisa atau tidak mau, maka akan tetap terinstal di direktori `$HOME/.local/bin` sebagai gantinya. Sebagai tambahan, kalau Anda menginstal Hugo dengan skrip di atas, maka _shell completions_ dan halaman panduan (_manual pages_) juga akan terpasang secara otomatis.
 
 Tapi kalau Anda adalah pengguna Termux, Anda tidak perlu menggunakan `sudo` untuk menginstal dua-duanya, karena keduanya akan terinstal di dalam `$PREFIX/bin` apa pun hak aksesnya, sehingga itu tidak berguna dan malah bikin repot saja.
 

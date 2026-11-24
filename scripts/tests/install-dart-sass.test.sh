@@ -91,6 +91,99 @@ run_cmd() {
   RC=$?
 }
 
+# make_uname DIR SYSTEM ARCH -- fake uname for platform-specific dry runs
+make_uname() {
+  mu_dir=$1
+  mu_sys=$2
+  mu_arch=$3
+  mkdir -p "$mu_dir"
+  cat > "$mu_dir/uname" <<EOF
+#!/bin/sh
+case "\$1" in
+  -s) echo "$mu_sys" ;;
+  -m) echo "$mu_arch" ;;
+  -o) echo "$mu_sys" ;;
+  *) echo "$mu_sys" ;;
+esac
+EOF
+  chmod +x "$mu_dir/uname"
+}
+
+# make_fake_sudo DIR MODE -- MODE is ok, write, authfail, or fail. "write"
+# temporarily makes FAKE_SUDO_SYSROOT writable and runs the command as the
+# current user, simulating a successful privileged write. "authfail" passes
+# the passwordless probe but fails the real write; none of the modes may ever
+# run sudo without -n, which would mean an interactive prompt was attempted.
+make_fake_sudo() {
+  mf_dir=$1
+  mf_mode=$2
+  mkdir -p "$mf_dir"
+  case "$mf_mode" in
+    ok)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+exit 0
+EOF
+      ;;
+    write)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+for fs_arg in "$@"; do
+  case "$fs_arg" in
+    *'id -u'*) exit 0 ;;
+  esac
+done
+case "${1:-}" in
+  -n) shift ;;
+esac
+if [ -n "${FAKE_SUDO_SYSROOT:-}" ]; then
+  chmod 0755 "$FAKE_SUDO_SYSROOT" 2>/dev/null || true
+fi
+"$@"
+fs_rc=$?
+if [ -n "${FAKE_SUDO_SYSROOT:-}" ]; then
+  chmod 0555 "$FAKE_SUDO_SYSROOT" 2>/dev/null || true
+fi
+exit "$fs_rc"
+EOF
+      ;;
+    authfail)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+for fs_arg in "$@"; do
+  case "$fs_arg" in
+    *'id -u'*) exit 0 ;;
+  esac
+done
+case "${1:-}" in
+  -n) : ;;
+  *) : > "$(dirname "$0")/prompted" ;;
+esac
+exit 1
+EOF
+      ;;
+    *)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+case "${1:-}" in
+  -n) : ;;
+  *) : > "$(dirname "$0")/prompted" ;;
+esac
+exit 1
+EOF
+      ;;
+  esac
+  chmod +x "$mf_dir/sudo"
+}
+
+# posix_nonroot -- permission-failure tests need chmod to have effect
+posix_nonroot() {
+  case "$(uname -s)" in
+    MINGW* | MSYS* | CYGWIN*) return 1 ;;
+  esac
+  [ "$(id -u 2>/dev/null || printf '1')" != '0' ]
+}
+
 case "$(uname -m)" in
   x86_64 | amd64) ARCH=x64 ;;
   aarch64 | arm64) ARCH=arm64 ;;
@@ -157,6 +250,235 @@ RS_RC=$?
 t "env version and install dir exit 0" rc_is "$RS_RC" 0
 t "env version is honoured" has_line 'version=1.108.2' "$WORK/d7.out"
 t "env install dir is honoured" has_line "install_dir=$WORK/env-bin" "$WORK/d7.out"
+
+# ---------------------------------------------------------------------------
+# BSD/Solaris gaps and privilege escalation
+# ---------------------------------------------------------------------------
+
+FAKE_BSD="$WORK/platform/uname-bsd"
+make_uname "$FAKE_BSD" FreeBSD amd64
+run_cmd "$WORK/bsd-help.out" "$WORK/bsd-help.err" \
+  env RUNNER_ARCH= PATH="$FAKE_BSD:$PATH" sh "$SASS_SCRIPT" --help
+t "BSD --help still works without an official binary" rc_is "$RC" 0
+t "BSD --help documents --no-escalate" contains_text '--no-escalate' "$WORK/bsd-help.out"
+
+run_cmd "$WORK/bsd.out" "$WORK/bsd.err" \
+  env RUNNER_ARCH= PATH="$FAKE_BSD:$PATH" sh "$SASS_SCRIPT" \
+  --dry-run --version 1.108.2
+t "BSD install is rejected" rc_is "$RC" 1
+t "BSD rejection recommends npm" \
+  contains_text "npm install -g sass" "$WORK/bsd.err"
+
+FAKE_SOLARIS="$WORK/platform/uname-solaris"
+make_uname "$FAKE_SOLARIS" SunOS i86pc
+run_cmd "$WORK/solaris.out" "$WORK/solaris.err" \
+  env RUNNER_ARCH= PATH="$FAKE_SOLARIS:$PATH" sh "$SASS_SCRIPT" \
+  --dry-run --version 1.108.2
+t "Solaris install is rejected" rc_is "$RC" 1
+t "Solaris rejection recommends the OS package manager" \
+  contains_text "OS package manager" "$WORK/solaris.err"
+
+DART_SASS_ESCALATE='sometimes' sh "$SASS_SCRIPT" --dry-run --version 1.108.2 \
+  --install-dir "$WORK/escalate-bin" >"$WORK/escalate-bad.out" 2>"$WORK/escalate-bad.err"
+RS_RC=$?
+t "invalid DART_SASS_ESCALATE is rejected" rc_is "$RS_RC" 1
+t "invalid DART_SASS_ESCALATE explains the choices" \
+  has_text 'invalid DART_SASS_ESCALATE' "$WORK/escalate-bad.err"
+
+DART_SASS_ESCALATE='never' sh "$SASS_SCRIPT" --dry-run --system --version 1.108.2 \
+  --install-dir "$WORK/escalate-bin" >"$WORK/system-never.out" 2>"$WORK/system-never.err"
+RS_RC=$?
+t "--system refuses no-escalate mode" rc_is "$RS_RC" 1
+t "--system/--no-escalate conflict is explained" \
+  has_text 'cannot combine --system' "$WORK/system-never.err"
+
+if posix_nonroot; then
+  ROOT_DIR="$WORK/ro-root"
+  mkdir -p "$ROOT_DIR"
+  chmod 0555 "$ROOT_DIR"
+
+  FAKE_SUDO_OK="$WORK/fake-sudo-ok"
+  make_fake_sudo "$FAKE_SUDO_OK" ok
+  run_cmd "$WORK/sudo-dry.out" "$WORK/sudo-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_OK:$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --version 1.108.2 --install-dir "$ROOT_DIR/bin"
+  t "non-writable directory plans passwordless sudo" rc_is "$RC" 0
+  t "sudo is reported in dry-run" has_line 'escalation=sudo' "$WORK/sudo-dry.out"
+
+  # Shadow sudo with a failing shim: on a runner with passwordless sudo the
+  # real tool would otherwise win before doas is considered.
+  FAKE_DOAS="$WORK/fake-doas"
+  make_fake_sudo "$FAKE_DOAS" fail
+  printf '#!/bin/sh\nexit 0\n' > "$FAKE_DOAS/doas"
+  chmod +x "$FAKE_DOAS/doas"
+  run_cmd "$WORK/doas-dry.out" "$WORK/doas-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_DOAS:$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --version 1.108.2 --install-dir "$ROOT_DIR/bin"
+  t "passwordless doas is used when sudo fails" rc_is "$RC" 0
+  t "doas is reported in dry-run" has_line 'escalation=doas' "$WORK/doas-dry.out"
+
+  FAKE_PFEXEC="$WORK/fake-pfexec"
+  make_fake_sudo "$FAKE_PFEXEC" fail
+  printf '#!/bin/sh\nexit 1\n' > "$FAKE_PFEXEC/doas"
+  chmod +x "$FAKE_PFEXEC/doas"
+  printf '#!/bin/sh\nexit 0\n' > "$FAKE_PFEXEC/pfexec"
+  chmod +x "$FAKE_PFEXEC/pfexec"
+  run_cmd "$WORK/pfexec-dry.out" "$WORK/pfexec-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_PFEXEC:$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --version 1.108.2 --install-dir "$ROOT_DIR/bin"
+  t "passwordless pfexec is the last escalation resort" rc_is "$RC" 0
+  t "pfexec is reported in dry-run" has_line 'escalation=pfexec' "$WORK/pfexec-dry.out"
+
+  run_cmd "$WORK/noesc-dry.out" "$WORK/noesc-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_OK:$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --version 1.108.2 --install-dir "$ROOT_DIR/bin" --no-escalate
+  t "--no-escalate exits 0 in dry-run" rc_is "$RC" 0
+  t "--no-escalate reports no escalation" has_line 'escalation=none' "$WORK/noesc-dry.out"
+
+  FAKE_SUDO_FAIL="$WORK/fake-sudo-fail"
+  make_fake_sudo "$FAKE_SUDO_FAIL" fail
+  run_cmd "$WORK/system-fail.out" "$WORK/system-fail.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_FAIL:$PATH" sh "$SASS_SCRIPT" \
+    --system --version 1.108.2 --install-dir "$ROOT_DIR/bin" --no-verify
+  t "--system fails without a usable escalation tool" rc_is "$RC" 1
+  t "--system failure explains the options" \
+    has_text 'run as root, or allow sudo/doas/pfexec' "$WORK/system-fail.err"
+
+  TERMUX_ROOT="$WORK/termux"
+  mkdir -p "$TERMUX_ROOT/prefix/bin" "$TERMUX_ROOT/home"
+  chmod 0555 "$TERMUX_ROOT/prefix/bin"
+  run_cmd "$WORK/termux-system.out" "$WORK/termux-system.err" \
+    env RUNNER_ARCH= TERMUX_VERSION=0.118 PREFIX="$TERMUX_ROOT/prefix" \
+    HOME="$TERMUX_ROOT/home" PATH="$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --version 1.108.2 --system
+  t "Termux --system fails without a writable \$PREFIX/bin" rc_is "$RC" 1
+  t "Termux --system failure explains the requirement" \
+    has_text 'PREFIX/bin on Termux' "$WORK/termux-system.err"
+
+  chmod 0755 "$TERMUX_ROOT/prefix/bin"
+  run_cmd "$WORK/termux-ok.out" "$WORK/termux-ok.err" \
+    env RUNNER_ARCH= TERMUX_VERSION=0.118 PREFIX="$TERMUX_ROOT/prefix" \
+    HOME="$TERMUX_ROOT/home" PATH="$PATH" sh "$SASS_SCRIPT" \
+    --dry-run --system --version 1.108.2 --print-path
+  t "Termux --system uses a writable \$PREFIX/bin" rc_is "$RC" 0
+  t "Termux --system prints the prefix directory" \
+    has_line "$TERMUX_ROOT/prefix/bin" "$WORK/termux-ok.out"
+
+  SYSROOT="$WORK/fake-sysroot"
+  mkdir -p "$SYSROOT"
+  chmod 0555 "$SYSROOT"
+  PATCHED="$WORK/install-dart-sass-patched.sh"
+  sed "s|/usr/local/bin|$SYSROOT/bin|g" "$SASS_SCRIPT" > "$PATCHED"
+  chmod +x "$PATCHED"
+  FAKE_AUTH="$WORK/fake-sudo-authfail"
+  make_fake_sudo "$FAKE_AUTH" authfail
+  mkdir -p "$WORK/fallback-home"
+  run_cmd "$WORK/fallback.out" "$WORK/fallback.err" \
+    env RUNNER_ARCH= HOME="$WORK/fallback-home" PATH="$FAKE_AUTH:$PATH" \
+    sh "$PATCHED" --version 1.108.2 --no-verify
+  t "failed privileged write falls back to the user directory" rc_is "$RC" 0
+  t "fallback installs sass in \$HOME/.local/bin" \
+    has_file "$WORK/fallback-home/.local/bin/sass"
+  t "fallback warns about the directory change" \
+    contains_text 'falling back to' "$WORK/fallback.err"
+  t "non-interactive fallback never prompts" \
+    has_no_file "$FAKE_AUTH/prompted"
+  t "fallback sass runs" \
+    version_is "$WORK/fallback-home/.local/bin/sass" '1.108.2'
+  t "failed escalation does not attempt an unprivileged write" \
+    lacks_text 'Permission denied' "$WORK/fallback.err"
+
+  # A legitimate privileged write must still be accepted after verification.
+  GOOD_ROOT="$WORK/good-sysroot"
+  mkdir -p "$GOOD_ROOT/bin"
+  chmod 0555 "$GOOD_ROOT" "$GOOD_ROOT/bin"
+  GOOD_PATCHED="$WORK/install-dart-sass-good.sh"
+  sed "s|/usr/local/bin|$GOOD_ROOT/bin|g" "$SASS_SCRIPT" > "$GOOD_PATCHED"
+  chmod +x "$GOOD_PATCHED"
+  FAKE_WRITE="$WORK/fake-sudo-write"
+  make_fake_sudo "$FAKE_WRITE" write
+  mkdir -p "$WORK/good-home"
+  run_cmd "$WORK/good.out" "$WORK/good.err" \
+    env RUNNER_ARCH= HOME="$WORK/good-home" \
+    FAKE_SUDO_SYSROOT="$GOOD_ROOT/bin" PATH="$FAKE_WRITE:$PATH" \
+    sh "$GOOD_PATCHED" --version 1.108.2 --no-verify
+  t "verified privileged install succeeds" rc_is "$RC" 0
+  t "verified privileged install writes the system sass" \
+    has_file "$GOOD_ROOT/bin/sass"
+  t "verified privileged install skips the user fallback" \
+    has_no_file "$WORK/good-home/.local/bin/sass"
+  t "verified system sass runs" \
+    version_is "$GOOD_ROOT/bin/sass" '1.108.2'
+  t "verified privileged install reports the system path" \
+    contains_text "installed at $GOOD_ROOT/bin/sass" "$WORK/good.err"
+  t "verified privileged install does not fall back" \
+    lacks_text 'falling back to' "$WORK/good.err"
+
+  # A tool that exits 0 without writing must not be mistaken for a successful
+  # install. Without the post-write verification this run would print "payload
+  # installed" and then fail only because no sass exists yet.
+  FAKE_NOOP="$WORK/fake-sudo-noop"
+  make_fake_sudo "$FAKE_NOOP" ok
+  mkdir -p "$WORK/noop-home"
+  run_cmd "$WORK/noop.out" "$WORK/noop.err" \
+    env RUNNER_ARCH= HOME="$WORK/noop-home" PATH="$FAKE_NOOP:$PATH" \
+    sh "$PATCHED" --version 1.108.2 --no-verify
+  t "silent successful escalation is verified" rc_is "$RC" 0
+  t "silent escalation falls back to the user directory" \
+    has_file "$WORK/noop-home/.local/bin/sass"
+  t "silent escalation fallback sass runs" \
+    version_is "$WORK/noop-home/.local/bin/sass" '1.108.2'
+  t "silent escalation warns about the fallback" \
+    contains_text 'falling back to' "$WORK/noop.err"
+  t "silent escalation explains the missing payload" \
+    contains_text 'reported success but did not produce' "$WORK/noop.err"
+  t "silent escalation does not claim a system payload" \
+    lacks_text "payload installed in ${SYSROOT}" "$WORK/noop.err"
+
+  # An old payload can make the smoke test succeed even when the privileged
+  # write did nothing. The staged-tree check must still detect it and fall
+  # back, without partially deleting the user-owned old payload first.
+  STALE_ROOT="$WORK/stale-sysroot"
+  mkdir -p "$STALE_ROOT/bin/.dart-sass/src"
+  printf '#!/bin/sh\nprintf "1.108.2\\n"\n' \
+    > "$STALE_ROOT/bin/.dart-sass/sass"
+  chmod +x "$STALE_ROOT/bin/.dart-sass/sass"
+  ln -s .dart-sass/sass "$STALE_ROOT/bin/sass"
+  ln -s .dart-sass/sass "$STALE_ROOT/bin/dart-sass"
+  chmod 0555 "$STALE_ROOT" "$STALE_ROOT/bin"
+  STALE_PATCHED="$WORK/install-dart-sass-stale.sh"
+  sed "s|/usr/local/bin|$STALE_ROOT/bin|g" "$SASS_SCRIPT" > "$STALE_PATCHED"
+  chmod +x "$STALE_PATCHED"
+  mkdir -p "$WORK/stale-home"
+  run_cmd "$WORK/stale.out" "$WORK/stale.err" \
+    env RUNNER_ARCH= HOME="$WORK/stale-home" PATH="$FAKE_NOOP:$PATH" \
+    sh "$STALE_PATCHED" --version 1.108.2 --no-verify
+  t "an old payload does not mask a silent escalation" rc_is "$RC" 0
+  t "old payload install falls back to the user directory" \
+    has_file "$WORK/stale-home/.local/bin/sass"
+  t "old payload install leaves the old system payload usable" \
+    version_is "$STALE_ROOT/bin/sass" '1.108.2'
+  t "old payload install warns about the fallback" \
+    contains_text 'falling back to' "$WORK/stale.err"
+
+  # An explicit directory must fail, not report success, when the privileged
+  # command returns 0 without writing anything.
+  EXPLICIT_ROOT="$WORK/explicit-ro"
+  mkdir -p "$EXPLICIT_ROOT"
+  chmod 0555 "$EXPLICIT_ROOT"
+  mkdir -p "$WORK/explicit-home"
+  run_cmd "$WORK/explicit.out" "$WORK/explicit.err" \
+    env RUNNER_ARCH= HOME="$WORK/explicit-home" PATH="$FAKE_NOOP:$PATH" \
+    sh "$SASS_SCRIPT" --version 1.108.2 --no-verify \
+    --install-dir "$EXPLICIT_ROOT/bin"
+  t "silent escalation cannot fake an explicit install" rc_is "$RC" 1
+  t "silent escalation explicit install explains the failure" \
+    contains_text 'cannot write to' "$WORK/explicit.err"
+  t "silent escalation explicit install writes nothing" \
+    has_no_file "$EXPLICIT_ROOT/bin/sass"
+else
+  printf 'SKIP  escalation permission tests (needs POSIX and a non-root user)\n'
+fi
 
 # ---------------------------------------------------------------------------
 # Machine-readable output contracts (dry-run)

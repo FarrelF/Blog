@@ -122,6 +122,75 @@ run_cmd() {
   RC=$?
 }
 
+# make_uname DIR SYSTEM ARCH -- fake uname for platform-specific dry runs
+make_uname() {
+  mu_dir=$1
+  mu_sys=$2
+  mu_arch=$3
+  mkdir -p "$mu_dir"
+  cat > "$mu_dir/uname" <<EOF
+#!/bin/sh
+case "\$1" in
+  -s) echo "$mu_sys" ;;
+  -m) echo "$mu_arch" ;;
+  -o) echo "$mu_sys" ;;
+  *) echo "$mu_sys" ;;
+esac
+EOF
+  chmod +x "$mu_dir/uname"
+}
+
+# make_fake_sudo DIR MODE -- MODE is ok, authfail, or fail. "authfail" passes
+# the passwordless probe but fails the real write; none of the modes may ever
+# run sudo without -n, which would mean an interactive prompt was attempted.
+make_fake_sudo() {
+  mf_dir=$1
+  mf_mode=$2
+  mkdir -p "$mf_dir"
+  case "$mf_mode" in
+    ok)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+exit 0
+EOF
+      ;;
+    authfail)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+for fs_arg in "$@"; do
+  case "$fs_arg" in
+    *'id -u'*) exit 0 ;;
+  esac
+done
+case "${1:-}" in
+  -n) : ;;
+  *) : > "$(dirname "$0")/prompted" ;;
+esac
+exit 1
+EOF
+      ;;
+    *)
+      cat > "$mf_dir/sudo" <<'EOF'
+#!/bin/sh
+case "${1:-}" in
+  -n) : ;;
+  *) : > "$(dirname "$0")/prompted" ;;
+esac
+exit 1
+EOF
+      ;;
+  esac
+  chmod +x "$mf_dir/sudo"
+}
+
+# posix_nonroot -- permission-failure tests need chmod to have effect
+posix_nonroot() {
+  case "$(uname -s)" in
+    MINGW* | MSYS* | CYGWIN*) return 1 ;;
+  esac
+  [ "$(id -u 2>/dev/null || printf '1')" != '0' ]
+}
+
 DETECTED="$(detect_shells)"
 printf 'Hugo installer tests\n'
 printf '  script : %s\n' "$HUGO_SCRIPT"
@@ -146,6 +215,285 @@ run_hugo "$WORK/pkg.out" "$WORK/pkg.err" --method pkg --dry-run --version 0.170.
   --install-dir "$WORK/pkg-bin"
 t "--method pkg is rejected outside Termux" rc_is "$RH_RC" 1
 t "--method pkg explains Termux-only" has_text 'only available on Termux' "$WORK/pkg.err"
+
+# ---------------------------------------------------------------------------
+# BSD, Solaris, and privilege escalation
+# ---------------------------------------------------------------------------
+
+FAKE_BSD="$WORK/platform/uname-bsd"
+make_uname "$FAKE_BSD" FreeBSD amd64
+run_cmd "$WORK/bsd.out" "$WORK/bsd.err" \
+  env RUNNER_ARCH= PATH="$FAKE_BSD:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --install-dir "$WORK/platform/bsd-bin" \
+  --no-man --no-completions
+t "FreeBSD dry-run exits 0" rc_is "$RC" 0
+t "FreeBSD selects the amd64 tarball" \
+  has_line 'asset=hugo_0.170.1_freebsd-amd64.tar.gz' "$WORK/bsd.out"
+t "FreeBSD needs no escalation for a writable directory" \
+  has_line 'escalation=none' "$WORK/bsd.out"
+
+FAKE_OPENBSD="$WORK/platform/uname-openbsd"
+make_uname "$FAKE_OPENBSD" OpenBSD amd64
+run_cmd "$WORK/openbsd.out" "$WORK/openbsd.err" \
+  env RUNNER_ARCH= PATH="$FAKE_OPENBSD:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --install-dir "$WORK/platform/openbsd-bin" \
+  --no-man --no-completions
+t "OpenBSD dry-run exits 0" rc_is "$RC" 0
+t "OpenBSD selects the amd64 tarball" \
+  has_line 'asset=hugo_0.170.1_openbsd-amd64.tar.gz' "$WORK/openbsd.out"
+
+FAKE_SOLARIS="$WORK/platform/uname-solaris"
+make_uname "$FAKE_SOLARIS" SunOS i86pc
+run_cmd "$WORK/solaris.out" "$WORK/solaris.err" \
+  env RUNNER_ARCH= PATH="$FAKE_SOLARIS:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --install-dir "$WORK/platform/solaris-bin" \
+  --no-man --no-completions
+t "Solaris i86pc dry-run exits 0" rc_is "$RC" 0
+t "Solaris i86pc selects the amd64 tarball" \
+  has_line 'asset=hugo_0.170.1_solaris-amd64.tar.gz' "$WORK/solaris.out"
+
+SPARC_DIR="$WORK/platform/uname-sparc"
+make_uname "$SPARC_DIR" SunOS sun4u
+run_cmd "$WORK/sparc.out" "$WORK/sparc.err" \
+  env RUNNER_ARCH= PATH="$SPARC_DIR:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --install-dir "$WORK/platform/sparc-bin" \
+  --no-man --no-completions
+t "Solaris SPARC is rejected" rc_is "$RC" 1
+t "Solaris SPARC explains the gap" has_text 'SPARC' "$WORK/sparc.err"
+
+BSD_ARM_DIR="$WORK/platform/uname-bsd-arm"
+make_uname "$BSD_ARM_DIR" NetBSD aarch64
+run_cmd "$WORK/bsd-arm.out" "$WORK/bsd-arm.err" \
+  env RUNNER_ARCH= PATH="$BSD_ARM_DIR:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --install-dir "$WORK/platform/bsd-arm-bin" \
+  --no-man --no-completions
+t "BSD ARM is rejected" rc_is "$RC" 1
+t "BSD ARM explains the amd64-only rule" has_text 'only amd64' "$WORK/bsd-arm.err"
+
+run_cmd "$WORK/bsd-old.out" "$WORK/bsd-old.err" \
+  env RUNNER_ARCH= PATH="$FAKE_BSD:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.102.3 --install-dir "$WORK/platform/bsd-old-bin" \
+  --no-man --no-completions
+t "pre-v0.103.0 BSD is rejected" rc_is "$RC" 1
+t "pre-v0.103.0 BSD explains the asset rename" \
+  has_text 'start at v0.103.0' "$WORK/bsd-old.err"
+
+run_cmd "$WORK/bsd-deploy.out" "$WORK/bsd-deploy.err" \
+  env RUNNER_ARCH= PATH="$FAKE_BSD:$PATH" sh "$HUGO_SCRIPT" \
+  --dry-run --version 0.170.1 --with-deploy --install-dir "$WORK/platform/bsd-deploy-bin" \
+  --no-man --no-completions
+t "BSD with-deploy falls back to the standard build" rc_is "$RC" 0
+t "BSD with-deploy selects the standard asset" \
+  has_line 'asset=hugo_0.170.1_freebsd-amd64.tar.gz' "$WORK/bsd-deploy.out"
+t "BSD with-deploy warns instead of failing" \
+  contains_text "installing the standard build without Deploy" "$WORK/bsd-deploy.err"
+
+HUGO_ESCALATE='sometimes' sh "$HUGO_SCRIPT" --dry-run --version 0.170.1 \
+  --install-dir "$WORK/escalate-bin" --no-man --no-completions \
+  >"$WORK/escalate-bad.out" 2>"$WORK/escalate-bad.err"
+RH_RC=$?
+t "invalid HUGO_ESCALATE is rejected" rc_is "$RH_RC" 1
+t "invalid HUGO_ESCALATE explains the choices" \
+  has_text 'invalid HUGO_ESCALATE' "$WORK/escalate-bad.err"
+
+HUGO_ESCALATE='never' sh "$HUGO_SCRIPT" --dry-run --system --version 0.170.1 \
+  --install-dir "$WORK/escalate-bin" --no-man --no-completions \
+  >"$WORK/system-never.out" 2>"$WORK/system-never.err"
+RH_RC=$?
+t "--system refuses --no-escalate" rc_is "$RH_RC" 1
+t "--system/--no-escalate conflict is explained" \
+  has_text 'cannot combine --system' "$WORK/system-never.err"
+
+if posix_nonroot; then
+  ROOT_DIR="$WORK/ro-root"
+  mkdir -p "$ROOT_DIR"
+  chmod 0555 "$ROOT_DIR"
+
+  FAKE_SUDO_OK="$WORK/fake-sudo-ok"
+  make_fake_sudo "$FAKE_SUDO_OK" ok
+  run_cmd "$WORK/sudo-dry.out" "$WORK/sudo-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_OK:$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-man --no-completions
+  t "non-writable directory plans passwordless sudo" rc_is "$RC" 0
+  t "sudo is reported in dry-run" has_line 'escalation=sudo' "$WORK/sudo-dry.out"
+
+  # Shadow sudo with a failing shim: on a runner with passwordless sudo the
+  # real tool would otherwise win before doas is considered.
+  FAKE_DOAS="$WORK/fake-doas"
+  make_fake_sudo "$FAKE_DOAS" fail
+  printf '#!/bin/sh\nexit 0\n' > "$FAKE_DOAS/doas"
+  chmod +x "$FAKE_DOAS/doas"
+  run_cmd "$WORK/doas-dry.out" "$WORK/doas-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_DOAS:$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-man --no-completions
+  t "passwordless doas is used when sudo fails" rc_is "$RC" 0
+  t "doas is reported in dry-run" has_line 'escalation=doas' "$WORK/doas-dry.out"
+
+  FAKE_PFEXEC="$WORK/fake-pfexec"
+  make_fake_sudo "$FAKE_PFEXEC" fail
+  printf '#!/bin/sh\nexit 1\n' > "$FAKE_PFEXEC/doas"
+  chmod +x "$FAKE_PFEXEC/doas"
+  printf '#!/bin/sh\nexit 0\n' > "$FAKE_PFEXEC/pfexec"
+  chmod +x "$FAKE_PFEXEC/pfexec"
+  run_cmd "$WORK/pfexec-dry.out" "$WORK/pfexec-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_PFEXEC:$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-man --no-completions
+  t "passwordless pfexec is the last escalation resort" rc_is "$RC" 0
+  t "pfexec is reported in dry-run" has_line 'escalation=pfexec' "$WORK/pfexec-dry.out"
+
+  run_cmd "$WORK/noesc-dry.out" "$WORK/noesc-dry.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_OK:$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-escalate --no-man --no-completions
+  t "--no-escalate exits 0 in dry-run" rc_is "$RC" 0
+  t "--no-escalate reports no escalation" has_line 'escalation=none' "$WORK/noesc-dry.out"
+
+  FAKE_SUDO_FAIL="$WORK/fake-sudo-fail"
+  make_fake_sudo "$FAKE_SUDO_FAIL" fail
+  run_cmd "$WORK/system-fail.out" "$WORK/system-fail.err" \
+    env RUNNER_ARCH= PATH="$FAKE_SUDO_FAIL:$PATH" sh "$HUGO_SCRIPT" \
+    --system --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-man --no-completions --no-verify
+  t "--system fails without a usable escalation tool" rc_is "$RC" 1
+  t "--system failure explains the options" \
+    has_text 'run as root, or allow sudo/doas/pfexec' "$WORK/system-fail.err"
+
+  TERMUX_ROOT="$WORK/termux"
+  mkdir -p "$TERMUX_ROOT/prefix/bin" "$TERMUX_ROOT/home"
+  chmod 0555 "$TERMUX_ROOT/prefix/bin"
+  run_cmd "$WORK/termux-system.out" "$WORK/termux-system.err" \
+    env RUNNER_ARCH= TERMUX_VERSION=0.118 PREFIX="$TERMUX_ROOT/prefix" \
+    HOME="$TERMUX_ROOT/home" PATH="$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --version 0.170.1 --system --no-man --no-completions
+  t "Termux --system fails without a writable \$PREFIX/bin" rc_is "$RC" 1
+  t "Termux --system failure explains the requirement" \
+    has_text 'PREFIX/bin on Termux' "$WORK/termux-system.err"
+
+  chmod 0755 "$TERMUX_ROOT/prefix/bin"
+  run_cmd "$WORK/termux-ok.out" "$WORK/termux-ok.err" \
+    env RUNNER_ARCH= TERMUX_VERSION=0.118 PREFIX="$TERMUX_ROOT/prefix" \
+    HOME="$TERMUX_ROOT/home" PATH="$PATH" sh "$HUGO_SCRIPT" \
+    --dry-run --system --version 0.170.1 --print-path --no-man --no-completions
+  t "Termux --system uses a writable \$PREFIX/bin" rc_is "$RC" 0
+  t "Termux --system prints the prefix directory" \
+    has_line "$TERMUX_ROOT/prefix/bin" "$WORK/termux-ok.out"
+
+  mkdir -p "$WORK/explicit-home"
+  run_cmd "$WORK/explicit-fail.out" "$WORK/explicit-fail.err" \
+    env RUNNER_ARCH= HOME="$WORK/explicit-home" PATH="$FAKE_SUDO_FAIL:$PATH" \
+    sh "$HUGO_SCRIPT" --version 0.170.1 --install-dir "$ROOT_DIR/bin" \
+    --no-man --no-completions --no-verify
+  t "unwritable explicit directory fails without a fallback" rc_is "$RC" 1
+  t "explicit directory failure is explained" \
+    has_text 'explicit --install-dir' "$WORK/explicit-fail.err"
+  t "explicit directory failure writes nothing to HOME" \
+    has_no_file "$WORK/explicit-home/.local/bin/hugo"
+
+  SYSROOT="$WORK/fake-sysroot"
+  mkdir -p "$SYSROOT"
+  chmod 0555 "$SYSROOT"
+  PATCHED="$WORK/install-hugo-patched.sh"
+  sed "s|/usr/local/bin|$SYSROOT/bin|g" "$HUGO_SCRIPT" > "$PATCHED"
+  chmod +x "$PATCHED"
+  FAKE_AUTH="$WORK/fake-sudo-authfail"
+  make_fake_sudo "$FAKE_AUTH" authfail
+  mkdir -p "$WORK/fallback-home"
+  run_cmd "$WORK/fallback.out" "$WORK/fallback.err" \
+    env RUNNER_ARCH= HOME="$WORK/fallback-home" PATH="$FAKE_AUTH:$PATH" \
+    sh "$PATCHED" --version 0.170.1 --no-man --no-completions --no-verify
+  t "failed privileged write falls back to the user directory" rc_is "$RC" 0
+  t "fallback installs hugo in \$HOME/.local/bin" \
+    has_file "$WORK/fallback-home/.local/bin/hugo"
+  t "fallback warns about the directory change" \
+    contains_text 'falling back to' "$WORK/fallback.err"
+  t "non-interactive fallback never prompts" \
+    has_no_file "$FAKE_AUTH/prompted"
+  t "fallback binary runs" \
+    hugo_version_has "$WORK/fallback-home/.local/bin/hugo" 'v0.170.1'
+
+  # Extras follow the binary into <prefix>/share and reuse its escalation.
+  EXTRAS_SYSROOT="$WORK/extras-sysroot"
+  mkdir -p "$EXTRAS_SYSROOT"
+  chmod 0555 "$EXTRAS_SYSROOT"
+  EXTRAS_PATCHED="$WORK/install-hugo-extras-patched.sh"
+  sed "s|/usr/local/bin|$EXTRAS_SYSROOT/bin|g" "$HUGO_SCRIPT" > "$EXTRAS_PATCHED"
+  chmod +x "$EXTRAS_PATCHED"
+  FAKE_SUDO_ROOT="$WORK/fake-sudo-root"
+  mkdir -p "$FAKE_SUDO_ROOT"
+  cat > "$FAKE_SUDO_ROOT/sudo" <<EOF
+#!/bin/sh
+for fs_arg in "\$@"; do
+  case "\$fs_arg" in
+    *'id -u'*) exit 0 ;;
+  esac
+done
+case "\${1:-}" in
+  -n) shift ;;
+esac
+chmod 0755 "$EXTRAS_SYSROOT" 2>/dev/null || true
+"\$@"
+fs_rc=\$?
+chmod 0555 "$EXTRAS_SYSROOT" 2>/dev/null || true
+exit \$fs_rc
+EOF
+  chmod +x "$FAKE_SUDO_ROOT/sudo"
+  mkdir -p "$WORK/extras-home"
+  run_cmd "$WORK/extras-sys.out" "$WORK/extras-sys.err" \
+    env RUNNER_ARCH= HOME="$WORK/extras-home" PATH="$FAKE_SUDO_ROOT:$PATH" \
+    sh "$EXTRAS_PATCHED" --version 0.170.1 --no-verify
+  t "system extras exit 0" rc_is "$RC" 0
+  t "extras follow the escalated binary into <prefix>/share" \
+    has_file "$EXTRAS_SYSROOT/share/man/man1/hugo.1.gz"
+  t "system extras stay out of \$HOME/.local/share" \
+    has_no_file "$WORK/extras-home/.local/share/man/man1/hugo.1.gz"
+  t "system extras report the system share directory" \
+    contains_text "manpage(s) in $EXTRAS_SYSROOT/share/man/man1" "$WORK/extras-sys.err"
+
+  # When the privileged extras write fails, only the extras fall back.
+  FALLBACK_SYSROOT="$WORK/extras-fallback-sysroot"
+  mkdir -p "$FALLBACK_SYSROOT"
+  chmod 0555 "$FALLBACK_SYSROOT"
+  FALLBACK_PATCHED="$WORK/install-hugo-extras-fallback.sh"
+  sed "s|/usr/local/bin|$FALLBACK_SYSROOT/bin|g" "$HUGO_SCRIPT" > "$FALLBACK_PATCHED"
+  chmod +x "$FALLBACK_PATCHED"
+  FAKE_SUDO_EXTRAS_FAIL="$WORK/fake-sudo-extras-fail"
+  mkdir -p "$FAKE_SUDO_EXTRAS_FAIL"
+  cat > "$FAKE_SUDO_EXTRAS_FAIL/sudo" <<EOF
+#!/bin/sh
+for fs_arg in "\$@"; do
+  case "\$fs_arg" in
+    *'id -u'*) exit 0 ;;
+    *'/share/'*) exit 1 ;;
+  esac
+done
+case "\${1:-}" in
+  -n) shift ;;
+esac
+chmod 0755 "$FALLBACK_SYSROOT" 2>/dev/null || true
+"\$@"
+fs_rc=\$?
+chmod 0555 "$FALLBACK_SYSROOT" 2>/dev/null || true
+exit \$fs_rc
+EOF
+  chmod +x "$FAKE_SUDO_EXTRAS_FAIL/sudo"
+  mkdir -p "$WORK/extras-fallback-home"
+  run_cmd "$WORK/extras-fb.out" "$WORK/extras-fb.err" \
+    env RUNNER_ARCH= HOME="$WORK/extras-fallback-home" \
+    PATH="$FAKE_SUDO_EXTRAS_FAIL:$PATH" \
+    sh "$FALLBACK_PATCHED" --version 0.170.1 --no-verify
+  t "failed system extras keep the install successful" rc_is "$RC" 0
+  t "failed system extras fall back to \$HOME/.local/share" \
+    has_file "$WORK/extras-fallback-home/.local/share/man/man1/hugo.1.gz"
+  t "failed system extras explain the fallback" \
+    contains_text "using $WORK/extras-fallback-home/.local/share" "$WORK/extras-fb.err"
+  t "failed system extras write nothing to the system share" \
+    has_no_file "$FALLBACK_SYSROOT/share/man/man1/hugo.1.gz"
+else
+  printf 'SKIP  escalation permission tests (needs POSIX and a non-root user)\n'
+fi
 
 # ---------------------------------------------------------------------------
 # Dry-run: extras defaults, opt-outs, explicit lists

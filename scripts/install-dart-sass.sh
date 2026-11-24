@@ -13,12 +13,23 @@
 #   --version VERSION       Dart Sass version, with or without the "v"
 #                           prefix. Default: latest (or $DART_SASS_VERSION).
 #   --install-dir DIR       Directory that receives the "sass" entry point.
-#                           Default: /usr/local/bin on Linux and macOS when
-#                           writable, otherwise $HOME/.local/bin; on Termux,
-#                           $PREFIX/bin when safe, otherwise
+#                           Default: /usr/local/bin on Linux and macOS when it
+#                           is writable or reachable through root, passwordless
+#                           sudo/doas, or pfexec, otherwise $HOME/.local/bin;
+#                           on Termux, $PREFIX/bin when safe, otherwise
 #                           $HOME/.local/bin; on Windows, Program Files or
-#                           %LOCALAPPDATA%. $DART_SASS_INSTALL_DIR is the
-#                           environment equivalent.
+#                           %LOCALAPPDATA%. An explicit directory is never
+#                           silently replaced when it cannot be written.
+#                           $DART_SASS_INSTALL_DIR is the environment
+#                           equivalent.
+#   --no-escalate           Never use sudo, doas, or pfexec; install into a
+#                           writable user directory instead.
+#   --system                Require a system-wide install; fail when the
+#                           directory cannot be written and no escalation
+#                           tool is available.
+#   --escalate              Use sudo, doas, or pfexec when a system directory
+#                           is not writable, and fail instead of falling back
+#                           to the user directory (DART_SASS_ESCALATE=always).
 #   --libc LIBC             auto, glibc, musl, or android. Default: auto.
 #                           Termux uses the native Android build when one
 #                           exists. On Linux, auto detects musl through ldd,
@@ -37,9 +48,22 @@
 #   -h, --help              Show this help.
 #
 # Environment:
-#   DART_SASS_VERSION, DART_SASS_INSTALL_DIR, DART_SASS_LIBC,
-#   DART_SASS_VERIFY, DART_SASS_FORCE, GITHUB_TOKEN, DOWNLOADER,
-#   DOWNLOADER_ARGS.
+#   DART_SASS_ESCALATE (auto|never|always), DART_SASS_VERSION,
+#   DART_SASS_INSTALL_DIR, DART_SASS_LIBC, DART_SASS_VERIFY,
+#   DART_SASS_FORCE, GITHUB_TOKEN, DOWNLOADER, DOWNLOADER_ARGS.
+#
+# BSD and Solaris notes:
+#   Dart Sass publishes no native binary for FreeBSD, OpenBSD, NetBSD,
+#   DragonFly BSD, or Solaris/illumos. Install the JavaScript package with
+#   "npm install -g sass" (or bun/pnpm), or use the OS package manager when
+#   it packages Dart Sass. This installer exits with a clear error there.
+#
+# Privilege notes:
+#   When /usr/local/bin is not writable, the script uses sudo, doas, or
+#   pfexec for a single staged write. A non-interactive shell (CI) only tries
+#   passwordless escalation; an interactive terminal may prompt once. When
+#   escalation is unavailable or fails, a default directory falls back to
+#   $HOME/.local/bin. An explicit --install-dir never falls back.
 #
 # Termux notes:
 #   Dart Sass publishes native Android builds from 1.69.7, but 1.70.0 is the
@@ -72,6 +96,7 @@ DART_SASS_RELEASE_BASE="${DART_SASS_REPO_URL}/releases/download"
 
 DART_SASS_VERSION="${DART_SASS_VERSION:-latest}"
 DART_SASS_INSTALL_DIR="${DART_SASS_INSTALL_DIR:-}"
+DART_SASS_ESCALATE="${DART_SASS_ESCALATE:-auto}"
 DART_SASS_LIBC="${DART_SASS_LIBC:-auto}"
 DART_SASS_VERIFY="${DART_SASS_VERIFY:-1}"
 DART_SASS_FORCE="${DART_SASS_FORCE:-0}"
@@ -87,6 +112,13 @@ TERMUX_FALLBACK=0
 PKG_MANAGER=''
 POSITIONAL_SET=0
 WORK_DIR=''
+INSTALL_DIR_EXPLICIT=0
+ESCALATE_MODE="${DART_SASS_ESCALATE:-auto}"
+ESCALATE_NAME=''
+ESCALATE_CMD=''
+ESCALATE_NONINTERACTIVE=0
+SYSTEM_ONLY=0
+[ -n "${DART_SASS_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -214,15 +246,28 @@ probe_url() {
 
 # sha256_of FILE -- the file's SHA-256 digest (bare lowercase hex)
 sha256_of() {
+  ds_hash=''
   if command -v sha256sum >/dev/null 2>&1; then
-    sha256sum "$1" | awk '{print $1}'
+    ds_hash="$(sha256sum "$1" 2>/dev/null | awk '{print $1}')"
+  elif command -v sha256 >/dev/null 2>&1; then
+    # FreeBSD and OpenBSD ship "sha256 -q"; NetBSD's sha256 is cksum(1)-based
+    # and prints "SHA256 (file) = <hex>" instead.
+    ds_hash="$(sha256 -q "$1" 2>/dev/null || true)"
+    if [ -z "${ds_hash}" ]; then
+      ds_hash="$(sha256 "$1" 2>/dev/null | awk 'END {print $NF}')"
+    fi
   elif command -v shasum >/dev/null 2>&1; then
-    shasum -a 256 "$1" | awk '{print $1}'
+    ds_hash="$(shasum -a 256 "$1" 2>/dev/null | awk '{print $1}')"
+  elif command -v digest >/dev/null 2>&1 && digest -a sha256 "$1" >/dev/null 2>&1; then
+    # Solaris/illumos ships digest(1); the hex digest is the last field.
+    ds_hash="$(digest -a sha256 "$1" 2>/dev/null | awk 'END {print $NF}')"
   elif command -v openssl >/dev/null 2>&1; then
-    openssl dgst -sha256 "$1" | sed 's/^.*= //'
+    ds_hash="$(openssl dgst -sha256 "$1" 2>/dev/null | sed 's/^.*= //')"
   else
-    die "no SHA-256 tool found (sha256sum, shasum, or openssl)."
+    die "no SHA-256 tool found (sha256sum, sha256, shasum, digest, or openssl)."
   fi
+  [ -n "${ds_hash}" ] || die "could not compute the SHA-256 digest of $1."
+  printf '%s\n' "${ds_hash}"
 }
 
 # verify_sha256 EXPECTED FILE -- prints both digests, fails on mismatch
@@ -305,6 +350,12 @@ release_asset_sha256() {
 case "$(uname -s)" in
   Linux)                    OS_NAME='linux' ;;
   Darwin)                   OS_NAME='macos' ;;
+  FreeBSD | OpenBSD | NetBSD | DragonFly | SunOS)
+    # Record the platform and fail after argument parsing, so --help still
+    # works on systems that have no official Dart Sass binary.
+    UNSUPPORTED_OS_NAME="$(uname -s)"
+    OS_NAME='unsupported'
+    ;;
   MINGW* | MSYS* | CYGWIN*) OS_NAME='windows' ;;
   *) die "unsupported operating system: $(uname -s)" ;;
 esac
@@ -337,6 +388,7 @@ if [ -z "${ARCH_NAME}" ]; then
     aarch64 | arm64)      ARCH_NAME='arm64' ;;
     armv7l | armv6l | arm) ARCH_NAME='arm' ;;
     i386 | i686 | x86)    ARCH_NAME='ia32' ;;
+    i86pc)                ARCH_NAME='x64' ;; # Solaris/illumos names x86 "i86pc"
     riscv64)              ARCH_NAME='riscv64' ;;
     *) die "unsupported architecture: $(uname -m)" ;;
   esac
@@ -383,6 +435,154 @@ is_musl() {
 is_musl && MUSL=1
 
 # ---------------------------------------------------------------------------
+# Privilege escalation
+# ---------------------------------------------------------------------------
+
+# is_root_user -- true when the effective user is root
+is_root_user() {
+  [ "$(id -u 2>/dev/null || printf '1')" = '0' ]
+}
+
+# is_ci_env -- true inside common non-interactive build environments
+is_ci_env() {
+  [ -n "${CI:-}" ] && return 0
+  [ -n "${GITHUB_ACTIONS:-}" ] && return 0
+  [ -n "${GITLAB_CI:-}" ] && return 0
+  [ -n "${NETLIFY:-}" ] && return 0
+  [ -n "${CF_PAGES:-}" ] && return 0
+  [ -n "${BUILD_ID:-}" ] && return 0
+  [ -n "${TRAVIS:-}" ] && return 0
+  [ -n "${CIRCLECI:-}" ] && return 0
+  return 1
+}
+
+# may_prompt -- true when an authentication prompt cannot hang a build
+may_prompt() {
+  [ "${ESCALATE_MODE}" = 'never' ] && return 1
+  [ "${DRY_RUN}" -eq 1 ] && return 1
+  [ "${PRINT_ENV}" -eq 1 ] && return 1
+  [ "${PRINT_PATH}" -eq 1 ] && return 1
+  [ "${OS_NAME}" = 'windows' ] && return 1
+  [ "${TERMUX}" -eq 1 ] && return 1
+  if is_ci_env; then
+    return 1
+  fi
+  [ -t 0 ] && [ -t 2 ] || return 1
+  return 0
+}
+
+# escalation_tool_path NAME -- absolute path of an available tool
+escalation_tool_path() {
+  case "$1" in
+    sudo | doas | pfexec) ;;
+    *) return 1 ;;
+  esac
+  command -v "$1" 2>/dev/null
+}
+
+# privilege_root_probe CMD NAME -- non-interactive check for effective root.
+# sudo and doas run with -n so a password prompt can never appear; pfexec has
+# no password prompt, so it is checked by looking at the resulting uid.
+privilege_root_probe() {
+  ds_probe_cmd="$1"
+  ds_probe_name="$2"
+  [ -n "${ds_probe_cmd}" ] && [ -x "${ds_probe_cmd}" ] || return 1
+  case "${ds_probe_name}" in
+    sudo | doas)
+      "${ds_probe_cmd}" -n sh -c '[ "$(id -u)" = 0 ]' >/dev/null 2>&1
+      ;;
+    pfexec)
+      "${ds_probe_cmd}" sh -c '[ "$(id -u)" = 0 ]' >/dev/null 2>&1
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+# select_passwordless_escalation -- use a tool that already has effective root
+select_passwordless_escalation() {
+  for ds_esc_name in sudo doas pfexec; do
+    ds_esc_cmd="$(escalation_tool_path "${ds_esc_name}" || true)"
+    [ -n "${ds_esc_cmd}" ] || continue
+    if privilege_root_probe "${ds_esc_cmd}" "${ds_esc_name}"; then
+      ESCALATE_NAME="${ds_esc_name}"
+      ESCALATE_CMD="${ds_esc_cmd}"
+      ESCALATE_NONINTERACTIVE=1
+      return 0
+    fi
+  done
+  return 1
+}
+
+# plan_escalation -- choose sudo/doas/pfexec for a system directory. Returns 1
+# when escalation is disabled, impossible, or not allowed to prompt.
+plan_escalation() {
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
+  [ "${ESCALATE_MODE}" = 'never' ] && return 1
+  [ "${OS_NAME}" = 'windows' ] && return 1
+  [ "${TERMUX}" -eq 1 ] && return 1
+  if is_root_user; then
+    return 1
+  fi
+  if select_passwordless_escalation; then
+    return 0
+  fi
+  if may_prompt; then
+    # The tool decides whether the user is allowed before it asks for a
+    # password; the staged write below is the single prompt.
+    for ds_esc_name in sudo doas pfexec; do
+      ds_esc_cmd="$(escalation_tool_path "${ds_esc_name}" || true)"
+      if [ -n "${ds_esc_cmd}" ]; then
+        ESCALATE_NAME="${ds_esc_name}"
+        ESCALATE_CMD="${ds_esc_cmd}"
+        ESCALATE_NONINTERACTIVE=0
+        return 0
+      fi
+    done
+  fi
+  return 1
+}
+
+# escalation_label -- the dry-run/status label for the planned escalation
+escalation_label() {
+  if [ -n "${ESCALATE_NAME}" ]; then
+    printf '%s' "${ESCALATE_NAME}"
+  else
+    printf '%s' 'none'
+  fi
+}
+
+# run_privileged SCRIPT ARG... -- run a POSIX sh snippet, escalating only when
+# a tool was selected. Paths are passed as positional arguments, never
+# interpolated into the snippet.
+run_privileged() {
+  ds_rp_script="$1"
+  shift
+  if [ -z "${ESCALATE_CMD}" ]; then
+    sh -c "${ds_rp_script}" sh "$@"
+    return
+  fi
+  case "${ESCALATE_NAME}" in
+    sudo | doas)
+      if [ "${ESCALATE_NONINTERACTIVE}" -eq 1 ]; then
+        "${ESCALATE_CMD}" -n sh -c "${ds_rp_script}" sh "$@"
+      else
+        "${ESCALATE_CMD}" sh -c "${ds_rp_script}" sh "$@"
+      fi
+      ;;
+    pfexec)
+      "${ESCALATE_CMD}" sh -c "${ds_rp_script}" sh "$@"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+# ---------------------------------------------------------------------------
 # Argument parsing
 # ---------------------------------------------------------------------------
 
@@ -400,12 +600,17 @@ while [ $# -gt 0 ]; do
     --install-dir)
       [ $# -ge 2 ] || die '--install-dir requires an argument'
       DART_SASS_INSTALL_DIR="$2"
+      INSTALL_DIR_EXPLICIT=1
       shift 2
       ;;
     --install-dir=*)
       DART_SASS_INSTALL_DIR="${1#*=}"
+      INSTALL_DIR_EXPLICIT=1
       shift
       ;;
+    --no-escalate) ESCALATE_MODE='never'; shift ;;
+    --escalate)    ESCALATE_MODE='always'; shift ;;
+    --system)      SYSTEM_ONLY=1; shift ;;
     --libc)
       [ $# -ge 2 ] || die '--libc requires an argument'
       DART_SASS_LIBC="$2"
@@ -474,6 +679,22 @@ while [ $# -gt 0 ]; do
       ;;
   esac
 done
+
+if [ "${OS_NAME}" = 'unsupported' ]; then
+  die "Dart Sass publishes no official binary for ${UNSUPPORTED_OS_NAME}. Install Node.js and run 'npm install -g sass' (or 'bun add -g sass' / 'pnpm add -g sass'), or use the OS package manager when it packages Dart Sass."
+fi
+
+case "$(printf '%s' "${ESCALATE_MODE}" | tr '[:upper:]' '[:lower:]')" in
+  auto)   ESCALATE_MODE='auto' ;;
+  never)  ESCALATE_MODE='never' ;;
+  always) ESCALATE_MODE='always' ;;
+  *) die "invalid DART_SASS_ESCALATE value: '${ESCALATE_MODE}' (use auto, never, or always)" ;;
+esac
+if [ "${SYSTEM_ONLY}" -eq 1 ]; then
+  [ "${ESCALATE_MODE}" = 'never' ] \
+    && die 'cannot combine --system with --no-escalate (or DART_SASS_ESCALATE=never).'
+  ESCALATE_MODE='always'
+fi
 
 VERIFY=0
 is_true "${DART_SASS_VERIFY}" && VERIFY=1
@@ -701,19 +922,47 @@ termux_bin_dir() {
   printf '%s' "${HOME}/.local/bin"
 }
 
-# default_install_dir -- the bin directory that receives the sass entry point
+# try_system_dir DIR -- use DIR directly or through the planned escalation
+try_system_dir() {
+  if can_install_to "$1"; then
+    INSTALL_DIR="$1"
+    return 0
+  fi
+  if plan_escalation; then
+    INSTALL_DIR="$1"
+    return 0
+  fi
+  return 1
+}
+
+# default_install_dir -- set INSTALL_DIR and the planned escalation tool
 default_install_dir() {
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
+
   if [ -n "${DART_SASS_INSTALL_DIR}" ]; then
     # shellcheck disable=SC2088 # '~/.local/bin' is literal user input
     case "${DART_SASS_INSTALL_DIR}" in
-      '~/.local/bin') printf '%s' "${HOME}/.local/bin" ;;
-      *) printf '%s' "${DART_SASS_INSTALL_DIR}" ;;
+      '~/.local/bin') INSTALL_DIR="${HOME}/.local/bin" ;;
+      *) INSTALL_DIR="${DART_SASS_INSTALL_DIR}" ;;
     esac
+    if ! can_install_to "${INSTALL_DIR}"; then
+      if [ "${DRY_RUN}" -eq 1 ]; then
+        plan_escalation || true
+      elif ! plan_escalation; then
+        die "cannot write to ${INSTALL_DIR} (explicit --install-dir); choose a writable directory, run as root, or allow sudo/doas/pfexec."
+      fi
+    fi
     return 0
   fi
 
   if [ "${TERMUX}" -eq 1 ]; then
-    termux_bin_dir 'sass dart-sass .dart-sass'
+    INSTALL_DIR="$(termux_bin_dir 'sass dart-sass .dart-sass')"
+    if [ "${SYSTEM_ONLY}" -eq 1 ] \
+      && { [ -z "${PREFIX:-}" ] || [ "${INSTALL_DIR}" != "${PREFIX}/bin" ]; }; then
+      die "cannot install into \$PREFIX/bin on Termux (unwritable or owned by dpkg); --system has no usable system directory. Use --install-dir."
+    fi
     return 0
   fi
 
@@ -724,24 +973,29 @@ default_install_dir() {
     esac
     [ -n "${ds_base}" ] || ds_base="$(win_folder 38 'PROGRAMFILES')"
     if [ -n "${ds_base}" ] && can_install_to "${ds_base}/Dart Sass"; then
-      printf '%s' "${ds_base}/Dart Sass"
+      INSTALL_DIR="${ds_base}/Dart Sass"
       return 0
+    fi
+    if [ "${SYSTEM_ONLY}" -eq 1 ]; then
+      die "cannot install into ${ds_base:-Program Files} for --system; start Git Bash/MSYS as Administrator (UAC cannot be triggered from sh) or pass --install-dir."
     fi
     ds_local="$(win_folder 28 'LOCALAPPDATA')"
     [ -n "${ds_local}" ] || ds_local="${HOME}/AppData/Local"
-    printf '%s' "${ds_local}/Programs/Dart Sass"
+    INSTALL_DIR="${ds_local}/Programs/Dart Sass"
     return 0
   fi
 
-  if can_install_to '/usr/local/bin'; then
-    printf '%s' '/usr/local/bin'
-  else
-    [ -n "${HOME:-}" ] || die "HOME is not set; use --install-dir."
-    printf '%s' "${HOME}/.local/bin"
+  if try_system_dir '/usr/local/bin'; then
+    return 0
   fi
+  if [ "${ESCALATE_MODE}" = 'always' ]; then
+    die "cannot install into a system directory: no usable sudo, doas, or pfexec. Install an escalation tool, run as root, or use --install-dir."
+  fi
+  [ -n "${HOME:-}" ] || die "HOME is not set; use --install-dir."
+  INSTALL_DIR="${HOME}/.local/bin"
 }
 
-INSTALL_DIR="$(default_install_dir)"
+default_install_dir
 
 if [ "${OS_NAME}" = 'windows' ]; then
   command -v cygpath >/dev/null 2>&1 \
@@ -749,10 +1003,7 @@ if [ "${OS_NAME}" = 'windows' ]; then
   INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
 fi
 
-if [ "${DRY_RUN}" -ne 1 ]; then
-  if ! can_install_to "${INSTALL_DIR}"; then
-    die "cannot write to ${INSTALL_DIR}; set --install-dir to a writable directory."
-  fi
+if [ "${DRY_RUN}" -ne 1 ] && [ -d "${INSTALL_DIR}" ]; then
   INSTALL_DIR="$(CDPATH='' cd -- "${INSTALL_DIR}" && pwd -P)"
 fi
 
@@ -902,6 +1153,7 @@ if [ "${DRY_RUN}" -eq 1 ]; then
   dry_line "arch=${ARCH_NAME}"
   dry_line "libc=${LIBC}"
   dry_line "install_dir=${INSTALL_DIR}"
+  dry_line "escalation=$(escalation_label)"
   dry_line "bin=${SASS_BIN}"
   if [ "${PRINT_ENV}" -eq 1 ]; then
     printf 'DART_SASS_VERSION=%s\n' "${RESOLVED_VERSION}"
@@ -961,6 +1213,16 @@ layout_ok() {
 
 # finish -- print outputs/env and exit successfully
 finish() {
+  if [ "${PRINT_ENV}" -eq 0 ] && [ "${PRINT_PATH}" -eq 0 ]; then
+    if ! printf '%s' "${PATH:-}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}"; then
+      note "${INSTALL_DIR} is not on PATH; add it to your shell profile:"
+      if [ "${OS_NAME}" = 'windows' ]; then
+        note "  setx PATH \"%PATH%;$(cygpath -w "${INSTALL_DIR}" 2>/dev/null || printf '%s' "${INSTALL_DIR}")\""
+      else
+        note "  export PATH=\"${INSTALL_DIR}:\$PATH\""
+      fi
+    fi
+  fi
   if [ "${TERMUX_FALLBACK}" -eq 1 ]; then
     SASS_BIN="${INSTALL_DIR}/sass"
   elif [ "${OS_NAME}" = 'windows' ]; then
@@ -1196,8 +1458,14 @@ if [ "${OS_NAME}" = 'windows' ]; then
     || die "failed to extract ${ASSET}."
 else
   require_cmd tar
-  tar -xzf "${ASSET}" -C "${EXTRACT_DIR}" \
-    || die "failed to extract ${ASSET}."
+  if ! ( cd "${EXTRACT_DIR}" && tar -xzf "${WORK_DIR}/${ASSET}" ); then
+    note "tar -xzf failed; retrying with gzip -dc | tar -xf."
+    command -v gzip >/dev/null 2>&1 \
+      || die "gzip is required to extract ${ASSET}."
+    ( cd "${EXTRACT_DIR}" \
+      && gzip -dc "${WORK_DIR}/${ASSET}" | tar -xf - ) \
+      || die "failed to extract ${ASSET}."
+  fi
 fi
 
 EXTRACTED="${EXTRACT_DIR}/dart-sass"
@@ -1215,80 +1483,188 @@ fi
 # Install
 # ---------------------------------------------------------------------------
 
+# Build the payload in WORK_DIR first. The same tree can then be written
+# directly or through a single privileged shell, which keeps the install
+# atomic enough to replace and avoids partial writes in a system directory.
+STAGE_PAYLOAD="${WORK_DIR}/stage-payload"
+rm -rf "${STAGE_PAYLOAD}"
+mkdir -p "${STAGE_PAYLOAD}"
+cp -R "${EXTRACTED}/." "${STAGE_PAYLOAD}/" \
+  || die "failed to stage ${ASSET}."
+
+if [ "${OS_NAME}" = 'windows' ]; then
+  chmod +x "${STAGE_PAYLOAD}/sass.bat" "${STAGE_PAYLOAD}/src/dart.exe" 2>/dev/null || true
+  # The archive's sass.bat already finds src/ next to itself. Add a POSIX
+  # wrapper so Git Bash/MSYS can invoke sass without cmd.exe.
+  printf '#!/bin/sh\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${STAGE_PAYLOAD}/sass"
+  chmod +x "${STAGE_PAYLOAD}/sass" 2>/dev/null || true
+else
+  chmod +x "${STAGE_PAYLOAD}/sass" "${STAGE_PAYLOAD}/src/dart" 2>/dev/null || true
+fi
+
+# set_bin_paths -- refresh the entry-point paths after INSTALL_DIR changes
+set_bin_paths() {
+  if [ "${OS_NAME}" = 'windows' ]; then
+    SASS_BIN="${INSTALL_DIR}/sass.bat"
+    SMOKE_BIN="${INSTALL_DIR}/sass"
+  else
+    SASS_BIN="${INSTALL_DIR}/sass"
+    SMOKE_BIN="${INSTALL_DIR}/sass"
+  fi
+}
+
+# same_content A B -- true when both regular files exist and have identical
+# contents. cmp is used when available; a size comparison still catches a
+# privileged command that reported success but copied nothing, or only part of
+# a file, on systems without cmp.
+same_content() {
+  [ -f "$1" ] && [ -f "$2" ] || return 1
+  if command -v cmp >/dev/null 2>&1; then
+    cmp -s "$1" "$2"
+    return
+  fi
+  if command -v wc >/dev/null 2>&1; then
+    ds_sc_left="$(wc -c < "$1" 2>/dev/null || printf '?')"
+    ds_sc_right="$(wc -c < "$2" 2>/dev/null || printf '?')"
+    [ "${ds_sc_left}" != '?' ] && [ "${ds_sc_left}" = "${ds_sc_right}" ] \
+      || return 1
+  fi
+  return 0
+}
+
+# payload_matches_stage -- true when the installed payload and entry points
+# match the staged tree. This runs after every write, so a tool that exits 0
+# without writing cannot make the script report a successful install.
+payload_matches_stage() {
+  if [ "${OS_NAME}" = 'windows' ]; then
+    [ -f "${INSTALL_DIR}/sass" ] \
+      && [ -f "${INSTALL_DIR}/sass.bat" ] \
+      && [ -f "${INSTALL_DIR}/src/dart.exe" ] \
+      && same_content "${STAGE_PAYLOAD}/sass" "${INSTALL_DIR}/sass" \
+      && same_content "${STAGE_PAYLOAD}/sass.bat" "${INSTALL_DIR}/sass.bat" \
+      && same_content "${STAGE_PAYLOAD}/src/sass.snapshot" \
+        "${INSTALL_DIR}/src/sass.snapshot"
+    return
+  fi
+  [ -x "${INSTALL_DIR}/.dart-sass/sass" ] \
+    && [ -x "${INSTALL_DIR}/.dart-sass/src/dart" ] \
+    && [ -L "${INSTALL_DIR}/sass" ] && [ -e "${INSTALL_DIR}/sass" ] \
+    && [ -L "${INSTALL_DIR}/dart-sass" ] && [ -e "${INSTALL_DIR}/dart-sass" ] \
+    && same_content "${STAGE_PAYLOAD}/sass" \
+      "${INSTALL_DIR}/.dart-sass/sass" \
+    && same_content "${STAGE_PAYLOAD}/src/sass.snapshot" \
+      "${INSTALL_DIR}/.dart-sass/src/sass.snapshot"
+}
+
+# install_payload -- write the staged tree into INSTALL_DIR, trying a direct
+# write only when the directory is writable and one privileged write second.
+# The result is verified against the staged tree before success is reported.
+install_payload() {
+  if [ "${OS_NAME}" = 'windows' ]; then
+    ds_sync_script='
+      set -e
+      umask 022
+      dest=$1
+      stage=$2
+      mkdir -p "$dest"
+      if [ -f "$dest/src/sass.snapshot" ]; then
+        rm -rf "$dest/src"
+      fi
+      cp -R "$stage/." "$dest/"
+      chmod +x "$dest/sass.bat" "$dest/src/dart.exe" 2>/dev/null || true
+      chmod +x "$dest/sass" 2>/dev/null || true
+    '
+  else
+    ds_sync_script='
+      set -e
+      umask 022
+      dest=$1
+      stage=$2
+      # Remove the files left by older layouts. The src/dart + src/sass.snapshot
+      # pair is specific to Dart Sass; LICENSE is removed only when it matches
+      # this archive, so unrelated files in a shared directory are left alone.
+      if [ -f "$dest/src/sass.snapshot" ] && \
+         { [ -f "$dest/src/dart" ] || [ -f "$dest/src/dart.exe" ]; }; then
+        rm -rf "$dest/src"
+        if [ -f "$dest/LICENSE" ] && cmp -s "$dest/LICENSE" "$stage/src/LICENSE"; then
+          rm -f "$dest/LICENSE"
+        fi
+      fi
+      if [ -d "$dest/dart-sass" ] && \
+         { [ -f "$dest/dart-sass/sass" ] || [ -f "$dest/dart-sass/sass.bat" ]; } && \
+         [ -f "$dest/dart-sass/src/sass.snapshot" ]; then
+        rm -rf "$dest/dart-sass"
+      fi
+      prefix=$(dirname "$dest")
+      if [ -f "$prefix/share/dart-sass/sass" ] && [ -f "$prefix/share/dart-sass/src/sass.snapshot" ]; then
+        rm -rf "$prefix/share/dart-sass"
+      fi
+      old_license="$prefix/share/licenses/dart-sass/LICENSE"
+      if [ -f "$old_license" ] && cmp -s "$old_license" "$stage/src/LICENSE"; then
+        rm -rf "$prefix/share/licenses/dart-sass"
+      fi
+      # Replace the payload and relink the entry points. The links are relative
+      # so they stay valid regardless of where the payload lives.
+      mkdir -p "$dest"
+      rm -rf "$dest/.dart-sass"
+      cp -R "$stage" "$dest/.dart-sass"
+      rm -f "$dest/sass" "$dest/dart-sass"
+      ln -s .dart-sass/sass "$dest/sass"
+      ln -s .dart-sass/sass "$dest/dart-sass"
+      chmod +x "$dest/.dart-sass/sass" "$dest/.dart-sass/src/dart" 2>/dev/null || true
+    '
+  fi
+
+  # A known-unwritable directory would only produce an alarming permission
+  # error and can partially delete an old payload before failing, so go
+  # straight to the planned escalation when one exists.
+  if can_install_to "${INSTALL_DIR}"; then
+    if sh -c "${ds_sync_script}" sh "${INSTALL_DIR}" "${STAGE_PAYLOAD}" \
+      && payload_matches_stage; then
+      return 0
+    fi
+  fi
+  if [ -z "${ESCALATE_CMD}" ]; then
+    return 1
+  fi
+  if run_privileged "${ds_sync_script}" "${INSTALL_DIR}" "${STAGE_PAYLOAD}"; then
+    if payload_matches_stage; then
+      return 0
+    fi
+    warn "the privileged write to ${INSTALL_DIR} reported success but did not produce a usable Dart Sass payload."
+  fi
+  return 1
+}
+
+if ! can_install_to "${INSTALL_DIR}" && [ -n "${ESCALATE_CMD}" ]; then
+  note "${INSTALL_DIR} is not writable; installing with ${ESCALATE_NAME} (you may be asked for a password once)."
+fi
+
+if ! install_payload; then
+  if [ "${INSTALL_DIR_EXPLICIT}" -eq 1 ] || [ "${ESCALATE_MODE}" = 'always' ]; then
+    die "cannot write to ${INSTALL_DIR}; choose a writable directory, run as root, or allow sudo/doas/pfexec."
+  fi
+  [ -n "${HOME:-}" ] || die "cannot write to ${INSTALL_DIR} and HOME is not set."
+  ds_user_dir="${HOME}/.local/bin"
+  if [ "${INSTALL_DIR}" = "${ds_user_dir}" ]; then
+    die "cannot write to ${INSTALL_DIR}."
+  fi
+  warn "could not install into ${INSTALL_DIR}${ESCALATE_NAME:+ with ${ESCALATE_NAME}}; falling back to ${ds_user_dir}."
+  INSTALL_DIR="${ds_user_dir}"
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
+  set_bin_paths
+  install_payload || die "cannot write to ${INSTALL_DIR}."
+fi
+
 if [ "${OS_NAME}" = 'windows' ]; then
   PAYLOAD_DIR="${INSTALL_DIR}"
 else
   PAYLOAD_DIR="${INSTALL_DIR}/.dart-sass"
 fi
-
-# Remove the files left by older layouts. The src/dart + src/sass.snapshot pair
-# is specific to Dart Sass; the LICENSE is removed only when it matches this
-# archive, so unrelated files in a shared directory are left alone.
-if [ -f "${INSTALL_DIR}/src/sass.snapshot" ] && \
-   { [ -f "${INSTALL_DIR}/src/dart" ] || [ -f "${INSTALL_DIR}/src/dart.exe" ]; }; then
-  rm -rf "${INSTALL_DIR}/src" 2>/dev/null || true
-  if [ -f "${INSTALL_DIR}/LICENSE" ] && cmp -s "${INSTALL_DIR}/LICENSE" "${EXTRACTED}/src/LICENSE"; then
-    rm -f "${INSTALL_DIR}/LICENSE" 2>/dev/null || true
-  fi
-fi
-if [ -d "${INSTALL_DIR}/dart-sass" ] && \
-   { [ -f "${INSTALL_DIR}/dart-sass/sass" ] || [ -f "${INSTALL_DIR}/dart-sass/sass.bat" ]; } && \
-   [ -f "${INSTALL_DIR}/dart-sass/src/sass.snapshot" ]; then
-  rm -rf "${INSTALL_DIR}/dart-sass" 2>/dev/null || true
-fi
-
-# Older Unix installs kept the payload in <prefix>/share and copied the license
-# to <prefix>/share/licenses. Remove those copies only when they are
-# unmistakably Dart Sass. Cleanup is best-effort: an unwritable share directory
-# must not block installing the new payload in the bin directory.
-if [ "${OS_NAME}" != 'windows' ]; then
-  ds_prefix="$(dirname "${INSTALL_DIR}")"
-  OLD_PAYLOAD_DIR="${ds_prefix}/share/dart-sass"
-  if [ -f "${OLD_PAYLOAD_DIR}/sass" ] && [ -f "${OLD_PAYLOAD_DIR}/src/sass.snapshot" ]; then
-    rm -rf "${OLD_PAYLOAD_DIR}" 2>/dev/null || true
-  fi
-  OLD_LICENSE="${ds_prefix}/share/licenses/dart-sass/LICENSE"
-  if [ -f "${OLD_LICENSE}" ] && cmp -s "${OLD_LICENSE}" "${EXTRACTED}/src/LICENSE"; then
-    rm -rf "$(dirname "${OLD_LICENSE}")" 2>/dev/null || true
-  fi
-fi
-
-if [ "${OS_NAME}" = 'windows' ]; then
-  mkdir -p "${INSTALL_DIR}" || die "failed to create ${INSTALL_DIR}."
-else
-  rm -rf "${PAYLOAD_DIR}" || die "failed to replace ${PAYLOAD_DIR}."
-  mkdir -p "${PAYLOAD_DIR}" || die "failed to create ${PAYLOAD_DIR}."
-fi
-
-# "cp -R" (not "cp -a") avoids preserving timestamps of the destination
-# directory, which may not be owned by the current user.
-cp -R "${EXTRACTED}/." "${PAYLOAD_DIR}/" \
-  || die "failed to install ${ASSET} into ${PAYLOAD_DIR}."
 rm -rf "${EXTRACT_DIR}"
 note "Dart Sass payload installed in ${PAYLOAD_DIR}."
-
-if [ "${OS_NAME}" = 'windows' ]; then
-  chmod +x "${PAYLOAD_DIR}/sass.bat" "${PAYLOAD_DIR}/src/dart.exe" 2>/dev/null || true
-
-  # The archive's sass.bat already finds src/ next to itself. Add a POSIX
-  # wrapper so Git Bash/MSYS can invoke sass without cmd.exe.
-  printf '#!/bin/sh\nexec "$(dirname "$0")/sass.bat" "$@"\n' > "${INSTALL_DIR}/sass"
-  chmod +x "${INSTALL_DIR}/sass" 2>/dev/null || true
-else
-  chmod +x "${PAYLOAD_DIR}/sass" "${PAYLOAD_DIR}/src/dart" 2>/dev/null || true
-
-  # The upstream launcher follows symlinks, so linking to the intact payload
-  # keeps the launcher unmodified while exposing "sass" and "dart-sass"
-  # directly in the bin directory. Hugo looks for both names.
-  for ds_link in sass dart-sass; do
-    [ ! -d "${INSTALL_DIR}/${ds_link}" ] \
-      || die "cannot replace ${INSTALL_DIR}/${ds_link}: it is a directory."
-  done
-  ln -sf "${PAYLOAD_DIR}/sass" "${INSTALL_DIR}/sass" \
-    || die "failed to link ${INSTALL_DIR}/sass to ${PAYLOAD_DIR}/sass."
-  ln -sf "${PAYLOAD_DIR}/sass" "${INSTALL_DIR}/dart-sass" \
-    || die "failed to link ${INSTALL_DIR}/dart-sass to ${PAYLOAD_DIR}/sass."
-fi
 
 # ---------------------------------------------------------------------------
 # Smoke test

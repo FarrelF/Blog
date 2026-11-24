@@ -33,25 +33,25 @@ DART_SASS_VERSION = "latest"
 ### prepends the resolved bin directory to PATH before running hugo.
 
 [context.production]
-command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --no-escalate --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.production.environment]
 HUGO_ENV = "production"
 
 [context.split1]
-command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --no-escalate --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm static/_headers && hugo --minify --gc'
 
 [context.split1.environment]
 HUGO_ENV = "production"
 
 [context.deploy-preview]
-command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --no-escalate --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify --buildFuture -b ${DEPLOY_PRIME_URL}'
 
 [context.deploy-preview.environment]
 HUGO_ENV = "staging"
 
 [context.branch-deploy]
-command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}'
+command = 'DART_SASS_BIN_DIR="$(sh scripts/install-dart-sass.sh --no-escalate --print-path)" && export PATH="${DART_SASS_BIN_DIR}:$PATH" && rm -rf static/*.txt static/*.xml static/google*.html static/_headers && hugo --gc --minify -b ${DEPLOY_PRIME_URL}'
 
 [context.branch-deploy.environment]
 HUGO_ENV = "staging"

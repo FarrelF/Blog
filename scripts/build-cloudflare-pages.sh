@@ -61,11 +61,12 @@ note "timezone: ${TZ}"
 # ---------------------------------------------------------------------------
 
 # Cloudflare Pages builds run in a gVisor container. Whether /usr is writable
-# there is not documented, so the installer falls back to $HOME/.local/bin
-# when /usr/local/bin is not writable. It prints the directory it chose, which
-# is then prepended to PATH.
+# there is not documented, so escalation is disabled explicitly: the installer
+# uses /usr/local/bin only when it is already writable, and otherwise falls
+# back to $HOME/.local/bin without ever trying to prompt for a password. It
+# prints the directory it chose, which is then prepended to PATH.
 note "installing Dart Sass"
-DART_SASS_BIN_DIR="$(sh "${SCRIPT_DIR}/install-dart-sass.sh" --print-path)"
+DART_SASS_BIN_DIR="$(sh "${SCRIPT_DIR}/install-dart-sass.sh" --no-escalate --print-path)"
 [ -n "${DART_SASS_BIN_DIR}" ] || die "install-dart-sass.sh did not print a bin directory"
 
 # Put our directory first so Hugo resolves to the Sass we just installed rather

@@ -1,5 +1,5 @@
 name: 'Setup Hugo'
-description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Deploy or the historical Extended editions) on Linux, macOS, Windows and Termux/Android through scripts/install-hugo.sh, verified against the official checksum files, falling back to the SHA-256 digest published in the GitHub release'
+description: 'Download and install any official Hugo release (v0.7.0 through the latest; standard, Deploy or the historical Extended editions) on Linux, macOS, Windows, Termux/Android, FreeBSD, OpenBSD, NetBSD, DragonFly BSD and Solaris/illumos through scripts/install-hugo.sh, verified against the official checksum files, falling back to the SHA-256 digest published in the GitHub release'
 inputs:
   hugo-version:
     description: 'Hugo version to install, with or without the "v" prefix (e.g. "0.168.0" or "v0.168.0"). Any official release from v0.7.0 to the latest is supported, except on macOS 15+ runners, where releases before v0.48.0 are refused (their Go 1.10-and-older runtime cannot execute there). "latest" resolves the newest release.'
@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ''
   install-dir:
-    description: 'Directory that receives the "hugo" binary. Defaults to "/usr/local/bin" when it is writable without elevation (otherwise "~/.local/bin"), to "C:\Program Files\Hugo" (64-bit) or "C:\Program Files (x86)\Hugo" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Hugo"), and to "$PREFIX/bin" or "~/.local/bin" on Termux. For macOS ".pkg" assets the package installs into "/usr/local/bin" itself.'
+    description: 'Directory that receives the "hugo" binary. Defaults to "/usr/local/bin" when it is writable or reachable through root, passwordless sudo/doas, or pfexec (otherwise "~/.local/bin" in non-interactive runs), to "C:\Program Files\Hugo" (64-bit) or "C:\Program Files (x86)\Hugo" (32-bit) on Windows when writable (otherwise "%LOCALAPPDATA%\Programs\Hugo"), to "$PREFIX/bin" or "~/.local/bin" on Termux, and on Solaris to "/usr/local/bin" or "/opt/local/bin" only when the prefix already exists. For macOS ".pkg" assets the package is expanded without elevation; when expansion fails it is installed through the planned escalation into "/usr/local/bin". An explicit directory never falls back silently.'
     required: false
     default: ''
   manpages:
@@ -34,7 +34,7 @@ inputs:
     required: false
     default: 'none'
   share-dir:
-    description: 'Directory that receives manpages and completion data. Defaults to <prefix>/share when that directory is writable (for example /usr/local/share for /usr/local/bin), otherwise ~/.local/share. User-local installs print the MANPATH, fpath, or $PROFILE line to add.'
+    description: 'Directory that receives manpages and completion data. Defaults to <prefix>/share when that directory is writable or the binary was installed through sudo/doas/pfexec (for example /usr/local/share for /usr/local/bin); the extras reuse that escalation in one privileged batch. Otherwise it uses ~/.local/share. A failed privileged extras write falls back to ~/.local/share without failing the install, but an explicit share-dir never falls back silently. User-local installs print the MANPATH, fpath, or $PROFILE line to add.'
     required: false
     default: ''
   downloader:

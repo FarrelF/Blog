@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 # install-hugo.sh -- install an official Hugo release on Linux, macOS,
-# Windows (Git Bash/MSYS/Cygwin), and Termux/Android.
+# Windows (Git Bash/MSYS/Cygwin), Termux/Android, FreeBSD, OpenBSD, NetBSD,
+# DragonFly BSD, and Solaris/illumos.
 #
 # This script is POSIX sh and is self-contained: it does not need GitHub
 # Actions, Cloudflare Pages, Netlify, bash, or any repository checkout.
@@ -13,10 +14,25 @@
 #   --version VERSION       Hugo version, with or without the "v" prefix.
 #                           Default: latest (or $HUGO_VERSION).
 #   --install-dir DIR       Directory that receives the "hugo" binary.
-#                           Default: a writable system/user directory; on
-#                           Termux, $PREFIX/bin when safe, otherwise
-#                           $HOME/.local/bin. $HUGO_INSTALL_DIR is the
-#                           environment equivalent.
+#                           Default: /usr/local/bin on Linux, macOS, and BSD
+#                           when it is writable or reachable through root,
+#                           passwordless sudo/doas, or pfexec, otherwise
+#                           $HOME/.local/bin; on Solaris, /usr/local/bin or
+#                           /opt/local/bin only when that prefix already
+#                           exists; on Termux, $PREFIX/bin when safe,
+#                           otherwise $HOME/.local/bin; on Windows, Program
+#                           Files or %LOCALAPPDATA%. An explicit directory is
+#                           never silently replaced when it cannot be
+#                           written. $HUGO_INSTALL_DIR is the environment
+#                           equivalent.
+#   --no-escalate           Never use sudo, doas, or pfexec; install into a
+#                           writable user directory instead.
+#   --system                Require a system-wide install; fail when the
+#                           directory cannot be written and no escalation
+#                           tool is available.
+#   --escalate              Use sudo, doas, or pfexec when a system directory
+#                           is not writable, and fail instead of falling back
+#                           to the user directory (HUGO_ESCALATE=always).
 #   --method METHOD         auto, binary, pkg, or deb (dpkg is an alias for
 #                           deb). "auto" uses the native Termux package for
 #                           "latest" and the official binary elsewhere.
@@ -42,8 +58,10 @@
 #                           $HUGO_COMPLETIONS is the environment equivalent.
 #   --no-completions        Do not install completions.
 #   --share-dir DIR         Directory that receives manpages and completion
-#                           data. Default: <prefix>/share when that directory
-#                           is writable, otherwise $HOME/.local/share.
+#                           data. Default: <prefix>/share when it is writable
+#                           or the binary was installed through sudo/doas/
+#                           pfexec, otherwise $HOME/.local/share. An explicit
+#                           directory never falls back silently.
 #                           $HUGO_SHARE_DIR is the environment equivalent.
 #   --quiet                 Suppress progress notes (warnings still print).
 #   --downloader NAME       aria2/2c, curl, wget, axel, or mwget.
@@ -52,9 +70,10 @@
 #   -h, --help              Show this help.
 #
 # Environment:
-#   HUGO_VERSION, HUGO_INSTALL_DIR, HUGO_METHOD, HUGO_VERIFY, HUGO_EXTENDED,
-#   HUGO_WITHDEPLOY, HUGO_FORCE, HUGO_MANPAGES, HUGO_COMPLETIONS,
-#   HUGO_SHARE_DIR, GITHUB_TOKEN, DOWNLOADER, DOWNLOADER_ARGS.
+#   HUGO_ESCALATE (auto|never|always), HUGO_VERSION, HUGO_INSTALL_DIR,
+#   HUGO_METHOD, HUGO_VERIFY, HUGO_EXTENDED, HUGO_WITHDEPLOY, HUGO_FORCE,
+#   HUGO_MANPAGES, HUGO_COMPLETIONS, HUGO_SHARE_DIR, GITHUB_TOKEN,
+#   DOWNLOADER, DOWNLOADER_ARGS.
 #
 # Extras notes:
 #   Manpages and completions are installed by default after a successful
@@ -68,9 +87,12 @@
 #   "auto" completion selection the script checks command -v and /etc/shells
 #   and installs only the supported shells that are actually present. The
 #   script prints the MANPATH, fpath, or $PROFILE line to add when the target
-#   is not loaded automatically. Extras are best-effort: a missing gzip, an
-#   unsupported Hugo subcommand, or an unwritable target warns and leaves the
-#   binary installed.
+#   is not loaded automatically. When the binary was installed system-wide,
+#   the extras reuse the same sudo/doas/pfexec in one privileged batch; if
+#   that write fails, the default share directory falls back to
+#   $HOME/.local/share and the Hugo install still succeeds. Extras are
+#   best-effort: a missing gzip, an unsupported Hugo subcommand, or an
+#   unwritable target warns and leaves the binary installed.
 #
 # Termux notes:
 #   The official Linux ARM64 binary is static, but Android has no
@@ -86,6 +108,24 @@
 #   "dpkg-deb -x"; it does not register the package with dpkg and does not
 #   need root. Use "dpkg -i" yourself if you want dpkg to track it.
 #
+# BSD and Solaris notes:
+#   Native binaries exist for FreeBSD, OpenBSD, NetBSD, DragonFly BSD, and
+#   Solaris/illumos. BSD assets start at v0.103.0 and Solaris assets at
+#   v0.120.0; all of them are amd64-only, and no Extended or Deploy build is
+#   published. On Solaris, /usr/local/bin is used only when /usr/local
+#   already exists (filesystem(7) does not create it); otherwise the script
+#   uses /opt/local/bin when /opt/local exists, then $HOME/.local/bin.
+#
+# Privilege notes:
+#   When /usr/local/bin is not writable, the script uses sudo, doas, or
+#   pfexec for the binary write. Manpages and completions reuse the same
+#   tool in a second batch, so doas may ask twice while sudo usually reuses
+#   its cached credential. A non-interactive shell (CI) only tries
+#   passwordless escalation; an interactive terminal may prompt once per
+#   batch. When escalation is unavailable or fails, a default directory
+#   falls back to $HOME/.local/bin. An explicit --install-dir never falls
+#   back, and an explicit --share-dir never falls back for the extras.
+#
 # Exit status: 0 on success, 1 on error.
 
 set -eu
@@ -96,6 +136,7 @@ RELEASE_BASE="${HUGO_REPO_URL}/releases/download"
 
 HUGO_VERSION="${HUGO_VERSION:-latest}"
 HUGO_INSTALL_DIR="${HUGO_INSTALL_DIR:-}"
+HUGO_ESCALATE="${HUGO_ESCALATE:-auto}"
 HUGO_METHOD="${HUGO_METHOD:-auto}"
 HUGO_VERIFY="${HUGO_VERIFY:-1}"
 HUGO_EXTENDED="${HUGO_EXTENDED:-false}"
@@ -121,6 +162,13 @@ COMPLETIONS_INSTALLED=''
 SHARE_DIR=''
 POSITIONAL_SET=0
 WORK_DIR=''
+INSTALL_DIR_EXPLICIT=0
+ESCALATE_MODE="${HUGO_ESCALATE:-auto}"
+ESCALATE_NAME=''
+ESCALATE_CMD=''
+ESCALATE_NONINTERACTIVE=0
+SYSTEM_ONLY=0
+[ -n "${HUGO_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -316,15 +364,28 @@ probe_url() {
 
 # sha256_of FILE -- the file's SHA-256 digest (bare lowercase hex)
 sha256_of() {
+  hugo_hash=''
   if command -v sha256sum >/dev/null 2>&1; then
-    sha256sum "$1" | awk '{print $1}'
+    hugo_hash="$(sha256sum "$1" 2>/dev/null | awk '{print $1}')"
+  elif command -v sha256 >/dev/null 2>&1; then
+    # FreeBSD and OpenBSD ship "sha256 -q"; NetBSD's sha256 is cksum(1)-based
+    # and prints "SHA256 (file) = <hex>" instead.
+    hugo_hash="$(sha256 -q "$1" 2>/dev/null || true)"
+    if [ -z "${hugo_hash}" ]; then
+      hugo_hash="$(sha256 "$1" 2>/dev/null | awk 'END {print $NF}')"
+    fi
   elif command -v shasum >/dev/null 2>&1; then
-    shasum -a 256 "$1" | awk '{print $1}'
+    hugo_hash="$(shasum -a 256 "$1" 2>/dev/null | awk '{print $1}')"
+  elif command -v digest >/dev/null 2>&1 && digest -a sha256 "$1" >/dev/null 2>&1; then
+    # Solaris/illumos ships digest(1); the hex digest is the last field.
+    hugo_hash="$(digest -a sha256 "$1" 2>/dev/null | awk 'END {print $NF}')"
   elif command -v openssl >/dev/null 2>&1; then
-    openssl dgst -sha256 "$1" | sed 's/^.*= //'
+    hugo_hash="$(openssl dgst -sha256 "$1" 2>/dev/null | sed 's/^.*= //')"
   else
-    die "no SHA-256 tool found (sha256sum, shasum, or openssl)."
+    die "no SHA-256 tool found (sha256sum, sha256, shasum, digest, or openssl)."
   fi
+  [ -n "${hugo_hash}" ] || die "could not compute the SHA-256 digest of $1."
+  printf '%s\n' "${hugo_hash}"
 }
 
 # verify_sha256 EXPECTED FILE -- prints both digests, fails on mismatch
@@ -405,10 +466,17 @@ release_asset_sha256() {
 # ---------------------------------------------------------------------------
 
 case "$(uname -s)" in
-  Linux)                GO_OS='linux' ;;
-  Darwin)               GO_OS='darwin' ;;
+  Linux)                    GO_OS='linux' ;;
+  Darwin)                   GO_OS='darwin' ;;
+  FreeBSD)                  GO_OS='freebsd' ;;
+  OpenBSD)                  GO_OS='openbsd' ;;
+  NetBSD)                   GO_OS='netbsd' ;;
+  DragonFly)                GO_OS='dragonfly' ;;
+  SunOS)                    GO_OS='solaris' ;;
   MINGW* | MSYS* | CYGWIN*) GO_OS='windows' ;;
-  *) die "unsupported operating system: $(uname -s)" ;;
+  *)
+    die "unsupported operating system: $(uname -s) (supported: Linux, macOS, Windows Git Bash/MSYS/Cygwin, Termux/Android, FreeBSD, OpenBSD, NetBSD, DragonFly BSD, Solaris/illumos)"
+    ;;
 esac
 
 # GitHub Actions can hand Git Bash a native "C:\Users\..." HOME. Normalize it
@@ -445,9 +513,26 @@ if [ -z "${GO_ARCH}" ]; then
     aarch64 | arm64)  GO_ARCH='arm64' ;;
     armv7l | armv6l | arm) GO_ARCH='arm' ;;
     i386 | i686)      GO_ARCH='386' ;;
+    i86pc)            GO_ARCH='amd64' ;; # Solaris/illumos names x86 "i86pc"
+    sun4u | sun4v)
+      die "Oracle Solaris on SPARC (uname -m: $(uname -m)) has no official Hugo binary; build Hugo from source."
+      ;;
+    evbarm)
+      die "NetBSD on ARM (uname -m: evbarm) has no official Hugo binary; use pkgsrc or build Hugo from source."
+      ;;
     *) die "unsupported architecture: $(uname -m)" ;;
   esac
 fi
+
+# The BSD and Solaris assets are published for amd64 only. Reject other
+# architectures up front instead of probing release after release.
+case "${GO_OS}" in
+  freebsd | openbsd | netbsd | dragonfly | solaris)
+    if [ "${GO_ARCH}" != 'amd64' ]; then
+      die "Hugo publishes no ${GO_OS}/${GO_ARCH} binary; only amd64 is available for ${GO_OS}. Use the OS package manager or build Hugo from source."
+    fi
+    ;;
+esac
 
 TERMUX=0
 is_termux() {
@@ -479,6 +564,154 @@ is_debian() {
 is_debian && DEBIAN=1
 
 # ---------------------------------------------------------------------------
+# Privilege escalation
+# ---------------------------------------------------------------------------
+
+# is_root_user -- true when the effective user is root
+is_root_user() {
+  [ "$(id -u 2>/dev/null || printf '1')" = '0' ]
+}
+
+# is_ci_env -- true inside common non-interactive build environments
+is_ci_env() {
+  [ -n "${CI:-}" ] && return 0
+  [ -n "${GITHUB_ACTIONS:-}" ] && return 0
+  [ -n "${GITLAB_CI:-}" ] && return 0
+  [ -n "${NETLIFY:-}" ] && return 0
+  [ -n "${CF_PAGES:-}" ] && return 0
+  [ -n "${BUILD_ID:-}" ] && return 0
+  [ -n "${TRAVIS:-}" ] && return 0
+  [ -n "${CIRCLECI:-}" ] && return 0
+  return 1
+}
+
+# may_prompt -- true when an authentication prompt cannot hang a build
+may_prompt() {
+  [ "${ESCALATE_MODE}" = 'never' ] && return 1
+  [ "${DRY_RUN}" -eq 1 ] && return 1
+  [ "${PRINT_ENV}" -eq 1 ] && return 1
+  [ "${PRINT_PATH}" -eq 1 ] && return 1
+  [ "${GO_OS}" = 'windows' ] && return 1
+  [ "${TERMUX}" -eq 1 ] && return 1
+  if is_ci_env; then
+    return 1
+  fi
+  [ -t 0 ] && [ -t 2 ] || return 1
+  return 0
+}
+
+# escalation_tool_path NAME -- absolute path of an available tool
+escalation_tool_path() {
+  case "$1" in
+    sudo | doas | pfexec) ;;
+    *) return 1 ;;
+  esac
+  command -v "$1" 2>/dev/null
+}
+
+# privilege_root_probe CMD NAME -- non-interactive check for effective root.
+# sudo and doas run with -n so a password prompt can never appear; pfexec has
+# no password prompt, so it is checked by looking at the resulting uid.
+privilege_root_probe() {
+  hugo_probe_cmd="$1"
+  hugo_probe_name="$2"
+  [ -n "${hugo_probe_cmd}" ] && [ -x "${hugo_probe_cmd}" ] || return 1
+  case "${hugo_probe_name}" in
+    sudo | doas)
+      "${hugo_probe_cmd}" -n sh -c '[ "$(id -u)" = 0 ]' >/dev/null 2>&1
+      ;;
+    pfexec)
+      "${hugo_probe_cmd}" sh -c '[ "$(id -u)" = 0 ]' >/dev/null 2>&1
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+# select_passwordless_escalation -- use a tool that already has effective root
+select_passwordless_escalation() {
+  for hugo_esc_name in sudo doas pfexec; do
+    hugo_esc_cmd="$(escalation_tool_path "${hugo_esc_name}" || true)"
+    [ -n "${hugo_esc_cmd}" ] || continue
+    if privilege_root_probe "${hugo_esc_cmd}" "${hugo_esc_name}"; then
+      ESCALATE_NAME="${hugo_esc_name}"
+      ESCALATE_CMD="${hugo_esc_cmd}"
+      ESCALATE_NONINTERACTIVE=1
+      return 0
+    fi
+  done
+  return 1
+}
+
+# plan_escalation -- choose sudo/doas/pfexec for a system directory. Returns 1
+# when escalation is disabled, impossible, or not allowed to prompt.
+plan_escalation() {
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
+  [ "${ESCALATE_MODE}" = 'never' ] && return 1
+  [ "${GO_OS}" = 'windows' ] && return 1
+  [ "${TERMUX}" -eq 1 ] && return 1
+  if is_root_user; then
+    return 1
+  fi
+  if select_passwordless_escalation; then
+    return 0
+  fi
+  if may_prompt; then
+    # The tool decides whether the user is allowed before it asks for a
+    # password; the actual write below is the single prompt.
+    for hugo_esc_name in sudo doas pfexec; do
+      hugo_esc_cmd="$(escalation_tool_path "${hugo_esc_name}" || true)"
+      if [ -n "${hugo_esc_cmd}" ]; then
+        ESCALATE_NAME="${hugo_esc_name}"
+        ESCALATE_CMD="${hugo_esc_cmd}"
+        ESCALATE_NONINTERACTIVE=0
+        return 0
+      fi
+    done
+  fi
+  return 1
+}
+
+# escalation_label -- the dry-run/status label for the planned escalation
+escalation_label() {
+  if [ -n "${ESCALATE_NAME}" ]; then
+    printf '%s' "${ESCALATE_NAME}"
+  else
+    printf '%s' 'none'
+  fi
+}
+
+# run_privileged SCRIPT ARG... -- run a POSIX sh snippet, escalating only when
+# a tool was selected. Paths are passed as positional arguments, never
+# interpolated into the snippet.
+run_privileged() {
+  hugo_rp_script="$1"
+  shift
+  if [ -z "${ESCALATE_CMD}" ]; then
+    sh -c "${hugo_rp_script}" sh "$@"
+    return
+  fi
+  case "${ESCALATE_NAME}" in
+    sudo | doas)
+      if [ "${ESCALATE_NONINTERACTIVE}" -eq 1 ]; then
+        "${ESCALATE_CMD}" -n sh -c "${hugo_rp_script}" sh "$@"
+      else
+        "${ESCALATE_CMD}" sh -c "${hugo_rp_script}" sh "$@"
+      fi
+      ;;
+    pfexec)
+      "${ESCALATE_CMD}" sh -c "${hugo_rp_script}" sh "$@"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+# ---------------------------------------------------------------------------
 # Argument parsing
 # ---------------------------------------------------------------------------
 
@@ -496,12 +729,17 @@ while [ $# -gt 0 ]; do
     --install-dir)
       [ $# -ge 2 ] || die '--install-dir requires an argument'
       HUGO_INSTALL_DIR="$2"
+      INSTALL_DIR_EXPLICIT=1
       shift 2
       ;;
     --install-dir=*)
       HUGO_INSTALL_DIR="${1#*=}"
+      INSTALL_DIR_EXPLICIT=1
       shift
       ;;
+    --no-escalate)    ESCALATE_MODE='never'; shift ;;
+    --escalate)       ESCALATE_MODE='always'; shift ;;
+    --system)         SYSTEM_ONLY=1; shift ;;
     --method)
       [ $# -ge 2 ] || die '--method requires an argument'
       HUGO_METHOD="$2"
@@ -604,6 +842,18 @@ while [ $# -gt 0 ]; do
       ;;
   esac
 done
+
+case "$(printf '%s' "${ESCALATE_MODE}" | tr '[:upper:]' '[:lower:]')" in
+  auto)   ESCALATE_MODE='auto' ;;
+  never)  ESCALATE_MODE='never' ;;
+  always) ESCALATE_MODE='always' ;;
+  *) die "invalid HUGO_ESCALATE value: '${ESCALATE_MODE}' (use auto, never, or always)" ;;
+esac
+if [ "${SYSTEM_ONLY}" -eq 1 ]; then
+  [ "${ESCALATE_MODE}" = 'never' ] \
+    && die 'cannot combine --system with --no-escalate (or HUGO_ESCALATE=never).'
+  ESCALATE_MODE='always'
+fi
 
 if [ "${MANPAGES_SET}" -eq 0 ]; then
   if is_true "${HUGO_MANPAGES}" \
@@ -889,12 +1139,46 @@ asset_names_darwin() {
   fi
 }
 
+# asset_names_bsd OS SUFFIX VERSION ARCH
+#
+# FreeBSD, OpenBSD, NetBSD, and DragonFly BSD use lowercase GOOS-GOARCH names
+# from v0.103.0. Only amd64 archives are published, and there is no Extended or
+# Deploy build.
+asset_names_bsd() {
+  hugo_bsd_os="$1"
+  hugo_sfx="$2"
+  hugo_v="$3"
+  hugo_arch="$4"
+  [ -z "${hugo_sfx}" ] || return 0
+  [ "${hugo_arch}" = 'amd64' ] || return 0
+  version_ge "${hugo_v}" '0.103.0' || return 0
+  printf '%s\n' "hugo_${hugo_v}_${hugo_bsd_os}-amd64.tar.gz"
+}
+
+# asset_names_solaris SUFFIX VERSION ARCH
+#
+# Solaris/illumos assets first appeared in v0.120.0, amd64 only, and there is
+# no Extended or Deploy build.
+asset_names_solaris() {
+  hugo_sfx="$1"
+  hugo_v="$2"
+  hugo_arch="$3"
+  [ -z "${hugo_sfx}" ] || return 0
+  [ "${hugo_arch}" = 'amd64' ] || return 0
+  version_ge "${hugo_v}" '0.120.0' || return 0
+  printf '%s\n' "hugo_${hugo_v}_solaris-amd64.tar.gz"
+}
+
 # asset_names OS SUFFIX VERSION ARCH
 asset_names() {
   case "$1" in
     linux)   asset_names_linux "$2" "$3" "$4" ;;
     windows) asset_names_windows "$2" "$3" "$4" ;;
     darwin)  asset_names_darwin "$2" "$3" "$4" ;;
+    freebsd | openbsd | netbsd | dragonfly)
+      asset_names_bsd "$1" "$2" "$3" "$4"
+      ;;
+    solaris) asset_names_solaris "$2" "$3" "$4" ;;
   esac
 }
 
@@ -1111,26 +1395,59 @@ termux_bin_dir() {
   printf '%s' "${HOME}/.local/bin"
 }
 
-# default_install_dir KIND -- the bin directory that receives hugo
+# try_system_dir DIR -- use DIR directly or through the planned escalation
+try_system_dir() {
+  if can_install_to "$1"; then
+    INSTALL_DIR="$1"
+    return 0
+  fi
+  if plan_escalation; then
+    INSTALL_DIR="$1"
+    return 0
+  fi
+  return 1
+}
+
+# default_install_dir KIND -- set INSTALL_DIR and the planned escalation tool
 default_install_dir() {
   hugo_kind="$1"
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
 
   if [ -n "${HUGO_INSTALL_DIR}" ]; then
     # shellcheck disable=SC2088 # '~/.local/bin' is literal user input
     case "${HUGO_INSTALL_DIR}" in
-      '~/.local/bin') printf '%s' "${HOME}/.local/bin" ;;
-      *) printf '%s' "${HUGO_INSTALL_DIR}" ;;
+      '~/.local/bin') INSTALL_DIR="${HOME}/.local/bin" ;;
+      *) INSTALL_DIR="${HUGO_INSTALL_DIR}" ;;
     esac
+    if ! can_install_to "${INSTALL_DIR}"; then
+      if [ "${DRY_RUN}" -eq 1 ]; then
+        plan_escalation || true
+      elif ! plan_escalation; then
+        die "cannot write to ${INSTALL_DIR} (explicit --install-dir); choose a writable directory, run as root, or allow sudo/doas/pfexec."
+      fi
+    fi
+    if [ "${hugo_kind}" = 'pkg' ] && ! can_install_to '/usr/local/bin'; then
+      plan_escalation || true
+    fi
     return 0
   fi
 
   if [ "${TERMUX}" -eq 1 ]; then
-    termux_bin_dir 'hugo'
+    INSTALL_DIR="$(termux_bin_dir 'hugo')"
+    if [ "${SYSTEM_ONLY}" -eq 1 ] \
+      && { [ -z "${PREFIX:-}" ] || [ "${INSTALL_DIR}" != "${PREFIX}/bin" ]; }; then
+      die "cannot install into \$PREFIX/bin on Termux (unwritable or owned by dpkg); --system has no usable system directory. Use --install-dir."
+    fi
     return 0
   fi
 
   if [ "${hugo_kind}" = 'pkg' ]; then
-    printf '%s' '/usr/local/bin'
+    INSTALL_DIR='/usr/local/bin'
+    if ! can_install_to "${INSTALL_DIR}"; then
+      plan_escalation || true
+    fi
     return 0
   fi
 
@@ -1141,21 +1458,37 @@ default_install_dir() {
     esac
     [ -n "${hugo_base}" ] || hugo_base="$(win_folder 38 'PROGRAMFILES')"
     if [ -n "${hugo_base}" ] && can_install_to "${hugo_base}/Hugo"; then
-      printf '%s' "${hugo_base}/Hugo"
+      INSTALL_DIR="${hugo_base}/Hugo"
       return 0
+    fi
+    if [ "${SYSTEM_ONLY}" -eq 1 ]; then
+      die "cannot install into ${hugo_base:-Program Files} for --system; start Git Bash/MSYS as Administrator (UAC cannot be triggered from sh) or pass --install-dir."
     fi
     hugo_local="$(win_folder 28 'LOCALAPPDATA')"
     [ -n "${hugo_local}" ] || hugo_local="${HOME}/AppData/Local"
-    printf '%s' "${hugo_local}/Programs/Hugo"
+    INSTALL_DIR="${hugo_local}/Programs/Hugo"
     return 0
   fi
 
-  if can_install_to '/usr/local/bin'; then
-    printf '%s' '/usr/local/bin'
-  else
-    [ -n "${HOME:-}" ] || die "HOME is not set; use --install-dir."
-    printf '%s' "${HOME}/.local/bin"
+  # Solaris/illumos: /usr/local is not part of the distribution
+  # (filesystem(7)), so use it only when it already exists. /opt/local is the
+  # conventional pkgsrc prefix. Never create a system prefix from scratch.
+  if [ "${GO_OS}" = 'solaris' ]; then
+    if [ -d '/usr/local' ] && try_system_dir '/usr/local/bin'; then
+      return 0
+    fi
+    if [ -d '/opt/local' ] && try_system_dir '/opt/local/bin'; then
+      return 0
+    fi
+  elif try_system_dir '/usr/local/bin'; then
+    return 0
   fi
+
+  if [ "${ESCALATE_MODE}" = 'always' ]; then
+    die "cannot install into a system directory: no usable sudo, doas, or pfexec. Install an escalation tool, run as root, or use --install-dir."
+  fi
+  [ -n "${HOME:-}" ] || die "HOME is not set; use --install-dir."
+  INSTALL_DIR="${HOME}/.local/bin"
 }
 
 # detect_kind FILE -- gzip | zip | pkg | raw
@@ -1171,29 +1504,73 @@ detect_kind() {
   esac
 }
 
-# install_file SRC DEST -- copy, using sudo only when the destination is not
-# writable (the macOS .pkg path may install into /usr/local/bin via sudo).
+# install_file SRC DEST -- copy the binary, using one privileged write when a
+# tool was planned. Failure is returned so a default directory can fall back to
+# $HOME/.local/bin.
 install_file() {
   hugo_src="$1"
   hugo_dest="$2"
-  if cp "${hugo_src}" "${hugo_dest}" 2>/dev/null; then
+  hugo_dest_dir="$(dirname "${hugo_dest}")"
+  if mkdir -p "${hugo_dest_dir}" 2>/dev/null \
+    && cp "${hugo_src}" "${hugo_dest}" 2>/dev/null; then
     chmod +x "${hugo_dest}" 2>/dev/null || true
     return 0
   fi
-  if command -v sudo >/dev/null 2>&1; then
-    sudo mkdir -p "$(dirname "${hugo_dest}")"
-    sudo cp "${hugo_src}" "${hugo_dest}"
-    sudo chmod +x "${hugo_dest}"
+  if [ -z "${ESCALATE_CMD}" ]; then
+    return 1
+  fi
+
+  # One privileged shell performs the whole write, so sudo/doas prompt at most
+  # once. The temporary file sits beside the destination, making mv atomic.
+  run_privileged '
+    set -e
+    umask 022
+    dir=$1
+    src=$2
+    dest=$3
+    mkdir -p "$dir"
+    tmp="$dest.tmp.$$"
+    trap "rm -f \"$tmp\"" EXIT HUP INT TERM
+    cp "$src" "$tmp"
+    chmod 755 "$tmp"
+    mv -f "$tmp" "$dest"
+    trap - EXIT HUP INT TERM
+  ' "${hugo_dest_dir}" "${hugo_src}" "${hugo_dest}"
+}
+
+# install_binary SRC -- install to HUGO_BIN_PATH, falling back to the user
+# directory when a default system directory cannot be written.
+install_binary() {
+  hugo_bin_src="$1"
+  if install_file "${hugo_bin_src}" "${HUGO_BIN_PATH}"; then
     return 0
   fi
-  die "cannot write to ${hugo_dest}; rerun with sufficient permissions or use --install-dir."
+  if [ "${INSTALL_DIR_EXPLICIT}" -eq 1 ] || [ "${ESCALATE_MODE}" = 'always' ]; then
+    die "cannot write to ${INSTALL_DIR}; choose a writable directory, run as root, or allow sudo/doas/pfexec."
+  fi
+  [ -n "${HOME:-}" ] || die "cannot write to ${INSTALL_DIR} and HOME is not set."
+  hugo_user_dir="${HOME}/.local/bin"
+  if [ "${INSTALL_DIR}" = "${hugo_user_dir}" ]; then
+    die "cannot write to ${INSTALL_DIR}."
+  fi
+  warn "could not install into ${INSTALL_DIR}${ESCALATE_NAME:+ with ${ESCALATE_NAME}}; falling back to ${hugo_user_dir}."
+  INSTALL_DIR="${hugo_user_dir}"
+  HUGO_BIN_PATH="${INSTALL_DIR}/${BIN_NAME}"
+  ESCALATE_NAME=''
+  ESCALATE_CMD=''
+  ESCALATE_NONINTERACTIVE=0
+  install_file "${hugo_bin_src}" "${HUGO_BIN_PATH}" \
+    || die "cannot write to ${HUGO_BIN_PATH}."
 }
 
 # ---------------------------------------------------------------------------
 # Optional manpages and shell completions
 # ---------------------------------------------------------------------------
 
-# resolve_share_dir -- the "share" directory for manpages and completions
+# resolve_share_dir -- the "share" directory for manpages and completions.
+# It follows the binary: when the binary went into a system prefix through
+# sudo/doas/pfexec, the prefix's share directory is chosen as well and the
+# extras reuse that escalation.
 resolve_share_dir() {
   if [ -n "${HUGO_SHARE_DIR}" ]; then
     printf '%s' "${HUGO_SHARE_DIR}"
@@ -1203,7 +1580,9 @@ resolve_share_dir() {
     */bin)
       hugo_share_prefix="${INSTALL_DIR%/bin}"
       if [ -n "${hugo_share_prefix}" ]; then
-        if [ "${DRY_RUN}" -eq 1 ] || can_install_to "${hugo_share_prefix}/share"; then
+        if [ "${DRY_RUN}" -eq 1 ] \
+          || [ -n "${ESCALATE_CMD}" ] \
+          || can_install_to "${hugo_share_prefix}/share"; then
           printf '%s' "${hugo_share_prefix}/share"
           return 0
         fi
@@ -1230,27 +1609,23 @@ install_data_file() {
   return 1
 }
 
-# install_manpages -- generate "hugo gen man" output, gzip it, and install it
-install_manpages() {
+# generate_manpages -- generate "hugo gen man" output and gzip it under
+# $EXTRAS_MAN_TMP/pages. Nothing is written outside the temporary directory.
+generate_manpages() {
+  EXTRAS_MAN_COUNT=0
   if ! command -v gzip >/dev/null 2>&1; then
     warn "gzip is not installed; skipping manpages."
     return 1
   fi
-  hugo_man_tmp="$(mktemp -d 2>/dev/null || mktemp -d -t hugo-man.XXXXXX 2>/dev/null || true)"
-  if [ -z "${hugo_man_tmp}" ]; then
-    hugo_man_tmp="${TMPDIR:-/tmp}/hugo-man.$$"
-    mkdir -p "${hugo_man_tmp}" || {
-      warn "could not create a temporary directory for the manpages; skipping."
-      return 1
-    }
-  fi
-  hugo_man_pages="${hugo_man_tmp}/pages"
-  mkdir -p "${hugo_man_pages}" 2>/dev/null || true
+  hugo_man_pages="${EXTRAS_MAN_TMP}/pages"
+  mkdir -p "${hugo_man_pages}" 2>/dev/null || {
+    warn "could not create a temporary directory for the manpages; skipping."
+    return 1
+  }
   if ! "${HUGO_BIN_PATH}" gen man --dir "${hugo_man_pages}" \
-    >/dev/null 2>"${hugo_man_tmp}/gen.log"; then
-    hugo_man_error="$(head -n 1 "${hugo_man_tmp}/gen.log" 2>/dev/null || true)"
+    >/dev/null 2>"${EXTRAS_MAN_TMP}/gen.log"; then
+    hugo_man_error="$(head -n 1 "${EXTRAS_MAN_TMP}/gen.log" 2>/dev/null || true)"
     warn "Hugo v${RESOLVED_VERSION} could not generate manpages ('hugo gen man' failed); skipping.${hugo_man_error:+ ${hugo_man_error}}"
-    rm -rf "${hugo_man_tmp}"
     return 1
   fi
 
@@ -1258,119 +1633,241 @@ install_manpages() {
     [ -f "${hugo_man_file}" ] || continue
     if ! gzip -9 -f "${hugo_man_file}"; then
       warn "could not gzip ${hugo_man_file}; skipping manpages."
-      rm -rf "${hugo_man_tmp}"
       return 1
     fi
   done
-
-  hugo_man_dir="${SHARE_DIR}/man/man1"
-  if ! can_install_to "${hugo_man_dir}"; then
-    warn "cannot write to ${hugo_man_dir}; skipping manpages."
-    rm -rf "${hugo_man_tmp}"
-    return 1
-  fi
 
   hugo_man_count=0
   for hugo_man_file in "${hugo_man_pages}"/*.1.gz; do
     [ -f "${hugo_man_file}" ] || continue
-    hugo_man_name="$(basename "${hugo_man_file}")"
-    if ! install_data_file "${hugo_man_file}" "${hugo_man_dir}/${hugo_man_name}"; then
-      warn "could not write ${hugo_man_dir}/${hugo_man_name}; skipping the remaining manpages."
-      rm -rf "${hugo_man_tmp}"
-      return 1
-    fi
     hugo_man_count=$((hugo_man_count + 1))
   done
-  rm -rf "${hugo_man_tmp}"
-
   if [ "${hugo_man_count}" -eq 0 ]; then
     warn "Hugo produced no manpage files; nothing was installed."
     return 1
   fi
-  note "installed ${hugo_man_count} manpage(s) in ${hugo_man_dir}."
+  EXTRAS_MAN_COUNT="${hugo_man_count}"
   return 0
 }
 
-# completion_target SHELL -- the file that receives the completion script
-completion_target() {
+# completion_relpath SHELL -- the completion path relative to SHARE_DIR. The
+# user-local fish target is absolute because fish reads it from $HOME/.config.
+completion_relpath() {
   case "$1" in
     bash)
-      printf '%s' "${SHARE_DIR}/bash-completion/completions/hugo"
+      printf '%s' 'bash-completion/completions/hugo'
       ;;
     zsh)
       if [ -n "${HOME:-}" ] && [ "${SHARE_DIR}" = "${HOME}/.local/share" ]; then
-        printf '%s' "${SHARE_DIR}/zsh/completions/_hugo"
+        printf '%s' 'zsh/completions/_hugo'
       else
-        printf '%s' "${SHARE_DIR}/zsh/site-functions/_hugo"
+        printf '%s' 'zsh/site-functions/_hugo'
       fi
       ;;
     fish)
       if [ -n "${HOME:-}" ] && [ "${SHARE_DIR}" = "${HOME}/.local/share" ]; then
         printf '%s' "${HOME}/.config/fish/completions/hugo.fish"
       else
-        printf '%s' "${SHARE_DIR}/fish/vendor_completions.d/hugo.fish"
+        printf '%s' 'fish/vendor_completions.d/hugo.fish'
       fi
       ;;
     powershell)
-      printf '%s' "${SHARE_DIR}/powershell/completions/hugo.ps1"
+      printf '%s' 'powershell/completions/hugo.ps1'
       ;;
   esac
 }
 
-# install_completions -- generate and install each requested completion
-install_completions() {
-  COMPLETIONS_INSTALLED=''
-  hugo_comp_tmp="$(mktemp -d 2>/dev/null || mktemp -d -t hugo-completion.XXXXXX 2>/dev/null || true)"
-  if [ -z "${hugo_comp_tmp}" ]; then
-    hugo_comp_tmp="${TMPDIR:-/tmp}/hugo-completion.$$"
-    mkdir -p "${hugo_comp_tmp}" || {
-      warn "could not create a temporary directory for the completions; skipping."
-      return 1
-    }
-  fi
+# completion_target SHELL -- the absolute file that receives the completion
+completion_target() {
+  hugo_ct_rel="$(completion_relpath "$1")"
+  case "${hugo_ct_rel}" in
+    /*) printf '%s' "${hugo_ct_rel}" ;;
+    *) printf '%s' "${SHARE_DIR}/${hugo_ct_rel}" ;;
+  esac
+}
+
+# generate_completions -- write each requested completion under
+# $EXTRAS_COMP_TMP and record the shells that produced usable output.
+generate_completions() {
+  EXTRAS_COMP_SHELLS=''
   hugo_comp_fail=0
   for hugo_comp_shell in ${COMPLETIONS}; do
-    hugo_comp_dest="$(completion_target "${hugo_comp_shell}")"
     if ! "${HUGO_BIN_PATH}" completion "${hugo_comp_shell}" \
-      >"${hugo_comp_tmp}/${hugo_comp_shell}" 2>"${hugo_comp_tmp}/${hugo_comp_shell}.log"; then
+      >"${EXTRAS_COMP_TMP}/${hugo_comp_shell}" 2>"${EXTRAS_COMP_TMP}/${hugo_comp_shell}.log"; then
       warn "Hugo v${RESOLVED_VERSION} could not generate ${hugo_comp_shell} completions; skipping."
       hugo_comp_fail=1
       continue
     fi
-    if [ ! -s "${hugo_comp_tmp}/${hugo_comp_shell}" ]; then
+    if [ ! -s "${EXTRAS_COMP_TMP}/${hugo_comp_shell}" ]; then
       warn "Hugo produced an empty ${hugo_comp_shell} completion; skipping."
       hugo_comp_fail=1
       continue
     fi
-    if install_data_file "${hugo_comp_tmp}/${hugo_comp_shell}" "${hugo_comp_dest}"; then
-      COMPLETIONS_INSTALLED="${COMPLETIONS_INSTALLED} ${hugo_comp_shell}"
-      note "installed ${hugo_comp_shell} completions in ${hugo_comp_dest}."
-    else
-      warn "could not write ${hugo_comp_dest}."
-      hugo_comp_fail=1
-    fi
+    EXTRAS_COMP_SHELLS="${EXTRAS_COMP_SHELLS} ${hugo_comp_shell}"
   done
-  rm -rf "${hugo_comp_tmp}"
   return "${hugo_comp_fail}"
+}
+
+# build_extras_manifest FILE -- write alternating destination/source lines for
+# every generated extra. Each destination is resolved against SHARE_DIR at the
+# time of the call, so a fallback directory produces a fresh manifest.
+build_extras_manifest() {
+  hugo_bem_file="$1"
+  : >"${hugo_bem_file}" || return 1
+  if [ "${EXTRAS_MAN_COUNT:-0}" -gt 0 ]; then
+    for hugo_bem_man in "${EXTRAS_MAN_TMP}/pages"/*.1.gz; do
+      [ -f "${hugo_bem_man}" ] || continue
+      printf '%s\n%s\n' \
+        "${SHARE_DIR}/man/man1/${hugo_bem_man##*/}" "${hugo_bem_man}" \
+        >>"${hugo_bem_file}" || return 1
+    done
+  fi
+  for hugo_bem_shell in ${EXTRAS_COMP_SHELLS:-}; do
+    printf '%s\n%s\n' \
+      "$(completion_target "${hugo_bem_shell}")" \
+      "${EXTRAS_COMP_TMP}/${hugo_bem_shell}" >>"${hugo_bem_file}" || return 1
+  done
+  return 0
+}
+
+# commit_extras_direct MANIFEST -- install each file as the current user
+commit_extras_direct() {
+  hugo_ced_file="$1"
+  hugo_ced_fail=0
+  while IFS= read -r hugo_ced_dest && IFS= read -r hugo_ced_src; do
+    if ! install_data_file "${hugo_ced_src}" "${hugo_ced_dest}"; then
+      warn "could not write ${hugo_ced_dest}."
+      hugo_ced_fail=1
+    fi
+  done <"${hugo_ced_file}"
+  return "${hugo_ced_fail}"
+}
+
+# commit_extras_privileged MANIFEST -- install every extra in one privileged
+# shell so sudo/doas prompts at most once. Destinations are passed as
+# positional arguments, never interpolated into the snippet.
+commit_extras_privileged() {
+  hugo_cep_file="$1"
+  set --
+  while IFS= read -r hugo_cep_dest && IFS= read -r hugo_cep_src; do
+    set -- "$@" "${hugo_cep_dest}" "${hugo_cep_src}"
+  done <"${hugo_cep_file}"
+  [ "$#" -gt 0 ] || return 0
+  run_privileged '
+    set -e
+    umask 022
+    while [ "$#" -ge 2 ]; do
+      dest=$1
+      src=$2
+      shift 2
+      mkdir -p "$(dirname "$dest")"
+      tmp="$dest.tmp.$$"
+      trap "rm -f \"$tmp\"" EXIT HUP INT TERM
+      cp "$src" "$tmp"
+      chmod 644 "$tmp"
+      mv -f "$tmp" "$dest"
+      trap - EXIT HUP INT TERM
+    done
+  ' "$@"
 }
 
 # install_extras -- install the requested manpages and completions. Every
 # failure is contained here so a broken extra never fails the Hugo install.
 install_extras() {
   COMPLETIONS_INSTALLED=''
+  EXTRAS_MAN_COUNT=0
+  EXTRAS_COMP_SHELLS=''
   if [ "${MANPAGES}" -ne 1 ] && [ -z "${COMPLETIONS}" ]; then
     return 0
   fi
+
+  EXTRAS_TMP="$(mktemp -d 2>/dev/null || mktemp -d -t hugo-extras.XXXXXX 2>/dev/null || true)"
+  if [ -z "${EXTRAS_TMP}" ]; then
+    warn "could not create a temporary directory for the extras; skipping manpages and completions."
+    return 0
+  fi
+  EXTRAS_MAN_TMP="${EXTRAS_TMP}/man"
+  EXTRAS_COMP_TMP="${EXTRAS_TMP}/completions"
+  mkdir -p "${EXTRAS_MAN_TMP}" "${EXTRAS_COMP_TMP}" 2>/dev/null || true
+
   SHARE_DIR="$(resolve_share_dir)" || {
     warn "could not determine a share directory; skipping manpages and completions."
+    rm -rf "${EXTRAS_TMP}"
     return 0
   }
   if [ "${GO_OS}" = 'windows' ]; then
     SHARE_DIR="$(cygpath -u "${SHARE_DIR}" 2>/dev/null || printf '%s' "${SHARE_DIR}")"
   fi
+  hugo_share_explicit=0
+  [ -n "${HUGO_SHARE_DIR}" ] && hugo_share_explicit=1
+  hugo_share_system="${SHARE_DIR}"
+  hugo_share_tool="${ESCALATE_NAME}"
 
   if [ "${MANPAGES}" -eq 1 ]; then
-    if install_manpages && [ -n "${HOME:-}" ]; then
+    generate_manpages || true
+  fi
+  if [ -n "${COMPLETIONS}" ]; then
+    generate_completions || true
+  fi
+  if [ "${EXTRAS_MAN_COUNT}" -eq 0 ] && [ -z "${EXTRAS_COMP_SHELLS}" ]; then
+    rm -rf "${EXTRAS_TMP}"
+    return 0
+  fi
+
+  hugo_extras_manifest="${EXTRAS_TMP}/manifest"
+  hugo_extras_installed=0
+  hugo_share_writable=0
+  if can_install_to "${SHARE_DIR}"; then
+    hugo_share_writable=1
+  fi
+  if build_extras_manifest "${hugo_extras_manifest}"; then
+    if [ "${hugo_share_writable}" -eq 1 ]; then
+      if commit_extras_direct "${hugo_extras_manifest}"; then
+        hugo_extras_installed=1
+      fi
+    elif [ -n "${ESCALATE_CMD}" ]; then
+      if commit_extras_privileged "${hugo_extras_manifest}"; then
+        hugo_extras_installed=1
+      fi
+    fi
+  fi
+
+  # A default share directory follows the binary back to the user when the
+  # privileged extras write fails. An explicit --share-dir, --escalate, or
+  # --system never falls back.
+  if [ "${hugo_extras_installed}" -eq 0 ] && [ "${hugo_share_explicit}" -eq 0 ] \
+    && [ "${ESCALATE_MODE}" != 'always' ] && [ "${SYSTEM_ONLY}" -ne 1 ] \
+    && [ -n "${HOME:-}" ]; then
+    hugo_share_user="${HOME}/.local/share"
+    if [ "${SHARE_DIR}" != "${hugo_share_user}" ] \
+      && can_install_to "${hugo_share_user}" \
+      && SHARE_DIR="${hugo_share_user}" \
+      && build_extras_manifest "${hugo_extras_manifest}" \
+      && commit_extras_direct "${hugo_extras_manifest}"; then
+      hugo_extras_installed=1
+      warn "could not install extras into ${hugo_share_system}${hugo_share_tool:+ with ${hugo_share_tool}}; using ${hugo_share_user} instead."
+    fi
+  fi
+  if [ "${hugo_extras_installed}" -eq 0 ] && [ "${SHARE_DIR}" != "${hugo_share_system}" ]; then
+    SHARE_DIR="${hugo_share_system}"
+  fi
+
+  if [ "${hugo_extras_installed}" -eq 0 ]; then
+    if [ "${hugo_share_writable}" -eq 0 ]; then
+      if [ "${MANPAGES}" -eq 1 ] && [ "${EXTRAS_MAN_COUNT}" -gt 0 ]; then
+        warn "cannot write to ${SHARE_DIR}; skipping manpages."
+      fi
+      if [ -n "${EXTRAS_COMP_SHELLS}" ]; then
+        warn "could not write ${SHARE_DIR}; skipping completions."
+      fi
+    fi
+    rm -rf "${EXTRAS_TMP}"
+    return 0
+  fi
+
+  if [ "${MANPAGES}" -eq 1 ] && [ "${EXTRAS_MAN_COUNT}" -gt 0 ]; then
+    note "installed ${EXTRAS_MAN_COUNT} manpage(s) in ${SHARE_DIR}/man/man1."
+    if [ -n "${HOME:-}" ]; then
       case "${SHARE_DIR}" in
         "${HOME}"/*)
           note "to use the manpages, add ${SHARE_DIR}/man to MANPATH, for example:"
@@ -1380,8 +1877,11 @@ install_extras() {
     fi
   fi
 
-  if [ -n "${COMPLETIONS}" ]; then
-    install_completions || true
+  if [ -n "${EXTRAS_COMP_SHELLS}" ]; then
+    COMPLETIONS_INSTALLED="${EXTRAS_COMP_SHELLS}"
+    for hugo_done_shell in ${EXTRAS_COMP_SHELLS}; do
+      note "installed ${hugo_done_shell} completions in $(completion_target "${hugo_done_shell}")."
+    done
     case " ${COMPLETIONS_INSTALLED} " in
       *' zsh '*)
         if [ -n "${HOME:-}" ] && [ "${SHARE_DIR}" = "${HOME}/.local/share" ]; then
@@ -1397,6 +1897,8 @@ install_extras() {
         ;;
     esac
   fi
+
+  rm -rf "${EXTRAS_TMP}"
   return 0
 }
 
@@ -1442,6 +1944,16 @@ write_github_path() {
 # finish -- print outputs/env and exit successfully
 finish() {
   install_extras || true
+  if [ "${PRINT_ENV}" -eq 0 ] && [ "${PRINT_PATH}" -eq 0 ]; then
+    if ! printf '%s' "${PATH:-}" | tr ':' '\n' | grep -Fqx "${INSTALL_DIR}"; then
+      note "${INSTALL_DIR} is not on PATH; add it to your shell profile:"
+      if [ "${GO_OS}" = 'windows' ]; then
+        note "  setx PATH \"%PATH%;$(cygpath -w "${INSTALL_DIR}" 2>/dev/null || printf '%s' "${INSTALL_DIR}")\""
+      else
+        note "  export PATH=\"${INSTALL_DIR}:\$PATH\""
+      fi
+    fi
+  fi
   if [ "${GO_OS}" = 'windows' ]; then
     HUGO_BIN_PATH="$(cygpath -w "${HUGO_BIN_PATH}")"
   fi
@@ -1490,6 +2002,9 @@ smoke_test() {
 cleanup() {
   if [ -n "${WORK_DIR:-}" ] && [ -d "${WORK_DIR}" ]; then
     rm -rf "${WORK_DIR}"
+  fi
+  if [ -n "${EXTRAS_TMP:-}" ] && [ -d "${EXTRAS_TMP}" ]; then
+    rm -rf "${EXTRAS_TMP}"
   fi
 }
 trap cleanup EXIT
@@ -1721,6 +2236,25 @@ if [ -z "${RESOLVED_ASSET}" ]; then
   if ! probe_url "${HUGO_REPO_URL}/releases/tag/v${VERSION_CANDIDATES%% *}"; then
     die "Hugo v${VERSION_CANDIDATES%% *} does not exist. Check the version against ${HUGO_REPO_URL}/releases."
   fi
+  case "${GO_OS}" in
+    freebsd | openbsd | netbsd | dragonfly)
+      if ! version_ge "${VERSION_CANDIDATES%% *}" '0.103.0'; then
+        die "Hugo v${VERSION_CANDIDATES%% *} predates BSD support under the current asset naming: ${GO_OS} binaries start at v0.103.0. Use the OS package manager or build Hugo from source."
+      fi
+      ;;
+    solaris)
+      if ! version_ge "${VERSION_CANDIDATES%% *}" '0.120.0'; then
+        die "Hugo v${VERSION_CANDIDATES%% *} predates Solaris support: Solaris/illumos binaries start at v0.120.0. Use an OS package or build Hugo from source."
+      fi
+      ;;
+  esac
+  if [ "${REQUESTED_EDITION}" != 'standard' ]; then
+    case "${GO_OS}" in
+      freebsd | openbsd | netbsd | dragonfly | solaris)
+        die "Hugo publishes no ${REQUESTED_EDITION} build for ${GO_OS}; retry without --extended/--with-deploy to install the standard build."
+        ;;
+    esac
+  fi
   if [ "${HUGO_METHOD}" = 'deb' ]; then
     die "Hugo v${VERSION_CANDIDATES%% *} publishes no matching .deb for ${GO_OS}/${GO_ARCH} (tried editions: ${EDITION_CHAIN}). Use --method binary instead."
   fi
@@ -1819,7 +2353,7 @@ case "${RESOLVED_ASSET}" in
   *.deb)            KIND='deb' ;;
   *)                KIND='raw' ;;
 esac
-INSTALL_DIR="$(default_install_dir "${KIND}")"
+default_install_dir "${KIND}"
 if [ "${GO_OS}" = 'windows' ]; then
   INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
 fi
@@ -1840,6 +2374,7 @@ if [ "${DRY_RUN}" -eq 1 ]; then
   dry_line "url=${RELEASE_BASE}/v${RESOLVED_VERSION}/${RESOLVED_ASSET}"
   dry_line "method=${HUGO_METHOD}"
   dry_line "install_dir=${INSTALL_DIR}"
+  dry_line "escalation=$(escalation_label)"
   dry_line "bin=${HUGO_BIN_PATH}"
   dry_extras
   if [ "${PRINT_ENV}" -eq 1 ]; then
@@ -1974,9 +2509,9 @@ fi
 # Install
 # ---------------------------------------------------------------------------
 
-if [ "${KIND}" != 'pkg' ]; then
-  if ! can_install_to "${INSTALL_DIR}"; then
-    die "cannot write to ${INSTALL_DIR}; set --install-dir to a writable directory."
+if [ "${KIND}" != 'pkg' ] && ! can_install_to "${INSTALL_DIR}"; then
+  if [ -n "${ESCALATE_CMD}" ]; then
+    note "${INSTALL_DIR} is not writable; installing with ${ESCALATE_NAME} (you may be asked for a password once)."
   fi
 fi
 mkdir -p "${INSTALL_DIR}" 2>/dev/null || true
@@ -1987,8 +2522,14 @@ case "${KIND}" in
   'gzip')
     require_cmd tar
     mkdir -p "${EXTRACT_DIR}"
-    tar -xzf "${RESOLVED_ASSET}" -C "${EXTRACT_DIR}" \
-      || die "failed to extract ${RESOLVED_ASSET}."
+    if ! ( cd "${EXTRACT_DIR}" && tar -xzf "${WORK_DIR}/${RESOLVED_ASSET}" ); then
+      note "tar -xzf failed; retrying with gzip -dc | tar -xf."
+      command -v gzip >/dev/null 2>&1 \
+        || die "gzip is required to extract ${RESOLVED_ASSET}."
+      ( cd "${EXTRACT_DIR}" \
+        && gzip -dc "${WORK_DIR}/${RESOLVED_ASSET}" | tar -xf - ) \
+        || die "failed to extract ${RESOLVED_ASSET}."
+    fi
     ;;
   'zip')
     mkdir -p "${EXTRACT_DIR}"
@@ -2047,10 +2588,16 @@ elif [ "${KIND}" = 'pkg' ]; then
     BIN_SRC="$(find "${EXTRACT_DIR}" -type f -name 'hugo' | head -n 1)"
   fi
   if [ -z "${BIN_SRC}" ]; then
-    note "installing the macOS package (this uses sudo and places hugo in /usr/local/bin)."
-    command -v sudo >/dev/null 2>&1 \
-      || die "sudo is required to install ${RESOLVED_ASSET}; use --install-dir with a writable directory and --method binary if possible."
-    sudo installer -pkg "${RESOLVED_ASSET}" -target / 1>&2 \
+    if [ -z "${ESCALATE_CMD}" ] && ! is_root_user; then
+      # The directory was writable, so no tool was planned up front; the
+      # package installer still needs root.
+      plan_escalation || die "installing ${RESOLVED_ASSET} requires root; rerun with sudo, install sudo/doas, or request Hugo v0.152.x or older (which publishes a tar.gz)."
+    fi
+    note "installing the macOS package (this uses ${ESCALATE_NAME:-root} and places hugo in /usr/local/bin)."
+    hugo_installer='installer'
+    [ -x '/usr/sbin/installer' ] && hugo_installer='/usr/sbin/installer'
+    run_privileged 'exec "$1" -pkg "$2" -target /' \
+      "${hugo_installer}" "${WORK_DIR}/${RESOLVED_ASSET}" 1>&2 \
       || die "failed to install ${RESOLVED_ASSET}."
     BIN_SRC='/usr/local/bin/hugo'
   fi
@@ -2061,7 +2608,7 @@ fi
 if [ "${KIND}" = 'pkg' ] && [ "${INSTALL_DIR}" = '/usr/local/bin' ] && [ "${BIN_SRC}" = '/usr/local/bin/hugo' ]; then
   note "keeping the package's default location (${INSTALL_DIR}/hugo); no copy made."
 else
-  install_file "${BIN_SRC}" "${HUGO_BIN_PATH}"
+  install_binary "${BIN_SRC}"
 fi
 
 # ---------------------------------------------------------------------------
