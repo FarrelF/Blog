@@ -434,11 +434,11 @@ Kedua skrip tersebut mendukung sistem operasi GNU/Linux (dan berbagai distribusi
 
 Hapus `[versi]` di atas untuk menginstal versi terbaru atau ganti `[versi]` dengan versi yang Anda inginkan.
 
-Secara baku kedua skrip di atas akan mengusahakan untuk menginstalnya secara menyeluruh di seluruh sistem (_system-wide_), jadi bisa dijalankan oleh semua pengguna dalam 1 sistem dan memerlukan hak akses `root` untuk menginstalnya.
+Anda tidak perlu menggunakan `sudo` untuk menginstal Hugo dan Dart Sass menggunakan skrip di atas walau bisa saja sebenarnya, karena secara baku kedua skrip di atas akan mengusahakan untuk menginstalnya secara menyeluruh di seluruh sistem (_system-wide_), nanti Anda akan diminta untuk memasukkan kata sandi, kalau tetap tidak bisa ya maka akan tetap terinstal di direktori `$HOME/.local/bin` sebagai gantinya.
 
-Jadi walau Anda tidak mengeksekusinya dengan perintah `sudo` sekalipun, Anda akan tetap diminta untuk memasukkan kata sandi jika perlu, karena skrip tersebut akan menggunakan `sudo` atau `pfexec` untuk keperluan tersebut, jika tidak bisa atau tidak mau, maka akan tetap terinstal di direktori `$HOME/.local/bin` sebagai gantinya. Sebagai tambahan, kalau Anda menginstal Hugo dengan skrip di atas, maka _shell completions_ dan halaman panduan (_manual pages_) juga akan terpasang secara otomatis.
+Kalau Anda lebih suka memasangnya hanya untuk pengguna Anda sendiri, gunakan opsi `--user`. Jika versi lain sudah terpasang, skrip akan menanyakan konfirmasi terlebih dahulu sebelum menggantinya atau memperbaruinya, jadi sebenarnya kedua skrip di atas juga dapat memperbarui versi Hugo dan Dart Sass. Tambahkan opsi `--yes` (atau `-y`) kalau ingin melewati konfirmasi tersebut, misalnya di dalam skrip otomatis.
 
-Tapi kalau Anda adalah pengguna Termux, Anda tidak perlu menggunakan `sudo` untuk menginstal dua-duanya, karena keduanya akan terinstal di dalam `$PREFIX/bin` apa pun hak aksesnya, sehingga itu tidak berguna dan malah bikin repot saja.
+Tapi kalau Anda adalah pengguna Termux, keduanya akan terinstal di dalam `$PREFIX/bin` apa pun hak aksesnya, sehingga itu tidak berguna dan malah bikin repot saja. Sebagai tambahan, kalau Anda menginstal Hugo dengan skrip di atas, maka _shell completions_ dan halaman panduan (_manual pages_) juga akan terpasang secara otomatis.
 
 Ngomongin soal Android/Termux, instalasi Dart Sass menggunakan skrip di atas memang sepenuhnya mendukung Android melalui Termux, karena mereka menyediakan berkas binernya secara resmi untuk Android.
 

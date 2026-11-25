@@ -55,4 +55,4 @@ runs:
         case "$(uname -s)" in
           MINGW* | MSYS* | CYGWIN*) script="$(cygpath -u "${script}")" ;;
         esac
-        sh "${script}"
+        sh "${script}" --yes

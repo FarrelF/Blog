@@ -204,6 +204,8 @@ t "help exits 0" rc_is "$RS_RC" 0
 t "help documents --libc" contains_text '--libc' "$WORK/help.out"
 t "help documents Termux" contains_text 'Termux' "$WORK/help.out"
 t "help documents --print-path" contains_text '--print-path' "$WORK/help.out"
+t "help documents --user" contains_text '--user' "$WORK/help.out"
+t "help documents --yes" contains_text '--yes' "$WORK/help.out"
 
 BIN="$WORK/bin"
 run_sass "$WORK/d1.out" "$WORK/d1.err" --dry-run --version 1.108.2 --install-dir "$BIN"
@@ -250,6 +252,32 @@ RS_RC=$?
 t "env version and install dir exit 0" rc_is "$RS_RC" 0
 t "env version is honoured" has_line 'version=1.108.2' "$WORK/d7.out"
 t "env install dir is honoured" has_line "install_dir=$WORK/env-bin" "$WORK/d7.out"
+
+run_cmd "$WORK/user.out" "$WORK/user.err" \
+  env HOME="$WORK/user-home" RUNNER_ARCH= sh "$SASS_SCRIPT" \
+  --dry-run --user --version 1.108.2
+t "--user dry-run exits 0" rc_is "$RC" 0
+t "--user targets the per-user bin directory" \
+  has_line "install_dir=$WORK/user-home/.local/bin" "$WORK/user.out"
+t "--user disables escalation" has_line 'escalation=none' "$WORK/user.out"
+
+run_sass "$WORK/user-system.out" "$WORK/user-system.err" \
+  --dry-run --user --system --version 1.108.2
+t "--user refuses --system" rc_is "$RS_RC" 1
+t "--user/--system conflict is explained" \
+  has_text 'cannot combine --user' "$WORK/user-system.err"
+
+run_sass "$WORK/user-dir.out" "$WORK/user-dir.err" \
+  --dry-run --user --install-dir "$WORK/explicit-user" --version 1.108.2
+t "--user refuses --install-dir" rc_is "$RS_RC" 1
+t "--user/--install-dir conflict is explained" \
+  has_text 'cannot combine --user' "$WORK/user-dir.err"
+
+run_sass "$WORK/user-escalate.out" "$WORK/user-escalate.err" \
+  --dry-run --user --escalate --version 1.108.2
+t "--user refuses --escalate" rc_is "$RS_RC" 1
+t "--user/--escalate conflict is explained" \
+  has_text 'cannot combine --user' "$WORK/user-escalate.err"
 
 # ---------------------------------------------------------------------------
 # BSD/Solaris gaps and privilege escalation
@@ -575,6 +603,23 @@ BIN_OLD="$WORK/sass-1.69.0"
 run_sass "$WORK/i7.out" "$WORK/i7.err" --version 1.69.0 --install-dir "$BIN_OLD"
 t "older release install exits 0" rc_is "$RS_RC" 0
 t "older release reports 1.69.0" version_is "$BIN_OLD/sass" '1.69.0'
+
+# Updating an existing different version needs confirmation. Without a
+# terminal, the installer refuses instead of replacing the old version.
+sh "$SASS_SCRIPT" --version 1.108.2 --install-dir "$BIN_OLD" --no-verify \
+  </dev/null >"$WORK/u1.out" 2>"$WORK/u1.err"
+RS_RC=$?
+t "update without a terminal requires --yes" rc_is "$RS_RC" 1
+t "update refusal explains --yes" contains_text 'pass --yes' "$WORK/u1.err"
+t "declined update keeps the old version" version_is "$BIN_OLD/sass" '1.69.0'
+
+sh "$SASS_SCRIPT" --version 1.108.2 --install-dir "$BIN_OLD" --no-verify --yes \
+  </dev/null >"$WORK/u2.out" 2>"$WORK/u2.err"
+RS_RC=$?
+t "--yes updates the old version" rc_is "$RS_RC" 0
+t "updated sass reports the new version" version_is "$BIN_OLD/sass" '1.108.2'
+t "--yes update reports the replacement" \
+  contains_text 'replacing Dart Sass 1.69.0' "$WORK/u2.err"
 
 rm -rf "$BIN/.dart-sass"
 run_sass "$WORK/i8.out" "$WORK/i8.err" --version 1.108.2 --install-dir "$BIN"

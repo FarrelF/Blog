@@ -206,6 +206,29 @@ printf '  shells : %s\n\n' "${DETECTED:-none}"
 run_hugo "$WORK/help.out" "$WORK/help.err" --help
 t "help exits 0" rc_is "$RH_RC" 0
 t "help prints a usage line" has_text 'install-hugo\.sh' "$WORK/help.out"
+t "help documents --user" contains_text '--user' "$WORK/help.out"
+t "help documents --yes" contains_text '--yes' "$WORK/help.out"
+
+run_cmd "$WORK/user.out" "$WORK/user.err" \
+  env HOME="$WORK/user-home" RUNNER_ARCH= sh "$HUGO_SCRIPT" \
+  --dry-run --user --version 0.170.1 --no-man --no-completions
+t "--user dry-run exits 0" rc_is "$RC" 0
+t "--user targets the per-user bin directory" \
+  has_line "install_dir=$WORK/user-home/.local/bin" "$WORK/user.out"
+t "--user disables escalation" has_line 'escalation=none' "$WORK/user.out"
+
+run_hugo "$WORK/user-system.out" "$WORK/user-system.err" \
+  --dry-run --user --system --version 0.170.1 --no-man --no-completions
+t "--user refuses --system" rc_is "$RH_RC" 1
+t "--user/--system conflict is explained" \
+  has_text 'cannot combine --user' "$WORK/user-system.err"
+
+run_hugo "$WORK/user-dir.out" "$WORK/user-dir.err" \
+  --dry-run --user --install-dir "$WORK/explicit-user" --version 0.170.1 \
+  --no-man --no-completions
+t "--user refuses --install-dir" rc_is "$RH_RC" 1
+t "--user/--install-dir conflict is explained" \
+  has_text 'cannot combine --user' "$WORK/user-dir.err"
 
 run_hugo "$WORK/badmethod.out" "$WORK/badmethod.err" --method nonsense --dry-run
 t "invalid --method is rejected" rc_is "$RH_RC" 1
@@ -791,6 +814,27 @@ t "old release binary runs" rc_is "$RC" 0
 t "old release binary reports 0.16" has_text '0\.16' "$WORK/i9.version"
 t "old release does not fail on unsupported extras" lacks_text '^error:' "$WORK/i9.err"
 t "old release warnings stay warnings" lacks_text 'failed to install' "$WORK/i9.err"
+
+# Updating an existing different version needs confirmation. Without a
+# terminal, the installer refuses instead of replacing the old version.
+sh "$HUGO_SCRIPT" --version 0.170.1 --install-dir "$BIN_OLD" \
+  --no-man --no-completions --no-verify \
+  </dev/null >"$WORK/u1.out" 2>"$WORK/u1.err"
+RH_RC=$?
+t "update without a terminal requires --yes" rc_is "$RH_RC" 1
+t "update refusal explains --yes" contains_text 'pass --yes' "$WORK/u1.err"
+t "declined update keeps the old version" \
+  hugo_version_has "$BIN_OLD/hugo" 'v0.16'
+
+sh "$HUGO_SCRIPT" --version 0.170.1 --install-dir "$BIN_OLD" \
+  --no-man --no-completions --no-verify --yes \
+  </dev/null >"$WORK/u2.out" 2>"$WORK/u2.err"
+RH_RC=$?
+t "--yes updates the old version" rc_is "$RH_RC" 0
+t "updated hugo reports 0.170.1" \
+  hugo_version_has "$BIN_OLD/hugo" 'v0.170.1'
+t "--yes update reports the replacement" \
+  contains_text 'replacing Hugo v0.16' "$WORK/u2.err"
 
 # ---------------------------------------------------------------------------
 # Debian .deb method

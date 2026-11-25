@@ -27,6 +27,11 @@
 #   --system                Require a system-wide install; fail when the
 #                           directory cannot be written and no escalation
 #                           tool is available.
+#   --user                  Install into the per-user directory
+#                           ($HOME/.local/bin, or
+#                           %LOCALAPPDATA%\Programs\Dart Sass on Windows) and
+#                           never escalate. Cannot be combined with --system,
+#                           --install-dir, or --escalate.
 #   --escalate              Use sudo, doas, or pfexec when a system directory
 #                           is not writable, and fail instead of falling back
 #                           to the user directory (DART_SASS_ESCALATE=always).
@@ -37,6 +42,9 @@
 #                           $DART_SASS_LIBC is the environment equivalent.
 #   --no-verify             Skip SHA-256 digest verification.
 #   --force                 Reinstall even when the version matches.
+#   --yes, -y               Replace an installed version without asking for
+#                           confirmation. $DART_SASS_YES is the environment
+#                           equivalent.
 #   --dry-run               Resolve and print what would be installed.
 #   --print-env             Print DART_SASS_VERSION, DART_SASS_BIN, and
 #                           DART_SASS_DIR.
@@ -50,7 +58,8 @@
 # Environment:
 #   DART_SASS_ESCALATE (auto|never|always), DART_SASS_VERSION,
 #   DART_SASS_INSTALL_DIR, DART_SASS_LIBC, DART_SASS_VERIFY,
-#   DART_SASS_FORCE, GITHUB_TOKEN, DOWNLOADER, DOWNLOADER_ARGS.
+#   DART_SASS_FORCE, DART_SASS_YES, GITHUB_TOKEN, DOWNLOADER,
+#   DOWNLOADER_ARGS.
 #
 # BSD and Solaris notes:
 #   Dart Sass publishes no native binary for FreeBSD, OpenBSD, NetBSD,
@@ -100,6 +109,7 @@ DART_SASS_ESCALATE="${DART_SASS_ESCALATE:-auto}"
 DART_SASS_LIBC="${DART_SASS_LIBC:-auto}"
 DART_SASS_VERIFY="${DART_SASS_VERIFY:-1}"
 DART_SASS_FORCE="${DART_SASS_FORCE:-0}"
+DART_SASS_YES="${DART_SASS_YES:-0}"
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
 DOWNLOADER="${DOWNLOADER:-auto}"
 DOWNLOADER_ARGS="${DOWNLOADER_ARGS:-}"
@@ -118,6 +128,8 @@ ESCALATE_NAME=''
 ESCALATE_CMD=''
 ESCALATE_NONINTERACTIVE=0
 SYSTEM_ONLY=0
+USER_ONLY=0
+ASSUME_YES=0
 [ -n "${DART_SASS_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
@@ -611,6 +623,8 @@ while [ $# -gt 0 ]; do
     --no-escalate) ESCALATE_MODE='never'; shift ;;
     --escalate)    ESCALATE_MODE='always'; shift ;;
     --system)      SYSTEM_ONLY=1; shift ;;
+    --user)        USER_ONLY=1; shift ;;
+    -y | --yes)    ASSUME_YES=1; shift ;;
     --libc)
       [ $# -ge 2 ] || die '--libc requires an argument'
       DART_SASS_LIBC="$2"
@@ -695,11 +709,22 @@ if [ "${SYSTEM_ONLY}" -eq 1 ]; then
     && die 'cannot combine --system with --no-escalate (or DART_SASS_ESCALATE=never).'
   ESCALATE_MODE='always'
 fi
+if [ "${USER_ONLY}" -eq 1 ]; then
+  [ "${SYSTEM_ONLY}" -eq 1 ] && die 'cannot combine --user with --system.'
+  [ "${INSTALL_DIR_EXPLICIT}" -eq 1 ] \
+    && die 'cannot combine --user with --install-dir (or DART_SASS_INSTALL_DIR).'
+  [ "${ESCALATE_MODE}" = 'always' ] \
+    && die 'cannot combine --user with --escalate (or DART_SASS_ESCALATE=always).'
+  ESCALATE_MODE='never'
+fi
 
 VERIFY=0
 is_true "${DART_SASS_VERIFY}" && VERIFY=1
 FORCE=0
 is_true "${DART_SASS_FORCE}" && FORCE=1
+if [ "${ASSUME_YES}" -ne 1 ]; then
+  is_true "${DART_SASS_YES}" && ASSUME_YES=1
+fi
 
 case "${DART_SASS_LIBC}" in
   auto | glibc | musl | android) ;;
@@ -940,6 +965,18 @@ default_install_dir() {
   ESCALATE_NAME=''
   ESCALATE_CMD=''
   ESCALATE_NONINTERACTIVE=0
+
+  if [ "${USER_ONLY}" -eq 1 ]; then
+    if [ "${OS_NAME}" = 'windows' ]; then
+      ds_local="$(win_folder 28 'LOCALAPPDATA')"
+      [ -n "${ds_local}" ] || ds_local="${HOME}/AppData/Local"
+      INSTALL_DIR="${ds_local}/Programs/Dart Sass"
+    else
+      [ -n "${HOME:-}" ] || die '--user requires HOME; use --install-dir.'
+      INSTALL_DIR="${HOME}/.local/bin"
+    fi
+    return 0
+  fi
 
   if [ -n "${DART_SASS_INSTALL_DIR}" ]; then
     # shellcheck disable=SC2088 # '~/.local/bin' is literal user input
@@ -1350,15 +1387,56 @@ trap cleanup EXIT
 # Skip work when the requested version is already installed
 # ---------------------------------------------------------------------------
 
+# can_prompt_update -- true when the update confirmation can be shown.
+# CI runs and non-terminal stdin are excluded so a piped script never waits
+# for an answer that cannot arrive.
+can_prompt_update() {
+  [ "${ASSUME_YES}" -eq 1 ] && return 1
+  [ "${FORCE}" -eq 1 ] && return 1
+  is_ci_env && return 1
+  [ -t 0 ]
+}
+
+# confirm_replace CURRENT REQUESTED -- ask before replacing a different
+# installed version. --yes and --force skip the question. Without a terminal
+# the caller must pass --yes, so automated runs never replace an installation
+# silently.
+confirm_replace() {
+  cr_current="$1"
+  cr_requested="$2"
+  [ "${ASSUME_YES}" -eq 1 ] && return 0
+  [ "${FORCE}" -eq 1 ] && return 0
+  can_prompt_update || return 1
+  printf 'Dart Sass %s is installed in %s. Replace it with %s? [y/N] ' \
+    "${cr_current}" "${INSTALL_DIR}" "${cr_requested}" >&2
+  cr_answer=''
+  IFS= read -r cr_answer || cr_answer=''
+  case "${cr_answer}" in
+    y | Y | yes | YES | Yes) return 0 ;;
+  esac
+  return 1
+}
+
 if [ "${FORCE}" -ne 1 ]; then
   ds_current="$(installed_version || true)"
   if [ -n "${ds_current}" ]; then
-    if [ "${ds_current}" = "${RESOLVED_VERSION}" ] && layout_ok; then
-      INSTALLED_VERSION="${ds_current}"
-      note "Dart Sass ${ds_current} is already installed in ${INSTALL_DIR}; nothing to do."
-      finish
+    if [ "${ds_current}" = "${RESOLVED_VERSION}" ]; then
+      if layout_ok; then
+        INSTALLED_VERSION="${ds_current}"
+        note "Dart Sass ${ds_current} is already installed in ${INSTALL_DIR}; nothing to do."
+        finish
+      fi
+      note "repairing the Dart Sass ${ds_current} payload in ${INSTALL_DIR}."
+    else
+      if ! confirm_replace "${ds_current}" "${RESOLVED_VERSION}"; then
+        if ! can_prompt_update; then
+          die "Dart Sass ${ds_current} is already installed in ${INSTALL_DIR}; pass --yes to replace it with ${RESOLVED_VERSION} without confirmation."
+        fi
+        note "update cancelled; Dart Sass ${ds_current} remains installed in ${INSTALL_DIR}."
+        exit 0
+      fi
+      note "replacing Dart Sass ${ds_current} in ${INSTALL_DIR} with ${RESOLVED_VERSION}."
     fi
-    note "replacing Dart Sass ${ds_current} in ${INSTALL_DIR} with ${RESOLVED_VERSION}."
   fi
 fi
 

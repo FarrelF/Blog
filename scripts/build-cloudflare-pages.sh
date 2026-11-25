@@ -66,7 +66,7 @@ note "timezone: ${TZ}"
 # back to $HOME/.local/bin without ever trying to prompt for a password. It
 # prints the directory it chose, which is then prepended to PATH.
 note "installing Dart Sass"
-DART_SASS_BIN_DIR="$(sh "${SCRIPT_DIR}/install-dart-sass.sh" --no-escalate --print-path)"
+DART_SASS_BIN_DIR="$(sh "${SCRIPT_DIR}/install-dart-sass.sh" --no-escalate --yes --print-path)"
 [ -n "${DART_SASS_BIN_DIR}" ] || die "install-dart-sass.sh did not print a bin directory"
 
 # Put our directory first so Hugo resolves to the Sass we just installed rather

@@ -30,6 +30,10 @@
 #   --system                Require a system-wide install; fail when the
 #                           directory cannot be written and no escalation
 #                           tool is available.
+#   --user                  Install into the per-user directory
+#                           ($HOME/.local/bin, or %LOCALAPPDATA%\Programs\Hugo
+#                           on Windows) and never escalate. Cannot be combined
+#                           with --system, --install-dir, or --escalate.
 #   --escalate              Use sudo, doas, or pfexec when a system directory
 #                           is not writable, and fail instead of falling back
 #                           to the user directory (HUGO_ESCALATE=always).
@@ -44,6 +48,9 @@
 #   --with-deploy           Request the Deploy build (withdeploy).
 #   --no-verify             Skip checksum/digest verification.
 #   --force                 Reinstall even when the version matches.
+#   --yes, -y               Replace an installed version without asking for
+#                           confirmation. $HUGO_YES is the environment
+#                           equivalent.
 #   --dry-run               Resolve and print what would be installed.
 #   --print-env             Print HUGO_VERSION, HUGO_BIN, and HUGO_DIR.
 #   --print-path            Print only the bin directory (for PATH).
@@ -72,7 +79,7 @@
 # Environment:
 #   HUGO_ESCALATE (auto|never|always), HUGO_VERSION, HUGO_INSTALL_DIR,
 #   HUGO_METHOD, HUGO_VERIFY, HUGO_EXTENDED, HUGO_WITHDEPLOY, HUGO_FORCE,
-#   HUGO_MANPAGES, HUGO_COMPLETIONS, HUGO_SHARE_DIR, GITHUB_TOKEN,
+#   HUGO_YES, HUGO_MANPAGES, HUGO_COMPLETIONS, HUGO_SHARE_DIR, GITHUB_TOKEN,
 #   DOWNLOADER, DOWNLOADER_ARGS.
 #
 # Extras notes:
@@ -142,6 +149,7 @@ HUGO_VERIFY="${HUGO_VERIFY:-1}"
 HUGO_EXTENDED="${HUGO_EXTENDED:-false}"
 HUGO_WITHDEPLOY="${HUGO_WITHDEPLOY:-false}"
 HUGO_FORCE="${HUGO_FORCE:-0}"
+HUGO_YES="${HUGO_YES:-0}"
 DOWNLOADER="${DOWNLOADER:-auto}"
 DOWNLOADER_ARGS="${DOWNLOADER_ARGS:-}"
 HUGO_MANPAGES="${HUGO_MANPAGES:-1}"
@@ -168,6 +176,8 @@ ESCALATE_NAME=''
 ESCALATE_CMD=''
 ESCALATE_NONINTERACTIVE=0
 SYSTEM_ONLY=0
+USER_ONLY=0
+ASSUME_YES=0
 [ -n "${HUGO_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
@@ -740,6 +750,8 @@ while [ $# -gt 0 ]; do
     --no-escalate)    ESCALATE_MODE='never'; shift ;;
     --escalate)       ESCALATE_MODE='always'; shift ;;
     --system)         SYSTEM_ONLY=1; shift ;;
+    --user)           USER_ONLY=1; shift ;;
+    -y | --yes)       ASSUME_YES=1; shift ;;
     --method)
       [ $# -ge 2 ] || die '--method requires an argument'
       HUGO_METHOD="$2"
@@ -854,6 +866,14 @@ if [ "${SYSTEM_ONLY}" -eq 1 ]; then
     && die 'cannot combine --system with --no-escalate (or HUGO_ESCALATE=never).'
   ESCALATE_MODE='always'
 fi
+if [ "${USER_ONLY}" -eq 1 ]; then
+  [ "${SYSTEM_ONLY}" -eq 1 ] && die 'cannot combine --user with --system.'
+  [ "${INSTALL_DIR_EXPLICIT}" -eq 1 ] \
+    && die 'cannot combine --user with --install-dir (or HUGO_INSTALL_DIR).'
+  [ "${ESCALATE_MODE}" = 'always' ] \
+    && die 'cannot combine --user with --escalate (or HUGO_ESCALATE=always).'
+  ESCALATE_MODE='never'
+fi
 
 if [ "${MANPAGES_SET}" -eq 0 ]; then
   if is_true "${HUGO_MANPAGES}" \
@@ -903,6 +923,9 @@ WITHDEPLOY='false'
 is_true "${HUGO_WITHDEPLOY}" && WITHDEPLOY='true'
 FORCE=0
 is_true "${HUGO_FORCE}" && FORCE=1
+if [ "${ASSUME_YES}" -ne 1 ]; then
+  is_true "${HUGO_YES}" && ASSUME_YES=1
+fi
 
 case "${HUGO_METHOD}" in
   dpkg) HUGO_METHOD='deb' ;;
@@ -1414,6 +1437,18 @@ default_install_dir() {
   ESCALATE_NAME=''
   ESCALATE_CMD=''
   ESCALATE_NONINTERACTIVE=0
+
+  if [ "${USER_ONLY}" -eq 1 ]; then
+    if [ "${GO_OS}" = 'windows' ]; then
+      hugo_local="$(win_folder 28 'LOCALAPPDATA')"
+      [ -n "${hugo_local}" ] || hugo_local="${HOME}/AppData/Local"
+      INSTALL_DIR="${hugo_local}/Programs/Hugo"
+    else
+      [ -n "${HOME:-}" ] || die '--user requires HOME; use --install-dir.'
+      INSTALL_DIR="${HOME}/.local/bin"
+    fi
+    return 0
+  fi
 
   if [ -n "${HUGO_INSTALL_DIR}" ]; then
     # shellcheck disable=SC2088 # '~/.local/bin' is literal user input
@@ -2009,6 +2044,36 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# can_prompt_update -- true when the update confirmation can be shown.
+# CI runs and non-terminal stdin are excluded so a piped script never waits
+# for an answer that cannot arrive.
+can_prompt_update() {
+  [ "${ASSUME_YES}" -eq 1 ] && return 1
+  [ "${FORCE}" -eq 1 ] && return 1
+  is_ci_env && return 1
+  [ -t 0 ]
+}
+
+# confirm_replace CURRENT REQUESTED -- ask before replacing a different
+# installed version. --yes and --force skip the question. Without a terminal
+# the caller must pass --yes, so automated runs never replace an installation
+# silently.
+confirm_replace() {
+  cr_current="$1"
+  cr_requested="$2"
+  [ "${ASSUME_YES}" -eq 1 ] && return 0
+  [ "${FORCE}" -eq 1 ] && return 0
+  can_prompt_update || return 1
+  printf 'Hugo v%s is installed in %s. Replace it with v%s? [y/N] ' \
+    "${cr_current}" "${INSTALL_DIR}" "${cr_requested}" >&2
+  cr_answer=''
+  IFS= read -r cr_answer || cr_answer=''
+  case "${cr_answer}" in
+    y | Y | yes | YES | Yes) return 0 ;;
+  esac
+  return 1
+}
+
 # ---------------------------------------------------------------------------
 # Resolve the method
 # ---------------------------------------------------------------------------
@@ -2395,11 +2460,20 @@ fi
 if [ "${FORCE}" -ne 1 ] && [ -x "${HUGO_BIN_PATH}" ]; then
   hugo_current="$("${HUGO_BIN_PATH}" version 2>/dev/null \
     | sed -n 's/.*v\([0-9][0-9.]*\).*/\1/p' | head -n 1 || true)"
-  if [ -n "${hugo_current}" ] && [ "${hugo_current}" = "${RESOLVED_VERSION}" ]; then
-    note "Hugo v${hugo_current} is already installed in ${INSTALL_DIR}; nothing to do."
-    finish
+  if [ -n "${hugo_current}" ]; then
+    if [ "${hugo_current}" = "${RESOLVED_VERSION}" ]; then
+      note "Hugo v${hugo_current} is already installed in ${INSTALL_DIR}; nothing to do."
+      finish
+    fi
+    if ! confirm_replace "${hugo_current}" "${RESOLVED_VERSION}"; then
+      if ! can_prompt_update; then
+        die "Hugo v${hugo_current} is already installed in ${INSTALL_DIR}; pass --yes to replace it with v${RESOLVED_VERSION} without confirmation."
+      fi
+      note "update cancelled; Hugo v${hugo_current} remains installed in ${INSTALL_DIR}."
+      exit 0
+    fi
+    note "replacing Hugo v${hugo_current} in ${INSTALL_DIR} with v${RESOLVED_VERSION}."
   fi
-  [ -n "${hugo_current}" ] && note "replacing Hugo v${hugo_current} in ${INSTALL_DIR} with v${RESOLVED_VERSION}."
 fi
 
 # ---------------------------------------------------------------------------
