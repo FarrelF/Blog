@@ -556,7 +556,14 @@ jobs:
           # a private directory inside the install dir.
           test "${sass_path}" = '/usr/local/bin/sass'
           test -L "${sass_path}"
-          payload_dir="$(dirname "$(readlink "${sass_path}")")"
+          # The installer uses a relative link so the payload can move with the
+          # install directory; resolve it against the link's own directory.
+          link_target="$(readlink "${sass_path}")"
+          case "${link_target}" in
+            /*) payload_dir="$(dirname "${link_target}")" ;;
+            *) payload_dir="$(dirname "${sass_path}")/$(dirname "${link_target}")" ;;
+          esac
+          payload_dir="$(cd "${payload_dir}" && pwd)"
           test "${payload_dir}" = '/usr/local/bin/.dart-sass'
           test -f "${payload_dir}/sass"
           test -f "${payload_dir}/src/sass.snapshot"
@@ -638,7 +645,14 @@ jobs:
             test "${sass_path}" = "${HOME}/.local/bin/sass"
           fi
           test -L "${sass_path}"
-          payload_dir="$(dirname "$(readlink "${sass_path}")")"
+          # The installer uses a relative link so the payload can move with the
+          # install directory; resolve it against the link's own directory.
+          link_target="$(readlink "${sass_path}")"
+          case "${link_target}" in
+            /*) payload_dir="$(dirname "${link_target}")" ;;
+            *) payload_dir="$(dirname "${sass_path}")/$(dirname "${link_target}")" ;;
+          esac
+          payload_dir="$(cd "${payload_dir}" && pwd)"
           case "${payload_dir}" in
             /usr/local/bin/.dart-sass|"${HOME}/.local/bin/.dart-sass")
               ;;
@@ -945,7 +959,7 @@ jobs:
           chmod +x "${stub}/bun"
 
           BUN_GLOBAL="${global}" TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
-            GITHUB_OUTPUT= GITHUB_PATH= \
+            GITHUB_OUTPUT='' GITHUB_PATH='' \
             sh scripts/install-dart-sass.sh --version 1.69.0 --install-dir "${target}"
 
           test -x "${target}/sass"
@@ -954,11 +968,23 @@ jobs:
           grep -qx 'version=1.69.0' "${target}/.dart-sass-package-manager"
           test "$("${target}/sass" --version)" = '1.69.0'
 
-          # A second run is idempotent.
-          BUN_GLOBAL="${global}" TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
-            GITHUB_OUTPUT= GITHUB_PATH= \
-            sh scripts/install-dart-sass.sh --version 1.69.0 --install-dir "${target}" \
-            2>&1 | grep -q 'already installed'
+          # Capture the output instead of piping it to "grep -q": grep exits on
+          # the first match, and pipefail would then turn the installer's
+          # SIGPIPE on its remaining notes into a test failure.
+          second_run="$(BUN_GLOBAL="${global}" TERMUX_VERSION=1 PATH="${stub}:/usr/bin:/bin" \
+            GITHUB_OUTPUT='' GITHUB_PATH='' \
+            sh scripts/install-dart-sass.sh --version 1.69.0 --install-dir "${target}" 2>&1)" || {
+            printf '%s\n' "${second_run}" >&2
+            echo "::error::the second install run failed"
+            exit 1
+          }
+          case "${second_run}" in
+            *'already installed'*) ;;
+            *)
+              printf '%s\n' "${second_run}" >&2
+              echo "::error::the second install run was not idempotent"
+              exit 1 ;;
+          esac
 
   installer-integration:
     name: Installer scripts / integration suites
