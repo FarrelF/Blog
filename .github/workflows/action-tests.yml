@@ -9,6 +9,8 @@ on:
       - '.github/workflows/action-tests.yml'
       - 'scripts/install-hugo.sh'
       - 'scripts/install-dart-sass.sh'
+      - 'scripts/install-hugo.ps1'
+      - 'scripts/install-dart-sass.ps1'
       - 'scripts/tests/**'
 
 permissions:
@@ -975,6 +977,23 @@ jobs:
       - name: Run the Hugo and Dart Sass integration suites
         shell: bash
         run: sh scripts/tests/run-installer-tests.sh
+
+  installer-powershell:
+    name: Installer scripts / PowerShell ${{ matrix.powershell }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { powershell: '5.1', shell: 'powershell' }
+          - { powershell: '7', shell: 'pwsh' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run the Hugo and Dart Sass PowerShell suites
+        shell: ${{ matrix.shell }}
+        run: ./scripts/tests/run-installer-tests.ps1
 
   hugo-no-gzip:
     name: Hugo installer / no gzip

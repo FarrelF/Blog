@@ -15,7 +15,7 @@ The minimum supported Hugo version is `0.167.0`. Newer versions are supported. T
 
 ## Installer Platform Support and Elevation
 
-Both installers are POSIX `sh`. The Hugo installer runs on Linux, macOS, Windows Git Bash/MSYS/Cygwin, Termux/Android, FreeBSD, OpenBSD, NetBSD, DragonFly BSD, and Solaris/illumos. The Dart Sass installer runs on Linux, macOS, Windows Git Bash/MSYS/Cygwin, and Termux/Android, and refuses BSD and Solaris/illumos.
+The primary installers are POSIX `sh`. The Hugo installer runs on Linux, macOS, Windows Git Bash/MSYS/Cygwin, Termux/Android, FreeBSD, OpenBSD, NetBSD, DragonFly BSD, and Solaris/illumos. The Dart Sass installer runs on Linux, macOS, Windows Git Bash/MSYS/Cygwin, and Termux/Android, and refuses BSD and Solaris/illumos. Native Windows PowerShell variants are described in **PowerShell Installers (Windows)** below.
 
 - **Hugo** publishes FreeBSD, OpenBSD, NetBSD, and DragonFly BSD assets from v0.103.0, and Solaris assets from v0.120.0. All of them are amd64-only, and there is no Extended or Deploy build on those platforms; `--extended`/`--with-deploy` fall back to the standard build with a warning. Older releases are refused with an explanatory error. Solaris reports `uname -m` as `i86pc`, which the installer maps to amd64; SPARC is refused.
 - **Dart Sass** publishes no native binary for BSD or Solaris/illumos. `scripts/install-dart-sass.sh` exits with instructions to run `npm install -g sass` (or `bun`/`pnpm`), or to use the OS package manager. It does not install Node.js automatically.
@@ -25,6 +25,26 @@ Both installers are POSIX `sh`. The Hugo installer runs on Linux, macOS, Windows
 - **Uninstalling.** Both installers accept `--uninstall`, which removes only the files they write. Hugo removes the binary plus `hugo*.1.gz` manpages and the selected completions under the share directory; Dart Sass removes the `sass`/`dart-sass` entry points, the `.dart-sass` payload (or Windows `sass.bat` and `src/`), and the package-manager marker. `--install-dir`, `--user`, `--system`, and `--share-dir` select the location, `--dry-run` lists the files without removing them, and a non-interactive run requires `--yes`. With `--method pkg` on Termux, Hugo runs `pkg uninstall -y hugo`. A `sass` package installed globally by bun, pnpm, or npm is left in place with a removal hint.
 - **CI safety.** `CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, `NETLIFY`, `CF_PAGES`, and similar markers, a non-TTY stdin/stderr, `--dry-run`, `--print-env`, and `--print-path` all disable interactive prompts. The Netlify and Cloudflare Pages build commands pass `--no-escalate --yes` explicitly, and the composite actions pass `--yes`, so they can update a preinstalled version without a terminal.
 - **Controls.** `HUGO_ESCALATE` and `DART_SASS_ESCALATE` accept `auto` (default), `never`, or `always`. `--no-escalate` selects `never`; `--escalate` selects `always`, which fails instead of falling back to `~/.local/bin` when the system directory cannot be written. `--system` requires a system-wide install and fails when one cannot be performed; `--user` requires a per-user install and cannot be combined with `--system`, `--install-dir`, or `--escalate`. Never automate `su`: on BSD, `su -c` means a login class, not a command.
+
+## PowerShell Installers (Windows)
+
+`scripts/install-hugo.ps1` and `scripts/install-dart-sass.ps1` are standalone Windows counterparts of the POSIX scripts. They need no Git Bash, MSYS, Cygwin, 7-Zip, or repository checkout, and target Windows PowerShell 5.1 (the baseline) plus PowerShell 7.2, 7.6, and 7.7. Windows 7 is best effort: Windows PowerShell 5.1 runs, but Hugo releases after v0.118.2 and current Dart Sass builds generally require Windows 10 or newer, so the scripts warn instead of refusing an otherwise usable older release.
+
+```powershell
+.\scripts\install-hugo.ps1                        # latest, one UAC prompt if needed
+.\scripts\install-hugo.ps1 -Version 0.167.0 -User
+.\scripts\install-hugo.ps1 -Uninstall -DryRun -User
+.\scripts\install-dart-sass.ps1 -Version 1.108.2
+```
+
+- **Default directories.** `%ProgramW6432%\Hugo` and `%ProgramW6432%\Dart Sass` (the `%ProgramFiles(x86)%` variant for 32-bit builds), falling back to `%LOCALAPPDATA%\Programs\<name>`. `-User` skips the system attempt; an explicit `-InstallDir` (or `HUGO_INSTALL_DIR`/`DART_SASS_INSTALL_DIR`) never falls back silently.
+- **Elevation.** Native UAC instead of `sudo`/`doas`/`pfexec`. The parent process resolves the release, downloads it, verifies it, and stages the payload, then starts one elevated child that applies a JSON write manifest. `-User`/`-NoEscalate` opt out; `-System`/`-Escalate` require a system-wide install and fail instead of falling back. The GitHub token is never passed to the elevated child.
+- **Verification.** Hugo prefers the release checksum file and falls back to the SHA-256 digest published for the GitHub release asset (v0.147.7+). Dart Sass uses the GitHub asset digest (1.89.1+; older releases skip the lookup). Both smoke test the installed binary. `-NoVerify` skips the download check but keeps the smoke test.
+- **Hugo extras.** Manpages and completions are generated from the staged, verified binary and installed under `<InstallDir>\share` in the same write manifest as `hugo.exe`, so one UAC prompt covers both. `-NoMan`, `-NoCompletions`, and `-Completions` control them. PowerShell completions go to `<share>\powershell\completions\hugo.ps1`; dot-source that file from `$PROFILE`.
+- **PATH and CI outputs.** A successful install appends the install directory to the persistent machine `PATH` for a system-wide install and to the persistent user `PATH` otherwise; the update is idempotent, and `-Uninstall` removes the entry it added. Machine `PATH` is read and written through the native registry view, so a 32-bit PowerShell on 64-bit Windows still updates the 64-bit `PATH`. `-NoPath` (or `HUGO_NO_PATH`/`DART_SASS_NO_PATH`) skips every automatic `PATH` edit and prints a manual snippet instead; `-PrintEnv`/`-PrintPath` never edit the persistent `PATH` either. CI runs never change the persistent `PATH`: when `$env:GITHUB_PATH` exists the directory is appended there, otherwise a per-job snippet is printed. `hugo-version`/`hugo-path` or `dart-sass-version`/`dart-sass-path` are written to `$env:GITHUB_OUTPUT` when it exists.
+- **Uninstalling.** `-Uninstall` mirrors the POSIX behaviour and accepts `-DryRun`, `-InstallDir`, `-User`, `-ShareDir` (Hugo), and `-Yes`. It removes only the files the script writes.
+
+The PowerShell suites run in `.github/workflows/action-tests.yml` (`installer-powershell`) on Windows PowerShell 5.1 and PowerShell 7, using a loopback fixture server instead of GitHub. See [`scripts/tests/README.md`](../scripts/tests/README.md).
 
 ## Provider Summary
 

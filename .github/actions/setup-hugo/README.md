@@ -53,6 +53,15 @@ sh scripts/install-hugo.sh --uninstall --yes
 
 The environment equivalents are `HUGO_VERSION`, `HUGO_INSTALL_DIR`, `HUGO_METHOD`, `HUGO_VERIFY`, `HUGO_EXTENDED`, `HUGO_WITHDEPLOY`, `HUGO_FORCE`, `HUGO_MANPAGES`, `HUGO_COMPLETIONS`, `HUGO_SHARE_DIR`, `GITHUB_TOKEN`, `DOWNLOADER`, and `DOWNLOADER_ARGS`. Run `sh scripts/install-hugo.sh --help` for the full list of options.
 
+For native Windows PowerShell (no Git Bash, MSYS, or Cygwin), use [`scripts/install-hugo.ps1`](../../../scripts/install-hugo.ps1) instead:
+
+```powershell
+.\scripts\install-hugo.ps1 -Version 0.170.1
+.\scripts\install-hugo.ps1 -Uninstall -DryRun -User
+```
+
+It mirrors the POSIX options (`-Extended`, `-WithDeploy`, `-NoMan`, `-Completions`, `-Uninstall`, `-DryRun`, `-PrintEnv`, `-PrintPath`), uses one UAC prompt for the binary and extras, and adds the install directory to the persistent user or machine `PATH` automatically (`-NoPath` prints a snippet instead). The composite action itself continues to use the POSIX script, including on Windows runners.
+
 On Termux/Android, `--method auto` selects `pkg install hugo` for `latest` because Termux ships a native `android/arm64` build that reads Android's timezone data. Pinned versions still use the official Linux ARM64 binary, with a warning: that binary is static but cannot resolve named timezones such as `Asia/Jakarta` because Android has no `/usr/share/zoneinfo`.
 
 ## Inputs

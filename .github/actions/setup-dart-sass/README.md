@@ -40,6 +40,15 @@ sh scripts/install-dart-sass.sh --uninstall --yes
 
 The environment equivalents are `DART_SASS_VERSION`, `DART_SASS_INSTALL_DIR`, `DART_SASS_LIBC`, `DART_SASS_VERIFY`, `DART_SASS_FORCE`, `GITHUB_TOKEN`, `DOWNLOADER`, and `DOWNLOADER_ARGS`. Run `sh scripts/install-dart-sass.sh --help` for the full list of options.
 
+For native Windows PowerShell (no Git Bash, MSYS, or Cygwin), use [`scripts/install-dart-sass.ps1`](../../../scripts/install-dart-sass.ps1) instead:
+
+```powershell
+.\scripts\install-dart-sass.ps1 -Version 1.108.2
+.\scripts\install-dart-sass.ps1 -Uninstall -DryRun -User
+```
+
+It mirrors the POSIX options (`-Libc`, `-Uninstall`, `-DryRun`, `-PrintEnv`, `-PrintPath`), uses one UAC prompt for the payload, and adds the install directory to the persistent user or machine `PATH` automatically (`-NoPath` prints a snippet instead). The composite action itself continues to use the POSIX script, including on Windows runners.
+
 On Termux/Android, the installer selects the native `android-*` build automatically for Dart Sass 1.70.0 and newer. For older versions, or when a release has no Android build, it installs the JavaScript package with `bun`, `pnpm`, or `npm` (in that order) and links `sass` and `dart-sass` into the install directory; it only fails when none of the three is available.
 
 Hugo 0.153.0+ uses Dart Sass through this `sass` executable (the embedded LibSass transpiler was removed), and Hugo requires Dart Sass 1.63.0 or later.
