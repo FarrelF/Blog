@@ -48,9 +48,17 @@
 #   --with-deploy           Request the Deploy build (withdeploy).
 #   --no-verify             Skip checksum/digest verification.
 #   --force                 Reinstall even when the version matches.
-#   --yes, -y               Replace an installed version without asking for
-#                           confirmation. $HUGO_YES is the environment
-#                           equivalent.
+#   --yes, -y               Replace an installed version or remove it without
+#                           asking for confirmation. $HUGO_YES is the
+#                           environment equivalent.
+#   --uninstall             Remove the Hugo binary and the manpages and shell
+#                           completions installed by this script, then exit.
+#                           Use --install-dir, --user, --system, or --share-dir
+#                           to select the location; --no-man, --completions,
+#                           and --no-completions narrow what is removed, and
+#                           --dry-run lists the files without removing them.
+#                           With --method pkg on Termux the package is removed
+#                           instead.
 #   --dry-run               Resolve and print what would be installed.
 #   --print-env             Print HUGO_VERSION, HUGO_BIN, and HUGO_DIR.
 #   --print-path            Print only the bin directory (for PATH).
@@ -178,6 +186,7 @@ ESCALATE_NONINTERACTIVE=0
 SYSTEM_ONLY=0
 USER_ONLY=0
 ASSUME_YES=0
+UNINSTALL=0
 [ -n "${HUGO_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
@@ -752,6 +761,7 @@ while [ $# -gt 0 ]; do
     --system)         SYSTEM_ONLY=1; shift ;;
     --user)           USER_ONLY=1; shift ;;
     -y | --yes)       ASSUME_YES=1; shift ;;
+    --uninstall)      UNINSTALL=1; shift ;;
     --method)
       [ $# -ge 2 ] || die '--method requires an argument'
       HUGO_METHOD="$2"
@@ -875,6 +885,13 @@ if [ "${USER_ONLY}" -eq 1 ]; then
   ESCALATE_MODE='never'
 fi
 
+if [ "${UNINSTALL}" -eq 1 ]; then
+  [ "${PRINT_ENV}" -eq 1 ] && die 'cannot combine --uninstall with --print-env.'
+  [ "${PRINT_PATH}" -eq 1 ] && die 'cannot combine --uninstall with --print-path.'
+  [ "${POSITIONAL_SET}" -eq 1 ] \
+    && die 'version arguments are not valid with --uninstall.'
+fi
+
 if [ "${MANPAGES_SET}" -eq 0 ]; then
   if is_true "${HUGO_MANPAGES}" \
     || [ "$(printf '%s' "${HUGO_MANPAGES}" | tr '[:upper:]' '[:lower:]')" = 'auto' ]; then
@@ -885,6 +902,14 @@ if [ "${MANPAGES_SET}" -eq 0 ]; then
 fi
 if [ "${COMPLETIONS_SET}" -eq 0 ]; then
   COMPLETIONS="${HUGO_COMPLETIONS}"
+fi
+if [ "${UNINSTALL}" -eq 1 ]; then
+  # An uninstall has to find completions for shells that may no longer be
+  # installed, so "auto" removes every supported shell instead of the ones
+  # detected right now.
+  case "$(printf '%s' "${COMPLETIONS}" | tr '[:upper:]' '[:lower:]')" in
+    '' | auto) COMPLETIONS='all' ;;
+  esac
 fi
 if [ "${COMPLETIONS_OFF}" -eq 0 ]; then
   case "$(printf '%s' "${COMPLETIONS}" | tr '[:upper:]' '[:lower:]')" in
@@ -1291,6 +1316,7 @@ deb_names() {
 # ---------------------------------------------------------------------------
 
 DOWNLOADER_CMD="${DOWNLOADER:-auto}"
+if [ "${UNINSTALL}" -ne 1 ]; then
 case "${DOWNLOADER_CMD}" in
   aria2 | 2c) DOWNLOADER_CMD='aria2c' ;;
   auto)
@@ -1329,6 +1355,7 @@ if [ -z "${DOWNLOADER_ARGS}" ]; then
     axel)   DOWNLOADER_ARGS='-a -n 16 -U Mozilla/5.0' ;;
     mwget)  DOWNLOADER_ARGS='-n 16 -c -U Mozilla/5.0' ;;
   esac
+fi
 fi
 
 # download URL NAME -- no-op when the file already exists and is non-empty
@@ -2103,6 +2130,162 @@ fi
 
 if [ "${MUSL}" -eq 1 ] && [ "${EXTENDED}" = 'true' ]; then
   warn "Hugo Extended is linked against glibc and may not run on musl systems; the standard build is static. Consider --no-extended."
+fi
+
+# ---------------------------------------------------------------------------
+# Uninstall
+#
+# Only the binary and the extras written by install_extras are removed. With
+# the default "auto" completion selection every supported shell is checked,
+# so a completion stays removable after its shell was uninstalled. An explicit
+# --share-dir is required when the extras do not live in the default location.
+# ---------------------------------------------------------------------------
+
+if [ "${UNINSTALL}" -eq 1 ]; then
+  UNINSTALL_SKIP_BIN=0
+  BIN_NAME='hugo'
+  if [ "${GO_OS}" = 'windows' ]; then
+    BIN_NAME='hugo.exe'
+  fi
+
+  if [ "${HUGO_METHOD}" = 'pkg' ]; then
+    require_cmd pkg
+    INSTALL_DIR="${PREFIX}/bin"
+    UNINSTALL_SKIP_BIN=1
+  else
+    if [ "${GO_OS}" = 'windows' ]; then
+      default_install_dir 'zip'
+    else
+      default_install_dir 'pkg'
+    fi
+    if [ "${GO_OS}" = 'windows' ]; then
+      INSTALL_DIR="$(cygpath -u "${INSTALL_DIR}")"
+    fi
+    # A default install falls back to $HOME/.local/bin when escalation is not
+    # available, so follow the copy that actually exists.
+    if [ -z "${HUGO_INSTALL_DIR}" ] && [ "${USER_ONLY}" -ne 1 ] \
+      && [ "${SYSTEM_ONLY}" -ne 1 ] && [ "${GO_OS}" != 'windows' ] \
+      && [ -n "${HOME:-}" ] && [ "${INSTALL_DIR}" != "${HOME}/.local/bin" ] \
+      && [ ! -e "${INSTALL_DIR}/${BIN_NAME}" ] \
+      && { [ -e "${HOME}/.local/bin/${BIN_NAME}" ] \
+        || [ -L "${HOME}/.local/bin/${BIN_NAME}" ]; }; then
+      INSTALL_DIR="${HOME}/.local/bin"
+      ESCALATE_NAME=''
+      ESCALATE_CMD=''
+      ESCALATE_NONINTERACTIVE=0
+    fi
+  fi
+
+  SHARE_DIR="$(resolve_share_dir || true)"
+  if [ -n "${SHARE_DIR}" ] && [ "${GO_OS}" = 'windows' ]; then
+    SHARE_DIR="$(cygpath -u "${SHARE_DIR}" 2>/dev/null || printf '%s' "${SHARE_DIR}")"
+  fi
+
+  set --
+  if [ "${UNINSTALL_SKIP_BIN}" -ne 1 ]; then
+    if [ -e "${INSTALL_DIR}/${BIN_NAME}" ] \
+      || [ -L "${INSTALL_DIR}/${BIN_NAME}" ]; then
+      set -- "$@" "${INSTALL_DIR}/${BIN_NAME}"
+    fi
+  fi
+  if [ -n "${SHARE_DIR}" ] && [ "${MANPAGES}" -eq 1 ] \
+    && [ -d "${SHARE_DIR}/man/man1" ]; then
+    for hugo_uninstall_man in "${SHARE_DIR}/man/man1"/hugo*.1.gz; do
+      if [ -f "${hugo_uninstall_man}" ]; then
+        set -- "$@" "${hugo_uninstall_man}"
+      fi
+    done
+  fi
+  if [ -n "${SHARE_DIR}" ]; then
+    for hugo_uninstall_shell in ${COMPLETIONS}; do
+      hugo_uninstall_target="$(completion_target "${hugo_uninstall_shell}")"
+      if [ -f "${hugo_uninstall_target}" ] \
+        || [ -L "${hugo_uninstall_target}" ]; then
+        set -- "$@" "${hugo_uninstall_target}"
+      fi
+    done
+  fi
+
+  if [ "${DRY_RUN}" -eq 1 ]; then
+    printf 'uninstall=1\n'
+    printf 'method=%s\n' "${HUGO_METHOD}"
+    if [ "${HUGO_METHOD}" = 'pkg' ]; then
+      printf 'command=pkg uninstall -y hugo\n'
+    fi
+    printf 'install_dir=%s\n' "${INSTALL_DIR}"
+    if [ -n "${SHARE_DIR}" ]; then
+      printf 'share_dir=%s\n' "${SHARE_DIR}"
+    fi
+    printf 'escalation=%s\n' "$(escalation_label)"
+    for hugo_uninstall_path do
+      printf 'remove=%s\n' "${hugo_uninstall_path}"
+    done
+    exit 0
+  fi
+
+  if [ "$#" -eq 0 ] && [ "${HUGO_METHOD}" != 'pkg' ]; then
+    note "Hugo is not installed by this script in ${INSTALL_DIR}; nothing to remove."
+    exit 0
+  fi
+
+  if [ "${ASSUME_YES}" -ne 1 ]; then
+    if is_ci_env || ! [ -t 0 ]; then
+      die "Hugo is installed in ${INSTALL_DIR}; pass --yes to remove it without confirmation."
+    fi
+    printf 'Remove Hugo from %s? [y/N] ' "${INSTALL_DIR}" >&2
+    hugo_uninstall_answer=''
+    IFS= read -r hugo_uninstall_answer || hugo_uninstall_answer=''
+    case "${hugo_uninstall_answer}" in
+      y | Y | yes | YES | Yes) ;;
+      *)
+        note "uninstall cancelled; Hugo remains installed in ${INSTALL_DIR}."
+        exit 0
+        ;;
+    esac
+  fi
+
+  if [ "${HUGO_METHOD}" = 'pkg' ]; then
+    note "uninstalling the Termux hugo package"
+    pkg uninstall -y hugo 1>&2 \
+      || die "pkg could not uninstall hugo."
+  fi
+
+  if [ "$#" -gt 0 ]; then
+    note "removing Hugo from ${INSTALL_DIR}."
+    for hugo_uninstall_path do
+      note "  ${hugo_uninstall_path}"
+    done
+    hugo_uninstall_script='
+      set -e
+      for path do
+        rm -f "$path"
+      done
+    '
+    if ! run_privileged "${hugo_uninstall_script}" "$@"; then
+      if [ -z "${ESCALATE_CMD}" ] && plan_escalation; then
+        note "${INSTALL_DIR} is not writable; removing with ${ESCALATE_NAME} (you may be asked for a password once)."
+        run_privileged "${hugo_uninstall_script}" "$@" \
+          || die "cannot remove Hugo from ${INSTALL_DIR}."
+      else
+        die "cannot remove Hugo from ${INSTALL_DIR}; choose a writable directory or allow sudo/doas/pfexec."
+      fi
+    fi
+  fi
+
+  hugo_uninstall_left=''
+  for hugo_uninstall_path do
+    if [ -e "${hugo_uninstall_path}" ] || [ -L "${hugo_uninstall_path}" ]; then
+      hugo_uninstall_left="${hugo_uninstall_left} ${hugo_uninstall_path}"
+    fi
+  done
+  [ -z "${hugo_uninstall_left}" ] \
+    || die "some Hugo files remain:${hugo_uninstall_left}"
+
+  note "Hugo removed from ${INSTALL_DIR}."
+  if [ -n "${SHARE_DIR}" ]; then
+    note "the manpages and completions under ${SHARE_DIR} were removed when present."
+  fi
+  exit 0
 fi
 
 # ---------------------------------------------------------------------------

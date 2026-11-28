@@ -42,9 +42,16 @@
 #                           $DART_SASS_LIBC is the environment equivalent.
 #   --no-verify             Skip SHA-256 digest verification.
 #   --force                 Reinstall even when the version matches.
-#   --yes, -y               Replace an installed version without asking for
-#                           confirmation. $DART_SASS_YES is the environment
-#                           equivalent.
+#   --yes, -y               Replace an installed version or remove it without
+#                           asking for confirmation. $DART_SASS_YES is the
+#                           environment equivalent.
+#   --uninstall             Remove the Dart Sass files installed by this
+#                           script (the entry-point links, the .dart-sass
+#                           payload, and the package-manager marker) and exit.
+#                           Use --install-dir or --user to select the location;
+#                           --dry-run lists the files without removing them.
+#                           The JavaScript package installed by bun, pnpm, or
+#                           npm on Termux is left in place.
 #   --dry-run               Resolve and print what would be installed.
 #   --print-env             Print DART_SASS_VERSION, DART_SASS_BIN, and
 #                           DART_SASS_DIR.
@@ -130,6 +137,7 @@ ESCALATE_NONINTERACTIVE=0
 SYSTEM_ONLY=0
 USER_ONLY=0
 ASSUME_YES=0
+UNINSTALL=0
 [ -n "${DART_SASS_INSTALL_DIR}" ] && INSTALL_DIR_EXPLICIT=1
 
 # ---------------------------------------------------------------------------
@@ -625,6 +633,7 @@ while [ $# -gt 0 ]; do
     --system)      SYSTEM_ONLY=1; shift ;;
     --user)        USER_ONLY=1; shift ;;
     -y | --yes)    ASSUME_YES=1; shift ;;
+    --uninstall)   UNINSTALL=1; shift ;;
     --libc)
       [ $# -ge 2 ] || die '--libc requires an argument'
       DART_SASS_LIBC="$2"
@@ -694,7 +703,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-if [ "${OS_NAME}" = 'unsupported' ]; then
+if [ "${OS_NAME}" = 'unsupported' ] && [ "${UNINSTALL}" -ne 1 ]; then
   die "Dart Sass publishes no official binary for ${UNSUPPORTED_OS_NAME}. Install Node.js and run 'npm install -g sass' (or 'bun add -g sass' / 'pnpm add -g sass'), or use the OS package manager when it packages Dart Sass."
 fi
 
@@ -724,6 +733,12 @@ FORCE=0
 is_true "${DART_SASS_FORCE}" && FORCE=1
 if [ "${ASSUME_YES}" -ne 1 ]; then
   is_true "${DART_SASS_YES}" && ASSUME_YES=1
+fi
+if [ "${UNINSTALL}" -eq 1 ]; then
+  [ "${PRINT_ENV}" -eq 1 ] && die 'cannot combine --uninstall with --print-env.'
+  [ "${PRINT_PATH}" -eq 1 ] && die 'cannot combine --uninstall with --print-path.'
+  [ "${POSITIONAL_SET}" -eq 1 ] \
+    && die 'version arguments are not valid with --uninstall.'
 fi
 
 case "${DART_SASS_LIBC}" in
@@ -795,6 +810,7 @@ fi
 # ---------------------------------------------------------------------------
 
 DOWNLOADER_CMD="${DOWNLOADER:-auto}"
+if [ "${UNINSTALL}" -ne 1 ]; then
 case "${DOWNLOADER_CMD}" in
   aria2 | 2c) DOWNLOADER_CMD='aria2c' ;;
   auto)
@@ -838,6 +854,7 @@ if [ -z "${DOWNLOADER_ARGS}" ]; then
     mwget)  DOWNLOADER_ARGS='-n 16 -c -U Mozilla/5.0' ;;
   esac
 fi
+fi
 
 # download URL NAME -- no-op when the file already exists and is non-empty
 download() {
@@ -864,6 +881,8 @@ download() {
 # Resolve the requested version
 # ---------------------------------------------------------------------------
 
+RESOLVED_VERSION=''
+if [ "${UNINSTALL}" -ne 1 ]; then
 if [ -z "${DART_SASS_VERSION}" ] || [ "${DART_SASS_VERSION}" = 'latest' ]; then
   note "resolving the latest Dart Sass release"
   DART_SASS_VERSION="$(resolve_latest)" \
@@ -879,6 +898,7 @@ esac
 
 if [ "${TERMUX}" -eq 1 ] && ! version_ge "${RESOLVED_VERSION}" '1.70.0'; then
   TERMUX_FALLBACK=1
+fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -1042,6 +1062,169 @@ fi
 
 if [ "${DRY_RUN}" -ne 1 ] && [ -d "${INSTALL_DIR}" ]; then
   INSTALL_DIR="$(CDPATH='' cd -- "${INSTALL_DIR}" && pwd -P)"
+fi
+
+# ---------------------------------------------------------------------------
+# Uninstall
+#
+# Only files this script writes are removed: the "sass" and "dart-sass"
+# entry points, the ".dart-sass" payload, the Windows "sass.bat" launcher plus
+# "src/", and the package-manager marker. A "sass" package installed globally
+# by bun, pnpm, or npm belongs to that package manager and stays in place.
+# ---------------------------------------------------------------------------
+
+# uninstall_layout -- detect an installation created by this script. A "sass"
+# entry point alone is not enough: it may come from a package manager or a
+# manual copy, and removing it would break that installation.
+uninstall_layout() {
+  if [ -f "${INSTALL_DIR}/.dart-sass-package-manager" ]; then
+    printf '%s' 'package-manager'
+    return 0
+  fi
+  if [ "${OS_NAME}" = 'windows' ] \
+    && [ -f "${INSTALL_DIR}/sass.bat" ] \
+    && [ -f "${INSTALL_DIR}/src/sass.snapshot" ]; then
+    printf '%s' 'windows'
+    return 0
+  fi
+  if [ -f "${INSTALL_DIR}/.dart-sass/sass" ] \
+    || { [ -f "${INSTALL_DIR}/src/sass.snapshot" ] \
+      && [ -f "${INSTALL_DIR}/src/dart" ]; }; then
+    printf '%s' 'binary'
+  fi
+}
+
+# uninstall_targets LAYOUT -- the paths the uninstaller owns, one per line
+uninstall_targets() {
+  ut_layout="$1"
+  ut_rels=''
+  case "${ut_layout}" in
+    package-manager) ut_rels='sass dart-sass .dart-sass-package-manager' ;;
+    windows)         ut_rels='sass sass.bat src' ;;
+    binary)          ut_rels='sass dart-sass .dart-sass' ;;
+    *) return 0 ;;
+  esac
+  for ut_rel in ${ut_rels}; do
+    ut_path="${INSTALL_DIR}/${ut_rel}"
+    [ -e "${ut_path}" ] || [ -L "${ut_path}" ] || continue
+    if [ "${ut_rel}" = 'src' ]; then
+      # "src" is shared with other tools in a bin directory; remove it only
+      # when it still holds the Dart Sass runtime.
+      if [ -f "${ut_path}/sass.snapshot" ] \
+        && { [ -f "${ut_path}/dart" ] || [ -f "${ut_path}/dart.exe" ]; }; then
+        printf '%s\n' "${ut_path}"
+      fi
+      continue
+    fi
+    printf '%s\n' "${ut_path}"
+  done
+}
+
+# remove_installed_files LAYOUT -- delete the owned paths, escalating only when
+# the directory is not writable. Paths are resolved inside the snippet from
+# fixed relative names, so no user input is interpolated into the shell.
+remove_installed_files() {
+  ds_layout="$1"
+  ds_remove_script='
+    set -e
+    layout=$1
+    dest=$2
+    case "$layout" in
+      package-manager)
+        rm -f "$dest/sass" "$dest/dart-sass" "$dest/.dart-sass-package-manager"
+        ;;
+      windows)
+        rm -f "$dest/sass" "$dest/sass.bat"
+        rm -rf "$dest/src"
+        ;;
+      binary)
+        rm -f "$dest/sass" "$dest/dart-sass"
+        rm -rf "$dest/.dart-sass"
+        if [ -d "$dest/src" ] && [ -f "$dest/src/sass.snapshot" ] && \
+           { [ -f "$dest/src/dart" ] || [ -f "$dest/src/dart.exe" ]; }; then
+          rm -rf "$dest/src"
+        fi
+        ;;
+    esac
+  '
+  if run_privileged "${ds_remove_script}" "${ds_layout}" "${INSTALL_DIR}"; then
+    return 0
+  fi
+  if [ -z "${ESCALATE_CMD}" ] && plan_escalation; then
+    note "${INSTALL_DIR} is not writable; removing with ${ESCALATE_NAME} (you may be asked for a password once)."
+    run_privileged "${ds_remove_script}" "${ds_layout}" "${INSTALL_DIR}"
+    return
+  fi
+  return 1
+}
+
+# package_manager_remove_cmd MANAGER -- the command that removes the global
+# JavaScript package left in place by a Termux fallback install
+package_manager_remove_cmd() {
+  case "$1" in
+    bun)  printf '%s' 'bun remove -g sass' ;;
+    pnpm) printf '%s' 'pnpm remove -g sass' ;;
+    npm)  printf '%s' 'npm uninstall -g sass' ;;
+  esac
+}
+
+if [ "${UNINSTALL}" -eq 1 ]; then
+  UNINSTALL_LAYOUT="$(uninstall_layout)"
+  if [ -z "${UNINSTALL_LAYOUT}" ]; then
+    note "Dart Sass is not installed by this script in ${INSTALL_DIR}; nothing to remove."
+    exit 0
+  fi
+
+  if [ "${DRY_RUN}" -eq 1 ]; then
+    printf 'uninstall=1\n'
+    printf 'method=%s\n' "${UNINSTALL_LAYOUT}"
+    printf 'install_dir=%s\n' "${INSTALL_DIR}"
+    uninstall_targets "${UNINSTALL_LAYOUT}" | while IFS= read -r uninstall_target; do
+      printf 'remove=%s\n' "${uninstall_target}"
+    done
+    exit 0
+  fi
+
+  if [ "${ASSUME_YES}" -ne 1 ]; then
+    if is_ci_env || ! [ -t 0 ]; then
+      die "Dart Sass is installed in ${INSTALL_DIR}; pass --yes to remove it without confirmation."
+    fi
+    printf 'Remove Dart Sass from %s? [y/N] ' "${INSTALL_DIR}" >&2
+    uninstall_answer=''
+    IFS= read -r uninstall_answer || uninstall_answer=''
+    case "${uninstall_answer}" in
+      y | Y | yes | YES | Yes) ;;
+      *)
+        note "uninstall cancelled; Dart Sass remains installed in ${INSTALL_DIR}."
+        exit 0
+        ;;
+    esac
+  fi
+
+  UNINSTALL_PM=''
+  if [ "${UNINSTALL_LAYOUT}" = 'package-manager' ]; then
+    UNINSTALL_PM="$(sed -n 's/^manager=//p' \
+      "${INSTALL_DIR}/.dart-sass-package-manager" 2>/dev/null | head -n 1)"
+  fi
+
+  remove_installed_files "${UNINSTALL_LAYOUT}" \
+    || die "cannot remove Dart Sass from ${INSTALL_DIR}; choose a writable directory or allow sudo/doas/pfexec."
+
+  uninstall_left="$(uninstall_targets "${UNINSTALL_LAYOUT}")"
+  if [ -n "${uninstall_left}" ]; then
+    die "some Dart Sass files remain in ${INSTALL_DIR}: ${uninstall_left}"
+  fi
+
+  note "Dart Sass removed from ${INSTALL_DIR}."
+  if [ "${UNINSTALL_LAYOUT}" = 'package-manager' ]; then
+    uninstall_pm_remove="$(package_manager_remove_cmd "${UNINSTALL_PM}" || true)"
+    if [ -n "${uninstall_pm_remove}" ]; then
+      note "the 'sass' package installed globally with ${UNINSTALL_PM} was left in place; remove it with '${uninstall_pm_remove}' if it is no longer needed."
+    else
+      note "the 'sass' package installed globally by bun, pnpm, or npm was left in place; remove it with that package manager if it is no longer needed."
+    fi
+  fi
+  exit 0
 fi
 
 # ---------------------------------------------------------------------------

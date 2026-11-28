@@ -22,6 +22,7 @@ Both installers are POSIX `sh`. The Hugo installer runs on Linux, macOS, Windows
 - **Default directories.** Both prefer `/usr/local/bin`, Windows `Program Files`, or Termux `$PREFIX/bin` when writable. On Solaris, `/usr/local` is used only when it already exists, then `/opt/local` when it exists; the installer never creates a system prefix. When no system directory is usable, both fall back to `$HOME/.local/bin`. `--user` skips the system attempt entirely and selects `$HOME/.local/bin` (or `%LOCALAPPDATA%\Programs\<name>` on Windows).
 - **Elevation.** When a system directory is not writable, both installers try root, then passwordless `sudo -n`, `doas -n`, or `pfexec` (probed by effective uid), and only prompt on an interactive terminal that is not a CI build. Each installer batches the writes for a stage into one privileged `sh -c`, so a password is requested at most once per batch. Hugo may need a second batch for manpages/completions (they are generated from the installed binary), so `doas` may prompt twice while `sudo` usually reuses its cached credential. If authentication fails or no escalation tool is usable, a default directory falls back to `$HOME/.local/bin`. An explicit `--install-dir` or `HUGO_INSTALL_DIR`/`DART_SASS_INSTALL_DIR` never falls back silently: it fails with an error when it cannot be written.
 - **Updates.** Both installers replace an existing different version (the default version is `latest`) and repair a broken payload of the same version. Before replacing a different version, an interactive run asks for confirmation (default No); `--yes`/`-y` (or `HUGO_YES`/`DART_SASS_YES`) skips the question. A non-interactive run refuses to replace a different version unless `--yes` is passed, so CI never overwrites an installation silently. `--force` also bypasses the confirmation and reinstalls the same version.
+- **Uninstalling.** Both installers accept `--uninstall`, which removes only the files they write. Hugo removes the binary plus `hugo*.1.gz` manpages and the selected completions under the share directory; Dart Sass removes the `sass`/`dart-sass` entry points, the `.dart-sass` payload (or Windows `sass.bat` and `src/`), and the package-manager marker. `--install-dir`, `--user`, `--system`, and `--share-dir` select the location, `--dry-run` lists the files without removing them, and a non-interactive run requires `--yes`. With `--method pkg` on Termux, Hugo runs `pkg uninstall -y hugo`. A `sass` package installed globally by bun, pnpm, or npm is left in place with a removal hint.
 - **CI safety.** `CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, `NETLIFY`, `CF_PAGES`, and similar markers, a non-TTY stdin/stderr, `--dry-run`, `--print-env`, and `--print-path` all disable interactive prompts. The Netlify and Cloudflare Pages build commands pass `--no-escalate --yes` explicitly, and the composite actions pass `--yes`, so they can update a preinstalled version without a terminal.
 - **Controls.** `HUGO_ESCALATE` and `DART_SASS_ESCALATE` accept `auto` (default), `never`, or `always`. `--no-escalate` selects `never`; `--escalate` selects `always`, which fails instead of falling back to `~/.local/bin` when the system directory cannot be written. `--system` requires a system-wide install and fails when one cannot be performed; `--user` requires a per-user install and cannot be combined with `--system`, `--install-dir`, or `--escalate`. Never automate `su`: on BSD, `su -c` means a login class, not a command.
 
@@ -143,6 +144,22 @@ The latest version of Dart Sass resolves through the `releases/latest` redirect 
 - **Cloudflare filesystem permissions.** Do not assume that system directories such as `/usr` or `/etc` are writable. `scripts/build-cloudflare-pages.sh` lets the installer choose the directory and prepends the result of `--print-path` to `PATH`; it sets the timezone through `TZ` rather than modifying system timezone files. The installer runs with `--no-escalate`, prefers `/usr/local/bin` on Linux and macOS only when it is writable without elevation, and otherwise uses `$HOME/.local/bin`.
 - **Cloudflare does not provide a `GITHUB_TOKEN`.** It provides `CI`, `CF_PAGES_COMMIT_SHA`, `CF_PAGES_BRANCH`, and `CF_PAGES_URL`. A token can be supplied as an encrypted environment variable, and the installer reads it only as a fallback for resolving `latest` and retrieving the release-asset digest used for verification (1.89.1+). Without one, `latest` still resolves through the release redirect; digest verification is skipped with a warning if the API is unavailable. Pinning the version keeps builds reproducible.
 - **Cloudflare ships Hugo, but too old.** It preinstalls Hugo 0.147.7, below the `hugoVersion.min` of 0.167.0 in `config/_default/module.toml`. Set `HUGO_VERSION` in the dashboard and Cloudflare installs it.
+
+## Uninstalling
+
+Both installers remove only the files they manage and exit successfully when nothing is installed. List the targets first with `--dry-run`, then confirm with `--yes` (or answer the prompt on a terminal):
+
+```bash
+# Hugo binary, manpages, and completions.
+sh scripts/install-hugo.sh --uninstall --dry-run --user
+sh scripts/install-hugo.sh --uninstall --yes --user
+
+# Dart Sass entry points, payload, and package-manager marker.
+sh scripts/install-dart-sass.sh --uninstall --dry-run --user
+sh scripts/install-dart-sass.sh --uninstall --yes --user
+```
+
+Use `--install-dir` (and `--share-dir` for Hugo) to target a non-default location. An explicit `--share-dir` is required when the extras were installed somewhere other than the default. On Termux, `--method pkg --uninstall` removes Hugo through the package manager. The Dart Sass uninstaller leaves a globally installed JavaScript `sass` package alone because that package manager owns it.
 
 ## GitHub Actions Composite Actions
 

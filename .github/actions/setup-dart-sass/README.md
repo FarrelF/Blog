@@ -33,6 +33,9 @@ sh scripts/install-dart-sass.sh --version 1.108.2
 
 # Print only the bin directory, for PATH.
 PATH="$(sh scripts/install-dart-sass.sh --print-path):$PATH"
+
+# Remove the installed entry points and payload (add --dry-run to list them).
+sh scripts/install-dart-sass.sh --uninstall --yes
 ```
 
 The environment equivalents are `DART_SASS_VERSION`, `DART_SASS_INSTALL_DIR`, `DART_SASS_LIBC`, `DART_SASS_VERIFY`, `DART_SASS_FORCE`, `GITHUB_TOKEN`, `DOWNLOADER`, and `DOWNLOADER_ARGS`. Run `sh scripts/install-dart-sass.sh --help` for the full list of options.

@@ -208,6 +208,7 @@ t "help exits 0" rc_is "$RH_RC" 0
 t "help prints a usage line" has_text 'install-hugo\.sh' "$WORK/help.out"
 t "help documents --user" contains_text '--user' "$WORK/help.out"
 t "help documents --yes" contains_text '--yes' "$WORK/help.out"
+t "help documents --uninstall" contains_text '--uninstall' "$WORK/help.out"
 
 run_cmd "$WORK/user.out" "$WORK/user.err" \
   env HOME="$WORK/user-home" RUNNER_ARCH= sh "$HUGO_SCRIPT" \
@@ -861,5 +862,175 @@ else
   t "deb rejection explains the requirement" \
     has_text 'requires a Debian-based system' "$WORK/deb.err"
 fi
+
+# ---------------------------------------------------------------------------
+# Uninstall
+# ---------------------------------------------------------------------------
+
+run_hugo_stdin() {
+  rhs_out=$1
+  rhs_err=$2
+  shift 2
+  sh "$HUGO_SCRIPT" "$@" </dev/null >"$rhs_out" 2>"$rhs_err"
+  RH_RC=$?
+}
+
+make_hugo_uninstall_fixture() {
+  muf_bin=$1
+  muf_share=$2
+  mkdir -p "$muf_bin" "$muf_share/man/man1" \
+    "$muf_share/bash-completion/completions" "$muf_share/zsh/site-functions" \
+    "$muf_share/fish/vendor_completions.d" "$muf_share/powershell/completions"
+  printf '#!/bin/sh\necho "hugo v0.170.1"\n' >"$muf_bin/hugo"
+  chmod +x "$muf_bin/hugo"
+  printf 'man\n' >"$muf_share/man/man1/hugo.1.gz"
+  printf 'man\n' >"$muf_share/man/man1/hugo-build.1.gz"
+  printf 'unrelated\n' >"$muf_share/man/man1/other.1.gz"
+  printf 'bash\n' >"$muf_share/bash-completion/completions/hugo"
+  printf 'zsh\n' >"$muf_share/zsh/site-functions/_hugo"
+  printf 'fish\n' >"$muf_share/fish/vendor_completions.d/hugo.fish"
+  printf 'powershell\n' >"$muf_share/powershell/completions/hugo.ps1"
+}
+
+UH_BIN="$WORK/uninstall-bin"
+UH_SHARE="$WORK/uninstall-share"
+make_hugo_uninstall_fixture "$UH_BIN" "$UH_SHARE"
+
+run_hugo "$WORK/x1.out" "$WORK/x1.err" --uninstall --dry-run \
+  --install-dir "$UH_BIN" --share-dir "$UH_SHARE"
+t "uninstall dry-run exits 0" rc_is "$RH_RC" 0
+t "uninstall dry-run reports the binary method" has_line 'method=binary' "$WORK/x1.out"
+t "uninstall dry-run reports the install dir" has_line "install_dir=$UH_BIN" "$WORK/x1.out"
+t "uninstall dry-run reports the share dir" has_line "share_dir=$UH_SHARE" "$WORK/x1.out"
+t "uninstall dry-run lists the binary" has_line "remove=$UH_BIN/hugo" "$WORK/x1.out"
+t "uninstall dry-run lists the manpage" \
+  has_line "remove=$UH_SHARE/man/man1/hugo.1.gz" "$WORK/x1.out"
+t "uninstall dry-run lists the bash completion" \
+  has_line "remove=$UH_SHARE/bash-completion/completions/hugo" "$WORK/x1.out"
+t "uninstall dry-run lists the fish completion" \
+  has_line "remove=$UH_SHARE/fish/vendor_completions.d/hugo.fish" "$WORK/x1.out"
+t "uninstall dry-run keeps unrelated manpages" lacks_text 'remove=.*/other\.1\.gz' "$WORK/x1.out"
+t "uninstall dry-run lists seven files" \
+  grep_count_is '^remove=' "$WORK/x1.out" 7
+t "uninstall dry-run keeps the binary" has_file "$UH_BIN/hugo"
+
+run_hugo_stdin "$WORK/x2.out" "$WORK/x2.err" --uninstall \
+  --install-dir "$UH_BIN" --share-dir "$UH_SHARE"
+t "uninstall without --yes fails without a terminal" rc_is "$RH_RC" 1
+t "uninstall without --yes explains --yes" has_text 'pass --yes' "$WORK/x2.err"
+t "uninstall without --yes keeps the binary" has_file "$UH_BIN/hugo"
+
+run_hugo_stdin "$WORK/x3.out" "$WORK/x3.err" --uninstall --yes \
+  --install-dir "$UH_BIN" --share-dir "$UH_SHARE"
+t "uninstall exits 0" rc_is "$RH_RC" 0
+t "uninstall removes the binary" has_no_file "$UH_BIN/hugo"
+t "uninstall removes the manpages" has_no_file "$UH_SHARE/man/man1/hugo.1.gz"
+t "uninstall removes subcommand manpages" has_no_file "$UH_SHARE/man/man1/hugo-build.1.gz"
+t "uninstall keeps unrelated manpages" has_file "$UH_SHARE/man/man1/other.1.gz"
+t "uninstall removes bash completions" \
+  has_no_file "$UH_SHARE/bash-completion/completions/hugo"
+t "uninstall removes zsh completions" has_no_file "$UH_SHARE/zsh/site-functions/_hugo"
+t "uninstall removes fish completions" \
+  has_no_file "$UH_SHARE/fish/vendor_completions.d/hugo.fish"
+t "uninstall removes PowerShell completions" \
+  has_no_file "$UH_SHARE/powershell/completions/hugo.ps1"
+t "uninstall reports the removal" contains_text 'Hugo removed from' "$WORK/x3.err"
+
+run_hugo_stdin "$WORK/x4.out" "$WORK/x4.err" --uninstall --yes \
+  --install-dir "$UH_BIN" --share-dir "$UH_SHARE"
+t "repeated uninstall exits 0" rc_is "$RH_RC" 0
+t "repeated uninstall reports nothing to remove" \
+  contains_text 'nothing to remove' "$WORK/x4.err"
+
+UH2_BIN="$WORK/uninstall-scope-bin"
+UH2_SHARE="$WORK/uninstall-scope-share"
+make_hugo_uninstall_fixture "$UH2_BIN" "$UH2_SHARE"
+run_hugo_stdin "$WORK/x5.out" "$WORK/x5.err" --uninstall --yes \
+  --install-dir "$UH2_BIN" --share-dir "$UH2_SHARE" \
+  --no-man --completions bash
+t "scoped uninstall exits 0" rc_is "$RH_RC" 0
+t "scoped uninstall removes the binary" has_no_file "$UH2_BIN/hugo"
+t "scoped uninstall removes the selected completion" \
+  has_no_file "$UH2_SHARE/bash-completion/completions/hugo"
+t "scoped uninstall keeps other completions" \
+  has_file "$UH2_SHARE/zsh/site-functions/_hugo"
+t "scoped uninstall keeps manpages" has_file "$UH2_SHARE/man/man1/hugo.1.gz"
+
+UH_HOME="$WORK/uninstall-home"
+mkdir -p "$UH_HOME/.local/bin" "$UH_HOME/.local/share/man/man1" \
+  "$UH_HOME/.local/share/zsh/completions" \
+  "$UH_HOME/.local/share/zsh/site-functions" \
+  "$UH_HOME/.config/fish/completions"
+printf '#!/bin/sh\necho "hugo v0.170.1"\n' >"$UH_HOME/.local/bin/hugo"
+chmod +x "$UH_HOME/.local/bin/hugo"
+printf 'man\n' >"$UH_HOME/.local/share/man/man1/hugo.1.gz"
+printf 'zsh\n' >"$UH_HOME/.local/share/zsh/completions/_hugo"
+printf 'other-zsh\n' >"$UH_HOME/.local/share/zsh/site-functions/_hugo"
+printf 'fish\n' >"$UH_HOME/.config/fish/completions/hugo.fish"
+
+env HOME="$UH_HOME" RUNNER_ARCH= sh "$HUGO_SCRIPT" --uninstall --yes \
+  --install-dir "$UH_HOME/.local/bin" \
+  --share-dir "$UH_HOME/.local/share" </dev/null >"$WORK/x6.out" 2>"$WORK/x6.err"
+RH_RC=$?
+t "user-local uninstall exits 0" rc_is "$RH_RC" 0
+t "user-local uninstall removes the binary" has_no_file "$UH_HOME/.local/bin/hugo"
+t "user-local uninstall removes the user zsh completion" \
+  has_no_file "$UH_HOME/.local/share/zsh/completions/_hugo"
+t "user-local uninstall keeps the system zsh completion" \
+  has_file "$UH_HOME/.local/share/zsh/site-functions/_hugo"
+t "user-local uninstall removes the fish completion" \
+  has_no_file "$UH_HOME/.config/fish/completions/hugo.fish"
+
+run_cmd "$WORK/x7.out" "$WORK/x7.err" \
+  env HOME="$WORK/uninstall-user-home" RUNNER_ARCH= sh "$HUGO_SCRIPT" \
+  --uninstall --dry-run --user
+t "--user uninstall dry-run exits 0" rc_is "$RC" 0
+t "--user uninstall targets the per-user bin directory" \
+  has_line "install_dir=$WORK/uninstall-user-home/.local/bin" "$WORK/x7.out"
+
+run_hugo "$WORK/x8.out" "$WORK/x8.err" --uninstall --print-env \
+  --install-dir "$UH_BIN"
+t "uninstall refuses --print-env" rc_is "$RH_RC" 1
+t "uninstall/--print-env conflict is explained" \
+  has_text 'cannot combine --uninstall' "$WORK/x8.err"
+
+run_hugo "$WORK/x9.out" "$WORK/x9.err" --uninstall 0.170.1 \
+  --install-dir "$UH_BIN"
+t "uninstall refuses a version argument" rc_is "$RH_RC" 1
+t "uninstall/version conflict is explained" \
+  has_text 'not valid with --uninstall' "$WORK/x9.err"
+
+PKG_DIR="$WORK/fake-pkg"
+PKG_LOG="$WORK/uninstall-pkg.log"
+TERMUX_PREFIX="$WORK/uninstall-termux-prefix"
+mkdir -p "$PKG_DIR" "$TERMUX_PREFIX/bin" "$TERMUX_PREFIX/share/man/man1" \
+  "$TERMUX_PREFIX/share/bash-completion/completions"
+printf '#!/bin/sh\nprintf "%%s\\n" "$*" >>"%s"\n' "${PKG_LOG}" >"$PKG_DIR/pkg"
+chmod +x "$PKG_DIR/pkg"
+printf 'man\n' >"$TERMUX_PREFIX/share/man/man1/hugo.1.gz"
+printf 'bash\n' >"$TERMUX_PREFIX/share/bash-completion/completions/hugo"
+
+run_cmd "$WORK/x10.out" "$WORK/x10.err" \
+  env TERMUX_VERSION=0.118 PREFIX="$TERMUX_PREFIX" PATH="$PKG_DIR:$PATH" \
+  RUNNER_ARCH= sh "$HUGO_SCRIPT" --uninstall --method pkg --dry-run
+t "pkg uninstall dry-run exits 0" rc_is "$RC" 0
+t "pkg uninstall dry-run reports the package method" has_line 'method=pkg' "$WORK/x10.out"
+t "pkg uninstall dry-run reports the command" \
+  has_line 'command=pkg uninstall -y hugo' "$WORK/x10.out"
+t "pkg uninstall dry-run lists extras" \
+  has_line "remove=$TERMUX_PREFIX/share/man/man1/hugo.1.gz" "$WORK/x10.out"
+t "pkg uninstall dry-run skips the package binary" \
+  lacks_text "remove=$TERMUX_PREFIX/bin/hugo" "$WORK/x10.out"
+
+env TERMUX_VERSION=0.118 PREFIX="$TERMUX_PREFIX" PATH="$PKG_DIR:$PATH" \
+  PKG_LOG="$PKG_LOG" RUNNER_ARCH= sh "$HUGO_SCRIPT" \
+  --uninstall --method pkg --yes </dev/null >"$WORK/x11.out" 2>"$WORK/x11.err"
+RH_RC=$?
+t "pkg uninstall exits 0" rc_is "$RH_RC" 0
+t "pkg uninstall runs the package manager" file_is "$PKG_LOG" 'uninstall -y hugo'
+t "pkg uninstall removes the manpage" \
+  has_no_file "$TERMUX_PREFIX/share/man/man1/hugo.1.gz"
+t "pkg uninstall removes the completion" \
+  has_no_file "$TERMUX_PREFIX/share/bash-completion/completions/hugo"
 
 printf '\n'

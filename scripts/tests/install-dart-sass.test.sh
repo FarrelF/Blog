@@ -206,6 +206,7 @@ t "help documents Termux" contains_text 'Termux' "$WORK/help.out"
 t "help documents --print-path" contains_text '--print-path' "$WORK/help.out"
 t "help documents --user" contains_text '--user' "$WORK/help.out"
 t "help documents --yes" contains_text '--yes' "$WORK/help.out"
+t "help documents --uninstall" contains_text '--uninstall' "$WORK/help.out"
 
 BIN="$WORK/bin"
 run_sass "$WORK/d1.out" "$WORK/d1.err" --dry-run --version 1.108.2 --install-dir "$BIN"
@@ -673,5 +674,90 @@ printf 'not a directory\n' >"$WORK/blockfile"
 run_sass "$WORK/f2.out" "$WORK/f2.err" --version 1.108.2 --install-dir "$WORK/blockfile/sass-bin"
 t "unwritable install dir fails" rc_is "$RS_RC" 1
 t "unwritable install dir explains the problem" has_text 'cannot write to' "$WORK/f2.err"
+
+# ---------------------------------------------------------------------------
+# Uninstall
+# ---------------------------------------------------------------------------
+
+run_sass_stdin() {
+  rss_out=$1
+  rss_err=$2
+  shift 2
+  sh "$SASS_SCRIPT" "$@" </dev/null >"$rss_out" 2>"$rss_err"
+  RS_RC=$?
+}
+
+UBIN="$WORK/uninstall-bin"
+mkdir -p "$UBIN/.dart-sass/src"
+printf '#!/bin/sh\necho "1.108.2"\n' >"$UBIN/.dart-sass/sass"
+printf 'runtime\n' >"$UBIN/.dart-sass/src/dart"
+printf 'snapshot\n' >"$UBIN/.dart-sass/src/sass.snapshot"
+chmod +x "$UBIN/.dart-sass/sass" "$UBIN/.dart-sass/src/dart"
+ln -s .dart-sass/sass "$UBIN/sass"
+ln -s .dart-sass/sass "$UBIN/dart-sass"
+
+run_sass "$WORK/x1.out" "$WORK/x1.err" --uninstall --dry-run --install-dir "$UBIN"
+t "uninstall dry-run exits 0" rc_is "$RS_RC" 0
+t "uninstall dry-run reports the binary layout" has_line 'method=binary' "$WORK/x1.out"
+t "uninstall dry-run reports the install dir" has_line "install_dir=$UBIN" "$WORK/x1.out"
+t "uninstall dry-run lists the sass link" has_line "remove=$UBIN/sass" "$WORK/x1.out"
+t "uninstall dry-run lists the dart-sass link" has_line "remove=$UBIN/dart-sass" "$WORK/x1.out"
+t "uninstall dry-run lists the payload" has_line "remove=$UBIN/.dart-sass" "$WORK/x1.out"
+t "uninstall dry-run keeps the payload" has_file "$UBIN/.dart-sass/sass"
+
+run_sass_stdin "$WORK/x2.out" "$WORK/x2.err" --uninstall --install-dir "$UBIN"
+t "uninstall without --yes fails without a terminal" rc_is "$RS_RC" 1
+t "uninstall without --yes explains --yes" has_text 'pass --yes' "$WORK/x2.err"
+t "uninstall without --yes keeps the payload" has_file "$UBIN/.dart-sass/sass"
+
+run_sass_stdin "$WORK/x3.out" "$WORK/x3.err" --uninstall --yes --install-dir "$UBIN"
+t "uninstall exits 0" rc_is "$RS_RC" 0
+t "uninstall removes the sass link" has_no_file "$UBIN/sass"
+t "uninstall removes the dart-sass link" has_no_file "$UBIN/dart-sass"
+t "uninstall removes the payload" has_no_file "$UBIN/.dart-sass"
+t "uninstall keeps the install directory" [ -d "$UBIN" ]
+t "uninstall reports the removal" contains_text 'Dart Sass removed from' "$WORK/x3.err"
+
+run_sass_stdin "$WORK/x4.out" "$WORK/x4.err" --uninstall --yes --install-dir "$UBIN"
+t "repeated uninstall exits 0" rc_is "$RS_RC" 0
+t "repeated uninstall reports nothing to remove" \
+  contains_text 'nothing to remove' "$WORK/x4.err"
+
+PMBIN="$WORK/uninstall-pm-bin"
+PMGLOBAL="$WORK/uninstall-pm-global"
+mkdir -p "$PMBIN" "$PMGLOBAL"
+printf '#!/bin/sh\necho "1.108.2"\n' >"$PMGLOBAL/sass"
+chmod +x "$PMGLOBAL/sass"
+ln -s "$PMGLOBAL/sass" "$PMBIN/sass"
+ln -s "$PMGLOBAL/sass" "$PMBIN/dart-sass"
+printf 'manager=npm\nversion=1.108.2\n' >"$PMBIN/.dart-sass-package-manager"
+
+run_sass_stdin "$WORK/x5.out" "$WORK/x5.err" --uninstall --yes --install-dir "$PMBIN"
+t "package-manager uninstall exits 0" rc_is "$RS_RC" 0
+t "package-manager uninstall removes the marker" \
+  has_no_file "$PMBIN/.dart-sass-package-manager"
+t "package-manager uninstall removes the sass link" has_no_file "$PMBIN/sass"
+t "package-manager uninstall keeps the global package" has_file "$PMGLOBAL/sass"
+t "package-manager uninstall explains the left package" \
+  contains_text 'npm uninstall -g sass' "$WORK/x5.err"
+
+FOREIGN_BIN="$WORK/uninstall-foreign-bin"
+mkdir -p "$FOREIGN_BIN"
+printf '#!/bin/sh\necho "1.108.2"\n' >"$FOREIGN_BIN/sass"
+chmod +x "$FOREIGN_BIN/sass"
+run_sass_stdin "$WORK/x6.out" "$WORK/x6.err" --uninstall --yes --install-dir "$FOREIGN_BIN"
+t "foreign sass entry point is not removed" has_file "$FOREIGN_BIN/sass"
+t "foreign layout reports nothing to remove" \
+  contains_text 'nothing to remove' "$WORK/x6.err"
+
+run_sass "$WORK/x7.out" "$WORK/x7.err" --uninstall --print-env --install-dir "$UBIN"
+t "uninstall refuses --print-env" rc_is "$RS_RC" 1
+t "uninstall/--print-env conflict is explained" \
+  has_text 'cannot combine --uninstall' "$WORK/x7.err"
+
+run_sass "$WORK/x8.out" "$WORK/x8.err" --uninstall 1.108.2 --install-dir "$UBIN"
+t "uninstall refuses a version argument" rc_is "$RS_RC" 1
+t "uninstall/version conflict is explained" \
+  has_text 'not valid with --uninstall' "$WORK/x8.err"
 
 printf '\n'

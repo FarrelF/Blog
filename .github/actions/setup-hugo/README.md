@@ -46,6 +46,9 @@ PATH="$(sh scripts/install-hugo.sh --print-path):$PATH"
 # Skip the extras, or force specific completion shells.
 sh scripts/install-hugo.sh --no-man --no-completions
 sh scripts/install-hugo.sh --completions bash,fish
+
+# Remove the installed binary and its extras (add --dry-run to list them first).
+sh scripts/install-hugo.sh --uninstall --yes
 ```
 
 The environment equivalents are `HUGO_VERSION`, `HUGO_INSTALL_DIR`, `HUGO_METHOD`, `HUGO_VERIFY`, `HUGO_EXTENDED`, `HUGO_WITHDEPLOY`, `HUGO_FORCE`, `HUGO_MANPAGES`, `HUGO_COMPLETIONS`, `HUGO_SHARE_DIR`, `GITHUB_TOKEN`, `DOWNLOADER`, and `DOWNLOADER_ARGS`. Run `sh scripts/install-hugo.sh --help` for the full list of options.
